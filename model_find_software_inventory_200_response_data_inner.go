@@ -21,9 +21,18 @@ var _ MappedNullable = &FindSoftwareInventory200ResponseDataInner{}
 
 // FindSoftwareInventory200ResponseDataInner struct for FindSoftwareInventory200ResponseDataInner
 type FindSoftwareInventory200ResponseDataInner struct {
+	SencaiAgent *CreateAccessReviewRequestDataReviewer `json:"sencai_agent,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Packages interface{} `json:"packages,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	EolFindings interface{} `json:"eol_findings,omitempty"`
+	PackagesCount *int32 `json:"packages_count,omitempty"`
+	EolCriticalCount *int32 `json:"eol_critical_count,omitempty"`
+	EolWarningCount *int32 `json:"eol_warning_count,omitempty"`
+	CollectedAt *time.Time `json:"collected_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SoftwareInventory `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +53,264 @@ func NewFindSoftwareInventory200ResponseDataInner() *FindSoftwareInventory200Res
 func NewFindSoftwareInventory200ResponseDataInnerWithDefaults() *FindSoftwareInventory200ResponseDataInner {
 	this := FindSoftwareInventory200ResponseDataInner{}
 	return &this
+}
+
+// GetSencaiAgent returns the SencaiAgent field value if set, zero value otherwise.
+func (o *FindSoftwareInventory200ResponseDataInner) GetSencaiAgent() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.SencaiAgent) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.SencaiAgent
+}
+
+// GetSencaiAgentOk returns a tuple with the SencaiAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) GetSencaiAgentOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.SencaiAgent) {
+		return nil, false
+	}
+	return o.SencaiAgent, true
+}
+
+// HasSencaiAgent returns a boolean if a field has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) HasSencaiAgent() bool {
+	if o != nil && !IsNil(o.SencaiAgent) {
+		return true
+	}
+
+	return false
+}
+
+// SetSencaiAgent gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the SencaiAgent field.
+func (o *FindSoftwareInventory200ResponseDataInner) SetSencaiAgent(v CreateAccessReviewRequestDataReviewer) {
+	o.SencaiAgent = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSoftwareInventory200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSoftwareInventory200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetPackages returns the Packages field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindSoftwareInventory200ResponseDataInner) GetPackages() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Packages
+}
+
+// GetPackagesOk returns a tuple with the Packages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindSoftwareInventory200ResponseDataInner) GetPackagesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Packages) {
+		return nil, false
+	}
+	return &o.Packages, true
+}
+
+// HasPackages returns a boolean if a field has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) HasPackages() bool {
+	if o != nil && !IsNil(o.Packages) {
+		return true
+	}
+
+	return false
+}
+
+// SetPackages gets a reference to the given interface{} and assigns it to the Packages field.
+func (o *FindSoftwareInventory200ResponseDataInner) SetPackages(v interface{}) {
+	o.Packages = v
+}
+
+// GetEolFindings returns the EolFindings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindSoftwareInventory200ResponseDataInner) GetEolFindings() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.EolFindings
+}
+
+// GetEolFindingsOk returns a tuple with the EolFindings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindSoftwareInventory200ResponseDataInner) GetEolFindingsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.EolFindings) {
+		return nil, false
+	}
+	return &o.EolFindings, true
+}
+
+// HasEolFindings returns a boolean if a field has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) HasEolFindings() bool {
+	if o != nil && !IsNil(o.EolFindings) {
+		return true
+	}
+
+	return false
+}
+
+// SetEolFindings gets a reference to the given interface{} and assigns it to the EolFindings field.
+func (o *FindSoftwareInventory200ResponseDataInner) SetEolFindings(v interface{}) {
+	o.EolFindings = v
+}
+
+// GetPackagesCount returns the PackagesCount field value if set, zero value otherwise.
+func (o *FindSoftwareInventory200ResponseDataInner) GetPackagesCount() int32 {
+	if o == nil || IsNil(o.PackagesCount) {
+		var ret int32
+		return ret
+	}
+	return *o.PackagesCount
+}
+
+// GetPackagesCountOk returns a tuple with the PackagesCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) GetPackagesCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.PackagesCount) {
+		return nil, false
+	}
+	return o.PackagesCount, true
+}
+
+// HasPackagesCount returns a boolean if a field has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) HasPackagesCount() bool {
+	if o != nil && !IsNil(o.PackagesCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetPackagesCount gets a reference to the given int32 and assigns it to the PackagesCount field.
+func (o *FindSoftwareInventory200ResponseDataInner) SetPackagesCount(v int32) {
+	o.PackagesCount = &v
+}
+
+// GetEolCriticalCount returns the EolCriticalCount field value if set, zero value otherwise.
+func (o *FindSoftwareInventory200ResponseDataInner) GetEolCriticalCount() int32 {
+	if o == nil || IsNil(o.EolCriticalCount) {
+		var ret int32
+		return ret
+	}
+	return *o.EolCriticalCount
+}
+
+// GetEolCriticalCountOk returns a tuple with the EolCriticalCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) GetEolCriticalCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.EolCriticalCount) {
+		return nil, false
+	}
+	return o.EolCriticalCount, true
+}
+
+// HasEolCriticalCount returns a boolean if a field has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) HasEolCriticalCount() bool {
+	if o != nil && !IsNil(o.EolCriticalCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetEolCriticalCount gets a reference to the given int32 and assigns it to the EolCriticalCount field.
+func (o *FindSoftwareInventory200ResponseDataInner) SetEolCriticalCount(v int32) {
+	o.EolCriticalCount = &v
+}
+
+// GetEolWarningCount returns the EolWarningCount field value if set, zero value otherwise.
+func (o *FindSoftwareInventory200ResponseDataInner) GetEolWarningCount() int32 {
+	if o == nil || IsNil(o.EolWarningCount) {
+		var ret int32
+		return ret
+	}
+	return *o.EolWarningCount
+}
+
+// GetEolWarningCountOk returns a tuple with the EolWarningCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) GetEolWarningCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.EolWarningCount) {
+		return nil, false
+	}
+	return o.EolWarningCount, true
+}
+
+// HasEolWarningCount returns a boolean if a field has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) HasEolWarningCount() bool {
+	if o != nil && !IsNil(o.EolWarningCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetEolWarningCount gets a reference to the given int32 and assigns it to the EolWarningCount field.
+func (o *FindSoftwareInventory200ResponseDataInner) SetEolWarningCount(v int32) {
+	o.EolWarningCount = &v
+}
+
+// GetCollectedAt returns the CollectedAt field value if set, zero value otherwise.
+func (o *FindSoftwareInventory200ResponseDataInner) GetCollectedAt() time.Time {
+	if o == nil || IsNil(o.CollectedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CollectedAt
+}
+
+// GetCollectedAtOk returns a tuple with the CollectedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) GetCollectedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CollectedAt) {
+		return nil, false
+	}
+	return o.CollectedAt, true
+}
+
+// HasCollectedAt returns a boolean if a field has been set.
+func (o *FindSoftwareInventory200ResponseDataInner) HasCollectedAt() bool {
+	if o != nil && !IsNil(o.CollectedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCollectedAt gets a reference to the given time.Time and assigns it to the CollectedAt field.
+func (o *FindSoftwareInventory200ResponseDataInner) SetCollectedAt(v time.Time) {
+	o.CollectedAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +375,6 @@ func (o *FindSoftwareInventory200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSoftwareInventory200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSoftwareInventory200ResponseDataInner) GetAttributes() SoftwareInventory {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SoftwareInventory
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSoftwareInventory200ResponseDataInner) GetAttributesOk() (*SoftwareInventory, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSoftwareInventory200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SoftwareInventory and assigns it to the Attributes field.
-func (o *FindSoftwareInventory200ResponseDataInner) SetAttributes(v SoftwareInventory) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +493,35 @@ func (o FindSoftwareInventory200ResponseDataInner) MarshalJSON() ([]byte, error)
 
 func (o FindSoftwareInventory200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SencaiAgent) {
+		toSerialize["sencai_agent"] = o.SencaiAgent
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if o.Packages != nil {
+		toSerialize["packages"] = o.Packages
+	}
+	if o.EolFindings != nil {
+		toSerialize["eol_findings"] = o.EolFindings
+	}
+	if !IsNil(o.PackagesCount) {
+		toSerialize["packages_count"] = o.PackagesCount
+	}
+	if !IsNil(o.EolCriticalCount) {
+		toSerialize["eol_critical_count"] = o.EolCriticalCount
+	}
+	if !IsNil(o.EolWarningCount) {
+		toSerialize["eol_warning_count"] = o.EolWarningCount
+	}
+	if !IsNil(o.CollectedAt) {
+		toSerialize["collected_at"] = o.CollectedAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

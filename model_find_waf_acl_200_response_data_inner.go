@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindWafAcl200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,40 @@ var _ MappedNullable = &FindWafAcl200ResponseDataInner{}
 
 // FindWafAcl200ResponseDataInner struct for FindWafAcl200ResponseDataInner
 type FindWafAcl200ResponseDataInner struct {
+	Provider string `json:"provider"`
+	// Human-readable ACL name.
+	Name string `json:"name"`
+	// WAF scope: CLOUDFRONT (AWS global), REGIONAL (AWS/Azure), GLOBAL (Cloudflare).
+	Scope *string `json:"scope,omitempty"`
+	// Default action for requests that do not match any rule.
+	DefaultAction *string `json:"default_action,omitempty"`
+	// WAF rules array (WafRule[]) — synced from provider.
+	Rules interface{} `json:"rules,omitempty"`
+	// WCU capacity consumed by this ACL (AWS-specific).
+	Capacity *int32 `json:"capacity,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// Provider-side ACL identifier (AWS WebACL ID, Azure ARM resource path, Cloudflare zone ID).
+	ProviderAclId string `json:"provider_acl_id"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *WafAcl `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindWafAcl200ResponseDataInner FindWafAcl200ResponseDataInner
+
 // NewFindWafAcl200ResponseDataInner instantiates a new FindWafAcl200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindWafAcl200ResponseDataInner() *FindWafAcl200ResponseDataInner {
+func NewFindWafAcl200ResponseDataInner(provider string, name string, providerAclId string) *FindWafAcl200ResponseDataInner {
 	this := FindWafAcl200ResponseDataInner{}
+	this.Provider = provider
+	this.Name = name
+	this.ProviderAclId = providerAclId
 	return &this
 }
 
@@ -44,6 +66,303 @@ func NewFindWafAcl200ResponseDataInner() *FindWafAcl200ResponseDataInner {
 func NewFindWafAcl200ResponseDataInnerWithDefaults() *FindWafAcl200ResponseDataInner {
 	this := FindWafAcl200ResponseDataInner{}
 	return &this
+}
+
+// GetProvider returns the Provider field value
+func (o *FindWafAcl200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindWafAcl200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindWafAcl200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetName returns the Name field value
+func (o *FindWafAcl200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindWafAcl200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindWafAcl200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *FindWafAcl200ResponseDataInner) GetScope() string {
+	if o == nil || IsNil(o.Scope) {
+		var ret string
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafAcl200ResponseDataInner) GetScopeOk() (*string, bool) {
+	if o == nil || IsNil(o.Scope) {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *FindWafAcl200ResponseDataInner) HasScope() bool {
+	if o != nil && !IsNil(o.Scope) {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *FindWafAcl200ResponseDataInner) SetScope(v string) {
+	o.Scope = &v
+}
+
+// GetDefaultAction returns the DefaultAction field value if set, zero value otherwise.
+func (o *FindWafAcl200ResponseDataInner) GetDefaultAction() string {
+	if o == nil || IsNil(o.DefaultAction) {
+		var ret string
+		return ret
+	}
+	return *o.DefaultAction
+}
+
+// GetDefaultActionOk returns a tuple with the DefaultAction field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafAcl200ResponseDataInner) GetDefaultActionOk() (*string, bool) {
+	if o == nil || IsNil(o.DefaultAction) {
+		return nil, false
+	}
+	return o.DefaultAction, true
+}
+
+// HasDefaultAction returns a boolean if a field has been set.
+func (o *FindWafAcl200ResponseDataInner) HasDefaultAction() bool {
+	if o != nil && !IsNil(o.DefaultAction) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultAction gets a reference to the given string and assigns it to the DefaultAction field.
+func (o *FindWafAcl200ResponseDataInner) SetDefaultAction(v string) {
+	o.DefaultAction = &v
+}
+
+// GetRules returns the Rules field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindWafAcl200ResponseDataInner) GetRules() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Rules
+}
+
+// GetRulesOk returns a tuple with the Rules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindWafAcl200ResponseDataInner) GetRulesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Rules) {
+		return nil, false
+	}
+	return &o.Rules, true
+}
+
+// HasRules returns a boolean if a field has been set.
+func (o *FindWafAcl200ResponseDataInner) HasRules() bool {
+	if o != nil && !IsNil(o.Rules) {
+		return true
+	}
+
+	return false
+}
+
+// SetRules gets a reference to the given interface{} and assigns it to the Rules field.
+func (o *FindWafAcl200ResponseDataInner) SetRules(v interface{}) {
+	o.Rules = v
+}
+
+// GetCapacity returns the Capacity field value if set, zero value otherwise.
+func (o *FindWafAcl200ResponseDataInner) GetCapacity() int32 {
+	if o == nil || IsNil(o.Capacity) {
+		var ret int32
+		return ret
+	}
+	return *o.Capacity
+}
+
+// GetCapacityOk returns a tuple with the Capacity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafAcl200ResponseDataInner) GetCapacityOk() (*int32, bool) {
+	if o == nil || IsNil(o.Capacity) {
+		return nil, false
+	}
+	return o.Capacity, true
+}
+
+// HasCapacity returns a boolean if a field has been set.
+func (o *FindWafAcl200ResponseDataInner) HasCapacity() bool {
+	if o != nil && !IsNil(o.Capacity) {
+		return true
+	}
+
+	return false
+}
+
+// SetCapacity gets a reference to the given int32 and assigns it to the Capacity field.
+func (o *FindWafAcl200ResponseDataInner) SetCapacity(v int32) {
+	o.Capacity = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindWafAcl200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafAcl200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindWafAcl200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindWafAcl200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetProviderAclId returns the ProviderAclId field value
+func (o *FindWafAcl200ResponseDataInner) GetProviderAclId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ProviderAclId
+}
+
+// GetProviderAclIdOk returns a tuple with the ProviderAclId field value
+// and a boolean to check if the value has been set.
+func (o *FindWafAcl200ResponseDataInner) GetProviderAclIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ProviderAclId, true
+}
+
+// SetProviderAclId sets field value
+func (o *FindWafAcl200ResponseDataInner) SetProviderAclId(v string) {
+	o.ProviderAclId = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindWafAcl200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafAcl200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindWafAcl200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindWafAcl200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetCredential returns the Credential field value if set, zero value otherwise.
+func (o *FindWafAcl200ResponseDataInner) GetCredential() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Credential) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Credential
+}
+
+// GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafAcl200ResponseDataInner) GetCredentialOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Credential) {
+		return nil, false
+	}
+	return o.Credential, true
+}
+
+// HasCredential returns a boolean if a field has been set.
+func (o *FindWafAcl200ResponseDataInner) HasCredential() bool {
+	if o != nil && !IsNil(o.Credential) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredential gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Credential field.
+func (o *FindWafAcl200ResponseDataInner) SetCredential(v CreateAccessReviewRequestDataReviewer) {
+	o.Credential = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +427,6 @@ func (o *FindWafAcl200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindWafAcl200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindWafAcl200ResponseDataInner) GetAttributes() WafAcl {
-	if o == nil || IsNil(o.Attributes) {
-		var ret WafAcl
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindWafAcl200ResponseDataInner) GetAttributesOk() (*WafAcl, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindWafAcl200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given WafAcl and assigns it to the Attributes field.
-func (o *FindWafAcl200ResponseDataInner) SetAttributes(v WafAcl) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +545,35 @@ func (o FindWafAcl200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindWafAcl200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["provider"] = o.Provider
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
+	if !IsNil(o.DefaultAction) {
+		toSerialize["default_action"] = o.DefaultAction
+	}
+	if o.Rules != nil {
+		toSerialize["rules"] = o.Rules
+	}
+	if !IsNil(o.Capacity) {
+		toSerialize["capacity"] = o.Capacity
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	toSerialize["provider_acl_id"] = o.ProviderAclId
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.Credential) {
+		toSerialize["credential"] = o.Credential
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +585,45 @@ func (o FindWafAcl200ResponseDataInner) ToMap() (map[string]interface{}, error) 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindWafAcl200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"provider",
+		"name",
+		"provider_acl_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindWafAcl200ResponseDataInner := _FindWafAcl200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindWafAcl200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindWafAcl200ResponseDataInner(varFindWafAcl200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindWafAcl200ResponseDataInner struct {

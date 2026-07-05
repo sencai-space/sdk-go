@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindOneCloudImportJob200ResponseData type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindOneCloudImportJob200ResponseData{}
 
 // FindOneCloudImportJob200ResponseData struct for FindOneCloudImportJob200ResponseData
 type FindOneCloudImportJob200ResponseData struct {
+	// RabbitMQ job correlation id (UUID) — links this record to the cloud.events message and worker logs.
+	JobId string `json:"job_id"`
+	Status string `json:"status"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	CreatedByUser *CreateAccessReviewRequestDataReviewer `json:"created_by_user,omitempty"`
+	// Number of new cloud-instance records created by this import run.
+	CreatedCount *int32 `json:"created_count,omitempty"`
+	// Number of resources skipped because a cloud-instance with the same external_id already existed (idempotent re-import).
+	SkippedCount *int32 `json:"skipped_count,omitempty"`
+	// Number of resources that failed to map/create (missing required fields, DB error, ...).
+	FailedCount *int32 `json:"failed_count,omitempty"`
+	// Set when status='failed' at the job level (e.g. corrupt tfstate, unreachable tfstate_url).
+	ErrorMessage *string `json:"error_message,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudImportJob `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindOneCloudImportJob200ResponseData FindOneCloudImportJob200ResponseData
+
 // NewFindOneCloudImportJob200ResponseData instantiates a new FindOneCloudImportJob200ResponseData object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindOneCloudImportJob200ResponseData() *FindOneCloudImportJob200ResponseData {
+func NewFindOneCloudImportJob200ResponseData(jobId string, status string) *FindOneCloudImportJob200ResponseData {
 	this := FindOneCloudImportJob200ResponseData{}
+	this.JobId = jobId
+	this.Status = status
 	return &this
 }
 
@@ -44,6 +62,246 @@ func NewFindOneCloudImportJob200ResponseData() *FindOneCloudImportJob200Response
 func NewFindOneCloudImportJob200ResponseDataWithDefaults() *FindOneCloudImportJob200ResponseData {
 	this := FindOneCloudImportJob200ResponseData{}
 	return &this
+}
+
+// GetJobId returns the JobId field value
+func (o *FindOneCloudImportJob200ResponseData) GetJobId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.JobId
+}
+
+// GetJobIdOk returns a tuple with the JobId field value
+// and a boolean to check if the value has been set.
+func (o *FindOneCloudImportJob200ResponseData) GetJobIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.JobId, true
+}
+
+// SetJobId sets field value
+func (o *FindOneCloudImportJob200ResponseData) SetJobId(v string) {
+	o.JobId = v
+}
+
+// GetStatus returns the Status field value
+func (o *FindOneCloudImportJob200ResponseData) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindOneCloudImportJob200ResponseData) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindOneCloudImportJob200ResponseData) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindOneCloudImportJob200ResponseData) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneCloudImportJob200ResponseData) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindOneCloudImportJob200ResponseData) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindOneCloudImportJob200ResponseData) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetCreatedByUser returns the CreatedByUser field value if set, zero value otherwise.
+func (o *FindOneCloudImportJob200ResponseData) GetCreatedByUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CreatedByUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CreatedByUser
+}
+
+// GetCreatedByUserOk returns a tuple with the CreatedByUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneCloudImportJob200ResponseData) GetCreatedByUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CreatedByUser) {
+		return nil, false
+	}
+	return o.CreatedByUser, true
+}
+
+// HasCreatedByUser returns a boolean if a field has been set.
+func (o *FindOneCloudImportJob200ResponseData) HasCreatedByUser() bool {
+	if o != nil && !IsNil(o.CreatedByUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedByUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CreatedByUser field.
+func (o *FindOneCloudImportJob200ResponseData) SetCreatedByUser(v CreateAccessReviewRequestDataReviewer) {
+	o.CreatedByUser = &v
+}
+
+// GetCreatedCount returns the CreatedCount field value if set, zero value otherwise.
+func (o *FindOneCloudImportJob200ResponseData) GetCreatedCount() int32 {
+	if o == nil || IsNil(o.CreatedCount) {
+		var ret int32
+		return ret
+	}
+	return *o.CreatedCount
+}
+
+// GetCreatedCountOk returns a tuple with the CreatedCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneCloudImportJob200ResponseData) GetCreatedCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.CreatedCount) {
+		return nil, false
+	}
+	return o.CreatedCount, true
+}
+
+// HasCreatedCount returns a boolean if a field has been set.
+func (o *FindOneCloudImportJob200ResponseData) HasCreatedCount() bool {
+	if o != nil && !IsNil(o.CreatedCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedCount gets a reference to the given int32 and assigns it to the CreatedCount field.
+func (o *FindOneCloudImportJob200ResponseData) SetCreatedCount(v int32) {
+	o.CreatedCount = &v
+}
+
+// GetSkippedCount returns the SkippedCount field value if set, zero value otherwise.
+func (o *FindOneCloudImportJob200ResponseData) GetSkippedCount() int32 {
+	if o == nil || IsNil(o.SkippedCount) {
+		var ret int32
+		return ret
+	}
+	return *o.SkippedCount
+}
+
+// GetSkippedCountOk returns a tuple with the SkippedCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneCloudImportJob200ResponseData) GetSkippedCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.SkippedCount) {
+		return nil, false
+	}
+	return o.SkippedCount, true
+}
+
+// HasSkippedCount returns a boolean if a field has been set.
+func (o *FindOneCloudImportJob200ResponseData) HasSkippedCount() bool {
+	if o != nil && !IsNil(o.SkippedCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetSkippedCount gets a reference to the given int32 and assigns it to the SkippedCount field.
+func (o *FindOneCloudImportJob200ResponseData) SetSkippedCount(v int32) {
+	o.SkippedCount = &v
+}
+
+// GetFailedCount returns the FailedCount field value if set, zero value otherwise.
+func (o *FindOneCloudImportJob200ResponseData) GetFailedCount() int32 {
+	if o == nil || IsNil(o.FailedCount) {
+		var ret int32
+		return ret
+	}
+	return *o.FailedCount
+}
+
+// GetFailedCountOk returns a tuple with the FailedCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneCloudImportJob200ResponseData) GetFailedCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.FailedCount) {
+		return nil, false
+	}
+	return o.FailedCount, true
+}
+
+// HasFailedCount returns a boolean if a field has been set.
+func (o *FindOneCloudImportJob200ResponseData) HasFailedCount() bool {
+	if o != nil && !IsNil(o.FailedCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetFailedCount gets a reference to the given int32 and assigns it to the FailedCount field.
+func (o *FindOneCloudImportJob200ResponseData) SetFailedCount(v int32) {
+	o.FailedCount = &v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindOneCloudImportJob200ResponseData) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneCloudImportJob200ResponseData) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindOneCloudImportJob200ResponseData) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindOneCloudImportJob200ResponseData) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +366,6 @@ func (o *FindOneCloudImportJob200ResponseData) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindOneCloudImportJob200ResponseData) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindOneCloudImportJob200ResponseData) GetAttributes() CloudImportJob {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudImportJob
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindOneCloudImportJob200ResponseData) GetAttributesOk() (*CloudImportJob, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindOneCloudImportJob200ResponseData) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudImportJob and assigns it to the Attributes field.
-func (o *FindOneCloudImportJob200ResponseData) SetAttributes(v CloudImportJob) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +484,31 @@ func (o FindOneCloudImportJob200ResponseData) MarshalJSON() ([]byte, error) {
 
 func (o FindOneCloudImportJob200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["job_id"] = o.JobId
+	toSerialize["status"] = o.Status
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.CreatedByUser) {
+		toSerialize["created_by_user"] = o.CreatedByUser
+	}
+	if !IsNil(o.CreatedCount) {
+		toSerialize["created_count"] = o.CreatedCount
+	}
+	if !IsNil(o.SkippedCount) {
+		toSerialize["skipped_count"] = o.SkippedCount
+	}
+	if !IsNil(o.FailedCount) {
+		toSerialize["failed_count"] = o.FailedCount
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +520,44 @@ func (o FindOneCloudImportJob200ResponseData) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindOneCloudImportJob200ResponseData) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"job_id",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindOneCloudImportJob200ResponseData := _FindOneCloudImportJob200ResponseData{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindOneCloudImportJob200ResponseData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindOneCloudImportJob200ResponseData(varFindOneCloudImportJob200ResponseData)
+
+	return err
 }
 
 type NullableFindOneCloudImportJob200ResponseData struct {

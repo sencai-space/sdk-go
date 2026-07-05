@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindGamificationEvent200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindGamificationEvent200ResponseDataInner{}
 
 // FindGamificationEvent200ResponseDataInner struct for FindGamificationEvent200ResponseDataInner
 type FindGamificationEvent200ResponseDataInner struct {
+	User CreateAccessReviewRequestDataReviewer `json:"user"`
+	// Whitelist kept identical to the internal action-type map in gamification-consumer (F4.GAM.02). 'easter_egg_triggered' added by F4.GAM.02 for the stochastic easter-egg budget log (persisted so the consumer can compute each user's remaining per-year allowance).
+	ActionType string `json:"action_type"`
+	XpGranted int32 `json:"xp_granted"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	// SHA-256 hash of the source RabbitMQ message — prevents duplicate XP grants on redelivery
+	IdempotencyKey string `json:"idempotency_key"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *GamificationEvent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindGamificationEvent200ResponseDataInner FindGamificationEvent200ResponseDataInner
+
 // NewFindGamificationEvent200ResponseDataInner instantiates a new FindGamificationEvent200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindGamificationEvent200ResponseDataInner() *FindGamificationEvent200ResponseDataInner {
+func NewFindGamificationEvent200ResponseDataInner(user CreateAccessReviewRequestDataReviewer, actionType string, xpGranted int32, idempotencyKey string) *FindGamificationEvent200ResponseDataInner {
 	this := FindGamificationEvent200ResponseDataInner{}
+	this.User = user
+	this.ActionType = actionType
+	this.XpGranted = xpGranted
+	this.IdempotencyKey = idempotencyKey
 	return &this
 }
 
@@ -44,6 +60,167 @@ func NewFindGamificationEvent200ResponseDataInner() *FindGamificationEvent200Res
 func NewFindGamificationEvent200ResponseDataInnerWithDefaults() *FindGamificationEvent200ResponseDataInner {
 	this := FindGamificationEvent200ResponseDataInner{}
 	return &this
+}
+
+// GetUser returns the User field value
+func (o *FindGamificationEvent200ResponseDataInner) GetUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.User
+}
+
+// GetUserOk returns a tuple with the User field value
+// and a boolean to check if the value has been set.
+func (o *FindGamificationEvent200ResponseDataInner) GetUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.User, true
+}
+
+// SetUser sets field value
+func (o *FindGamificationEvent200ResponseDataInner) SetUser(v CreateAccessReviewRequestDataReviewer) {
+	o.User = v
+}
+
+// GetActionType returns the ActionType field value
+func (o *FindGamificationEvent200ResponseDataInner) GetActionType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ActionType
+}
+
+// GetActionTypeOk returns a tuple with the ActionType field value
+// and a boolean to check if the value has been set.
+func (o *FindGamificationEvent200ResponseDataInner) GetActionTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ActionType, true
+}
+
+// SetActionType sets field value
+func (o *FindGamificationEvent200ResponseDataInner) SetActionType(v string) {
+	o.ActionType = v
+}
+
+// GetXpGranted returns the XpGranted field value
+func (o *FindGamificationEvent200ResponseDataInner) GetXpGranted() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.XpGranted
+}
+
+// GetXpGrantedOk returns a tuple with the XpGranted field value
+// and a boolean to check if the value has been set.
+func (o *FindGamificationEvent200ResponseDataInner) GetXpGrantedOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.XpGranted, true
+}
+
+// SetXpGranted sets field value
+func (o *FindGamificationEvent200ResponseDataInner) SetXpGranted(v int32) {
+	o.XpGranted = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindGamificationEvent200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGamificationEvent200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindGamificationEvent200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindGamificationEvent200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindGamificationEvent200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindGamificationEvent200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindGamificationEvent200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindGamificationEvent200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetIdempotencyKey returns the IdempotencyKey field value
+func (o *FindGamificationEvent200ResponseDataInner) GetIdempotencyKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.IdempotencyKey
+}
+
+// GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value
+// and a boolean to check if the value has been set.
+func (o *FindGamificationEvent200ResponseDataInner) GetIdempotencyKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IdempotencyKey, true
+}
+
+// SetIdempotencyKey sets field value
+func (o *FindGamificationEvent200ResponseDataInner) SetIdempotencyKey(v string) {
+	o.IdempotencyKey = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +285,6 @@ func (o *FindGamificationEvent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindGamificationEvent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindGamificationEvent200ResponseDataInner) GetAttributes() GamificationEvent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret GamificationEvent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindGamificationEvent200ResponseDataInner) GetAttributesOk() (*GamificationEvent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindGamificationEvent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given GamificationEvent and assigns it to the Attributes field.
-func (o *FindGamificationEvent200ResponseDataInner) SetAttributes(v GamificationEvent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +403,21 @@ func (o FindGamificationEvent200ResponseDataInner) MarshalJSON() ([]byte, error)
 
 func (o FindGamificationEvent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["user"] = o.User
+	toSerialize["action_type"] = o.ActionType
+	toSerialize["xp_granted"] = o.XpGranted
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	toSerialize["idempotency_key"] = o.IdempotencyKey
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +429,46 @@ func (o FindGamificationEvent200ResponseDataInner) ToMap() (map[string]interface
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindGamificationEvent200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"user",
+		"action_type",
+		"xp_granted",
+		"idempotency_key",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindGamificationEvent200ResponseDataInner := _FindGamificationEvent200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindGamificationEvent200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindGamificationEvent200ResponseDataInner(varFindGamificationEvent200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindGamificationEvent200ResponseDataInner struct {

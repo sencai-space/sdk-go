@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAccountTypeUser200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,27 @@ var _ MappedNullable = &FindAccountTypeUser200ResponseDataInner{}
 
 // FindAccountTypeUser200ResponseDataInner struct for FindAccountTypeUser200ResponseDataInner
 type FindAccountTypeUser200ResponseDataInner struct {
+	Name string `json:"name"`
+	Price int32 `json:"price"`
+	LimitOrganisations int32 `json:"limit_organisations"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AccountTypeUser `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAccountTypeUser200ResponseDataInner FindAccountTypeUser200ResponseDataInner
+
 // NewFindAccountTypeUser200ResponseDataInner instantiates a new FindAccountTypeUser200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAccountTypeUser200ResponseDataInner() *FindAccountTypeUser200ResponseDataInner {
+func NewFindAccountTypeUser200ResponseDataInner(name string, price int32, limitOrganisations int32) *FindAccountTypeUser200ResponseDataInner {
 	this := FindAccountTypeUser200ResponseDataInner{}
+	this.Name = name
+	this.Price = price
+	this.LimitOrganisations = limitOrganisations
 	return &this
 }
 
@@ -44,6 +53,78 @@ func NewFindAccountTypeUser200ResponseDataInner() *FindAccountTypeUser200Respons
 func NewFindAccountTypeUser200ResponseDataInnerWithDefaults() *FindAccountTypeUser200ResponseDataInner {
 	this := FindAccountTypeUser200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindAccountTypeUser200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindAccountTypeUser200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindAccountTypeUser200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetPrice returns the Price field value
+func (o *FindAccountTypeUser200ResponseDataInner) GetPrice() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Price
+}
+
+// GetPriceOk returns a tuple with the Price field value
+// and a boolean to check if the value has been set.
+func (o *FindAccountTypeUser200ResponseDataInner) GetPriceOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Price, true
+}
+
+// SetPrice sets field value
+func (o *FindAccountTypeUser200ResponseDataInner) SetPrice(v int32) {
+	o.Price = v
+}
+
+// GetLimitOrganisations returns the LimitOrganisations field value
+func (o *FindAccountTypeUser200ResponseDataInner) GetLimitOrganisations() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.LimitOrganisations
+}
+
+// GetLimitOrganisationsOk returns a tuple with the LimitOrganisations field value
+// and a boolean to check if the value has been set.
+func (o *FindAccountTypeUser200ResponseDataInner) GetLimitOrganisationsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LimitOrganisations, true
+}
+
+// SetLimitOrganisations sets field value
+func (o *FindAccountTypeUser200ResponseDataInner) SetLimitOrganisations(v int32) {
+	o.LimitOrganisations = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +189,6 @@ func (o *FindAccountTypeUser200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAccountTypeUser200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAccountTypeUser200ResponseDataInner) GetAttributes() AccountTypeUser {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AccountTypeUser
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAccountTypeUser200ResponseDataInner) GetAttributesOk() (*AccountTypeUser, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAccountTypeUser200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AccountTypeUser and assigns it to the Attributes field.
-func (o *FindAccountTypeUser200ResponseDataInner) SetAttributes(v AccountTypeUser) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +307,14 @@ func (o FindAccountTypeUser200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAccountTypeUser200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["price"] = o.Price
+	toSerialize["limit_organisations"] = o.LimitOrganisations
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +326,45 @@ func (o FindAccountTypeUser200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAccountTypeUser200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"price",
+		"limit_organisations",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAccountTypeUser200ResponseDataInner := _FindAccountTypeUser200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAccountTypeUser200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAccountTypeUser200ResponseDataInner(varFindAccountTypeUser200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAccountTypeUser200ResponseDataInner struct {

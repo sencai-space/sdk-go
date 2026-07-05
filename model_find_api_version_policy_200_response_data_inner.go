@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindApiVersionPolicy200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,30 @@ var _ MappedNullable = &FindApiVersionPolicy200ResponseDataInner{}
 
 // FindApiVersionPolicy200ResponseDataInner struct for FindApiVersionPolicy200ResponseDataInner
 type FindApiVersionPolicy200ResponseDataInner struct {
+	Version string `json:"version"`
+	Description *string `json:"description,omitempty"`
+	DeprecatedAt *time.Time `json:"deprecated_at,omitempty"`
+	SunsetAt *time.Time `json:"sunset_at,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	BreakingChanges interface{} `json:"breaking_changes,omitempty"`
+	IsCurrent *bool `json:"is_current,omitempty"`
+	MigrationGuideUrl *string `json:"migration_guide_url,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ApiVersionPolicy `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindApiVersionPolicy200ResponseDataInner FindApiVersionPolicy200ResponseDataInner
+
 // NewFindApiVersionPolicy200ResponseDataInner instantiates a new FindApiVersionPolicy200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindApiVersionPolicy200ResponseDataInner() *FindApiVersionPolicy200ResponseDataInner {
+func NewFindApiVersionPolicy200ResponseDataInner(version string) *FindApiVersionPolicy200ResponseDataInner {
 	this := FindApiVersionPolicy200ResponseDataInner{}
+	this.Version = version
 	return &this
 }
 
@@ -44,6 +56,223 @@ func NewFindApiVersionPolicy200ResponseDataInner() *FindApiVersionPolicy200Respo
 func NewFindApiVersionPolicy200ResponseDataInnerWithDefaults() *FindApiVersionPolicy200ResponseDataInner {
 	this := FindApiVersionPolicy200ResponseDataInner{}
 	return &this
+}
+
+// GetVersion returns the Version field value
+func (o *FindApiVersionPolicy200ResponseDataInner) GetVersion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value
+// and a boolean to check if the value has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetVersionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Version, true
+}
+
+// SetVersion sets field value
+func (o *FindApiVersionPolicy200ResponseDataInner) SetVersion(v string) {
+	o.Version = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindApiVersionPolicy200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetDeprecatedAt returns the DeprecatedAt field value if set, zero value otherwise.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetDeprecatedAt() time.Time {
+	if o == nil || IsNil(o.DeprecatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DeprecatedAt
+}
+
+// GetDeprecatedAtOk returns a tuple with the DeprecatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetDeprecatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DeprecatedAt) {
+		return nil, false
+	}
+	return o.DeprecatedAt, true
+}
+
+// HasDeprecatedAt returns a boolean if a field has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) HasDeprecatedAt() bool {
+	if o != nil && !IsNil(o.DeprecatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeprecatedAt gets a reference to the given time.Time and assigns it to the DeprecatedAt field.
+func (o *FindApiVersionPolicy200ResponseDataInner) SetDeprecatedAt(v time.Time) {
+	o.DeprecatedAt = &v
+}
+
+// GetSunsetAt returns the SunsetAt field value if set, zero value otherwise.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetSunsetAt() time.Time {
+	if o == nil || IsNil(o.SunsetAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.SunsetAt
+}
+
+// GetSunsetAtOk returns a tuple with the SunsetAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetSunsetAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.SunsetAt) {
+		return nil, false
+	}
+	return o.SunsetAt, true
+}
+
+// HasSunsetAt returns a boolean if a field has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) HasSunsetAt() bool {
+	if o != nil && !IsNil(o.SunsetAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetSunsetAt gets a reference to the given time.Time and assigns it to the SunsetAt field.
+func (o *FindApiVersionPolicy200ResponseDataInner) SetSunsetAt(v time.Time) {
+	o.SunsetAt = &v
+}
+
+// GetBreakingChanges returns the BreakingChanges field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindApiVersionPolicy200ResponseDataInner) GetBreakingChanges() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.BreakingChanges
+}
+
+// GetBreakingChangesOk returns a tuple with the BreakingChanges field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindApiVersionPolicy200ResponseDataInner) GetBreakingChangesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.BreakingChanges) {
+		return nil, false
+	}
+	return &o.BreakingChanges, true
+}
+
+// HasBreakingChanges returns a boolean if a field has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) HasBreakingChanges() bool {
+	if o != nil && !IsNil(o.BreakingChanges) {
+		return true
+	}
+
+	return false
+}
+
+// SetBreakingChanges gets a reference to the given interface{} and assigns it to the BreakingChanges field.
+func (o *FindApiVersionPolicy200ResponseDataInner) SetBreakingChanges(v interface{}) {
+	o.BreakingChanges = v
+}
+
+// GetIsCurrent returns the IsCurrent field value if set, zero value otherwise.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetIsCurrent() bool {
+	if o == nil || IsNil(o.IsCurrent) {
+		var ret bool
+		return ret
+	}
+	return *o.IsCurrent
+}
+
+// GetIsCurrentOk returns a tuple with the IsCurrent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetIsCurrentOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsCurrent) {
+		return nil, false
+	}
+	return o.IsCurrent, true
+}
+
+// HasIsCurrent returns a boolean if a field has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) HasIsCurrent() bool {
+	if o != nil && !IsNil(o.IsCurrent) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsCurrent gets a reference to the given bool and assigns it to the IsCurrent field.
+func (o *FindApiVersionPolicy200ResponseDataInner) SetIsCurrent(v bool) {
+	o.IsCurrent = &v
+}
+
+// GetMigrationGuideUrl returns the MigrationGuideUrl field value if set, zero value otherwise.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetMigrationGuideUrl() string {
+	if o == nil || IsNil(o.MigrationGuideUrl) {
+		var ret string
+		return ret
+	}
+	return *o.MigrationGuideUrl
+}
+
+// GetMigrationGuideUrlOk returns a tuple with the MigrationGuideUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) GetMigrationGuideUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.MigrationGuideUrl) {
+		return nil, false
+	}
+	return o.MigrationGuideUrl, true
+}
+
+// HasMigrationGuideUrl returns a boolean if a field has been set.
+func (o *FindApiVersionPolicy200ResponseDataInner) HasMigrationGuideUrl() bool {
+	if o != nil && !IsNil(o.MigrationGuideUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetMigrationGuideUrl gets a reference to the given string and assigns it to the MigrationGuideUrl field.
+func (o *FindApiVersionPolicy200ResponseDataInner) SetMigrationGuideUrl(v string) {
+	o.MigrationGuideUrl = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +337,6 @@ func (o *FindApiVersionPolicy200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindApiVersionPolicy200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindApiVersionPolicy200ResponseDataInner) GetAttributes() ApiVersionPolicy {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ApiVersionPolicy
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindApiVersionPolicy200ResponseDataInner) GetAttributesOk() (*ApiVersionPolicy, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindApiVersionPolicy200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ApiVersionPolicy and assigns it to the Attributes field.
-func (o *FindApiVersionPolicy200ResponseDataInner) SetAttributes(v ApiVersionPolicy) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +455,30 @@ func (o FindApiVersionPolicy200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindApiVersionPolicy200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["version"] = o.Version
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.DeprecatedAt) {
+		toSerialize["deprecated_at"] = o.DeprecatedAt
+	}
+	if !IsNil(o.SunsetAt) {
+		toSerialize["sunset_at"] = o.SunsetAt
+	}
+	if o.BreakingChanges != nil {
+		toSerialize["breaking_changes"] = o.BreakingChanges
+	}
+	if !IsNil(o.IsCurrent) {
+		toSerialize["is_current"] = o.IsCurrent
+	}
+	if !IsNil(o.MigrationGuideUrl) {
+		toSerialize["migration_guide_url"] = o.MigrationGuideUrl
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +490,43 @@ func (o FindApiVersionPolicy200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindApiVersionPolicy200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"version",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindApiVersionPolicy200ResponseDataInner := _FindApiVersionPolicy200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindApiVersionPolicy200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindApiVersionPolicy200ResponseDataInner(varFindApiVersionPolicy200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindApiVersionPolicy200ResponseDataInner struct {

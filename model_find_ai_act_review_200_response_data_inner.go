@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAiActReview200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,42 @@ var _ MappedNullable = &FindAiActReview200ResponseDataInner{}
 
 // FindAiActReview200ResponseDataInner struct for FindAiActReview200ResponseDataInner
 type FindAiActReview200ResponseDataInner struct {
+	OrgDocId string `json:"org_doc_id"`
+	SystemName string `json:"system_name"`
+	RiskCategory string `json:"risk_category"`
+	UseCase *string `json:"use_case,omitempty"`
+	ReviewStatus *string `json:"review_status,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	TransparencyMeasures interface{} `json:"transparency_measures,omitempty"`
+	HumanOversightMechanism *string `json:"human_oversight_mechanism,omitempty"`
+	DataGovernanceNotes *string `json:"data_governance_notes,omitempty"`
+	ConformityAssessment *string `json:"conformity_assessment,omitempty"`
+	RegistrationRequired *bool `json:"registration_required,omitempty"`
+	ReviewDate *string `json:"review_date,omitempty"`
+	NextReviewDate *string `json:"next_review_date,omitempty"`
+	Reviewer *string `json:"reviewer,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Findings interface{} `json:"findings,omitempty"`
+	RemediationPlan *string `json:"remediation_plan,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AiActReview `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAiActReview200ResponseDataInner FindAiActReview200ResponseDataInner
+
 // NewFindAiActReview200ResponseDataInner instantiates a new FindAiActReview200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAiActReview200ResponseDataInner() *FindAiActReview200ResponseDataInner {
+func NewFindAiActReview200ResponseDataInner(orgDocId string, systemName string, riskCategory string) *FindAiActReview200ResponseDataInner {
 	this := FindAiActReview200ResponseDataInner{}
+	this.OrgDocId = orgDocId
+	this.SystemName = systemName
+	this.RiskCategory = riskCategory
 	return &this
 }
 
@@ -44,6 +68,496 @@ func NewFindAiActReview200ResponseDataInner() *FindAiActReview200ResponseDataInn
 func NewFindAiActReview200ResponseDataInnerWithDefaults() *FindAiActReview200ResponseDataInner {
 	this := FindAiActReview200ResponseDataInner{}
 	return &this
+}
+
+// GetOrgDocId returns the OrgDocId field value
+func (o *FindAiActReview200ResponseDataInner) GetOrgDocId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OrgDocId
+}
+
+// GetOrgDocIdOk returns a tuple with the OrgDocId field value
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetOrgDocIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OrgDocId, true
+}
+
+// SetOrgDocId sets field value
+func (o *FindAiActReview200ResponseDataInner) SetOrgDocId(v string) {
+	o.OrgDocId = v
+}
+
+// GetSystemName returns the SystemName field value
+func (o *FindAiActReview200ResponseDataInner) GetSystemName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SystemName
+}
+
+// GetSystemNameOk returns a tuple with the SystemName field value
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetSystemNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SystemName, true
+}
+
+// SetSystemName sets field value
+func (o *FindAiActReview200ResponseDataInner) SetSystemName(v string) {
+	o.SystemName = v
+}
+
+// GetRiskCategory returns the RiskCategory field value
+func (o *FindAiActReview200ResponseDataInner) GetRiskCategory() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RiskCategory
+}
+
+// GetRiskCategoryOk returns a tuple with the RiskCategory field value
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetRiskCategoryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RiskCategory, true
+}
+
+// SetRiskCategory sets field value
+func (o *FindAiActReview200ResponseDataInner) SetRiskCategory(v string) {
+	o.RiskCategory = v
+}
+
+// GetUseCase returns the UseCase field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetUseCase() string {
+	if o == nil || IsNil(o.UseCase) {
+		var ret string
+		return ret
+	}
+	return *o.UseCase
+}
+
+// GetUseCaseOk returns a tuple with the UseCase field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetUseCaseOk() (*string, bool) {
+	if o == nil || IsNil(o.UseCase) {
+		return nil, false
+	}
+	return o.UseCase, true
+}
+
+// HasUseCase returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasUseCase() bool {
+	if o != nil && !IsNil(o.UseCase) {
+		return true
+	}
+
+	return false
+}
+
+// SetUseCase gets a reference to the given string and assigns it to the UseCase field.
+func (o *FindAiActReview200ResponseDataInner) SetUseCase(v string) {
+	o.UseCase = &v
+}
+
+// GetReviewStatus returns the ReviewStatus field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetReviewStatus() string {
+	if o == nil || IsNil(o.ReviewStatus) {
+		var ret string
+		return ret
+	}
+	return *o.ReviewStatus
+}
+
+// GetReviewStatusOk returns a tuple with the ReviewStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetReviewStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.ReviewStatus) {
+		return nil, false
+	}
+	return o.ReviewStatus, true
+}
+
+// HasReviewStatus returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasReviewStatus() bool {
+	if o != nil && !IsNil(o.ReviewStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetReviewStatus gets a reference to the given string and assigns it to the ReviewStatus field.
+func (o *FindAiActReview200ResponseDataInner) SetReviewStatus(v string) {
+	o.ReviewStatus = &v
+}
+
+// GetTransparencyMeasures returns the TransparencyMeasures field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAiActReview200ResponseDataInner) GetTransparencyMeasures() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.TransparencyMeasures
+}
+
+// GetTransparencyMeasuresOk returns a tuple with the TransparencyMeasures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAiActReview200ResponseDataInner) GetTransparencyMeasuresOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.TransparencyMeasures) {
+		return nil, false
+	}
+	return &o.TransparencyMeasures, true
+}
+
+// HasTransparencyMeasures returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasTransparencyMeasures() bool {
+	if o != nil && !IsNil(o.TransparencyMeasures) {
+		return true
+	}
+
+	return false
+}
+
+// SetTransparencyMeasures gets a reference to the given interface{} and assigns it to the TransparencyMeasures field.
+func (o *FindAiActReview200ResponseDataInner) SetTransparencyMeasures(v interface{}) {
+	o.TransparencyMeasures = v
+}
+
+// GetHumanOversightMechanism returns the HumanOversightMechanism field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetHumanOversightMechanism() string {
+	if o == nil || IsNil(o.HumanOversightMechanism) {
+		var ret string
+		return ret
+	}
+	return *o.HumanOversightMechanism
+}
+
+// GetHumanOversightMechanismOk returns a tuple with the HumanOversightMechanism field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetHumanOversightMechanismOk() (*string, bool) {
+	if o == nil || IsNil(o.HumanOversightMechanism) {
+		return nil, false
+	}
+	return o.HumanOversightMechanism, true
+}
+
+// HasHumanOversightMechanism returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasHumanOversightMechanism() bool {
+	if o != nil && !IsNil(o.HumanOversightMechanism) {
+		return true
+	}
+
+	return false
+}
+
+// SetHumanOversightMechanism gets a reference to the given string and assigns it to the HumanOversightMechanism field.
+func (o *FindAiActReview200ResponseDataInner) SetHumanOversightMechanism(v string) {
+	o.HumanOversightMechanism = &v
+}
+
+// GetDataGovernanceNotes returns the DataGovernanceNotes field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetDataGovernanceNotes() string {
+	if o == nil || IsNil(o.DataGovernanceNotes) {
+		var ret string
+		return ret
+	}
+	return *o.DataGovernanceNotes
+}
+
+// GetDataGovernanceNotesOk returns a tuple with the DataGovernanceNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetDataGovernanceNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.DataGovernanceNotes) {
+		return nil, false
+	}
+	return o.DataGovernanceNotes, true
+}
+
+// HasDataGovernanceNotes returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasDataGovernanceNotes() bool {
+	if o != nil && !IsNil(o.DataGovernanceNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetDataGovernanceNotes gets a reference to the given string and assigns it to the DataGovernanceNotes field.
+func (o *FindAiActReview200ResponseDataInner) SetDataGovernanceNotes(v string) {
+	o.DataGovernanceNotes = &v
+}
+
+// GetConformityAssessment returns the ConformityAssessment field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetConformityAssessment() string {
+	if o == nil || IsNil(o.ConformityAssessment) {
+		var ret string
+		return ret
+	}
+	return *o.ConformityAssessment
+}
+
+// GetConformityAssessmentOk returns a tuple with the ConformityAssessment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetConformityAssessmentOk() (*string, bool) {
+	if o == nil || IsNil(o.ConformityAssessment) {
+		return nil, false
+	}
+	return o.ConformityAssessment, true
+}
+
+// HasConformityAssessment returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasConformityAssessment() bool {
+	if o != nil && !IsNil(o.ConformityAssessment) {
+		return true
+	}
+
+	return false
+}
+
+// SetConformityAssessment gets a reference to the given string and assigns it to the ConformityAssessment field.
+func (o *FindAiActReview200ResponseDataInner) SetConformityAssessment(v string) {
+	o.ConformityAssessment = &v
+}
+
+// GetRegistrationRequired returns the RegistrationRequired field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetRegistrationRequired() bool {
+	if o == nil || IsNil(o.RegistrationRequired) {
+		var ret bool
+		return ret
+	}
+	return *o.RegistrationRequired
+}
+
+// GetRegistrationRequiredOk returns a tuple with the RegistrationRequired field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetRegistrationRequiredOk() (*bool, bool) {
+	if o == nil || IsNil(o.RegistrationRequired) {
+		return nil, false
+	}
+	return o.RegistrationRequired, true
+}
+
+// HasRegistrationRequired returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasRegistrationRequired() bool {
+	if o != nil && !IsNil(o.RegistrationRequired) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegistrationRequired gets a reference to the given bool and assigns it to the RegistrationRequired field.
+func (o *FindAiActReview200ResponseDataInner) SetRegistrationRequired(v bool) {
+	o.RegistrationRequired = &v
+}
+
+// GetReviewDate returns the ReviewDate field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetReviewDate() string {
+	if o == nil || IsNil(o.ReviewDate) {
+		var ret string
+		return ret
+	}
+	return *o.ReviewDate
+}
+
+// GetReviewDateOk returns a tuple with the ReviewDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetReviewDateOk() (*string, bool) {
+	if o == nil || IsNil(o.ReviewDate) {
+		return nil, false
+	}
+	return o.ReviewDate, true
+}
+
+// HasReviewDate returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasReviewDate() bool {
+	if o != nil && !IsNil(o.ReviewDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetReviewDate gets a reference to the given string and assigns it to the ReviewDate field.
+func (o *FindAiActReview200ResponseDataInner) SetReviewDate(v string) {
+	o.ReviewDate = &v
+}
+
+// GetNextReviewDate returns the NextReviewDate field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetNextReviewDate() string {
+	if o == nil || IsNil(o.NextReviewDate) {
+		var ret string
+		return ret
+	}
+	return *o.NextReviewDate
+}
+
+// GetNextReviewDateOk returns a tuple with the NextReviewDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetNextReviewDateOk() (*string, bool) {
+	if o == nil || IsNil(o.NextReviewDate) {
+		return nil, false
+	}
+	return o.NextReviewDate, true
+}
+
+// HasNextReviewDate returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasNextReviewDate() bool {
+	if o != nil && !IsNil(o.NextReviewDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetNextReviewDate gets a reference to the given string and assigns it to the NextReviewDate field.
+func (o *FindAiActReview200ResponseDataInner) SetNextReviewDate(v string) {
+	o.NextReviewDate = &v
+}
+
+// GetReviewer returns the Reviewer field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetReviewer() string {
+	if o == nil || IsNil(o.Reviewer) {
+		var ret string
+		return ret
+	}
+	return *o.Reviewer
+}
+
+// GetReviewerOk returns a tuple with the Reviewer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetReviewerOk() (*string, bool) {
+	if o == nil || IsNil(o.Reviewer) {
+		return nil, false
+	}
+	return o.Reviewer, true
+}
+
+// HasReviewer returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasReviewer() bool {
+	if o != nil && !IsNil(o.Reviewer) {
+		return true
+	}
+
+	return false
+}
+
+// SetReviewer gets a reference to the given string and assigns it to the Reviewer field.
+func (o *FindAiActReview200ResponseDataInner) SetReviewer(v string) {
+	o.Reviewer = &v
+}
+
+// GetFindings returns the Findings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAiActReview200ResponseDataInner) GetFindings() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Findings
+}
+
+// GetFindingsOk returns a tuple with the Findings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAiActReview200ResponseDataInner) GetFindingsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Findings) {
+		return nil, false
+	}
+	return &o.Findings, true
+}
+
+// HasFindings returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasFindings() bool {
+	if o != nil && !IsNil(o.Findings) {
+		return true
+	}
+
+	return false
+}
+
+// SetFindings gets a reference to the given interface{} and assigns it to the Findings field.
+func (o *FindAiActReview200ResponseDataInner) SetFindings(v interface{}) {
+	o.Findings = v
+}
+
+// GetRemediationPlan returns the RemediationPlan field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetRemediationPlan() string {
+	if o == nil || IsNil(o.RemediationPlan) {
+		var ret string
+		return ret
+	}
+	return *o.RemediationPlan
+}
+
+// GetRemediationPlanOk returns a tuple with the RemediationPlan field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetRemediationPlanOk() (*string, bool) {
+	if o == nil || IsNil(o.RemediationPlan) {
+		return nil, false
+	}
+	return o.RemediationPlan, true
+}
+
+// HasRemediationPlan returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasRemediationPlan() bool {
+	if o != nil && !IsNil(o.RemediationPlan) {
+		return true
+	}
+
+	return false
+}
+
+// SetRemediationPlan gets a reference to the given string and assigns it to the RemediationPlan field.
+func (o *FindAiActReview200ResponseDataInner) SetRemediationPlan(v string) {
+	o.RemediationPlan = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindAiActReview200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiActReview200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindAiActReview200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindAiActReview200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +622,6 @@ func (o *FindAiActReview200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAiActReview200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAiActReview200ResponseDataInner) GetAttributes() AiActReview {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AiActReview
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAiActReview200ResponseDataInner) GetAttributesOk() (*AiActReview, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAiActReview200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AiActReview and assigns it to the Attributes field.
-func (o *FindAiActReview200ResponseDataInner) SetAttributes(v AiActReview) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +740,53 @@ func (o FindAiActReview200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAiActReview200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["org_doc_id"] = o.OrgDocId
+	toSerialize["system_name"] = o.SystemName
+	toSerialize["risk_category"] = o.RiskCategory
+	if !IsNil(o.UseCase) {
+		toSerialize["use_case"] = o.UseCase
+	}
+	if !IsNil(o.ReviewStatus) {
+		toSerialize["review_status"] = o.ReviewStatus
+	}
+	if o.TransparencyMeasures != nil {
+		toSerialize["transparency_measures"] = o.TransparencyMeasures
+	}
+	if !IsNil(o.HumanOversightMechanism) {
+		toSerialize["human_oversight_mechanism"] = o.HumanOversightMechanism
+	}
+	if !IsNil(o.DataGovernanceNotes) {
+		toSerialize["data_governance_notes"] = o.DataGovernanceNotes
+	}
+	if !IsNil(o.ConformityAssessment) {
+		toSerialize["conformity_assessment"] = o.ConformityAssessment
+	}
+	if !IsNil(o.RegistrationRequired) {
+		toSerialize["registration_required"] = o.RegistrationRequired
+	}
+	if !IsNil(o.ReviewDate) {
+		toSerialize["review_date"] = o.ReviewDate
+	}
+	if !IsNil(o.NextReviewDate) {
+		toSerialize["next_review_date"] = o.NextReviewDate
+	}
+	if !IsNil(o.Reviewer) {
+		toSerialize["reviewer"] = o.Reviewer
+	}
+	if o.Findings != nil {
+		toSerialize["findings"] = o.Findings
+	}
+	if !IsNil(o.RemediationPlan) {
+		toSerialize["remediation_plan"] = o.RemediationPlan
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +798,45 @@ func (o FindAiActReview200ResponseDataInner) ToMap() (map[string]interface{}, er
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAiActReview200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"org_doc_id",
+		"system_name",
+		"risk_category",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAiActReview200ResponseDataInner := _FindAiActReview200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAiActReview200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAiActReview200ResponseDataInner(varFindAiActReview200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAiActReview200ResponseDataInner struct {

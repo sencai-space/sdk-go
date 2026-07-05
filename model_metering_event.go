@@ -29,7 +29,8 @@ type MeteringEvent struct {
 	PeriodEnd time.Time `json:"period_end"`
 	IdempotencyKey string `json:"idempotency_key"`
 	Unit *string `json:"unit,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
 	LagoSynced *bool `json:"lago_synced,omitempty"`
 	SyncedAt *time.Time `json:"synced_at,omitempty"`
@@ -212,10 +213,10 @@ func (o *MeteringEvent) SetUnit(v string) {
 	o.Unit = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *MeteringEvent) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MeteringEvent) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -223,11 +224,12 @@ func (o *MeteringEvent) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MeteringEvent) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MeteringEvent) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -239,8 +241,8 @@ func (o *MeteringEvent) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *MeteringEvent) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *MeteringEvent) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -350,7 +352,7 @@ func (o MeteringEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Unit) {
 		toSerialize["unit"] = o.Unit
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	toSerialize["organisation"] = o.Organisation

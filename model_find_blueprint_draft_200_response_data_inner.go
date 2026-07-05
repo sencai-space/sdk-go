@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindBlueprintDraft200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,44 @@ var _ MappedNullable = &FindBlueprintDraft200ResponseDataInner{}
 
 // FindBlueprintDraft200ResponseDataInner struct for FindBlueprintDraft200ResponseDataInner
 type FindBlueprintDraft200ResponseDataInner struct {
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	Author *CreateAccessReviewRequestDataReviewer `json:"author,omitempty"`
+	Name string `json:"name"`
+	// URL-safe identifier derived from name.
+	Slug *string `json:"slug,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Category *string `json:"category,omitempty"`
+	Provider *string `json:"provider,omitempty"`
+	// Array of {id, name, type: 'provision'|'configure'|'verify', resource_type, config JSON, depends_on: string[]}.
+	Steps interface{} `json:"steps,omitempty"`
+	// JSON Schema for input variables, e.g. {\"region\": {\"type\": \"string\", \"default\": \"eu-west-1\"}}.
+	Variables interface{} `json:"variables,omitempty"`
+	// Array of strings listing the cloud resource types used in this blueprint.
+	ResourceTypes interface{} `json:"resource_types,omitempty"`
+	// Estimated monthly cost in USD.
+	EstimatedCostMonthly *float32 `json:"estimated_cost_monthly,omitempty"`
+	CostNotes *string `json:"cost_notes,omitempty"`
+	Status *string `json:"status,omitempty"`
+	Version *string `json:"version,omitempty"`
+	// Array of string tags.
+	Tags interface{} `json:"tags,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *BlueprintDraft `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindBlueprintDraft200ResponseDataInner FindBlueprintDraft200ResponseDataInner
+
 // NewFindBlueprintDraft200ResponseDataInner instantiates a new FindBlueprintDraft200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindBlueprintDraft200ResponseDataInner() *FindBlueprintDraft200ResponseDataInner {
+func NewFindBlueprintDraft200ResponseDataInner(organisation CreateAccessReviewRequestDataReviewer, name string) *FindBlueprintDraft200ResponseDataInner {
 	this := FindBlueprintDraft200ResponseDataInner{}
+	this.Organisation = organisation
+	this.Name = name
 	return &this
 }
 
@@ -44,6 +70,474 @@ func NewFindBlueprintDraft200ResponseDataInner() *FindBlueprintDraft200ResponseD
 func NewFindBlueprintDraft200ResponseDataInnerWithDefaults() *FindBlueprintDraft200ResponseDataInner {
 	this := FindBlueprintDraft200ResponseDataInner{}
 	return &this
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindBlueprintDraft200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindBlueprintDraft200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetAuthor returns the Author field value if set, zero value otherwise.
+func (o *FindBlueprintDraft200ResponseDataInner) GetAuthor() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Author) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Author
+}
+
+// GetAuthorOk returns a tuple with the Author field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetAuthorOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Author) {
+		return nil, false
+	}
+	return o.Author, true
+}
+
+// HasAuthor returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasAuthor() bool {
+	if o != nil && !IsNil(o.Author) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthor gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Author field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetAuthor(v CreateAccessReviewRequestDataReviewer) {
+	o.Author = &v
+}
+
+// GetName returns the Name field value
+func (o *FindBlueprintDraft200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindBlueprintDraft200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetSlug returns the Slug field value if set, zero value otherwise.
+func (o *FindBlueprintDraft200ResponseDataInner) GetSlug() string {
+	if o == nil || IsNil(o.Slug) {
+		var ret string
+		return ret
+	}
+	return *o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetSlugOk() (*string, bool) {
+	if o == nil || IsNil(o.Slug) {
+		return nil, false
+	}
+	return o.Slug, true
+}
+
+// HasSlug returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasSlug() bool {
+	if o != nil && !IsNil(o.Slug) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlug gets a reference to the given string and assigns it to the Slug field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetSlug(v string) {
+	o.Slug = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindBlueprintDraft200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetCategory returns the Category field value if set, zero value otherwise.
+func (o *FindBlueprintDraft200ResponseDataInner) GetCategory() string {
+	if o == nil || IsNil(o.Category) {
+		var ret string
+		return ret
+	}
+	return *o.Category
+}
+
+// GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetCategoryOk() (*string, bool) {
+	if o == nil || IsNil(o.Category) {
+		return nil, false
+	}
+	return o.Category, true
+}
+
+// HasCategory returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasCategory() bool {
+	if o != nil && !IsNil(o.Category) {
+		return true
+	}
+
+	return false
+}
+
+// SetCategory gets a reference to the given string and assigns it to the Category field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetCategory(v string) {
+	o.Category = &v
+}
+
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *FindBlueprintDraft200ResponseDataInner) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetProvider(v string) {
+	o.Provider = &v
+}
+
+// GetSteps returns the Steps field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBlueprintDraft200ResponseDataInner) GetSteps() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Steps
+}
+
+// GetStepsOk returns a tuple with the Steps field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBlueprintDraft200ResponseDataInner) GetStepsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Steps) {
+		return nil, false
+	}
+	return &o.Steps, true
+}
+
+// HasSteps returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasSteps() bool {
+	if o != nil && !IsNil(o.Steps) {
+		return true
+	}
+
+	return false
+}
+
+// SetSteps gets a reference to the given interface{} and assigns it to the Steps field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetSteps(v interface{}) {
+	o.Steps = v
+}
+
+// GetVariables returns the Variables field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBlueprintDraft200ResponseDataInner) GetVariables() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Variables
+}
+
+// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBlueprintDraft200ResponseDataInner) GetVariablesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Variables) {
+		return nil, false
+	}
+	return &o.Variables, true
+}
+
+// HasVariables returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasVariables() bool {
+	if o != nil && !IsNil(o.Variables) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariables gets a reference to the given interface{} and assigns it to the Variables field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetVariables(v interface{}) {
+	o.Variables = v
+}
+
+// GetResourceTypes returns the ResourceTypes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBlueprintDraft200ResponseDataInner) GetResourceTypes() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ResourceTypes
+}
+
+// GetResourceTypesOk returns a tuple with the ResourceTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBlueprintDraft200ResponseDataInner) GetResourceTypesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ResourceTypes) {
+		return nil, false
+	}
+	return &o.ResourceTypes, true
+}
+
+// HasResourceTypes returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasResourceTypes() bool {
+	if o != nil && !IsNil(o.ResourceTypes) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceTypes gets a reference to the given interface{} and assigns it to the ResourceTypes field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetResourceTypes(v interface{}) {
+	o.ResourceTypes = v
+}
+
+// GetEstimatedCostMonthly returns the EstimatedCostMonthly field value if set, zero value otherwise.
+func (o *FindBlueprintDraft200ResponseDataInner) GetEstimatedCostMonthly() float32 {
+	if o == nil || IsNil(o.EstimatedCostMonthly) {
+		var ret float32
+		return ret
+	}
+	return *o.EstimatedCostMonthly
+}
+
+// GetEstimatedCostMonthlyOk returns a tuple with the EstimatedCostMonthly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetEstimatedCostMonthlyOk() (*float32, bool) {
+	if o == nil || IsNil(o.EstimatedCostMonthly) {
+		return nil, false
+	}
+	return o.EstimatedCostMonthly, true
+}
+
+// HasEstimatedCostMonthly returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasEstimatedCostMonthly() bool {
+	if o != nil && !IsNil(o.EstimatedCostMonthly) {
+		return true
+	}
+
+	return false
+}
+
+// SetEstimatedCostMonthly gets a reference to the given float32 and assigns it to the EstimatedCostMonthly field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetEstimatedCostMonthly(v float32) {
+	o.EstimatedCostMonthly = &v
+}
+
+// GetCostNotes returns the CostNotes field value if set, zero value otherwise.
+func (o *FindBlueprintDraft200ResponseDataInner) GetCostNotes() string {
+	if o == nil || IsNil(o.CostNotes) {
+		var ret string
+		return ret
+	}
+	return *o.CostNotes
+}
+
+// GetCostNotesOk returns a tuple with the CostNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetCostNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.CostNotes) {
+		return nil, false
+	}
+	return o.CostNotes, true
+}
+
+// HasCostNotes returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasCostNotes() bool {
+	if o != nil && !IsNil(o.CostNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetCostNotes gets a reference to the given string and assigns it to the CostNotes field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetCostNotes(v string) {
+	o.CostNotes = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindBlueprintDraft200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *FindBlueprintDraft200ResponseDataInner) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetVersion(v string) {
+	o.Version = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBlueprintDraft200ResponseDataInner) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBlueprintDraft200ResponseDataInner) GetTagsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return &o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *FindBlueprintDraft200ResponseDataInner) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *FindBlueprintDraft200ResponseDataInner) SetTags(v interface{}) {
+	o.Tags = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +602,6 @@ func (o *FindBlueprintDraft200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindBlueprintDraft200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindBlueprintDraft200ResponseDataInner) GetAttributes() BlueprintDraft {
-	if o == nil || IsNil(o.Attributes) {
-		var ret BlueprintDraft
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindBlueprintDraft200ResponseDataInner) GetAttributesOk() (*BlueprintDraft, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindBlueprintDraft200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given BlueprintDraft and assigns it to the Attributes field.
-func (o *FindBlueprintDraft200ResponseDataInner) SetAttributes(v BlueprintDraft) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +720,52 @@ func (o FindBlueprintDraft200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindBlueprintDraft200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["organisation"] = o.Organisation
+	if !IsNil(o.Author) {
+		toSerialize["author"] = o.Author
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Slug) {
+		toSerialize["slug"] = o.Slug
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Category) {
+		toSerialize["category"] = o.Category
+	}
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
+	if o.Steps != nil {
+		toSerialize["steps"] = o.Steps
+	}
+	if o.Variables != nil {
+		toSerialize["variables"] = o.Variables
+	}
+	if o.ResourceTypes != nil {
+		toSerialize["resource_types"] = o.ResourceTypes
+	}
+	if !IsNil(o.EstimatedCostMonthly) {
+		toSerialize["estimated_cost_monthly"] = o.EstimatedCostMonthly
+	}
+	if !IsNil(o.CostNotes) {
+		toSerialize["cost_notes"] = o.CostNotes
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +777,44 @@ func (o FindBlueprintDraft200ResponseDataInner) ToMap() (map[string]interface{},
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindBlueprintDraft200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organisation",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindBlueprintDraft200ResponseDataInner := _FindBlueprintDraft200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindBlueprintDraft200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindBlueprintDraft200ResponseDataInner(varFindBlueprintDraft200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindBlueprintDraft200ResponseDataInner struct {

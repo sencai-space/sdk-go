@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindDriftEvent200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,45 @@ var _ MappedNullable = &FindDriftEvent200ResponseDataInner{}
 
 // FindDriftEvent200ResponseDataInner struct for FindDriftEvent200ResponseDataInner
 type FindDriftEvent200ResponseDataInner struct {
+	CloudAsset *CreateAccessReviewRequestDataReviewer `json:"cloud_asset,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	// Časová značka detekce driftu (okamžik scan ingestion, který změnu odhalil).
+	DetectedAt *time.Time `json:"detected_at,omitempty"`
+	// Logické pole kanonického subsetu, které se změnilo (instanceType | state | securityGroups | iamPolicies | sizeGb | tags.* …).
+	Field string `json:"field"`
+	// Hodnota pole PŘED změnou (uložený stav). Serializovaná do textu (JSON.stringify u objektů/polí). Bez PII/secrets — kanonický subset whitelistuje neutajená pole.
+	Before *string `json:"before,omitempty"`
+	// Hodnota pole PO změně (čerstvě naskenovaný stav). Serializovaná do textu (JSON.stringify u objektů/polí). Bez PII/secrets.
+	After *string `json:"after,omitempty"`
+	// Závažnost driftu (z plánu F2.INV.03): low = tag change; medium = security-group rule change; high = instance terminated/stopped-destroyed NEBO IAM policy attached.
+	Severity string `json:"severity"`
+	// True když uživatel drift potvrdil (uzavřel). Acknowledge je jen evidence — drift-event zůstává (immutable historie pro NIS2 evidence).
+	Acknowledged *bool `json:"acknowledged,omitempty"`
+	// Identita uživatele, který drift potvrdil (email nebo user:id) — accountability.
+	AcknowledgedBy *string `json:"acknowledged_by,omitempty"`
+	// Časová značka potvrzení driftu (nullable dokud není acknowledged).
+	AcknowledgedAt *time.Time `json:"acknowledged_at,omitempty"`
+	// Logical data-residency region of the tenant (CELL invariant, F2.CELL.01).
+	HomeRegion *string `json:"home_region,omitempty"`
+	// Deployment cell within home_region for blast-radius isolation (CELL invariant, F2.CELL.01).
+	CellId *string `json:"cell_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *DriftEvent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindDriftEvent200ResponseDataInner FindDriftEvent200ResponseDataInner
+
 // NewFindDriftEvent200ResponseDataInner instantiates a new FindDriftEvent200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindDriftEvent200ResponseDataInner() *FindDriftEvent200ResponseDataInner {
+func NewFindDriftEvent200ResponseDataInner(field string, severity string) *FindDriftEvent200ResponseDataInner {
 	this := FindDriftEvent200ResponseDataInner{}
+	this.Field = field
+	this.Severity = severity
 	return &this
 }
 
@@ -44,6 +71,374 @@ func NewFindDriftEvent200ResponseDataInner() *FindDriftEvent200ResponseDataInner
 func NewFindDriftEvent200ResponseDataInnerWithDefaults() *FindDriftEvent200ResponseDataInner {
 	this := FindDriftEvent200ResponseDataInner{}
 	return &this
+}
+
+// GetCloudAsset returns the CloudAsset field value if set, zero value otherwise.
+func (o *FindDriftEvent200ResponseDataInner) GetCloudAsset() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CloudAsset) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CloudAsset
+}
+
+// GetCloudAssetOk returns a tuple with the CloudAsset field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetCloudAssetOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CloudAsset) {
+		return nil, false
+	}
+	return o.CloudAsset, true
+}
+
+// HasCloudAsset returns a boolean if a field has been set.
+func (o *FindDriftEvent200ResponseDataInner) HasCloudAsset() bool {
+	if o != nil && !IsNil(o.CloudAsset) {
+		return true
+	}
+
+	return false
+}
+
+// SetCloudAsset gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CloudAsset field.
+func (o *FindDriftEvent200ResponseDataInner) SetCloudAsset(v CreateAccessReviewRequestDataReviewer) {
+	o.CloudAsset = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindDriftEvent200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindDriftEvent200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindDriftEvent200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetDetectedAt returns the DetectedAt field value if set, zero value otherwise.
+func (o *FindDriftEvent200ResponseDataInner) GetDetectedAt() time.Time {
+	if o == nil || IsNil(o.DetectedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DetectedAt
+}
+
+// GetDetectedAtOk returns a tuple with the DetectedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetDetectedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DetectedAt) {
+		return nil, false
+	}
+	return o.DetectedAt, true
+}
+
+// HasDetectedAt returns a boolean if a field has been set.
+func (o *FindDriftEvent200ResponseDataInner) HasDetectedAt() bool {
+	if o != nil && !IsNil(o.DetectedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDetectedAt gets a reference to the given time.Time and assigns it to the DetectedAt field.
+func (o *FindDriftEvent200ResponseDataInner) SetDetectedAt(v time.Time) {
+	o.DetectedAt = &v
+}
+
+// GetField returns the Field field value
+func (o *FindDriftEvent200ResponseDataInner) GetField() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Field
+}
+
+// GetFieldOk returns a tuple with the Field field value
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetFieldOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Field, true
+}
+
+// SetField sets field value
+func (o *FindDriftEvent200ResponseDataInner) SetField(v string) {
+	o.Field = v
+}
+
+// GetBefore returns the Before field value if set, zero value otherwise.
+func (o *FindDriftEvent200ResponseDataInner) GetBefore() string {
+	if o == nil || IsNil(o.Before) {
+		var ret string
+		return ret
+	}
+	return *o.Before
+}
+
+// GetBeforeOk returns a tuple with the Before field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetBeforeOk() (*string, bool) {
+	if o == nil || IsNil(o.Before) {
+		return nil, false
+	}
+	return o.Before, true
+}
+
+// HasBefore returns a boolean if a field has been set.
+func (o *FindDriftEvent200ResponseDataInner) HasBefore() bool {
+	if o != nil && !IsNil(o.Before) {
+		return true
+	}
+
+	return false
+}
+
+// SetBefore gets a reference to the given string and assigns it to the Before field.
+func (o *FindDriftEvent200ResponseDataInner) SetBefore(v string) {
+	o.Before = &v
+}
+
+// GetAfter returns the After field value if set, zero value otherwise.
+func (o *FindDriftEvent200ResponseDataInner) GetAfter() string {
+	if o == nil || IsNil(o.After) {
+		var ret string
+		return ret
+	}
+	return *o.After
+}
+
+// GetAfterOk returns a tuple with the After field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetAfterOk() (*string, bool) {
+	if o == nil || IsNil(o.After) {
+		return nil, false
+	}
+	return o.After, true
+}
+
+// HasAfter returns a boolean if a field has been set.
+func (o *FindDriftEvent200ResponseDataInner) HasAfter() bool {
+	if o != nil && !IsNil(o.After) {
+		return true
+	}
+
+	return false
+}
+
+// SetAfter gets a reference to the given string and assigns it to the After field.
+func (o *FindDriftEvent200ResponseDataInner) SetAfter(v string) {
+	o.After = &v
+}
+
+// GetSeverity returns the Severity field value
+func (o *FindDriftEvent200ResponseDataInner) GetSeverity() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Severity
+}
+
+// GetSeverityOk returns a tuple with the Severity field value
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetSeverityOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Severity, true
+}
+
+// SetSeverity sets field value
+func (o *FindDriftEvent200ResponseDataInner) SetSeverity(v string) {
+	o.Severity = v
+}
+
+// GetAcknowledged returns the Acknowledged field value if set, zero value otherwise.
+func (o *FindDriftEvent200ResponseDataInner) GetAcknowledged() bool {
+	if o == nil || IsNil(o.Acknowledged) {
+		var ret bool
+		return ret
+	}
+	return *o.Acknowledged
+}
+
+// GetAcknowledgedOk returns a tuple with the Acknowledged field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetAcknowledgedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Acknowledged) {
+		return nil, false
+	}
+	return o.Acknowledged, true
+}
+
+// HasAcknowledged returns a boolean if a field has been set.
+func (o *FindDriftEvent200ResponseDataInner) HasAcknowledged() bool {
+	if o != nil && !IsNil(o.Acknowledged) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcknowledged gets a reference to the given bool and assigns it to the Acknowledged field.
+func (o *FindDriftEvent200ResponseDataInner) SetAcknowledged(v bool) {
+	o.Acknowledged = &v
+}
+
+// GetAcknowledgedBy returns the AcknowledgedBy field value if set, zero value otherwise.
+func (o *FindDriftEvent200ResponseDataInner) GetAcknowledgedBy() string {
+	if o == nil || IsNil(o.AcknowledgedBy) {
+		var ret string
+		return ret
+	}
+	return *o.AcknowledgedBy
+}
+
+// GetAcknowledgedByOk returns a tuple with the AcknowledgedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetAcknowledgedByOk() (*string, bool) {
+	if o == nil || IsNil(o.AcknowledgedBy) {
+		return nil, false
+	}
+	return o.AcknowledgedBy, true
+}
+
+// HasAcknowledgedBy returns a boolean if a field has been set.
+func (o *FindDriftEvent200ResponseDataInner) HasAcknowledgedBy() bool {
+	if o != nil && !IsNil(o.AcknowledgedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcknowledgedBy gets a reference to the given string and assigns it to the AcknowledgedBy field.
+func (o *FindDriftEvent200ResponseDataInner) SetAcknowledgedBy(v string) {
+	o.AcknowledgedBy = &v
+}
+
+// GetAcknowledgedAt returns the AcknowledgedAt field value if set, zero value otherwise.
+func (o *FindDriftEvent200ResponseDataInner) GetAcknowledgedAt() time.Time {
+	if o == nil || IsNil(o.AcknowledgedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AcknowledgedAt
+}
+
+// GetAcknowledgedAtOk returns a tuple with the AcknowledgedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetAcknowledgedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AcknowledgedAt) {
+		return nil, false
+	}
+	return o.AcknowledgedAt, true
+}
+
+// HasAcknowledgedAt returns a boolean if a field has been set.
+func (o *FindDriftEvent200ResponseDataInner) HasAcknowledgedAt() bool {
+	if o != nil && !IsNil(o.AcknowledgedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcknowledgedAt gets a reference to the given time.Time and assigns it to the AcknowledgedAt field.
+func (o *FindDriftEvent200ResponseDataInner) SetAcknowledgedAt(v time.Time) {
+	o.AcknowledgedAt = &v
+}
+
+// GetHomeRegion returns the HomeRegion field value if set, zero value otherwise.
+func (o *FindDriftEvent200ResponseDataInner) GetHomeRegion() string {
+	if o == nil || IsNil(o.HomeRegion) {
+		var ret string
+		return ret
+	}
+	return *o.HomeRegion
+}
+
+// GetHomeRegionOk returns a tuple with the HomeRegion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetHomeRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.HomeRegion) {
+		return nil, false
+	}
+	return o.HomeRegion, true
+}
+
+// HasHomeRegion returns a boolean if a field has been set.
+func (o *FindDriftEvent200ResponseDataInner) HasHomeRegion() bool {
+	if o != nil && !IsNil(o.HomeRegion) {
+		return true
+	}
+
+	return false
+}
+
+// SetHomeRegion gets a reference to the given string and assigns it to the HomeRegion field.
+func (o *FindDriftEvent200ResponseDataInner) SetHomeRegion(v string) {
+	o.HomeRegion = &v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindDriftEvent200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDriftEvent200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindDriftEvent200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindDriftEvent200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +503,6 @@ func (o *FindDriftEvent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindDriftEvent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindDriftEvent200ResponseDataInner) GetAttributes() DriftEvent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret DriftEvent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindDriftEvent200ResponseDataInner) GetAttributesOk() (*DriftEvent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindDriftEvent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given DriftEvent and assigns it to the Attributes field.
-func (o *FindDriftEvent200ResponseDataInner) SetAttributes(v DriftEvent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +621,43 @@ func (o FindDriftEvent200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindDriftEvent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CloudAsset) {
+		toSerialize["cloud_asset"] = o.CloudAsset
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.DetectedAt) {
+		toSerialize["detected_at"] = o.DetectedAt
+	}
+	toSerialize["field"] = o.Field
+	if !IsNil(o.Before) {
+		toSerialize["before"] = o.Before
+	}
+	if !IsNil(o.After) {
+		toSerialize["after"] = o.After
+	}
+	toSerialize["severity"] = o.Severity
+	if !IsNil(o.Acknowledged) {
+		toSerialize["acknowledged"] = o.Acknowledged
+	}
+	if !IsNil(o.AcknowledgedBy) {
+		toSerialize["acknowledged_by"] = o.AcknowledgedBy
+	}
+	if !IsNil(o.AcknowledgedAt) {
+		toSerialize["acknowledged_at"] = o.AcknowledgedAt
+	}
+	if !IsNil(o.HomeRegion) {
+		toSerialize["home_region"] = o.HomeRegion
+	}
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +669,44 @@ func (o FindDriftEvent200ResponseDataInner) ToMap() (map[string]interface{}, err
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindDriftEvent200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"field",
+		"severity",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindDriftEvent200ResponseDataInner := _FindDriftEvent200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindDriftEvent200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindDriftEvent200ResponseDataInner(varFindDriftEvent200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindDriftEvent200ResponseDataInner struct {

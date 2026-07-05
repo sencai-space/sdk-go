@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAuditAnchor200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,30 @@ var _ MappedNullable = &FindAuditAnchor200ResponseDataInner{}
 
 // FindAuditAnchor200ResponseDataInner struct for FindAuditAnchor200ResponseDataInner
 type FindAuditAnchor200ResponseDataInner struct {
+	AnchorHash string `json:"anchor_hash"`
+	Signature string `json:"signature"`
+	PublicKeyFingerprint string `json:"public_key_fingerprint"`
+	AnchoredEntryId string `json:"anchored_entry_id"`
+	EntriesCount *int32 `json:"entries_count,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AuditAnchor `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAuditAnchor200ResponseDataInner FindAuditAnchor200ResponseDataInner
+
 // NewFindAuditAnchor200ResponseDataInner instantiates a new FindAuditAnchor200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAuditAnchor200ResponseDataInner() *FindAuditAnchor200ResponseDataInner {
+func NewFindAuditAnchor200ResponseDataInner(anchorHash string, signature string, publicKeyFingerprint string, anchoredEntryId string) *FindAuditAnchor200ResponseDataInner {
 	this := FindAuditAnchor200ResponseDataInner{}
+	this.AnchorHash = anchorHash
+	this.Signature = signature
+	this.PublicKeyFingerprint = publicKeyFingerprint
+	this.AnchoredEntryId = anchoredEntryId
 	return &this
 }
 
@@ -44,6 +56,134 @@ func NewFindAuditAnchor200ResponseDataInner() *FindAuditAnchor200ResponseDataInn
 func NewFindAuditAnchor200ResponseDataInnerWithDefaults() *FindAuditAnchor200ResponseDataInner {
 	this := FindAuditAnchor200ResponseDataInner{}
 	return &this
+}
+
+// GetAnchorHash returns the AnchorHash field value
+func (o *FindAuditAnchor200ResponseDataInner) GetAnchorHash() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AnchorHash
+}
+
+// GetAnchorHashOk returns a tuple with the AnchorHash field value
+// and a boolean to check if the value has been set.
+func (o *FindAuditAnchor200ResponseDataInner) GetAnchorHashOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AnchorHash, true
+}
+
+// SetAnchorHash sets field value
+func (o *FindAuditAnchor200ResponseDataInner) SetAnchorHash(v string) {
+	o.AnchorHash = v
+}
+
+// GetSignature returns the Signature field value
+func (o *FindAuditAnchor200ResponseDataInner) GetSignature() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Signature
+}
+
+// GetSignatureOk returns a tuple with the Signature field value
+// and a boolean to check if the value has been set.
+func (o *FindAuditAnchor200ResponseDataInner) GetSignatureOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Signature, true
+}
+
+// SetSignature sets field value
+func (o *FindAuditAnchor200ResponseDataInner) SetSignature(v string) {
+	o.Signature = v
+}
+
+// GetPublicKeyFingerprint returns the PublicKeyFingerprint field value
+func (o *FindAuditAnchor200ResponseDataInner) GetPublicKeyFingerprint() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PublicKeyFingerprint
+}
+
+// GetPublicKeyFingerprintOk returns a tuple with the PublicKeyFingerprint field value
+// and a boolean to check if the value has been set.
+func (o *FindAuditAnchor200ResponseDataInner) GetPublicKeyFingerprintOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PublicKeyFingerprint, true
+}
+
+// SetPublicKeyFingerprint sets field value
+func (o *FindAuditAnchor200ResponseDataInner) SetPublicKeyFingerprint(v string) {
+	o.PublicKeyFingerprint = v
+}
+
+// GetAnchoredEntryId returns the AnchoredEntryId field value
+func (o *FindAuditAnchor200ResponseDataInner) GetAnchoredEntryId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AnchoredEntryId
+}
+
+// GetAnchoredEntryIdOk returns a tuple with the AnchoredEntryId field value
+// and a boolean to check if the value has been set.
+func (o *FindAuditAnchor200ResponseDataInner) GetAnchoredEntryIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AnchoredEntryId, true
+}
+
+// SetAnchoredEntryId sets field value
+func (o *FindAuditAnchor200ResponseDataInner) SetAnchoredEntryId(v string) {
+	o.AnchoredEntryId = v
+}
+
+// GetEntriesCount returns the EntriesCount field value if set, zero value otherwise.
+func (o *FindAuditAnchor200ResponseDataInner) GetEntriesCount() int32 {
+	if o == nil || IsNil(o.EntriesCount) {
+		var ret int32
+		return ret
+	}
+	return *o.EntriesCount
+}
+
+// GetEntriesCountOk returns a tuple with the EntriesCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditAnchor200ResponseDataInner) GetEntriesCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.EntriesCount) {
+		return nil, false
+	}
+	return o.EntriesCount, true
+}
+
+// HasEntriesCount returns a boolean if a field has been set.
+func (o *FindAuditAnchor200ResponseDataInner) HasEntriesCount() bool {
+	if o != nil && !IsNil(o.EntriesCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntriesCount gets a reference to the given int32 and assigns it to the EntriesCount field.
+func (o *FindAuditAnchor200ResponseDataInner) SetEntriesCount(v int32) {
+	o.EntriesCount = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +248,6 @@ func (o *FindAuditAnchor200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAuditAnchor200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAuditAnchor200ResponseDataInner) GetAttributes() AuditAnchor {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AuditAnchor
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAuditAnchor200ResponseDataInner) GetAttributesOk() (*AuditAnchor, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAuditAnchor200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AuditAnchor and assigns it to the Attributes field.
-func (o *FindAuditAnchor200ResponseDataInner) SetAttributes(v AuditAnchor) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +366,18 @@ func (o FindAuditAnchor200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAuditAnchor200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["anchor_hash"] = o.AnchorHash
+	toSerialize["signature"] = o.Signature
+	toSerialize["public_key_fingerprint"] = o.PublicKeyFingerprint
+	toSerialize["anchored_entry_id"] = o.AnchoredEntryId
+	if !IsNil(o.EntriesCount) {
+		toSerialize["entries_count"] = o.EntriesCount
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +389,46 @@ func (o FindAuditAnchor200ResponseDataInner) ToMap() (map[string]interface{}, er
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAuditAnchor200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"anchor_hash",
+		"signature",
+		"public_key_fingerprint",
+		"anchored_entry_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAuditAnchor200ResponseDataInner := _FindAuditAnchor200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAuditAnchor200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAuditAnchor200ResponseDataInner(varFindAuditAnchor200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAuditAnchor200ResponseDataInner struct {

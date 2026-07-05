@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAgentConfig200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,30 @@ var _ MappedNullable = &FindAgentConfig200ResponseDataInner{}
 
 // FindAgentConfig200ResponseDataInner struct for FindAgentConfig200ResponseDataInner
 type FindAgentConfig200ResponseDataInner struct {
+	ConfigKey string `json:"config_key"`
+	ConfigValue *string `json:"config_value,omitempty"`
+	ConfigType *string `json:"config_type,omitempty"`
+	Description *string `json:"description,omitempty"`
+	AppliesTo *string `json:"applies_to,omitempty"`
+	AgentId *string `json:"agent_id,omitempty"`
+	IsSensitive *bool `json:"is_sensitive,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AgentConfig `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAgentConfig200ResponseDataInner FindAgentConfig200ResponseDataInner
+
 // NewFindAgentConfig200ResponseDataInner instantiates a new FindAgentConfig200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAgentConfig200ResponseDataInner() *FindAgentConfig200ResponseDataInner {
+func NewFindAgentConfig200ResponseDataInner(configKey string) *FindAgentConfig200ResponseDataInner {
 	this := FindAgentConfig200ResponseDataInner{}
+	this.ConfigKey = configKey
 	return &this
 }
 
@@ -44,6 +56,254 @@ func NewFindAgentConfig200ResponseDataInner() *FindAgentConfig200ResponseDataInn
 func NewFindAgentConfig200ResponseDataInnerWithDefaults() *FindAgentConfig200ResponseDataInner {
 	this := FindAgentConfig200ResponseDataInner{}
 	return &this
+}
+
+// GetConfigKey returns the ConfigKey field value
+func (o *FindAgentConfig200ResponseDataInner) GetConfigKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ConfigKey
+}
+
+// GetConfigKeyOk returns a tuple with the ConfigKey field value
+// and a boolean to check if the value has been set.
+func (o *FindAgentConfig200ResponseDataInner) GetConfigKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ConfigKey, true
+}
+
+// SetConfigKey sets field value
+func (o *FindAgentConfig200ResponseDataInner) SetConfigKey(v string) {
+	o.ConfigKey = v
+}
+
+// GetConfigValue returns the ConfigValue field value if set, zero value otherwise.
+func (o *FindAgentConfig200ResponseDataInner) GetConfigValue() string {
+	if o == nil || IsNil(o.ConfigValue) {
+		var ret string
+		return ret
+	}
+	return *o.ConfigValue
+}
+
+// GetConfigValueOk returns a tuple with the ConfigValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentConfig200ResponseDataInner) GetConfigValueOk() (*string, bool) {
+	if o == nil || IsNil(o.ConfigValue) {
+		return nil, false
+	}
+	return o.ConfigValue, true
+}
+
+// HasConfigValue returns a boolean if a field has been set.
+func (o *FindAgentConfig200ResponseDataInner) HasConfigValue() bool {
+	if o != nil && !IsNil(o.ConfigValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfigValue gets a reference to the given string and assigns it to the ConfigValue field.
+func (o *FindAgentConfig200ResponseDataInner) SetConfigValue(v string) {
+	o.ConfigValue = &v
+}
+
+// GetConfigType returns the ConfigType field value if set, zero value otherwise.
+func (o *FindAgentConfig200ResponseDataInner) GetConfigType() string {
+	if o == nil || IsNil(o.ConfigType) {
+		var ret string
+		return ret
+	}
+	return *o.ConfigType
+}
+
+// GetConfigTypeOk returns a tuple with the ConfigType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentConfig200ResponseDataInner) GetConfigTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ConfigType) {
+		return nil, false
+	}
+	return o.ConfigType, true
+}
+
+// HasConfigType returns a boolean if a field has been set.
+func (o *FindAgentConfig200ResponseDataInner) HasConfigType() bool {
+	if o != nil && !IsNil(o.ConfigType) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfigType gets a reference to the given string and assigns it to the ConfigType field.
+func (o *FindAgentConfig200ResponseDataInner) SetConfigType(v string) {
+	o.ConfigType = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindAgentConfig200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentConfig200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindAgentConfig200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindAgentConfig200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetAppliesTo returns the AppliesTo field value if set, zero value otherwise.
+func (o *FindAgentConfig200ResponseDataInner) GetAppliesTo() string {
+	if o == nil || IsNil(o.AppliesTo) {
+		var ret string
+		return ret
+	}
+	return *o.AppliesTo
+}
+
+// GetAppliesToOk returns a tuple with the AppliesTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentConfig200ResponseDataInner) GetAppliesToOk() (*string, bool) {
+	if o == nil || IsNil(o.AppliesTo) {
+		return nil, false
+	}
+	return o.AppliesTo, true
+}
+
+// HasAppliesTo returns a boolean if a field has been set.
+func (o *FindAgentConfig200ResponseDataInner) HasAppliesTo() bool {
+	if o != nil && !IsNil(o.AppliesTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetAppliesTo gets a reference to the given string and assigns it to the AppliesTo field.
+func (o *FindAgentConfig200ResponseDataInner) SetAppliesTo(v string) {
+	o.AppliesTo = &v
+}
+
+// GetAgentId returns the AgentId field value if set, zero value otherwise.
+func (o *FindAgentConfig200ResponseDataInner) GetAgentId() string {
+	if o == nil || IsNil(o.AgentId) {
+		var ret string
+		return ret
+	}
+	return *o.AgentId
+}
+
+// GetAgentIdOk returns a tuple with the AgentId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentConfig200ResponseDataInner) GetAgentIdOk() (*string, bool) {
+	if o == nil || IsNil(o.AgentId) {
+		return nil, false
+	}
+	return o.AgentId, true
+}
+
+// HasAgentId returns a boolean if a field has been set.
+func (o *FindAgentConfig200ResponseDataInner) HasAgentId() bool {
+	if o != nil && !IsNil(o.AgentId) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgentId gets a reference to the given string and assigns it to the AgentId field.
+func (o *FindAgentConfig200ResponseDataInner) SetAgentId(v string) {
+	o.AgentId = &v
+}
+
+// GetIsSensitive returns the IsSensitive field value if set, zero value otherwise.
+func (o *FindAgentConfig200ResponseDataInner) GetIsSensitive() bool {
+	if o == nil || IsNil(o.IsSensitive) {
+		var ret bool
+		return ret
+	}
+	return *o.IsSensitive
+}
+
+// GetIsSensitiveOk returns a tuple with the IsSensitive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentConfig200ResponseDataInner) GetIsSensitiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsSensitive) {
+		return nil, false
+	}
+	return o.IsSensitive, true
+}
+
+// HasIsSensitive returns a boolean if a field has been set.
+func (o *FindAgentConfig200ResponseDataInner) HasIsSensitive() bool {
+	if o != nil && !IsNil(o.IsSensitive) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSensitive gets a reference to the given bool and assigns it to the IsSensitive field.
+func (o *FindAgentConfig200ResponseDataInner) SetIsSensitive(v bool) {
+	o.IsSensitive = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindAgentConfig200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentConfig200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindAgentConfig200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindAgentConfig200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +368,6 @@ func (o *FindAgentConfig200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAgentConfig200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAgentConfig200ResponseDataInner) GetAttributes() AgentConfig {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AgentConfig
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAgentConfig200ResponseDataInner) GetAttributesOk() (*AgentConfig, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAgentConfig200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AgentConfig and assigns it to the Attributes field.
-func (o *FindAgentConfig200ResponseDataInner) SetAttributes(v AgentConfig) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +486,33 @@ func (o FindAgentConfig200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAgentConfig200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["config_key"] = o.ConfigKey
+	if !IsNil(o.ConfigValue) {
+		toSerialize["config_value"] = o.ConfigValue
+	}
+	if !IsNil(o.ConfigType) {
+		toSerialize["config_type"] = o.ConfigType
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.AppliesTo) {
+		toSerialize["applies_to"] = o.AppliesTo
+	}
+	if !IsNil(o.AgentId) {
+		toSerialize["agent_id"] = o.AgentId
+	}
+	if !IsNil(o.IsSensitive) {
+		toSerialize["is_sensitive"] = o.IsSensitive
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +524,43 @@ func (o FindAgentConfig200ResponseDataInner) ToMap() (map[string]interface{}, er
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAgentConfig200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"config_key",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAgentConfig200ResponseDataInner := _FindAgentConfig200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAgentConfig200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAgentConfig200ResponseDataInner(varFindAgentConfig200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAgentConfig200ResponseDataInner struct {

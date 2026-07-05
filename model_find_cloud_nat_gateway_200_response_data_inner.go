@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudNatGateway200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,30 @@ var _ MappedNullable = &FindCloudNatGateway200ResponseDataInner{}
 
 // FindCloudNatGateway200ResponseDataInner struct for FindCloudNatGateway200ResponseDataInner
 type FindCloudNatGateway200ResponseDataInner struct {
+	Name string `json:"name"`
+	ElasticIp *string `json:"elastic_ip,omitempty"`
+	State *string `json:"state,omitempty"`
+	ExternalId *string `json:"external_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	Subnet *CreateAccessReviewRequestDataReviewer `json:"subnet,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudNatGateway `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudNatGateway200ResponseDataInner FindCloudNatGateway200ResponseDataInner
+
 // NewFindCloudNatGateway200ResponseDataInner instantiates a new FindCloudNatGateway200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudNatGateway200ResponseDataInner() *FindCloudNatGateway200ResponseDataInner {
+func NewFindCloudNatGateway200ResponseDataInner(name string) *FindCloudNatGateway200ResponseDataInner {
 	this := FindCloudNatGateway200ResponseDataInner{}
+	this.Name = name
 	return &this
 }
 
@@ -44,6 +56,223 @@ func NewFindCloudNatGateway200ResponseDataInner() *FindCloudNatGateway200Respons
 func NewFindCloudNatGateway200ResponseDataInnerWithDefaults() *FindCloudNatGateway200ResponseDataInner {
 	this := FindCloudNatGateway200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCloudNatGateway200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCloudNatGateway200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetElasticIp returns the ElasticIp field value if set, zero value otherwise.
+func (o *FindCloudNatGateway200ResponseDataInner) GetElasticIp() string {
+	if o == nil || IsNil(o.ElasticIp) {
+		var ret string
+		return ret
+	}
+	return *o.ElasticIp
+}
+
+// GetElasticIpOk returns a tuple with the ElasticIp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) GetElasticIpOk() (*string, bool) {
+	if o == nil || IsNil(o.ElasticIp) {
+		return nil, false
+	}
+	return o.ElasticIp, true
+}
+
+// HasElasticIp returns a boolean if a field has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) HasElasticIp() bool {
+	if o != nil && !IsNil(o.ElasticIp) {
+		return true
+	}
+
+	return false
+}
+
+// SetElasticIp gets a reference to the given string and assigns it to the ElasticIp field.
+func (o *FindCloudNatGateway200ResponseDataInner) SetElasticIp(v string) {
+	o.ElasticIp = &v
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *FindCloudNatGateway200ResponseDataInner) GetState() string {
+	if o == nil || IsNil(o.State) {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) GetStateOk() (*string, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *FindCloudNatGateway200ResponseDataInner) SetState(v string) {
+	o.State = &v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *FindCloudNatGateway200ResponseDataInner) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *FindCloudNatGateway200ResponseDataInner) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudNatGateway200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudNatGateway200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindCloudNatGateway200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetSubnet returns the Subnet field value if set, zero value otherwise.
+func (o *FindCloudNatGateway200ResponseDataInner) GetSubnet() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Subnet) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Subnet
+}
+
+// GetSubnetOk returns a tuple with the Subnet field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) GetSubnetOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Subnet) {
+		return nil, false
+	}
+	return o.Subnet, true
+}
+
+// HasSubnet returns a boolean if a field has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) HasSubnet() bool {
+	if o != nil && !IsNil(o.Subnet) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubnet gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Subnet field.
+func (o *FindCloudNatGateway200ResponseDataInner) SetSubnet(v CreateAccessReviewRequestDataReviewer) {
+	o.Subnet = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCloudNatGateway200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCloudNatGateway200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCloudNatGateway200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +337,6 @@ func (o *FindCloudNatGateway200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudNatGateway200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudNatGateway200ResponseDataInner) GetAttributes() CloudNatGateway {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudNatGateway
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudNatGateway200ResponseDataInner) GetAttributesOk() (*CloudNatGateway, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudNatGateway200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudNatGateway and assigns it to the Attributes field.
-func (o *FindCloudNatGateway200ResponseDataInner) SetAttributes(v CloudNatGateway) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +455,30 @@ func (o FindCloudNatGateway200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCloudNatGateway200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.ElasticIp) {
+		toSerialize["elastic_ip"] = o.ElasticIp
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["external_id"] = o.ExternalId
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.Subnet) {
+		toSerialize["subnet"] = o.Subnet
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +490,43 @@ func (o FindCloudNatGateway200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudNatGateway200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudNatGateway200ResponseDataInner := _FindCloudNatGateway200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudNatGateway200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudNatGateway200ResponseDataInner(varFindCloudNatGateway200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudNatGateway200ResponseDataInner struct {

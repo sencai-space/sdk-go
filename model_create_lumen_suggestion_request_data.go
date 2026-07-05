@@ -24,7 +24,8 @@ var _ MappedNullable = &CreateLumenSuggestionRequestData{}
 // CreateLumenSuggestionRequestData struct for CreateLumenSuggestionRequestData
 type CreateLumenSuggestionRequestData struct {
 	TriggerEvent *string `json:"trigger_event,omitempty"`
-	TriggerData map[string]interface{} `json:"trigger_data,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	TriggerData interface{} `json:"trigger_data,omitempty"`
 	SuggestionText string `json:"suggestion_text"`
 	Category *string `json:"category,omitempty"`
 	Severity *string `json:"severity,omitempty"`
@@ -85,10 +86,10 @@ func (o *CreateLumenSuggestionRequestData) SetTriggerEvent(v string) {
 	o.TriggerEvent = &v
 }
 
-// GetTriggerData returns the TriggerData field value if set, zero value otherwise.
-func (o *CreateLumenSuggestionRequestData) GetTriggerData() map[string]interface{} {
-	if o == nil || IsNil(o.TriggerData) {
-		var ret map[string]interface{}
+// GetTriggerData returns the TriggerData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateLumenSuggestionRequestData) GetTriggerData() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.TriggerData
@@ -96,11 +97,12 @@ func (o *CreateLumenSuggestionRequestData) GetTriggerData() map[string]interface
 
 // GetTriggerDataOk returns a tuple with the TriggerData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateLumenSuggestionRequestData) GetTriggerDataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateLumenSuggestionRequestData) GetTriggerDataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.TriggerData) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.TriggerData, true
+	return &o.TriggerData, true
 }
 
 // HasTriggerData returns a boolean if a field has been set.
@@ -112,8 +114,8 @@ func (o *CreateLumenSuggestionRequestData) HasTriggerData() bool {
 	return false
 }
 
-// SetTriggerData gets a reference to the given map[string]interface{} and assigns it to the TriggerData field.
-func (o *CreateLumenSuggestionRequestData) SetTriggerData(v map[string]interface{}) {
+// SetTriggerData gets a reference to the given interface{} and assigns it to the TriggerData field.
+func (o *CreateLumenSuggestionRequestData) SetTriggerData(v interface{}) {
 	o.TriggerData = v
 }
 
@@ -314,7 +316,7 @@ func (o CreateLumenSuggestionRequestData) ToMap() (map[string]interface{}, error
 	if !IsNil(o.TriggerEvent) {
 		toSerialize["trigger_event"] = o.TriggerEvent
 	}
-	if !IsNil(o.TriggerData) {
+	if o.TriggerData != nil {
 		toSerialize["trigger_data"] = o.TriggerData
 	}
 	toSerialize["suggestion_text"] = o.SuggestionText

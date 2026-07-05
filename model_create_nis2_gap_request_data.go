@@ -29,8 +29,10 @@ type CreateNis2GapRequestData struct {
 	Status *string `json:"status,omitempty"`
 	TargetDate *string `json:"target_date,omitempty"`
 	Owner *string `json:"owner,omitempty"`
-	EvidenceLinks map[string]interface{} `json:"evidence_links,omitempty"`
-	AuditActionEvidence map[string]interface{} `json:"audit_action_evidence,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	EvidenceLinks interface{} `json:"evidence_links,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AuditActionEvidence interface{} `json:"audit_action_evidence,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
 
@@ -263,10 +265,10 @@ func (o *CreateNis2GapRequestData) SetOwner(v string) {
 	o.Owner = &v
 }
 
-// GetEvidenceLinks returns the EvidenceLinks field value if set, zero value otherwise.
-func (o *CreateNis2GapRequestData) GetEvidenceLinks() map[string]interface{} {
-	if o == nil || IsNil(o.EvidenceLinks) {
-		var ret map[string]interface{}
+// GetEvidenceLinks returns the EvidenceLinks field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateNis2GapRequestData) GetEvidenceLinks() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.EvidenceLinks
@@ -274,11 +276,12 @@ func (o *CreateNis2GapRequestData) GetEvidenceLinks() map[string]interface{} {
 
 // GetEvidenceLinksOk returns a tuple with the EvidenceLinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateNis2GapRequestData) GetEvidenceLinksOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateNis2GapRequestData) GetEvidenceLinksOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.EvidenceLinks) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.EvidenceLinks, true
+	return &o.EvidenceLinks, true
 }
 
 // HasEvidenceLinks returns a boolean if a field has been set.
@@ -290,15 +293,15 @@ func (o *CreateNis2GapRequestData) HasEvidenceLinks() bool {
 	return false
 }
 
-// SetEvidenceLinks gets a reference to the given map[string]interface{} and assigns it to the EvidenceLinks field.
-func (o *CreateNis2GapRequestData) SetEvidenceLinks(v map[string]interface{}) {
+// SetEvidenceLinks gets a reference to the given interface{} and assigns it to the EvidenceLinks field.
+func (o *CreateNis2GapRequestData) SetEvidenceLinks(v interface{}) {
 	o.EvidenceLinks = v
 }
 
-// GetAuditActionEvidence returns the AuditActionEvidence field value if set, zero value otherwise.
-func (o *CreateNis2GapRequestData) GetAuditActionEvidence() map[string]interface{} {
-	if o == nil || IsNil(o.AuditActionEvidence) {
-		var ret map[string]interface{}
+// GetAuditActionEvidence returns the AuditActionEvidence field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateNis2GapRequestData) GetAuditActionEvidence() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.AuditActionEvidence
@@ -306,11 +309,12 @@ func (o *CreateNis2GapRequestData) GetAuditActionEvidence() map[string]interface
 
 // GetAuditActionEvidenceOk returns a tuple with the AuditActionEvidence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateNis2GapRequestData) GetAuditActionEvidenceOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateNis2GapRequestData) GetAuditActionEvidenceOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AuditActionEvidence) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.AuditActionEvidence, true
+	return &o.AuditActionEvidence, true
 }
 
 // HasAuditActionEvidence returns a boolean if a field has been set.
@@ -322,8 +326,8 @@ func (o *CreateNis2GapRequestData) HasAuditActionEvidence() bool {
 	return false
 }
 
-// SetAuditActionEvidence gets a reference to the given map[string]interface{} and assigns it to the AuditActionEvidence field.
-func (o *CreateNis2GapRequestData) SetAuditActionEvidence(v map[string]interface{}) {
+// SetAuditActionEvidence gets a reference to the given interface{} and assigns it to the AuditActionEvidence field.
+func (o *CreateNis2GapRequestData) SetAuditActionEvidence(v interface{}) {
 	o.AuditActionEvidence = v
 }
 
@@ -386,10 +390,10 @@ func (o CreateNis2GapRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Owner) {
 		toSerialize["owner"] = o.Owner
 	}
-	if !IsNil(o.EvidenceLinks) {
+	if o.EvidenceLinks != nil {
 		toSerialize["evidence_links"] = o.EvidenceLinks
 	}
-	if !IsNil(o.AuditActionEvidence) {
+	if o.AuditActionEvidence != nil {
 		toSerialize["audit_action_evidence"] = o.AuditActionEvidence
 	}
 	if !IsNil(o.Organisation) {

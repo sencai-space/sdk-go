@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCogsRecord200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,43 @@ var _ MappedNullable = &FindCogsRecord200ResponseDataInner{}
 
 // FindCogsRecord200ResponseDataInner struct for FindCogsRecord200ResponseDataInner
 type FindCogsRecord200ResponseDataInner struct {
+	OrgDocId string `json:"org_doc_id"`
+	PeriodStart time.Time `json:"period_start"`
+	PeriodEnd time.Time `json:"period_end"`
+	PeriodType *string `json:"period_type,omitempty"`
+	ProviderId *string `json:"provider_id,omitempty"`
+	ServiceCategory *string `json:"service_category,omitempty"`
+	BilledCost *float32 `json:"billed_cost,omitempty"`
+	EffectiveCost *float32 `json:"effective_cost,omitempty"`
+	Currency *string `json:"currency,omitempty"`
+	ManagedHosts *int32 `json:"managed_hosts,omitempty"`
+	LlmTokenCostUsd *float32 `json:"llm_token_cost_usd,omitempty"`
+	LlmTokensTotal *int32 `json:"llm_tokens_total,omitempty"`
+	CloudComputeCostUsd *float32 `json:"cloud_compute_cost_usd,omitempty"`
+	FocusVersion *string `json:"focus_version,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
+	IdempotencyKey *string `json:"idempotency_key,omitempty"`
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CogsRecord `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCogsRecord200ResponseDataInner FindCogsRecord200ResponseDataInner
+
 // NewFindCogsRecord200ResponseDataInner instantiates a new FindCogsRecord200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCogsRecord200ResponseDataInner() *FindCogsRecord200ResponseDataInner {
+func NewFindCogsRecord200ResponseDataInner(orgDocId string, periodStart time.Time, periodEnd time.Time, organisation CreateAccessReviewRequestDataReviewer) *FindCogsRecord200ResponseDataInner {
 	this := FindCogsRecord200ResponseDataInner{}
+	this.OrgDocId = orgDocId
+	this.PeriodStart = periodStart
+	this.PeriodEnd = periodEnd
+	this.Organisation = organisation
 	return &this
 }
 
@@ -44,6 +69,519 @@ func NewFindCogsRecord200ResponseDataInner() *FindCogsRecord200ResponseDataInner
 func NewFindCogsRecord200ResponseDataInnerWithDefaults() *FindCogsRecord200ResponseDataInner {
 	this := FindCogsRecord200ResponseDataInner{}
 	return &this
+}
+
+// GetOrgDocId returns the OrgDocId field value
+func (o *FindCogsRecord200ResponseDataInner) GetOrgDocId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OrgDocId
+}
+
+// GetOrgDocIdOk returns a tuple with the OrgDocId field value
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetOrgDocIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OrgDocId, true
+}
+
+// SetOrgDocId sets field value
+func (o *FindCogsRecord200ResponseDataInner) SetOrgDocId(v string) {
+	o.OrgDocId = v
+}
+
+// GetPeriodStart returns the PeriodStart field value
+func (o *FindCogsRecord200ResponseDataInner) GetPeriodStart() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.PeriodStart
+}
+
+// GetPeriodStartOk returns a tuple with the PeriodStart field value
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetPeriodStartOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PeriodStart, true
+}
+
+// SetPeriodStart sets field value
+func (o *FindCogsRecord200ResponseDataInner) SetPeriodStart(v time.Time) {
+	o.PeriodStart = v
+}
+
+// GetPeriodEnd returns the PeriodEnd field value
+func (o *FindCogsRecord200ResponseDataInner) GetPeriodEnd() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.PeriodEnd
+}
+
+// GetPeriodEndOk returns a tuple with the PeriodEnd field value
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetPeriodEndOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PeriodEnd, true
+}
+
+// SetPeriodEnd sets field value
+func (o *FindCogsRecord200ResponseDataInner) SetPeriodEnd(v time.Time) {
+	o.PeriodEnd = v
+}
+
+// GetPeriodType returns the PeriodType field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetPeriodType() string {
+	if o == nil || IsNil(o.PeriodType) {
+		var ret string
+		return ret
+	}
+	return *o.PeriodType
+}
+
+// GetPeriodTypeOk returns a tuple with the PeriodType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetPeriodTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.PeriodType) {
+		return nil, false
+	}
+	return o.PeriodType, true
+}
+
+// HasPeriodType returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasPeriodType() bool {
+	if o != nil && !IsNil(o.PeriodType) {
+		return true
+	}
+
+	return false
+}
+
+// SetPeriodType gets a reference to the given string and assigns it to the PeriodType field.
+func (o *FindCogsRecord200ResponseDataInner) SetPeriodType(v string) {
+	o.PeriodType = &v
+}
+
+// GetProviderId returns the ProviderId field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetProviderId() string {
+	if o == nil || IsNil(o.ProviderId) {
+		var ret string
+		return ret
+	}
+	return *o.ProviderId
+}
+
+// GetProviderIdOk returns a tuple with the ProviderId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetProviderIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ProviderId) {
+		return nil, false
+	}
+	return o.ProviderId, true
+}
+
+// HasProviderId returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasProviderId() bool {
+	if o != nil && !IsNil(o.ProviderId) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderId gets a reference to the given string and assigns it to the ProviderId field.
+func (o *FindCogsRecord200ResponseDataInner) SetProviderId(v string) {
+	o.ProviderId = &v
+}
+
+// GetServiceCategory returns the ServiceCategory field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetServiceCategory() string {
+	if o == nil || IsNil(o.ServiceCategory) {
+		var ret string
+		return ret
+	}
+	return *o.ServiceCategory
+}
+
+// GetServiceCategoryOk returns a tuple with the ServiceCategory field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetServiceCategoryOk() (*string, bool) {
+	if o == nil || IsNil(o.ServiceCategory) {
+		return nil, false
+	}
+	return o.ServiceCategory, true
+}
+
+// HasServiceCategory returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasServiceCategory() bool {
+	if o != nil && !IsNil(o.ServiceCategory) {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceCategory gets a reference to the given string and assigns it to the ServiceCategory field.
+func (o *FindCogsRecord200ResponseDataInner) SetServiceCategory(v string) {
+	o.ServiceCategory = &v
+}
+
+// GetBilledCost returns the BilledCost field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetBilledCost() float32 {
+	if o == nil || IsNil(o.BilledCost) {
+		var ret float32
+		return ret
+	}
+	return *o.BilledCost
+}
+
+// GetBilledCostOk returns a tuple with the BilledCost field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetBilledCostOk() (*float32, bool) {
+	if o == nil || IsNil(o.BilledCost) {
+		return nil, false
+	}
+	return o.BilledCost, true
+}
+
+// HasBilledCost returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasBilledCost() bool {
+	if o != nil && !IsNil(o.BilledCost) {
+		return true
+	}
+
+	return false
+}
+
+// SetBilledCost gets a reference to the given float32 and assigns it to the BilledCost field.
+func (o *FindCogsRecord200ResponseDataInner) SetBilledCost(v float32) {
+	o.BilledCost = &v
+}
+
+// GetEffectiveCost returns the EffectiveCost field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetEffectiveCost() float32 {
+	if o == nil || IsNil(o.EffectiveCost) {
+		var ret float32
+		return ret
+	}
+	return *o.EffectiveCost
+}
+
+// GetEffectiveCostOk returns a tuple with the EffectiveCost field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetEffectiveCostOk() (*float32, bool) {
+	if o == nil || IsNil(o.EffectiveCost) {
+		return nil, false
+	}
+	return o.EffectiveCost, true
+}
+
+// HasEffectiveCost returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasEffectiveCost() bool {
+	if o != nil && !IsNil(o.EffectiveCost) {
+		return true
+	}
+
+	return false
+}
+
+// SetEffectiveCost gets a reference to the given float32 and assigns it to the EffectiveCost field.
+func (o *FindCogsRecord200ResponseDataInner) SetEffectiveCost(v float32) {
+	o.EffectiveCost = &v
+}
+
+// GetCurrency returns the Currency field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetCurrency() string {
+	if o == nil || IsNil(o.Currency) {
+		var ret string
+		return ret
+	}
+	return *o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetCurrencyOk() (*string, bool) {
+	if o == nil || IsNil(o.Currency) {
+		return nil, false
+	}
+	return o.Currency, true
+}
+
+// HasCurrency returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasCurrency() bool {
+	if o != nil && !IsNil(o.Currency) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+func (o *FindCogsRecord200ResponseDataInner) SetCurrency(v string) {
+	o.Currency = &v
+}
+
+// GetManagedHosts returns the ManagedHosts field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetManagedHosts() int32 {
+	if o == nil || IsNil(o.ManagedHosts) {
+		var ret int32
+		return ret
+	}
+	return *o.ManagedHosts
+}
+
+// GetManagedHostsOk returns a tuple with the ManagedHosts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetManagedHostsOk() (*int32, bool) {
+	if o == nil || IsNil(o.ManagedHosts) {
+		return nil, false
+	}
+	return o.ManagedHosts, true
+}
+
+// HasManagedHosts returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasManagedHosts() bool {
+	if o != nil && !IsNil(o.ManagedHosts) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedHosts gets a reference to the given int32 and assigns it to the ManagedHosts field.
+func (o *FindCogsRecord200ResponseDataInner) SetManagedHosts(v int32) {
+	o.ManagedHosts = &v
+}
+
+// GetLlmTokenCostUsd returns the LlmTokenCostUsd field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetLlmTokenCostUsd() float32 {
+	if o == nil || IsNil(o.LlmTokenCostUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.LlmTokenCostUsd
+}
+
+// GetLlmTokenCostUsdOk returns a tuple with the LlmTokenCostUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetLlmTokenCostUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.LlmTokenCostUsd) {
+		return nil, false
+	}
+	return o.LlmTokenCostUsd, true
+}
+
+// HasLlmTokenCostUsd returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasLlmTokenCostUsd() bool {
+	if o != nil && !IsNil(o.LlmTokenCostUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetLlmTokenCostUsd gets a reference to the given float32 and assigns it to the LlmTokenCostUsd field.
+func (o *FindCogsRecord200ResponseDataInner) SetLlmTokenCostUsd(v float32) {
+	o.LlmTokenCostUsd = &v
+}
+
+// GetLlmTokensTotal returns the LlmTokensTotal field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetLlmTokensTotal() int32 {
+	if o == nil || IsNil(o.LlmTokensTotal) {
+		var ret int32
+		return ret
+	}
+	return *o.LlmTokensTotal
+}
+
+// GetLlmTokensTotalOk returns a tuple with the LlmTokensTotal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetLlmTokensTotalOk() (*int32, bool) {
+	if o == nil || IsNil(o.LlmTokensTotal) {
+		return nil, false
+	}
+	return o.LlmTokensTotal, true
+}
+
+// HasLlmTokensTotal returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasLlmTokensTotal() bool {
+	if o != nil && !IsNil(o.LlmTokensTotal) {
+		return true
+	}
+
+	return false
+}
+
+// SetLlmTokensTotal gets a reference to the given int32 and assigns it to the LlmTokensTotal field.
+func (o *FindCogsRecord200ResponseDataInner) SetLlmTokensTotal(v int32) {
+	o.LlmTokensTotal = &v
+}
+
+// GetCloudComputeCostUsd returns the CloudComputeCostUsd field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetCloudComputeCostUsd() float32 {
+	if o == nil || IsNil(o.CloudComputeCostUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.CloudComputeCostUsd
+}
+
+// GetCloudComputeCostUsdOk returns a tuple with the CloudComputeCostUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetCloudComputeCostUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.CloudComputeCostUsd) {
+		return nil, false
+	}
+	return o.CloudComputeCostUsd, true
+}
+
+// HasCloudComputeCostUsd returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasCloudComputeCostUsd() bool {
+	if o != nil && !IsNil(o.CloudComputeCostUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetCloudComputeCostUsd gets a reference to the given float32 and assigns it to the CloudComputeCostUsd field.
+func (o *FindCogsRecord200ResponseDataInner) SetCloudComputeCostUsd(v float32) {
+	o.CloudComputeCostUsd = &v
+}
+
+// GetFocusVersion returns the FocusVersion field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetFocusVersion() string {
+	if o == nil || IsNil(o.FocusVersion) {
+		var ret string
+		return ret
+	}
+	return *o.FocusVersion
+}
+
+// GetFocusVersionOk returns a tuple with the FocusVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetFocusVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.FocusVersion) {
+		return nil, false
+	}
+	return o.FocusVersion, true
+}
+
+// HasFocusVersion returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasFocusVersion() bool {
+	if o != nil && !IsNil(o.FocusVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetFocusVersion gets a reference to the given string and assigns it to the FocusVersion field.
+func (o *FindCogsRecord200ResponseDataInner) SetFocusVersion(v string) {
+	o.FocusVersion = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCogsRecord200ResponseDataInner) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCogsRecord200ResponseDataInner) GetTagsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return &o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *FindCogsRecord200ResponseDataInner) SetTags(v interface{}) {
+	o.Tags = v
+}
+
+// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise.
+func (o *FindCogsRecord200ResponseDataInner) GetIdempotencyKey() string {
+	if o == nil || IsNil(o.IdempotencyKey) {
+		var ret string
+		return ret
+	}
+	return *o.IdempotencyKey
+}
+
+// GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetIdempotencyKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.IdempotencyKey) {
+		return nil, false
+	}
+	return o.IdempotencyKey, true
+}
+
+// HasIdempotencyKey returns a boolean if a field has been set.
+func (o *FindCogsRecord200ResponseDataInner) HasIdempotencyKey() bool {
+	if o != nil && !IsNil(o.IdempotencyKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdempotencyKey gets a reference to the given string and assigns it to the IdempotencyKey field.
+func (o *FindCogsRecord200ResponseDataInner) SetIdempotencyKey(v string) {
+	o.IdempotencyKey = &v
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindCogsRecord200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindCogsRecord200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindCogsRecord200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +646,6 @@ func (o *FindCogsRecord200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCogsRecord200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCogsRecord200ResponseDataInner) GetAttributes() CogsRecord {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CogsRecord
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCogsRecord200ResponseDataInner) GetAttributesOk() (*CogsRecord, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCogsRecord200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CogsRecord and assigns it to the Attributes field.
-func (o *FindCogsRecord200ResponseDataInner) SetAttributes(v CogsRecord) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +764,54 @@ func (o FindCogsRecord200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCogsRecord200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["org_doc_id"] = o.OrgDocId
+	toSerialize["period_start"] = o.PeriodStart
+	toSerialize["period_end"] = o.PeriodEnd
+	if !IsNil(o.PeriodType) {
+		toSerialize["period_type"] = o.PeriodType
+	}
+	if !IsNil(o.ProviderId) {
+		toSerialize["provider_id"] = o.ProviderId
+	}
+	if !IsNil(o.ServiceCategory) {
+		toSerialize["service_category"] = o.ServiceCategory
+	}
+	if !IsNil(o.BilledCost) {
+		toSerialize["billed_cost"] = o.BilledCost
+	}
+	if !IsNil(o.EffectiveCost) {
+		toSerialize["effective_cost"] = o.EffectiveCost
+	}
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.ManagedHosts) {
+		toSerialize["managed_hosts"] = o.ManagedHosts
+	}
+	if !IsNil(o.LlmTokenCostUsd) {
+		toSerialize["llm_token_cost_usd"] = o.LlmTokenCostUsd
+	}
+	if !IsNil(o.LlmTokensTotal) {
+		toSerialize["llm_tokens_total"] = o.LlmTokensTotal
+	}
+	if !IsNil(o.CloudComputeCostUsd) {
+		toSerialize["cloud_compute_cost_usd"] = o.CloudComputeCostUsd
+	}
+	if !IsNil(o.FocusVersion) {
+		toSerialize["focus_version"] = o.FocusVersion
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.IdempotencyKey) {
+		toSerialize["idempotency_key"] = o.IdempotencyKey
+	}
+	toSerialize["organisation"] = o.Organisation
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +823,46 @@ func (o FindCogsRecord200ResponseDataInner) ToMap() (map[string]interface{}, err
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCogsRecord200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"org_doc_id",
+		"period_start",
+		"period_end",
+		"organisation",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCogsRecord200ResponseDataInner := _FindCogsRecord200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCogsRecord200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCogsRecord200ResponseDataInner(varFindCogsRecord200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCogsRecord200ResponseDataInner struct {

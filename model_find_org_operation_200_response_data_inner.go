@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindOrgOperation200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindOrgOperation200ResponseDataInner{}
 
 // FindOrgOperation200ResponseDataInner struct for FindOrgOperation200ResponseDataInner
 type FindOrgOperation200ResponseDataInner struct {
+	OperationType string `json:"operation_type"`
+	// documentId of the source organisation
+	SourceOrgId string `json:"source_org_id"`
+	// documentId of the target (merge) or newly created (split) organisation
+	TargetOrgId *string `json:"target_org_id,omitempty"`
+	Status string `json:"status"`
+	// Merge: {}. Split: { member_ids: string[], instance_ids: string[] }
+	Config interface{} `json:"config,omitempty"`
+	ErrorMessage *string `json:"error_message,omitempty"`
+	// Email of the user who initiated the operation
+	InitiatedBy *string `json:"initiated_by,omitempty"`
+	CompletedAt *time.Time `json:"completed_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *OrgOperation `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindOrgOperation200ResponseDataInner FindOrgOperation200ResponseDataInner
+
 // NewFindOrgOperation200ResponseDataInner instantiates a new FindOrgOperation200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindOrgOperation200ResponseDataInner() *FindOrgOperation200ResponseDataInner {
+func NewFindOrgOperation200ResponseDataInner(operationType string, sourceOrgId string, status string) *FindOrgOperation200ResponseDataInner {
 	this := FindOrgOperation200ResponseDataInner{}
+	this.OperationType = operationType
+	this.SourceOrgId = sourceOrgId
+	this.Status = status
 	return &this
 }
 
@@ -44,6 +62,239 @@ func NewFindOrgOperation200ResponseDataInner() *FindOrgOperation200ResponseDataI
 func NewFindOrgOperation200ResponseDataInnerWithDefaults() *FindOrgOperation200ResponseDataInner {
 	this := FindOrgOperation200ResponseDataInner{}
 	return &this
+}
+
+// GetOperationType returns the OperationType field value
+func (o *FindOrgOperation200ResponseDataInner) GetOperationType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OperationType
+}
+
+// GetOperationTypeOk returns a tuple with the OperationType field value
+// and a boolean to check if the value has been set.
+func (o *FindOrgOperation200ResponseDataInner) GetOperationTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OperationType, true
+}
+
+// SetOperationType sets field value
+func (o *FindOrgOperation200ResponseDataInner) SetOperationType(v string) {
+	o.OperationType = v
+}
+
+// GetSourceOrgId returns the SourceOrgId field value
+func (o *FindOrgOperation200ResponseDataInner) GetSourceOrgId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SourceOrgId
+}
+
+// GetSourceOrgIdOk returns a tuple with the SourceOrgId field value
+// and a boolean to check if the value has been set.
+func (o *FindOrgOperation200ResponseDataInner) GetSourceOrgIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SourceOrgId, true
+}
+
+// SetSourceOrgId sets field value
+func (o *FindOrgOperation200ResponseDataInner) SetSourceOrgId(v string) {
+	o.SourceOrgId = v
+}
+
+// GetTargetOrgId returns the TargetOrgId field value if set, zero value otherwise.
+func (o *FindOrgOperation200ResponseDataInner) GetTargetOrgId() string {
+	if o == nil || IsNil(o.TargetOrgId) {
+		var ret string
+		return ret
+	}
+	return *o.TargetOrgId
+}
+
+// GetTargetOrgIdOk returns a tuple with the TargetOrgId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrgOperation200ResponseDataInner) GetTargetOrgIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TargetOrgId) {
+		return nil, false
+	}
+	return o.TargetOrgId, true
+}
+
+// HasTargetOrgId returns a boolean if a field has been set.
+func (o *FindOrgOperation200ResponseDataInner) HasTargetOrgId() bool {
+	if o != nil && !IsNil(o.TargetOrgId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetOrgId gets a reference to the given string and assigns it to the TargetOrgId field.
+func (o *FindOrgOperation200ResponseDataInner) SetTargetOrgId(v string) {
+	o.TargetOrgId = &v
+}
+
+// GetStatus returns the Status field value
+func (o *FindOrgOperation200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindOrgOperation200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindOrgOperation200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetConfig returns the Config field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindOrgOperation200ResponseDataInner) GetConfig() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Config
+}
+
+// GetConfigOk returns a tuple with the Config field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindOrgOperation200ResponseDataInner) GetConfigOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Config) {
+		return nil, false
+	}
+	return &o.Config, true
+}
+
+// HasConfig returns a boolean if a field has been set.
+func (o *FindOrgOperation200ResponseDataInner) HasConfig() bool {
+	if o != nil && !IsNil(o.Config) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfig gets a reference to the given interface{} and assigns it to the Config field.
+func (o *FindOrgOperation200ResponseDataInner) SetConfig(v interface{}) {
+	o.Config = v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindOrgOperation200ResponseDataInner) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrgOperation200ResponseDataInner) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindOrgOperation200ResponseDataInner) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindOrgOperation200ResponseDataInner) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
+// GetInitiatedBy returns the InitiatedBy field value if set, zero value otherwise.
+func (o *FindOrgOperation200ResponseDataInner) GetInitiatedBy() string {
+	if o == nil || IsNil(o.InitiatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.InitiatedBy
+}
+
+// GetInitiatedByOk returns a tuple with the InitiatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrgOperation200ResponseDataInner) GetInitiatedByOk() (*string, bool) {
+	if o == nil || IsNil(o.InitiatedBy) {
+		return nil, false
+	}
+	return o.InitiatedBy, true
+}
+
+// HasInitiatedBy returns a boolean if a field has been set.
+func (o *FindOrgOperation200ResponseDataInner) HasInitiatedBy() bool {
+	if o != nil && !IsNil(o.InitiatedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetInitiatedBy gets a reference to the given string and assigns it to the InitiatedBy field.
+func (o *FindOrgOperation200ResponseDataInner) SetInitiatedBy(v string) {
+	o.InitiatedBy = &v
+}
+
+// GetCompletedAt returns the CompletedAt field value if set, zero value otherwise.
+func (o *FindOrgOperation200ResponseDataInner) GetCompletedAt() time.Time {
+	if o == nil || IsNil(o.CompletedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CompletedAt
+}
+
+// GetCompletedAtOk returns a tuple with the CompletedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrgOperation200ResponseDataInner) GetCompletedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CompletedAt) {
+		return nil, false
+	}
+	return o.CompletedAt, true
+}
+
+// HasCompletedAt returns a boolean if a field has been set.
+func (o *FindOrgOperation200ResponseDataInner) HasCompletedAt() bool {
+	if o != nil && !IsNil(o.CompletedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCompletedAt gets a reference to the given time.Time and assigns it to the CompletedAt field.
+func (o *FindOrgOperation200ResponseDataInner) SetCompletedAt(v time.Time) {
+	o.CompletedAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +359,6 @@ func (o *FindOrgOperation200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindOrgOperation200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindOrgOperation200ResponseDataInner) GetAttributes() OrgOperation {
-	if o == nil || IsNil(o.Attributes) {
-		var ret OrgOperation
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindOrgOperation200ResponseDataInner) GetAttributesOk() (*OrgOperation, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindOrgOperation200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given OrgOperation and assigns it to the Attributes field.
-func (o *FindOrgOperation200ResponseDataInner) SetAttributes(v OrgOperation) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +477,29 @@ func (o FindOrgOperation200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindOrgOperation200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["operation_type"] = o.OperationType
+	toSerialize["source_org_id"] = o.SourceOrgId
+	if !IsNil(o.TargetOrgId) {
+		toSerialize["target_org_id"] = o.TargetOrgId
+	}
+	toSerialize["status"] = o.Status
+	if o.Config != nil {
+		toSerialize["config"] = o.Config
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
+	if !IsNil(o.InitiatedBy) {
+		toSerialize["initiated_by"] = o.InitiatedBy
+	}
+	if !IsNil(o.CompletedAt) {
+		toSerialize["completed_at"] = o.CompletedAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +511,45 @@ func (o FindOrgOperation200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindOrgOperation200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"operation_type",
+		"source_org_id",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindOrgOperation200ResponseDataInner := _FindOrgOperation200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindOrgOperation200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindOrgOperation200ResponseDataInner(varFindOrgOperation200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindOrgOperation200ResponseDataInner struct {

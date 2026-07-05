@@ -26,10 +26,12 @@ type CreateCloudIamBindingRequestData struct {
 	PrincipalType *string `json:"principal_type,omitempty"`
 	RoleName *string `json:"role_name,omitempty"`
 	Scope *string `json:"scope,omitempty"`
-	Condition map[string]interface{} `json:"condition,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Condition interface{} `json:"condition,omitempty"`
 	Provider *string `json:"provider,omitempty"`
 	ExternalId *string `json:"external_id,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
@@ -174,10 +176,10 @@ func (o *CreateCloudIamBindingRequestData) SetScope(v string) {
 	o.Scope = &v
 }
 
-// GetCondition returns the Condition field value if set, zero value otherwise.
-func (o *CreateCloudIamBindingRequestData) GetCondition() map[string]interface{} {
-	if o == nil || IsNil(o.Condition) {
-		var ret map[string]interface{}
+// GetCondition returns the Condition field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudIamBindingRequestData) GetCondition() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Condition
@@ -185,11 +187,12 @@ func (o *CreateCloudIamBindingRequestData) GetCondition() map[string]interface{}
 
 // GetConditionOk returns a tuple with the Condition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudIamBindingRequestData) GetConditionOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudIamBindingRequestData) GetConditionOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Condition) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Condition, true
+	return &o.Condition, true
 }
 
 // HasCondition returns a boolean if a field has been set.
@@ -201,8 +204,8 @@ func (o *CreateCloudIamBindingRequestData) HasCondition() bool {
 	return false
 }
 
-// SetCondition gets a reference to the given map[string]interface{} and assigns it to the Condition field.
-func (o *CreateCloudIamBindingRequestData) SetCondition(v map[string]interface{}) {
+// SetCondition gets a reference to the given interface{} and assigns it to the Condition field.
+func (o *CreateCloudIamBindingRequestData) SetCondition(v interface{}) {
 	o.Condition = v
 }
 
@@ -270,10 +273,10 @@ func (o *CreateCloudIamBindingRequestData) SetExternalId(v string) {
 	o.ExternalId = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CreateCloudIamBindingRequestData) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudIamBindingRequestData) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -281,11 +284,12 @@ func (o *CreateCloudIamBindingRequestData) GetMetadata() map[string]interface{} 
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudIamBindingRequestData) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudIamBindingRequestData) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -297,8 +301,8 @@ func (o *CreateCloudIamBindingRequestData) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CreateCloudIamBindingRequestData) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CreateCloudIamBindingRequestData) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -386,7 +390,7 @@ func (o CreateCloudIamBindingRequestData) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}
-	if !IsNil(o.Condition) {
+	if o.Condition != nil {
 		toSerialize["condition"] = o.Condition
 	}
 	if !IsNil(o.Provider) {
@@ -395,7 +399,7 @@ func (o CreateCloudIamBindingRequestData) ToMap() (map[string]interface{}, error
 	if !IsNil(o.ExternalId) {
 		toSerialize["external_id"] = o.ExternalId
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.Credential) {

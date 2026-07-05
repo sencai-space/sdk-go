@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAgentPolicy200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,53 @@ var _ MappedNullable = &FindAgentPolicy200ResponseDataInner{}
 
 // FindAgentPolicy200ResponseDataInner struct for FindAgentPolicy200ResponseDataInner
 type FindAgentPolicy200ResponseDataInner struct {
+	Name string `json:"name"`
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	// Determines what scope_value refers to: org = org-level policy, environment = named env (dev/prod/…), action_type = action type pattern.
+	ScopeType string `json:"scope_type"`
+	// The scoped value: org documentId, environment name, or action type pattern. Null means applies to all within the org.
+	ScopeValue *string `json:"scope_value,omitempty"`
+	// L0=observe only (no writes), L1=suggest only (no writes), L2=execute with approval, L3=auto-execute within policy.
+	AutonomyLevel string `json:"autonomy_level"`
+	// Array of time windows where all agent actions are blocked. Format: [{name: string, start: 'HH:MM', end: 'HH:MM', days: number[], timezone: string}]. days: 0=Sunday…6=Saturday.
+	FreezeWindows interface{} `json:"freeze_windows,omitempty"`
+	// Maximum scope of impact a single agent action may have under this policy.
+	MaxBlastRadius *string `json:"max_blast_radius,omitempty"`
+	// Explicit allowlist of action type strings. Null = all action types are allowed within the autonomy_level.
+	AllowedActionTypes interface{} `json:"allowed_action_types,omitempty"`
+	// Explicit blocklist of action type strings. Takes precedence over allowed_action_types.
+	BlockedActionTypes interface{} `json:"blocked_action_types,omitempty"`
+	IsActive bool `json:"is_active"`
+	// True when this policy was created by an agent. Used by no-self-policy-mutation guard to reject agent-initiated mutations.
+	CreatedByAgent *bool `json:"created_by_agent,omitempty"`
+	// Legacy OPA-compatible policy document. Format: { allow_actions: string[], deny_actions: string[], conditions: { max_instances_per_day?: number, allowed_regions?: string[], ... } }
+	PolicyDocument interface{} `json:"policy_document,omitempty"`
+	// Legacy: Policy specificity scope for OPA matching priority (per-action > per-env > per-provider > global).
+	Scope *string `json:"scope,omitempty"`
+	Provider *string `json:"provider,omitempty"`
+	Environment *string `json:"environment,omitempty"`
+	// Legacy: Glob-style pattern matched against the requested action. '*' matches all.
+	ActionPattern *string `json:"action_pattern,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AgentPolicy `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAgentPolicy200ResponseDataInner FindAgentPolicy200ResponseDataInner
+
 // NewFindAgentPolicy200ResponseDataInner instantiates a new FindAgentPolicy200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAgentPolicy200ResponseDataInner() *FindAgentPolicy200ResponseDataInner {
+func NewFindAgentPolicy200ResponseDataInner(name string, organisation CreateAccessReviewRequestDataReviewer, scopeType string, autonomyLevel string, isActive bool) *FindAgentPolicy200ResponseDataInner {
 	this := FindAgentPolicy200ResponseDataInner{}
+	this.Name = name
+	this.Organisation = organisation
+	this.ScopeType = scopeType
+	this.AutonomyLevel = autonomyLevel
+	this.IsActive = isActive
 	return &this
 }
 
@@ -44,6 +79,482 @@ func NewFindAgentPolicy200ResponseDataInner() *FindAgentPolicy200ResponseDataInn
 func NewFindAgentPolicy200ResponseDataInnerWithDefaults() *FindAgentPolicy200ResponseDataInner {
 	this := FindAgentPolicy200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindAgentPolicy200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindAgentPolicy200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindAgentPolicy200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindAgentPolicy200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetScopeType returns the ScopeType field value
+func (o *FindAgentPolicy200ResponseDataInner) GetScopeType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ScopeType
+}
+
+// GetScopeTypeOk returns a tuple with the ScopeType field value
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetScopeTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ScopeType, true
+}
+
+// SetScopeType sets field value
+func (o *FindAgentPolicy200ResponseDataInner) SetScopeType(v string) {
+	o.ScopeType = v
+}
+
+// GetScopeValue returns the ScopeValue field value if set, zero value otherwise.
+func (o *FindAgentPolicy200ResponseDataInner) GetScopeValue() string {
+	if o == nil || IsNil(o.ScopeValue) {
+		var ret string
+		return ret
+	}
+	return *o.ScopeValue
+}
+
+// GetScopeValueOk returns a tuple with the ScopeValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetScopeValueOk() (*string, bool) {
+	if o == nil || IsNil(o.ScopeValue) {
+		return nil, false
+	}
+	return o.ScopeValue, true
+}
+
+// HasScopeValue returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasScopeValue() bool {
+	if o != nil && !IsNil(o.ScopeValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetScopeValue gets a reference to the given string and assigns it to the ScopeValue field.
+func (o *FindAgentPolicy200ResponseDataInner) SetScopeValue(v string) {
+	o.ScopeValue = &v
+}
+
+// GetAutonomyLevel returns the AutonomyLevel field value
+func (o *FindAgentPolicy200ResponseDataInner) GetAutonomyLevel() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AutonomyLevel
+}
+
+// GetAutonomyLevelOk returns a tuple with the AutonomyLevel field value
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetAutonomyLevelOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AutonomyLevel, true
+}
+
+// SetAutonomyLevel sets field value
+func (o *FindAgentPolicy200ResponseDataInner) SetAutonomyLevel(v string) {
+	o.AutonomyLevel = v
+}
+
+// GetFreezeWindows returns the FreezeWindows field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAgentPolicy200ResponseDataInner) GetFreezeWindows() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.FreezeWindows
+}
+
+// GetFreezeWindowsOk returns a tuple with the FreezeWindows field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAgentPolicy200ResponseDataInner) GetFreezeWindowsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.FreezeWindows) {
+		return nil, false
+	}
+	return &o.FreezeWindows, true
+}
+
+// HasFreezeWindows returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasFreezeWindows() bool {
+	if o != nil && !IsNil(o.FreezeWindows) {
+		return true
+	}
+
+	return false
+}
+
+// SetFreezeWindows gets a reference to the given interface{} and assigns it to the FreezeWindows field.
+func (o *FindAgentPolicy200ResponseDataInner) SetFreezeWindows(v interface{}) {
+	o.FreezeWindows = v
+}
+
+// GetMaxBlastRadius returns the MaxBlastRadius field value if set, zero value otherwise.
+func (o *FindAgentPolicy200ResponseDataInner) GetMaxBlastRadius() string {
+	if o == nil || IsNil(o.MaxBlastRadius) {
+		var ret string
+		return ret
+	}
+	return *o.MaxBlastRadius
+}
+
+// GetMaxBlastRadiusOk returns a tuple with the MaxBlastRadius field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetMaxBlastRadiusOk() (*string, bool) {
+	if o == nil || IsNil(o.MaxBlastRadius) {
+		return nil, false
+	}
+	return o.MaxBlastRadius, true
+}
+
+// HasMaxBlastRadius returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasMaxBlastRadius() bool {
+	if o != nil && !IsNil(o.MaxBlastRadius) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxBlastRadius gets a reference to the given string and assigns it to the MaxBlastRadius field.
+func (o *FindAgentPolicy200ResponseDataInner) SetMaxBlastRadius(v string) {
+	o.MaxBlastRadius = &v
+}
+
+// GetAllowedActionTypes returns the AllowedActionTypes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAgentPolicy200ResponseDataInner) GetAllowedActionTypes() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.AllowedActionTypes
+}
+
+// GetAllowedActionTypesOk returns a tuple with the AllowedActionTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAgentPolicy200ResponseDataInner) GetAllowedActionTypesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.AllowedActionTypes) {
+		return nil, false
+	}
+	return &o.AllowedActionTypes, true
+}
+
+// HasAllowedActionTypes returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasAllowedActionTypes() bool {
+	if o != nil && !IsNil(o.AllowedActionTypes) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowedActionTypes gets a reference to the given interface{} and assigns it to the AllowedActionTypes field.
+func (o *FindAgentPolicy200ResponseDataInner) SetAllowedActionTypes(v interface{}) {
+	o.AllowedActionTypes = v
+}
+
+// GetBlockedActionTypes returns the BlockedActionTypes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAgentPolicy200ResponseDataInner) GetBlockedActionTypes() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.BlockedActionTypes
+}
+
+// GetBlockedActionTypesOk returns a tuple with the BlockedActionTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAgentPolicy200ResponseDataInner) GetBlockedActionTypesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.BlockedActionTypes) {
+		return nil, false
+	}
+	return &o.BlockedActionTypes, true
+}
+
+// HasBlockedActionTypes returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasBlockedActionTypes() bool {
+	if o != nil && !IsNil(o.BlockedActionTypes) {
+		return true
+	}
+
+	return false
+}
+
+// SetBlockedActionTypes gets a reference to the given interface{} and assigns it to the BlockedActionTypes field.
+func (o *FindAgentPolicy200ResponseDataInner) SetBlockedActionTypes(v interface{}) {
+	o.BlockedActionTypes = v
+}
+
+// GetIsActive returns the IsActive field value
+func (o *FindAgentPolicy200ResponseDataInner) GetIsActive() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetIsActiveOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsActive, true
+}
+
+// SetIsActive sets field value
+func (o *FindAgentPolicy200ResponseDataInner) SetIsActive(v bool) {
+	o.IsActive = v
+}
+
+// GetCreatedByAgent returns the CreatedByAgent field value if set, zero value otherwise.
+func (o *FindAgentPolicy200ResponseDataInner) GetCreatedByAgent() bool {
+	if o == nil || IsNil(o.CreatedByAgent) {
+		var ret bool
+		return ret
+	}
+	return *o.CreatedByAgent
+}
+
+// GetCreatedByAgentOk returns a tuple with the CreatedByAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetCreatedByAgentOk() (*bool, bool) {
+	if o == nil || IsNil(o.CreatedByAgent) {
+		return nil, false
+	}
+	return o.CreatedByAgent, true
+}
+
+// HasCreatedByAgent returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasCreatedByAgent() bool {
+	if o != nil && !IsNil(o.CreatedByAgent) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedByAgent gets a reference to the given bool and assigns it to the CreatedByAgent field.
+func (o *FindAgentPolicy200ResponseDataInner) SetCreatedByAgent(v bool) {
+	o.CreatedByAgent = &v
+}
+
+// GetPolicyDocument returns the PolicyDocument field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAgentPolicy200ResponseDataInner) GetPolicyDocument() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.PolicyDocument
+}
+
+// GetPolicyDocumentOk returns a tuple with the PolicyDocument field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAgentPolicy200ResponseDataInner) GetPolicyDocumentOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.PolicyDocument) {
+		return nil, false
+	}
+	return &o.PolicyDocument, true
+}
+
+// HasPolicyDocument returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasPolicyDocument() bool {
+	if o != nil && !IsNil(o.PolicyDocument) {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicyDocument gets a reference to the given interface{} and assigns it to the PolicyDocument field.
+func (o *FindAgentPolicy200ResponseDataInner) SetPolicyDocument(v interface{}) {
+	o.PolicyDocument = v
+}
+
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *FindAgentPolicy200ResponseDataInner) GetScope() string {
+	if o == nil || IsNil(o.Scope) {
+		var ret string
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetScopeOk() (*string, bool) {
+	if o == nil || IsNil(o.Scope) {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasScope() bool {
+	if o != nil && !IsNil(o.Scope) {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *FindAgentPolicy200ResponseDataInner) SetScope(v string) {
+	o.Scope = &v
+}
+
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *FindAgentPolicy200ResponseDataInner) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *FindAgentPolicy200ResponseDataInner) SetProvider(v string) {
+	o.Provider = &v
+}
+
+// GetEnvironment returns the Environment field value if set, zero value otherwise.
+func (o *FindAgentPolicy200ResponseDataInner) GetEnvironment() string {
+	if o == nil || IsNil(o.Environment) {
+		var ret string
+		return ret
+	}
+	return *o.Environment
+}
+
+// GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetEnvironmentOk() (*string, bool) {
+	if o == nil || IsNil(o.Environment) {
+		return nil, false
+	}
+	return o.Environment, true
+}
+
+// HasEnvironment returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasEnvironment() bool {
+	if o != nil && !IsNil(o.Environment) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironment gets a reference to the given string and assigns it to the Environment field.
+func (o *FindAgentPolicy200ResponseDataInner) SetEnvironment(v string) {
+	o.Environment = &v
+}
+
+// GetActionPattern returns the ActionPattern field value if set, zero value otherwise.
+func (o *FindAgentPolicy200ResponseDataInner) GetActionPattern() string {
+	if o == nil || IsNil(o.ActionPattern) {
+		var ret string
+		return ret
+	}
+	return *o.ActionPattern
+}
+
+// GetActionPatternOk returns a tuple with the ActionPattern field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentPolicy200ResponseDataInner) GetActionPatternOk() (*string, bool) {
+	if o == nil || IsNil(o.ActionPattern) {
+		return nil, false
+	}
+	return o.ActionPattern, true
+}
+
+// HasActionPattern returns a boolean if a field has been set.
+func (o *FindAgentPolicy200ResponseDataInner) HasActionPattern() bool {
+	if o != nil && !IsNil(o.ActionPattern) {
+		return true
+	}
+
+	return false
+}
+
+// SetActionPattern gets a reference to the given string and assigns it to the ActionPattern field.
+func (o *FindAgentPolicy200ResponseDataInner) SetActionPattern(v string) {
+	o.ActionPattern = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +619,6 @@ func (o *FindAgentPolicy200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAgentPolicy200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAgentPolicy200ResponseDataInner) GetAttributes() AgentPolicy {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AgentPolicy
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAgentPolicy200ResponseDataInner) GetAttributesOk() (*AgentPolicy, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAgentPolicy200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AgentPolicy and assigns it to the Attributes field.
-func (o *FindAgentPolicy200ResponseDataInner) SetAttributes(v AgentPolicy) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +737,49 @@ func (o FindAgentPolicy200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAgentPolicy200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["organisation"] = o.Organisation
+	toSerialize["scope_type"] = o.ScopeType
+	if !IsNil(o.ScopeValue) {
+		toSerialize["scope_value"] = o.ScopeValue
+	}
+	toSerialize["autonomy_level"] = o.AutonomyLevel
+	if o.FreezeWindows != nil {
+		toSerialize["freeze_windows"] = o.FreezeWindows
+	}
+	if !IsNil(o.MaxBlastRadius) {
+		toSerialize["max_blast_radius"] = o.MaxBlastRadius
+	}
+	if o.AllowedActionTypes != nil {
+		toSerialize["allowed_action_types"] = o.AllowedActionTypes
+	}
+	if o.BlockedActionTypes != nil {
+		toSerialize["blocked_action_types"] = o.BlockedActionTypes
+	}
+	toSerialize["is_active"] = o.IsActive
+	if !IsNil(o.CreatedByAgent) {
+		toSerialize["created_by_agent"] = o.CreatedByAgent
+	}
+	if o.PolicyDocument != nil {
+		toSerialize["policy_document"] = o.PolicyDocument
+	}
+	if !IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
+	if !IsNil(o.Environment) {
+		toSerialize["environment"] = o.Environment
+	}
+	if !IsNil(o.ActionPattern) {
+		toSerialize["action_pattern"] = o.ActionPattern
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +791,47 @@ func (o FindAgentPolicy200ResponseDataInner) ToMap() (map[string]interface{}, er
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAgentPolicy200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"organisation",
+		"scope_type",
+		"autonomy_level",
+		"is_active",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAgentPolicy200ResponseDataInner := _FindAgentPolicy200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAgentPolicy200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAgentPolicy200ResponseDataInner(varFindAgentPolicy200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAgentPolicy200ResponseDataInner struct {

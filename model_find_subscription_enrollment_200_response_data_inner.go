@@ -21,9 +21,32 @@ var _ MappedNullable = &FindSubscriptionEnrollment200ResponseDataInner{}
 
 // FindSubscriptionEnrollment200ResponseDataInner struct for FindSubscriptionEnrollment200ResponseDataInner
 type FindSubscriptionEnrollment200ResponseDataInner struct {
+	Status *string `json:"status,omitempty"`
+	PlanId *string `json:"plan_id,omitempty"`
+	PlanName *string `json:"plan_name,omitempty"`
+	StartedAt *time.Time `json:"started_at,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	CancelledAt *time.Time `json:"cancelled_at,omitempty"`
+	CancelReason *string `json:"cancel_reason,omitempty"`
+	RetentionOfferShown *bool `json:"retention_offer_shown,omitempty"`
+	AutoRenew *bool `json:"auto_renew,omitempty"`
+	StripeCustomerId *string `json:"stripe_customer_id,omitempty"`
+	StripeSubscriptionId *string `json:"stripe_subscription_id,omitempty"`
+	StripePriceId *string `json:"stripe_price_id,omitempty"`
+	CurrentPeriodEnd *time.Time `json:"current_period_end,omitempty"`
+	// F3.BILLING.02 — subscription is scheduled to cancel at current_period_end (Stripe cancel_at_period_end=true) rather than immediately. Enables reactivate before the period ends.
+	CancelAtPeriodEnd *bool `json:"cancel_at_period_end,omitempty"`
+	// F3.BILLING.02 — set when a period-end downgrade is scheduled (Stripe subscription_schedule / update at period end): { newTierId, newPlanName, effective_at }. Cleared once Stripe confirms the change via customer.subscription.updated.
+	PendingTierChange interface{} `json:"pending_tier_change,omitempty"`
+	// F3.BILLING.02 — active addon Stripe subscription line items: [{ addon_id, stripe_price_id, quantity, stripe_item_id }]. Mirrors Stripe as the source of truth; updated by /addons action and the subscription.updated webhook.
+	Addons interface{} `json:"addons,omitempty"`
+	// F3.BILLING.03 — sencai-watchdog dunning state machine. none = current on payment; payment_failed = day 0 (invoice.payment_failed received); grace_period = day 7 unpaid (in-app banner warning); suspended = day 14 unpaid (org.org_status also flips to 'suspended', read-only enforcement); terminated = day 30 unpaid (non-critical cloud instances terminated + org archived, gated behind WATCHDOG_AUTO_TERMINATE). Reset to 'none' on invoice.paid (restore). Owned exclusively by sencai-watchdog via service-secret endpoints — never written by any user-facing route.
+	DunningState *string `json:"dunning_state,omitempty"`
+	// F3.BILLING.03 — timestamp of the last dunning_state transition. Used by sencai-watchdog to compute day-count thresholds (7d/14d/30d) idempotently across hourly cron runs.
+	DunningStateChangedAt *time.Time `json:"dunning_state_changed_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SubscriptionEnrollment `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +67,616 @@ func NewFindSubscriptionEnrollment200ResponseDataInner() *FindSubscriptionEnroll
 func NewFindSubscriptionEnrollment200ResponseDataInnerWithDefaults() *FindSubscriptionEnrollment200ResponseDataInner {
 	this := FindSubscriptionEnrollment200ResponseDataInner{}
 	return &this
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetPlanId returns the PlanId field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetPlanId() string {
+	if o == nil || IsNil(o.PlanId) {
+		var ret string
+		return ret
+	}
+	return *o.PlanId
+}
+
+// GetPlanIdOk returns a tuple with the PlanId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetPlanIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PlanId) {
+		return nil, false
+	}
+	return o.PlanId, true
+}
+
+// HasPlanId returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasPlanId() bool {
+	if o != nil && !IsNil(o.PlanId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlanId gets a reference to the given string and assigns it to the PlanId field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetPlanId(v string) {
+	o.PlanId = &v
+}
+
+// GetPlanName returns the PlanName field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetPlanName() string {
+	if o == nil || IsNil(o.PlanName) {
+		var ret string
+		return ret
+	}
+	return *o.PlanName
+}
+
+// GetPlanNameOk returns a tuple with the PlanName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetPlanNameOk() (*string, bool) {
+	if o == nil || IsNil(o.PlanName) {
+		return nil, false
+	}
+	return o.PlanName, true
+}
+
+// HasPlanName returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasPlanName() bool {
+	if o != nil && !IsNil(o.PlanName) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlanName gets a reference to the given string and assigns it to the PlanName field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetPlanName(v string) {
+	o.PlanName = &v
+}
+
+// GetStartedAt returns the StartedAt field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetStartedAt() time.Time {
+	if o == nil || IsNil(o.StartedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartedAt
+}
+
+// GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetStartedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartedAt) {
+		return nil, false
+	}
+	return o.StartedAt, true
+}
+
+// HasStartedAt returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasStartedAt() bool {
+	if o != nil && !IsNil(o.StartedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartedAt gets a reference to the given time.Time and assigns it to the StartedAt field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetStartedAt(v time.Time) {
+	o.StartedAt = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
+}
+
+// GetCancelledAt returns the CancelledAt field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetCancelledAt() time.Time {
+	if o == nil || IsNil(o.CancelledAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CancelledAt
+}
+
+// GetCancelledAtOk returns a tuple with the CancelledAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetCancelledAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CancelledAt) {
+		return nil, false
+	}
+	return o.CancelledAt, true
+}
+
+// HasCancelledAt returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasCancelledAt() bool {
+	if o != nil && !IsNil(o.CancelledAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCancelledAt gets a reference to the given time.Time and assigns it to the CancelledAt field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetCancelledAt(v time.Time) {
+	o.CancelledAt = &v
+}
+
+// GetCancelReason returns the CancelReason field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetCancelReason() string {
+	if o == nil || IsNil(o.CancelReason) {
+		var ret string
+		return ret
+	}
+	return *o.CancelReason
+}
+
+// GetCancelReasonOk returns a tuple with the CancelReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetCancelReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.CancelReason) {
+		return nil, false
+	}
+	return o.CancelReason, true
+}
+
+// HasCancelReason returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasCancelReason() bool {
+	if o != nil && !IsNil(o.CancelReason) {
+		return true
+	}
+
+	return false
+}
+
+// SetCancelReason gets a reference to the given string and assigns it to the CancelReason field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetCancelReason(v string) {
+	o.CancelReason = &v
+}
+
+// GetRetentionOfferShown returns the RetentionOfferShown field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetRetentionOfferShown() bool {
+	if o == nil || IsNil(o.RetentionOfferShown) {
+		var ret bool
+		return ret
+	}
+	return *o.RetentionOfferShown
+}
+
+// GetRetentionOfferShownOk returns a tuple with the RetentionOfferShown field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetRetentionOfferShownOk() (*bool, bool) {
+	if o == nil || IsNil(o.RetentionOfferShown) {
+		return nil, false
+	}
+	return o.RetentionOfferShown, true
+}
+
+// HasRetentionOfferShown returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasRetentionOfferShown() bool {
+	if o != nil && !IsNil(o.RetentionOfferShown) {
+		return true
+	}
+
+	return false
+}
+
+// SetRetentionOfferShown gets a reference to the given bool and assigns it to the RetentionOfferShown field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetRetentionOfferShown(v bool) {
+	o.RetentionOfferShown = &v
+}
+
+// GetAutoRenew returns the AutoRenew field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetAutoRenew() bool {
+	if o == nil || IsNil(o.AutoRenew) {
+		var ret bool
+		return ret
+	}
+	return *o.AutoRenew
+}
+
+// GetAutoRenewOk returns a tuple with the AutoRenew field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetAutoRenewOk() (*bool, bool) {
+	if o == nil || IsNil(o.AutoRenew) {
+		return nil, false
+	}
+	return o.AutoRenew, true
+}
+
+// HasAutoRenew returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasAutoRenew() bool {
+	if o != nil && !IsNil(o.AutoRenew) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoRenew gets a reference to the given bool and assigns it to the AutoRenew field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetAutoRenew(v bool) {
+	o.AutoRenew = &v
+}
+
+// GetStripeCustomerId returns the StripeCustomerId field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetStripeCustomerId() string {
+	if o == nil || IsNil(o.StripeCustomerId) {
+		var ret string
+		return ret
+	}
+	return *o.StripeCustomerId
+}
+
+// GetStripeCustomerIdOk returns a tuple with the StripeCustomerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetStripeCustomerIdOk() (*string, bool) {
+	if o == nil || IsNil(o.StripeCustomerId) {
+		return nil, false
+	}
+	return o.StripeCustomerId, true
+}
+
+// HasStripeCustomerId returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasStripeCustomerId() bool {
+	if o != nil && !IsNil(o.StripeCustomerId) {
+		return true
+	}
+
+	return false
+}
+
+// SetStripeCustomerId gets a reference to the given string and assigns it to the StripeCustomerId field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetStripeCustomerId(v string) {
+	o.StripeCustomerId = &v
+}
+
+// GetStripeSubscriptionId returns the StripeSubscriptionId field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetStripeSubscriptionId() string {
+	if o == nil || IsNil(o.StripeSubscriptionId) {
+		var ret string
+		return ret
+	}
+	return *o.StripeSubscriptionId
+}
+
+// GetStripeSubscriptionIdOk returns a tuple with the StripeSubscriptionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetStripeSubscriptionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.StripeSubscriptionId) {
+		return nil, false
+	}
+	return o.StripeSubscriptionId, true
+}
+
+// HasStripeSubscriptionId returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasStripeSubscriptionId() bool {
+	if o != nil && !IsNil(o.StripeSubscriptionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetStripeSubscriptionId gets a reference to the given string and assigns it to the StripeSubscriptionId field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetStripeSubscriptionId(v string) {
+	o.StripeSubscriptionId = &v
+}
+
+// GetStripePriceId returns the StripePriceId field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetStripePriceId() string {
+	if o == nil || IsNil(o.StripePriceId) {
+		var ret string
+		return ret
+	}
+	return *o.StripePriceId
+}
+
+// GetStripePriceIdOk returns a tuple with the StripePriceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetStripePriceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.StripePriceId) {
+		return nil, false
+	}
+	return o.StripePriceId, true
+}
+
+// HasStripePriceId returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasStripePriceId() bool {
+	if o != nil && !IsNil(o.StripePriceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetStripePriceId gets a reference to the given string and assigns it to the StripePriceId field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetStripePriceId(v string) {
+	o.StripePriceId = &v
+}
+
+// GetCurrentPeriodEnd returns the CurrentPeriodEnd field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetCurrentPeriodEnd() time.Time {
+	if o == nil || IsNil(o.CurrentPeriodEnd) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CurrentPeriodEnd
+}
+
+// GetCurrentPeriodEndOk returns a tuple with the CurrentPeriodEnd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetCurrentPeriodEndOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CurrentPeriodEnd) {
+		return nil, false
+	}
+	return o.CurrentPeriodEnd, true
+}
+
+// HasCurrentPeriodEnd returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasCurrentPeriodEnd() bool {
+	if o != nil && !IsNil(o.CurrentPeriodEnd) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentPeriodEnd gets a reference to the given time.Time and assigns it to the CurrentPeriodEnd field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetCurrentPeriodEnd(v time.Time) {
+	o.CurrentPeriodEnd = &v
+}
+
+// GetCancelAtPeriodEnd returns the CancelAtPeriodEnd field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetCancelAtPeriodEnd() bool {
+	if o == nil || IsNil(o.CancelAtPeriodEnd) {
+		var ret bool
+		return ret
+	}
+	return *o.CancelAtPeriodEnd
+}
+
+// GetCancelAtPeriodEndOk returns a tuple with the CancelAtPeriodEnd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetCancelAtPeriodEndOk() (*bool, bool) {
+	if o == nil || IsNil(o.CancelAtPeriodEnd) {
+		return nil, false
+	}
+	return o.CancelAtPeriodEnd, true
+}
+
+// HasCancelAtPeriodEnd returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasCancelAtPeriodEnd() bool {
+	if o != nil && !IsNil(o.CancelAtPeriodEnd) {
+		return true
+	}
+
+	return false
+}
+
+// SetCancelAtPeriodEnd gets a reference to the given bool and assigns it to the CancelAtPeriodEnd field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetCancelAtPeriodEnd(v bool) {
+	o.CancelAtPeriodEnd = &v
+}
+
+// GetPendingTierChange returns the PendingTierChange field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetPendingTierChange() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.PendingTierChange
+}
+
+// GetPendingTierChangeOk returns a tuple with the PendingTierChange field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetPendingTierChangeOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.PendingTierChange) {
+		return nil, false
+	}
+	return &o.PendingTierChange, true
+}
+
+// HasPendingTierChange returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasPendingTierChange() bool {
+	if o != nil && !IsNil(o.PendingTierChange) {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingTierChange gets a reference to the given interface{} and assigns it to the PendingTierChange field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetPendingTierChange(v interface{}) {
+	o.PendingTierChange = v
+}
+
+// GetAddons returns the Addons field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetAddons() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Addons
+}
+
+// GetAddonsOk returns a tuple with the Addons field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetAddonsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Addons) {
+		return nil, false
+	}
+	return &o.Addons, true
+}
+
+// HasAddons returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasAddons() bool {
+	if o != nil && !IsNil(o.Addons) {
+		return true
+	}
+
+	return false
+}
+
+// SetAddons gets a reference to the given interface{} and assigns it to the Addons field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetAddons(v interface{}) {
+	o.Addons = v
+}
+
+// GetDunningState returns the DunningState field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetDunningState() string {
+	if o == nil || IsNil(o.DunningState) {
+		var ret string
+		return ret
+	}
+	return *o.DunningState
+}
+
+// GetDunningStateOk returns a tuple with the DunningState field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetDunningStateOk() (*string, bool) {
+	if o == nil || IsNil(o.DunningState) {
+		return nil, false
+	}
+	return o.DunningState, true
+}
+
+// HasDunningState returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasDunningState() bool {
+	if o != nil && !IsNil(o.DunningState) {
+		return true
+	}
+
+	return false
+}
+
+// SetDunningState gets a reference to the given string and assigns it to the DunningState field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetDunningState(v string) {
+	o.DunningState = &v
+}
+
+// GetDunningStateChangedAt returns the DunningStateChangedAt field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetDunningStateChangedAt() time.Time {
+	if o == nil || IsNil(o.DunningStateChangedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DunningStateChangedAt
+}
+
+// GetDunningStateChangedAtOk returns a tuple with the DunningStateChangedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetDunningStateChangedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DunningStateChangedAt) {
+		return nil, false
+	}
+	return o.DunningStateChangedAt, true
+}
+
+// HasDunningStateChangedAt returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasDunningStateChangedAt() bool {
+	if o != nil && !IsNil(o.DunningStateChangedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDunningStateChangedAt gets a reference to the given time.Time and assigns it to the DunningStateChangedAt field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetDunningStateChangedAt(v time.Time) {
+	o.DunningStateChangedAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSubscriptionEnrollment200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +741,6 @@ func (o *FindSubscriptionEnrollment200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSubscriptionEnrollment200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSubscriptionEnrollment200ResponseDataInner) GetAttributes() SubscriptionEnrollment {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SubscriptionEnrollment
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSubscriptionEnrollment200ResponseDataInner) GetAttributesOk() (*SubscriptionEnrollment, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSubscriptionEnrollment200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SubscriptionEnrollment and assigns it to the Attributes field.
-func (o *FindSubscriptionEnrollment200ResponseDataInner) SetAttributes(v SubscriptionEnrollment) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +859,68 @@ func (o FindSubscriptionEnrollment200ResponseDataInner) MarshalJSON() ([]byte, e
 
 func (o FindSubscriptionEnrollment200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.PlanId) {
+		toSerialize["plan_id"] = o.PlanId
+	}
+	if !IsNil(o.PlanName) {
+		toSerialize["plan_name"] = o.PlanName
+	}
+	if !IsNil(o.StartedAt) {
+		toSerialize["started_at"] = o.StartedAt
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.CancelledAt) {
+		toSerialize["cancelled_at"] = o.CancelledAt
+	}
+	if !IsNil(o.CancelReason) {
+		toSerialize["cancel_reason"] = o.CancelReason
+	}
+	if !IsNil(o.RetentionOfferShown) {
+		toSerialize["retention_offer_shown"] = o.RetentionOfferShown
+	}
+	if !IsNil(o.AutoRenew) {
+		toSerialize["auto_renew"] = o.AutoRenew
+	}
+	if !IsNil(o.StripeCustomerId) {
+		toSerialize["stripe_customer_id"] = o.StripeCustomerId
+	}
+	if !IsNil(o.StripeSubscriptionId) {
+		toSerialize["stripe_subscription_id"] = o.StripeSubscriptionId
+	}
+	if !IsNil(o.StripePriceId) {
+		toSerialize["stripe_price_id"] = o.StripePriceId
+	}
+	if !IsNil(o.CurrentPeriodEnd) {
+		toSerialize["current_period_end"] = o.CurrentPeriodEnd
+	}
+	if !IsNil(o.CancelAtPeriodEnd) {
+		toSerialize["cancel_at_period_end"] = o.CancelAtPeriodEnd
+	}
+	if o.PendingTierChange != nil {
+		toSerialize["pending_tier_change"] = o.PendingTierChange
+	}
+	if o.Addons != nil {
+		toSerialize["addons"] = o.Addons
+	}
+	if !IsNil(o.DunningState) {
+		toSerialize["dunning_state"] = o.DunningState
+	}
+	if !IsNil(o.DunningStateChangedAt) {
+		toSerialize["dunning_state_changed_at"] = o.DunningStateChangedAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

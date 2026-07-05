@@ -33,7 +33,7 @@ type DnsZone struct {
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
 	// Provider-specific metadata (name servers, comments, etc.).
-	ProviderMetadata map[string]interface{} `json:"provider_metadata,omitempty"`
+	ProviderMetadata interface{} `json:"provider_metadata,omitempty"`
 }
 
 type _DnsZone DnsZone
@@ -290,10 +290,10 @@ func (o *DnsZone) SetCredential(v CreateAccessReviewRequestDataReviewer) {
 	o.Credential = &v
 }
 
-// GetProviderMetadata returns the ProviderMetadata field value if set, zero value otherwise.
-func (o *DnsZone) GetProviderMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.ProviderMetadata) {
-		var ret map[string]interface{}
+// GetProviderMetadata returns the ProviderMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DnsZone) GetProviderMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ProviderMetadata
@@ -301,11 +301,12 @@ func (o *DnsZone) GetProviderMetadata() map[string]interface{} {
 
 // GetProviderMetadataOk returns a tuple with the ProviderMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DnsZone) GetProviderMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DnsZone) GetProviderMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ProviderMetadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ProviderMetadata, true
+	return &o.ProviderMetadata, true
 }
 
 // HasProviderMetadata returns a boolean if a field has been set.
@@ -317,8 +318,8 @@ func (o *DnsZone) HasProviderMetadata() bool {
 	return false
 }
 
-// SetProviderMetadata gets a reference to the given map[string]interface{} and assigns it to the ProviderMetadata field.
-func (o *DnsZone) SetProviderMetadata(v map[string]interface{}) {
+// SetProviderMetadata gets a reference to the given interface{} and assigns it to the ProviderMetadata field.
+func (o *DnsZone) SetProviderMetadata(v interface{}) {
 	o.ProviderMetadata = v
 }
 
@@ -350,7 +351,7 @@ func (o DnsZone) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Credential) {
 		toSerialize["credential"] = o.Credential
 	}
-	if !IsNil(o.ProviderMetadata) {
+	if o.ProviderMetadata != nil {
 		toSerialize["provider_metadata"] = o.ProviderMetadata
 	}
 	return toSerialize, nil

@@ -30,7 +30,7 @@ type NotificationChannel struct {
 	// AES-256-GCM encrypted webhook_url (F3.CHATOPS.01) — same iv:authTag:ciphertext:salt format as BYOC cloud-credential (src/utils/credential-crypto.ts). NEVER returned by the API; decrypted only server-side by webhook-notifier for dispatch.
 	EncryptedWebhookUrl *string `json:"encrypted_webhook_url,omitempty"`
 	// Array of subscribed event-type strings. Canonical catalog (F3.CHATOPS.01): 'billing.payment_failed', 'billing.trial_ending', 'cloud-instance.provision_failed', 'alert.fired'. Empty/null = all events.
-	EventsFilter map[string]interface{} `json:"events_filter,omitempty"`
+	EventsFilter interface{} `json:"events_filter,omitempty"`
 	Enabled *bool `json:"enabled,omitempty"`
 	LastSentAt *time.Time `json:"last_sent_at,omitempty"`
 	FailureCount *int32 `json:"failure_count,omitempty"`
@@ -177,10 +177,10 @@ func (o *NotificationChannel) SetEncryptedWebhookUrl(v string) {
 	o.EncryptedWebhookUrl = &v
 }
 
-// GetEventsFilter returns the EventsFilter field value if set, zero value otherwise.
-func (o *NotificationChannel) GetEventsFilter() map[string]interface{} {
-	if o == nil || IsNil(o.EventsFilter) {
-		var ret map[string]interface{}
+// GetEventsFilter returns the EventsFilter field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *NotificationChannel) GetEventsFilter() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.EventsFilter
@@ -188,11 +188,12 @@ func (o *NotificationChannel) GetEventsFilter() map[string]interface{} {
 
 // GetEventsFilterOk returns a tuple with the EventsFilter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationChannel) GetEventsFilterOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NotificationChannel) GetEventsFilterOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.EventsFilter) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.EventsFilter, true
+	return &o.EventsFilter, true
 }
 
 // HasEventsFilter returns a boolean if a field has been set.
@@ -204,8 +205,8 @@ func (o *NotificationChannel) HasEventsFilter() bool {
 	return false
 }
 
-// SetEventsFilter gets a reference to the given map[string]interface{} and assigns it to the EventsFilter field.
-func (o *NotificationChannel) SetEventsFilter(v map[string]interface{}) {
+// SetEventsFilter gets a reference to the given interface{} and assigns it to the EventsFilter field.
+func (o *NotificationChannel) SetEventsFilter(v interface{}) {
 	o.EventsFilter = v
 }
 
@@ -357,7 +358,7 @@ func (o NotificationChannel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EncryptedWebhookUrl) {
 		toSerialize["encrypted_webhook_url"] = o.EncryptedWebhookUrl
 	}
-	if !IsNil(o.EventsFilter) {
+	if o.EventsFilter != nil {
 		toSerialize["events_filter"] = o.EventsFilter
 	}
 	if !IsNil(o.Enabled) {

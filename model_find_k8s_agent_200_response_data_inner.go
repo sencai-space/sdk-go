@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindK8sAgent200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindK8sAgent200ResponseDataInner{}
 
 // FindK8sAgent200ResponseDataInner struct for FindK8sAgent200ResponseDataInner
 type FindK8sAgent200ResponseDataInner struct {
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	ClusterName string `json:"cluster_name"`
+	Namespace *string `json:"namespace,omitempty"`
+	AgentVersion *string `json:"agent_version,omitempty"`
+	NodeCount *int32 `json:"node_count,omitempty"`
+	Status *string `json:"status,omitempty"`
+	LastSeenAt *time.Time `json:"last_seen_at,omitempty"`
+	KubernetesVersion *string `json:"kubernetes_version,omitempty"`
+	PodCount *int32 `json:"pod_count,omitempty"`
+	NamespaceCount *int32 `json:"namespace_count,omitempty"`
+	ConnectionToken *string `json:"connection_token,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *K8sAgent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindK8sAgent200ResponseDataInner FindK8sAgent200ResponseDataInner
+
 // NewFindK8sAgent200ResponseDataInner instantiates a new FindK8sAgent200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindK8sAgent200ResponseDataInner() *FindK8sAgent200ResponseDataInner {
+func NewFindK8sAgent200ResponseDataInner(organisation CreateAccessReviewRequestDataReviewer, clusterName string) *FindK8sAgent200ResponseDataInner {
 	this := FindK8sAgent200ResponseDataInner{}
+	this.Organisation = organisation
+	this.ClusterName = clusterName
 	return &this
 }
 
@@ -44,6 +60,342 @@ func NewFindK8sAgent200ResponseDataInner() *FindK8sAgent200ResponseDataInner {
 func NewFindK8sAgent200ResponseDataInnerWithDefaults() *FindK8sAgent200ResponseDataInner {
 	this := FindK8sAgent200ResponseDataInner{}
 	return &this
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindK8sAgent200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindK8sAgent200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetClusterName returns the ClusterName field value
+func (o *FindK8sAgent200ResponseDataInner) GetClusterName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ClusterName
+}
+
+// GetClusterNameOk returns a tuple with the ClusterName field value
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetClusterNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ClusterName, true
+}
+
+// SetClusterName sets field value
+func (o *FindK8sAgent200ResponseDataInner) SetClusterName(v string) {
+	o.ClusterName = v
+}
+
+// GetNamespace returns the Namespace field value if set, zero value otherwise.
+func (o *FindK8sAgent200ResponseDataInner) GetNamespace() string {
+	if o == nil || IsNil(o.Namespace) {
+		var ret string
+		return ret
+	}
+	return *o.Namespace
+}
+
+// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetNamespaceOk() (*string, bool) {
+	if o == nil || IsNil(o.Namespace) {
+		return nil, false
+	}
+	return o.Namespace, true
+}
+
+// HasNamespace returns a boolean if a field has been set.
+func (o *FindK8sAgent200ResponseDataInner) HasNamespace() bool {
+	if o != nil && !IsNil(o.Namespace) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
+func (o *FindK8sAgent200ResponseDataInner) SetNamespace(v string) {
+	o.Namespace = &v
+}
+
+// GetAgentVersion returns the AgentVersion field value if set, zero value otherwise.
+func (o *FindK8sAgent200ResponseDataInner) GetAgentVersion() string {
+	if o == nil || IsNil(o.AgentVersion) {
+		var ret string
+		return ret
+	}
+	return *o.AgentVersion
+}
+
+// GetAgentVersionOk returns a tuple with the AgentVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetAgentVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.AgentVersion) {
+		return nil, false
+	}
+	return o.AgentVersion, true
+}
+
+// HasAgentVersion returns a boolean if a field has been set.
+func (o *FindK8sAgent200ResponseDataInner) HasAgentVersion() bool {
+	if o != nil && !IsNil(o.AgentVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgentVersion gets a reference to the given string and assigns it to the AgentVersion field.
+func (o *FindK8sAgent200ResponseDataInner) SetAgentVersion(v string) {
+	o.AgentVersion = &v
+}
+
+// GetNodeCount returns the NodeCount field value if set, zero value otherwise.
+func (o *FindK8sAgent200ResponseDataInner) GetNodeCount() int32 {
+	if o == nil || IsNil(o.NodeCount) {
+		var ret int32
+		return ret
+	}
+	return *o.NodeCount
+}
+
+// GetNodeCountOk returns a tuple with the NodeCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetNodeCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.NodeCount) {
+		return nil, false
+	}
+	return o.NodeCount, true
+}
+
+// HasNodeCount returns a boolean if a field has been set.
+func (o *FindK8sAgent200ResponseDataInner) HasNodeCount() bool {
+	if o != nil && !IsNil(o.NodeCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetNodeCount gets a reference to the given int32 and assigns it to the NodeCount field.
+func (o *FindK8sAgent200ResponseDataInner) SetNodeCount(v int32) {
+	o.NodeCount = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindK8sAgent200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindK8sAgent200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindK8sAgent200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetLastSeenAt returns the LastSeenAt field value if set, zero value otherwise.
+func (o *FindK8sAgent200ResponseDataInner) GetLastSeenAt() time.Time {
+	if o == nil || IsNil(o.LastSeenAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSeenAt
+}
+
+// GetLastSeenAtOk returns a tuple with the LastSeenAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetLastSeenAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSeenAt) {
+		return nil, false
+	}
+	return o.LastSeenAt, true
+}
+
+// HasLastSeenAt returns a boolean if a field has been set.
+func (o *FindK8sAgent200ResponseDataInner) HasLastSeenAt() bool {
+	if o != nil && !IsNil(o.LastSeenAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSeenAt gets a reference to the given time.Time and assigns it to the LastSeenAt field.
+func (o *FindK8sAgent200ResponseDataInner) SetLastSeenAt(v time.Time) {
+	o.LastSeenAt = &v
+}
+
+// GetKubernetesVersion returns the KubernetesVersion field value if set, zero value otherwise.
+func (o *FindK8sAgent200ResponseDataInner) GetKubernetesVersion() string {
+	if o == nil || IsNil(o.KubernetesVersion) {
+		var ret string
+		return ret
+	}
+	return *o.KubernetesVersion
+}
+
+// GetKubernetesVersionOk returns a tuple with the KubernetesVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetKubernetesVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.KubernetesVersion) {
+		return nil, false
+	}
+	return o.KubernetesVersion, true
+}
+
+// HasKubernetesVersion returns a boolean if a field has been set.
+func (o *FindK8sAgent200ResponseDataInner) HasKubernetesVersion() bool {
+	if o != nil && !IsNil(o.KubernetesVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetKubernetesVersion gets a reference to the given string and assigns it to the KubernetesVersion field.
+func (o *FindK8sAgent200ResponseDataInner) SetKubernetesVersion(v string) {
+	o.KubernetesVersion = &v
+}
+
+// GetPodCount returns the PodCount field value if set, zero value otherwise.
+func (o *FindK8sAgent200ResponseDataInner) GetPodCount() int32 {
+	if o == nil || IsNil(o.PodCount) {
+		var ret int32
+		return ret
+	}
+	return *o.PodCount
+}
+
+// GetPodCountOk returns a tuple with the PodCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetPodCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.PodCount) {
+		return nil, false
+	}
+	return o.PodCount, true
+}
+
+// HasPodCount returns a boolean if a field has been set.
+func (o *FindK8sAgent200ResponseDataInner) HasPodCount() bool {
+	if o != nil && !IsNil(o.PodCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetPodCount gets a reference to the given int32 and assigns it to the PodCount field.
+func (o *FindK8sAgent200ResponseDataInner) SetPodCount(v int32) {
+	o.PodCount = &v
+}
+
+// GetNamespaceCount returns the NamespaceCount field value if set, zero value otherwise.
+func (o *FindK8sAgent200ResponseDataInner) GetNamespaceCount() int32 {
+	if o == nil || IsNil(o.NamespaceCount) {
+		var ret int32
+		return ret
+	}
+	return *o.NamespaceCount
+}
+
+// GetNamespaceCountOk returns a tuple with the NamespaceCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetNamespaceCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.NamespaceCount) {
+		return nil, false
+	}
+	return o.NamespaceCount, true
+}
+
+// HasNamespaceCount returns a boolean if a field has been set.
+func (o *FindK8sAgent200ResponseDataInner) HasNamespaceCount() bool {
+	if o != nil && !IsNil(o.NamespaceCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetNamespaceCount gets a reference to the given int32 and assigns it to the NamespaceCount field.
+func (o *FindK8sAgent200ResponseDataInner) SetNamespaceCount(v int32) {
+	o.NamespaceCount = &v
+}
+
+// GetConnectionToken returns the ConnectionToken field value if set, zero value otherwise.
+func (o *FindK8sAgent200ResponseDataInner) GetConnectionToken() string {
+	if o == nil || IsNil(o.ConnectionToken) {
+		var ret string
+		return ret
+	}
+	return *o.ConnectionToken
+}
+
+// GetConnectionTokenOk returns a tuple with the ConnectionToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindK8sAgent200ResponseDataInner) GetConnectionTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.ConnectionToken) {
+		return nil, false
+	}
+	return o.ConnectionToken, true
+}
+
+// HasConnectionToken returns a boolean if a field has been set.
+func (o *FindK8sAgent200ResponseDataInner) HasConnectionToken() bool {
+	if o != nil && !IsNil(o.ConnectionToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetConnectionToken gets a reference to the given string and assigns it to the ConnectionToken field.
+func (o *FindK8sAgent200ResponseDataInner) SetConnectionToken(v string) {
+	o.ConnectionToken = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +460,6 @@ func (o *FindK8sAgent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindK8sAgent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindK8sAgent200ResponseDataInner) GetAttributes() K8sAgent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret K8sAgent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindK8sAgent200ResponseDataInner) GetAttributesOk() (*K8sAgent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindK8sAgent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given K8sAgent and assigns it to the Attributes field.
-func (o *FindK8sAgent200ResponseDataInner) SetAttributes(v K8sAgent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +578,40 @@ func (o FindK8sAgent200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindK8sAgent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["organisation"] = o.Organisation
+	toSerialize["cluster_name"] = o.ClusterName
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.AgentVersion) {
+		toSerialize["agent_version"] = o.AgentVersion
+	}
+	if !IsNil(o.NodeCount) {
+		toSerialize["node_count"] = o.NodeCount
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.LastSeenAt) {
+		toSerialize["last_seen_at"] = o.LastSeenAt
+	}
+	if !IsNil(o.KubernetesVersion) {
+		toSerialize["kubernetes_version"] = o.KubernetesVersion
+	}
+	if !IsNil(o.PodCount) {
+		toSerialize["pod_count"] = o.PodCount
+	}
+	if !IsNil(o.NamespaceCount) {
+		toSerialize["namespace_count"] = o.NamespaceCount
+	}
+	if !IsNil(o.ConnectionToken) {
+		toSerialize["connection_token"] = o.ConnectionToken
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +623,44 @@ func (o FindK8sAgent200ResponseDataInner) ToMap() (map[string]interface{}, error
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindK8sAgent200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organisation",
+		"cluster_name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindK8sAgent200ResponseDataInner := _FindK8sAgent200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindK8sAgent200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindK8sAgent200ResponseDataInner(varFindK8sAgent200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindK8sAgent200ResponseDataInner struct {

@@ -32,11 +32,12 @@ type CloudInstance struct {
 	// Requested root/boot disk size in GB (mapped to cloudConfig.rootDiskGb).
 	RootDiskGb *int32 `json:"root_disk_gb,omitempty"`
 	// Optional extra data volumes requested at create time: array of { sizeGb, type?, label? } (mapped to cloudConfig.additionalDisks).
-	AdditionalDisks map[string]interface{} `json:"additional_disks,omitempty"`
+	AdditionalDisks interface{} `json:"additional_disks,omitempty"`
 	Status string `json:"status"`
 	IpAddress *string `json:"ip_address,omitempty"`
 	Ipv6Address *string `json:"ipv6_address,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	ErrorMessage *string `json:"error_message,omitempty"`
 	MonthlyCost *float32 `json:"monthly_cost,omitempty"`
 	Currency string `json:"currency"`
@@ -247,10 +248,10 @@ func (o *CloudInstance) SetRootDiskGb(v int32) {
 	o.RootDiskGb = &v
 }
 
-// GetAdditionalDisks returns the AdditionalDisks field value if set, zero value otherwise.
-func (o *CloudInstance) GetAdditionalDisks() map[string]interface{} {
-	if o == nil || IsNil(o.AdditionalDisks) {
-		var ret map[string]interface{}
+// GetAdditionalDisks returns the AdditionalDisks field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CloudInstance) GetAdditionalDisks() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.AdditionalDisks
@@ -258,11 +259,12 @@ func (o *CloudInstance) GetAdditionalDisks() map[string]interface{} {
 
 // GetAdditionalDisksOk returns a tuple with the AdditionalDisks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CloudInstance) GetAdditionalDisksOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CloudInstance) GetAdditionalDisksOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AdditionalDisks) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.AdditionalDisks, true
+	return &o.AdditionalDisks, true
 }
 
 // HasAdditionalDisks returns a boolean if a field has been set.
@@ -274,8 +276,8 @@ func (o *CloudInstance) HasAdditionalDisks() bool {
 	return false
 }
 
-// SetAdditionalDisks gets a reference to the given map[string]interface{} and assigns it to the AdditionalDisks field.
-func (o *CloudInstance) SetAdditionalDisks(v map[string]interface{}) {
+// SetAdditionalDisks gets a reference to the given interface{} and assigns it to the AdditionalDisks field.
+func (o *CloudInstance) SetAdditionalDisks(v interface{}) {
 	o.AdditionalDisks = v
 }
 
@@ -367,10 +369,10 @@ func (o *CloudInstance) SetIpv6Address(v string) {
 	o.Ipv6Address = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CloudInstance) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CloudInstance) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -378,11 +380,12 @@ func (o *CloudInstance) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CloudInstance) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CloudInstance) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -394,8 +397,8 @@ func (o *CloudInstance) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CloudInstance) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CloudInstance) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -939,7 +942,7 @@ func (o CloudInstance) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RootDiskGb) {
 		toSerialize["root_disk_gb"] = o.RootDiskGb
 	}
-	if !IsNil(o.AdditionalDisks) {
+	if o.AdditionalDisks != nil {
 		toSerialize["additional_disks"] = o.AdditionalDisks
 	}
 	toSerialize["status"] = o.Status
@@ -949,7 +952,7 @@ func (o CloudInstance) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Ipv6Address) {
 		toSerialize["ipv6_address"] = o.Ipv6Address
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.ErrorMessage) {

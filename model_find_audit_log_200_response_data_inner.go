@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAuditLog200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,46 @@ var _ MappedNullable = &FindAuditLog200ResponseDataInner{}
 
 // FindAuditLog200ResponseDataInner struct for FindAuditLog200ResponseDataInner
 type FindAuditLog200ResponseDataInner struct {
+	Action string `json:"action"`
+	ActorUserId *string `json:"actor_user_id,omitempty"`
+	ActorOrgId *string `json:"actor_org_id,omitempty"`
+	CustomerScope *string `json:"customer_scope,omitempty"`
+	ActorOrgScope *string `json:"actor_org_scope,omitempty"`
+	ElevationGrantId *string `json:"elevation_grant_id,omitempty"`
+	ResourceType string `json:"resource_type"`
+	ResourceId *string `json:"resource_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Changes interface{} `json:"changes,omitempty"`
+	CorrelationId *string `json:"correlation_id,omitempty"`
+	RiskLevel *string `json:"risk_level,omitempty"`
+	PrevHash *string `json:"prev_hash,omitempty"`
+	EntryHash *string `json:"entry_hash,omitempty"`
+	AnchorId *string `json:"anchor_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	IpAddress *string `json:"ip_address,omitempty"`
+	UserAgent *string `json:"user_agent,omitempty"`
+	// Data-residency region of the tenant at time of audit event (CELL invariant, F2.CELL.01)
+	Region *string `json:"region,omitempty"`
+	// Deployment cell within the region at time of audit event (CELL invariant, F2.CELL.01)
+	CellId *string `json:"cell_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AuditLog `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAuditLog200ResponseDataInner FindAuditLog200ResponseDataInner
+
 // NewFindAuditLog200ResponseDataInner instantiates a new FindAuditLog200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAuditLog200ResponseDataInner() *FindAuditLog200ResponseDataInner {
+func NewFindAuditLog200ResponseDataInner(action string, resourceType string) *FindAuditLog200ResponseDataInner {
 	this := FindAuditLog200ResponseDataInner{}
+	this.Action = action
+	this.ResourceType = resourceType
 	return &this
 }
 
@@ -44,6 +72,600 @@ func NewFindAuditLog200ResponseDataInner() *FindAuditLog200ResponseDataInner {
 func NewFindAuditLog200ResponseDataInnerWithDefaults() *FindAuditLog200ResponseDataInner {
 	this := FindAuditLog200ResponseDataInner{}
 	return &this
+}
+
+// GetAction returns the Action field value
+func (o *FindAuditLog200ResponseDataInner) GetAction() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Action
+}
+
+// GetActionOk returns a tuple with the Action field value
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetActionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Action, true
+}
+
+// SetAction sets field value
+func (o *FindAuditLog200ResponseDataInner) SetAction(v string) {
+	o.Action = v
+}
+
+// GetActorUserId returns the ActorUserId field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetActorUserId() string {
+	if o == nil || IsNil(o.ActorUserId) {
+		var ret string
+		return ret
+	}
+	return *o.ActorUserId
+}
+
+// GetActorUserIdOk returns a tuple with the ActorUserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetActorUserIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ActorUserId) {
+		return nil, false
+	}
+	return o.ActorUserId, true
+}
+
+// HasActorUserId returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasActorUserId() bool {
+	if o != nil && !IsNil(o.ActorUserId) {
+		return true
+	}
+
+	return false
+}
+
+// SetActorUserId gets a reference to the given string and assigns it to the ActorUserId field.
+func (o *FindAuditLog200ResponseDataInner) SetActorUserId(v string) {
+	o.ActorUserId = &v
+}
+
+// GetActorOrgId returns the ActorOrgId field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetActorOrgId() string {
+	if o == nil || IsNil(o.ActorOrgId) {
+		var ret string
+		return ret
+	}
+	return *o.ActorOrgId
+}
+
+// GetActorOrgIdOk returns a tuple with the ActorOrgId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetActorOrgIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ActorOrgId) {
+		return nil, false
+	}
+	return o.ActorOrgId, true
+}
+
+// HasActorOrgId returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasActorOrgId() bool {
+	if o != nil && !IsNil(o.ActorOrgId) {
+		return true
+	}
+
+	return false
+}
+
+// SetActorOrgId gets a reference to the given string and assigns it to the ActorOrgId field.
+func (o *FindAuditLog200ResponseDataInner) SetActorOrgId(v string) {
+	o.ActorOrgId = &v
+}
+
+// GetCustomerScope returns the CustomerScope field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetCustomerScope() string {
+	if o == nil || IsNil(o.CustomerScope) {
+		var ret string
+		return ret
+	}
+	return *o.CustomerScope
+}
+
+// GetCustomerScopeOk returns a tuple with the CustomerScope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetCustomerScopeOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomerScope) {
+		return nil, false
+	}
+	return o.CustomerScope, true
+}
+
+// HasCustomerScope returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasCustomerScope() bool {
+	if o != nil && !IsNil(o.CustomerScope) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerScope gets a reference to the given string and assigns it to the CustomerScope field.
+func (o *FindAuditLog200ResponseDataInner) SetCustomerScope(v string) {
+	o.CustomerScope = &v
+}
+
+// GetActorOrgScope returns the ActorOrgScope field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetActorOrgScope() string {
+	if o == nil || IsNil(o.ActorOrgScope) {
+		var ret string
+		return ret
+	}
+	return *o.ActorOrgScope
+}
+
+// GetActorOrgScopeOk returns a tuple with the ActorOrgScope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetActorOrgScopeOk() (*string, bool) {
+	if o == nil || IsNil(o.ActorOrgScope) {
+		return nil, false
+	}
+	return o.ActorOrgScope, true
+}
+
+// HasActorOrgScope returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasActorOrgScope() bool {
+	if o != nil && !IsNil(o.ActorOrgScope) {
+		return true
+	}
+
+	return false
+}
+
+// SetActorOrgScope gets a reference to the given string and assigns it to the ActorOrgScope field.
+func (o *FindAuditLog200ResponseDataInner) SetActorOrgScope(v string) {
+	o.ActorOrgScope = &v
+}
+
+// GetElevationGrantId returns the ElevationGrantId field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetElevationGrantId() string {
+	if o == nil || IsNil(o.ElevationGrantId) {
+		var ret string
+		return ret
+	}
+	return *o.ElevationGrantId
+}
+
+// GetElevationGrantIdOk returns a tuple with the ElevationGrantId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetElevationGrantIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ElevationGrantId) {
+		return nil, false
+	}
+	return o.ElevationGrantId, true
+}
+
+// HasElevationGrantId returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasElevationGrantId() bool {
+	if o != nil && !IsNil(o.ElevationGrantId) {
+		return true
+	}
+
+	return false
+}
+
+// SetElevationGrantId gets a reference to the given string and assigns it to the ElevationGrantId field.
+func (o *FindAuditLog200ResponseDataInner) SetElevationGrantId(v string) {
+	o.ElevationGrantId = &v
+}
+
+// GetResourceType returns the ResourceType field value
+func (o *FindAuditLog200ResponseDataInner) GetResourceType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ResourceType
+}
+
+// GetResourceTypeOk returns a tuple with the ResourceType field value
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetResourceTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ResourceType, true
+}
+
+// SetResourceType sets field value
+func (o *FindAuditLog200ResponseDataInner) SetResourceType(v string) {
+	o.ResourceType = v
+}
+
+// GetResourceId returns the ResourceId field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetResourceId() string {
+	if o == nil || IsNil(o.ResourceId) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceId
+}
+
+// GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetResourceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ResourceId) {
+		return nil, false
+	}
+	return o.ResourceId, true
+}
+
+// HasResourceId returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasResourceId() bool {
+	if o != nil && !IsNil(o.ResourceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceId gets a reference to the given string and assigns it to the ResourceId field.
+func (o *FindAuditLog200ResponseDataInner) SetResourceId(v string) {
+	o.ResourceId = &v
+}
+
+// GetChanges returns the Changes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAuditLog200ResponseDataInner) GetChanges() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Changes
+}
+
+// GetChangesOk returns a tuple with the Changes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAuditLog200ResponseDataInner) GetChangesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Changes) {
+		return nil, false
+	}
+	return &o.Changes, true
+}
+
+// HasChanges returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasChanges() bool {
+	if o != nil && !IsNil(o.Changes) {
+		return true
+	}
+
+	return false
+}
+
+// SetChanges gets a reference to the given interface{} and assigns it to the Changes field.
+func (o *FindAuditLog200ResponseDataInner) SetChanges(v interface{}) {
+	o.Changes = v
+}
+
+// GetCorrelationId returns the CorrelationId field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetCorrelationId() string {
+	if o == nil || IsNil(o.CorrelationId) {
+		var ret string
+		return ret
+	}
+	return *o.CorrelationId
+}
+
+// GetCorrelationIdOk returns a tuple with the CorrelationId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetCorrelationIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CorrelationId) {
+		return nil, false
+	}
+	return o.CorrelationId, true
+}
+
+// HasCorrelationId returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasCorrelationId() bool {
+	if o != nil && !IsNil(o.CorrelationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCorrelationId gets a reference to the given string and assigns it to the CorrelationId field.
+func (o *FindAuditLog200ResponseDataInner) SetCorrelationId(v string) {
+	o.CorrelationId = &v
+}
+
+// GetRiskLevel returns the RiskLevel field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetRiskLevel() string {
+	if o == nil || IsNil(o.RiskLevel) {
+		var ret string
+		return ret
+	}
+	return *o.RiskLevel
+}
+
+// GetRiskLevelOk returns a tuple with the RiskLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetRiskLevelOk() (*string, bool) {
+	if o == nil || IsNil(o.RiskLevel) {
+		return nil, false
+	}
+	return o.RiskLevel, true
+}
+
+// HasRiskLevel returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasRiskLevel() bool {
+	if o != nil && !IsNil(o.RiskLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetRiskLevel gets a reference to the given string and assigns it to the RiskLevel field.
+func (o *FindAuditLog200ResponseDataInner) SetRiskLevel(v string) {
+	o.RiskLevel = &v
+}
+
+// GetPrevHash returns the PrevHash field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetPrevHash() string {
+	if o == nil || IsNil(o.PrevHash) {
+		var ret string
+		return ret
+	}
+	return *o.PrevHash
+}
+
+// GetPrevHashOk returns a tuple with the PrevHash field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetPrevHashOk() (*string, bool) {
+	if o == nil || IsNil(o.PrevHash) {
+		return nil, false
+	}
+	return o.PrevHash, true
+}
+
+// HasPrevHash returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasPrevHash() bool {
+	if o != nil && !IsNil(o.PrevHash) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrevHash gets a reference to the given string and assigns it to the PrevHash field.
+func (o *FindAuditLog200ResponseDataInner) SetPrevHash(v string) {
+	o.PrevHash = &v
+}
+
+// GetEntryHash returns the EntryHash field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetEntryHash() string {
+	if o == nil || IsNil(o.EntryHash) {
+		var ret string
+		return ret
+	}
+	return *o.EntryHash
+}
+
+// GetEntryHashOk returns a tuple with the EntryHash field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetEntryHashOk() (*string, bool) {
+	if o == nil || IsNil(o.EntryHash) {
+		return nil, false
+	}
+	return o.EntryHash, true
+}
+
+// HasEntryHash returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasEntryHash() bool {
+	if o != nil && !IsNil(o.EntryHash) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntryHash gets a reference to the given string and assigns it to the EntryHash field.
+func (o *FindAuditLog200ResponseDataInner) SetEntryHash(v string) {
+	o.EntryHash = &v
+}
+
+// GetAnchorId returns the AnchorId field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetAnchorId() string {
+	if o == nil || IsNil(o.AnchorId) {
+		var ret string
+		return ret
+	}
+	return *o.AnchorId
+}
+
+// GetAnchorIdOk returns a tuple with the AnchorId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetAnchorIdOk() (*string, bool) {
+	if o == nil || IsNil(o.AnchorId) {
+		return nil, false
+	}
+	return o.AnchorId, true
+}
+
+// HasAnchorId returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasAnchorId() bool {
+	if o != nil && !IsNil(o.AnchorId) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnchorId gets a reference to the given string and assigns it to the AnchorId field.
+func (o *FindAuditLog200ResponseDataInner) SetAnchorId(v string) {
+	o.AnchorId = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAuditLog200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAuditLog200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindAuditLog200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetIpAddress returns the IpAddress field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetIpAddress() string {
+	if o == nil || IsNil(o.IpAddress) {
+		var ret string
+		return ret
+	}
+	return *o.IpAddress
+}
+
+// GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetIpAddressOk() (*string, bool) {
+	if o == nil || IsNil(o.IpAddress) {
+		return nil, false
+	}
+	return o.IpAddress, true
+}
+
+// HasIpAddress returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasIpAddress() bool {
+	if o != nil && !IsNil(o.IpAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpAddress gets a reference to the given string and assigns it to the IpAddress field.
+func (o *FindAuditLog200ResponseDataInner) SetIpAddress(v string) {
+	o.IpAddress = &v
+}
+
+// GetUserAgent returns the UserAgent field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetUserAgent() string {
+	if o == nil || IsNil(o.UserAgent) {
+		var ret string
+		return ret
+	}
+	return *o.UserAgent
+}
+
+// GetUserAgentOk returns a tuple with the UserAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetUserAgentOk() (*string, bool) {
+	if o == nil || IsNil(o.UserAgent) {
+		return nil, false
+	}
+	return o.UserAgent, true
+}
+
+// HasUserAgent returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasUserAgent() bool {
+	if o != nil && !IsNil(o.UserAgent) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserAgent gets a reference to the given string and assigns it to the UserAgent field.
+func (o *FindAuditLog200ResponseDataInner) SetUserAgent(v string) {
+	o.UserAgent = &v
+}
+
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetRegion() string {
+	if o == nil || IsNil(o.Region) {
+		var ret string
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.Region) {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasRegion() bool {
+	if o != nil && !IsNil(o.Region) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegion gets a reference to the given string and assigns it to the Region field.
+func (o *FindAuditLog200ResponseDataInner) SetRegion(v string) {
+	o.Region = &v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindAuditLog200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditLog200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindAuditLog200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindAuditLog200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +730,6 @@ func (o *FindAuditLog200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAuditLog200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAuditLog200ResponseDataInner) GetAttributes() AuditLog {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AuditLog
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAuditLog200ResponseDataInner) GetAttributesOk() (*AuditLog, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAuditLog200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AuditLog and assigns it to the Attributes field.
-func (o *FindAuditLog200ResponseDataInner) SetAttributes(v AuditLog) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +848,64 @@ func (o FindAuditLog200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAuditLog200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["action"] = o.Action
+	if !IsNil(o.ActorUserId) {
+		toSerialize["actor_user_id"] = o.ActorUserId
+	}
+	if !IsNil(o.ActorOrgId) {
+		toSerialize["actor_org_id"] = o.ActorOrgId
+	}
+	if !IsNil(o.CustomerScope) {
+		toSerialize["customer_scope"] = o.CustomerScope
+	}
+	if !IsNil(o.ActorOrgScope) {
+		toSerialize["actor_org_scope"] = o.ActorOrgScope
+	}
+	if !IsNil(o.ElevationGrantId) {
+		toSerialize["elevation_grant_id"] = o.ElevationGrantId
+	}
+	toSerialize["resource_type"] = o.ResourceType
+	if !IsNil(o.ResourceId) {
+		toSerialize["resource_id"] = o.ResourceId
+	}
+	if o.Changes != nil {
+		toSerialize["changes"] = o.Changes
+	}
+	if !IsNil(o.CorrelationId) {
+		toSerialize["correlation_id"] = o.CorrelationId
+	}
+	if !IsNil(o.RiskLevel) {
+		toSerialize["risk_level"] = o.RiskLevel
+	}
+	if !IsNil(o.PrevHash) {
+		toSerialize["prev_hash"] = o.PrevHash
+	}
+	if !IsNil(o.EntryHash) {
+		toSerialize["entry_hash"] = o.EntryHash
+	}
+	if !IsNil(o.AnchorId) {
+		toSerialize["anchor_id"] = o.AnchorId
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.IpAddress) {
+		toSerialize["ip_address"] = o.IpAddress
+	}
+	if !IsNil(o.UserAgent) {
+		toSerialize["user_agent"] = o.UserAgent
+	}
+	if !IsNil(o.Region) {
+		toSerialize["region"] = o.Region
+	}
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +917,44 @@ func (o FindAuditLog200ResponseDataInner) ToMap() (map[string]interface{}, error
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAuditLog200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"action",
+		"resource_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAuditLog200ResponseDataInner := _FindAuditLog200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAuditLog200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAuditLog200ResponseDataInner(varFindAuditLog200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAuditLog200ResponseDataInner struct {

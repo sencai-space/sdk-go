@@ -27,7 +27,7 @@ type ElevationRequest struct {
 	RequestingOrg *CreateAccessReviewRequestDataReviewer `json:"requesting_org,omitempty"`
 	TargetOrg *CreateAccessReviewRequestDataReviewer `json:"target_org,omitempty"`
 	// List of capability names being requested
-	RequestedCapabilities map[string]interface{} `json:"requested_capabilities"`
+	RequestedCapabilities interface{} `json:"requested_capabilities"`
 	Justification string `json:"justification"`
 	DurationMinutes int32 `json:"duration_minutes"`
 	Status string `json:"status"`
@@ -52,7 +52,7 @@ type _ElevationRequest ElevationRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewElevationRequest(requestedCapabilities map[string]interface{}, justification string, durationMinutes int32, status string, homeRegion string) *ElevationRequest {
+func NewElevationRequest(requestedCapabilities interface{}, justification string, durationMinutes int32, status string, homeRegion string) *ElevationRequest {
 	this := ElevationRequest{}
 	this.RequestedCapabilities = requestedCapabilities
 	this.Justification = justification
@@ -167,9 +167,10 @@ func (o *ElevationRequest) SetTargetOrg(v CreateAccessReviewRequestDataReviewer)
 }
 
 // GetRequestedCapabilities returns the RequestedCapabilities field value
-func (o *ElevationRequest) GetRequestedCapabilities() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *ElevationRequest) GetRequestedCapabilities() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -178,15 +179,16 @@ func (o *ElevationRequest) GetRequestedCapabilities() map[string]interface{} {
 
 // GetRequestedCapabilitiesOk returns a tuple with the RequestedCapabilities field value
 // and a boolean to check if the value has been set.
-func (o *ElevationRequest) GetRequestedCapabilitiesOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ElevationRequest) GetRequestedCapabilitiesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.RequestedCapabilities) {
+		return nil, false
 	}
-	return o.RequestedCapabilities, true
+	return &o.RequestedCapabilities, true
 }
 
 // SetRequestedCapabilities sets field value
-func (o *ElevationRequest) SetRequestedCapabilities(v map[string]interface{}) {
+func (o *ElevationRequest) SetRequestedCapabilities(v interface{}) {
 	o.RequestedCapabilities = v
 }
 
@@ -561,7 +563,9 @@ func (o ElevationRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TargetOrg) {
 		toSerialize["target_org"] = o.TargetOrg
 	}
-	toSerialize["requested_capabilities"] = o.RequestedCapabilities
+	if o.RequestedCapabilities != nil {
+		toSerialize["requested_capabilities"] = o.RequestedCapabilities
+	}
 	toSerialize["justification"] = o.Justification
 	toSerialize["duration_minutes"] = o.DurationMinutes
 	toSerialize["status"] = o.Status

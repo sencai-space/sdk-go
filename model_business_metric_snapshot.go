@@ -45,7 +45,7 @@ type BusinessMetricSnapshot struct {
 	// DAU / MAU * 100 — engagement stickiness ratio.
 	StickinessPct *float32 `json:"stickiness_pct,omitempty"`
 	// Activation funnel snapshot — reuses computeActivationFunnel() (F3.ONBOARDING.03), stored verbatim ({ steps, ttv, ... }).
-	Funnel map[string]interface{} `json:"funnel,omitempty"`
+	Funnel interface{} `json:"funnel,omitempty"`
 	// Mean time to paid — average hours between signup (onboarding.signup platform-event) and first billing-event for the same organisation.
 	MttpHours *float32 `json:"mttp_hours,omitempty"`
 	// Median time-to-value hours, taken from the activation-funnel ttv computation (signup -> first value event).
@@ -57,7 +57,7 @@ type BusinessMetricSnapshot struct {
 	ActivePaidAccounts *int32 `json:"active_paid_accounts,omitempty"`
 	TotalAccounts *int32 `json:"total_accounts,omitempty"`
 	// Full computation result object (BusinessMetricsResult) — superset of the flattened columns above, kept for forward-compatible dashboard consumption without a migration.
-	Raw map[string]interface{} `json:"raw,omitempty"`
+	Raw interface{} `json:"raw,omitempty"`
 }
 
 type _BusinessMetricSnapshot BusinessMetricSnapshot
@@ -410,10 +410,10 @@ func (o *BusinessMetricSnapshot) SetStickinessPct(v float32) {
 	o.StickinessPct = &v
 }
 
-// GetFunnel returns the Funnel field value if set, zero value otherwise.
-func (o *BusinessMetricSnapshot) GetFunnel() map[string]interface{} {
-	if o == nil || IsNil(o.Funnel) {
-		var ret map[string]interface{}
+// GetFunnel returns the Funnel field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BusinessMetricSnapshot) GetFunnel() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Funnel
@@ -421,11 +421,12 @@ func (o *BusinessMetricSnapshot) GetFunnel() map[string]interface{} {
 
 // GetFunnelOk returns a tuple with the Funnel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BusinessMetricSnapshot) GetFunnelOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BusinessMetricSnapshot) GetFunnelOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Funnel) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Funnel, true
+	return &o.Funnel, true
 }
 
 // HasFunnel returns a boolean if a field has been set.
@@ -437,8 +438,8 @@ func (o *BusinessMetricSnapshot) HasFunnel() bool {
 	return false
 }
 
-// SetFunnel gets a reference to the given map[string]interface{} and assigns it to the Funnel field.
-func (o *BusinessMetricSnapshot) SetFunnel(v map[string]interface{}) {
+// SetFunnel gets a reference to the given interface{} and assigns it to the Funnel field.
+func (o *BusinessMetricSnapshot) SetFunnel(v interface{}) {
 	o.Funnel = v
 }
 
@@ -634,10 +635,10 @@ func (o *BusinessMetricSnapshot) SetTotalAccounts(v int32) {
 	o.TotalAccounts = &v
 }
 
-// GetRaw returns the Raw field value if set, zero value otherwise.
-func (o *BusinessMetricSnapshot) GetRaw() map[string]interface{} {
-	if o == nil || IsNil(o.Raw) {
-		var ret map[string]interface{}
+// GetRaw returns the Raw field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BusinessMetricSnapshot) GetRaw() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Raw
@@ -645,11 +646,12 @@ func (o *BusinessMetricSnapshot) GetRaw() map[string]interface{} {
 
 // GetRawOk returns a tuple with the Raw field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BusinessMetricSnapshot) GetRawOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BusinessMetricSnapshot) GetRawOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Raw) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Raw, true
+	return &o.Raw, true
 }
 
 // HasRaw returns a boolean if a field has been set.
@@ -661,8 +663,8 @@ func (o *BusinessMetricSnapshot) HasRaw() bool {
 	return false
 }
 
-// SetRaw gets a reference to the given map[string]interface{} and assigns it to the Raw field.
-func (o *BusinessMetricSnapshot) SetRaw(v map[string]interface{}) {
+// SetRaw gets a reference to the given interface{} and assigns it to the Raw field.
+func (o *BusinessMetricSnapshot) SetRaw(v interface{}) {
 	o.Raw = v
 }
 
@@ -703,7 +705,7 @@ func (o BusinessMetricSnapshot) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StickinessPct) {
 		toSerialize["stickiness_pct"] = o.StickinessPct
 	}
-	if !IsNil(o.Funnel) {
+	if o.Funnel != nil {
 		toSerialize["funnel"] = o.Funnel
 	}
 	if !IsNil(o.MttpHours) {
@@ -724,7 +726,7 @@ func (o BusinessMetricSnapshot) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TotalAccounts) {
 		toSerialize["total_accounts"] = o.TotalAccounts
 	}
-	if !IsNil(o.Raw) {
+	if o.Raw != nil {
 		toSerialize["raw"] = o.Raw
 	}
 	return toSerialize, nil

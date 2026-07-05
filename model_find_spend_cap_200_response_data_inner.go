@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSpendCap200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,43 @@ var _ MappedNullable = &FindSpendCap200ResponseDataInner{}
 
 // FindSpendCap200ResponseDataInner struct for FindSpendCap200ResponseDataInner
 type FindSpendCap200ResponseDataInner struct {
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	// Alert threshold in EUR — sends notification when current_period_spend crosses this value.
+	SoftCapEur float32 `json:"soft_cap_eur"`
+	// Hard block threshold in EUR — blocks non-safety-critical actions when current_period_spend + estimated_cost exceeds this value.
+	HardCapEur float32 `json:"hard_cap_eur"`
+	// Accumulated spend for the current billing period in EUR. Reset monthly by cron.
+	CurrentPeriodSpend *float32 `json:"current_period_spend,omitempty"`
+	// Start of the current billing period (UTC).
+	PeriodStart *time.Time `json:"period_start,omitempty"`
+	// End of the current billing period (UTC).
+	PeriodEnd *time.Time `json:"period_end,omitempty"`
+	// Whether spend-cap enforcement is active for this organisation.
+	IsActive *bool `json:"is_active,omitempty"`
+	// Timestamp of last soft-cap alert notification — used for 1h deduplication.
+	LastAlertAt *time.Time `json:"last_alert_at,omitempty"`
+	// Comma-separated list of email addresses to notify when soft cap is reached.
+	NotificationsEmail *string `json:"notifications_email,omitempty"`
+	// Number of times a safety-critical action bypassed the hard cap. Incrementing for audit trail — safety actions must never be blocked.
+	SafetyOverrideCount *int32 `json:"safety_override_count,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SpendCap `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSpendCap200ResponseDataInner FindSpendCap200ResponseDataInner
+
 // NewFindSpendCap200ResponseDataInner instantiates a new FindSpendCap200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSpendCap200ResponseDataInner() *FindSpendCap200ResponseDataInner {
+func NewFindSpendCap200ResponseDataInner(organisation CreateAccessReviewRequestDataReviewer, softCapEur float32, hardCapEur float32) *FindSpendCap200ResponseDataInner {
 	this := FindSpendCap200ResponseDataInner{}
+	this.Organisation = organisation
+	this.SoftCapEur = softCapEur
+	this.HardCapEur = hardCapEur
 	return &this
 }
 
@@ -44,6 +69,302 @@ func NewFindSpendCap200ResponseDataInner() *FindSpendCap200ResponseDataInner {
 func NewFindSpendCap200ResponseDataInnerWithDefaults() *FindSpendCap200ResponseDataInner {
 	this := FindSpendCap200ResponseDataInner{}
 	return &this
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindSpendCap200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindSpendCap200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindSpendCap200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetSoftCapEur returns the SoftCapEur field value
+func (o *FindSpendCap200ResponseDataInner) GetSoftCapEur() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.SoftCapEur
+}
+
+// GetSoftCapEurOk returns a tuple with the SoftCapEur field value
+// and a boolean to check if the value has been set.
+func (o *FindSpendCap200ResponseDataInner) GetSoftCapEurOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SoftCapEur, true
+}
+
+// SetSoftCapEur sets field value
+func (o *FindSpendCap200ResponseDataInner) SetSoftCapEur(v float32) {
+	o.SoftCapEur = v
+}
+
+// GetHardCapEur returns the HardCapEur field value
+func (o *FindSpendCap200ResponseDataInner) GetHardCapEur() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.HardCapEur
+}
+
+// GetHardCapEurOk returns a tuple with the HardCapEur field value
+// and a boolean to check if the value has been set.
+func (o *FindSpendCap200ResponseDataInner) GetHardCapEurOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HardCapEur, true
+}
+
+// SetHardCapEur sets field value
+func (o *FindSpendCap200ResponseDataInner) SetHardCapEur(v float32) {
+	o.HardCapEur = v
+}
+
+// GetCurrentPeriodSpend returns the CurrentPeriodSpend field value if set, zero value otherwise.
+func (o *FindSpendCap200ResponseDataInner) GetCurrentPeriodSpend() float32 {
+	if o == nil || IsNil(o.CurrentPeriodSpend) {
+		var ret float32
+		return ret
+	}
+	return *o.CurrentPeriodSpend
+}
+
+// GetCurrentPeriodSpendOk returns a tuple with the CurrentPeriodSpend field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSpendCap200ResponseDataInner) GetCurrentPeriodSpendOk() (*float32, bool) {
+	if o == nil || IsNil(o.CurrentPeriodSpend) {
+		return nil, false
+	}
+	return o.CurrentPeriodSpend, true
+}
+
+// HasCurrentPeriodSpend returns a boolean if a field has been set.
+func (o *FindSpendCap200ResponseDataInner) HasCurrentPeriodSpend() bool {
+	if o != nil && !IsNil(o.CurrentPeriodSpend) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentPeriodSpend gets a reference to the given float32 and assigns it to the CurrentPeriodSpend field.
+func (o *FindSpendCap200ResponseDataInner) SetCurrentPeriodSpend(v float32) {
+	o.CurrentPeriodSpend = &v
+}
+
+// GetPeriodStart returns the PeriodStart field value if set, zero value otherwise.
+func (o *FindSpendCap200ResponseDataInner) GetPeriodStart() time.Time {
+	if o == nil || IsNil(o.PeriodStart) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PeriodStart
+}
+
+// GetPeriodStartOk returns a tuple with the PeriodStart field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSpendCap200ResponseDataInner) GetPeriodStartOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PeriodStart) {
+		return nil, false
+	}
+	return o.PeriodStart, true
+}
+
+// HasPeriodStart returns a boolean if a field has been set.
+func (o *FindSpendCap200ResponseDataInner) HasPeriodStart() bool {
+	if o != nil && !IsNil(o.PeriodStart) {
+		return true
+	}
+
+	return false
+}
+
+// SetPeriodStart gets a reference to the given time.Time and assigns it to the PeriodStart field.
+func (o *FindSpendCap200ResponseDataInner) SetPeriodStart(v time.Time) {
+	o.PeriodStart = &v
+}
+
+// GetPeriodEnd returns the PeriodEnd field value if set, zero value otherwise.
+func (o *FindSpendCap200ResponseDataInner) GetPeriodEnd() time.Time {
+	if o == nil || IsNil(o.PeriodEnd) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PeriodEnd
+}
+
+// GetPeriodEndOk returns a tuple with the PeriodEnd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSpendCap200ResponseDataInner) GetPeriodEndOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PeriodEnd) {
+		return nil, false
+	}
+	return o.PeriodEnd, true
+}
+
+// HasPeriodEnd returns a boolean if a field has been set.
+func (o *FindSpendCap200ResponseDataInner) HasPeriodEnd() bool {
+	if o != nil && !IsNil(o.PeriodEnd) {
+		return true
+	}
+
+	return false
+}
+
+// SetPeriodEnd gets a reference to the given time.Time and assigns it to the PeriodEnd field.
+func (o *FindSpendCap200ResponseDataInner) SetPeriodEnd(v time.Time) {
+	o.PeriodEnd = &v
+}
+
+// GetIsActive returns the IsActive field value if set, zero value otherwise.
+func (o *FindSpendCap200ResponseDataInner) GetIsActive() bool {
+	if o == nil || IsNil(o.IsActive) {
+		var ret bool
+		return ret
+	}
+	return *o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSpendCap200ResponseDataInner) GetIsActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsActive) {
+		return nil, false
+	}
+	return o.IsActive, true
+}
+
+// HasIsActive returns a boolean if a field has been set.
+func (o *FindSpendCap200ResponseDataInner) HasIsActive() bool {
+	if o != nil && !IsNil(o.IsActive) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsActive gets a reference to the given bool and assigns it to the IsActive field.
+func (o *FindSpendCap200ResponseDataInner) SetIsActive(v bool) {
+	o.IsActive = &v
+}
+
+// GetLastAlertAt returns the LastAlertAt field value if set, zero value otherwise.
+func (o *FindSpendCap200ResponseDataInner) GetLastAlertAt() time.Time {
+	if o == nil || IsNil(o.LastAlertAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastAlertAt
+}
+
+// GetLastAlertAtOk returns a tuple with the LastAlertAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSpendCap200ResponseDataInner) GetLastAlertAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastAlertAt) {
+		return nil, false
+	}
+	return o.LastAlertAt, true
+}
+
+// HasLastAlertAt returns a boolean if a field has been set.
+func (o *FindSpendCap200ResponseDataInner) HasLastAlertAt() bool {
+	if o != nil && !IsNil(o.LastAlertAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastAlertAt gets a reference to the given time.Time and assigns it to the LastAlertAt field.
+func (o *FindSpendCap200ResponseDataInner) SetLastAlertAt(v time.Time) {
+	o.LastAlertAt = &v
+}
+
+// GetNotificationsEmail returns the NotificationsEmail field value if set, zero value otherwise.
+func (o *FindSpendCap200ResponseDataInner) GetNotificationsEmail() string {
+	if o == nil || IsNil(o.NotificationsEmail) {
+		var ret string
+		return ret
+	}
+	return *o.NotificationsEmail
+}
+
+// GetNotificationsEmailOk returns a tuple with the NotificationsEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSpendCap200ResponseDataInner) GetNotificationsEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.NotificationsEmail) {
+		return nil, false
+	}
+	return o.NotificationsEmail, true
+}
+
+// HasNotificationsEmail returns a boolean if a field has been set.
+func (o *FindSpendCap200ResponseDataInner) HasNotificationsEmail() bool {
+	if o != nil && !IsNil(o.NotificationsEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotificationsEmail gets a reference to the given string and assigns it to the NotificationsEmail field.
+func (o *FindSpendCap200ResponseDataInner) SetNotificationsEmail(v string) {
+	o.NotificationsEmail = &v
+}
+
+// GetSafetyOverrideCount returns the SafetyOverrideCount field value if set, zero value otherwise.
+func (o *FindSpendCap200ResponseDataInner) GetSafetyOverrideCount() int32 {
+	if o == nil || IsNil(o.SafetyOverrideCount) {
+		var ret int32
+		return ret
+	}
+	return *o.SafetyOverrideCount
+}
+
+// GetSafetyOverrideCountOk returns a tuple with the SafetyOverrideCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSpendCap200ResponseDataInner) GetSafetyOverrideCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.SafetyOverrideCount) {
+		return nil, false
+	}
+	return o.SafetyOverrideCount, true
+}
+
+// HasSafetyOverrideCount returns a boolean if a field has been set.
+func (o *FindSpendCap200ResponseDataInner) HasSafetyOverrideCount() bool {
+	if o != nil && !IsNil(o.SafetyOverrideCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetSafetyOverrideCount gets a reference to the given int32 and assigns it to the SafetyOverrideCount field.
+func (o *FindSpendCap200ResponseDataInner) SetSafetyOverrideCount(v int32) {
+	o.SafetyOverrideCount = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +429,6 @@ func (o *FindSpendCap200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSpendCap200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSpendCap200ResponseDataInner) GetAttributes() SpendCap {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SpendCap
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSpendCap200ResponseDataInner) GetAttributesOk() (*SpendCap, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSpendCap200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SpendCap and assigns it to the Attributes field.
-func (o *FindSpendCap200ResponseDataInner) SetAttributes(v SpendCap) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +547,35 @@ func (o FindSpendCap200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindSpendCap200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["organisation"] = o.Organisation
+	toSerialize["soft_cap_eur"] = o.SoftCapEur
+	toSerialize["hard_cap_eur"] = o.HardCapEur
+	if !IsNil(o.CurrentPeriodSpend) {
+		toSerialize["current_period_spend"] = o.CurrentPeriodSpend
+	}
+	if !IsNil(o.PeriodStart) {
+		toSerialize["period_start"] = o.PeriodStart
+	}
+	if !IsNil(o.PeriodEnd) {
+		toSerialize["period_end"] = o.PeriodEnd
+	}
+	if !IsNil(o.IsActive) {
+		toSerialize["is_active"] = o.IsActive
+	}
+	if !IsNil(o.LastAlertAt) {
+		toSerialize["last_alert_at"] = o.LastAlertAt
+	}
+	if !IsNil(o.NotificationsEmail) {
+		toSerialize["notifications_email"] = o.NotificationsEmail
+	}
+	if !IsNil(o.SafetyOverrideCount) {
+		toSerialize["safety_override_count"] = o.SafetyOverrideCount
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +587,45 @@ func (o FindSpendCap200ResponseDataInner) ToMap() (map[string]interface{}, error
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSpendCap200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organisation",
+		"soft_cap_eur",
+		"hard_cap_eur",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSpendCap200ResponseDataInner := _FindSpendCap200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSpendCap200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSpendCap200ResponseDataInner(varFindSpendCap200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSpendCap200ResponseDataInner struct {

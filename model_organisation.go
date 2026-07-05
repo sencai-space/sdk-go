@@ -48,7 +48,7 @@ type Organisation struct {
 	BudgetMonthly *float32 `json:"budget_monthly,omitempty"`
 	BudgetCurrency *string `json:"budget_currency,omitempty"`
 	// Seznam emailů pro budget alerty (F2.C.09).
-	BudgetNotifications map[string]interface{} `json:"budget_notifications,omitempty"`
+	BudgetNotifications interface{} `json:"budget_notifications,omitempty"`
 	// Aktuální stav vůči budgetu: ok / soft (>=70%) / hard (>=100%, blokuje provisioning) — počítá FinOps watchdog (F2.C.09).
 	BudgetState string `json:"budget_state"`
 	// Cache aktuální útraty za sledované období (aktualizuje budget watchdog).
@@ -93,7 +93,11 @@ type Organisation struct {
 	// Timestamp of the last VIES validation attempt for vat_id (F3.LEGAL.03). Used as the 24h cache TTL anchor in POST /api/billing/validate-vat.
 	VatValidatedAt *time.Time `json:"vat_validated_at,omitempty"`
 	// F4.ENTERPRISE.03 — JSON array of CIDR ranges (IPv4/IPv6, e.g. [\"203.0.113.0/24\", \"2001:db8::/32\"]) restricting platform access for members of this organisation. Nullable/empty = no restriction (backward-compatible default). Enforced server-side by global::ip-allowlist-guard against the resolved client IP (X-Forwarded-For aware, see middleware doc comment).
-	IpAllowlist map[string]interface{} `json:"ip_allowlist,omitempty"`
+	IpAllowlist interface{} `json:"ip_allowlist,omitempty"`
+	// F4.FORUM.05 — numeric Lemmy community id auto-provisioned for this organisation by forum-connector. Null until the async organisation.forum-community-requested event has been processed (best-effort, never blocks org creation).
+	LemmyCommunityId *int32 `json:"lemmy_community_id,omitempty"`
+	// F4.FORUM.05 — sanitized Lemmy community `name` (URL-safe slug) matching lemmy_community_id, kept alongside it so the frontend can link straight to forum.sencai.space/c/<name> without an extra Lemmy lookup.
+	LemmyCommunityName *string `json:"lemmy_community_name,omitempty"`
 }
 
 type _Organisation Organisation
@@ -846,10 +850,10 @@ func (o *Organisation) SetBudgetCurrency(v string) {
 	o.BudgetCurrency = &v
 }
 
-// GetBudgetNotifications returns the BudgetNotifications field value if set, zero value otherwise.
-func (o *Organisation) GetBudgetNotifications() map[string]interface{} {
-	if o == nil || IsNil(o.BudgetNotifications) {
-		var ret map[string]interface{}
+// GetBudgetNotifications returns the BudgetNotifications field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Organisation) GetBudgetNotifications() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.BudgetNotifications
@@ -857,11 +861,12 @@ func (o *Organisation) GetBudgetNotifications() map[string]interface{} {
 
 // GetBudgetNotificationsOk returns a tuple with the BudgetNotifications field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Organisation) GetBudgetNotificationsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Organisation) GetBudgetNotificationsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.BudgetNotifications) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.BudgetNotifications, true
+	return &o.BudgetNotifications, true
 }
 
 // HasBudgetNotifications returns a boolean if a field has been set.
@@ -873,8 +878,8 @@ func (o *Organisation) HasBudgetNotifications() bool {
 	return false
 }
 
-// SetBudgetNotifications gets a reference to the given map[string]interface{} and assigns it to the BudgetNotifications field.
-func (o *Organisation) SetBudgetNotifications(v map[string]interface{}) {
+// SetBudgetNotifications gets a reference to the given interface{} and assigns it to the BudgetNotifications field.
+func (o *Organisation) SetBudgetNotifications(v interface{}) {
 	o.BudgetNotifications = v
 }
 
@@ -1598,10 +1603,10 @@ func (o *Organisation) SetVatValidatedAt(v time.Time) {
 	o.VatValidatedAt = &v
 }
 
-// GetIpAllowlist returns the IpAllowlist field value if set, zero value otherwise.
-func (o *Organisation) GetIpAllowlist() map[string]interface{} {
-	if o == nil || IsNil(o.IpAllowlist) {
-		var ret map[string]interface{}
+// GetIpAllowlist returns the IpAllowlist field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Organisation) GetIpAllowlist() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.IpAllowlist
@@ -1609,11 +1614,12 @@ func (o *Organisation) GetIpAllowlist() map[string]interface{} {
 
 // GetIpAllowlistOk returns a tuple with the IpAllowlist field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Organisation) GetIpAllowlistOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Organisation) GetIpAllowlistOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.IpAllowlist) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.IpAllowlist, true
+	return &o.IpAllowlist, true
 }
 
 // HasIpAllowlist returns a boolean if a field has been set.
@@ -1625,9 +1631,73 @@ func (o *Organisation) HasIpAllowlist() bool {
 	return false
 }
 
-// SetIpAllowlist gets a reference to the given map[string]interface{} and assigns it to the IpAllowlist field.
-func (o *Organisation) SetIpAllowlist(v map[string]interface{}) {
+// SetIpAllowlist gets a reference to the given interface{} and assigns it to the IpAllowlist field.
+func (o *Organisation) SetIpAllowlist(v interface{}) {
 	o.IpAllowlist = v
+}
+
+// GetLemmyCommunityId returns the LemmyCommunityId field value if set, zero value otherwise.
+func (o *Organisation) GetLemmyCommunityId() int32 {
+	if o == nil || IsNil(o.LemmyCommunityId) {
+		var ret int32
+		return ret
+	}
+	return *o.LemmyCommunityId
+}
+
+// GetLemmyCommunityIdOk returns a tuple with the LemmyCommunityId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Organisation) GetLemmyCommunityIdOk() (*int32, bool) {
+	if o == nil || IsNil(o.LemmyCommunityId) {
+		return nil, false
+	}
+	return o.LemmyCommunityId, true
+}
+
+// HasLemmyCommunityId returns a boolean if a field has been set.
+func (o *Organisation) HasLemmyCommunityId() bool {
+	if o != nil && !IsNil(o.LemmyCommunityId) {
+		return true
+	}
+
+	return false
+}
+
+// SetLemmyCommunityId gets a reference to the given int32 and assigns it to the LemmyCommunityId field.
+func (o *Organisation) SetLemmyCommunityId(v int32) {
+	o.LemmyCommunityId = &v
+}
+
+// GetLemmyCommunityName returns the LemmyCommunityName field value if set, zero value otherwise.
+func (o *Organisation) GetLemmyCommunityName() string {
+	if o == nil || IsNil(o.LemmyCommunityName) {
+		var ret string
+		return ret
+	}
+	return *o.LemmyCommunityName
+}
+
+// GetLemmyCommunityNameOk returns a tuple with the LemmyCommunityName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Organisation) GetLemmyCommunityNameOk() (*string, bool) {
+	if o == nil || IsNil(o.LemmyCommunityName) {
+		return nil, false
+	}
+	return o.LemmyCommunityName, true
+}
+
+// HasLemmyCommunityName returns a boolean if a field has been set.
+func (o *Organisation) HasLemmyCommunityName() bool {
+	if o != nil && !IsNil(o.LemmyCommunityName) {
+		return true
+	}
+
+	return false
+}
+
+// SetLemmyCommunityName gets a reference to the given string and assigns it to the LemmyCommunityName field.
+func (o *Organisation) SetLemmyCommunityName(v string) {
+	o.LemmyCommunityName = &v
 }
 
 func (o Organisation) MarshalJSON() ([]byte, error) {
@@ -1707,7 +1777,7 @@ func (o Organisation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BudgetCurrency) {
 		toSerialize["budget_currency"] = o.BudgetCurrency
 	}
-	if !IsNil(o.BudgetNotifications) {
+	if o.BudgetNotifications != nil {
 		toSerialize["budget_notifications"] = o.BudgetNotifications
 	}
 	toSerialize["budget_state"] = o.BudgetState
@@ -1775,8 +1845,14 @@ func (o Organisation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.VatValidatedAt) {
 		toSerialize["vat_validated_at"] = o.VatValidatedAt
 	}
-	if !IsNil(o.IpAllowlist) {
+	if o.IpAllowlist != nil {
 		toSerialize["ip_allowlist"] = o.IpAllowlist
+	}
+	if !IsNil(o.LemmyCommunityId) {
+		toSerialize["lemmy_community_id"] = o.LemmyCommunityId
+	}
+	if !IsNil(o.LemmyCommunityName) {
+		toSerialize["lemmy_community_name"] = o.LemmyCommunityName
 	}
 	return toSerialize, nil
 }

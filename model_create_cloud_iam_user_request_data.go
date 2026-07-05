@@ -28,10 +28,12 @@ type CreateCloudIamUserRequestData struct {
 	Email *string `json:"email,omitempty"`
 	ArnOrPrincipalId *string `json:"arn_or_principal_id,omitempty"`
 	UserType *string `json:"user_type,omitempty"`
-	AttachedPolicies map[string]interface{} `json:"attached_policies,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AttachedPolicies interface{} `json:"attached_policies,omitempty"`
 	LastUsedAt *time.Time `json:"last_used_at,omitempty"`
 	ExternalId *string `json:"external_id,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
@@ -201,10 +203,10 @@ func (o *CreateCloudIamUserRequestData) SetUserType(v string) {
 	o.UserType = &v
 }
 
-// GetAttachedPolicies returns the AttachedPolicies field value if set, zero value otherwise.
-func (o *CreateCloudIamUserRequestData) GetAttachedPolicies() map[string]interface{} {
-	if o == nil || IsNil(o.AttachedPolicies) {
-		var ret map[string]interface{}
+// GetAttachedPolicies returns the AttachedPolicies field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudIamUserRequestData) GetAttachedPolicies() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.AttachedPolicies
@@ -212,11 +214,12 @@ func (o *CreateCloudIamUserRequestData) GetAttachedPolicies() map[string]interfa
 
 // GetAttachedPoliciesOk returns a tuple with the AttachedPolicies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudIamUserRequestData) GetAttachedPoliciesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudIamUserRequestData) GetAttachedPoliciesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AttachedPolicies) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.AttachedPolicies, true
+	return &o.AttachedPolicies, true
 }
 
 // HasAttachedPolicies returns a boolean if a field has been set.
@@ -228,8 +231,8 @@ func (o *CreateCloudIamUserRequestData) HasAttachedPolicies() bool {
 	return false
 }
 
-// SetAttachedPolicies gets a reference to the given map[string]interface{} and assigns it to the AttachedPolicies field.
-func (o *CreateCloudIamUserRequestData) SetAttachedPolicies(v map[string]interface{}) {
+// SetAttachedPolicies gets a reference to the given interface{} and assigns it to the AttachedPolicies field.
+func (o *CreateCloudIamUserRequestData) SetAttachedPolicies(v interface{}) {
 	o.AttachedPolicies = v
 }
 
@@ -297,10 +300,10 @@ func (o *CreateCloudIamUserRequestData) SetExternalId(v string) {
 	o.ExternalId = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CreateCloudIamUserRequestData) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudIamUserRequestData) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -308,11 +311,12 @@ func (o *CreateCloudIamUserRequestData) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudIamUserRequestData) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudIamUserRequestData) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -324,8 +328,8 @@ func (o *CreateCloudIamUserRequestData) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CreateCloudIamUserRequestData) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CreateCloudIamUserRequestData) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -414,7 +418,7 @@ func (o CreateCloudIamUserRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserType) {
 		toSerialize["user_type"] = o.UserType
 	}
-	if !IsNil(o.AttachedPolicies) {
+	if o.AttachedPolicies != nil {
 		toSerialize["attached_policies"] = o.AttachedPolicies
 	}
 	if !IsNil(o.LastUsedAt) {
@@ -423,7 +427,7 @@ func (o CreateCloudIamUserRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExternalId) {
 		toSerialize["external_id"] = o.ExternalId
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.Credential) {

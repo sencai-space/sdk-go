@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindNetworkTemplate200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindNetworkTemplate200ResponseDataInner{}
 
 // FindNetworkTemplate200ResponseDataInner struct for FindNetworkTemplate200ResponseDataInner
 type FindNetworkTemplate200ResponseDataInner struct {
+	Name string `json:"name"`
+	Description *string `json:"description,omitempty"`
+	TemplateType string `json:"template_type"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Rules interface{} `json:"rules"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ProviderSupport interface{} `json:"provider_support,omitempty"`
+	IsBuiltin *bool `json:"is_builtin,omitempty"`
+	IsPublic *bool `json:"is_public,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *NetworkTemplate `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindNetworkTemplate200ResponseDataInner FindNetworkTemplate200ResponseDataInner
+
 // NewFindNetworkTemplate200ResponseDataInner instantiates a new FindNetworkTemplate200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindNetworkTemplate200ResponseDataInner() *FindNetworkTemplate200ResponseDataInner {
+func NewFindNetworkTemplate200ResponseDataInner(name string, templateType string, rules interface{}) *FindNetworkTemplate200ResponseDataInner {
 	this := FindNetworkTemplate200ResponseDataInner{}
+	this.Name = name
+	this.TemplateType = templateType
+	this.Rules = rules
 	return &this
 }
 
@@ -44,6 +62,274 @@ func NewFindNetworkTemplate200ResponseDataInner() *FindNetworkTemplate200Respons
 func NewFindNetworkTemplate200ResponseDataInnerWithDefaults() *FindNetworkTemplate200ResponseDataInner {
 	this := FindNetworkTemplate200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindNetworkTemplate200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindNetworkTemplate200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindNetworkTemplate200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindNetworkTemplate200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetTemplateType returns the TemplateType field value
+func (o *FindNetworkTemplate200ResponseDataInner) GetTemplateType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TemplateType
+}
+
+// GetTemplateTypeOk returns a tuple with the TemplateType field value
+// and a boolean to check if the value has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) GetTemplateTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TemplateType, true
+}
+
+// SetTemplateType sets field value
+func (o *FindNetworkTemplate200ResponseDataInner) SetTemplateType(v string) {
+	o.TemplateType = v
+}
+
+// GetRules returns the Rules field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *FindNetworkTemplate200ResponseDataInner) GetRules() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+
+	return o.Rules
+}
+
+// GetRulesOk returns a tuple with the Rules field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindNetworkTemplate200ResponseDataInner) GetRulesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Rules) {
+		return nil, false
+	}
+	return &o.Rules, true
+}
+
+// SetRules sets field value
+func (o *FindNetworkTemplate200ResponseDataInner) SetRules(v interface{}) {
+	o.Rules = v
+}
+
+// GetProviderSupport returns the ProviderSupport field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindNetworkTemplate200ResponseDataInner) GetProviderSupport() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ProviderSupport
+}
+
+// GetProviderSupportOk returns a tuple with the ProviderSupport field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindNetworkTemplate200ResponseDataInner) GetProviderSupportOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ProviderSupport) {
+		return nil, false
+	}
+	return &o.ProviderSupport, true
+}
+
+// HasProviderSupport returns a boolean if a field has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) HasProviderSupport() bool {
+	if o != nil && !IsNil(o.ProviderSupport) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderSupport gets a reference to the given interface{} and assigns it to the ProviderSupport field.
+func (o *FindNetworkTemplate200ResponseDataInner) SetProviderSupport(v interface{}) {
+	o.ProviderSupport = v
+}
+
+// GetIsBuiltin returns the IsBuiltin field value if set, zero value otherwise.
+func (o *FindNetworkTemplate200ResponseDataInner) GetIsBuiltin() bool {
+	if o == nil || IsNil(o.IsBuiltin) {
+		var ret bool
+		return ret
+	}
+	return *o.IsBuiltin
+}
+
+// GetIsBuiltinOk returns a tuple with the IsBuiltin field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) GetIsBuiltinOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsBuiltin) {
+		return nil, false
+	}
+	return o.IsBuiltin, true
+}
+
+// HasIsBuiltin returns a boolean if a field has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) HasIsBuiltin() bool {
+	if o != nil && !IsNil(o.IsBuiltin) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsBuiltin gets a reference to the given bool and assigns it to the IsBuiltin field.
+func (o *FindNetworkTemplate200ResponseDataInner) SetIsBuiltin(v bool) {
+	o.IsBuiltin = &v
+}
+
+// GetIsPublic returns the IsPublic field value if set, zero value otherwise.
+func (o *FindNetworkTemplate200ResponseDataInner) GetIsPublic() bool {
+	if o == nil || IsNil(o.IsPublic) {
+		var ret bool
+		return ret
+	}
+	return *o.IsPublic
+}
+
+// GetIsPublicOk returns a tuple with the IsPublic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) GetIsPublicOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsPublic) {
+		return nil, false
+	}
+	return o.IsPublic, true
+}
+
+// HasIsPublic returns a boolean if a field has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) HasIsPublic() bool {
+	if o != nil && !IsNil(o.IsPublic) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsPublic gets a reference to the given bool and assigns it to the IsPublic field.
+func (o *FindNetworkTemplate200ResponseDataInner) SetIsPublic(v bool) {
+	o.IsPublic = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindNetworkTemplate200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindNetworkTemplate200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindNetworkTemplate200ResponseDataInner) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindNetworkTemplate200ResponseDataInner) GetTagsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return &o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *FindNetworkTemplate200ResponseDataInner) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *FindNetworkTemplate200ResponseDataInner) SetTags(v interface{}) {
+	o.Tags = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +394,6 @@ func (o *FindNetworkTemplate200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindNetworkTemplate200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindNetworkTemplate200ResponseDataInner) GetAttributes() NetworkTemplate {
-	if o == nil || IsNil(o.Attributes) {
-		var ret NetworkTemplate
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindNetworkTemplate200ResponseDataInner) GetAttributesOk() (*NetworkTemplate, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindNetworkTemplate200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given NetworkTemplate and assigns it to the Attributes field.
-func (o *FindNetworkTemplate200ResponseDataInner) SetAttributes(v NetworkTemplate) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +512,34 @@ func (o FindNetworkTemplate200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindNetworkTemplate200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["template_type"] = o.TemplateType
+	if o.Rules != nil {
+		toSerialize["rules"] = o.Rules
+	}
+	if o.ProviderSupport != nil {
+		toSerialize["provider_support"] = o.ProviderSupport
+	}
+	if !IsNil(o.IsBuiltin) {
+		toSerialize["is_builtin"] = o.IsBuiltin
+	}
+	if !IsNil(o.IsPublic) {
+		toSerialize["is_public"] = o.IsPublic
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +551,45 @@ func (o FindNetworkTemplate200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindNetworkTemplate200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"template_type",
+		"rules",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindNetworkTemplate200ResponseDataInner := _FindNetworkTemplate200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindNetworkTemplate200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindNetworkTemplate200ResponseDataInner(varFindNetworkTemplate200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindNetworkTemplate200ResponseDataInner struct {

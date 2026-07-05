@@ -45,7 +45,7 @@ type CostRecord struct {
 	// Cloud account/subscription/project ID — FOCUS BillingAccountId.
 	AccountId *string `json:"account_id,omitempty"`
 	// Resource tagy v původní podobě z providera (key-value mapa).
-	Tags map[string]interface{} `json:"tags,omitempty"`
+	Tags interface{} `json:"tags,omitempty"`
 	// Verze FOCUS schématu, podle které byl záznam vygenerován.
 	FocusSchemaVersion *string `json:"focus_schema_version,omitempty"`
 	// Sencai kategorie nákladů — vstup pro COGS breakdown a margin kalkulaci.
@@ -426,10 +426,10 @@ func (o *CostRecord) SetAccountId(v string) {
 	o.AccountId = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CostRecord) GetTags() map[string]interface{} {
-	if o == nil || IsNil(o.Tags) {
-		var ret map[string]interface{}
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CostRecord) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Tags
@@ -437,11 +437,12 @@ func (o *CostRecord) GetTags() map[string]interface{} {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CostRecord) GetTagsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CostRecord) GetTagsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Tags) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -453,8 +454,8 @@ func (o *CostRecord) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given map[string]interface{} and assigns it to the Tags field.
-func (o *CostRecord) SetTags(v map[string]interface{}) {
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *CostRecord) SetTags(v interface{}) {
 	o.Tags = v
 }
 
@@ -715,7 +716,7 @@ func (o CostRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountId) {
 		toSerialize["account_id"] = o.AccountId
 	}
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
 	if !IsNil(o.FocusSchemaVersion) {

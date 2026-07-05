@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAiOversightReview200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,32 @@ var _ MappedNullable = &FindAiOversightReview200ResponseDataInner{}
 
 // FindAiOversightReview200ResponseDataInner struct for FindAiOversightReview200ResponseDataInner
 type FindAiOversightReview200ResponseDataInner struct {
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	CurrentLevel *int32 `json:"current_level,omitempty"`
+	RequestedLevel *int32 `json:"requested_level,omitempty"`
+	Status *string `json:"status,omitempty"`
+	ReviewNotes *string `json:"review_notes,omitempty"`
+	ApprovedBy *string `json:"approved_by,omitempty"`
+	ApprovedAt *time.Time `json:"approved_at,omitempty"`
+	EffectiveFrom *time.Time `json:"effective_from,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	LevelHistory interface{} `json:"level_history,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AiOversightReview `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAiOversightReview200ResponseDataInner FindAiOversightReview200ResponseDataInner
+
 // NewFindAiOversightReview200ResponseDataInner instantiates a new FindAiOversightReview200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAiOversightReview200ResponseDataInner() *FindAiOversightReview200ResponseDataInner {
+func NewFindAiOversightReview200ResponseDataInner(organisation CreateAccessReviewRequestDataReviewer) *FindAiOversightReview200ResponseDataInner {
 	this := FindAiOversightReview200ResponseDataInner{}
+	this.Organisation = organisation
 	return &this
 }
 
@@ -44,6 +58,287 @@ func NewFindAiOversightReview200ResponseDataInner() *FindAiOversightReview200Res
 func NewFindAiOversightReview200ResponseDataInnerWithDefaults() *FindAiOversightReview200ResponseDataInner {
 	this := FindAiOversightReview200ResponseDataInner{}
 	return &this
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindAiOversightReview200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindAiOversightReview200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindAiOversightReview200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetCurrentLevel returns the CurrentLevel field value if set, zero value otherwise.
+func (o *FindAiOversightReview200ResponseDataInner) GetCurrentLevel() int32 {
+	if o == nil || IsNil(o.CurrentLevel) {
+		var ret int32
+		return ret
+	}
+	return *o.CurrentLevel
+}
+
+// GetCurrentLevelOk returns a tuple with the CurrentLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiOversightReview200ResponseDataInner) GetCurrentLevelOk() (*int32, bool) {
+	if o == nil || IsNil(o.CurrentLevel) {
+		return nil, false
+	}
+	return o.CurrentLevel, true
+}
+
+// HasCurrentLevel returns a boolean if a field has been set.
+func (o *FindAiOversightReview200ResponseDataInner) HasCurrentLevel() bool {
+	if o != nil && !IsNil(o.CurrentLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentLevel gets a reference to the given int32 and assigns it to the CurrentLevel field.
+func (o *FindAiOversightReview200ResponseDataInner) SetCurrentLevel(v int32) {
+	o.CurrentLevel = &v
+}
+
+// GetRequestedLevel returns the RequestedLevel field value if set, zero value otherwise.
+func (o *FindAiOversightReview200ResponseDataInner) GetRequestedLevel() int32 {
+	if o == nil || IsNil(o.RequestedLevel) {
+		var ret int32
+		return ret
+	}
+	return *o.RequestedLevel
+}
+
+// GetRequestedLevelOk returns a tuple with the RequestedLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiOversightReview200ResponseDataInner) GetRequestedLevelOk() (*int32, bool) {
+	if o == nil || IsNil(o.RequestedLevel) {
+		return nil, false
+	}
+	return o.RequestedLevel, true
+}
+
+// HasRequestedLevel returns a boolean if a field has been set.
+func (o *FindAiOversightReview200ResponseDataInner) HasRequestedLevel() bool {
+	if o != nil && !IsNil(o.RequestedLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestedLevel gets a reference to the given int32 and assigns it to the RequestedLevel field.
+func (o *FindAiOversightReview200ResponseDataInner) SetRequestedLevel(v int32) {
+	o.RequestedLevel = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindAiOversightReview200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiOversightReview200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindAiOversightReview200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindAiOversightReview200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetReviewNotes returns the ReviewNotes field value if set, zero value otherwise.
+func (o *FindAiOversightReview200ResponseDataInner) GetReviewNotes() string {
+	if o == nil || IsNil(o.ReviewNotes) {
+		var ret string
+		return ret
+	}
+	return *o.ReviewNotes
+}
+
+// GetReviewNotesOk returns a tuple with the ReviewNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiOversightReview200ResponseDataInner) GetReviewNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.ReviewNotes) {
+		return nil, false
+	}
+	return o.ReviewNotes, true
+}
+
+// HasReviewNotes returns a boolean if a field has been set.
+func (o *FindAiOversightReview200ResponseDataInner) HasReviewNotes() bool {
+	if o != nil && !IsNil(o.ReviewNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetReviewNotes gets a reference to the given string and assigns it to the ReviewNotes field.
+func (o *FindAiOversightReview200ResponseDataInner) SetReviewNotes(v string) {
+	o.ReviewNotes = &v
+}
+
+// GetApprovedBy returns the ApprovedBy field value if set, zero value otherwise.
+func (o *FindAiOversightReview200ResponseDataInner) GetApprovedBy() string {
+	if o == nil || IsNil(o.ApprovedBy) {
+		var ret string
+		return ret
+	}
+	return *o.ApprovedBy
+}
+
+// GetApprovedByOk returns a tuple with the ApprovedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiOversightReview200ResponseDataInner) GetApprovedByOk() (*string, bool) {
+	if o == nil || IsNil(o.ApprovedBy) {
+		return nil, false
+	}
+	return o.ApprovedBy, true
+}
+
+// HasApprovedBy returns a boolean if a field has been set.
+func (o *FindAiOversightReview200ResponseDataInner) HasApprovedBy() bool {
+	if o != nil && !IsNil(o.ApprovedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetApprovedBy gets a reference to the given string and assigns it to the ApprovedBy field.
+func (o *FindAiOversightReview200ResponseDataInner) SetApprovedBy(v string) {
+	o.ApprovedBy = &v
+}
+
+// GetApprovedAt returns the ApprovedAt field value if set, zero value otherwise.
+func (o *FindAiOversightReview200ResponseDataInner) GetApprovedAt() time.Time {
+	if o == nil || IsNil(o.ApprovedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ApprovedAt
+}
+
+// GetApprovedAtOk returns a tuple with the ApprovedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiOversightReview200ResponseDataInner) GetApprovedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ApprovedAt) {
+		return nil, false
+	}
+	return o.ApprovedAt, true
+}
+
+// HasApprovedAt returns a boolean if a field has been set.
+func (o *FindAiOversightReview200ResponseDataInner) HasApprovedAt() bool {
+	if o != nil && !IsNil(o.ApprovedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetApprovedAt gets a reference to the given time.Time and assigns it to the ApprovedAt field.
+func (o *FindAiOversightReview200ResponseDataInner) SetApprovedAt(v time.Time) {
+	o.ApprovedAt = &v
+}
+
+// GetEffectiveFrom returns the EffectiveFrom field value if set, zero value otherwise.
+func (o *FindAiOversightReview200ResponseDataInner) GetEffectiveFrom() time.Time {
+	if o == nil || IsNil(o.EffectiveFrom) {
+		var ret time.Time
+		return ret
+	}
+	return *o.EffectiveFrom
+}
+
+// GetEffectiveFromOk returns a tuple with the EffectiveFrom field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAiOversightReview200ResponseDataInner) GetEffectiveFromOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EffectiveFrom) {
+		return nil, false
+	}
+	return o.EffectiveFrom, true
+}
+
+// HasEffectiveFrom returns a boolean if a field has been set.
+func (o *FindAiOversightReview200ResponseDataInner) HasEffectiveFrom() bool {
+	if o != nil && !IsNil(o.EffectiveFrom) {
+		return true
+	}
+
+	return false
+}
+
+// SetEffectiveFrom gets a reference to the given time.Time and assigns it to the EffectiveFrom field.
+func (o *FindAiOversightReview200ResponseDataInner) SetEffectiveFrom(v time.Time) {
+	o.EffectiveFrom = &v
+}
+
+// GetLevelHistory returns the LevelHistory field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAiOversightReview200ResponseDataInner) GetLevelHistory() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.LevelHistory
+}
+
+// GetLevelHistoryOk returns a tuple with the LevelHistory field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAiOversightReview200ResponseDataInner) GetLevelHistoryOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.LevelHistory) {
+		return nil, false
+	}
+	return &o.LevelHistory, true
+}
+
+// HasLevelHistory returns a boolean if a field has been set.
+func (o *FindAiOversightReview200ResponseDataInner) HasLevelHistory() bool {
+	if o != nil && !IsNil(o.LevelHistory) {
+		return true
+	}
+
+	return false
+}
+
+// SetLevelHistory gets a reference to the given interface{} and assigns it to the LevelHistory field.
+func (o *FindAiOversightReview200ResponseDataInner) SetLevelHistory(v interface{}) {
+	o.LevelHistory = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +403,6 @@ func (o *FindAiOversightReview200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAiOversightReview200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAiOversightReview200ResponseDataInner) GetAttributes() AiOversightReview {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AiOversightReview
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAiOversightReview200ResponseDataInner) GetAttributesOk() (*AiOversightReview, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAiOversightReview200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AiOversightReview and assigns it to the Attributes field.
-func (o *FindAiOversightReview200ResponseDataInner) SetAttributes(v AiOversightReview) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +521,36 @@ func (o FindAiOversightReview200ResponseDataInner) MarshalJSON() ([]byte, error)
 
 func (o FindAiOversightReview200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["organisation"] = o.Organisation
+	if !IsNil(o.CurrentLevel) {
+		toSerialize["current_level"] = o.CurrentLevel
+	}
+	if !IsNil(o.RequestedLevel) {
+		toSerialize["requested_level"] = o.RequestedLevel
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.ReviewNotes) {
+		toSerialize["review_notes"] = o.ReviewNotes
+	}
+	if !IsNil(o.ApprovedBy) {
+		toSerialize["approved_by"] = o.ApprovedBy
+	}
+	if !IsNil(o.ApprovedAt) {
+		toSerialize["approved_at"] = o.ApprovedAt
+	}
+	if !IsNil(o.EffectiveFrom) {
+		toSerialize["effective_from"] = o.EffectiveFrom
+	}
+	if o.LevelHistory != nil {
+		toSerialize["level_history"] = o.LevelHistory
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +562,43 @@ func (o FindAiOversightReview200ResponseDataInner) ToMap() (map[string]interface
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAiOversightReview200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organisation",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAiOversightReview200ResponseDataInner := _FindAiOversightReview200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAiOversightReview200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAiOversightReview200ResponseDataInner(varFindAiOversightReview200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAiOversightReview200ResponseDataInner struct {

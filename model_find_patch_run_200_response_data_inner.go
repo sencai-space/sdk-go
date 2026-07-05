@@ -21,9 +21,19 @@ var _ MappedNullable = &FindPatchRun200ResponseDataInner{}
 
 // FindPatchRun200ResponseDataInner struct for FindPatchRun200ResponseDataInner
 type FindPatchRun200ResponseDataInner struct {
+	SencaiAgent *CreateAccessReviewRequestDataReviewer `json:"sencai_agent,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ScanResult interface{} `json:"scan_result,omitempty"`
+	Status *string `json:"status,omitempty"`
+	PackagesAvailable *int32 `json:"packages_available,omitempty"`
+	PackagesApplied *int32 `json:"packages_applied,omitempty"`
+	PackageMgr *string `json:"package_mgr,omitempty"`
+	Error *string `json:"error,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	MaintenanceWindows interface{} `json:"maintenance_windows,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *PatchRun `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +54,296 @@ func NewFindPatchRun200ResponseDataInner() *FindPatchRun200ResponseDataInner {
 func NewFindPatchRun200ResponseDataInnerWithDefaults() *FindPatchRun200ResponseDataInner {
 	this := FindPatchRun200ResponseDataInner{}
 	return &this
+}
+
+// GetSencaiAgent returns the SencaiAgent field value if set, zero value otherwise.
+func (o *FindPatchRun200ResponseDataInner) GetSencaiAgent() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.SencaiAgent) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.SencaiAgent
+}
+
+// GetSencaiAgentOk returns a tuple with the SencaiAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPatchRun200ResponseDataInner) GetSencaiAgentOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.SencaiAgent) {
+		return nil, false
+	}
+	return o.SencaiAgent, true
+}
+
+// HasSencaiAgent returns a boolean if a field has been set.
+func (o *FindPatchRun200ResponseDataInner) HasSencaiAgent() bool {
+	if o != nil && !IsNil(o.SencaiAgent) {
+		return true
+	}
+
+	return false
+}
+
+// SetSencaiAgent gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the SencaiAgent field.
+func (o *FindPatchRun200ResponseDataInner) SetSencaiAgent(v CreateAccessReviewRequestDataReviewer) {
+	o.SencaiAgent = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindPatchRun200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPatchRun200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindPatchRun200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindPatchRun200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetScanResult returns the ScanResult field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindPatchRun200ResponseDataInner) GetScanResult() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ScanResult
+}
+
+// GetScanResultOk returns a tuple with the ScanResult field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindPatchRun200ResponseDataInner) GetScanResultOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ScanResult) {
+		return nil, false
+	}
+	return &o.ScanResult, true
+}
+
+// HasScanResult returns a boolean if a field has been set.
+func (o *FindPatchRun200ResponseDataInner) HasScanResult() bool {
+	if o != nil && !IsNil(o.ScanResult) {
+		return true
+	}
+
+	return false
+}
+
+// SetScanResult gets a reference to the given interface{} and assigns it to the ScanResult field.
+func (o *FindPatchRun200ResponseDataInner) SetScanResult(v interface{}) {
+	o.ScanResult = v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindPatchRun200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPatchRun200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindPatchRun200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindPatchRun200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetPackagesAvailable returns the PackagesAvailable field value if set, zero value otherwise.
+func (o *FindPatchRun200ResponseDataInner) GetPackagesAvailable() int32 {
+	if o == nil || IsNil(o.PackagesAvailable) {
+		var ret int32
+		return ret
+	}
+	return *o.PackagesAvailable
+}
+
+// GetPackagesAvailableOk returns a tuple with the PackagesAvailable field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPatchRun200ResponseDataInner) GetPackagesAvailableOk() (*int32, bool) {
+	if o == nil || IsNil(o.PackagesAvailable) {
+		return nil, false
+	}
+	return o.PackagesAvailable, true
+}
+
+// HasPackagesAvailable returns a boolean if a field has been set.
+func (o *FindPatchRun200ResponseDataInner) HasPackagesAvailable() bool {
+	if o != nil && !IsNil(o.PackagesAvailable) {
+		return true
+	}
+
+	return false
+}
+
+// SetPackagesAvailable gets a reference to the given int32 and assigns it to the PackagesAvailable field.
+func (o *FindPatchRun200ResponseDataInner) SetPackagesAvailable(v int32) {
+	o.PackagesAvailable = &v
+}
+
+// GetPackagesApplied returns the PackagesApplied field value if set, zero value otherwise.
+func (o *FindPatchRun200ResponseDataInner) GetPackagesApplied() int32 {
+	if o == nil || IsNil(o.PackagesApplied) {
+		var ret int32
+		return ret
+	}
+	return *o.PackagesApplied
+}
+
+// GetPackagesAppliedOk returns a tuple with the PackagesApplied field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPatchRun200ResponseDataInner) GetPackagesAppliedOk() (*int32, bool) {
+	if o == nil || IsNil(o.PackagesApplied) {
+		return nil, false
+	}
+	return o.PackagesApplied, true
+}
+
+// HasPackagesApplied returns a boolean if a field has been set.
+func (o *FindPatchRun200ResponseDataInner) HasPackagesApplied() bool {
+	if o != nil && !IsNil(o.PackagesApplied) {
+		return true
+	}
+
+	return false
+}
+
+// SetPackagesApplied gets a reference to the given int32 and assigns it to the PackagesApplied field.
+func (o *FindPatchRun200ResponseDataInner) SetPackagesApplied(v int32) {
+	o.PackagesApplied = &v
+}
+
+// GetPackageMgr returns the PackageMgr field value if set, zero value otherwise.
+func (o *FindPatchRun200ResponseDataInner) GetPackageMgr() string {
+	if o == nil || IsNil(o.PackageMgr) {
+		var ret string
+		return ret
+	}
+	return *o.PackageMgr
+}
+
+// GetPackageMgrOk returns a tuple with the PackageMgr field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPatchRun200ResponseDataInner) GetPackageMgrOk() (*string, bool) {
+	if o == nil || IsNil(o.PackageMgr) {
+		return nil, false
+	}
+	return o.PackageMgr, true
+}
+
+// HasPackageMgr returns a boolean if a field has been set.
+func (o *FindPatchRun200ResponseDataInner) HasPackageMgr() bool {
+	if o != nil && !IsNil(o.PackageMgr) {
+		return true
+	}
+
+	return false
+}
+
+// SetPackageMgr gets a reference to the given string and assigns it to the PackageMgr field.
+func (o *FindPatchRun200ResponseDataInner) SetPackageMgr(v string) {
+	o.PackageMgr = &v
+}
+
+// GetError returns the Error field value if set, zero value otherwise.
+func (o *FindPatchRun200ResponseDataInner) GetError() string {
+	if o == nil || IsNil(o.Error) {
+		var ret string
+		return ret
+	}
+	return *o.Error
+}
+
+// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPatchRun200ResponseDataInner) GetErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.Error) {
+		return nil, false
+	}
+	return o.Error, true
+}
+
+// HasError returns a boolean if a field has been set.
+func (o *FindPatchRun200ResponseDataInner) HasError() bool {
+	if o != nil && !IsNil(o.Error) {
+		return true
+	}
+
+	return false
+}
+
+// SetError gets a reference to the given string and assigns it to the Error field.
+func (o *FindPatchRun200ResponseDataInner) SetError(v string) {
+	o.Error = &v
+}
+
+// GetMaintenanceWindows returns the MaintenanceWindows field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindPatchRun200ResponseDataInner) GetMaintenanceWindows() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.MaintenanceWindows
+}
+
+// GetMaintenanceWindowsOk returns a tuple with the MaintenanceWindows field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindPatchRun200ResponseDataInner) GetMaintenanceWindowsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.MaintenanceWindows) {
+		return nil, false
+	}
+	return &o.MaintenanceWindows, true
+}
+
+// HasMaintenanceWindows returns a boolean if a field has been set.
+func (o *FindPatchRun200ResponseDataInner) HasMaintenanceWindows() bool {
+	if o != nil && !IsNil(o.MaintenanceWindows) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaintenanceWindows gets a reference to the given interface{} and assigns it to the MaintenanceWindows field.
+func (o *FindPatchRun200ResponseDataInner) SetMaintenanceWindows(v interface{}) {
+	o.MaintenanceWindows = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +408,6 @@ func (o *FindPatchRun200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindPatchRun200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindPatchRun200ResponseDataInner) GetAttributes() PatchRun {
-	if o == nil || IsNil(o.Attributes) {
-		var ret PatchRun
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindPatchRun200ResponseDataInner) GetAttributesOk() (*PatchRun, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindPatchRun200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given PatchRun and assigns it to the Attributes field.
-func (o *FindPatchRun200ResponseDataInner) SetAttributes(v PatchRun) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +526,38 @@ func (o FindPatchRun200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindPatchRun200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SencaiAgent) {
+		toSerialize["sencai_agent"] = o.SencaiAgent
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if o.ScanResult != nil {
+		toSerialize["scan_result"] = o.ScanResult
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.PackagesAvailable) {
+		toSerialize["packages_available"] = o.PackagesAvailable
+	}
+	if !IsNil(o.PackagesApplied) {
+		toSerialize["packages_applied"] = o.PackagesApplied
+	}
+	if !IsNil(o.PackageMgr) {
+		toSerialize["package_mgr"] = o.PackageMgr
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	if o.MaintenanceWindows != nil {
+		toSerialize["maintenance_windows"] = o.MaintenanceWindows
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

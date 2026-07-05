@@ -27,9 +27,9 @@ type Runbook struct {
 	Description *string `json:"description,omitempty"`
 	TriggerType string `json:"trigger_type"`
 	// Alert filter condition, e.g. {metric: 'cpu_percent', operator: '>', threshold: 90}. Relevant only when trigger_type=alert.
-	TriggerCondition map[string]interface{} `json:"trigger_condition,omitempty"`
+	TriggerCondition interface{} `json:"trigger_condition,omitempty"`
 	// Ordered array of actions: [{type: string, params: {}}]. Supported types: restart_service, clear_disk_space, kill_process, run_approved_script.
-	Actions map[string]interface{} `json:"actions"`
+	Actions interface{} `json:"actions"`
 	ConfirmationRequired *bool `json:"confirmation_required,omitempty"`
 	// Minimum minutes between executions of this runbook for a given organisation.
 	CooldownMinutes *int32 `json:"cooldown_minutes,omitempty"`
@@ -56,7 +56,7 @@ type _Runbook Runbook
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRunbook(name string, triggerType string, actions map[string]interface{}) *Runbook {
+func NewRunbook(name string, triggerType string, actions interface{}) *Runbook {
 	this := Runbook{}
 	this.Name = name
 	this.TriggerType = triggerType
@@ -152,10 +152,10 @@ func (o *Runbook) SetTriggerType(v string) {
 	o.TriggerType = v
 }
 
-// GetTriggerCondition returns the TriggerCondition field value if set, zero value otherwise.
-func (o *Runbook) GetTriggerCondition() map[string]interface{} {
-	if o == nil || IsNil(o.TriggerCondition) {
-		var ret map[string]interface{}
+// GetTriggerCondition returns the TriggerCondition field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Runbook) GetTriggerCondition() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.TriggerCondition
@@ -163,11 +163,12 @@ func (o *Runbook) GetTriggerCondition() map[string]interface{} {
 
 // GetTriggerConditionOk returns a tuple with the TriggerCondition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Runbook) GetTriggerConditionOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Runbook) GetTriggerConditionOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.TriggerCondition) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.TriggerCondition, true
+	return &o.TriggerCondition, true
 }
 
 // HasTriggerCondition returns a boolean if a field has been set.
@@ -179,15 +180,16 @@ func (o *Runbook) HasTriggerCondition() bool {
 	return false
 }
 
-// SetTriggerCondition gets a reference to the given map[string]interface{} and assigns it to the TriggerCondition field.
-func (o *Runbook) SetTriggerCondition(v map[string]interface{}) {
+// SetTriggerCondition gets a reference to the given interface{} and assigns it to the TriggerCondition field.
+func (o *Runbook) SetTriggerCondition(v interface{}) {
 	o.TriggerCondition = v
 }
 
 // GetActions returns the Actions field value
-func (o *Runbook) GetActions() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *Runbook) GetActions() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -196,15 +198,16 @@ func (o *Runbook) GetActions() map[string]interface{} {
 
 // GetActionsOk returns a tuple with the Actions field value
 // and a boolean to check if the value has been set.
-func (o *Runbook) GetActionsOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Runbook) GetActionsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Actions) {
+		return nil, false
 	}
-	return o.Actions, true
+	return &o.Actions, true
 }
 
 // SetActions sets field value
-func (o *Runbook) SetActions(v map[string]interface{}) {
+func (o *Runbook) SetActions(v interface{}) {
 	o.Actions = v
 }
 
@@ -575,10 +578,12 @@ func (o Runbook) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["trigger_type"] = o.TriggerType
-	if !IsNil(o.TriggerCondition) {
+	if o.TriggerCondition != nil {
 		toSerialize["trigger_condition"] = o.TriggerCondition
 	}
-	toSerialize["actions"] = o.Actions
+	if o.Actions != nil {
+		toSerialize["actions"] = o.Actions
+	}
 	if !IsNil(o.ConfirmationRequired) {
 		toSerialize["confirmation_required"] = o.ConfirmationRequired
 	}

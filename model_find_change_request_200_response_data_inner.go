@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindChangeRequest200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,38 @@ var _ MappedNullable = &FindChangeRequest200ResponseDataInner{}
 
 // FindChangeRequest200ResponseDataInner struct for FindChangeRequest200ResponseDataInner
 type FindChangeRequest200ResponseDataInner struct {
+	Title string `json:"title"`
+	Description *string `json:"description,omitempty"`
+	Type string `json:"type"`
+	RiskLevel *string `json:"risk_level,omitempty"`
+	PlannedAt *time.Time `json:"planned_at,omitempty"`
+	RollbackPlan *string `json:"rollback_plan,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// Array of { email, approved_at } objects
+	Approvers interface{} `json:"approvers,omitempty"`
+	ApprovedAt *time.Time `json:"approved_at,omitempty"`
+	RejectedAt *time.Time `json:"rejected_at,omitempty"`
+	ImplementedAt *time.Time `json:"implemented_at,omitempty"`
+	EvidenceUrl *string `json:"evidence_url,omitempty"`
+	IncidentLink *string `json:"incident_link,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ChangeRequest `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindChangeRequest200ResponseDataInner FindChangeRequest200ResponseDataInner
+
 // NewFindChangeRequest200ResponseDataInner instantiates a new FindChangeRequest200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindChangeRequest200ResponseDataInner() *FindChangeRequest200ResponseDataInner {
+func NewFindChangeRequest200ResponseDataInner(title string, type_ string) *FindChangeRequest200ResponseDataInner {
 	this := FindChangeRequest200ResponseDataInner{}
+	this.Title = title
+	this.Type = type_
 	return &this
 }
 
@@ -44,6 +64,439 @@ func NewFindChangeRequest200ResponseDataInner() *FindChangeRequest200ResponseDat
 func NewFindChangeRequest200ResponseDataInnerWithDefaults() *FindChangeRequest200ResponseDataInner {
 	this := FindChangeRequest200ResponseDataInner{}
 	return &this
+}
+
+// GetTitle returns the Title field value
+func (o *FindChangeRequest200ResponseDataInner) GetTitle() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Title, true
+}
+
+// SetTitle sets field value
+func (o *FindChangeRequest200ResponseDataInner) SetTitle(v string) {
+	o.Title = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindChangeRequest200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetType returns the Type field value
+func (o *FindChangeRequest200ResponseDataInner) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *FindChangeRequest200ResponseDataInner) SetType(v string) {
+	o.Type = v
+}
+
+// GetRiskLevel returns the RiskLevel field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetRiskLevel() string {
+	if o == nil || IsNil(o.RiskLevel) {
+		var ret string
+		return ret
+	}
+	return *o.RiskLevel
+}
+
+// GetRiskLevelOk returns a tuple with the RiskLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetRiskLevelOk() (*string, bool) {
+	if o == nil || IsNil(o.RiskLevel) {
+		return nil, false
+	}
+	return o.RiskLevel, true
+}
+
+// HasRiskLevel returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasRiskLevel() bool {
+	if o != nil && !IsNil(o.RiskLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetRiskLevel gets a reference to the given string and assigns it to the RiskLevel field.
+func (o *FindChangeRequest200ResponseDataInner) SetRiskLevel(v string) {
+	o.RiskLevel = &v
+}
+
+// GetPlannedAt returns the PlannedAt field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetPlannedAt() time.Time {
+	if o == nil || IsNil(o.PlannedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PlannedAt
+}
+
+// GetPlannedAtOk returns a tuple with the PlannedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetPlannedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PlannedAt) {
+		return nil, false
+	}
+	return o.PlannedAt, true
+}
+
+// HasPlannedAt returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasPlannedAt() bool {
+	if o != nil && !IsNil(o.PlannedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlannedAt gets a reference to the given time.Time and assigns it to the PlannedAt field.
+func (o *FindChangeRequest200ResponseDataInner) SetPlannedAt(v time.Time) {
+	o.PlannedAt = &v
+}
+
+// GetRollbackPlan returns the RollbackPlan field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetRollbackPlan() string {
+	if o == nil || IsNil(o.RollbackPlan) {
+		var ret string
+		return ret
+	}
+	return *o.RollbackPlan
+}
+
+// GetRollbackPlanOk returns a tuple with the RollbackPlan field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetRollbackPlanOk() (*string, bool) {
+	if o == nil || IsNil(o.RollbackPlan) {
+		return nil, false
+	}
+	return o.RollbackPlan, true
+}
+
+// HasRollbackPlan returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasRollbackPlan() bool {
+	if o != nil && !IsNil(o.RollbackPlan) {
+		return true
+	}
+
+	return false
+}
+
+// SetRollbackPlan gets a reference to the given string and assigns it to the RollbackPlan field.
+func (o *FindChangeRequest200ResponseDataInner) SetRollbackPlan(v string) {
+	o.RollbackPlan = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindChangeRequest200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetApprovers returns the Approvers field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindChangeRequest200ResponseDataInner) GetApprovers() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Approvers
+}
+
+// GetApproversOk returns a tuple with the Approvers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindChangeRequest200ResponseDataInner) GetApproversOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Approvers) {
+		return nil, false
+	}
+	return &o.Approvers, true
+}
+
+// HasApprovers returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasApprovers() bool {
+	if o != nil && !IsNil(o.Approvers) {
+		return true
+	}
+
+	return false
+}
+
+// SetApprovers gets a reference to the given interface{} and assigns it to the Approvers field.
+func (o *FindChangeRequest200ResponseDataInner) SetApprovers(v interface{}) {
+	o.Approvers = v
+}
+
+// GetApprovedAt returns the ApprovedAt field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetApprovedAt() time.Time {
+	if o == nil || IsNil(o.ApprovedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ApprovedAt
+}
+
+// GetApprovedAtOk returns a tuple with the ApprovedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetApprovedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ApprovedAt) {
+		return nil, false
+	}
+	return o.ApprovedAt, true
+}
+
+// HasApprovedAt returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasApprovedAt() bool {
+	if o != nil && !IsNil(o.ApprovedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetApprovedAt gets a reference to the given time.Time and assigns it to the ApprovedAt field.
+func (o *FindChangeRequest200ResponseDataInner) SetApprovedAt(v time.Time) {
+	o.ApprovedAt = &v
+}
+
+// GetRejectedAt returns the RejectedAt field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetRejectedAt() time.Time {
+	if o == nil || IsNil(o.RejectedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.RejectedAt
+}
+
+// GetRejectedAtOk returns a tuple with the RejectedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetRejectedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.RejectedAt) {
+		return nil, false
+	}
+	return o.RejectedAt, true
+}
+
+// HasRejectedAt returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasRejectedAt() bool {
+	if o != nil && !IsNil(o.RejectedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetRejectedAt gets a reference to the given time.Time and assigns it to the RejectedAt field.
+func (o *FindChangeRequest200ResponseDataInner) SetRejectedAt(v time.Time) {
+	o.RejectedAt = &v
+}
+
+// GetImplementedAt returns the ImplementedAt field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetImplementedAt() time.Time {
+	if o == nil || IsNil(o.ImplementedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ImplementedAt
+}
+
+// GetImplementedAtOk returns a tuple with the ImplementedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetImplementedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ImplementedAt) {
+		return nil, false
+	}
+	return o.ImplementedAt, true
+}
+
+// HasImplementedAt returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasImplementedAt() bool {
+	if o != nil && !IsNil(o.ImplementedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetImplementedAt gets a reference to the given time.Time and assigns it to the ImplementedAt field.
+func (o *FindChangeRequest200ResponseDataInner) SetImplementedAt(v time.Time) {
+	o.ImplementedAt = &v
+}
+
+// GetEvidenceUrl returns the EvidenceUrl field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetEvidenceUrl() string {
+	if o == nil || IsNil(o.EvidenceUrl) {
+		var ret string
+		return ret
+	}
+	return *o.EvidenceUrl
+}
+
+// GetEvidenceUrlOk returns a tuple with the EvidenceUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetEvidenceUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.EvidenceUrl) {
+		return nil, false
+	}
+	return o.EvidenceUrl, true
+}
+
+// HasEvidenceUrl returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasEvidenceUrl() bool {
+	if o != nil && !IsNil(o.EvidenceUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvidenceUrl gets a reference to the given string and assigns it to the EvidenceUrl field.
+func (o *FindChangeRequest200ResponseDataInner) SetEvidenceUrl(v string) {
+	o.EvidenceUrl = &v
+}
+
+// GetIncidentLink returns the IncidentLink field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetIncidentLink() string {
+	if o == nil || IsNil(o.IncidentLink) {
+		var ret string
+		return ret
+	}
+	return *o.IncidentLink
+}
+
+// GetIncidentLinkOk returns a tuple with the IncidentLink field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetIncidentLinkOk() (*string, bool) {
+	if o == nil || IsNil(o.IncidentLink) {
+		return nil, false
+	}
+	return o.IncidentLink, true
+}
+
+// HasIncidentLink returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasIncidentLink() bool {
+	if o != nil && !IsNil(o.IncidentLink) {
+		return true
+	}
+
+	return false
+}
+
+// SetIncidentLink gets a reference to the given string and assigns it to the IncidentLink field.
+func (o *FindChangeRequest200ResponseDataInner) SetIncidentLink(v string) {
+	o.IncidentLink = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindChangeRequest200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChangeRequest200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindChangeRequest200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindChangeRequest200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +561,6 @@ func (o *FindChangeRequest200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindChangeRequest200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindChangeRequest200ResponseDataInner) GetAttributes() ChangeRequest {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ChangeRequest
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindChangeRequest200ResponseDataInner) GetAttributesOk() (*ChangeRequest, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindChangeRequest200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ChangeRequest and assigns it to the Attributes field.
-func (o *FindChangeRequest200ResponseDataInner) SetAttributes(v ChangeRequest) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +679,49 @@ func (o FindChangeRequest200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindChangeRequest200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["title"] = o.Title
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.RiskLevel) {
+		toSerialize["risk_level"] = o.RiskLevel
+	}
+	if !IsNil(o.PlannedAt) {
+		toSerialize["planned_at"] = o.PlannedAt
+	}
+	if !IsNil(o.RollbackPlan) {
+		toSerialize["rollback_plan"] = o.RollbackPlan
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if o.Approvers != nil {
+		toSerialize["approvers"] = o.Approvers
+	}
+	if !IsNil(o.ApprovedAt) {
+		toSerialize["approved_at"] = o.ApprovedAt
+	}
+	if !IsNil(o.RejectedAt) {
+		toSerialize["rejected_at"] = o.RejectedAt
+	}
+	if !IsNil(o.ImplementedAt) {
+		toSerialize["implemented_at"] = o.ImplementedAt
+	}
+	if !IsNil(o.EvidenceUrl) {
+		toSerialize["evidence_url"] = o.EvidenceUrl
+	}
+	if !IsNil(o.IncidentLink) {
+		toSerialize["incident_link"] = o.IncidentLink
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +733,44 @@ func (o FindChangeRequest200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindChangeRequest200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"title",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindChangeRequest200ResponseDataInner := _FindChangeRequest200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindChangeRequest200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindChangeRequest200ResponseDataInner(varFindChangeRequest200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindChangeRequest200ResponseDataInner struct {

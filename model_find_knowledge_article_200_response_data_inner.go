@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindKnowledgeArticle200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,33 @@ var _ MappedNullable = &FindKnowledgeArticle200ResponseDataInner{}
 
 // FindKnowledgeArticle200ResponseDataInner struct for FindKnowledgeArticle200ResponseDataInner
 type FindKnowledgeArticle200ResponseDataInner struct {
+	Title string `json:"title"`
+	Slug *string `json:"slug,omitempty"`
+	Content *string `json:"content,omitempty"`
+	Summary *string `json:"summary,omitempty"`
+	Category *string `json:"category,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
+	Scope *string `json:"scope,omitempty"`
+	ViewCount *int32 `json:"view_count,omitempty"`
+	HelpfulCount *int32 `json:"helpful_count,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *KnowledgeArticle `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindKnowledgeArticle200ResponseDataInner FindKnowledgeArticle200ResponseDataInner
+
 // NewFindKnowledgeArticle200ResponseDataInner instantiates a new FindKnowledgeArticle200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindKnowledgeArticle200ResponseDataInner() *FindKnowledgeArticle200ResponseDataInner {
+func NewFindKnowledgeArticle200ResponseDataInner(title string) *FindKnowledgeArticle200ResponseDataInner {
 	this := FindKnowledgeArticle200ResponseDataInner{}
+	this.Title = title
 	return &this
 }
 
@@ -44,6 +59,319 @@ func NewFindKnowledgeArticle200ResponseDataInner() *FindKnowledgeArticle200Respo
 func NewFindKnowledgeArticle200ResponseDataInnerWithDefaults() *FindKnowledgeArticle200ResponseDataInner {
 	this := FindKnowledgeArticle200ResponseDataInner{}
 	return &this
+}
+
+// GetTitle returns the Title field value
+func (o *FindKnowledgeArticle200ResponseDataInner) GetTitle() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Title, true
+}
+
+// SetTitle sets field value
+func (o *FindKnowledgeArticle200ResponseDataInner) SetTitle(v string) {
+	o.Title = v
+}
+
+// GetSlug returns the Slug field value if set, zero value otherwise.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetSlug() string {
+	if o == nil || IsNil(o.Slug) {
+		var ret string
+		return ret
+	}
+	return *o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetSlugOk() (*string, bool) {
+	if o == nil || IsNil(o.Slug) {
+		return nil, false
+	}
+	return o.Slug, true
+}
+
+// HasSlug returns a boolean if a field has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) HasSlug() bool {
+	if o != nil && !IsNil(o.Slug) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlug gets a reference to the given string and assigns it to the Slug field.
+func (o *FindKnowledgeArticle200ResponseDataInner) SetSlug(v string) {
+	o.Slug = &v
+}
+
+// GetContent returns the Content field value if set, zero value otherwise.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetContent() string {
+	if o == nil || IsNil(o.Content) {
+		var ret string
+		return ret
+	}
+	return *o.Content
+}
+
+// GetContentOk returns a tuple with the Content field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetContentOk() (*string, bool) {
+	if o == nil || IsNil(o.Content) {
+		return nil, false
+	}
+	return o.Content, true
+}
+
+// HasContent returns a boolean if a field has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) HasContent() bool {
+	if o != nil && !IsNil(o.Content) {
+		return true
+	}
+
+	return false
+}
+
+// SetContent gets a reference to the given string and assigns it to the Content field.
+func (o *FindKnowledgeArticle200ResponseDataInner) SetContent(v string) {
+	o.Content = &v
+}
+
+// GetSummary returns the Summary field value if set, zero value otherwise.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetSummary() string {
+	if o == nil || IsNil(o.Summary) {
+		var ret string
+		return ret
+	}
+	return *o.Summary
+}
+
+// GetSummaryOk returns a tuple with the Summary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetSummaryOk() (*string, bool) {
+	if o == nil || IsNil(o.Summary) {
+		return nil, false
+	}
+	return o.Summary, true
+}
+
+// HasSummary returns a boolean if a field has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) HasSummary() bool {
+	if o != nil && !IsNil(o.Summary) {
+		return true
+	}
+
+	return false
+}
+
+// SetSummary gets a reference to the given string and assigns it to the Summary field.
+func (o *FindKnowledgeArticle200ResponseDataInner) SetSummary(v string) {
+	o.Summary = &v
+}
+
+// GetCategory returns the Category field value if set, zero value otherwise.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetCategory() string {
+	if o == nil || IsNil(o.Category) {
+		var ret string
+		return ret
+	}
+	return *o.Category
+}
+
+// GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetCategoryOk() (*string, bool) {
+	if o == nil || IsNil(o.Category) {
+		return nil, false
+	}
+	return o.Category, true
+}
+
+// HasCategory returns a boolean if a field has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) HasCategory() bool {
+	if o != nil && !IsNil(o.Category) {
+		return true
+	}
+
+	return false
+}
+
+// SetCategory gets a reference to the given string and assigns it to the Category field.
+func (o *FindKnowledgeArticle200ResponseDataInner) SetCategory(v string) {
+	o.Category = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindKnowledgeArticle200ResponseDataInner) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindKnowledgeArticle200ResponseDataInner) GetTagsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return &o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *FindKnowledgeArticle200ResponseDataInner) SetTags(v interface{}) {
+	o.Tags = v
+}
+
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetScope() string {
+	if o == nil || IsNil(o.Scope) {
+		var ret string
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetScopeOk() (*string, bool) {
+	if o == nil || IsNil(o.Scope) {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) HasScope() bool {
+	if o != nil && !IsNil(o.Scope) {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *FindKnowledgeArticle200ResponseDataInner) SetScope(v string) {
+	o.Scope = &v
+}
+
+// GetViewCount returns the ViewCount field value if set, zero value otherwise.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetViewCount() int32 {
+	if o == nil || IsNil(o.ViewCount) {
+		var ret int32
+		return ret
+	}
+	return *o.ViewCount
+}
+
+// GetViewCountOk returns a tuple with the ViewCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetViewCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.ViewCount) {
+		return nil, false
+	}
+	return o.ViewCount, true
+}
+
+// HasViewCount returns a boolean if a field has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) HasViewCount() bool {
+	if o != nil && !IsNil(o.ViewCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetViewCount gets a reference to the given int32 and assigns it to the ViewCount field.
+func (o *FindKnowledgeArticle200ResponseDataInner) SetViewCount(v int32) {
+	o.ViewCount = &v
+}
+
+// GetHelpfulCount returns the HelpfulCount field value if set, zero value otherwise.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetHelpfulCount() int32 {
+	if o == nil || IsNil(o.HelpfulCount) {
+		var ret int32
+		return ret
+	}
+	return *o.HelpfulCount
+}
+
+// GetHelpfulCountOk returns a tuple with the HelpfulCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetHelpfulCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.HelpfulCount) {
+		return nil, false
+	}
+	return o.HelpfulCount, true
+}
+
+// HasHelpfulCount returns a boolean if a field has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) HasHelpfulCount() bool {
+	if o != nil && !IsNil(o.HelpfulCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetHelpfulCount gets a reference to the given int32 and assigns it to the HelpfulCount field.
+func (o *FindKnowledgeArticle200ResponseDataInner) SetHelpfulCount(v int32) {
+	o.HelpfulCount = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindKnowledgeArticle200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindKnowledgeArticle200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +436,6 @@ func (o *FindKnowledgeArticle200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindKnowledgeArticle200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindKnowledgeArticle200ResponseDataInner) GetAttributes() KnowledgeArticle {
-	if o == nil || IsNil(o.Attributes) {
-		var ret KnowledgeArticle
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindKnowledgeArticle200ResponseDataInner) GetAttributesOk() (*KnowledgeArticle, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindKnowledgeArticle200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given KnowledgeArticle and assigns it to the Attributes field.
-func (o *FindKnowledgeArticle200ResponseDataInner) SetAttributes(v KnowledgeArticle) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +554,39 @@ func (o FindKnowledgeArticle200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindKnowledgeArticle200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["title"] = o.Title
+	if !IsNil(o.Slug) {
+		toSerialize["slug"] = o.Slug
+	}
+	if !IsNil(o.Content) {
+		toSerialize["content"] = o.Content
+	}
+	if !IsNil(o.Summary) {
+		toSerialize["summary"] = o.Summary
+	}
+	if !IsNil(o.Category) {
+		toSerialize["category"] = o.Category
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
+	if !IsNil(o.ViewCount) {
+		toSerialize["view_count"] = o.ViewCount
+	}
+	if !IsNil(o.HelpfulCount) {
+		toSerialize["helpful_count"] = o.HelpfulCount
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +598,43 @@ func (o FindKnowledgeArticle200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindKnowledgeArticle200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"title",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindKnowledgeArticle200ResponseDataInner := _FindKnowledgeArticle200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindKnowledgeArticle200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindKnowledgeArticle200ResponseDataInner(varFindKnowledgeArticle200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindKnowledgeArticle200ResponseDataInner struct {

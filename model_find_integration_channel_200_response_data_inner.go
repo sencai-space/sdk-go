@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindIntegrationChannel200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,44 @@ var _ MappedNullable = &FindIntegrationChannel200ResponseDataInner{}
 
 // FindIntegrationChannel200ResponseDataInner struct for FindIntegrationChannel200ResponseDataInner
 type FindIntegrationChannel200ResponseDataInner struct {
+	Name string `json:"name"`
+	Description *string `json:"description,omitempty"`
+	Type string `json:"type"`
+	EndpointUrl string `json:"endpoint_url"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	TriggerEvents interface{} `json:"trigger_events,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	PayloadTemplate interface{} `json:"payload_template,omitempty"`
+	AuthHeaderName *string `json:"auth_header_name,omitempty"`
+	AuthHeaderValue *string `json:"auth_header_value,omitempty"`
+	IsEnabled *bool `json:"is_enabled,omitempty"`
+	LastTriggeredAt *time.Time `json:"last_triggered_at,omitempty"`
+	SuccessCount *int32 `json:"success_count,omitempty"`
+	ErrorCount *int32 `json:"error_count,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	HealthCheckUrl *string `json:"health_check_url,omitempty"`
+	LastHealthCheck *time.Time `json:"last_health_check,omitempty"`
+	ConsecutiveFailures *int32 `json:"consecutive_failures,omitempty"`
+	CircuitBreakerOpen *bool `json:"circuit_breaker_open,omitempty"`
+	HealthStatus *string `json:"health_status,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *IntegrationChannel `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindIntegrationChannel200ResponseDataInner FindIntegrationChannel200ResponseDataInner
+
 // NewFindIntegrationChannel200ResponseDataInner instantiates a new FindIntegrationChannel200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindIntegrationChannel200ResponseDataInner() *FindIntegrationChannel200ResponseDataInner {
+func NewFindIntegrationChannel200ResponseDataInner(name string, type_ string, endpointUrl string) *FindIntegrationChannel200ResponseDataInner {
 	this := FindIntegrationChannel200ResponseDataInner{}
+	this.Name = name
+	this.Type = type_
+	this.EndpointUrl = endpointUrl
 	return &this
 }
 
@@ -44,6 +70,560 @@ func NewFindIntegrationChannel200ResponseDataInner() *FindIntegrationChannel200R
 func NewFindIntegrationChannel200ResponseDataInnerWithDefaults() *FindIntegrationChannel200ResponseDataInner {
 	this := FindIntegrationChannel200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindIntegrationChannel200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindIntegrationChannel200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetType returns the Type field value
+func (o *FindIntegrationChannel200ResponseDataInner) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *FindIntegrationChannel200ResponseDataInner) SetType(v string) {
+	o.Type = v
+}
+
+// GetEndpointUrl returns the EndpointUrl field value
+func (o *FindIntegrationChannel200ResponseDataInner) GetEndpointUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EndpointUrl
+}
+
+// GetEndpointUrlOk returns a tuple with the EndpointUrl field value
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetEndpointUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EndpointUrl, true
+}
+
+// SetEndpointUrl sets field value
+func (o *FindIntegrationChannel200ResponseDataInner) SetEndpointUrl(v string) {
+	o.EndpointUrl = v
+}
+
+// GetTriggerEvents returns the TriggerEvents field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindIntegrationChannel200ResponseDataInner) GetTriggerEvents() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.TriggerEvents
+}
+
+// GetTriggerEventsOk returns a tuple with the TriggerEvents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindIntegrationChannel200ResponseDataInner) GetTriggerEventsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.TriggerEvents) {
+		return nil, false
+	}
+	return &o.TriggerEvents, true
+}
+
+// HasTriggerEvents returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasTriggerEvents() bool {
+	if o != nil && !IsNil(o.TriggerEvents) {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggerEvents gets a reference to the given interface{} and assigns it to the TriggerEvents field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetTriggerEvents(v interface{}) {
+	o.TriggerEvents = v
+}
+
+// GetPayloadTemplate returns the PayloadTemplate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindIntegrationChannel200ResponseDataInner) GetPayloadTemplate() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.PayloadTemplate
+}
+
+// GetPayloadTemplateOk returns a tuple with the PayloadTemplate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindIntegrationChannel200ResponseDataInner) GetPayloadTemplateOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.PayloadTemplate) {
+		return nil, false
+	}
+	return &o.PayloadTemplate, true
+}
+
+// HasPayloadTemplate returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasPayloadTemplate() bool {
+	if o != nil && !IsNil(o.PayloadTemplate) {
+		return true
+	}
+
+	return false
+}
+
+// SetPayloadTemplate gets a reference to the given interface{} and assigns it to the PayloadTemplate field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetPayloadTemplate(v interface{}) {
+	o.PayloadTemplate = v
+}
+
+// GetAuthHeaderName returns the AuthHeaderName field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetAuthHeaderName() string {
+	if o == nil || IsNil(o.AuthHeaderName) {
+		var ret string
+		return ret
+	}
+	return *o.AuthHeaderName
+}
+
+// GetAuthHeaderNameOk returns a tuple with the AuthHeaderName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetAuthHeaderNameOk() (*string, bool) {
+	if o == nil || IsNil(o.AuthHeaderName) {
+		return nil, false
+	}
+	return o.AuthHeaderName, true
+}
+
+// HasAuthHeaderName returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasAuthHeaderName() bool {
+	if o != nil && !IsNil(o.AuthHeaderName) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthHeaderName gets a reference to the given string and assigns it to the AuthHeaderName field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetAuthHeaderName(v string) {
+	o.AuthHeaderName = &v
+}
+
+// GetAuthHeaderValue returns the AuthHeaderValue field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetAuthHeaderValue() string {
+	if o == nil || IsNil(o.AuthHeaderValue) {
+		var ret string
+		return ret
+	}
+	return *o.AuthHeaderValue
+}
+
+// GetAuthHeaderValueOk returns a tuple with the AuthHeaderValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetAuthHeaderValueOk() (*string, bool) {
+	if o == nil || IsNil(o.AuthHeaderValue) {
+		return nil, false
+	}
+	return o.AuthHeaderValue, true
+}
+
+// HasAuthHeaderValue returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasAuthHeaderValue() bool {
+	if o != nil && !IsNil(o.AuthHeaderValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthHeaderValue gets a reference to the given string and assigns it to the AuthHeaderValue field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetAuthHeaderValue(v string) {
+	o.AuthHeaderValue = &v
+}
+
+// GetIsEnabled returns the IsEnabled field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetIsEnabled() bool {
+	if o == nil || IsNil(o.IsEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsEnabled
+}
+
+// GetIsEnabledOk returns a tuple with the IsEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetIsEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsEnabled) {
+		return nil, false
+	}
+	return o.IsEnabled, true
+}
+
+// HasIsEnabled returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasIsEnabled() bool {
+	if o != nil && !IsNil(o.IsEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsEnabled gets a reference to the given bool and assigns it to the IsEnabled field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetIsEnabled(v bool) {
+	o.IsEnabled = &v
+}
+
+// GetLastTriggeredAt returns the LastTriggeredAt field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetLastTriggeredAt() time.Time {
+	if o == nil || IsNil(o.LastTriggeredAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastTriggeredAt
+}
+
+// GetLastTriggeredAtOk returns a tuple with the LastTriggeredAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetLastTriggeredAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastTriggeredAt) {
+		return nil, false
+	}
+	return o.LastTriggeredAt, true
+}
+
+// HasLastTriggeredAt returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasLastTriggeredAt() bool {
+	if o != nil && !IsNil(o.LastTriggeredAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastTriggeredAt gets a reference to the given time.Time and assigns it to the LastTriggeredAt field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetLastTriggeredAt(v time.Time) {
+	o.LastTriggeredAt = &v
+}
+
+// GetSuccessCount returns the SuccessCount field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetSuccessCount() int32 {
+	if o == nil || IsNil(o.SuccessCount) {
+		var ret int32
+		return ret
+	}
+	return *o.SuccessCount
+}
+
+// GetSuccessCountOk returns a tuple with the SuccessCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetSuccessCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.SuccessCount) {
+		return nil, false
+	}
+	return o.SuccessCount, true
+}
+
+// HasSuccessCount returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasSuccessCount() bool {
+	if o != nil && !IsNil(o.SuccessCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuccessCount gets a reference to the given int32 and assigns it to the SuccessCount field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetSuccessCount(v int32) {
+	o.SuccessCount = &v
+}
+
+// GetErrorCount returns the ErrorCount field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetErrorCount() int32 {
+	if o == nil || IsNil(o.ErrorCount) {
+		var ret int32
+		return ret
+	}
+	return *o.ErrorCount
+}
+
+// GetErrorCountOk returns a tuple with the ErrorCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetErrorCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.ErrorCount) {
+		return nil, false
+	}
+	return o.ErrorCount, true
+}
+
+// HasErrorCount returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasErrorCount() bool {
+	if o != nil && !IsNil(o.ErrorCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorCount gets a reference to the given int32 and assigns it to the ErrorCount field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetErrorCount(v int32) {
+	o.ErrorCount = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetHealthCheckUrl returns the HealthCheckUrl field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetHealthCheckUrl() string {
+	if o == nil || IsNil(o.HealthCheckUrl) {
+		var ret string
+		return ret
+	}
+	return *o.HealthCheckUrl
+}
+
+// GetHealthCheckUrlOk returns a tuple with the HealthCheckUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetHealthCheckUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.HealthCheckUrl) {
+		return nil, false
+	}
+	return o.HealthCheckUrl, true
+}
+
+// HasHealthCheckUrl returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasHealthCheckUrl() bool {
+	if o != nil && !IsNil(o.HealthCheckUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetHealthCheckUrl gets a reference to the given string and assigns it to the HealthCheckUrl field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetHealthCheckUrl(v string) {
+	o.HealthCheckUrl = &v
+}
+
+// GetLastHealthCheck returns the LastHealthCheck field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetLastHealthCheck() time.Time {
+	if o == nil || IsNil(o.LastHealthCheck) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastHealthCheck
+}
+
+// GetLastHealthCheckOk returns a tuple with the LastHealthCheck field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetLastHealthCheckOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastHealthCheck) {
+		return nil, false
+	}
+	return o.LastHealthCheck, true
+}
+
+// HasLastHealthCheck returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasLastHealthCheck() bool {
+	if o != nil && !IsNil(o.LastHealthCheck) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastHealthCheck gets a reference to the given time.Time and assigns it to the LastHealthCheck field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetLastHealthCheck(v time.Time) {
+	o.LastHealthCheck = &v
+}
+
+// GetConsecutiveFailures returns the ConsecutiveFailures field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetConsecutiveFailures() int32 {
+	if o == nil || IsNil(o.ConsecutiveFailures) {
+		var ret int32
+		return ret
+	}
+	return *o.ConsecutiveFailures
+}
+
+// GetConsecutiveFailuresOk returns a tuple with the ConsecutiveFailures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetConsecutiveFailuresOk() (*int32, bool) {
+	if o == nil || IsNil(o.ConsecutiveFailures) {
+		return nil, false
+	}
+	return o.ConsecutiveFailures, true
+}
+
+// HasConsecutiveFailures returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasConsecutiveFailures() bool {
+	if o != nil && !IsNil(o.ConsecutiveFailures) {
+		return true
+	}
+
+	return false
+}
+
+// SetConsecutiveFailures gets a reference to the given int32 and assigns it to the ConsecutiveFailures field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetConsecutiveFailures(v int32) {
+	o.ConsecutiveFailures = &v
+}
+
+// GetCircuitBreakerOpen returns the CircuitBreakerOpen field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetCircuitBreakerOpen() bool {
+	if o == nil || IsNil(o.CircuitBreakerOpen) {
+		var ret bool
+		return ret
+	}
+	return *o.CircuitBreakerOpen
+}
+
+// GetCircuitBreakerOpenOk returns a tuple with the CircuitBreakerOpen field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetCircuitBreakerOpenOk() (*bool, bool) {
+	if o == nil || IsNil(o.CircuitBreakerOpen) {
+		return nil, false
+	}
+	return o.CircuitBreakerOpen, true
+}
+
+// HasCircuitBreakerOpen returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasCircuitBreakerOpen() bool {
+	if o != nil && !IsNil(o.CircuitBreakerOpen) {
+		return true
+	}
+
+	return false
+}
+
+// SetCircuitBreakerOpen gets a reference to the given bool and assigns it to the CircuitBreakerOpen field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetCircuitBreakerOpen(v bool) {
+	o.CircuitBreakerOpen = &v
+}
+
+// GetHealthStatus returns the HealthStatus field value if set, zero value otherwise.
+func (o *FindIntegrationChannel200ResponseDataInner) GetHealthStatus() string {
+	if o == nil || IsNil(o.HealthStatus) {
+		var ret string
+		return ret
+	}
+	return *o.HealthStatus
+}
+
+// GetHealthStatusOk returns a tuple with the HealthStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) GetHealthStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.HealthStatus) {
+		return nil, false
+	}
+	return o.HealthStatus, true
+}
+
+// HasHealthStatus returns a boolean if a field has been set.
+func (o *FindIntegrationChannel200ResponseDataInner) HasHealthStatus() bool {
+	if o != nil && !IsNil(o.HealthStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetHealthStatus gets a reference to the given string and assigns it to the HealthStatus field.
+func (o *FindIntegrationChannel200ResponseDataInner) SetHealthStatus(v string) {
+	o.HealthStatus = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +688,6 @@ func (o *FindIntegrationChannel200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindIntegrationChannel200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindIntegrationChannel200ResponseDataInner) GetAttributes() IntegrationChannel {
-	if o == nil || IsNil(o.Attributes) {
-		var ret IntegrationChannel
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindIntegrationChannel200ResponseDataInner) GetAttributesOk() (*IntegrationChannel, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindIntegrationChannel200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given IntegrationChannel and assigns it to the Attributes field.
-func (o *FindIntegrationChannel200ResponseDataInner) SetAttributes(v IntegrationChannel) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +806,59 @@ func (o FindIntegrationChannel200ResponseDataInner) MarshalJSON() ([]byte, error
 
 func (o FindIntegrationChannel200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["type"] = o.Type
+	toSerialize["endpoint_url"] = o.EndpointUrl
+	if o.TriggerEvents != nil {
+		toSerialize["trigger_events"] = o.TriggerEvents
+	}
+	if o.PayloadTemplate != nil {
+		toSerialize["payload_template"] = o.PayloadTemplate
+	}
+	if !IsNil(o.AuthHeaderName) {
+		toSerialize["auth_header_name"] = o.AuthHeaderName
+	}
+	if !IsNil(o.AuthHeaderValue) {
+		toSerialize["auth_header_value"] = o.AuthHeaderValue
+	}
+	if !IsNil(o.IsEnabled) {
+		toSerialize["is_enabled"] = o.IsEnabled
+	}
+	if !IsNil(o.LastTriggeredAt) {
+		toSerialize["last_triggered_at"] = o.LastTriggeredAt
+	}
+	if !IsNil(o.SuccessCount) {
+		toSerialize["success_count"] = o.SuccessCount
+	}
+	if !IsNil(o.ErrorCount) {
+		toSerialize["error_count"] = o.ErrorCount
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.HealthCheckUrl) {
+		toSerialize["health_check_url"] = o.HealthCheckUrl
+	}
+	if !IsNil(o.LastHealthCheck) {
+		toSerialize["last_health_check"] = o.LastHealthCheck
+	}
+	if !IsNil(o.ConsecutiveFailures) {
+		toSerialize["consecutive_failures"] = o.ConsecutiveFailures
+	}
+	if !IsNil(o.CircuitBreakerOpen) {
+		toSerialize["circuit_breaker_open"] = o.CircuitBreakerOpen
+	}
+	if !IsNil(o.HealthStatus) {
+		toSerialize["health_status"] = o.HealthStatus
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +870,45 @@ func (o FindIntegrationChannel200ResponseDataInner) ToMap() (map[string]interfac
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindIntegrationChannel200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+		"endpoint_url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindIntegrationChannel200ResponseDataInner := _FindIntegrationChannel200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindIntegrationChannel200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindIntegrationChannel200ResponseDataInner(varFindIntegrationChannel200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindIntegrationChannel200ResponseDataInner struct {

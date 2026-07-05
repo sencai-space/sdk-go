@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindRemoteCommand200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,32 @@ var _ MappedNullable = &FindRemoteCommand200ResponseDataInner{}
 
 // FindRemoteCommand200ResponseDataInner struct for FindRemoteCommand200ResponseDataInner
 type FindRemoteCommand200ResponseDataInner struct {
+	Name string `json:"name"`
+	// Shell command template with optional {arg} placeholders, e.g. 'systemctl status {service}'
+	CommandTemplate string `json:"command_template"`
+	Description *string `json:"description,omitempty"`
+	// Whitelist flag — only allowed=true commands may be dispatched. Set to false to disable without deleting.
+	Allowed *bool `json:"allowed,omitempty"`
+	// Maximum execution time on the agent in seconds.
+	TimeoutSeconds *int32 `json:"timeout_seconds,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *RemoteCommand `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindRemoteCommand200ResponseDataInner FindRemoteCommand200ResponseDataInner
+
 // NewFindRemoteCommand200ResponseDataInner instantiates a new FindRemoteCommand200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindRemoteCommand200ResponseDataInner() *FindRemoteCommand200ResponseDataInner {
+func NewFindRemoteCommand200ResponseDataInner(name string, commandTemplate string) *FindRemoteCommand200ResponseDataInner {
 	this := FindRemoteCommand200ResponseDataInner{}
+	this.Name = name
+	this.CommandTemplate = commandTemplate
 	return &this
 }
 
@@ -44,6 +58,182 @@ func NewFindRemoteCommand200ResponseDataInner() *FindRemoteCommand200ResponseDat
 func NewFindRemoteCommand200ResponseDataInnerWithDefaults() *FindRemoteCommand200ResponseDataInner {
 	this := FindRemoteCommand200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindRemoteCommand200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindRemoteCommand200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindRemoteCommand200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetCommandTemplate returns the CommandTemplate field value
+func (o *FindRemoteCommand200ResponseDataInner) GetCommandTemplate() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CommandTemplate
+}
+
+// GetCommandTemplateOk returns a tuple with the CommandTemplate field value
+// and a boolean to check if the value has been set.
+func (o *FindRemoteCommand200ResponseDataInner) GetCommandTemplateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CommandTemplate, true
+}
+
+// SetCommandTemplate sets field value
+func (o *FindRemoteCommand200ResponseDataInner) SetCommandTemplate(v string) {
+	o.CommandTemplate = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindRemoteCommand200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemoteCommand200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindRemoteCommand200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindRemoteCommand200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetAllowed returns the Allowed field value if set, zero value otherwise.
+func (o *FindRemoteCommand200ResponseDataInner) GetAllowed() bool {
+	if o == nil || IsNil(o.Allowed) {
+		var ret bool
+		return ret
+	}
+	return *o.Allowed
+}
+
+// GetAllowedOk returns a tuple with the Allowed field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemoteCommand200ResponseDataInner) GetAllowedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Allowed) {
+		return nil, false
+	}
+	return o.Allowed, true
+}
+
+// HasAllowed returns a boolean if a field has been set.
+func (o *FindRemoteCommand200ResponseDataInner) HasAllowed() bool {
+	if o != nil && !IsNil(o.Allowed) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowed gets a reference to the given bool and assigns it to the Allowed field.
+func (o *FindRemoteCommand200ResponseDataInner) SetAllowed(v bool) {
+	o.Allowed = &v
+}
+
+// GetTimeoutSeconds returns the TimeoutSeconds field value if set, zero value otherwise.
+func (o *FindRemoteCommand200ResponseDataInner) GetTimeoutSeconds() int32 {
+	if o == nil || IsNil(o.TimeoutSeconds) {
+		var ret int32
+		return ret
+	}
+	return *o.TimeoutSeconds
+}
+
+// GetTimeoutSecondsOk returns a tuple with the TimeoutSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemoteCommand200ResponseDataInner) GetTimeoutSecondsOk() (*int32, bool) {
+	if o == nil || IsNil(o.TimeoutSeconds) {
+		return nil, false
+	}
+	return o.TimeoutSeconds, true
+}
+
+// HasTimeoutSeconds returns a boolean if a field has been set.
+func (o *FindRemoteCommand200ResponseDataInner) HasTimeoutSeconds() bool {
+	if o != nil && !IsNil(o.TimeoutSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetTimeoutSeconds gets a reference to the given int32 and assigns it to the TimeoutSeconds field.
+func (o *FindRemoteCommand200ResponseDataInner) SetTimeoutSeconds(v int32) {
+	o.TimeoutSeconds = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindRemoteCommand200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemoteCommand200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindRemoteCommand200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindRemoteCommand200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +298,6 @@ func (o *FindRemoteCommand200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindRemoteCommand200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindRemoteCommand200ResponseDataInner) GetAttributes() RemoteCommand {
-	if o == nil || IsNil(o.Attributes) {
-		var ret RemoteCommand
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindRemoteCommand200ResponseDataInner) GetAttributesOk() (*RemoteCommand, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindRemoteCommand200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given RemoteCommand and assigns it to the Attributes field.
-func (o *FindRemoteCommand200ResponseDataInner) SetAttributes(v RemoteCommand) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +416,25 @@ func (o FindRemoteCommand200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindRemoteCommand200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["command_template"] = o.CommandTemplate
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Allowed) {
+		toSerialize["allowed"] = o.Allowed
+	}
+	if !IsNil(o.TimeoutSeconds) {
+		toSerialize["timeout_seconds"] = o.TimeoutSeconds
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +446,44 @@ func (o FindRemoteCommand200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindRemoteCommand200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"command_template",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindRemoteCommand200ResponseDataInner := _FindRemoteCommand200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindRemoteCommand200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindRemoteCommand200ResponseDataInner(varFindRemoteCommand200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindRemoteCommand200ResponseDataInner struct {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindOperatorTimeEntry200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,42 @@ var _ MappedNullable = &FindOperatorTimeEntry200ResponseDataInner{}
 
 // FindOperatorTimeEntry200ResponseDataInner struct for FindOperatorTimeEntry200ResponseDataInner
 type FindOperatorTimeEntry200ResponseDataInner struct {
+	OperatorOrg CreateAccessReviewRequestDataReviewer `json:"operator_org"`
+	ManagedOrg CreateAccessReviewRequestDataReviewer `json:"managed_org"`
+	// Billing period in YYYY-MM format (e.g. 2026-06)
+	Period string `json:"period"`
+	// Manually logged time in minutes
+	ManualMinutes *int32 `json:"manual_minutes,omitempty"`
+	// Number of audit-log actions performed by operator users in the managed org for the period
+	ActionCount *int32 `json:"action_count,omitempty"`
+	// Automatically derived minutes: action_count * 2
+	ComputedMinutes *int32 `json:"computed_minutes,omitempty"`
+	// Total effort: manual_minutes + computed_minutes
+	TotalMinutes *int32 `json:"total_minutes,omitempty"`
+	// Optional operator notes for the customer report
+	Notes *string `json:"notes,omitempty"`
+	LoggedBy *CreateAccessReviewRequestDataReviewer `json:"logged_by,omitempty"`
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+	// Whether this report has been shared with the managed org
+	IsSentToCustomer *bool `json:"is_sent_to_customer,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *OperatorTimeEntry `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindOperatorTimeEntry200ResponseDataInner FindOperatorTimeEntry200ResponseDataInner
+
 // NewFindOperatorTimeEntry200ResponseDataInner instantiates a new FindOperatorTimeEntry200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindOperatorTimeEntry200ResponseDataInner() *FindOperatorTimeEntry200ResponseDataInner {
+func NewFindOperatorTimeEntry200ResponseDataInner(operatorOrg CreateAccessReviewRequestDataReviewer, managedOrg CreateAccessReviewRequestDataReviewer, period string) *FindOperatorTimeEntry200ResponseDataInner {
 	this := FindOperatorTimeEntry200ResponseDataInner{}
+	this.OperatorOrg = operatorOrg
+	this.ManagedOrg = managedOrg
+	this.Period = period
 	return &this
 }
 
@@ -44,6 +68,334 @@ func NewFindOperatorTimeEntry200ResponseDataInner() *FindOperatorTimeEntry200Res
 func NewFindOperatorTimeEntry200ResponseDataInnerWithDefaults() *FindOperatorTimeEntry200ResponseDataInner {
 	this := FindOperatorTimeEntry200ResponseDataInner{}
 	return &this
+}
+
+// GetOperatorOrg returns the OperatorOrg field value
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetOperatorOrg() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.OperatorOrg
+}
+
+// GetOperatorOrgOk returns a tuple with the OperatorOrg field value
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetOperatorOrgOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OperatorOrg, true
+}
+
+// SetOperatorOrg sets field value
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetOperatorOrg(v CreateAccessReviewRequestDataReviewer) {
+	o.OperatorOrg = v
+}
+
+// GetManagedOrg returns the ManagedOrg field value
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetManagedOrg() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.ManagedOrg
+}
+
+// GetManagedOrgOk returns a tuple with the ManagedOrg field value
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetManagedOrgOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ManagedOrg, true
+}
+
+// SetManagedOrg sets field value
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetManagedOrg(v CreateAccessReviewRequestDataReviewer) {
+	o.ManagedOrg = v
+}
+
+// GetPeriod returns the Period field value
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetPeriod() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Period
+}
+
+// GetPeriodOk returns a tuple with the Period field value
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetPeriodOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Period, true
+}
+
+// SetPeriod sets field value
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetPeriod(v string) {
+	o.Period = v
+}
+
+// GetManualMinutes returns the ManualMinutes field value if set, zero value otherwise.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetManualMinutes() int32 {
+	if o == nil || IsNil(o.ManualMinutes) {
+		var ret int32
+		return ret
+	}
+	return *o.ManualMinutes
+}
+
+// GetManualMinutesOk returns a tuple with the ManualMinutes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetManualMinutesOk() (*int32, bool) {
+	if o == nil || IsNil(o.ManualMinutes) {
+		return nil, false
+	}
+	return o.ManualMinutes, true
+}
+
+// HasManualMinutes returns a boolean if a field has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) HasManualMinutes() bool {
+	if o != nil && !IsNil(o.ManualMinutes) {
+		return true
+	}
+
+	return false
+}
+
+// SetManualMinutes gets a reference to the given int32 and assigns it to the ManualMinutes field.
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetManualMinutes(v int32) {
+	o.ManualMinutes = &v
+}
+
+// GetActionCount returns the ActionCount field value if set, zero value otherwise.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetActionCount() int32 {
+	if o == nil || IsNil(o.ActionCount) {
+		var ret int32
+		return ret
+	}
+	return *o.ActionCount
+}
+
+// GetActionCountOk returns a tuple with the ActionCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetActionCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.ActionCount) {
+		return nil, false
+	}
+	return o.ActionCount, true
+}
+
+// HasActionCount returns a boolean if a field has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) HasActionCount() bool {
+	if o != nil && !IsNil(o.ActionCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetActionCount gets a reference to the given int32 and assigns it to the ActionCount field.
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetActionCount(v int32) {
+	o.ActionCount = &v
+}
+
+// GetComputedMinutes returns the ComputedMinutes field value if set, zero value otherwise.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetComputedMinutes() int32 {
+	if o == nil || IsNil(o.ComputedMinutes) {
+		var ret int32
+		return ret
+	}
+	return *o.ComputedMinutes
+}
+
+// GetComputedMinutesOk returns a tuple with the ComputedMinutes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetComputedMinutesOk() (*int32, bool) {
+	if o == nil || IsNil(o.ComputedMinutes) {
+		return nil, false
+	}
+	return o.ComputedMinutes, true
+}
+
+// HasComputedMinutes returns a boolean if a field has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) HasComputedMinutes() bool {
+	if o != nil && !IsNil(o.ComputedMinutes) {
+		return true
+	}
+
+	return false
+}
+
+// SetComputedMinutes gets a reference to the given int32 and assigns it to the ComputedMinutes field.
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetComputedMinutes(v int32) {
+	o.ComputedMinutes = &v
+}
+
+// GetTotalMinutes returns the TotalMinutes field value if set, zero value otherwise.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetTotalMinutes() int32 {
+	if o == nil || IsNil(o.TotalMinutes) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalMinutes
+}
+
+// GetTotalMinutesOk returns a tuple with the TotalMinutes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetTotalMinutesOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalMinutes) {
+		return nil, false
+	}
+	return o.TotalMinutes, true
+}
+
+// HasTotalMinutes returns a boolean if a field has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) HasTotalMinutes() bool {
+	if o != nil && !IsNil(o.TotalMinutes) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalMinutes gets a reference to the given int32 and assigns it to the TotalMinutes field.
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetTotalMinutes(v int32) {
+	o.TotalMinutes = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
+}
+
+// GetLoggedBy returns the LoggedBy field value if set, zero value otherwise.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetLoggedBy() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.LoggedBy) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.LoggedBy
+}
+
+// GetLoggedByOk returns a tuple with the LoggedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetLoggedByOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.LoggedBy) {
+		return nil, false
+	}
+	return o.LoggedBy, true
+}
+
+// HasLoggedBy returns a boolean if a field has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) HasLoggedBy() bool {
+	if o != nil && !IsNil(o.LoggedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetLoggedBy gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the LoggedBy field.
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetLoggedBy(v CreateAccessReviewRequestDataReviewer) {
+	o.LoggedBy = &v
+}
+
+// GetGeneratedAt returns the GeneratedAt field value if set, zero value otherwise.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetGeneratedAt() time.Time {
+	if o == nil || IsNil(o.GeneratedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.GeneratedAt
+}
+
+// GetGeneratedAtOk returns a tuple with the GeneratedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetGeneratedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.GeneratedAt) {
+		return nil, false
+	}
+	return o.GeneratedAt, true
+}
+
+// HasGeneratedAt returns a boolean if a field has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) HasGeneratedAt() bool {
+	if o != nil && !IsNil(o.GeneratedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetGeneratedAt gets a reference to the given time.Time and assigns it to the GeneratedAt field.
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetGeneratedAt(v time.Time) {
+	o.GeneratedAt = &v
+}
+
+// GetIsSentToCustomer returns the IsSentToCustomer field value if set, zero value otherwise.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetIsSentToCustomer() bool {
+	if o == nil || IsNil(o.IsSentToCustomer) {
+		var ret bool
+		return ret
+	}
+	return *o.IsSentToCustomer
+}
+
+// GetIsSentToCustomerOk returns a tuple with the IsSentToCustomer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) GetIsSentToCustomerOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsSentToCustomer) {
+		return nil, false
+	}
+	return o.IsSentToCustomer, true
+}
+
+// HasIsSentToCustomer returns a boolean if a field has been set.
+func (o *FindOperatorTimeEntry200ResponseDataInner) HasIsSentToCustomer() bool {
+	if o != nil && !IsNil(o.IsSentToCustomer) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSentToCustomer gets a reference to the given bool and assigns it to the IsSentToCustomer field.
+func (o *FindOperatorTimeEntry200ResponseDataInner) SetIsSentToCustomer(v bool) {
+	o.IsSentToCustomer = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +460,6 @@ func (o *FindOperatorTimeEntry200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindOperatorTimeEntry200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindOperatorTimeEntry200ResponseDataInner) GetAttributes() OperatorTimeEntry {
-	if o == nil || IsNil(o.Attributes) {
-		var ret OperatorTimeEntry
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindOperatorTimeEntry200ResponseDataInner) GetAttributesOk() (*OperatorTimeEntry, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindOperatorTimeEntry200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given OperatorTimeEntry and assigns it to the Attributes field.
-func (o *FindOperatorTimeEntry200ResponseDataInner) SetAttributes(v OperatorTimeEntry) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +578,38 @@ func (o FindOperatorTimeEntry200ResponseDataInner) MarshalJSON() ([]byte, error)
 
 func (o FindOperatorTimeEntry200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["operator_org"] = o.OperatorOrg
+	toSerialize["managed_org"] = o.ManagedOrg
+	toSerialize["period"] = o.Period
+	if !IsNil(o.ManualMinutes) {
+		toSerialize["manual_minutes"] = o.ManualMinutes
+	}
+	if !IsNil(o.ActionCount) {
+		toSerialize["action_count"] = o.ActionCount
+	}
+	if !IsNil(o.ComputedMinutes) {
+		toSerialize["computed_minutes"] = o.ComputedMinutes
+	}
+	if !IsNil(o.TotalMinutes) {
+		toSerialize["total_minutes"] = o.TotalMinutes
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
+	if !IsNil(o.LoggedBy) {
+		toSerialize["logged_by"] = o.LoggedBy
+	}
+	if !IsNil(o.GeneratedAt) {
+		toSerialize["generated_at"] = o.GeneratedAt
+	}
+	if !IsNil(o.IsSentToCustomer) {
+		toSerialize["is_sent_to_customer"] = o.IsSentToCustomer
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +621,45 @@ func (o FindOperatorTimeEntry200ResponseDataInner) ToMap() (map[string]interface
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindOperatorTimeEntry200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"operator_org",
+		"managed_org",
+		"period",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindOperatorTimeEntry200ResponseDataInner := _FindOperatorTimeEntry200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindOperatorTimeEntry200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindOperatorTimeEntry200ResponseDataInner(varFindOperatorTimeEntry200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindOperatorTimeEntry200ResponseDataInner struct {

@@ -31,7 +31,8 @@ type UatSession struct {
 	UsabilityScore *int32 `json:"usability_score,omitempty"`
 	PerformanceScore *int32 `json:"performance_score,omitempty"`
 	Notes *string `json:"notes,omitempty"`
-	BugsFound map[string]interface{} `json:"bugs_found,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	BugsFound interface{} `json:"bugs_found,omitempty"`
 	Suggestions *string `json:"suggestions,omitempty"`
 	WouldRecommend *bool `json:"would_recommend,omitempty"`
 }
@@ -329,10 +330,10 @@ func (o *UatSession) SetNotes(v string) {
 	o.Notes = &v
 }
 
-// GetBugsFound returns the BugsFound field value if set, zero value otherwise.
-func (o *UatSession) GetBugsFound() map[string]interface{} {
-	if o == nil || IsNil(o.BugsFound) {
-		var ret map[string]interface{}
+// GetBugsFound returns the BugsFound field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UatSession) GetBugsFound() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.BugsFound
@@ -340,11 +341,12 @@ func (o *UatSession) GetBugsFound() map[string]interface{} {
 
 // GetBugsFoundOk returns a tuple with the BugsFound field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UatSession) GetBugsFoundOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UatSession) GetBugsFoundOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.BugsFound) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.BugsFound, true
+	return &o.BugsFound, true
 }
 
 // HasBugsFound returns a boolean if a field has been set.
@@ -356,8 +358,8 @@ func (o *UatSession) HasBugsFound() bool {
 	return false
 }
 
-// SetBugsFound gets a reference to the given map[string]interface{} and assigns it to the BugsFound field.
-func (o *UatSession) SetBugsFound(v map[string]interface{}) {
+// SetBugsFound gets a reference to the given interface{} and assigns it to the BugsFound field.
+func (o *UatSession) SetBugsFound(v interface{}) {
 	o.BugsFound = v
 }
 
@@ -458,7 +460,7 @@ func (o UatSession) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Notes) {
 		toSerialize["notes"] = o.Notes
 	}
-	if !IsNil(o.BugsFound) {
+	if o.BugsFound != nil {
 		toSerialize["bugs_found"] = o.BugsFound
 	}
 	if !IsNil(o.Suggestions) {

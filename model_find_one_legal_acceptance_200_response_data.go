@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindOneLegalAcceptance200ResponseData type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,37 @@ var _ MappedNullable = &FindOneLegalAcceptance200ResponseData{}
 
 // FindOneLegalAcceptance200ResponseData struct for FindOneLegalAcceptance200ResponseData
 type FindOneLegalAcceptance200ResponseData struct {
+	LegalDocument CreateAccessReviewRequestDataReviewer `json:"legal_document"`
+	User *CreateAccessReviewRequestDataReviewer `json:"user,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	AcceptedAt time.Time `json:"accepted_at"`
+	IpAddress *string `json:"ip_address,omitempty"`
+	UserAgent *string `json:"user_agent,omitempty"`
+	DocumentVersion *string `json:"document_version,omitempty"`
+	DocumentType *string `json:"document_type,omitempty"`
+	Status *string `json:"status,omitempty"`
+	SignedName *string `json:"signed_name,omitempty"`
+	SignedTitle *string `json:"signed_title,omitempty"`
+	SignedIp *string `json:"signed_ip,omitempty"`
+	CountersignedAt *time.Time `json:"countersigned_at,omitempty"`
+	CountersignedBy *string `json:"countersigned_by,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *LegalAcceptance `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindOneLegalAcceptance200ResponseData FindOneLegalAcceptance200ResponseData
+
 // NewFindOneLegalAcceptance200ResponseData instantiates a new FindOneLegalAcceptance200ResponseData object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindOneLegalAcceptance200ResponseData() *FindOneLegalAcceptance200ResponseData {
+func NewFindOneLegalAcceptance200ResponseData(legalDocument CreateAccessReviewRequestDataReviewer, acceptedAt time.Time) *FindOneLegalAcceptance200ResponseData {
 	this := FindOneLegalAcceptance200ResponseData{}
+	this.LegalDocument = legalDocument
+	this.AcceptedAt = acceptedAt
 	return &this
 }
 
@@ -44,6 +63,438 @@ func NewFindOneLegalAcceptance200ResponseData() *FindOneLegalAcceptance200Respon
 func NewFindOneLegalAcceptance200ResponseDataWithDefaults() *FindOneLegalAcceptance200ResponseData {
 	this := FindOneLegalAcceptance200ResponseData{}
 	return &this
+}
+
+// GetLegalDocument returns the LegalDocument field value
+func (o *FindOneLegalAcceptance200ResponseData) GetLegalDocument() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.LegalDocument
+}
+
+// GetLegalDocumentOk returns a tuple with the LegalDocument field value
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetLegalDocumentOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LegalDocument, true
+}
+
+// SetLegalDocument sets field value
+func (o *FindOneLegalAcceptance200ResponseData) SetLegalDocument(v CreateAccessReviewRequestDataReviewer) {
+	o.LegalDocument = v
+}
+
+// GetUser returns the User field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.User) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.User
+}
+
+// GetUserOk returns a tuple with the User field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.User) {
+		return nil, false
+	}
+	return o.User, true
+}
+
+// HasUser returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasUser() bool {
+	if o != nil && !IsNil(o.User) {
+		return true
+	}
+
+	return false
+}
+
+// SetUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the User field.
+func (o *FindOneLegalAcceptance200ResponseData) SetUser(v CreateAccessReviewRequestDataReviewer) {
+	o.User = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindOneLegalAcceptance200ResponseData) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetAcceptedAt returns the AcceptedAt field value
+func (o *FindOneLegalAcceptance200ResponseData) GetAcceptedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.AcceptedAt
+}
+
+// GetAcceptedAtOk returns a tuple with the AcceptedAt field value
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetAcceptedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AcceptedAt, true
+}
+
+// SetAcceptedAt sets field value
+func (o *FindOneLegalAcceptance200ResponseData) SetAcceptedAt(v time.Time) {
+	o.AcceptedAt = v
+}
+
+// GetIpAddress returns the IpAddress field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetIpAddress() string {
+	if o == nil || IsNil(o.IpAddress) {
+		var ret string
+		return ret
+	}
+	return *o.IpAddress
+}
+
+// GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetIpAddressOk() (*string, bool) {
+	if o == nil || IsNil(o.IpAddress) {
+		return nil, false
+	}
+	return o.IpAddress, true
+}
+
+// HasIpAddress returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasIpAddress() bool {
+	if o != nil && !IsNil(o.IpAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpAddress gets a reference to the given string and assigns it to the IpAddress field.
+func (o *FindOneLegalAcceptance200ResponseData) SetIpAddress(v string) {
+	o.IpAddress = &v
+}
+
+// GetUserAgent returns the UserAgent field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetUserAgent() string {
+	if o == nil || IsNil(o.UserAgent) {
+		var ret string
+		return ret
+	}
+	return *o.UserAgent
+}
+
+// GetUserAgentOk returns a tuple with the UserAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetUserAgentOk() (*string, bool) {
+	if o == nil || IsNil(o.UserAgent) {
+		return nil, false
+	}
+	return o.UserAgent, true
+}
+
+// HasUserAgent returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasUserAgent() bool {
+	if o != nil && !IsNil(o.UserAgent) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserAgent gets a reference to the given string and assigns it to the UserAgent field.
+func (o *FindOneLegalAcceptance200ResponseData) SetUserAgent(v string) {
+	o.UserAgent = &v
+}
+
+// GetDocumentVersion returns the DocumentVersion field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetDocumentVersion() string {
+	if o == nil || IsNil(o.DocumentVersion) {
+		var ret string
+		return ret
+	}
+	return *o.DocumentVersion
+}
+
+// GetDocumentVersionOk returns a tuple with the DocumentVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetDocumentVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.DocumentVersion) {
+		return nil, false
+	}
+	return o.DocumentVersion, true
+}
+
+// HasDocumentVersion returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasDocumentVersion() bool {
+	if o != nil && !IsNil(o.DocumentVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetDocumentVersion gets a reference to the given string and assigns it to the DocumentVersion field.
+func (o *FindOneLegalAcceptance200ResponseData) SetDocumentVersion(v string) {
+	o.DocumentVersion = &v
+}
+
+// GetDocumentType returns the DocumentType field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetDocumentType() string {
+	if o == nil || IsNil(o.DocumentType) {
+		var ret string
+		return ret
+	}
+	return *o.DocumentType
+}
+
+// GetDocumentTypeOk returns a tuple with the DocumentType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetDocumentTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.DocumentType) {
+		return nil, false
+	}
+	return o.DocumentType, true
+}
+
+// HasDocumentType returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasDocumentType() bool {
+	if o != nil && !IsNil(o.DocumentType) {
+		return true
+	}
+
+	return false
+}
+
+// SetDocumentType gets a reference to the given string and assigns it to the DocumentType field.
+func (o *FindOneLegalAcceptance200ResponseData) SetDocumentType(v string) {
+	o.DocumentType = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindOneLegalAcceptance200ResponseData) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetSignedName returns the SignedName field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetSignedName() string {
+	if o == nil || IsNil(o.SignedName) {
+		var ret string
+		return ret
+	}
+	return *o.SignedName
+}
+
+// GetSignedNameOk returns a tuple with the SignedName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetSignedNameOk() (*string, bool) {
+	if o == nil || IsNil(o.SignedName) {
+		return nil, false
+	}
+	return o.SignedName, true
+}
+
+// HasSignedName returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasSignedName() bool {
+	if o != nil && !IsNil(o.SignedName) {
+		return true
+	}
+
+	return false
+}
+
+// SetSignedName gets a reference to the given string and assigns it to the SignedName field.
+func (o *FindOneLegalAcceptance200ResponseData) SetSignedName(v string) {
+	o.SignedName = &v
+}
+
+// GetSignedTitle returns the SignedTitle field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetSignedTitle() string {
+	if o == nil || IsNil(o.SignedTitle) {
+		var ret string
+		return ret
+	}
+	return *o.SignedTitle
+}
+
+// GetSignedTitleOk returns a tuple with the SignedTitle field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetSignedTitleOk() (*string, bool) {
+	if o == nil || IsNil(o.SignedTitle) {
+		return nil, false
+	}
+	return o.SignedTitle, true
+}
+
+// HasSignedTitle returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasSignedTitle() bool {
+	if o != nil && !IsNil(o.SignedTitle) {
+		return true
+	}
+
+	return false
+}
+
+// SetSignedTitle gets a reference to the given string and assigns it to the SignedTitle field.
+func (o *FindOneLegalAcceptance200ResponseData) SetSignedTitle(v string) {
+	o.SignedTitle = &v
+}
+
+// GetSignedIp returns the SignedIp field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetSignedIp() string {
+	if o == nil || IsNil(o.SignedIp) {
+		var ret string
+		return ret
+	}
+	return *o.SignedIp
+}
+
+// GetSignedIpOk returns a tuple with the SignedIp field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetSignedIpOk() (*string, bool) {
+	if o == nil || IsNil(o.SignedIp) {
+		return nil, false
+	}
+	return o.SignedIp, true
+}
+
+// HasSignedIp returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasSignedIp() bool {
+	if o != nil && !IsNil(o.SignedIp) {
+		return true
+	}
+
+	return false
+}
+
+// SetSignedIp gets a reference to the given string and assigns it to the SignedIp field.
+func (o *FindOneLegalAcceptance200ResponseData) SetSignedIp(v string) {
+	o.SignedIp = &v
+}
+
+// GetCountersignedAt returns the CountersignedAt field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetCountersignedAt() time.Time {
+	if o == nil || IsNil(o.CountersignedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CountersignedAt
+}
+
+// GetCountersignedAtOk returns a tuple with the CountersignedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetCountersignedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CountersignedAt) {
+		return nil, false
+	}
+	return o.CountersignedAt, true
+}
+
+// HasCountersignedAt returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasCountersignedAt() bool {
+	if o != nil && !IsNil(o.CountersignedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCountersignedAt gets a reference to the given time.Time and assigns it to the CountersignedAt field.
+func (o *FindOneLegalAcceptance200ResponseData) SetCountersignedAt(v time.Time) {
+	o.CountersignedAt = &v
+}
+
+// GetCountersignedBy returns the CountersignedBy field value if set, zero value otherwise.
+func (o *FindOneLegalAcceptance200ResponseData) GetCountersignedBy() string {
+	if o == nil || IsNil(o.CountersignedBy) {
+		var ret string
+		return ret
+	}
+	return *o.CountersignedBy
+}
+
+// GetCountersignedByOk returns a tuple with the CountersignedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOneLegalAcceptance200ResponseData) GetCountersignedByOk() (*string, bool) {
+	if o == nil || IsNil(o.CountersignedBy) {
+		return nil, false
+	}
+	return o.CountersignedBy, true
+}
+
+// HasCountersignedBy returns a boolean if a field has been set.
+func (o *FindOneLegalAcceptance200ResponseData) HasCountersignedBy() bool {
+	if o != nil && !IsNil(o.CountersignedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetCountersignedBy gets a reference to the given string and assigns it to the CountersignedBy field.
+func (o *FindOneLegalAcceptance200ResponseData) SetCountersignedBy(v string) {
+	o.CountersignedBy = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +559,6 @@ func (o *FindOneLegalAcceptance200ResponseData) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindOneLegalAcceptance200ResponseData) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindOneLegalAcceptance200ResponseData) GetAttributes() LegalAcceptance {
-	if o == nil || IsNil(o.Attributes) {
-		var ret LegalAcceptance
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindOneLegalAcceptance200ResponseData) GetAttributesOk() (*LegalAcceptance, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindOneLegalAcceptance200ResponseData) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given LegalAcceptance and assigns it to the Attributes field.
-func (o *FindOneLegalAcceptance200ResponseData) SetAttributes(v LegalAcceptance) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +677,49 @@ func (o FindOneLegalAcceptance200ResponseData) MarshalJSON() ([]byte, error) {
 
 func (o FindOneLegalAcceptance200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["legal_document"] = o.LegalDocument
+	if !IsNil(o.User) {
+		toSerialize["user"] = o.User
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	toSerialize["accepted_at"] = o.AcceptedAt
+	if !IsNil(o.IpAddress) {
+		toSerialize["ip_address"] = o.IpAddress
+	}
+	if !IsNil(o.UserAgent) {
+		toSerialize["user_agent"] = o.UserAgent
+	}
+	if !IsNil(o.DocumentVersion) {
+		toSerialize["document_version"] = o.DocumentVersion
+	}
+	if !IsNil(o.DocumentType) {
+		toSerialize["document_type"] = o.DocumentType
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.SignedName) {
+		toSerialize["signed_name"] = o.SignedName
+	}
+	if !IsNil(o.SignedTitle) {
+		toSerialize["signed_title"] = o.SignedTitle
+	}
+	if !IsNil(o.SignedIp) {
+		toSerialize["signed_ip"] = o.SignedIp
+	}
+	if !IsNil(o.CountersignedAt) {
+		toSerialize["countersigned_at"] = o.CountersignedAt
+	}
+	if !IsNil(o.CountersignedBy) {
+		toSerialize["countersigned_by"] = o.CountersignedBy
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +731,44 @@ func (o FindOneLegalAcceptance200ResponseData) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindOneLegalAcceptance200ResponseData) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"legal_document",
+		"accepted_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindOneLegalAcceptance200ResponseData := _FindOneLegalAcceptance200ResponseData{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindOneLegalAcceptance200ResponseData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindOneLegalAcceptance200ResponseData(varFindOneLegalAcceptance200ResponseData)
+
+	return err
 }
 
 type NullableFindOneLegalAcceptance200ResponseData struct {

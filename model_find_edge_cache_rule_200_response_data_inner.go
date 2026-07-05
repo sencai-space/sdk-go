@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindEdgeCacheRule200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,38 @@ var _ MappedNullable = &FindEdgeCacheRule200ResponseDataInner{}
 
 // FindEdgeCacheRule200ResponseDataInner struct for FindEdgeCacheRule200ResponseDataInner
 type FindEdgeCacheRule200ResponseDataInner struct {
+	// URL path pattern matched by this rule, e.g. /static/_* or /api/_*.
+	PathPattern string `json:"path_pattern"`
+	// Cache TTL in seconds. 0 = bypass (do not cache).
+	TtlSeconds *int32 `json:"ttl_seconds,omitempty"`
+	// Controls how query strings affect the cache key.
+	QueryStringCaching *string `json:"query_string_caching,omitempty"`
+	// Controls whether cookies are forwarded to the origin.
+	CookieForwarding *string `json:"cookie_forwarding,omitempty"`
+	// Whether the CDN should compress eligible responses (gzip/Brotli).
+	Compress *bool `json:"compress,omitempty"`
+	// HTTP methods allowed through this behavior (string[]), e.g. [\"GET\",\"HEAD\"].
+	AllowedMethods interface{} `json:"allowed_methods,omitempty"`
+	// Whether this rule is currently applied to the distribution.
+	IsActive *bool `json:"is_active,omitempty"`
+	CdnDistribution *CreateAccessReviewRequestDataReviewer `json:"cdn_distribution,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *EdgeCacheRule `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindEdgeCacheRule200ResponseDataInner FindEdgeCacheRule200ResponseDataInner
+
 // NewFindEdgeCacheRule200ResponseDataInner instantiates a new FindEdgeCacheRule200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindEdgeCacheRule200ResponseDataInner() *FindEdgeCacheRule200ResponseDataInner {
+func NewFindEdgeCacheRule200ResponseDataInner(pathPattern string) *FindEdgeCacheRule200ResponseDataInner {
 	this := FindEdgeCacheRule200ResponseDataInner{}
+	this.PathPattern = pathPattern
 	return &this
 }
 
@@ -44,6 +64,287 @@ func NewFindEdgeCacheRule200ResponseDataInner() *FindEdgeCacheRule200ResponseDat
 func NewFindEdgeCacheRule200ResponseDataInnerWithDefaults() *FindEdgeCacheRule200ResponseDataInner {
 	this := FindEdgeCacheRule200ResponseDataInner{}
 	return &this
+}
+
+// GetPathPattern returns the PathPattern field value
+func (o *FindEdgeCacheRule200ResponseDataInner) GetPathPattern() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PathPattern
+}
+
+// GetPathPatternOk returns a tuple with the PathPattern field value
+// and a boolean to check if the value has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetPathPatternOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PathPattern, true
+}
+
+// SetPathPattern sets field value
+func (o *FindEdgeCacheRule200ResponseDataInner) SetPathPattern(v string) {
+	o.PathPattern = v
+}
+
+// GetTtlSeconds returns the TtlSeconds field value if set, zero value otherwise.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetTtlSeconds() int32 {
+	if o == nil || IsNil(o.TtlSeconds) {
+		var ret int32
+		return ret
+	}
+	return *o.TtlSeconds
+}
+
+// GetTtlSecondsOk returns a tuple with the TtlSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetTtlSecondsOk() (*int32, bool) {
+	if o == nil || IsNil(o.TtlSeconds) {
+		return nil, false
+	}
+	return o.TtlSeconds, true
+}
+
+// HasTtlSeconds returns a boolean if a field has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) HasTtlSeconds() bool {
+	if o != nil && !IsNil(o.TtlSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetTtlSeconds gets a reference to the given int32 and assigns it to the TtlSeconds field.
+func (o *FindEdgeCacheRule200ResponseDataInner) SetTtlSeconds(v int32) {
+	o.TtlSeconds = &v
+}
+
+// GetQueryStringCaching returns the QueryStringCaching field value if set, zero value otherwise.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetQueryStringCaching() string {
+	if o == nil || IsNil(o.QueryStringCaching) {
+		var ret string
+		return ret
+	}
+	return *o.QueryStringCaching
+}
+
+// GetQueryStringCachingOk returns a tuple with the QueryStringCaching field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetQueryStringCachingOk() (*string, bool) {
+	if o == nil || IsNil(o.QueryStringCaching) {
+		return nil, false
+	}
+	return o.QueryStringCaching, true
+}
+
+// HasQueryStringCaching returns a boolean if a field has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) HasQueryStringCaching() bool {
+	if o != nil && !IsNil(o.QueryStringCaching) {
+		return true
+	}
+
+	return false
+}
+
+// SetQueryStringCaching gets a reference to the given string and assigns it to the QueryStringCaching field.
+func (o *FindEdgeCacheRule200ResponseDataInner) SetQueryStringCaching(v string) {
+	o.QueryStringCaching = &v
+}
+
+// GetCookieForwarding returns the CookieForwarding field value if set, zero value otherwise.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetCookieForwarding() string {
+	if o == nil || IsNil(o.CookieForwarding) {
+		var ret string
+		return ret
+	}
+	return *o.CookieForwarding
+}
+
+// GetCookieForwardingOk returns a tuple with the CookieForwarding field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetCookieForwardingOk() (*string, bool) {
+	if o == nil || IsNil(o.CookieForwarding) {
+		return nil, false
+	}
+	return o.CookieForwarding, true
+}
+
+// HasCookieForwarding returns a boolean if a field has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) HasCookieForwarding() bool {
+	if o != nil && !IsNil(o.CookieForwarding) {
+		return true
+	}
+
+	return false
+}
+
+// SetCookieForwarding gets a reference to the given string and assigns it to the CookieForwarding field.
+func (o *FindEdgeCacheRule200ResponseDataInner) SetCookieForwarding(v string) {
+	o.CookieForwarding = &v
+}
+
+// GetCompress returns the Compress field value if set, zero value otherwise.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetCompress() bool {
+	if o == nil || IsNil(o.Compress) {
+		var ret bool
+		return ret
+	}
+	return *o.Compress
+}
+
+// GetCompressOk returns a tuple with the Compress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetCompressOk() (*bool, bool) {
+	if o == nil || IsNil(o.Compress) {
+		return nil, false
+	}
+	return o.Compress, true
+}
+
+// HasCompress returns a boolean if a field has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) HasCompress() bool {
+	if o != nil && !IsNil(o.Compress) {
+		return true
+	}
+
+	return false
+}
+
+// SetCompress gets a reference to the given bool and assigns it to the Compress field.
+func (o *FindEdgeCacheRule200ResponseDataInner) SetCompress(v bool) {
+	o.Compress = &v
+}
+
+// GetAllowedMethods returns the AllowedMethods field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindEdgeCacheRule200ResponseDataInner) GetAllowedMethods() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.AllowedMethods
+}
+
+// GetAllowedMethodsOk returns a tuple with the AllowedMethods field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindEdgeCacheRule200ResponseDataInner) GetAllowedMethodsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.AllowedMethods) {
+		return nil, false
+	}
+	return &o.AllowedMethods, true
+}
+
+// HasAllowedMethods returns a boolean if a field has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) HasAllowedMethods() bool {
+	if o != nil && !IsNil(o.AllowedMethods) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowedMethods gets a reference to the given interface{} and assigns it to the AllowedMethods field.
+func (o *FindEdgeCacheRule200ResponseDataInner) SetAllowedMethods(v interface{}) {
+	o.AllowedMethods = v
+}
+
+// GetIsActive returns the IsActive field value if set, zero value otherwise.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetIsActive() bool {
+	if o == nil || IsNil(o.IsActive) {
+		var ret bool
+		return ret
+	}
+	return *o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetIsActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsActive) {
+		return nil, false
+	}
+	return o.IsActive, true
+}
+
+// HasIsActive returns a boolean if a field has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) HasIsActive() bool {
+	if o != nil && !IsNil(o.IsActive) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsActive gets a reference to the given bool and assigns it to the IsActive field.
+func (o *FindEdgeCacheRule200ResponseDataInner) SetIsActive(v bool) {
+	o.IsActive = &v
+}
+
+// GetCdnDistribution returns the CdnDistribution field value if set, zero value otherwise.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetCdnDistribution() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CdnDistribution) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CdnDistribution
+}
+
+// GetCdnDistributionOk returns a tuple with the CdnDistribution field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetCdnDistributionOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CdnDistribution) {
+		return nil, false
+	}
+	return o.CdnDistribution, true
+}
+
+// HasCdnDistribution returns a boolean if a field has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) HasCdnDistribution() bool {
+	if o != nil && !IsNil(o.CdnDistribution) {
+		return true
+	}
+
+	return false
+}
+
+// SetCdnDistribution gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CdnDistribution field.
+func (o *FindEdgeCacheRule200ResponseDataInner) SetCdnDistribution(v CreateAccessReviewRequestDataReviewer) {
+	o.CdnDistribution = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindEdgeCacheRule200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindEdgeCacheRule200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +409,6 @@ func (o *FindEdgeCacheRule200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindEdgeCacheRule200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindEdgeCacheRule200ResponseDataInner) GetAttributes() EdgeCacheRule {
-	if o == nil || IsNil(o.Attributes) {
-		var ret EdgeCacheRule
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindEdgeCacheRule200ResponseDataInner) GetAttributesOk() (*EdgeCacheRule, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindEdgeCacheRule200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given EdgeCacheRule and assigns it to the Attributes field.
-func (o *FindEdgeCacheRule200ResponseDataInner) SetAttributes(v EdgeCacheRule) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +527,36 @@ func (o FindEdgeCacheRule200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindEdgeCacheRule200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["path_pattern"] = o.PathPattern
+	if !IsNil(o.TtlSeconds) {
+		toSerialize["ttl_seconds"] = o.TtlSeconds
+	}
+	if !IsNil(o.QueryStringCaching) {
+		toSerialize["query_string_caching"] = o.QueryStringCaching
+	}
+	if !IsNil(o.CookieForwarding) {
+		toSerialize["cookie_forwarding"] = o.CookieForwarding
+	}
+	if !IsNil(o.Compress) {
+		toSerialize["compress"] = o.Compress
+	}
+	if o.AllowedMethods != nil {
+		toSerialize["allowed_methods"] = o.AllowedMethods
+	}
+	if !IsNil(o.IsActive) {
+		toSerialize["is_active"] = o.IsActive
+	}
+	if !IsNil(o.CdnDistribution) {
+		toSerialize["cdn_distribution"] = o.CdnDistribution
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +568,43 @@ func (o FindEdgeCacheRule200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindEdgeCacheRule200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"path_pattern",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindEdgeCacheRule200ResponseDataInner := _FindEdgeCacheRule200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindEdgeCacheRule200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindEdgeCacheRule200ResponseDataInner(varFindEdgeCacheRule200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindEdgeCacheRule200ResponseDataInner struct {

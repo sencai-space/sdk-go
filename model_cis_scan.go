@@ -29,8 +29,10 @@ type CisScan struct {
 	TotalTests *int32 `json:"total_tests,omitempty"`
 	WarningCount *int32 `json:"warning_count,omitempty"`
 	SuggestionCount *int32 `json:"suggestion_count,omitempty"`
-	Warnings map[string]interface{} `json:"warnings,omitempty"`
-	Suggestions map[string]interface{} `json:"suggestions,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Warnings interface{} `json:"warnings,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Suggestions interface{} `json:"suggestions,omitempty"`
 	ScannedAt time.Time `json:"scanned_at"`
 }
 
@@ -246,10 +248,10 @@ func (o *CisScan) SetSuggestionCount(v int32) {
 	o.SuggestionCount = &v
 }
 
-// GetWarnings returns the Warnings field value if set, zero value otherwise.
-func (o *CisScan) GetWarnings() map[string]interface{} {
-	if o == nil || IsNil(o.Warnings) {
-		var ret map[string]interface{}
+// GetWarnings returns the Warnings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CisScan) GetWarnings() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Warnings
@@ -257,11 +259,12 @@ func (o *CisScan) GetWarnings() map[string]interface{} {
 
 // GetWarningsOk returns a tuple with the Warnings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CisScan) GetWarningsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CisScan) GetWarningsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Warnings) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Warnings, true
+	return &o.Warnings, true
 }
 
 // HasWarnings returns a boolean if a field has been set.
@@ -273,15 +276,15 @@ func (o *CisScan) HasWarnings() bool {
 	return false
 }
 
-// SetWarnings gets a reference to the given map[string]interface{} and assigns it to the Warnings field.
-func (o *CisScan) SetWarnings(v map[string]interface{}) {
+// SetWarnings gets a reference to the given interface{} and assigns it to the Warnings field.
+func (o *CisScan) SetWarnings(v interface{}) {
 	o.Warnings = v
 }
 
-// GetSuggestions returns the Suggestions field value if set, zero value otherwise.
-func (o *CisScan) GetSuggestions() map[string]interface{} {
-	if o == nil || IsNil(o.Suggestions) {
-		var ret map[string]interface{}
+// GetSuggestions returns the Suggestions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CisScan) GetSuggestions() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Suggestions
@@ -289,11 +292,12 @@ func (o *CisScan) GetSuggestions() map[string]interface{} {
 
 // GetSuggestionsOk returns a tuple with the Suggestions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CisScan) GetSuggestionsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CisScan) GetSuggestionsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Suggestions) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Suggestions, true
+	return &o.Suggestions, true
 }
 
 // HasSuggestions returns a boolean if a field has been set.
@@ -305,8 +309,8 @@ func (o *CisScan) HasSuggestions() bool {
 	return false
 }
 
-// SetSuggestions gets a reference to the given map[string]interface{} and assigns it to the Suggestions field.
-func (o *CisScan) SetSuggestions(v map[string]interface{}) {
+// SetSuggestions gets a reference to the given interface{} and assigns it to the Suggestions field.
+func (o *CisScan) SetSuggestions(v interface{}) {
 	o.Suggestions = v
 }
 
@@ -362,10 +366,10 @@ func (o CisScan) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SuggestionCount) {
 		toSerialize["suggestion_count"] = o.SuggestionCount
 	}
-	if !IsNil(o.Warnings) {
+	if o.Warnings != nil {
 		toSerialize["warnings"] = o.Warnings
 	}
-	if !IsNil(o.Suggestions) {
+	if o.Suggestions != nil {
 		toSerialize["suggestions"] = o.Suggestions
 	}
 	toSerialize["scanned_at"] = o.ScannedAt

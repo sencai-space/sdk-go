@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindWorkspaceLicenceSnapshot200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,27 @@ var _ MappedNullable = &FindWorkspaceLicenceSnapshot200ResponseDataInner{}
 
 // FindWorkspaceLicenceSnapshot200ResponseDataInner struct for FindWorkspaceLicenceSnapshot200ResponseDataInner
 type FindWorkspaceLicenceSnapshot200ResponseDataInner struct {
+	FetchedAt time.Time `json:"fetched_at"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Licences interface{} `json:"licences,omitempty"`
+	WorkspaceTenant *CreateAccessReviewRequestDataReviewer `json:"workspace_tenant,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *WorkspaceLicenceSnapshot `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindWorkspaceLicenceSnapshot200ResponseDataInner FindWorkspaceLicenceSnapshot200ResponseDataInner
+
 // NewFindWorkspaceLicenceSnapshot200ResponseDataInner instantiates a new FindWorkspaceLicenceSnapshot200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindWorkspaceLicenceSnapshot200ResponseDataInner() *FindWorkspaceLicenceSnapshot200ResponseDataInner {
+func NewFindWorkspaceLicenceSnapshot200ResponseDataInner(fetchedAt time.Time) *FindWorkspaceLicenceSnapshot200ResponseDataInner {
 	this := FindWorkspaceLicenceSnapshot200ResponseDataInner{}
+	this.FetchedAt = fetchedAt
 	return &this
 }
 
@@ -44,6 +53,127 @@ func NewFindWorkspaceLicenceSnapshot200ResponseDataInner() *FindWorkspaceLicence
 func NewFindWorkspaceLicenceSnapshot200ResponseDataInnerWithDefaults() *FindWorkspaceLicenceSnapshot200ResponseDataInner {
 	this := FindWorkspaceLicenceSnapshot200ResponseDataInner{}
 	return &this
+}
+
+// GetFetchedAt returns the FetchedAt field value
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) GetFetchedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.FetchedAt
+}
+
+// GetFetchedAtOk returns a tuple with the FetchedAt field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) GetFetchedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FetchedAt, true
+}
+
+// SetFetchedAt sets field value
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) SetFetchedAt(v time.Time) {
+	o.FetchedAt = v
+}
+
+// GetLicences returns the Licences field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) GetLicences() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Licences
+}
+
+// GetLicencesOk returns a tuple with the Licences field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) GetLicencesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Licences) {
+		return nil, false
+	}
+	return &o.Licences, true
+}
+
+// HasLicences returns a boolean if a field has been set.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) HasLicences() bool {
+	if o != nil && !IsNil(o.Licences) {
+		return true
+	}
+
+	return false
+}
+
+// SetLicences gets a reference to the given interface{} and assigns it to the Licences field.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) SetLicences(v interface{}) {
+	o.Licences = v
+}
+
+// GetWorkspaceTenant returns the WorkspaceTenant field value if set, zero value otherwise.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) GetWorkspaceTenant() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.WorkspaceTenant) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.WorkspaceTenant
+}
+
+// GetWorkspaceTenantOk returns a tuple with the WorkspaceTenant field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) GetWorkspaceTenantOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.WorkspaceTenant) {
+		return nil, false
+	}
+	return o.WorkspaceTenant, true
+}
+
+// HasWorkspaceTenant returns a boolean if a field has been set.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) HasWorkspaceTenant() bool {
+	if o != nil && !IsNil(o.WorkspaceTenant) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspaceTenant gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the WorkspaceTenant field.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) SetWorkspaceTenant(v CreateAccessReviewRequestDataReviewer) {
+	o.WorkspaceTenant = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +238,6 @@ func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) GetAttributes() WorkspaceLicenceSnapshot {
-	if o == nil || IsNil(o.Attributes) {
-		var ret WorkspaceLicenceSnapshot
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) GetAttributesOk() (*WorkspaceLicenceSnapshot, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given WorkspaceLicenceSnapshot and assigns it to the Attributes field.
-func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) SetAttributes(v WorkspaceLicenceSnapshot) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +356,21 @@ func (o FindWorkspaceLicenceSnapshot200ResponseDataInner) MarshalJSON() ([]byte,
 
 func (o FindWorkspaceLicenceSnapshot200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["fetched_at"] = o.FetchedAt
+	if o.Licences != nil {
+		toSerialize["licences"] = o.Licences
+	}
+	if !IsNil(o.WorkspaceTenant) {
+		toSerialize["workspace_tenant"] = o.WorkspaceTenant
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +382,43 @@ func (o FindWorkspaceLicenceSnapshot200ResponseDataInner) ToMap() (map[string]in
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindWorkspaceLicenceSnapshot200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"fetched_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindWorkspaceLicenceSnapshot200ResponseDataInner := _FindWorkspaceLicenceSnapshot200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindWorkspaceLicenceSnapshot200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindWorkspaceLicenceSnapshot200ResponseDataInner(varFindWorkspaceLicenceSnapshot200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindWorkspaceLicenceSnapshot200ResponseDataInner struct {

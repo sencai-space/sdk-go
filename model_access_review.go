@@ -33,7 +33,7 @@ type AccessReview struct {
 	TotalItems *int32 `json:"total_items,omitempty"`
 	ReviewedItems *int32 `json:"reviewed_items,omitempty"`
 	// Summary of decisions: { keep: number, revoke: number, downgrade: number }
-	Findings map[string]interface{} `json:"findings,omitempty"`
+	Findings interface{} `json:"findings,omitempty"`
 }
 
 type _AccessReview AccessReview
@@ -322,10 +322,10 @@ func (o *AccessReview) SetReviewedItems(v int32) {
 	o.ReviewedItems = &v
 }
 
-// GetFindings returns the Findings field value if set, zero value otherwise.
-func (o *AccessReview) GetFindings() map[string]interface{} {
-	if o == nil || IsNil(o.Findings) {
-		var ret map[string]interface{}
+// GetFindings returns the Findings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AccessReview) GetFindings() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Findings
@@ -333,11 +333,12 @@ func (o *AccessReview) GetFindings() map[string]interface{} {
 
 // GetFindingsOk returns a tuple with the Findings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccessReview) GetFindingsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AccessReview) GetFindingsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Findings) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Findings, true
+	return &o.Findings, true
 }
 
 // HasFindings returns a boolean if a field has been set.
@@ -349,8 +350,8 @@ func (o *AccessReview) HasFindings() bool {
 	return false
 }
 
-// SetFindings gets a reference to the given map[string]interface{} and assigns it to the Findings field.
-func (o *AccessReview) SetFindings(v map[string]interface{}) {
+// SetFindings gets a reference to the given interface{} and assigns it to the Findings field.
+func (o *AccessReview) SetFindings(v interface{}) {
 	o.Findings = v
 }
 
@@ -385,7 +386,7 @@ func (o AccessReview) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ReviewedItems) {
 		toSerialize["reviewed_items"] = o.ReviewedItems
 	}
-	if !IsNil(o.Findings) {
+	if o.Findings != nil {
 		toSerialize["findings"] = o.Findings
 	}
 	return toSerialize, nil

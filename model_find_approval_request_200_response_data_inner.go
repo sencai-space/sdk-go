@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindApprovalRequest200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,51 @@ var _ MappedNullable = &FindApprovalRequest200ResponseDataInner{}
 
 // FindApprovalRequest200ResponseDataInner struct for FindApprovalRequest200ResponseDataInner
 type FindApprovalRequest200ResponseDataInner struct {
+	// Machine-readable action identifier, e.g. backup.policy.apply, runbook.execute, bulk.deauth
+	ActionType string `json:"action_type"`
+	// Human-readable label for the action
+	ActionLabel *string `json:"action_label,omitempty"`
+	// The action payload that will be executed on approval
+	Payload interface{} `json:"payload"`
+	Status string `json:"status"`
+	// { resource_count: number, resource_types: string[], estimated_impact: string }
+	BlastRadius interface{} `json:"blast_radius,omitempty"`
+	// Estimated cost change in USD (negative = savings)
+	CostDelta *float32 `json:"cost_delta,omitempty"`
+	// Step-by-step rollback instructions
+	RollbackPlan *string `json:"rollback_plan,omitempty"`
+	// Result of pre-execution dry run
+	DryRunResult interface{} `json:"dry_run_result,omitempty"`
+	// Lifecycle status of the dry-run simulation
+	DryRunStatus *string `json:"dry_run_status,omitempty"`
+	// Estimated cost change in USD from running this action (negative = savings)
+	CostDeltaUsd *float32 `json:"cost_delta_usd,omitempty"`
+	// Approval TTL — auto-set to now+4h on create
+	ExpiresAt time.Time `json:"expires_at"`
+	ApprovedAt *time.Time `json:"approved_at,omitempty"`
+	RejectionReason *string `json:"rejection_reason,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	Requester *CreateAccessReviewRequestDataReviewer `json:"requester,omitempty"`
+	ApprovedBy *CreateAccessReviewRequestDataReviewer `json:"approved_by,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ApprovalRequest `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindApprovalRequest200ResponseDataInner FindApprovalRequest200ResponseDataInner
+
 // NewFindApprovalRequest200ResponseDataInner instantiates a new FindApprovalRequest200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindApprovalRequest200ResponseDataInner() *FindApprovalRequest200ResponseDataInner {
+func NewFindApprovalRequest200ResponseDataInner(actionType string, payload interface{}, status string, expiresAt time.Time) *FindApprovalRequest200ResponseDataInner {
 	this := FindApprovalRequest200ResponseDataInner{}
+	this.ActionType = actionType
+	this.Payload = payload
+	this.Status = status
+	this.ExpiresAt = expiresAt
 	return &this
 }
 
@@ -44,6 +77,490 @@ func NewFindApprovalRequest200ResponseDataInner() *FindApprovalRequest200Respons
 func NewFindApprovalRequest200ResponseDataInnerWithDefaults() *FindApprovalRequest200ResponseDataInner {
 	this := FindApprovalRequest200ResponseDataInner{}
 	return &this
+}
+
+// GetActionType returns the ActionType field value
+func (o *FindApprovalRequest200ResponseDataInner) GetActionType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ActionType
+}
+
+// GetActionTypeOk returns a tuple with the ActionType field value
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetActionTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ActionType, true
+}
+
+// SetActionType sets field value
+func (o *FindApprovalRequest200ResponseDataInner) SetActionType(v string) {
+	o.ActionType = v
+}
+
+// GetActionLabel returns the ActionLabel field value if set, zero value otherwise.
+func (o *FindApprovalRequest200ResponseDataInner) GetActionLabel() string {
+	if o == nil || IsNil(o.ActionLabel) {
+		var ret string
+		return ret
+	}
+	return *o.ActionLabel
+}
+
+// GetActionLabelOk returns a tuple with the ActionLabel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetActionLabelOk() (*string, bool) {
+	if o == nil || IsNil(o.ActionLabel) {
+		return nil, false
+	}
+	return o.ActionLabel, true
+}
+
+// HasActionLabel returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasActionLabel() bool {
+	if o != nil && !IsNil(o.ActionLabel) {
+		return true
+	}
+
+	return false
+}
+
+// SetActionLabel gets a reference to the given string and assigns it to the ActionLabel field.
+func (o *FindApprovalRequest200ResponseDataInner) SetActionLabel(v string) {
+	o.ActionLabel = &v
+}
+
+// GetPayload returns the Payload field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *FindApprovalRequest200ResponseDataInner) GetPayload() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+
+	return o.Payload
+}
+
+// GetPayloadOk returns a tuple with the Payload field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindApprovalRequest200ResponseDataInner) GetPayloadOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Payload) {
+		return nil, false
+	}
+	return &o.Payload, true
+}
+
+// SetPayload sets field value
+func (o *FindApprovalRequest200ResponseDataInner) SetPayload(v interface{}) {
+	o.Payload = v
+}
+
+// GetStatus returns the Status field value
+func (o *FindApprovalRequest200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindApprovalRequest200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetBlastRadius returns the BlastRadius field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindApprovalRequest200ResponseDataInner) GetBlastRadius() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.BlastRadius
+}
+
+// GetBlastRadiusOk returns a tuple with the BlastRadius field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindApprovalRequest200ResponseDataInner) GetBlastRadiusOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.BlastRadius) {
+		return nil, false
+	}
+	return &o.BlastRadius, true
+}
+
+// HasBlastRadius returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasBlastRadius() bool {
+	if o != nil && !IsNil(o.BlastRadius) {
+		return true
+	}
+
+	return false
+}
+
+// SetBlastRadius gets a reference to the given interface{} and assigns it to the BlastRadius field.
+func (o *FindApprovalRequest200ResponseDataInner) SetBlastRadius(v interface{}) {
+	o.BlastRadius = v
+}
+
+// GetCostDelta returns the CostDelta field value if set, zero value otherwise.
+func (o *FindApprovalRequest200ResponseDataInner) GetCostDelta() float32 {
+	if o == nil || IsNil(o.CostDelta) {
+		var ret float32
+		return ret
+	}
+	return *o.CostDelta
+}
+
+// GetCostDeltaOk returns a tuple with the CostDelta field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetCostDeltaOk() (*float32, bool) {
+	if o == nil || IsNil(o.CostDelta) {
+		return nil, false
+	}
+	return o.CostDelta, true
+}
+
+// HasCostDelta returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasCostDelta() bool {
+	if o != nil && !IsNil(o.CostDelta) {
+		return true
+	}
+
+	return false
+}
+
+// SetCostDelta gets a reference to the given float32 and assigns it to the CostDelta field.
+func (o *FindApprovalRequest200ResponseDataInner) SetCostDelta(v float32) {
+	o.CostDelta = &v
+}
+
+// GetRollbackPlan returns the RollbackPlan field value if set, zero value otherwise.
+func (o *FindApprovalRequest200ResponseDataInner) GetRollbackPlan() string {
+	if o == nil || IsNil(o.RollbackPlan) {
+		var ret string
+		return ret
+	}
+	return *o.RollbackPlan
+}
+
+// GetRollbackPlanOk returns a tuple with the RollbackPlan field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetRollbackPlanOk() (*string, bool) {
+	if o == nil || IsNil(o.RollbackPlan) {
+		return nil, false
+	}
+	return o.RollbackPlan, true
+}
+
+// HasRollbackPlan returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasRollbackPlan() bool {
+	if o != nil && !IsNil(o.RollbackPlan) {
+		return true
+	}
+
+	return false
+}
+
+// SetRollbackPlan gets a reference to the given string and assigns it to the RollbackPlan field.
+func (o *FindApprovalRequest200ResponseDataInner) SetRollbackPlan(v string) {
+	o.RollbackPlan = &v
+}
+
+// GetDryRunResult returns the DryRunResult field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindApprovalRequest200ResponseDataInner) GetDryRunResult() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.DryRunResult
+}
+
+// GetDryRunResultOk returns a tuple with the DryRunResult field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindApprovalRequest200ResponseDataInner) GetDryRunResultOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.DryRunResult) {
+		return nil, false
+	}
+	return &o.DryRunResult, true
+}
+
+// HasDryRunResult returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasDryRunResult() bool {
+	if o != nil && !IsNil(o.DryRunResult) {
+		return true
+	}
+
+	return false
+}
+
+// SetDryRunResult gets a reference to the given interface{} and assigns it to the DryRunResult field.
+func (o *FindApprovalRequest200ResponseDataInner) SetDryRunResult(v interface{}) {
+	o.DryRunResult = v
+}
+
+// GetDryRunStatus returns the DryRunStatus field value if set, zero value otherwise.
+func (o *FindApprovalRequest200ResponseDataInner) GetDryRunStatus() string {
+	if o == nil || IsNil(o.DryRunStatus) {
+		var ret string
+		return ret
+	}
+	return *o.DryRunStatus
+}
+
+// GetDryRunStatusOk returns a tuple with the DryRunStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetDryRunStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.DryRunStatus) {
+		return nil, false
+	}
+	return o.DryRunStatus, true
+}
+
+// HasDryRunStatus returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasDryRunStatus() bool {
+	if o != nil && !IsNil(o.DryRunStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetDryRunStatus gets a reference to the given string and assigns it to the DryRunStatus field.
+func (o *FindApprovalRequest200ResponseDataInner) SetDryRunStatus(v string) {
+	o.DryRunStatus = &v
+}
+
+// GetCostDeltaUsd returns the CostDeltaUsd field value if set, zero value otherwise.
+func (o *FindApprovalRequest200ResponseDataInner) GetCostDeltaUsd() float32 {
+	if o == nil || IsNil(o.CostDeltaUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.CostDeltaUsd
+}
+
+// GetCostDeltaUsdOk returns a tuple with the CostDeltaUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetCostDeltaUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.CostDeltaUsd) {
+		return nil, false
+	}
+	return o.CostDeltaUsd, true
+}
+
+// HasCostDeltaUsd returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasCostDeltaUsd() bool {
+	if o != nil && !IsNil(o.CostDeltaUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetCostDeltaUsd gets a reference to the given float32 and assigns it to the CostDeltaUsd field.
+func (o *FindApprovalRequest200ResponseDataInner) SetCostDeltaUsd(v float32) {
+	o.CostDeltaUsd = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value
+func (o *FindApprovalRequest200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ExpiresAt, true
+}
+
+// SetExpiresAt sets field value
+func (o *FindApprovalRequest200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = v
+}
+
+// GetApprovedAt returns the ApprovedAt field value if set, zero value otherwise.
+func (o *FindApprovalRequest200ResponseDataInner) GetApprovedAt() time.Time {
+	if o == nil || IsNil(o.ApprovedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ApprovedAt
+}
+
+// GetApprovedAtOk returns a tuple with the ApprovedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetApprovedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ApprovedAt) {
+		return nil, false
+	}
+	return o.ApprovedAt, true
+}
+
+// HasApprovedAt returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasApprovedAt() bool {
+	if o != nil && !IsNil(o.ApprovedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetApprovedAt gets a reference to the given time.Time and assigns it to the ApprovedAt field.
+func (o *FindApprovalRequest200ResponseDataInner) SetApprovedAt(v time.Time) {
+	o.ApprovedAt = &v
+}
+
+// GetRejectionReason returns the RejectionReason field value if set, zero value otherwise.
+func (o *FindApprovalRequest200ResponseDataInner) GetRejectionReason() string {
+	if o == nil || IsNil(o.RejectionReason) {
+		var ret string
+		return ret
+	}
+	return *o.RejectionReason
+}
+
+// GetRejectionReasonOk returns a tuple with the RejectionReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetRejectionReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.RejectionReason) {
+		return nil, false
+	}
+	return o.RejectionReason, true
+}
+
+// HasRejectionReason returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasRejectionReason() bool {
+	if o != nil && !IsNil(o.RejectionReason) {
+		return true
+	}
+
+	return false
+}
+
+// SetRejectionReason gets a reference to the given string and assigns it to the RejectionReason field.
+func (o *FindApprovalRequest200ResponseDataInner) SetRejectionReason(v string) {
+	o.RejectionReason = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindApprovalRequest200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindApprovalRequest200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetRequester returns the Requester field value if set, zero value otherwise.
+func (o *FindApprovalRequest200ResponseDataInner) GetRequester() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Requester) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Requester
+}
+
+// GetRequesterOk returns a tuple with the Requester field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetRequesterOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Requester) {
+		return nil, false
+	}
+	return o.Requester, true
+}
+
+// HasRequester returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasRequester() bool {
+	if o != nil && !IsNil(o.Requester) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequester gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Requester field.
+func (o *FindApprovalRequest200ResponseDataInner) SetRequester(v CreateAccessReviewRequestDataReviewer) {
+	o.Requester = &v
+}
+
+// GetApprovedBy returns the ApprovedBy field value if set, zero value otherwise.
+func (o *FindApprovalRequest200ResponseDataInner) GetApprovedBy() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.ApprovedBy) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.ApprovedBy
+}
+
+// GetApprovedByOk returns a tuple with the ApprovedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindApprovalRequest200ResponseDataInner) GetApprovedByOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.ApprovedBy) {
+		return nil, false
+	}
+	return o.ApprovedBy, true
+}
+
+// HasApprovedBy returns a boolean if a field has been set.
+func (o *FindApprovalRequest200ResponseDataInner) HasApprovedBy() bool {
+	if o != nil && !IsNil(o.ApprovedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetApprovedBy gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the ApprovedBy field.
+func (o *FindApprovalRequest200ResponseDataInner) SetApprovedBy(v CreateAccessReviewRequestDataReviewer) {
+	o.ApprovedBy = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +625,6 @@ func (o *FindApprovalRequest200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindApprovalRequest200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindApprovalRequest200ResponseDataInner) GetAttributes() ApprovalRequest {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ApprovalRequest
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindApprovalRequest200ResponseDataInner) GetAttributesOk() (*ApprovalRequest, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindApprovalRequest200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ApprovalRequest and assigns it to the Attributes field.
-func (o *FindApprovalRequest200ResponseDataInner) SetAttributes(v ApprovalRequest) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +743,53 @@ func (o FindApprovalRequest200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindApprovalRequest200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["action_type"] = o.ActionType
+	if !IsNil(o.ActionLabel) {
+		toSerialize["action_label"] = o.ActionLabel
+	}
+	if o.Payload != nil {
+		toSerialize["payload"] = o.Payload
+	}
+	toSerialize["status"] = o.Status
+	if o.BlastRadius != nil {
+		toSerialize["blast_radius"] = o.BlastRadius
+	}
+	if !IsNil(o.CostDelta) {
+		toSerialize["cost_delta"] = o.CostDelta
+	}
+	if !IsNil(o.RollbackPlan) {
+		toSerialize["rollback_plan"] = o.RollbackPlan
+	}
+	if o.DryRunResult != nil {
+		toSerialize["dry_run_result"] = o.DryRunResult
+	}
+	if !IsNil(o.DryRunStatus) {
+		toSerialize["dry_run_status"] = o.DryRunStatus
+	}
+	if !IsNil(o.CostDeltaUsd) {
+		toSerialize["cost_delta_usd"] = o.CostDeltaUsd
+	}
+	toSerialize["expires_at"] = o.ExpiresAt
+	if !IsNil(o.ApprovedAt) {
+		toSerialize["approved_at"] = o.ApprovedAt
+	}
+	if !IsNil(o.RejectionReason) {
+		toSerialize["rejection_reason"] = o.RejectionReason
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.Requester) {
+		toSerialize["requester"] = o.Requester
+	}
+	if !IsNil(o.ApprovedBy) {
+		toSerialize["approved_by"] = o.ApprovedBy
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +801,46 @@ func (o FindApprovalRequest200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindApprovalRequest200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"action_type",
+		"payload",
+		"status",
+		"expires_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindApprovalRequest200ResponseDataInner := _FindApprovalRequest200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindApprovalRequest200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindApprovalRequest200ResponseDataInner(varFindApprovalRequest200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindApprovalRequest200ResponseDataInner struct {

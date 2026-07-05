@@ -30,8 +30,10 @@ type AuditArtifact struct {
 	EffectiveTo *string `json:"effective_to,omitempty"`
 	FileUrl *string `json:"file_url,omitempty"`
 	FileSizeBytes *int32 `json:"file_size_bytes,omitempty"`
-	Tags map[string]interface{} `json:"tags,omitempty"`
-	LinkedControls map[string]interface{} `json:"linked_controls,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	LinkedControls interface{} `json:"linked_controls,omitempty"`
 	IsPublic *bool `json:"is_public,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	UploadedBy *string `json:"uploaded_by,omitempty"`
@@ -298,10 +300,10 @@ func (o *AuditArtifact) SetFileSizeBytes(v int32) {
 	o.FileSizeBytes = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *AuditArtifact) GetTags() map[string]interface{} {
-	if o == nil || IsNil(o.Tags) {
-		var ret map[string]interface{}
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuditArtifact) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Tags
@@ -309,11 +311,12 @@ func (o *AuditArtifact) GetTags() map[string]interface{} {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditArtifact) GetTagsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuditArtifact) GetTagsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Tags) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -325,15 +328,15 @@ func (o *AuditArtifact) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given map[string]interface{} and assigns it to the Tags field.
-func (o *AuditArtifact) SetTags(v map[string]interface{}) {
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *AuditArtifact) SetTags(v interface{}) {
 	o.Tags = v
 }
 
-// GetLinkedControls returns the LinkedControls field value if set, zero value otherwise.
-func (o *AuditArtifact) GetLinkedControls() map[string]interface{} {
-	if o == nil || IsNil(o.LinkedControls) {
-		var ret map[string]interface{}
+// GetLinkedControls returns the LinkedControls field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuditArtifact) GetLinkedControls() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.LinkedControls
@@ -341,11 +344,12 @@ func (o *AuditArtifact) GetLinkedControls() map[string]interface{} {
 
 // GetLinkedControlsOk returns a tuple with the LinkedControls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditArtifact) GetLinkedControlsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuditArtifact) GetLinkedControlsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.LinkedControls) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.LinkedControls, true
+	return &o.LinkedControls, true
 }
 
 // HasLinkedControls returns a boolean if a field has been set.
@@ -357,8 +361,8 @@ func (o *AuditArtifact) HasLinkedControls() bool {
 	return false
 }
 
-// SetLinkedControls gets a reference to the given map[string]interface{} and assigns it to the LinkedControls field.
-func (o *AuditArtifact) SetLinkedControls(v map[string]interface{}) {
+// SetLinkedControls gets a reference to the given interface{} and assigns it to the LinkedControls field.
+func (o *AuditArtifact) SetLinkedControls(v interface{}) {
 	o.LinkedControls = v
 }
 
@@ -488,10 +492,10 @@ func (o AuditArtifact) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FileSizeBytes) {
 		toSerialize["file_size_bytes"] = o.FileSizeBytes
 	}
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
-	if !IsNil(o.LinkedControls) {
+	if o.LinkedControls != nil {
 		toSerialize["linked_controls"] = o.LinkedControls
 	}
 	if !IsNil(o.IsPublic) {

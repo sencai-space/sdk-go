@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSupportTicket200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,50 @@ var _ MappedNullable = &FindSupportTicket200ResponseDataInner{}
 
 // FindSupportTicket200ResponseDataInner struct for FindSupportTicket200ResponseDataInner
 type FindSupportTicket200ResponseDataInner struct {
+	Subject string `json:"subject"`
+	Description string `json:"description"`
+	Category *string `json:"category,omitempty"`
+	Priority *string `json:"priority,omitempty"`
+	Status *string `json:"status,omitempty"`
+	TicketNumber *string `json:"ticket_number,omitempty"`
+	ReporterEmail string `json:"reporter_email"`
+	ReporterName *string `json:"reporter_name,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	AssignedTo *string `json:"assigned_to,omitempty"`
+	ResolvedAt *time.Time `json:"resolved_at,omitempty"`
+	FirstResponseAt *time.Time `json:"first_response_at,omitempty"`
+	SlaBreach *bool `json:"sla_breach,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	FreshdeskTicketId *string `json:"freshdesk_ticket_id,omitempty"`
+	Comments *CreateAccessReviewRequestDataReviewer `json:"comments,omitempty"`
+	FeedbackType *string `json:"feedback_type,omitempty"`
+	Source *string `json:"source,omitempty"`
+	PageUrl *string `json:"page_url,omitempty"`
+	Browser *string `json:"browser,omitempty"`
+	TraceId *string `json:"trace_id,omitempty"`
+	// Strapi media object (upload plugin)
+	Screenshot map[string]interface{} `json:"screenshot,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SupportTicket `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSupportTicket200ResponseDataInner FindSupportTicket200ResponseDataInner
+
 // NewFindSupportTicket200ResponseDataInner instantiates a new FindSupportTicket200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSupportTicket200ResponseDataInner() *FindSupportTicket200ResponseDataInner {
+func NewFindSupportTicket200ResponseDataInner(subject string, description string, reporterEmail string) *FindSupportTicket200ResponseDataInner {
 	this := FindSupportTicket200ResponseDataInner{}
+	this.Subject = subject
+	this.Description = description
+	this.ReporterEmail = reporterEmail
 	return &this
 }
 
@@ -44,6 +76,720 @@ func NewFindSupportTicket200ResponseDataInner() *FindSupportTicket200ResponseDat
 func NewFindSupportTicket200ResponseDataInnerWithDefaults() *FindSupportTicket200ResponseDataInner {
 	this := FindSupportTicket200ResponseDataInner{}
 	return &this
+}
+
+// GetSubject returns the Subject field value
+func (o *FindSupportTicket200ResponseDataInner) GetSubject() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Subject
+}
+
+// GetSubjectOk returns a tuple with the Subject field value
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetSubjectOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Subject, true
+}
+
+// SetSubject sets field value
+func (o *FindSupportTicket200ResponseDataInner) SetSubject(v string) {
+	o.Subject = v
+}
+
+// GetDescription returns the Description field value
+func (o *FindSupportTicket200ResponseDataInner) GetDescription() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Description, true
+}
+
+// SetDescription sets field value
+func (o *FindSupportTicket200ResponseDataInner) SetDescription(v string) {
+	o.Description = v
+}
+
+// GetCategory returns the Category field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetCategory() string {
+	if o == nil || IsNil(o.Category) {
+		var ret string
+		return ret
+	}
+	return *o.Category
+}
+
+// GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetCategoryOk() (*string, bool) {
+	if o == nil || IsNil(o.Category) {
+		return nil, false
+	}
+	return o.Category, true
+}
+
+// HasCategory returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasCategory() bool {
+	if o != nil && !IsNil(o.Category) {
+		return true
+	}
+
+	return false
+}
+
+// SetCategory gets a reference to the given string and assigns it to the Category field.
+func (o *FindSupportTicket200ResponseDataInner) SetCategory(v string) {
+	o.Category = &v
+}
+
+// GetPriority returns the Priority field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetPriority() string {
+	if o == nil || IsNil(o.Priority) {
+		var ret string
+		return ret
+	}
+	return *o.Priority
+}
+
+// GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetPriorityOk() (*string, bool) {
+	if o == nil || IsNil(o.Priority) {
+		return nil, false
+	}
+	return o.Priority, true
+}
+
+// HasPriority returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasPriority() bool {
+	if o != nil && !IsNil(o.Priority) {
+		return true
+	}
+
+	return false
+}
+
+// SetPriority gets a reference to the given string and assigns it to the Priority field.
+func (o *FindSupportTicket200ResponseDataInner) SetPriority(v string) {
+	o.Priority = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindSupportTicket200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetTicketNumber returns the TicketNumber field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetTicketNumber() string {
+	if o == nil || IsNil(o.TicketNumber) {
+		var ret string
+		return ret
+	}
+	return *o.TicketNumber
+}
+
+// GetTicketNumberOk returns a tuple with the TicketNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetTicketNumberOk() (*string, bool) {
+	if o == nil || IsNil(o.TicketNumber) {
+		return nil, false
+	}
+	return o.TicketNumber, true
+}
+
+// HasTicketNumber returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasTicketNumber() bool {
+	if o != nil && !IsNil(o.TicketNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetTicketNumber gets a reference to the given string and assigns it to the TicketNumber field.
+func (o *FindSupportTicket200ResponseDataInner) SetTicketNumber(v string) {
+	o.TicketNumber = &v
+}
+
+// GetReporterEmail returns the ReporterEmail field value
+func (o *FindSupportTicket200ResponseDataInner) GetReporterEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ReporterEmail
+}
+
+// GetReporterEmailOk returns a tuple with the ReporterEmail field value
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetReporterEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ReporterEmail, true
+}
+
+// SetReporterEmail sets field value
+func (o *FindSupportTicket200ResponseDataInner) SetReporterEmail(v string) {
+	o.ReporterEmail = v
+}
+
+// GetReporterName returns the ReporterName field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetReporterName() string {
+	if o == nil || IsNil(o.ReporterName) {
+		var ret string
+		return ret
+	}
+	return *o.ReporterName
+}
+
+// GetReporterNameOk returns a tuple with the ReporterName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetReporterNameOk() (*string, bool) {
+	if o == nil || IsNil(o.ReporterName) {
+		return nil, false
+	}
+	return o.ReporterName, true
+}
+
+// HasReporterName returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasReporterName() bool {
+	if o != nil && !IsNil(o.ReporterName) {
+		return true
+	}
+
+	return false
+}
+
+// SetReporterName gets a reference to the given string and assigns it to the ReporterName field.
+func (o *FindSupportTicket200ResponseDataInner) SetReporterName(v string) {
+	o.ReporterName = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSupportTicket200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetAssignedTo returns the AssignedTo field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetAssignedTo() string {
+	if o == nil || IsNil(o.AssignedTo) {
+		var ret string
+		return ret
+	}
+	return *o.AssignedTo
+}
+
+// GetAssignedToOk returns a tuple with the AssignedTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetAssignedToOk() (*string, bool) {
+	if o == nil || IsNil(o.AssignedTo) {
+		return nil, false
+	}
+	return o.AssignedTo, true
+}
+
+// HasAssignedTo returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasAssignedTo() bool {
+	if o != nil && !IsNil(o.AssignedTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssignedTo gets a reference to the given string and assigns it to the AssignedTo field.
+func (o *FindSupportTicket200ResponseDataInner) SetAssignedTo(v string) {
+	o.AssignedTo = &v
+}
+
+// GetResolvedAt returns the ResolvedAt field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetResolvedAt() time.Time {
+	if o == nil || IsNil(o.ResolvedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ResolvedAt
+}
+
+// GetResolvedAtOk returns a tuple with the ResolvedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetResolvedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ResolvedAt) {
+		return nil, false
+	}
+	return o.ResolvedAt, true
+}
+
+// HasResolvedAt returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasResolvedAt() bool {
+	if o != nil && !IsNil(o.ResolvedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetResolvedAt gets a reference to the given time.Time and assigns it to the ResolvedAt field.
+func (o *FindSupportTicket200ResponseDataInner) SetResolvedAt(v time.Time) {
+	o.ResolvedAt = &v
+}
+
+// GetFirstResponseAt returns the FirstResponseAt field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetFirstResponseAt() time.Time {
+	if o == nil || IsNil(o.FirstResponseAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.FirstResponseAt
+}
+
+// GetFirstResponseAtOk returns a tuple with the FirstResponseAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetFirstResponseAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.FirstResponseAt) {
+		return nil, false
+	}
+	return o.FirstResponseAt, true
+}
+
+// HasFirstResponseAt returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasFirstResponseAt() bool {
+	if o != nil && !IsNil(o.FirstResponseAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstResponseAt gets a reference to the given time.Time and assigns it to the FirstResponseAt field.
+func (o *FindSupportTicket200ResponseDataInner) SetFirstResponseAt(v time.Time) {
+	o.FirstResponseAt = &v
+}
+
+// GetSlaBreach returns the SlaBreach field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetSlaBreach() bool {
+	if o == nil || IsNil(o.SlaBreach) {
+		var ret bool
+		return ret
+	}
+	return *o.SlaBreach
+}
+
+// GetSlaBreachOk returns a tuple with the SlaBreach field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetSlaBreachOk() (*bool, bool) {
+	if o == nil || IsNil(o.SlaBreach) {
+		return nil, false
+	}
+	return o.SlaBreach, true
+}
+
+// HasSlaBreach returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasSlaBreach() bool {
+	if o != nil && !IsNil(o.SlaBreach) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlaBreach gets a reference to the given bool and assigns it to the SlaBreach field.
+func (o *FindSupportTicket200ResponseDataInner) SetSlaBreach(v bool) {
+	o.SlaBreach = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindSupportTicket200ResponseDataInner) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindSupportTicket200ResponseDataInner) GetTagsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return &o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *FindSupportTicket200ResponseDataInner) SetTags(v interface{}) {
+	o.Tags = v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindSupportTicket200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindSupportTicket200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindSupportTicket200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetFreshdeskTicketId returns the FreshdeskTicketId field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetFreshdeskTicketId() string {
+	if o == nil || IsNil(o.FreshdeskTicketId) {
+		var ret string
+		return ret
+	}
+	return *o.FreshdeskTicketId
+}
+
+// GetFreshdeskTicketIdOk returns a tuple with the FreshdeskTicketId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetFreshdeskTicketIdOk() (*string, bool) {
+	if o == nil || IsNil(o.FreshdeskTicketId) {
+		return nil, false
+	}
+	return o.FreshdeskTicketId, true
+}
+
+// HasFreshdeskTicketId returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasFreshdeskTicketId() bool {
+	if o != nil && !IsNil(o.FreshdeskTicketId) {
+		return true
+	}
+
+	return false
+}
+
+// SetFreshdeskTicketId gets a reference to the given string and assigns it to the FreshdeskTicketId field.
+func (o *FindSupportTicket200ResponseDataInner) SetFreshdeskTicketId(v string) {
+	o.FreshdeskTicketId = &v
+}
+
+// GetComments returns the Comments field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetComments() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Comments) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Comments
+}
+
+// GetCommentsOk returns a tuple with the Comments field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetCommentsOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Comments) {
+		return nil, false
+	}
+	return o.Comments, true
+}
+
+// HasComments returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasComments() bool {
+	if o != nil && !IsNil(o.Comments) {
+		return true
+	}
+
+	return false
+}
+
+// SetComments gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Comments field.
+func (o *FindSupportTicket200ResponseDataInner) SetComments(v CreateAccessReviewRequestDataReviewer) {
+	o.Comments = &v
+}
+
+// GetFeedbackType returns the FeedbackType field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetFeedbackType() string {
+	if o == nil || IsNil(o.FeedbackType) {
+		var ret string
+		return ret
+	}
+	return *o.FeedbackType
+}
+
+// GetFeedbackTypeOk returns a tuple with the FeedbackType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetFeedbackTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.FeedbackType) {
+		return nil, false
+	}
+	return o.FeedbackType, true
+}
+
+// HasFeedbackType returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasFeedbackType() bool {
+	if o != nil && !IsNil(o.FeedbackType) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeedbackType gets a reference to the given string and assigns it to the FeedbackType field.
+func (o *FindSupportTicket200ResponseDataInner) SetFeedbackType(v string) {
+	o.FeedbackType = &v
+}
+
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Source) {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *FindSupportTicket200ResponseDataInner) SetSource(v string) {
+	o.Source = &v
+}
+
+// GetPageUrl returns the PageUrl field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetPageUrl() string {
+	if o == nil || IsNil(o.PageUrl) {
+		var ret string
+		return ret
+	}
+	return *o.PageUrl
+}
+
+// GetPageUrlOk returns a tuple with the PageUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetPageUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.PageUrl) {
+		return nil, false
+	}
+	return o.PageUrl, true
+}
+
+// HasPageUrl returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasPageUrl() bool {
+	if o != nil && !IsNil(o.PageUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetPageUrl gets a reference to the given string and assigns it to the PageUrl field.
+func (o *FindSupportTicket200ResponseDataInner) SetPageUrl(v string) {
+	o.PageUrl = &v
+}
+
+// GetBrowser returns the Browser field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetBrowser() string {
+	if o == nil || IsNil(o.Browser) {
+		var ret string
+		return ret
+	}
+	return *o.Browser
+}
+
+// GetBrowserOk returns a tuple with the Browser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetBrowserOk() (*string, bool) {
+	if o == nil || IsNil(o.Browser) {
+		return nil, false
+	}
+	return o.Browser, true
+}
+
+// HasBrowser returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasBrowser() bool {
+	if o != nil && !IsNil(o.Browser) {
+		return true
+	}
+
+	return false
+}
+
+// SetBrowser gets a reference to the given string and assigns it to the Browser field.
+func (o *FindSupportTicket200ResponseDataInner) SetBrowser(v string) {
+	o.Browser = &v
+}
+
+// GetTraceId returns the TraceId field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetTraceId() string {
+	if o == nil || IsNil(o.TraceId) {
+		var ret string
+		return ret
+	}
+	return *o.TraceId
+}
+
+// GetTraceIdOk returns a tuple with the TraceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetTraceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TraceId) {
+		return nil, false
+	}
+	return o.TraceId, true
+}
+
+// HasTraceId returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasTraceId() bool {
+	if o != nil && !IsNil(o.TraceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTraceId gets a reference to the given string and assigns it to the TraceId field.
+func (o *FindSupportTicket200ResponseDataInner) SetTraceId(v string) {
+	o.TraceId = &v
+}
+
+// GetScreenshot returns the Screenshot field value if set, zero value otherwise.
+func (o *FindSupportTicket200ResponseDataInner) GetScreenshot() map[string]interface{} {
+	if o == nil || IsNil(o.Screenshot) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Screenshot
+}
+
+// GetScreenshotOk returns a tuple with the Screenshot field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportTicket200ResponseDataInner) GetScreenshotOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Screenshot) {
+		return map[string]interface{}{}, false
+	}
+	return o.Screenshot, true
+}
+
+// HasScreenshot returns a boolean if a field has been set.
+func (o *FindSupportTicket200ResponseDataInner) HasScreenshot() bool {
+	if o != nil && !IsNil(o.Screenshot) {
+		return true
+	}
+
+	return false
+}
+
+// SetScreenshot gets a reference to the given map[string]interface{} and assigns it to the Screenshot field.
+func (o *FindSupportTicket200ResponseDataInner) SetScreenshot(v map[string]interface{}) {
+	o.Screenshot = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +854,6 @@ func (o *FindSupportTicket200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSupportTicket200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSupportTicket200ResponseDataInner) GetAttributes() SupportTicket {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SupportTicket
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSupportTicket200ResponseDataInner) GetAttributesOk() (*SupportTicket, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSupportTicket200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SupportTicket and assigns it to the Attributes field.
-func (o *FindSupportTicket200ResponseDataInner) SetAttributes(v SupportTicket) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +972,74 @@ func (o FindSupportTicket200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindSupportTicket200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["subject"] = o.Subject
+	toSerialize["description"] = o.Description
+	if !IsNil(o.Category) {
+		toSerialize["category"] = o.Category
+	}
+	if !IsNil(o.Priority) {
+		toSerialize["priority"] = o.Priority
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.TicketNumber) {
+		toSerialize["ticket_number"] = o.TicketNumber
+	}
+	toSerialize["reporter_email"] = o.ReporterEmail
+	if !IsNil(o.ReporterName) {
+		toSerialize["reporter_name"] = o.ReporterName
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.AssignedTo) {
+		toSerialize["assigned_to"] = o.AssignedTo
+	}
+	if !IsNil(o.ResolvedAt) {
+		toSerialize["resolved_at"] = o.ResolvedAt
+	}
+	if !IsNil(o.FirstResponseAt) {
+		toSerialize["first_response_at"] = o.FirstResponseAt
+	}
+	if !IsNil(o.SlaBreach) {
+		toSerialize["sla_breach"] = o.SlaBreach
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.FreshdeskTicketId) {
+		toSerialize["freshdesk_ticket_id"] = o.FreshdeskTicketId
+	}
+	if !IsNil(o.Comments) {
+		toSerialize["comments"] = o.Comments
+	}
+	if !IsNil(o.FeedbackType) {
+		toSerialize["feedback_type"] = o.FeedbackType
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.PageUrl) {
+		toSerialize["page_url"] = o.PageUrl
+	}
+	if !IsNil(o.Browser) {
+		toSerialize["browser"] = o.Browser
+	}
+	if !IsNil(o.TraceId) {
+		toSerialize["trace_id"] = o.TraceId
+	}
+	if !IsNil(o.Screenshot) {
+		toSerialize["screenshot"] = o.Screenshot
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +1051,45 @@ func (o FindSupportTicket200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSupportTicket200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"subject",
+		"description",
+		"reporter_email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSupportTicket200ResponseDataInner := _FindSupportTicket200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSupportTicket200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSupportTicket200ResponseDataInner(varFindSupportTicket200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSupportTicket200ResponseDataInner struct {

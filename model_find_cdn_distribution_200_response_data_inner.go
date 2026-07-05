@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCdnDistribution200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,40 @@ var _ MappedNullable = &FindCdnDistribution200ResponseDataInner{}
 
 // FindCdnDistribution200ResponseDataInner struct for FindCdnDistribution200ResponseDataInner
 type FindCdnDistribution200ResponseDataInner struct {
+	Provider string `json:"provider"`
+	// Human-readable distribution name or domain.
+	Name string `json:"name"`
+	// Custom/alternate domain names served by this distribution (string[]).
+	Domains interface{} `json:"domains,omitempty"`
+	// CDN origins (CdnOrigin[]) — { id, domain, protocol }.
+	Origins interface{} `json:"origins,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// Provider-side distribution identifier (CloudFront distribution ID, Azure Front Door endpoint ARM path, GCP backend service selfLink, Cloudflare zone ID).
+	ProviderDistributionId string `json:"provider_distribution_id"`
+	// Provider-specific cache behaviors and TTL config.
+	CacheBehaviors interface{} `json:"cache_behaviors,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
+	// Provider-specific metadata (ARN, fingerprint, profile name, etc.).
+	ProviderMetadata interface{} `json:"provider_metadata,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CdnDistribution `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCdnDistribution200ResponseDataInner FindCdnDistribution200ResponseDataInner
+
 // NewFindCdnDistribution200ResponseDataInner instantiates a new FindCdnDistribution200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCdnDistribution200ResponseDataInner() *FindCdnDistribution200ResponseDataInner {
+func NewFindCdnDistribution200ResponseDataInner(provider string, name string, providerDistributionId string) *FindCdnDistribution200ResponseDataInner {
 	this := FindCdnDistribution200ResponseDataInner{}
+	this.Provider = provider
+	this.Name = name
+	this.ProviderDistributionId = providerDistributionId
 	return &this
 }
 
@@ -44,6 +66,306 @@ func NewFindCdnDistribution200ResponseDataInner() *FindCdnDistribution200Respons
 func NewFindCdnDistribution200ResponseDataInnerWithDefaults() *FindCdnDistribution200ResponseDataInner {
 	this := FindCdnDistribution200ResponseDataInner{}
 	return &this
+}
+
+// GetProvider returns the Provider field value
+func (o *FindCdnDistribution200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindCdnDistribution200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindCdnDistribution200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetName returns the Name field value
+func (o *FindCdnDistribution200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCdnDistribution200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCdnDistribution200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetDomains returns the Domains field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCdnDistribution200ResponseDataInner) GetDomains() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Domains
+}
+
+// GetDomainsOk returns a tuple with the Domains field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCdnDistribution200ResponseDataInner) GetDomainsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Domains) {
+		return nil, false
+	}
+	return &o.Domains, true
+}
+
+// HasDomains returns a boolean if a field has been set.
+func (o *FindCdnDistribution200ResponseDataInner) HasDomains() bool {
+	if o != nil && !IsNil(o.Domains) {
+		return true
+	}
+
+	return false
+}
+
+// SetDomains gets a reference to the given interface{} and assigns it to the Domains field.
+func (o *FindCdnDistribution200ResponseDataInner) SetDomains(v interface{}) {
+	o.Domains = v
+}
+
+// GetOrigins returns the Origins field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCdnDistribution200ResponseDataInner) GetOrigins() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Origins
+}
+
+// GetOriginsOk returns a tuple with the Origins field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCdnDistribution200ResponseDataInner) GetOriginsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Origins) {
+		return nil, false
+	}
+	return &o.Origins, true
+}
+
+// HasOrigins returns a boolean if a field has been set.
+func (o *FindCdnDistribution200ResponseDataInner) HasOrigins() bool {
+	if o != nil && !IsNil(o.Origins) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrigins gets a reference to the given interface{} and assigns it to the Origins field.
+func (o *FindCdnDistribution200ResponseDataInner) SetOrigins(v interface{}) {
+	o.Origins = v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindCdnDistribution200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCdnDistribution200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindCdnDistribution200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindCdnDistribution200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetProviderDistributionId returns the ProviderDistributionId field value
+func (o *FindCdnDistribution200ResponseDataInner) GetProviderDistributionId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ProviderDistributionId
+}
+
+// GetProviderDistributionIdOk returns a tuple with the ProviderDistributionId field value
+// and a boolean to check if the value has been set.
+func (o *FindCdnDistribution200ResponseDataInner) GetProviderDistributionIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ProviderDistributionId, true
+}
+
+// SetProviderDistributionId sets field value
+func (o *FindCdnDistribution200ResponseDataInner) SetProviderDistributionId(v string) {
+	o.ProviderDistributionId = v
+}
+
+// GetCacheBehaviors returns the CacheBehaviors field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCdnDistribution200ResponseDataInner) GetCacheBehaviors() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.CacheBehaviors
+}
+
+// GetCacheBehaviorsOk returns a tuple with the CacheBehaviors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCdnDistribution200ResponseDataInner) GetCacheBehaviorsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.CacheBehaviors) {
+		return nil, false
+	}
+	return &o.CacheBehaviors, true
+}
+
+// HasCacheBehaviors returns a boolean if a field has been set.
+func (o *FindCdnDistribution200ResponseDataInner) HasCacheBehaviors() bool {
+	if o != nil && !IsNil(o.CacheBehaviors) {
+		return true
+	}
+
+	return false
+}
+
+// SetCacheBehaviors gets a reference to the given interface{} and assigns it to the CacheBehaviors field.
+func (o *FindCdnDistribution200ResponseDataInner) SetCacheBehaviors(v interface{}) {
+	o.CacheBehaviors = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCdnDistribution200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCdnDistribution200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCdnDistribution200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCdnDistribution200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetCredential returns the Credential field value if set, zero value otherwise.
+func (o *FindCdnDistribution200ResponseDataInner) GetCredential() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Credential) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Credential
+}
+
+// GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCdnDistribution200ResponseDataInner) GetCredentialOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Credential) {
+		return nil, false
+	}
+	return o.Credential, true
+}
+
+// HasCredential returns a boolean if a field has been set.
+func (o *FindCdnDistribution200ResponseDataInner) HasCredential() bool {
+	if o != nil && !IsNil(o.Credential) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredential gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Credential field.
+func (o *FindCdnDistribution200ResponseDataInner) SetCredential(v CreateAccessReviewRequestDataReviewer) {
+	o.Credential = &v
+}
+
+// GetProviderMetadata returns the ProviderMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCdnDistribution200ResponseDataInner) GetProviderMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ProviderMetadata
+}
+
+// GetProviderMetadataOk returns a tuple with the ProviderMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCdnDistribution200ResponseDataInner) GetProviderMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ProviderMetadata) {
+		return nil, false
+	}
+	return &o.ProviderMetadata, true
+}
+
+// HasProviderMetadata returns a boolean if a field has been set.
+func (o *FindCdnDistribution200ResponseDataInner) HasProviderMetadata() bool {
+	if o != nil && !IsNil(o.ProviderMetadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderMetadata gets a reference to the given interface{} and assigns it to the ProviderMetadata field.
+func (o *FindCdnDistribution200ResponseDataInner) SetProviderMetadata(v interface{}) {
+	o.ProviderMetadata = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +430,6 @@ func (o *FindCdnDistribution200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCdnDistribution200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCdnDistribution200ResponseDataInner) GetAttributes() CdnDistribution {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CdnDistribution
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCdnDistribution200ResponseDataInner) GetAttributesOk() (*CdnDistribution, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCdnDistribution200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CdnDistribution and assigns it to the Attributes field.
-func (o *FindCdnDistribution200ResponseDataInner) SetAttributes(v CdnDistribution) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +548,35 @@ func (o FindCdnDistribution200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCdnDistribution200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["provider"] = o.Provider
+	toSerialize["name"] = o.Name
+	if o.Domains != nil {
+		toSerialize["domains"] = o.Domains
+	}
+	if o.Origins != nil {
+		toSerialize["origins"] = o.Origins
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	toSerialize["provider_distribution_id"] = o.ProviderDistributionId
+	if o.CacheBehaviors != nil {
+		toSerialize["cache_behaviors"] = o.CacheBehaviors
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.Credential) {
+		toSerialize["credential"] = o.Credential
+	}
+	if o.ProviderMetadata != nil {
+		toSerialize["provider_metadata"] = o.ProviderMetadata
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +588,45 @@ func (o FindCdnDistribution200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCdnDistribution200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"provider",
+		"name",
+		"provider_distribution_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCdnDistribution200ResponseDataInner := _FindCdnDistribution200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCdnDistribution200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCdnDistribution200ResponseDataInner(varFindCdnDistribution200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCdnDistribution200ResponseDataInner struct {

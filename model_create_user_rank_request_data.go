@@ -27,7 +27,7 @@ type CreateUserRankRequestData struct {
 	XpTotal int32 `json:"xp_total"`
 	RankLevel string `json:"rank_level"`
 	// Array of { badge_code, awarded_at } — badge_code references badge-definition.code
-	Badges map[string]interface{} `json:"badges,omitempty"`
+	Badges interface{} `json:"badges,omitempty"`
 	// Latest automation-score snapshot; historical values live in gamification-event, not here
 	AutomationScore *float32 `json:"automation_score,omitempty"`
 	CurrentStreakDays int32 `json:"current_streak_days"`
@@ -131,10 +131,10 @@ func (o *CreateUserRankRequestData) SetRankLevel(v string) {
 	o.RankLevel = v
 }
 
-// GetBadges returns the Badges field value if set, zero value otherwise.
-func (o *CreateUserRankRequestData) GetBadges() map[string]interface{} {
-	if o == nil || IsNil(o.Badges) {
-		var ret map[string]interface{}
+// GetBadges returns the Badges field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateUserRankRequestData) GetBadges() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Badges
@@ -142,11 +142,12 @@ func (o *CreateUserRankRequestData) GetBadges() map[string]interface{} {
 
 // GetBadgesOk returns a tuple with the Badges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateUserRankRequestData) GetBadgesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateUserRankRequestData) GetBadgesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Badges) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Badges, true
+	return &o.Badges, true
 }
 
 // HasBadges returns a boolean if a field has been set.
@@ -158,8 +159,8 @@ func (o *CreateUserRankRequestData) HasBadges() bool {
 	return false
 }
 
-// SetBadges gets a reference to the given map[string]interface{} and assigns it to the Badges field.
-func (o *CreateUserRankRequestData) SetBadges(v map[string]interface{}) {
+// SetBadges gets a reference to the given interface{} and assigns it to the Badges field.
+func (o *CreateUserRankRequestData) SetBadges(v interface{}) {
 	o.Badges = v
 }
 
@@ -288,7 +289,7 @@ func (o CreateUserRankRequestData) ToMap() (map[string]interface{}, error) {
 	toSerialize["user"] = o.User
 	toSerialize["xp_total"] = o.XpTotal
 	toSerialize["rank_level"] = o.RankLevel
-	if !IsNil(o.Badges) {
+	if o.Badges != nil {
 		toSerialize["badges"] = o.Badges
 	}
 	if !IsNil(o.AutomationScore) {

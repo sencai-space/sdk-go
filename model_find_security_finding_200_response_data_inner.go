@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSecurityFinding200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindSecurityFinding200ResponseDataInner{}
 
 // FindSecurityFinding200ResponseDataInner struct for FindSecurityFinding200ResponseDataInner
 type FindSecurityFinding200ResponseDataInner struct {
+	RuleId string `json:"rule_id"`
+	Severity string `json:"severity"`
+	FilePath *string `json:"file_path,omitempty"`
+	LineNumber *int32 `json:"line_number,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Status string `json:"status"`
+	IsoControl *string `json:"iso_control,omitempty"`
+	Nis2Article *string `json:"nis2_article,omitempty"`
+	Tool *string `json:"tool,omitempty"`
+	MitigatedAt *time.Time `json:"mitigated_at,omitempty"`
+	MitigatedBy *string `json:"mitigated_by,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SecurityFinding `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSecurityFinding200ResponseDataInner FindSecurityFinding200ResponseDataInner
+
 // NewFindSecurityFinding200ResponseDataInner instantiates a new FindSecurityFinding200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSecurityFinding200ResponseDataInner() *FindSecurityFinding200ResponseDataInner {
+func NewFindSecurityFinding200ResponseDataInner(ruleId string, severity string, status string) *FindSecurityFinding200ResponseDataInner {
 	this := FindSecurityFinding200ResponseDataInner{}
+	this.RuleId = ruleId
+	this.Severity = severity
+	this.Status = status
 	return &this
 }
 
@@ -44,6 +62,366 @@ func NewFindSecurityFinding200ResponseDataInner() *FindSecurityFinding200Respons
 func NewFindSecurityFinding200ResponseDataInnerWithDefaults() *FindSecurityFinding200ResponseDataInner {
 	this := FindSecurityFinding200ResponseDataInner{}
 	return &this
+}
+
+// GetRuleId returns the RuleId field value
+func (o *FindSecurityFinding200ResponseDataInner) GetRuleId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RuleId
+}
+
+// GetRuleIdOk returns a tuple with the RuleId field value
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetRuleIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RuleId, true
+}
+
+// SetRuleId sets field value
+func (o *FindSecurityFinding200ResponseDataInner) SetRuleId(v string) {
+	o.RuleId = v
+}
+
+// GetSeverity returns the Severity field value
+func (o *FindSecurityFinding200ResponseDataInner) GetSeverity() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Severity
+}
+
+// GetSeverityOk returns a tuple with the Severity field value
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetSeverityOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Severity, true
+}
+
+// SetSeverity sets field value
+func (o *FindSecurityFinding200ResponseDataInner) SetSeverity(v string) {
+	o.Severity = v
+}
+
+// GetFilePath returns the FilePath field value if set, zero value otherwise.
+func (o *FindSecurityFinding200ResponseDataInner) GetFilePath() string {
+	if o == nil || IsNil(o.FilePath) {
+		var ret string
+		return ret
+	}
+	return *o.FilePath
+}
+
+// GetFilePathOk returns a tuple with the FilePath field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetFilePathOk() (*string, bool) {
+	if o == nil || IsNil(o.FilePath) {
+		return nil, false
+	}
+	return o.FilePath, true
+}
+
+// HasFilePath returns a boolean if a field has been set.
+func (o *FindSecurityFinding200ResponseDataInner) HasFilePath() bool {
+	if o != nil && !IsNil(o.FilePath) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilePath gets a reference to the given string and assigns it to the FilePath field.
+func (o *FindSecurityFinding200ResponseDataInner) SetFilePath(v string) {
+	o.FilePath = &v
+}
+
+// GetLineNumber returns the LineNumber field value if set, zero value otherwise.
+func (o *FindSecurityFinding200ResponseDataInner) GetLineNumber() int32 {
+	if o == nil || IsNil(o.LineNumber) {
+		var ret int32
+		return ret
+	}
+	return *o.LineNumber
+}
+
+// GetLineNumberOk returns a tuple with the LineNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetLineNumberOk() (*int32, bool) {
+	if o == nil || IsNil(o.LineNumber) {
+		return nil, false
+	}
+	return o.LineNumber, true
+}
+
+// HasLineNumber returns a boolean if a field has been set.
+func (o *FindSecurityFinding200ResponseDataInner) HasLineNumber() bool {
+	if o != nil && !IsNil(o.LineNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetLineNumber gets a reference to the given int32 and assigns it to the LineNumber field.
+func (o *FindSecurityFinding200ResponseDataInner) SetLineNumber(v int32) {
+	o.LineNumber = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindSecurityFinding200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindSecurityFinding200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindSecurityFinding200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetStatus returns the Status field value
+func (o *FindSecurityFinding200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindSecurityFinding200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetIsoControl returns the IsoControl field value if set, zero value otherwise.
+func (o *FindSecurityFinding200ResponseDataInner) GetIsoControl() string {
+	if o == nil || IsNil(o.IsoControl) {
+		var ret string
+		return ret
+	}
+	return *o.IsoControl
+}
+
+// GetIsoControlOk returns a tuple with the IsoControl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetIsoControlOk() (*string, bool) {
+	if o == nil || IsNil(o.IsoControl) {
+		return nil, false
+	}
+	return o.IsoControl, true
+}
+
+// HasIsoControl returns a boolean if a field has been set.
+func (o *FindSecurityFinding200ResponseDataInner) HasIsoControl() bool {
+	if o != nil && !IsNil(o.IsoControl) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsoControl gets a reference to the given string and assigns it to the IsoControl field.
+func (o *FindSecurityFinding200ResponseDataInner) SetIsoControl(v string) {
+	o.IsoControl = &v
+}
+
+// GetNis2Article returns the Nis2Article field value if set, zero value otherwise.
+func (o *FindSecurityFinding200ResponseDataInner) GetNis2Article() string {
+	if o == nil || IsNil(o.Nis2Article) {
+		var ret string
+		return ret
+	}
+	return *o.Nis2Article
+}
+
+// GetNis2ArticleOk returns a tuple with the Nis2Article field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetNis2ArticleOk() (*string, bool) {
+	if o == nil || IsNil(o.Nis2Article) {
+		return nil, false
+	}
+	return o.Nis2Article, true
+}
+
+// HasNis2Article returns a boolean if a field has been set.
+func (o *FindSecurityFinding200ResponseDataInner) HasNis2Article() bool {
+	if o != nil && !IsNil(o.Nis2Article) {
+		return true
+	}
+
+	return false
+}
+
+// SetNis2Article gets a reference to the given string and assigns it to the Nis2Article field.
+func (o *FindSecurityFinding200ResponseDataInner) SetNis2Article(v string) {
+	o.Nis2Article = &v
+}
+
+// GetTool returns the Tool field value if set, zero value otherwise.
+func (o *FindSecurityFinding200ResponseDataInner) GetTool() string {
+	if o == nil || IsNil(o.Tool) {
+		var ret string
+		return ret
+	}
+	return *o.Tool
+}
+
+// GetToolOk returns a tuple with the Tool field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetToolOk() (*string, bool) {
+	if o == nil || IsNil(o.Tool) {
+		return nil, false
+	}
+	return o.Tool, true
+}
+
+// HasTool returns a boolean if a field has been set.
+func (o *FindSecurityFinding200ResponseDataInner) HasTool() bool {
+	if o != nil && !IsNil(o.Tool) {
+		return true
+	}
+
+	return false
+}
+
+// SetTool gets a reference to the given string and assigns it to the Tool field.
+func (o *FindSecurityFinding200ResponseDataInner) SetTool(v string) {
+	o.Tool = &v
+}
+
+// GetMitigatedAt returns the MitigatedAt field value if set, zero value otherwise.
+func (o *FindSecurityFinding200ResponseDataInner) GetMitigatedAt() time.Time {
+	if o == nil || IsNil(o.MitigatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.MitigatedAt
+}
+
+// GetMitigatedAtOk returns a tuple with the MitigatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetMitigatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.MitigatedAt) {
+		return nil, false
+	}
+	return o.MitigatedAt, true
+}
+
+// HasMitigatedAt returns a boolean if a field has been set.
+func (o *FindSecurityFinding200ResponseDataInner) HasMitigatedAt() bool {
+	if o != nil && !IsNil(o.MitigatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetMitigatedAt gets a reference to the given time.Time and assigns it to the MitigatedAt field.
+func (o *FindSecurityFinding200ResponseDataInner) SetMitigatedAt(v time.Time) {
+	o.MitigatedAt = &v
+}
+
+// GetMitigatedBy returns the MitigatedBy field value if set, zero value otherwise.
+func (o *FindSecurityFinding200ResponseDataInner) GetMitigatedBy() string {
+	if o == nil || IsNil(o.MitigatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.MitigatedBy
+}
+
+// GetMitigatedByOk returns a tuple with the MitigatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetMitigatedByOk() (*string, bool) {
+	if o == nil || IsNil(o.MitigatedBy) {
+		return nil, false
+	}
+	return o.MitigatedBy, true
+}
+
+// HasMitigatedBy returns a boolean if a field has been set.
+func (o *FindSecurityFinding200ResponseDataInner) HasMitigatedBy() bool {
+	if o != nil && !IsNil(o.MitigatedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetMitigatedBy gets a reference to the given string and assigns it to the MitigatedBy field.
+func (o *FindSecurityFinding200ResponseDataInner) SetMitigatedBy(v string) {
+	o.MitigatedBy = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSecurityFinding200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecurityFinding200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSecurityFinding200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSecurityFinding200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +486,6 @@ func (o *FindSecurityFinding200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSecurityFinding200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSecurityFinding200ResponseDataInner) GetAttributes() SecurityFinding {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SecurityFinding
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSecurityFinding200ResponseDataInner) GetAttributesOk() (*SecurityFinding, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSecurityFinding200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SecurityFinding and assigns it to the Attributes field.
-func (o *FindSecurityFinding200ResponseDataInner) SetAttributes(v SecurityFinding) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +604,41 @@ func (o FindSecurityFinding200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindSecurityFinding200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["rule_id"] = o.RuleId
+	toSerialize["severity"] = o.Severity
+	if !IsNil(o.FilePath) {
+		toSerialize["file_path"] = o.FilePath
+	}
+	if !IsNil(o.LineNumber) {
+		toSerialize["line_number"] = o.LineNumber
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["status"] = o.Status
+	if !IsNil(o.IsoControl) {
+		toSerialize["iso_control"] = o.IsoControl
+	}
+	if !IsNil(o.Nis2Article) {
+		toSerialize["nis2_article"] = o.Nis2Article
+	}
+	if !IsNil(o.Tool) {
+		toSerialize["tool"] = o.Tool
+	}
+	if !IsNil(o.MitigatedAt) {
+		toSerialize["mitigated_at"] = o.MitigatedAt
+	}
+	if !IsNil(o.MitigatedBy) {
+		toSerialize["mitigated_by"] = o.MitigatedBy
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +650,45 @@ func (o FindSecurityFinding200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSecurityFinding200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"rule_id",
+		"severity",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSecurityFinding200ResponseDataInner := _FindSecurityFinding200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSecurityFinding200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSecurityFinding200ResponseDataInner(varFindSecurityFinding200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSecurityFinding200ResponseDataInner struct {

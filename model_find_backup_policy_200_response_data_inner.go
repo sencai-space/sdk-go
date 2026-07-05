@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindBackupPolicy200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindBackupPolicy200ResponseDataInner{}
 
 // FindBackupPolicy200ResponseDataInner struct for FindBackupPolicy200ResponseDataInner
 type FindBackupPolicy200ResponseDataInner struct {
+	Name string `json:"name"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	Provider *string `json:"provider,omitempty"`
+	Schedule string `json:"schedule"`
+	RetentionDays *int32 `json:"retention_days,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
+	IsActive *bool `json:"is_active,omitempty"`
+	AttachedInstances *CreateAccessReviewRequestDataReviewer `json:"attached_instances,omitempty"`
+	LastAppliedAt *time.Time `json:"last_applied_at,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ProviderPolicyIds interface{} `json:"provider_policy_ids,omitempty"`
+	Status *string `json:"status,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *BackupPolicy `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindBackupPolicy200ResponseDataInner FindBackupPolicy200ResponseDataInner
+
 // NewFindBackupPolicy200ResponseDataInner instantiates a new FindBackupPolicy200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindBackupPolicy200ResponseDataInner() *FindBackupPolicy200ResponseDataInner {
+func NewFindBackupPolicy200ResponseDataInner(name string, schedule string) *FindBackupPolicy200ResponseDataInner {
 	this := FindBackupPolicy200ResponseDataInner{}
+	this.Name = name
+	this.Schedule = schedule
 	return &this
 }
 
@@ -44,6 +62,344 @@ func NewFindBackupPolicy200ResponseDataInner() *FindBackupPolicy200ResponseDataI
 func NewFindBackupPolicy200ResponseDataInnerWithDefaults() *FindBackupPolicy200ResponseDataInner {
 	this := FindBackupPolicy200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindBackupPolicy200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindBackupPolicy200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindBackupPolicy200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindBackupPolicy200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupPolicy200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindBackupPolicy200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindBackupPolicy200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *FindBackupPolicy200ResponseDataInner) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupPolicy200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *FindBackupPolicy200ResponseDataInner) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *FindBackupPolicy200ResponseDataInner) SetProvider(v string) {
+	o.Provider = &v
+}
+
+// GetSchedule returns the Schedule field value
+func (o *FindBackupPolicy200ResponseDataInner) GetSchedule() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Schedule
+}
+
+// GetScheduleOk returns a tuple with the Schedule field value
+// and a boolean to check if the value has been set.
+func (o *FindBackupPolicy200ResponseDataInner) GetScheduleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Schedule, true
+}
+
+// SetSchedule sets field value
+func (o *FindBackupPolicy200ResponseDataInner) SetSchedule(v string) {
+	o.Schedule = v
+}
+
+// GetRetentionDays returns the RetentionDays field value if set, zero value otherwise.
+func (o *FindBackupPolicy200ResponseDataInner) GetRetentionDays() int32 {
+	if o == nil || IsNil(o.RetentionDays) {
+		var ret int32
+		return ret
+	}
+	return *o.RetentionDays
+}
+
+// GetRetentionDaysOk returns a tuple with the RetentionDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupPolicy200ResponseDataInner) GetRetentionDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.RetentionDays) {
+		return nil, false
+	}
+	return o.RetentionDays, true
+}
+
+// HasRetentionDays returns a boolean if a field has been set.
+func (o *FindBackupPolicy200ResponseDataInner) HasRetentionDays() bool {
+	if o != nil && !IsNil(o.RetentionDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetRetentionDays gets a reference to the given int32 and assigns it to the RetentionDays field.
+func (o *FindBackupPolicy200ResponseDataInner) SetRetentionDays(v int32) {
+	o.RetentionDays = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBackupPolicy200ResponseDataInner) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBackupPolicy200ResponseDataInner) GetTagsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return &o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *FindBackupPolicy200ResponseDataInner) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *FindBackupPolicy200ResponseDataInner) SetTags(v interface{}) {
+	o.Tags = v
+}
+
+// GetIsActive returns the IsActive field value if set, zero value otherwise.
+func (o *FindBackupPolicy200ResponseDataInner) GetIsActive() bool {
+	if o == nil || IsNil(o.IsActive) {
+		var ret bool
+		return ret
+	}
+	return *o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupPolicy200ResponseDataInner) GetIsActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsActive) {
+		return nil, false
+	}
+	return o.IsActive, true
+}
+
+// HasIsActive returns a boolean if a field has been set.
+func (o *FindBackupPolicy200ResponseDataInner) HasIsActive() bool {
+	if o != nil && !IsNil(o.IsActive) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsActive gets a reference to the given bool and assigns it to the IsActive field.
+func (o *FindBackupPolicy200ResponseDataInner) SetIsActive(v bool) {
+	o.IsActive = &v
+}
+
+// GetAttachedInstances returns the AttachedInstances field value if set, zero value otherwise.
+func (o *FindBackupPolicy200ResponseDataInner) GetAttachedInstances() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.AttachedInstances) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.AttachedInstances
+}
+
+// GetAttachedInstancesOk returns a tuple with the AttachedInstances field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupPolicy200ResponseDataInner) GetAttachedInstancesOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.AttachedInstances) {
+		return nil, false
+	}
+	return o.AttachedInstances, true
+}
+
+// HasAttachedInstances returns a boolean if a field has been set.
+func (o *FindBackupPolicy200ResponseDataInner) HasAttachedInstances() bool {
+	if o != nil && !IsNil(o.AttachedInstances) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttachedInstances gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the AttachedInstances field.
+func (o *FindBackupPolicy200ResponseDataInner) SetAttachedInstances(v CreateAccessReviewRequestDataReviewer) {
+	o.AttachedInstances = &v
+}
+
+// GetLastAppliedAt returns the LastAppliedAt field value if set, zero value otherwise.
+func (o *FindBackupPolicy200ResponseDataInner) GetLastAppliedAt() time.Time {
+	if o == nil || IsNil(o.LastAppliedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastAppliedAt
+}
+
+// GetLastAppliedAtOk returns a tuple with the LastAppliedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupPolicy200ResponseDataInner) GetLastAppliedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastAppliedAt) {
+		return nil, false
+	}
+	return o.LastAppliedAt, true
+}
+
+// HasLastAppliedAt returns a boolean if a field has been set.
+func (o *FindBackupPolicy200ResponseDataInner) HasLastAppliedAt() bool {
+	if o != nil && !IsNil(o.LastAppliedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastAppliedAt gets a reference to the given time.Time and assigns it to the LastAppliedAt field.
+func (o *FindBackupPolicy200ResponseDataInner) SetLastAppliedAt(v time.Time) {
+	o.LastAppliedAt = &v
+}
+
+// GetProviderPolicyIds returns the ProviderPolicyIds field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBackupPolicy200ResponseDataInner) GetProviderPolicyIds() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ProviderPolicyIds
+}
+
+// GetProviderPolicyIdsOk returns a tuple with the ProviderPolicyIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBackupPolicy200ResponseDataInner) GetProviderPolicyIdsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ProviderPolicyIds) {
+		return nil, false
+	}
+	return &o.ProviderPolicyIds, true
+}
+
+// HasProviderPolicyIds returns a boolean if a field has been set.
+func (o *FindBackupPolicy200ResponseDataInner) HasProviderPolicyIds() bool {
+	if o != nil && !IsNil(o.ProviderPolicyIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderPolicyIds gets a reference to the given interface{} and assigns it to the ProviderPolicyIds field.
+func (o *FindBackupPolicy200ResponseDataInner) SetProviderPolicyIds(v interface{}) {
+	o.ProviderPolicyIds = v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindBackupPolicy200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupPolicy200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindBackupPolicy200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindBackupPolicy200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +464,6 @@ func (o *FindBackupPolicy200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindBackupPolicy200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindBackupPolicy200ResponseDataInner) GetAttributes() BackupPolicy {
-	if o == nil || IsNil(o.Attributes) {
-		var ret BackupPolicy
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindBackupPolicy200ResponseDataInner) GetAttributesOk() (*BackupPolicy, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindBackupPolicy200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given BackupPolicy and assigns it to the Attributes field.
-func (o *FindBackupPolicy200ResponseDataInner) SetAttributes(v BackupPolicy) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +582,40 @@ func (o FindBackupPolicy200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindBackupPolicy200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
+	toSerialize["schedule"] = o.Schedule
+	if !IsNil(o.RetentionDays) {
+		toSerialize["retention_days"] = o.RetentionDays
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.IsActive) {
+		toSerialize["is_active"] = o.IsActive
+	}
+	if !IsNil(o.AttachedInstances) {
+		toSerialize["attached_instances"] = o.AttachedInstances
+	}
+	if !IsNil(o.LastAppliedAt) {
+		toSerialize["last_applied_at"] = o.LastAppliedAt
+	}
+	if o.ProviderPolicyIds != nil {
+		toSerialize["provider_policy_ids"] = o.ProviderPolicyIds
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +627,44 @@ func (o FindBackupPolicy200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindBackupPolicy200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"schedule",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindBackupPolicy200ResponseDataInner := _FindBackupPolicy200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindBackupPolicy200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindBackupPolicy200ResponseDataInner(varFindBackupPolicy200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindBackupPolicy200ResponseDataInner struct {

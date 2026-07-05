@@ -37,9 +37,9 @@ type CreateSubscriptionEnrollmentRequestData struct {
 	// F3.BILLING.02 — subscription is scheduled to cancel at current_period_end (Stripe cancel_at_period_end=true) rather than immediately. Enables reactivate before the period ends.
 	CancelAtPeriodEnd *bool `json:"cancel_at_period_end,omitempty"`
 	// F3.BILLING.02 — set when a period-end downgrade is scheduled (Stripe subscription_schedule / update at period end): { newTierId, newPlanName, effective_at }. Cleared once Stripe confirms the change via customer.subscription.updated.
-	PendingTierChange map[string]interface{} `json:"pending_tier_change,omitempty"`
+	PendingTierChange interface{} `json:"pending_tier_change,omitempty"`
 	// F3.BILLING.02 — active addon Stripe subscription line items: [{ addon_id, stripe_price_id, quantity, stripe_item_id }]. Mirrors Stripe as the source of truth; updated by /addons action and the subscription.updated webhook.
-	Addons map[string]interface{} `json:"addons,omitempty"`
+	Addons interface{} `json:"addons,omitempty"`
 	// F3.BILLING.03 — sencai-watchdog dunning state machine. none = current on payment; payment_failed = day 0 (invoice.payment_failed received); grace_period = day 7 unpaid (in-app banner warning); suspended = day 14 unpaid (org.org_status also flips to 'suspended', read-only enforcement); terminated = day 30 unpaid (non-critical cloud instances terminated + org archived, gated behind WATCHDOG_AUTO_TERMINATE). Reset to 'none' on invoice.paid (restore). Owned exclusively by sencai-watchdog via service-secret endpoints — never written by any user-facing route.
 	DunningState *string `json:"dunning_state,omitempty"`
 	// F3.BILLING.03 — timestamp of the last dunning_state transition. Used by sencai-watchdog to compute day-count thresholds (7d/14d/30d) idempotently across hourly cron runs.
@@ -512,10 +512,10 @@ func (o *CreateSubscriptionEnrollmentRequestData) SetCancelAtPeriodEnd(v bool) {
 	o.CancelAtPeriodEnd = &v
 }
 
-// GetPendingTierChange returns the PendingTierChange field value if set, zero value otherwise.
-func (o *CreateSubscriptionEnrollmentRequestData) GetPendingTierChange() map[string]interface{} {
-	if o == nil || IsNil(o.PendingTierChange) {
-		var ret map[string]interface{}
+// GetPendingTierChange returns the PendingTierChange field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateSubscriptionEnrollmentRequestData) GetPendingTierChange() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.PendingTierChange
@@ -523,11 +523,12 @@ func (o *CreateSubscriptionEnrollmentRequestData) GetPendingTierChange() map[str
 
 // GetPendingTierChangeOk returns a tuple with the PendingTierChange field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateSubscriptionEnrollmentRequestData) GetPendingTierChangeOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateSubscriptionEnrollmentRequestData) GetPendingTierChangeOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.PendingTierChange) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.PendingTierChange, true
+	return &o.PendingTierChange, true
 }
 
 // HasPendingTierChange returns a boolean if a field has been set.
@@ -539,15 +540,15 @@ func (o *CreateSubscriptionEnrollmentRequestData) HasPendingTierChange() bool {
 	return false
 }
 
-// SetPendingTierChange gets a reference to the given map[string]interface{} and assigns it to the PendingTierChange field.
-func (o *CreateSubscriptionEnrollmentRequestData) SetPendingTierChange(v map[string]interface{}) {
+// SetPendingTierChange gets a reference to the given interface{} and assigns it to the PendingTierChange field.
+func (o *CreateSubscriptionEnrollmentRequestData) SetPendingTierChange(v interface{}) {
 	o.PendingTierChange = v
 }
 
-// GetAddons returns the Addons field value if set, zero value otherwise.
-func (o *CreateSubscriptionEnrollmentRequestData) GetAddons() map[string]interface{} {
-	if o == nil || IsNil(o.Addons) {
-		var ret map[string]interface{}
+// GetAddons returns the Addons field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateSubscriptionEnrollmentRequestData) GetAddons() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Addons
@@ -555,11 +556,12 @@ func (o *CreateSubscriptionEnrollmentRequestData) GetAddons() map[string]interfa
 
 // GetAddonsOk returns a tuple with the Addons field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateSubscriptionEnrollmentRequestData) GetAddonsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateSubscriptionEnrollmentRequestData) GetAddonsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Addons) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Addons, true
+	return &o.Addons, true
 }
 
 // HasAddons returns a boolean if a field has been set.
@@ -571,8 +573,8 @@ func (o *CreateSubscriptionEnrollmentRequestData) HasAddons() bool {
 	return false
 }
 
-// SetAddons gets a reference to the given map[string]interface{} and assigns it to the Addons field.
-func (o *CreateSubscriptionEnrollmentRequestData) SetAddons(v map[string]interface{}) {
+// SetAddons gets a reference to the given interface{} and assigns it to the Addons field.
+func (o *CreateSubscriptionEnrollmentRequestData) SetAddons(v interface{}) {
 	o.Addons = v
 }
 
@@ -724,10 +726,10 @@ func (o CreateSubscriptionEnrollmentRequestData) ToMap() (map[string]interface{}
 	if !IsNil(o.CancelAtPeriodEnd) {
 		toSerialize["cancel_at_period_end"] = o.CancelAtPeriodEnd
 	}
-	if !IsNil(o.PendingTierChange) {
+	if o.PendingTierChange != nil {
 		toSerialize["pending_tier_change"] = o.PendingTierChange
 	}
-	if !IsNil(o.Addons) {
+	if o.Addons != nil {
 		toSerialize["addons"] = o.Addons
 	}
 	if !IsNil(o.DunningState) {

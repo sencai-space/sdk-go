@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindRotationPolicy200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,42 @@ var _ MappedNullable = &FindRotationPolicy200ResponseDataInner{}
 
 // FindRotationPolicy200ResponseDataInner struct for FindRotationPolicy200ResponseDataInner
 type FindRotationPolicy200ResponseDataInner struct {
+	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	RotationIntervalDays *int32 `json:"rotation_interval_days,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	LastRotatedAt *time.Time `json:"last_rotated_at,omitempty"`
+	NextRotationAt *time.Time `json:"next_rotation_at,omitempty"`
+	NotifyBeforeDays *int32 `json:"notify_before_days,omitempty"`
+	Status *string `json:"status,omitempty"`
+	Notes *string `json:"notes,omitempty"`
+	Name string `json:"name"`
+	SecretType string `json:"secret_type"`
+	TargetResourceId *string `json:"target_resource_id,omitempty"`
+	TargetResourceType *string `json:"target_resource_type,omitempty"`
+	IntervalDays *int32 `json:"interval_days,omitempty"`
+	AutoApply *bool `json:"auto_apply,omitempty"`
+	NotificationTarget *string `json:"notification_target,omitempty"`
+	LastRotationStatus *string `json:"last_rotation_status,omitempty"`
+	LastRotationError *string `json:"last_rotation_error,omitempty"`
+	IsEnabled *bool `json:"is_enabled,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *RotationPolicy `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindRotationPolicy200ResponseDataInner FindRotationPolicy200ResponseDataInner
+
 // NewFindRotationPolicy200ResponseDataInner instantiates a new FindRotationPolicy200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindRotationPolicy200ResponseDataInner() *FindRotationPolicy200ResponseDataInner {
+func NewFindRotationPolicy200ResponseDataInner(name string, secretType string) *FindRotationPolicy200ResponseDataInner {
 	this := FindRotationPolicy200ResponseDataInner{}
+	this.Name = name
+	this.SecretType = secretType
 	return &this
 }
 
@@ -44,6 +68,598 @@ func NewFindRotationPolicy200ResponseDataInner() *FindRotationPolicy200ResponseD
 func NewFindRotationPolicy200ResponseDataInnerWithDefaults() *FindRotationPolicy200ResponseDataInner {
 	this := FindRotationPolicy200ResponseDataInner{}
 	return &this
+}
+
+// GetCredential returns the Credential field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetCredential() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Credential) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Credential
+}
+
+// GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetCredentialOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Credential) {
+		return nil, false
+	}
+	return o.Credential, true
+}
+
+// HasCredential returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasCredential() bool {
+	if o != nil && !IsNil(o.Credential) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredential gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Credential field.
+func (o *FindRotationPolicy200ResponseDataInner) SetCredential(v CreateAccessReviewRequestDataReviewer) {
+	o.Credential = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindRotationPolicy200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetRotationIntervalDays returns the RotationIntervalDays field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetRotationIntervalDays() int32 {
+	if o == nil || IsNil(o.RotationIntervalDays) {
+		var ret int32
+		return ret
+	}
+	return *o.RotationIntervalDays
+}
+
+// GetRotationIntervalDaysOk returns a tuple with the RotationIntervalDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetRotationIntervalDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.RotationIntervalDays) {
+		return nil, false
+	}
+	return o.RotationIntervalDays, true
+}
+
+// HasRotationIntervalDays returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasRotationIntervalDays() bool {
+	if o != nil && !IsNil(o.RotationIntervalDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetRotationIntervalDays gets a reference to the given int32 and assigns it to the RotationIntervalDays field.
+func (o *FindRotationPolicy200ResponseDataInner) SetRotationIntervalDays(v int32) {
+	o.RotationIntervalDays = &v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindRotationPolicy200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetLastRotatedAt returns the LastRotatedAt field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetLastRotatedAt() time.Time {
+	if o == nil || IsNil(o.LastRotatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastRotatedAt
+}
+
+// GetLastRotatedAtOk returns a tuple with the LastRotatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetLastRotatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastRotatedAt) {
+		return nil, false
+	}
+	return o.LastRotatedAt, true
+}
+
+// HasLastRotatedAt returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasLastRotatedAt() bool {
+	if o != nil && !IsNil(o.LastRotatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastRotatedAt gets a reference to the given time.Time and assigns it to the LastRotatedAt field.
+func (o *FindRotationPolicy200ResponseDataInner) SetLastRotatedAt(v time.Time) {
+	o.LastRotatedAt = &v
+}
+
+// GetNextRotationAt returns the NextRotationAt field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetNextRotationAt() time.Time {
+	if o == nil || IsNil(o.NextRotationAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.NextRotationAt
+}
+
+// GetNextRotationAtOk returns a tuple with the NextRotationAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetNextRotationAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.NextRotationAt) {
+		return nil, false
+	}
+	return o.NextRotationAt, true
+}
+
+// HasNextRotationAt returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasNextRotationAt() bool {
+	if o != nil && !IsNil(o.NextRotationAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetNextRotationAt gets a reference to the given time.Time and assigns it to the NextRotationAt field.
+func (o *FindRotationPolicy200ResponseDataInner) SetNextRotationAt(v time.Time) {
+	o.NextRotationAt = &v
+}
+
+// GetNotifyBeforeDays returns the NotifyBeforeDays field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetNotifyBeforeDays() int32 {
+	if o == nil || IsNil(o.NotifyBeforeDays) {
+		var ret int32
+		return ret
+	}
+	return *o.NotifyBeforeDays
+}
+
+// GetNotifyBeforeDaysOk returns a tuple with the NotifyBeforeDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetNotifyBeforeDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.NotifyBeforeDays) {
+		return nil, false
+	}
+	return o.NotifyBeforeDays, true
+}
+
+// HasNotifyBeforeDays returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasNotifyBeforeDays() bool {
+	if o != nil && !IsNil(o.NotifyBeforeDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotifyBeforeDays gets a reference to the given int32 and assigns it to the NotifyBeforeDays field.
+func (o *FindRotationPolicy200ResponseDataInner) SetNotifyBeforeDays(v int32) {
+	o.NotifyBeforeDays = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindRotationPolicy200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindRotationPolicy200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
+}
+
+// GetName returns the Name field value
+func (o *FindRotationPolicy200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindRotationPolicy200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetSecretType returns the SecretType field value
+func (o *FindRotationPolicy200ResponseDataInner) GetSecretType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SecretType
+}
+
+// GetSecretTypeOk returns a tuple with the SecretType field value
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetSecretTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SecretType, true
+}
+
+// SetSecretType sets field value
+func (o *FindRotationPolicy200ResponseDataInner) SetSecretType(v string) {
+	o.SecretType = v
+}
+
+// GetTargetResourceId returns the TargetResourceId field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetTargetResourceId() string {
+	if o == nil || IsNil(o.TargetResourceId) {
+		var ret string
+		return ret
+	}
+	return *o.TargetResourceId
+}
+
+// GetTargetResourceIdOk returns a tuple with the TargetResourceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetTargetResourceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TargetResourceId) {
+		return nil, false
+	}
+	return o.TargetResourceId, true
+}
+
+// HasTargetResourceId returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasTargetResourceId() bool {
+	if o != nil && !IsNil(o.TargetResourceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetResourceId gets a reference to the given string and assigns it to the TargetResourceId field.
+func (o *FindRotationPolicy200ResponseDataInner) SetTargetResourceId(v string) {
+	o.TargetResourceId = &v
+}
+
+// GetTargetResourceType returns the TargetResourceType field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetTargetResourceType() string {
+	if o == nil || IsNil(o.TargetResourceType) {
+		var ret string
+		return ret
+	}
+	return *o.TargetResourceType
+}
+
+// GetTargetResourceTypeOk returns a tuple with the TargetResourceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetTargetResourceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.TargetResourceType) {
+		return nil, false
+	}
+	return o.TargetResourceType, true
+}
+
+// HasTargetResourceType returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasTargetResourceType() bool {
+	if o != nil && !IsNil(o.TargetResourceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetResourceType gets a reference to the given string and assigns it to the TargetResourceType field.
+func (o *FindRotationPolicy200ResponseDataInner) SetTargetResourceType(v string) {
+	o.TargetResourceType = &v
+}
+
+// GetIntervalDays returns the IntervalDays field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetIntervalDays() int32 {
+	if o == nil || IsNil(o.IntervalDays) {
+		var ret int32
+		return ret
+	}
+	return *o.IntervalDays
+}
+
+// GetIntervalDaysOk returns a tuple with the IntervalDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetIntervalDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.IntervalDays) {
+		return nil, false
+	}
+	return o.IntervalDays, true
+}
+
+// HasIntervalDays returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasIntervalDays() bool {
+	if o != nil && !IsNil(o.IntervalDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetIntervalDays gets a reference to the given int32 and assigns it to the IntervalDays field.
+func (o *FindRotationPolicy200ResponseDataInner) SetIntervalDays(v int32) {
+	o.IntervalDays = &v
+}
+
+// GetAutoApply returns the AutoApply field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetAutoApply() bool {
+	if o == nil || IsNil(o.AutoApply) {
+		var ret bool
+		return ret
+	}
+	return *o.AutoApply
+}
+
+// GetAutoApplyOk returns a tuple with the AutoApply field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetAutoApplyOk() (*bool, bool) {
+	if o == nil || IsNil(o.AutoApply) {
+		return nil, false
+	}
+	return o.AutoApply, true
+}
+
+// HasAutoApply returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasAutoApply() bool {
+	if o != nil && !IsNil(o.AutoApply) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoApply gets a reference to the given bool and assigns it to the AutoApply field.
+func (o *FindRotationPolicy200ResponseDataInner) SetAutoApply(v bool) {
+	o.AutoApply = &v
+}
+
+// GetNotificationTarget returns the NotificationTarget field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetNotificationTarget() string {
+	if o == nil || IsNil(o.NotificationTarget) {
+		var ret string
+		return ret
+	}
+	return *o.NotificationTarget
+}
+
+// GetNotificationTargetOk returns a tuple with the NotificationTarget field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetNotificationTargetOk() (*string, bool) {
+	if o == nil || IsNil(o.NotificationTarget) {
+		return nil, false
+	}
+	return o.NotificationTarget, true
+}
+
+// HasNotificationTarget returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasNotificationTarget() bool {
+	if o != nil && !IsNil(o.NotificationTarget) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotificationTarget gets a reference to the given string and assigns it to the NotificationTarget field.
+func (o *FindRotationPolicy200ResponseDataInner) SetNotificationTarget(v string) {
+	o.NotificationTarget = &v
+}
+
+// GetLastRotationStatus returns the LastRotationStatus field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetLastRotationStatus() string {
+	if o == nil || IsNil(o.LastRotationStatus) {
+		var ret string
+		return ret
+	}
+	return *o.LastRotationStatus
+}
+
+// GetLastRotationStatusOk returns a tuple with the LastRotationStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetLastRotationStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.LastRotationStatus) {
+		return nil, false
+	}
+	return o.LastRotationStatus, true
+}
+
+// HasLastRotationStatus returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasLastRotationStatus() bool {
+	if o != nil && !IsNil(o.LastRotationStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastRotationStatus gets a reference to the given string and assigns it to the LastRotationStatus field.
+func (o *FindRotationPolicy200ResponseDataInner) SetLastRotationStatus(v string) {
+	o.LastRotationStatus = &v
+}
+
+// GetLastRotationError returns the LastRotationError field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetLastRotationError() string {
+	if o == nil || IsNil(o.LastRotationError) {
+		var ret string
+		return ret
+	}
+	return *o.LastRotationError
+}
+
+// GetLastRotationErrorOk returns a tuple with the LastRotationError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetLastRotationErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.LastRotationError) {
+		return nil, false
+	}
+	return o.LastRotationError, true
+}
+
+// HasLastRotationError returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasLastRotationError() bool {
+	if o != nil && !IsNil(o.LastRotationError) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastRotationError gets a reference to the given string and assigns it to the LastRotationError field.
+func (o *FindRotationPolicy200ResponseDataInner) SetLastRotationError(v string) {
+	o.LastRotationError = &v
+}
+
+// GetIsEnabled returns the IsEnabled field value if set, zero value otherwise.
+func (o *FindRotationPolicy200ResponseDataInner) GetIsEnabled() bool {
+	if o == nil || IsNil(o.IsEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsEnabled
+}
+
+// GetIsEnabledOk returns a tuple with the IsEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRotationPolicy200ResponseDataInner) GetIsEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsEnabled) {
+		return nil, false
+	}
+	return o.IsEnabled, true
+}
+
+// HasIsEnabled returns a boolean if a field has been set.
+func (o *FindRotationPolicy200ResponseDataInner) HasIsEnabled() bool {
+	if o != nil && !IsNil(o.IsEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsEnabled gets a reference to the given bool and assigns it to the IsEnabled field.
+func (o *FindRotationPolicy200ResponseDataInner) SetIsEnabled(v bool) {
+	o.IsEnabled = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +724,6 @@ func (o *FindRotationPolicy200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindRotationPolicy200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindRotationPolicy200ResponseDataInner) GetAttributes() RotationPolicy {
-	if o == nil || IsNil(o.Attributes) {
-		var ret RotationPolicy
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindRotationPolicy200ResponseDataInner) GetAttributesOk() (*RotationPolicy, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindRotationPolicy200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given RotationPolicy and assigns it to the Attributes field.
-func (o *FindRotationPolicy200ResponseDataInner) SetAttributes(v RotationPolicy) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +842,64 @@ func (o FindRotationPolicy200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindRotationPolicy200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Credential) {
+		toSerialize["credential"] = o.Credential
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.RotationIntervalDays) {
+		toSerialize["rotation_interval_days"] = o.RotationIntervalDays
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.LastRotatedAt) {
+		toSerialize["last_rotated_at"] = o.LastRotatedAt
+	}
+	if !IsNil(o.NextRotationAt) {
+		toSerialize["next_rotation_at"] = o.NextRotationAt
+	}
+	if !IsNil(o.NotifyBeforeDays) {
+		toSerialize["notify_before_days"] = o.NotifyBeforeDays
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
+	toSerialize["name"] = o.Name
+	toSerialize["secret_type"] = o.SecretType
+	if !IsNil(o.TargetResourceId) {
+		toSerialize["target_resource_id"] = o.TargetResourceId
+	}
+	if !IsNil(o.TargetResourceType) {
+		toSerialize["target_resource_type"] = o.TargetResourceType
+	}
+	if !IsNil(o.IntervalDays) {
+		toSerialize["interval_days"] = o.IntervalDays
+	}
+	if !IsNil(o.AutoApply) {
+		toSerialize["auto_apply"] = o.AutoApply
+	}
+	if !IsNil(o.NotificationTarget) {
+		toSerialize["notification_target"] = o.NotificationTarget
+	}
+	if !IsNil(o.LastRotationStatus) {
+		toSerialize["last_rotation_status"] = o.LastRotationStatus
+	}
+	if !IsNil(o.LastRotationError) {
+		toSerialize["last_rotation_error"] = o.LastRotationError
+	}
+	if !IsNil(o.IsEnabled) {
+		toSerialize["is_enabled"] = o.IsEnabled
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +911,44 @@ func (o FindRotationPolicy200ResponseDataInner) ToMap() (map[string]interface{},
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindRotationPolicy200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"secret_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindRotationPolicy200ResponseDataInner := _FindRotationPolicy200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindRotationPolicy200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindRotationPolicy200ResponseDataInner(varFindRotationPolicy200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindRotationPolicy200ResponseDataInner struct {

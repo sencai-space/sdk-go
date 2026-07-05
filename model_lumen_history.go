@@ -25,7 +25,8 @@ var _ MappedNullable = &LumenHistory{}
 type LumenHistory struct {
 	SessionId string `json:"session_id"`
 	SessionTitle *string `json:"session_title,omitempty"`
-	Messages map[string]interface{} `json:"messages,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Messages interface{} `json:"messages,omitempty"`
 	MessageCount *int32 `json:"message_count,omitempty"`
 	LastMessageAt *time.Time `json:"last_message_at,omitempty"`
 	ActorId *string `json:"actor_id,omitempty"`
@@ -109,10 +110,10 @@ func (o *LumenHistory) SetSessionTitle(v string) {
 	o.SessionTitle = &v
 }
 
-// GetMessages returns the Messages field value if set, zero value otherwise.
-func (o *LumenHistory) GetMessages() map[string]interface{} {
-	if o == nil || IsNil(o.Messages) {
-		var ret map[string]interface{}
+// GetMessages returns the Messages field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LumenHistory) GetMessages() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Messages
@@ -120,11 +121,12 @@ func (o *LumenHistory) GetMessages() map[string]interface{} {
 
 // GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LumenHistory) GetMessagesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LumenHistory) GetMessagesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Messages) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Messages, true
+	return &o.Messages, true
 }
 
 // HasMessages returns a boolean if a field has been set.
@@ -136,8 +138,8 @@ func (o *LumenHistory) HasMessages() bool {
 	return false
 }
 
-// SetMessages gets a reference to the given map[string]interface{} and assigns it to the Messages field.
-func (o *LumenHistory) SetMessages(v map[string]interface{}) {
+// SetMessages gets a reference to the given interface{} and assigns it to the Messages field.
+func (o *LumenHistory) SetMessages(v interface{}) {
 	o.Messages = v
 }
 
@@ -315,7 +317,7 @@ func (o LumenHistory) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SessionTitle) {
 		toSerialize["session_title"] = o.SessionTitle
 	}
-	if !IsNil(o.Messages) {
+	if o.Messages != nil {
 		toSerialize["messages"] = o.Messages
 	}
 	if !IsNil(o.MessageCount) {

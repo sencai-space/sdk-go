@@ -37,7 +37,8 @@ type GiteaToolboxRepository struct {
 	TotalTags *int32 `json:"totalTags,omitempty"`
 	TotalCommits *int32 `json:"totalCommits,omitempty"`
 	LastError *string `json:"lastError,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	PurchasedServices *CreateAccessReviewRequestDataReviewer `json:"purchased_services,omitempty"`
 	CartItems *CreateAccessReviewRequestDataReviewer `json:"cart_items,omitempty"`
 }
@@ -488,10 +489,10 @@ func (o *GiteaToolboxRepository) SetLastError(v string) {
 	o.LastError = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *GiteaToolboxRepository) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *GiteaToolboxRepository) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -499,11 +500,12 @@ func (o *GiteaToolboxRepository) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GiteaToolboxRepository) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GiteaToolboxRepository) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -515,8 +517,8 @@ func (o *GiteaToolboxRepository) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *GiteaToolboxRepository) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *GiteaToolboxRepository) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -630,7 +632,7 @@ func (o GiteaToolboxRepository) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastError) {
 		toSerialize["lastError"] = o.LastError
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.PurchasedServices) {

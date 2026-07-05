@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudConnectorStatus200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,73 @@ var _ MappedNullable = &FindCloudConnectorStatus200ResponseDataInner{}
 
 // FindCloudConnectorStatus200ResponseDataInner struct for FindCloudConnectorStatus200ResponseDataInner
 type FindCloudConnectorStatus200ResponseDataInner struct {
+	InstanceId string `json:"instanceId"`
+	Region string `json:"region"`
+	Provider string `json:"provider"`
+	DeploymentRegion string `json:"deploymentRegion"`
+	Ccstatus string `json:"ccstatus"`
+	LastHeartbeat time.Time `json:"lastHeartbeat"`
+	UptimeMinutes int32 `json:"uptimeMinutes"`
+	Version string `json:"version"`
+	TotalJobs *int32 `json:"totalJobs,omitempty"`
+	PendingJobs *int32 `json:"pendingJobs,omitempty"`
+	RunningJobs *int32 `json:"runningJobs,omitempty"`
+	SuccessJobs *int32 `json:"successJobs,omitempty"`
+	FailedJobs *int32 `json:"failedJobs,omitempty"`
+	AwsHealth *string `json:"awsHealth,omitempty"`
+	GcpHealth *string `json:"gcpHealth,omitempty"`
+	AzureHealth *string `json:"azureHealth,omitempty"`
+	ScalewayHealth *string `json:"scalewayHealth,omitempty"`
+	OvhcloudHealth *string `json:"ovhcloudHealth,omitempty"`
+	HetznerHealth *string `json:"hetznerHealth,omitempty"`
+	UpcloudHealth *string `json:"upcloudHealth,omitempty"`
+	DigitaloceanHealth *string `json:"digitaloceanHealth,omitempty"`
+	QueueStatus *string `json:"queueStatus,omitempty"`
+	BackendIntegration *bool `json:"backendIntegration,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AvailableRegions interface{} `json:"availableRegions,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ActiveRegions interface{} `json:"activeRegions,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	SupportedProviders interface{} `json:"supportedProviders,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	DeploymentCapabilities interface{} `json:"deploymentCapabilities,omitempty"`
+	AvgResponseTimeMs *int32 `json:"avgResponseTimeMs,omitempty"`
+	SuccessRate *float32 `json:"successRate,omitempty"`
+	ThroughputJobsPerHour *int32 `json:"throughputJobsPerHour,omitempty"`
+	ErrorRate *float32 `json:"errorRate,omitempty"`
+	MemoryUsageMB *int32 `json:"memoryUsageMB,omitempty"`
+	CpuUsagePercent *float32 `json:"cpuUsagePercent,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ConnectorInfo interface{} `json:"connectorInfo,omitempty"`
+	LastError *string `json:"lastError,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	DiagnosticInfo interface{} `json:"diagnosticInfo,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudConnectorStatus `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudConnectorStatus200ResponseDataInner FindCloudConnectorStatus200ResponseDataInner
+
 // NewFindCloudConnectorStatus200ResponseDataInner instantiates a new FindCloudConnectorStatus200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudConnectorStatus200ResponseDataInner() *FindCloudConnectorStatus200ResponseDataInner {
+func NewFindCloudConnectorStatus200ResponseDataInner(instanceId string, region string, provider string, deploymentRegion string, ccstatus string, lastHeartbeat time.Time, uptimeMinutes int32, version string) *FindCloudConnectorStatus200ResponseDataInner {
 	this := FindCloudConnectorStatus200ResponseDataInner{}
+	this.InstanceId = instanceId
+	this.Region = region
+	this.Provider = provider
+	this.DeploymentRegion = deploymentRegion
+	this.Ccstatus = ccstatus
+	this.LastHeartbeat = lastHeartbeat
+	this.UptimeMinutes = uptimeMinutes
+	this.Version = version
 	return &this
 }
 
@@ -44,6 +99,1133 @@ func NewFindCloudConnectorStatus200ResponseDataInner() *FindCloudConnectorStatus
 func NewFindCloudConnectorStatus200ResponseDataInnerWithDefaults() *FindCloudConnectorStatus200ResponseDataInner {
 	this := FindCloudConnectorStatus200ResponseDataInner{}
 	return &this
+}
+
+// GetInstanceId returns the InstanceId field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetInstanceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.InstanceId
+}
+
+// GetInstanceIdOk returns a tuple with the InstanceId field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetInstanceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.InstanceId, true
+}
+
+// SetInstanceId sets field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetInstanceId(v string) {
+	o.InstanceId = v
+}
+
+// GetRegion returns the Region field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetRegion(v string) {
+	o.Region = v
+}
+
+// GetProvider returns the Provider field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetDeploymentRegion returns the DeploymentRegion field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetDeploymentRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.DeploymentRegion
+}
+
+// GetDeploymentRegionOk returns a tuple with the DeploymentRegion field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetDeploymentRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DeploymentRegion, true
+}
+
+// SetDeploymentRegion sets field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetDeploymentRegion(v string) {
+	o.DeploymentRegion = v
+}
+
+// GetCcstatus returns the Ccstatus field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetCcstatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Ccstatus
+}
+
+// GetCcstatusOk returns a tuple with the Ccstatus field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetCcstatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Ccstatus, true
+}
+
+// SetCcstatus sets field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetCcstatus(v string) {
+	o.Ccstatus = v
+}
+
+// GetLastHeartbeat returns the LastHeartbeat field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetLastHeartbeat() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.LastHeartbeat
+}
+
+// GetLastHeartbeatOk returns a tuple with the LastHeartbeat field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetLastHeartbeatOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastHeartbeat, true
+}
+
+// SetLastHeartbeat sets field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetLastHeartbeat(v time.Time) {
+	o.LastHeartbeat = v
+}
+
+// GetUptimeMinutes returns the UptimeMinutes field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetUptimeMinutes() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.UptimeMinutes
+}
+
+// GetUptimeMinutesOk returns a tuple with the UptimeMinutes field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetUptimeMinutesOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UptimeMinutes, true
+}
+
+// SetUptimeMinutes sets field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetUptimeMinutes(v int32) {
+	o.UptimeMinutes = v
+}
+
+// GetVersion returns the Version field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetVersion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetVersionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Version, true
+}
+
+// SetVersion sets field value
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetVersion(v string) {
+	o.Version = v
+}
+
+// GetTotalJobs returns the TotalJobs field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetTotalJobs() int32 {
+	if o == nil || IsNil(o.TotalJobs) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalJobs
+}
+
+// GetTotalJobsOk returns a tuple with the TotalJobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetTotalJobsOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalJobs) {
+		return nil, false
+	}
+	return o.TotalJobs, true
+}
+
+// HasTotalJobs returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasTotalJobs() bool {
+	if o != nil && !IsNil(o.TotalJobs) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalJobs gets a reference to the given int32 and assigns it to the TotalJobs field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetTotalJobs(v int32) {
+	o.TotalJobs = &v
+}
+
+// GetPendingJobs returns the PendingJobs field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetPendingJobs() int32 {
+	if o == nil || IsNil(o.PendingJobs) {
+		var ret int32
+		return ret
+	}
+	return *o.PendingJobs
+}
+
+// GetPendingJobsOk returns a tuple with the PendingJobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetPendingJobsOk() (*int32, bool) {
+	if o == nil || IsNil(o.PendingJobs) {
+		return nil, false
+	}
+	return o.PendingJobs, true
+}
+
+// HasPendingJobs returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasPendingJobs() bool {
+	if o != nil && !IsNil(o.PendingJobs) {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingJobs gets a reference to the given int32 and assigns it to the PendingJobs field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetPendingJobs(v int32) {
+	o.PendingJobs = &v
+}
+
+// GetRunningJobs returns the RunningJobs field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetRunningJobs() int32 {
+	if o == nil || IsNil(o.RunningJobs) {
+		var ret int32
+		return ret
+	}
+	return *o.RunningJobs
+}
+
+// GetRunningJobsOk returns a tuple with the RunningJobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetRunningJobsOk() (*int32, bool) {
+	if o == nil || IsNil(o.RunningJobs) {
+		return nil, false
+	}
+	return o.RunningJobs, true
+}
+
+// HasRunningJobs returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasRunningJobs() bool {
+	if o != nil && !IsNil(o.RunningJobs) {
+		return true
+	}
+
+	return false
+}
+
+// SetRunningJobs gets a reference to the given int32 and assigns it to the RunningJobs field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetRunningJobs(v int32) {
+	o.RunningJobs = &v
+}
+
+// GetSuccessJobs returns the SuccessJobs field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetSuccessJobs() int32 {
+	if o == nil || IsNil(o.SuccessJobs) {
+		var ret int32
+		return ret
+	}
+	return *o.SuccessJobs
+}
+
+// GetSuccessJobsOk returns a tuple with the SuccessJobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetSuccessJobsOk() (*int32, bool) {
+	if o == nil || IsNil(o.SuccessJobs) {
+		return nil, false
+	}
+	return o.SuccessJobs, true
+}
+
+// HasSuccessJobs returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasSuccessJobs() bool {
+	if o != nil && !IsNil(o.SuccessJobs) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuccessJobs gets a reference to the given int32 and assigns it to the SuccessJobs field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetSuccessJobs(v int32) {
+	o.SuccessJobs = &v
+}
+
+// GetFailedJobs returns the FailedJobs field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetFailedJobs() int32 {
+	if o == nil || IsNil(o.FailedJobs) {
+		var ret int32
+		return ret
+	}
+	return *o.FailedJobs
+}
+
+// GetFailedJobsOk returns a tuple with the FailedJobs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetFailedJobsOk() (*int32, bool) {
+	if o == nil || IsNil(o.FailedJobs) {
+		return nil, false
+	}
+	return o.FailedJobs, true
+}
+
+// HasFailedJobs returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasFailedJobs() bool {
+	if o != nil && !IsNil(o.FailedJobs) {
+		return true
+	}
+
+	return false
+}
+
+// SetFailedJobs gets a reference to the given int32 and assigns it to the FailedJobs field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetFailedJobs(v int32) {
+	o.FailedJobs = &v
+}
+
+// GetAwsHealth returns the AwsHealth field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetAwsHealth() string {
+	if o == nil || IsNil(o.AwsHealth) {
+		var ret string
+		return ret
+	}
+	return *o.AwsHealth
+}
+
+// GetAwsHealthOk returns a tuple with the AwsHealth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetAwsHealthOk() (*string, bool) {
+	if o == nil || IsNil(o.AwsHealth) {
+		return nil, false
+	}
+	return o.AwsHealth, true
+}
+
+// HasAwsHealth returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasAwsHealth() bool {
+	if o != nil && !IsNil(o.AwsHealth) {
+		return true
+	}
+
+	return false
+}
+
+// SetAwsHealth gets a reference to the given string and assigns it to the AwsHealth field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetAwsHealth(v string) {
+	o.AwsHealth = &v
+}
+
+// GetGcpHealth returns the GcpHealth field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetGcpHealth() string {
+	if o == nil || IsNil(o.GcpHealth) {
+		var ret string
+		return ret
+	}
+	return *o.GcpHealth
+}
+
+// GetGcpHealthOk returns a tuple with the GcpHealth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetGcpHealthOk() (*string, bool) {
+	if o == nil || IsNil(o.GcpHealth) {
+		return nil, false
+	}
+	return o.GcpHealth, true
+}
+
+// HasGcpHealth returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasGcpHealth() bool {
+	if o != nil && !IsNil(o.GcpHealth) {
+		return true
+	}
+
+	return false
+}
+
+// SetGcpHealth gets a reference to the given string and assigns it to the GcpHealth field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetGcpHealth(v string) {
+	o.GcpHealth = &v
+}
+
+// GetAzureHealth returns the AzureHealth field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetAzureHealth() string {
+	if o == nil || IsNil(o.AzureHealth) {
+		var ret string
+		return ret
+	}
+	return *o.AzureHealth
+}
+
+// GetAzureHealthOk returns a tuple with the AzureHealth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetAzureHealthOk() (*string, bool) {
+	if o == nil || IsNil(o.AzureHealth) {
+		return nil, false
+	}
+	return o.AzureHealth, true
+}
+
+// HasAzureHealth returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasAzureHealth() bool {
+	if o != nil && !IsNil(o.AzureHealth) {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureHealth gets a reference to the given string and assigns it to the AzureHealth field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetAzureHealth(v string) {
+	o.AzureHealth = &v
+}
+
+// GetScalewayHealth returns the ScalewayHealth field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetScalewayHealth() string {
+	if o == nil || IsNil(o.ScalewayHealth) {
+		var ret string
+		return ret
+	}
+	return *o.ScalewayHealth
+}
+
+// GetScalewayHealthOk returns a tuple with the ScalewayHealth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetScalewayHealthOk() (*string, bool) {
+	if o == nil || IsNil(o.ScalewayHealth) {
+		return nil, false
+	}
+	return o.ScalewayHealth, true
+}
+
+// HasScalewayHealth returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasScalewayHealth() bool {
+	if o != nil && !IsNil(o.ScalewayHealth) {
+		return true
+	}
+
+	return false
+}
+
+// SetScalewayHealth gets a reference to the given string and assigns it to the ScalewayHealth field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetScalewayHealth(v string) {
+	o.ScalewayHealth = &v
+}
+
+// GetOvhcloudHealth returns the OvhcloudHealth field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetOvhcloudHealth() string {
+	if o == nil || IsNil(o.OvhcloudHealth) {
+		var ret string
+		return ret
+	}
+	return *o.OvhcloudHealth
+}
+
+// GetOvhcloudHealthOk returns a tuple with the OvhcloudHealth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetOvhcloudHealthOk() (*string, bool) {
+	if o == nil || IsNil(o.OvhcloudHealth) {
+		return nil, false
+	}
+	return o.OvhcloudHealth, true
+}
+
+// HasOvhcloudHealth returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasOvhcloudHealth() bool {
+	if o != nil && !IsNil(o.OvhcloudHealth) {
+		return true
+	}
+
+	return false
+}
+
+// SetOvhcloudHealth gets a reference to the given string and assigns it to the OvhcloudHealth field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetOvhcloudHealth(v string) {
+	o.OvhcloudHealth = &v
+}
+
+// GetHetznerHealth returns the HetznerHealth field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetHetznerHealth() string {
+	if o == nil || IsNil(o.HetznerHealth) {
+		var ret string
+		return ret
+	}
+	return *o.HetznerHealth
+}
+
+// GetHetznerHealthOk returns a tuple with the HetznerHealth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetHetznerHealthOk() (*string, bool) {
+	if o == nil || IsNil(o.HetznerHealth) {
+		return nil, false
+	}
+	return o.HetznerHealth, true
+}
+
+// HasHetznerHealth returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasHetznerHealth() bool {
+	if o != nil && !IsNil(o.HetznerHealth) {
+		return true
+	}
+
+	return false
+}
+
+// SetHetznerHealth gets a reference to the given string and assigns it to the HetznerHealth field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetHetznerHealth(v string) {
+	o.HetznerHealth = &v
+}
+
+// GetUpcloudHealth returns the UpcloudHealth field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetUpcloudHealth() string {
+	if o == nil || IsNil(o.UpcloudHealth) {
+		var ret string
+		return ret
+	}
+	return *o.UpcloudHealth
+}
+
+// GetUpcloudHealthOk returns a tuple with the UpcloudHealth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetUpcloudHealthOk() (*string, bool) {
+	if o == nil || IsNil(o.UpcloudHealth) {
+		return nil, false
+	}
+	return o.UpcloudHealth, true
+}
+
+// HasUpcloudHealth returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasUpcloudHealth() bool {
+	if o != nil && !IsNil(o.UpcloudHealth) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpcloudHealth gets a reference to the given string and assigns it to the UpcloudHealth field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetUpcloudHealth(v string) {
+	o.UpcloudHealth = &v
+}
+
+// GetDigitaloceanHealth returns the DigitaloceanHealth field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetDigitaloceanHealth() string {
+	if o == nil || IsNil(o.DigitaloceanHealth) {
+		var ret string
+		return ret
+	}
+	return *o.DigitaloceanHealth
+}
+
+// GetDigitaloceanHealthOk returns a tuple with the DigitaloceanHealth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetDigitaloceanHealthOk() (*string, bool) {
+	if o == nil || IsNil(o.DigitaloceanHealth) {
+		return nil, false
+	}
+	return o.DigitaloceanHealth, true
+}
+
+// HasDigitaloceanHealth returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasDigitaloceanHealth() bool {
+	if o != nil && !IsNil(o.DigitaloceanHealth) {
+		return true
+	}
+
+	return false
+}
+
+// SetDigitaloceanHealth gets a reference to the given string and assigns it to the DigitaloceanHealth field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetDigitaloceanHealth(v string) {
+	o.DigitaloceanHealth = &v
+}
+
+// GetQueueStatus returns the QueueStatus field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetQueueStatus() string {
+	if o == nil || IsNil(o.QueueStatus) {
+		var ret string
+		return ret
+	}
+	return *o.QueueStatus
+}
+
+// GetQueueStatusOk returns a tuple with the QueueStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetQueueStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.QueueStatus) {
+		return nil, false
+	}
+	return o.QueueStatus, true
+}
+
+// HasQueueStatus returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasQueueStatus() bool {
+	if o != nil && !IsNil(o.QueueStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetQueueStatus gets a reference to the given string and assigns it to the QueueStatus field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetQueueStatus(v string) {
+	o.QueueStatus = &v
+}
+
+// GetBackendIntegration returns the BackendIntegration field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetBackendIntegration() bool {
+	if o == nil || IsNil(o.BackendIntegration) {
+		var ret bool
+		return ret
+	}
+	return *o.BackendIntegration
+}
+
+// GetBackendIntegrationOk returns a tuple with the BackendIntegration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetBackendIntegrationOk() (*bool, bool) {
+	if o == nil || IsNil(o.BackendIntegration) {
+		return nil, false
+	}
+	return o.BackendIntegration, true
+}
+
+// HasBackendIntegration returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasBackendIntegration() bool {
+	if o != nil && !IsNil(o.BackendIntegration) {
+		return true
+	}
+
+	return false
+}
+
+// SetBackendIntegration gets a reference to the given bool and assigns it to the BackendIntegration field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetBackendIntegration(v bool) {
+	o.BackendIntegration = &v
+}
+
+// GetAvailableRegions returns the AvailableRegions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetAvailableRegions() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.AvailableRegions
+}
+
+// GetAvailableRegionsOk returns a tuple with the AvailableRegions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetAvailableRegionsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.AvailableRegions) {
+		return nil, false
+	}
+	return &o.AvailableRegions, true
+}
+
+// HasAvailableRegions returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasAvailableRegions() bool {
+	if o != nil && !IsNil(o.AvailableRegions) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvailableRegions gets a reference to the given interface{} and assigns it to the AvailableRegions field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetAvailableRegions(v interface{}) {
+	o.AvailableRegions = v
+}
+
+// GetActiveRegions returns the ActiveRegions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetActiveRegions() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ActiveRegions
+}
+
+// GetActiveRegionsOk returns a tuple with the ActiveRegions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetActiveRegionsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ActiveRegions) {
+		return nil, false
+	}
+	return &o.ActiveRegions, true
+}
+
+// HasActiveRegions returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasActiveRegions() bool {
+	if o != nil && !IsNil(o.ActiveRegions) {
+		return true
+	}
+
+	return false
+}
+
+// SetActiveRegions gets a reference to the given interface{} and assigns it to the ActiveRegions field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetActiveRegions(v interface{}) {
+	o.ActiveRegions = v
+}
+
+// GetSupportedProviders returns the SupportedProviders field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetSupportedProviders() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.SupportedProviders
+}
+
+// GetSupportedProvidersOk returns a tuple with the SupportedProviders field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetSupportedProvidersOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.SupportedProviders) {
+		return nil, false
+	}
+	return &o.SupportedProviders, true
+}
+
+// HasSupportedProviders returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasSupportedProviders() bool {
+	if o != nil && !IsNil(o.SupportedProviders) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupportedProviders gets a reference to the given interface{} and assigns it to the SupportedProviders field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetSupportedProviders(v interface{}) {
+	o.SupportedProviders = v
+}
+
+// GetDeploymentCapabilities returns the DeploymentCapabilities field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetDeploymentCapabilities() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.DeploymentCapabilities
+}
+
+// GetDeploymentCapabilitiesOk returns a tuple with the DeploymentCapabilities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetDeploymentCapabilitiesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.DeploymentCapabilities) {
+		return nil, false
+	}
+	return &o.DeploymentCapabilities, true
+}
+
+// HasDeploymentCapabilities returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasDeploymentCapabilities() bool {
+	if o != nil && !IsNil(o.DeploymentCapabilities) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeploymentCapabilities gets a reference to the given interface{} and assigns it to the DeploymentCapabilities field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetDeploymentCapabilities(v interface{}) {
+	o.DeploymentCapabilities = v
+}
+
+// GetAvgResponseTimeMs returns the AvgResponseTimeMs field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetAvgResponseTimeMs() int32 {
+	if o == nil || IsNil(o.AvgResponseTimeMs) {
+		var ret int32
+		return ret
+	}
+	return *o.AvgResponseTimeMs
+}
+
+// GetAvgResponseTimeMsOk returns a tuple with the AvgResponseTimeMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetAvgResponseTimeMsOk() (*int32, bool) {
+	if o == nil || IsNil(o.AvgResponseTimeMs) {
+		return nil, false
+	}
+	return o.AvgResponseTimeMs, true
+}
+
+// HasAvgResponseTimeMs returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasAvgResponseTimeMs() bool {
+	if o != nil && !IsNil(o.AvgResponseTimeMs) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvgResponseTimeMs gets a reference to the given int32 and assigns it to the AvgResponseTimeMs field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetAvgResponseTimeMs(v int32) {
+	o.AvgResponseTimeMs = &v
+}
+
+// GetSuccessRate returns the SuccessRate field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetSuccessRate() float32 {
+	if o == nil || IsNil(o.SuccessRate) {
+		var ret float32
+		return ret
+	}
+	return *o.SuccessRate
+}
+
+// GetSuccessRateOk returns a tuple with the SuccessRate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetSuccessRateOk() (*float32, bool) {
+	if o == nil || IsNil(o.SuccessRate) {
+		return nil, false
+	}
+	return o.SuccessRate, true
+}
+
+// HasSuccessRate returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasSuccessRate() bool {
+	if o != nil && !IsNil(o.SuccessRate) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuccessRate gets a reference to the given float32 and assigns it to the SuccessRate field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetSuccessRate(v float32) {
+	o.SuccessRate = &v
+}
+
+// GetThroughputJobsPerHour returns the ThroughputJobsPerHour field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetThroughputJobsPerHour() int32 {
+	if o == nil || IsNil(o.ThroughputJobsPerHour) {
+		var ret int32
+		return ret
+	}
+	return *o.ThroughputJobsPerHour
+}
+
+// GetThroughputJobsPerHourOk returns a tuple with the ThroughputJobsPerHour field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetThroughputJobsPerHourOk() (*int32, bool) {
+	if o == nil || IsNil(o.ThroughputJobsPerHour) {
+		return nil, false
+	}
+	return o.ThroughputJobsPerHour, true
+}
+
+// HasThroughputJobsPerHour returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasThroughputJobsPerHour() bool {
+	if o != nil && !IsNil(o.ThroughputJobsPerHour) {
+		return true
+	}
+
+	return false
+}
+
+// SetThroughputJobsPerHour gets a reference to the given int32 and assigns it to the ThroughputJobsPerHour field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetThroughputJobsPerHour(v int32) {
+	o.ThroughputJobsPerHour = &v
+}
+
+// GetErrorRate returns the ErrorRate field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetErrorRate() float32 {
+	if o == nil || IsNil(o.ErrorRate) {
+		var ret float32
+		return ret
+	}
+	return *o.ErrorRate
+}
+
+// GetErrorRateOk returns a tuple with the ErrorRate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetErrorRateOk() (*float32, bool) {
+	if o == nil || IsNil(o.ErrorRate) {
+		return nil, false
+	}
+	return o.ErrorRate, true
+}
+
+// HasErrorRate returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasErrorRate() bool {
+	if o != nil && !IsNil(o.ErrorRate) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorRate gets a reference to the given float32 and assigns it to the ErrorRate field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetErrorRate(v float32) {
+	o.ErrorRate = &v
+}
+
+// GetMemoryUsageMB returns the MemoryUsageMB field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetMemoryUsageMB() int32 {
+	if o == nil || IsNil(o.MemoryUsageMB) {
+		var ret int32
+		return ret
+	}
+	return *o.MemoryUsageMB
+}
+
+// GetMemoryUsageMBOk returns a tuple with the MemoryUsageMB field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetMemoryUsageMBOk() (*int32, bool) {
+	if o == nil || IsNil(o.MemoryUsageMB) {
+		return nil, false
+	}
+	return o.MemoryUsageMB, true
+}
+
+// HasMemoryUsageMB returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasMemoryUsageMB() bool {
+	if o != nil && !IsNil(o.MemoryUsageMB) {
+		return true
+	}
+
+	return false
+}
+
+// SetMemoryUsageMB gets a reference to the given int32 and assigns it to the MemoryUsageMB field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetMemoryUsageMB(v int32) {
+	o.MemoryUsageMB = &v
+}
+
+// GetCpuUsagePercent returns the CpuUsagePercent field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetCpuUsagePercent() float32 {
+	if o == nil || IsNil(o.CpuUsagePercent) {
+		var ret float32
+		return ret
+	}
+	return *o.CpuUsagePercent
+}
+
+// GetCpuUsagePercentOk returns a tuple with the CpuUsagePercent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetCpuUsagePercentOk() (*float32, bool) {
+	if o == nil || IsNil(o.CpuUsagePercent) {
+		return nil, false
+	}
+	return o.CpuUsagePercent, true
+}
+
+// HasCpuUsagePercent returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasCpuUsagePercent() bool {
+	if o != nil && !IsNil(o.CpuUsagePercent) {
+		return true
+	}
+
+	return false
+}
+
+// SetCpuUsagePercent gets a reference to the given float32 and assigns it to the CpuUsagePercent field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetCpuUsagePercent(v float32) {
+	o.CpuUsagePercent = &v
+}
+
+// GetConnectorInfo returns the ConnectorInfo field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetConnectorInfo() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ConnectorInfo
+}
+
+// GetConnectorInfoOk returns a tuple with the ConnectorInfo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetConnectorInfoOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ConnectorInfo) {
+		return nil, false
+	}
+	return &o.ConnectorInfo, true
+}
+
+// HasConnectorInfo returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasConnectorInfo() bool {
+	if o != nil && !IsNil(o.ConnectorInfo) {
+		return true
+	}
+
+	return false
+}
+
+// SetConnectorInfo gets a reference to the given interface{} and assigns it to the ConnectorInfo field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetConnectorInfo(v interface{}) {
+	o.ConnectorInfo = v
+}
+
+// GetLastError returns the LastError field value if set, zero value otherwise.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetLastError() string {
+	if o == nil || IsNil(o.LastError) {
+		var ret string
+		return ret
+	}
+	return *o.LastError
+}
+
+// GetLastErrorOk returns a tuple with the LastError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetLastErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.LastError) {
+		return nil, false
+	}
+	return o.LastError, true
+}
+
+// HasLastError returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasLastError() bool {
+	if o != nil && !IsNil(o.LastError) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastError gets a reference to the given string and assigns it to the LastError field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetLastError(v string) {
+	o.LastError = &v
+}
+
+// GetDiagnosticInfo returns the DiagnosticInfo field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetDiagnosticInfo() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.DiagnosticInfo
+}
+
+// GetDiagnosticInfoOk returns a tuple with the DiagnosticInfo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetDiagnosticInfoOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.DiagnosticInfo) {
+		return nil, false
+	}
+	return &o.DiagnosticInfo, true
+}
+
+// HasDiagnosticInfo returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasDiagnosticInfo() bool {
+	if o != nil && !IsNil(o.DiagnosticInfo) {
+		return true
+	}
+
+	return false
+}
+
+// SetDiagnosticInfo gets a reference to the given interface{} and assigns it to the DiagnosticInfo field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetDiagnosticInfo(v interface{}) {
+	o.DiagnosticInfo = v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudConnectorStatus200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindCloudConnectorStatus200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindCloudConnectorStatus200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +1290,6 @@ func (o *FindCloudConnectorStatus200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudConnectorStatus200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudConnectorStatus200ResponseDataInner) GetAttributes() CloudConnectorStatus {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudConnectorStatus
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudConnectorStatus200ResponseDataInner) GetAttributesOk() (*CloudConnectorStatus, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudConnectorStatus200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudConnectorStatus and assigns it to the Attributes field.
-func (o *FindCloudConnectorStatus200ResponseDataInner) SetAttributes(v CloudConnectorStatus) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +1408,106 @@ func (o FindCloudConnectorStatus200ResponseDataInner) MarshalJSON() ([]byte, err
 
 func (o FindCloudConnectorStatus200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["instanceId"] = o.InstanceId
+	toSerialize["region"] = o.Region
+	toSerialize["provider"] = o.Provider
+	toSerialize["deploymentRegion"] = o.DeploymentRegion
+	toSerialize["ccstatus"] = o.Ccstatus
+	toSerialize["lastHeartbeat"] = o.LastHeartbeat
+	toSerialize["uptimeMinutes"] = o.UptimeMinutes
+	toSerialize["version"] = o.Version
+	if !IsNil(o.TotalJobs) {
+		toSerialize["totalJobs"] = o.TotalJobs
+	}
+	if !IsNil(o.PendingJobs) {
+		toSerialize["pendingJobs"] = o.PendingJobs
+	}
+	if !IsNil(o.RunningJobs) {
+		toSerialize["runningJobs"] = o.RunningJobs
+	}
+	if !IsNil(o.SuccessJobs) {
+		toSerialize["successJobs"] = o.SuccessJobs
+	}
+	if !IsNil(o.FailedJobs) {
+		toSerialize["failedJobs"] = o.FailedJobs
+	}
+	if !IsNil(o.AwsHealth) {
+		toSerialize["awsHealth"] = o.AwsHealth
+	}
+	if !IsNil(o.GcpHealth) {
+		toSerialize["gcpHealth"] = o.GcpHealth
+	}
+	if !IsNil(o.AzureHealth) {
+		toSerialize["azureHealth"] = o.AzureHealth
+	}
+	if !IsNil(o.ScalewayHealth) {
+		toSerialize["scalewayHealth"] = o.ScalewayHealth
+	}
+	if !IsNil(o.OvhcloudHealth) {
+		toSerialize["ovhcloudHealth"] = o.OvhcloudHealth
+	}
+	if !IsNil(o.HetznerHealth) {
+		toSerialize["hetznerHealth"] = o.HetznerHealth
+	}
+	if !IsNil(o.UpcloudHealth) {
+		toSerialize["upcloudHealth"] = o.UpcloudHealth
+	}
+	if !IsNil(o.DigitaloceanHealth) {
+		toSerialize["digitaloceanHealth"] = o.DigitaloceanHealth
+	}
+	if !IsNil(o.QueueStatus) {
+		toSerialize["queueStatus"] = o.QueueStatus
+	}
+	if !IsNil(o.BackendIntegration) {
+		toSerialize["backendIntegration"] = o.BackendIntegration
+	}
+	if o.AvailableRegions != nil {
+		toSerialize["availableRegions"] = o.AvailableRegions
+	}
+	if o.ActiveRegions != nil {
+		toSerialize["activeRegions"] = o.ActiveRegions
+	}
+	if o.SupportedProviders != nil {
+		toSerialize["supportedProviders"] = o.SupportedProviders
+	}
+	if o.DeploymentCapabilities != nil {
+		toSerialize["deploymentCapabilities"] = o.DeploymentCapabilities
+	}
+	if !IsNil(o.AvgResponseTimeMs) {
+		toSerialize["avgResponseTimeMs"] = o.AvgResponseTimeMs
+	}
+	if !IsNil(o.SuccessRate) {
+		toSerialize["successRate"] = o.SuccessRate
+	}
+	if !IsNil(o.ThroughputJobsPerHour) {
+		toSerialize["throughputJobsPerHour"] = o.ThroughputJobsPerHour
+	}
+	if !IsNil(o.ErrorRate) {
+		toSerialize["errorRate"] = o.ErrorRate
+	}
+	if !IsNil(o.MemoryUsageMB) {
+		toSerialize["memoryUsageMB"] = o.MemoryUsageMB
+	}
+	if !IsNil(o.CpuUsagePercent) {
+		toSerialize["cpuUsagePercent"] = o.CpuUsagePercent
+	}
+	if o.ConnectorInfo != nil {
+		toSerialize["connectorInfo"] = o.ConnectorInfo
+	}
+	if !IsNil(o.LastError) {
+		toSerialize["lastError"] = o.LastError
+	}
+	if o.DiagnosticInfo != nil {
+		toSerialize["diagnosticInfo"] = o.DiagnosticInfo
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +1519,50 @@ func (o FindCloudConnectorStatus200ResponseDataInner) ToMap() (map[string]interf
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudConnectorStatus200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"instanceId",
+		"region",
+		"provider",
+		"deploymentRegion",
+		"ccstatus",
+		"lastHeartbeat",
+		"uptimeMinutes",
+		"version",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudConnectorStatus200ResponseDataInner := _FindCloudConnectorStatus200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudConnectorStatus200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudConnectorStatus200ResponseDataInner(varFindCloudConnectorStatus200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudConnectorStatus200ResponseDataInner struct {

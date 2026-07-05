@@ -31,7 +31,8 @@ type AiOversightReview struct {
 	ApprovedBy *string `json:"approved_by,omitempty"`
 	ApprovedAt *time.Time `json:"approved_at,omitempty"`
 	EffectiveFrom *time.Time `json:"effective_from,omitempty"`
-	LevelHistory map[string]interface{} `json:"level_history,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	LevelHistory interface{} `json:"level_history,omitempty"`
 }
 
 type _AiOversightReview AiOversightReview
@@ -302,10 +303,10 @@ func (o *AiOversightReview) SetEffectiveFrom(v time.Time) {
 	o.EffectiveFrom = &v
 }
 
-// GetLevelHistory returns the LevelHistory field value if set, zero value otherwise.
-func (o *AiOversightReview) GetLevelHistory() map[string]interface{} {
-	if o == nil || IsNil(o.LevelHistory) {
-		var ret map[string]interface{}
+// GetLevelHistory returns the LevelHistory field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AiOversightReview) GetLevelHistory() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.LevelHistory
@@ -313,11 +314,12 @@ func (o *AiOversightReview) GetLevelHistory() map[string]interface{} {
 
 // GetLevelHistoryOk returns a tuple with the LevelHistory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AiOversightReview) GetLevelHistoryOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AiOversightReview) GetLevelHistoryOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.LevelHistory) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.LevelHistory, true
+	return &o.LevelHistory, true
 }
 
 // HasLevelHistory returns a boolean if a field has been set.
@@ -329,8 +331,8 @@ func (o *AiOversightReview) HasLevelHistory() bool {
 	return false
 }
 
-// SetLevelHistory gets a reference to the given map[string]interface{} and assigns it to the LevelHistory field.
-func (o *AiOversightReview) SetLevelHistory(v map[string]interface{}) {
+// SetLevelHistory gets a reference to the given interface{} and assigns it to the LevelHistory field.
+func (o *AiOversightReview) SetLevelHistory(v interface{}) {
 	o.LevelHistory = v
 }
 
@@ -366,7 +368,7 @@ func (o AiOversightReview) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EffectiveFrom) {
 		toSerialize["effective_from"] = o.EffectiveFrom
 	}
-	if !IsNil(o.LevelHistory) {
+	if o.LevelHistory != nil {
 		toSerialize["level_history"] = o.LevelHistory
 	}
 	return toSerialize, nil

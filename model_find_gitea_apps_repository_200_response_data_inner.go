@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindGiteaAppsRepository200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,42 @@ var _ MappedNullable = &FindGiteaAppsRepository200ResponseDataInner{}
 
 // FindGiteaAppsRepository200ResponseDataInner struct for FindGiteaAppsRepository200ResponseDataInner
 type FindGiteaAppsRepository200ResponseDataInner struct {
+	InstanceId string `json:"instanceId"`
+	RepositoryName string `json:"repositoryName"`
+	RepositoryOwner string `json:"repositoryOwner"`
+	DefaultBranch *string `json:"defaultBranch,omitempty"`
+	LastCommitHash *string `json:"lastCommitHash,omitempty"`
+	LastCommitMessage *string `json:"lastCommitMessage,omitempty"`
+	LastCommitAuthor *string `json:"lastCommitAuthor,omitempty"`
+	LastCommitDate *time.Time `json:"lastCommitDate,omitempty"`
+	Gitstatus *string `json:"gitstatus,omitempty"`
+	LastSyncDate *time.Time `json:"lastSyncDate,omitempty"`
+	TotalBranches *int32 `json:"totalBranches,omitempty"`
+	TotalTags *int32 `json:"totalTags,omitempty"`
+	TotalCommits *int32 `json:"totalCommits,omitempty"`
+	LastError *string `json:"lastError,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+	RestoreBefore *time.Time `json:"restore_before,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *GiteaAppsRepository `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindGiteaAppsRepository200ResponseDataInner FindGiteaAppsRepository200ResponseDataInner
+
 // NewFindGiteaAppsRepository200ResponseDataInner instantiates a new FindGiteaAppsRepository200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindGiteaAppsRepository200ResponseDataInner() *FindGiteaAppsRepository200ResponseDataInner {
+func NewFindGiteaAppsRepository200ResponseDataInner(instanceId string, repositoryName string, repositoryOwner string) *FindGiteaAppsRepository200ResponseDataInner {
 	this := FindGiteaAppsRepository200ResponseDataInner{}
+	this.InstanceId = instanceId
+	this.RepositoryName = repositoryName
+	this.RepositoryOwner = repositoryOwner
 	return &this
 }
 
@@ -44,6 +68,527 @@ func NewFindGiteaAppsRepository200ResponseDataInner() *FindGiteaAppsRepository20
 func NewFindGiteaAppsRepository200ResponseDataInnerWithDefaults() *FindGiteaAppsRepository200ResponseDataInner {
 	this := FindGiteaAppsRepository200ResponseDataInner{}
 	return &this
+}
+
+// GetInstanceId returns the InstanceId field value
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetInstanceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.InstanceId
+}
+
+// GetInstanceIdOk returns a tuple with the InstanceId field value
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetInstanceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.InstanceId, true
+}
+
+// SetInstanceId sets field value
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetInstanceId(v string) {
+	o.InstanceId = v
+}
+
+// GetRepositoryName returns the RepositoryName field value
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetRepositoryName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RepositoryName
+}
+
+// GetRepositoryNameOk returns a tuple with the RepositoryName field value
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetRepositoryNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RepositoryName, true
+}
+
+// SetRepositoryName sets field value
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetRepositoryName(v string) {
+	o.RepositoryName = v
+}
+
+// GetRepositoryOwner returns the RepositoryOwner field value
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetRepositoryOwner() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RepositoryOwner
+}
+
+// GetRepositoryOwnerOk returns a tuple with the RepositoryOwner field value
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetRepositoryOwnerOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RepositoryOwner, true
+}
+
+// SetRepositoryOwner sets field value
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetRepositoryOwner(v string) {
+	o.RepositoryOwner = v
+}
+
+// GetDefaultBranch returns the DefaultBranch field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetDefaultBranch() string {
+	if o == nil || IsNil(o.DefaultBranch) {
+		var ret string
+		return ret
+	}
+	return *o.DefaultBranch
+}
+
+// GetDefaultBranchOk returns a tuple with the DefaultBranch field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetDefaultBranchOk() (*string, bool) {
+	if o == nil || IsNil(o.DefaultBranch) {
+		return nil, false
+	}
+	return o.DefaultBranch, true
+}
+
+// HasDefaultBranch returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasDefaultBranch() bool {
+	if o != nil && !IsNil(o.DefaultBranch) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultBranch gets a reference to the given string and assigns it to the DefaultBranch field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetDefaultBranch(v string) {
+	o.DefaultBranch = &v
+}
+
+// GetLastCommitHash returns the LastCommitHash field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastCommitHash() string {
+	if o == nil || IsNil(o.LastCommitHash) {
+		var ret string
+		return ret
+	}
+	return *o.LastCommitHash
+}
+
+// GetLastCommitHashOk returns a tuple with the LastCommitHash field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastCommitHashOk() (*string, bool) {
+	if o == nil || IsNil(o.LastCommitHash) {
+		return nil, false
+	}
+	return o.LastCommitHash, true
+}
+
+// HasLastCommitHash returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasLastCommitHash() bool {
+	if o != nil && !IsNil(o.LastCommitHash) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastCommitHash gets a reference to the given string and assigns it to the LastCommitHash field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetLastCommitHash(v string) {
+	o.LastCommitHash = &v
+}
+
+// GetLastCommitMessage returns the LastCommitMessage field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastCommitMessage() string {
+	if o == nil || IsNil(o.LastCommitMessage) {
+		var ret string
+		return ret
+	}
+	return *o.LastCommitMessage
+}
+
+// GetLastCommitMessageOk returns a tuple with the LastCommitMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastCommitMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.LastCommitMessage) {
+		return nil, false
+	}
+	return o.LastCommitMessage, true
+}
+
+// HasLastCommitMessage returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasLastCommitMessage() bool {
+	if o != nil && !IsNil(o.LastCommitMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastCommitMessage gets a reference to the given string and assigns it to the LastCommitMessage field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetLastCommitMessage(v string) {
+	o.LastCommitMessage = &v
+}
+
+// GetLastCommitAuthor returns the LastCommitAuthor field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastCommitAuthor() string {
+	if o == nil || IsNil(o.LastCommitAuthor) {
+		var ret string
+		return ret
+	}
+	return *o.LastCommitAuthor
+}
+
+// GetLastCommitAuthorOk returns a tuple with the LastCommitAuthor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastCommitAuthorOk() (*string, bool) {
+	if o == nil || IsNil(o.LastCommitAuthor) {
+		return nil, false
+	}
+	return o.LastCommitAuthor, true
+}
+
+// HasLastCommitAuthor returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasLastCommitAuthor() bool {
+	if o != nil && !IsNil(o.LastCommitAuthor) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastCommitAuthor gets a reference to the given string and assigns it to the LastCommitAuthor field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetLastCommitAuthor(v string) {
+	o.LastCommitAuthor = &v
+}
+
+// GetLastCommitDate returns the LastCommitDate field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastCommitDate() time.Time {
+	if o == nil || IsNil(o.LastCommitDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastCommitDate
+}
+
+// GetLastCommitDateOk returns a tuple with the LastCommitDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastCommitDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastCommitDate) {
+		return nil, false
+	}
+	return o.LastCommitDate, true
+}
+
+// HasLastCommitDate returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasLastCommitDate() bool {
+	if o != nil && !IsNil(o.LastCommitDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastCommitDate gets a reference to the given time.Time and assigns it to the LastCommitDate field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetLastCommitDate(v time.Time) {
+	o.LastCommitDate = &v
+}
+
+// GetGitstatus returns the Gitstatus field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetGitstatus() string {
+	if o == nil || IsNil(o.Gitstatus) {
+		var ret string
+		return ret
+	}
+	return *o.Gitstatus
+}
+
+// GetGitstatusOk returns a tuple with the Gitstatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetGitstatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Gitstatus) {
+		return nil, false
+	}
+	return o.Gitstatus, true
+}
+
+// HasGitstatus returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasGitstatus() bool {
+	if o != nil && !IsNil(o.Gitstatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetGitstatus gets a reference to the given string and assigns it to the Gitstatus field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetGitstatus(v string) {
+	o.Gitstatus = &v
+}
+
+// GetLastSyncDate returns the LastSyncDate field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastSyncDate() time.Time {
+	if o == nil || IsNil(o.LastSyncDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSyncDate
+}
+
+// GetLastSyncDateOk returns a tuple with the LastSyncDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastSyncDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSyncDate) {
+		return nil, false
+	}
+	return o.LastSyncDate, true
+}
+
+// HasLastSyncDate returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasLastSyncDate() bool {
+	if o != nil && !IsNil(o.LastSyncDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSyncDate gets a reference to the given time.Time and assigns it to the LastSyncDate field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetLastSyncDate(v time.Time) {
+	o.LastSyncDate = &v
+}
+
+// GetTotalBranches returns the TotalBranches field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetTotalBranches() int32 {
+	if o == nil || IsNil(o.TotalBranches) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalBranches
+}
+
+// GetTotalBranchesOk returns a tuple with the TotalBranches field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetTotalBranchesOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalBranches) {
+		return nil, false
+	}
+	return o.TotalBranches, true
+}
+
+// HasTotalBranches returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasTotalBranches() bool {
+	if o != nil && !IsNil(o.TotalBranches) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalBranches gets a reference to the given int32 and assigns it to the TotalBranches field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetTotalBranches(v int32) {
+	o.TotalBranches = &v
+}
+
+// GetTotalTags returns the TotalTags field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetTotalTags() int32 {
+	if o == nil || IsNil(o.TotalTags) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalTags
+}
+
+// GetTotalTagsOk returns a tuple with the TotalTags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetTotalTagsOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalTags) {
+		return nil, false
+	}
+	return o.TotalTags, true
+}
+
+// HasTotalTags returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasTotalTags() bool {
+	if o != nil && !IsNil(o.TotalTags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalTags gets a reference to the given int32 and assigns it to the TotalTags field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetTotalTags(v int32) {
+	o.TotalTags = &v
+}
+
+// GetTotalCommits returns the TotalCommits field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetTotalCommits() int32 {
+	if o == nil || IsNil(o.TotalCommits) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalCommits
+}
+
+// GetTotalCommitsOk returns a tuple with the TotalCommits field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetTotalCommitsOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalCommits) {
+		return nil, false
+	}
+	return o.TotalCommits, true
+}
+
+// HasTotalCommits returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasTotalCommits() bool {
+	if o != nil && !IsNil(o.TotalCommits) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalCommits gets a reference to the given int32 and assigns it to the TotalCommits field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetTotalCommits(v int32) {
+	o.TotalCommits = &v
+}
+
+// GetLastError returns the LastError field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastError() string {
+	if o == nil || IsNil(o.LastError) {
+		var ret string
+		return ret
+	}
+	return *o.LastError
+}
+
+// GetLastErrorOk returns a tuple with the LastError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetLastErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.LastError) {
+		return nil, false
+	}
+	return o.LastError, true
+}
+
+// HasLastError returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasLastError() bool {
+	if o != nil && !IsNil(o.LastError) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastError gets a reference to the given string and assigns it to the LastError field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetLastError(v string) {
+	o.LastError = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetDeletedAt returns the DeletedAt field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetDeletedAt() time.Time {
+	if o == nil || IsNil(o.DeletedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DeletedAt
+}
+
+// GetDeletedAtOk returns a tuple with the DeletedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetDeletedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DeletedAt) {
+		return nil, false
+	}
+	return o.DeletedAt, true
+}
+
+// HasDeletedAt returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasDeletedAt() bool {
+	if o != nil && !IsNil(o.DeletedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeletedAt gets a reference to the given time.Time and assigns it to the DeletedAt field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetDeletedAt(v time.Time) {
+	o.DeletedAt = &v
+}
+
+// GetRestoreBefore returns the RestoreBefore field value if set, zero value otherwise.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetRestoreBefore() time.Time {
+	if o == nil || IsNil(o.RestoreBefore) {
+		var ret time.Time
+		return ret
+	}
+	return *o.RestoreBefore
+}
+
+// GetRestoreBeforeOk returns a tuple with the RestoreBefore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) GetRestoreBeforeOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.RestoreBefore) {
+		return nil, false
+	}
+	return o.RestoreBefore, true
+}
+
+// HasRestoreBefore returns a boolean if a field has been set.
+func (o *FindGiteaAppsRepository200ResponseDataInner) HasRestoreBefore() bool {
+	if o != nil && !IsNil(o.RestoreBefore) {
+		return true
+	}
+
+	return false
+}
+
+// SetRestoreBefore gets a reference to the given time.Time and assigns it to the RestoreBefore field.
+func (o *FindGiteaAppsRepository200ResponseDataInner) SetRestoreBefore(v time.Time) {
+	o.RestoreBefore = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +653,6 @@ func (o *FindGiteaAppsRepository200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindGiteaAppsRepository200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindGiteaAppsRepository200ResponseDataInner) GetAttributes() GiteaAppsRepository {
-	if o == nil || IsNil(o.Attributes) {
-		var ret GiteaAppsRepository
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindGiteaAppsRepository200ResponseDataInner) GetAttributesOk() (*GiteaAppsRepository, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindGiteaAppsRepository200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given GiteaAppsRepository and assigns it to the Attributes field.
-func (o *FindGiteaAppsRepository200ResponseDataInner) SetAttributes(v GiteaAppsRepository) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +771,56 @@ func (o FindGiteaAppsRepository200ResponseDataInner) MarshalJSON() ([]byte, erro
 
 func (o FindGiteaAppsRepository200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["instanceId"] = o.InstanceId
+	toSerialize["repositoryName"] = o.RepositoryName
+	toSerialize["repositoryOwner"] = o.RepositoryOwner
+	if !IsNil(o.DefaultBranch) {
+		toSerialize["defaultBranch"] = o.DefaultBranch
+	}
+	if !IsNil(o.LastCommitHash) {
+		toSerialize["lastCommitHash"] = o.LastCommitHash
+	}
+	if !IsNil(o.LastCommitMessage) {
+		toSerialize["lastCommitMessage"] = o.LastCommitMessage
+	}
+	if !IsNil(o.LastCommitAuthor) {
+		toSerialize["lastCommitAuthor"] = o.LastCommitAuthor
+	}
+	if !IsNil(o.LastCommitDate) {
+		toSerialize["lastCommitDate"] = o.LastCommitDate
+	}
+	if !IsNil(o.Gitstatus) {
+		toSerialize["gitstatus"] = o.Gitstatus
+	}
+	if !IsNil(o.LastSyncDate) {
+		toSerialize["lastSyncDate"] = o.LastSyncDate
+	}
+	if !IsNil(o.TotalBranches) {
+		toSerialize["totalBranches"] = o.TotalBranches
+	}
+	if !IsNil(o.TotalTags) {
+		toSerialize["totalTags"] = o.TotalTags
+	}
+	if !IsNil(o.TotalCommits) {
+		toSerialize["totalCommits"] = o.TotalCommits
+	}
+	if !IsNil(o.LastError) {
+		toSerialize["lastError"] = o.LastError
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.DeletedAt) {
+		toSerialize["deleted_at"] = o.DeletedAt
+	}
+	if !IsNil(o.RestoreBefore) {
+		toSerialize["restore_before"] = o.RestoreBefore
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +832,45 @@ func (o FindGiteaAppsRepository200ResponseDataInner) ToMap() (map[string]interfa
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindGiteaAppsRepository200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"instanceId",
+		"repositoryName",
+		"repositoryOwner",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindGiteaAppsRepository200ResponseDataInner := _FindGiteaAppsRepository200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindGiteaAppsRepository200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindGiteaAppsRepository200ResponseDataInner(varFindGiteaAppsRepository200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindGiteaAppsRepository200ResponseDataInner struct {

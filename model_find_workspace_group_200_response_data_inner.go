@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindWorkspaceGroup200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,29 @@ var _ MappedNullable = &FindWorkspaceGroup200ResponseDataInner{}
 
 // FindWorkspaceGroup200ResponseDataInner struct for FindWorkspaceGroup200ResponseDataInner
 type FindWorkspaceGroup200ResponseDataInner struct {
+	GoogleId string `json:"google_id"`
+	Email string `json:"email"`
+	Name *string `json:"name,omitempty"`
+	MembersCount *int32 `json:"members_count,omitempty"`
+	WorkspaceTenant *CreateAccessReviewRequestDataReviewer `json:"workspace_tenant,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *WorkspaceGroup `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindWorkspaceGroup200ResponseDataInner FindWorkspaceGroup200ResponseDataInner
+
 // NewFindWorkspaceGroup200ResponseDataInner instantiates a new FindWorkspaceGroup200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindWorkspaceGroup200ResponseDataInner() *FindWorkspaceGroup200ResponseDataInner {
+func NewFindWorkspaceGroup200ResponseDataInner(googleId string, email string) *FindWorkspaceGroup200ResponseDataInner {
 	this := FindWorkspaceGroup200ResponseDataInner{}
+	this.GoogleId = googleId
+	this.Email = email
 	return &this
 }
 
@@ -44,6 +55,182 @@ func NewFindWorkspaceGroup200ResponseDataInner() *FindWorkspaceGroup200ResponseD
 func NewFindWorkspaceGroup200ResponseDataInnerWithDefaults() *FindWorkspaceGroup200ResponseDataInner {
 	this := FindWorkspaceGroup200ResponseDataInner{}
 	return &this
+}
+
+// GetGoogleId returns the GoogleId field value
+func (o *FindWorkspaceGroup200ResponseDataInner) GetGoogleId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.GoogleId
+}
+
+// GetGoogleIdOk returns a tuple with the GoogleId field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceGroup200ResponseDataInner) GetGoogleIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GoogleId, true
+}
+
+// SetGoogleId sets field value
+func (o *FindWorkspaceGroup200ResponseDataInner) SetGoogleId(v string) {
+	o.GoogleId = v
+}
+
+// GetEmail returns the Email field value
+func (o *FindWorkspaceGroup200ResponseDataInner) GetEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceGroup200ResponseDataInner) GetEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Email, true
+}
+
+// SetEmail sets field value
+func (o *FindWorkspaceGroup200ResponseDataInner) SetEmail(v string) {
+	o.Email = v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *FindWorkspaceGroup200ResponseDataInner) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceGroup200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *FindWorkspaceGroup200ResponseDataInner) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *FindWorkspaceGroup200ResponseDataInner) SetName(v string) {
+	o.Name = &v
+}
+
+// GetMembersCount returns the MembersCount field value if set, zero value otherwise.
+func (o *FindWorkspaceGroup200ResponseDataInner) GetMembersCount() int32 {
+	if o == nil || IsNil(o.MembersCount) {
+		var ret int32
+		return ret
+	}
+	return *o.MembersCount
+}
+
+// GetMembersCountOk returns a tuple with the MembersCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceGroup200ResponseDataInner) GetMembersCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.MembersCount) {
+		return nil, false
+	}
+	return o.MembersCount, true
+}
+
+// HasMembersCount returns a boolean if a field has been set.
+func (o *FindWorkspaceGroup200ResponseDataInner) HasMembersCount() bool {
+	if o != nil && !IsNil(o.MembersCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetMembersCount gets a reference to the given int32 and assigns it to the MembersCount field.
+func (o *FindWorkspaceGroup200ResponseDataInner) SetMembersCount(v int32) {
+	o.MembersCount = &v
+}
+
+// GetWorkspaceTenant returns the WorkspaceTenant field value if set, zero value otherwise.
+func (o *FindWorkspaceGroup200ResponseDataInner) GetWorkspaceTenant() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.WorkspaceTenant) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.WorkspaceTenant
+}
+
+// GetWorkspaceTenantOk returns a tuple with the WorkspaceTenant field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceGroup200ResponseDataInner) GetWorkspaceTenantOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.WorkspaceTenant) {
+		return nil, false
+	}
+	return o.WorkspaceTenant, true
+}
+
+// HasWorkspaceTenant returns a boolean if a field has been set.
+func (o *FindWorkspaceGroup200ResponseDataInner) HasWorkspaceTenant() bool {
+	if o != nil && !IsNil(o.WorkspaceTenant) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspaceTenant gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the WorkspaceTenant field.
+func (o *FindWorkspaceGroup200ResponseDataInner) SetWorkspaceTenant(v CreateAccessReviewRequestDataReviewer) {
+	o.WorkspaceTenant = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindWorkspaceGroup200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceGroup200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindWorkspaceGroup200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindWorkspaceGroup200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +295,6 @@ func (o *FindWorkspaceGroup200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindWorkspaceGroup200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindWorkspaceGroup200ResponseDataInner) GetAttributes() WorkspaceGroup {
-	if o == nil || IsNil(o.Attributes) {
-		var ret WorkspaceGroup
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindWorkspaceGroup200ResponseDataInner) GetAttributesOk() (*WorkspaceGroup, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindWorkspaceGroup200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given WorkspaceGroup and assigns it to the Attributes field.
-func (o *FindWorkspaceGroup200ResponseDataInner) SetAttributes(v WorkspaceGroup) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +413,25 @@ func (o FindWorkspaceGroup200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindWorkspaceGroup200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["google_id"] = o.GoogleId
+	toSerialize["email"] = o.Email
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.MembersCount) {
+		toSerialize["members_count"] = o.MembersCount
+	}
+	if !IsNil(o.WorkspaceTenant) {
+		toSerialize["workspace_tenant"] = o.WorkspaceTenant
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +443,44 @@ func (o FindWorkspaceGroup200ResponseDataInner) ToMap() (map[string]interface{},
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindWorkspaceGroup200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"google_id",
+		"email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindWorkspaceGroup200ResponseDataInner := _FindWorkspaceGroup200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindWorkspaceGroup200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindWorkspaceGroup200ResponseDataInner(varFindWorkspaceGroup200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindWorkspaceGroup200ResponseDataInner struct {

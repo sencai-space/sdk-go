@@ -31,18 +31,18 @@ type AgentPolicy struct {
 	// L0=observe only (no writes), L1=suggest only (no writes), L2=execute with approval, L3=auto-execute within policy.
 	AutonomyLevel string `json:"autonomy_level"`
 	// Array of time windows where all agent actions are blocked. Format: [{name: string, start: 'HH:MM', end: 'HH:MM', days: number[], timezone: string}]. days: 0=Sunday…6=Saturday.
-	FreezeWindows map[string]interface{} `json:"freeze_windows,omitempty"`
+	FreezeWindows interface{} `json:"freeze_windows,omitempty"`
 	// Maximum scope of impact a single agent action may have under this policy.
 	MaxBlastRadius *string `json:"max_blast_radius,omitempty"`
 	// Explicit allowlist of action type strings. Null = all action types are allowed within the autonomy_level.
-	AllowedActionTypes map[string]interface{} `json:"allowed_action_types,omitempty"`
+	AllowedActionTypes interface{} `json:"allowed_action_types,omitempty"`
 	// Explicit blocklist of action type strings. Takes precedence over allowed_action_types.
-	BlockedActionTypes map[string]interface{} `json:"blocked_action_types,omitempty"`
+	BlockedActionTypes interface{} `json:"blocked_action_types,omitempty"`
 	IsActive bool `json:"is_active"`
 	// True when this policy was created by an agent. Used by no-self-policy-mutation guard to reject agent-initiated mutations.
 	CreatedByAgent *bool `json:"created_by_agent,omitempty"`
 	// Legacy OPA-compatible policy document. Format: { allow_actions: string[], deny_actions: string[], conditions: { max_instances_per_day?: number, allowed_regions?: string[], ... } }
-	PolicyDocument map[string]interface{} `json:"policy_document,omitempty"`
+	PolicyDocument interface{} `json:"policy_document,omitempty"`
 	// Legacy: Policy specificity scope for OPA matching priority (per-action > per-env > per-provider > global).
 	Scope *string `json:"scope,omitempty"`
 	Provider *string `json:"provider,omitempty"`
@@ -203,10 +203,10 @@ func (o *AgentPolicy) SetAutonomyLevel(v string) {
 	o.AutonomyLevel = v
 }
 
-// GetFreezeWindows returns the FreezeWindows field value if set, zero value otherwise.
-func (o *AgentPolicy) GetFreezeWindows() map[string]interface{} {
-	if o == nil || IsNil(o.FreezeWindows) {
-		var ret map[string]interface{}
+// GetFreezeWindows returns the FreezeWindows field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentPolicy) GetFreezeWindows() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.FreezeWindows
@@ -214,11 +214,12 @@ func (o *AgentPolicy) GetFreezeWindows() map[string]interface{} {
 
 // GetFreezeWindowsOk returns a tuple with the FreezeWindows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentPolicy) GetFreezeWindowsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentPolicy) GetFreezeWindowsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.FreezeWindows) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.FreezeWindows, true
+	return &o.FreezeWindows, true
 }
 
 // HasFreezeWindows returns a boolean if a field has been set.
@@ -230,8 +231,8 @@ func (o *AgentPolicy) HasFreezeWindows() bool {
 	return false
 }
 
-// SetFreezeWindows gets a reference to the given map[string]interface{} and assigns it to the FreezeWindows field.
-func (o *AgentPolicy) SetFreezeWindows(v map[string]interface{}) {
+// SetFreezeWindows gets a reference to the given interface{} and assigns it to the FreezeWindows field.
+func (o *AgentPolicy) SetFreezeWindows(v interface{}) {
 	o.FreezeWindows = v
 }
 
@@ -267,10 +268,10 @@ func (o *AgentPolicy) SetMaxBlastRadius(v string) {
 	o.MaxBlastRadius = &v
 }
 
-// GetAllowedActionTypes returns the AllowedActionTypes field value if set, zero value otherwise.
-func (o *AgentPolicy) GetAllowedActionTypes() map[string]interface{} {
-	if o == nil || IsNil(o.AllowedActionTypes) {
-		var ret map[string]interface{}
+// GetAllowedActionTypes returns the AllowedActionTypes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentPolicy) GetAllowedActionTypes() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.AllowedActionTypes
@@ -278,11 +279,12 @@ func (o *AgentPolicy) GetAllowedActionTypes() map[string]interface{} {
 
 // GetAllowedActionTypesOk returns a tuple with the AllowedActionTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentPolicy) GetAllowedActionTypesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentPolicy) GetAllowedActionTypesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AllowedActionTypes) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.AllowedActionTypes, true
+	return &o.AllowedActionTypes, true
 }
 
 // HasAllowedActionTypes returns a boolean if a field has been set.
@@ -294,15 +296,15 @@ func (o *AgentPolicy) HasAllowedActionTypes() bool {
 	return false
 }
 
-// SetAllowedActionTypes gets a reference to the given map[string]interface{} and assigns it to the AllowedActionTypes field.
-func (o *AgentPolicy) SetAllowedActionTypes(v map[string]interface{}) {
+// SetAllowedActionTypes gets a reference to the given interface{} and assigns it to the AllowedActionTypes field.
+func (o *AgentPolicy) SetAllowedActionTypes(v interface{}) {
 	o.AllowedActionTypes = v
 }
 
-// GetBlockedActionTypes returns the BlockedActionTypes field value if set, zero value otherwise.
-func (o *AgentPolicy) GetBlockedActionTypes() map[string]interface{} {
-	if o == nil || IsNil(o.BlockedActionTypes) {
-		var ret map[string]interface{}
+// GetBlockedActionTypes returns the BlockedActionTypes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentPolicy) GetBlockedActionTypes() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.BlockedActionTypes
@@ -310,11 +312,12 @@ func (o *AgentPolicy) GetBlockedActionTypes() map[string]interface{} {
 
 // GetBlockedActionTypesOk returns a tuple with the BlockedActionTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentPolicy) GetBlockedActionTypesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentPolicy) GetBlockedActionTypesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.BlockedActionTypes) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.BlockedActionTypes, true
+	return &o.BlockedActionTypes, true
 }
 
 // HasBlockedActionTypes returns a boolean if a field has been set.
@@ -326,8 +329,8 @@ func (o *AgentPolicy) HasBlockedActionTypes() bool {
 	return false
 }
 
-// SetBlockedActionTypes gets a reference to the given map[string]interface{} and assigns it to the BlockedActionTypes field.
-func (o *AgentPolicy) SetBlockedActionTypes(v map[string]interface{}) {
+// SetBlockedActionTypes gets a reference to the given interface{} and assigns it to the BlockedActionTypes field.
+func (o *AgentPolicy) SetBlockedActionTypes(v interface{}) {
 	o.BlockedActionTypes = v
 }
 
@@ -387,10 +390,10 @@ func (o *AgentPolicy) SetCreatedByAgent(v bool) {
 	o.CreatedByAgent = &v
 }
 
-// GetPolicyDocument returns the PolicyDocument field value if set, zero value otherwise.
-func (o *AgentPolicy) GetPolicyDocument() map[string]interface{} {
-	if o == nil || IsNil(o.PolicyDocument) {
-		var ret map[string]interface{}
+// GetPolicyDocument returns the PolicyDocument field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentPolicy) GetPolicyDocument() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.PolicyDocument
@@ -398,11 +401,12 @@ func (o *AgentPolicy) GetPolicyDocument() map[string]interface{} {
 
 // GetPolicyDocumentOk returns a tuple with the PolicyDocument field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentPolicy) GetPolicyDocumentOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentPolicy) GetPolicyDocumentOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.PolicyDocument) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.PolicyDocument, true
+	return &o.PolicyDocument, true
 }
 
 // HasPolicyDocument returns a boolean if a field has been set.
@@ -414,8 +418,8 @@ func (o *AgentPolicy) HasPolicyDocument() bool {
 	return false
 }
 
-// SetPolicyDocument gets a reference to the given map[string]interface{} and assigns it to the PolicyDocument field.
-func (o *AgentPolicy) SetPolicyDocument(v map[string]interface{}) {
+// SetPolicyDocument gets a reference to the given interface{} and assigns it to the PolicyDocument field.
+func (o *AgentPolicy) SetPolicyDocument(v interface{}) {
 	o.PolicyDocument = v
 }
 
@@ -564,23 +568,23 @@ func (o AgentPolicy) ToMap() (map[string]interface{}, error) {
 		toSerialize["scope_value"] = o.ScopeValue
 	}
 	toSerialize["autonomy_level"] = o.AutonomyLevel
-	if !IsNil(o.FreezeWindows) {
+	if o.FreezeWindows != nil {
 		toSerialize["freeze_windows"] = o.FreezeWindows
 	}
 	if !IsNil(o.MaxBlastRadius) {
 		toSerialize["max_blast_radius"] = o.MaxBlastRadius
 	}
-	if !IsNil(o.AllowedActionTypes) {
+	if o.AllowedActionTypes != nil {
 		toSerialize["allowed_action_types"] = o.AllowedActionTypes
 	}
-	if !IsNil(o.BlockedActionTypes) {
+	if o.BlockedActionTypes != nil {
 		toSerialize["blocked_action_types"] = o.BlockedActionTypes
 	}
 	toSerialize["is_active"] = o.IsActive
 	if !IsNil(o.CreatedByAgent) {
 		toSerialize["created_by_agent"] = o.CreatedByAgent
 	}
-	if !IsNil(o.PolicyDocument) {
+	if o.PolicyDocument != nil {
 		toSerialize["policy_document"] = o.PolicyDocument
 	}
 	if !IsNil(o.Scope) {

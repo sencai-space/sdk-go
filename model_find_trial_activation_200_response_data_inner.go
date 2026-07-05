@@ -21,9 +21,15 @@ var _ MappedNullable = &FindTrialActivation200ResponseDataInner{}
 
 // FindTrialActivation200ResponseDataInner struct for FindTrialActivation200ResponseDataInner
 type FindTrialActivation200ResponseDataInner struct {
+	TrialStartAt *time.Time `json:"trial_start_at,omitempty"`
+	TrialEndAt *time.Time `json:"trial_end_at,omitempty"`
+	ConvertedAt *time.Time `json:"converted_at,omitempty"`
+	ExpiredAt *time.Time `json:"expired_at,omitempty"`
+	Status *string `json:"status,omitempty"`
+	PlanAtConversion *string `json:"plan_at_conversion,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *TrialActivation `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +50,230 @@ func NewFindTrialActivation200ResponseDataInner() *FindTrialActivation200Respons
 func NewFindTrialActivation200ResponseDataInnerWithDefaults() *FindTrialActivation200ResponseDataInner {
 	this := FindTrialActivation200ResponseDataInner{}
 	return &this
+}
+
+// GetTrialStartAt returns the TrialStartAt field value if set, zero value otherwise.
+func (o *FindTrialActivation200ResponseDataInner) GetTrialStartAt() time.Time {
+	if o == nil || IsNil(o.TrialStartAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.TrialStartAt
+}
+
+// GetTrialStartAtOk returns a tuple with the TrialStartAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTrialActivation200ResponseDataInner) GetTrialStartAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.TrialStartAt) {
+		return nil, false
+	}
+	return o.TrialStartAt, true
+}
+
+// HasTrialStartAt returns a boolean if a field has been set.
+func (o *FindTrialActivation200ResponseDataInner) HasTrialStartAt() bool {
+	if o != nil && !IsNil(o.TrialStartAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrialStartAt gets a reference to the given time.Time and assigns it to the TrialStartAt field.
+func (o *FindTrialActivation200ResponseDataInner) SetTrialStartAt(v time.Time) {
+	o.TrialStartAt = &v
+}
+
+// GetTrialEndAt returns the TrialEndAt field value if set, zero value otherwise.
+func (o *FindTrialActivation200ResponseDataInner) GetTrialEndAt() time.Time {
+	if o == nil || IsNil(o.TrialEndAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.TrialEndAt
+}
+
+// GetTrialEndAtOk returns a tuple with the TrialEndAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTrialActivation200ResponseDataInner) GetTrialEndAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.TrialEndAt) {
+		return nil, false
+	}
+	return o.TrialEndAt, true
+}
+
+// HasTrialEndAt returns a boolean if a field has been set.
+func (o *FindTrialActivation200ResponseDataInner) HasTrialEndAt() bool {
+	if o != nil && !IsNil(o.TrialEndAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrialEndAt gets a reference to the given time.Time and assigns it to the TrialEndAt field.
+func (o *FindTrialActivation200ResponseDataInner) SetTrialEndAt(v time.Time) {
+	o.TrialEndAt = &v
+}
+
+// GetConvertedAt returns the ConvertedAt field value if set, zero value otherwise.
+func (o *FindTrialActivation200ResponseDataInner) GetConvertedAt() time.Time {
+	if o == nil || IsNil(o.ConvertedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ConvertedAt
+}
+
+// GetConvertedAtOk returns a tuple with the ConvertedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTrialActivation200ResponseDataInner) GetConvertedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ConvertedAt) {
+		return nil, false
+	}
+	return o.ConvertedAt, true
+}
+
+// HasConvertedAt returns a boolean if a field has been set.
+func (o *FindTrialActivation200ResponseDataInner) HasConvertedAt() bool {
+	if o != nil && !IsNil(o.ConvertedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetConvertedAt gets a reference to the given time.Time and assigns it to the ConvertedAt field.
+func (o *FindTrialActivation200ResponseDataInner) SetConvertedAt(v time.Time) {
+	o.ConvertedAt = &v
+}
+
+// GetExpiredAt returns the ExpiredAt field value if set, zero value otherwise.
+func (o *FindTrialActivation200ResponseDataInner) GetExpiredAt() time.Time {
+	if o == nil || IsNil(o.ExpiredAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiredAt
+}
+
+// GetExpiredAtOk returns a tuple with the ExpiredAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTrialActivation200ResponseDataInner) GetExpiredAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiredAt) {
+		return nil, false
+	}
+	return o.ExpiredAt, true
+}
+
+// HasExpiredAt returns a boolean if a field has been set.
+func (o *FindTrialActivation200ResponseDataInner) HasExpiredAt() bool {
+	if o != nil && !IsNil(o.ExpiredAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiredAt gets a reference to the given time.Time and assigns it to the ExpiredAt field.
+func (o *FindTrialActivation200ResponseDataInner) SetExpiredAt(v time.Time) {
+	o.ExpiredAt = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindTrialActivation200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTrialActivation200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindTrialActivation200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindTrialActivation200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetPlanAtConversion returns the PlanAtConversion field value if set, zero value otherwise.
+func (o *FindTrialActivation200ResponseDataInner) GetPlanAtConversion() string {
+	if o == nil || IsNil(o.PlanAtConversion) {
+		var ret string
+		return ret
+	}
+	return *o.PlanAtConversion
+}
+
+// GetPlanAtConversionOk returns a tuple with the PlanAtConversion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTrialActivation200ResponseDataInner) GetPlanAtConversionOk() (*string, bool) {
+	if o == nil || IsNil(o.PlanAtConversion) {
+		return nil, false
+	}
+	return o.PlanAtConversion, true
+}
+
+// HasPlanAtConversion returns a boolean if a field has been set.
+func (o *FindTrialActivation200ResponseDataInner) HasPlanAtConversion() bool {
+	if o != nil && !IsNil(o.PlanAtConversion) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlanAtConversion gets a reference to the given string and assigns it to the PlanAtConversion field.
+func (o *FindTrialActivation200ResponseDataInner) SetPlanAtConversion(v string) {
+	o.PlanAtConversion = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindTrialActivation200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTrialActivation200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindTrialActivation200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindTrialActivation200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +338,6 @@ func (o *FindTrialActivation200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindTrialActivation200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindTrialActivation200ResponseDataInner) GetAttributes() TrialActivation {
-	if o == nil || IsNil(o.Attributes) {
-		var ret TrialActivation
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindTrialActivation200ResponseDataInner) GetAttributesOk() (*TrialActivation, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindTrialActivation200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given TrialActivation and assigns it to the Attributes field.
-func (o *FindTrialActivation200ResponseDataInner) SetAttributes(v TrialActivation) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +456,32 @@ func (o FindTrialActivation200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindTrialActivation200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.TrialStartAt) {
+		toSerialize["trial_start_at"] = o.TrialStartAt
+	}
+	if !IsNil(o.TrialEndAt) {
+		toSerialize["trial_end_at"] = o.TrialEndAt
+	}
+	if !IsNil(o.ConvertedAt) {
+		toSerialize["converted_at"] = o.ConvertedAt
+	}
+	if !IsNil(o.ExpiredAt) {
+		toSerialize["expired_at"] = o.ExpiredAt
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.PlanAtConversion) {
+		toSerialize["plan_at_conversion"] = o.PlanAtConversion
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

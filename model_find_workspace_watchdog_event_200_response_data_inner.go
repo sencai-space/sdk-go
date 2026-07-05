@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindWorkspaceWatchdogEvent200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,43 @@ var _ MappedNullable = &FindWorkspaceWatchdogEvent200ResponseDataInner{}
 
 // FindWorkspaceWatchdogEvent200ResponseDataInner struct for FindWorkspaceWatchdogEvent200ResponseDataInner
 type FindWorkspaceWatchdogEvent200ResponseDataInner struct {
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	WorkspaceTenant *CreateAccessReviewRequestDataReviewer `json:"workspace_tenant,omitempty"`
+	EventType string `json:"event_type"`
+	Severity string `json:"severity"`
+	ActorEmail *string `json:"actor_email,omitempty"`
+	TargetEmail *string `json:"target_email,omitempty"`
+	Resource *string `json:"resource,omitempty"`
+	IpAddress *string `json:"ip_address,omitempty"`
+	UserAgent *string `json:"user_agent,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	RawEvent interface{} `json:"raw_event,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	EventData interface{} `json:"event_data,omitempty"`
+	Status string `json:"status"`
+	Notes *string `json:"notes,omitempty"`
+	OccurredAt time.Time `json:"occurred_at"`
+	NotificationCreated *bool `json:"notification_created,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *WorkspaceWatchdogEvent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindWorkspaceWatchdogEvent200ResponseDataInner FindWorkspaceWatchdogEvent200ResponseDataInner
+
 // NewFindWorkspaceWatchdogEvent200ResponseDataInner instantiates a new FindWorkspaceWatchdogEvent200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindWorkspaceWatchdogEvent200ResponseDataInner() *FindWorkspaceWatchdogEvent200ResponseDataInner {
+func NewFindWorkspaceWatchdogEvent200ResponseDataInner(organisation CreateAccessReviewRequestDataReviewer, eventType string, severity string, status string, occurredAt time.Time) *FindWorkspaceWatchdogEvent200ResponseDataInner {
 	this := FindWorkspaceWatchdogEvent200ResponseDataInner{}
+	this.Organisation = organisation
+	this.EventType = eventType
+	this.Severity = severity
+	this.Status = status
+	this.OccurredAt = occurredAt
 	return &this
 }
 
@@ -44,6 +69,448 @@ func NewFindWorkspaceWatchdogEvent200ResponseDataInner() *FindWorkspaceWatchdogE
 func NewFindWorkspaceWatchdogEvent200ResponseDataInnerWithDefaults() *FindWorkspaceWatchdogEvent200ResponseDataInner {
 	this := FindWorkspaceWatchdogEvent200ResponseDataInner{}
 	return &this
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetWorkspaceTenant returns the WorkspaceTenant field value if set, zero value otherwise.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetWorkspaceTenant() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.WorkspaceTenant) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.WorkspaceTenant
+}
+
+// GetWorkspaceTenantOk returns a tuple with the WorkspaceTenant field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetWorkspaceTenantOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.WorkspaceTenant) {
+		return nil, false
+	}
+	return o.WorkspaceTenant, true
+}
+
+// HasWorkspaceTenant returns a boolean if a field has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasWorkspaceTenant() bool {
+	if o != nil && !IsNil(o.WorkspaceTenant) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspaceTenant gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the WorkspaceTenant field.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetWorkspaceTenant(v CreateAccessReviewRequestDataReviewer) {
+	o.WorkspaceTenant = &v
+}
+
+// GetEventType returns the EventType field value
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetEventType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EventType
+}
+
+// GetEventTypeOk returns a tuple with the EventType field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetEventTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EventType, true
+}
+
+// SetEventType sets field value
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetEventType(v string) {
+	o.EventType = v
+}
+
+// GetSeverity returns the Severity field value
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetSeverity() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Severity
+}
+
+// GetSeverityOk returns a tuple with the Severity field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetSeverityOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Severity, true
+}
+
+// SetSeverity sets field value
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetSeverity(v string) {
+	o.Severity = v
+}
+
+// GetActorEmail returns the ActorEmail field value if set, zero value otherwise.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetActorEmail() string {
+	if o == nil || IsNil(o.ActorEmail) {
+		var ret string
+		return ret
+	}
+	return *o.ActorEmail
+}
+
+// GetActorEmailOk returns a tuple with the ActorEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetActorEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.ActorEmail) {
+		return nil, false
+	}
+	return o.ActorEmail, true
+}
+
+// HasActorEmail returns a boolean if a field has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasActorEmail() bool {
+	if o != nil && !IsNil(o.ActorEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetActorEmail gets a reference to the given string and assigns it to the ActorEmail field.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetActorEmail(v string) {
+	o.ActorEmail = &v
+}
+
+// GetTargetEmail returns the TargetEmail field value if set, zero value otherwise.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetTargetEmail() string {
+	if o == nil || IsNil(o.TargetEmail) {
+		var ret string
+		return ret
+	}
+	return *o.TargetEmail
+}
+
+// GetTargetEmailOk returns a tuple with the TargetEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetTargetEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.TargetEmail) {
+		return nil, false
+	}
+	return o.TargetEmail, true
+}
+
+// HasTargetEmail returns a boolean if a field has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasTargetEmail() bool {
+	if o != nil && !IsNil(o.TargetEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetEmail gets a reference to the given string and assigns it to the TargetEmail field.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetTargetEmail(v string) {
+	o.TargetEmail = &v
+}
+
+// GetResource returns the Resource field value if set, zero value otherwise.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetResource() string {
+	if o == nil || IsNil(o.Resource) {
+		var ret string
+		return ret
+	}
+	return *o.Resource
+}
+
+// GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetResourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Resource) {
+		return nil, false
+	}
+	return o.Resource, true
+}
+
+// HasResource returns a boolean if a field has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasResource() bool {
+	if o != nil && !IsNil(o.Resource) {
+		return true
+	}
+
+	return false
+}
+
+// SetResource gets a reference to the given string and assigns it to the Resource field.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetResource(v string) {
+	o.Resource = &v
+}
+
+// GetIpAddress returns the IpAddress field value if set, zero value otherwise.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetIpAddress() string {
+	if o == nil || IsNil(o.IpAddress) {
+		var ret string
+		return ret
+	}
+	return *o.IpAddress
+}
+
+// GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetIpAddressOk() (*string, bool) {
+	if o == nil || IsNil(o.IpAddress) {
+		return nil, false
+	}
+	return o.IpAddress, true
+}
+
+// HasIpAddress returns a boolean if a field has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasIpAddress() bool {
+	if o != nil && !IsNil(o.IpAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpAddress gets a reference to the given string and assigns it to the IpAddress field.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetIpAddress(v string) {
+	o.IpAddress = &v
+}
+
+// GetUserAgent returns the UserAgent field value if set, zero value otherwise.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetUserAgent() string {
+	if o == nil || IsNil(o.UserAgent) {
+		var ret string
+		return ret
+	}
+	return *o.UserAgent
+}
+
+// GetUserAgentOk returns a tuple with the UserAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetUserAgentOk() (*string, bool) {
+	if o == nil || IsNil(o.UserAgent) {
+		return nil, false
+	}
+	return o.UserAgent, true
+}
+
+// HasUserAgent returns a boolean if a field has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasUserAgent() bool {
+	if o != nil && !IsNil(o.UserAgent) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserAgent gets a reference to the given string and assigns it to the UserAgent field.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetUserAgent(v string) {
+	o.UserAgent = &v
+}
+
+// GetRawEvent returns the RawEvent field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetRawEvent() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.RawEvent
+}
+
+// GetRawEventOk returns a tuple with the RawEvent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetRawEventOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.RawEvent) {
+		return nil, false
+	}
+	return &o.RawEvent, true
+}
+
+// HasRawEvent returns a boolean if a field has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasRawEvent() bool {
+	if o != nil && !IsNil(o.RawEvent) {
+		return true
+	}
+
+	return false
+}
+
+// SetRawEvent gets a reference to the given interface{} and assigns it to the RawEvent field.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetRawEvent(v interface{}) {
+	o.RawEvent = v
+}
+
+// GetEventData returns the EventData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetEventData() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.EventData
+}
+
+// GetEventDataOk returns a tuple with the EventData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetEventDataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.EventData) {
+		return nil, false
+	}
+	return &o.EventData, true
+}
+
+// HasEventData returns a boolean if a field has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasEventData() bool {
+	if o != nil && !IsNil(o.EventData) {
+		return true
+	}
+
+	return false
+}
+
+// SetEventData gets a reference to the given interface{} and assigns it to the EventData field.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetEventData(v interface{}) {
+	o.EventData = v
+}
+
+// GetStatus returns the Status field value
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
+}
+
+// GetOccurredAt returns the OccurredAt field value
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetOccurredAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.OccurredAt
+}
+
+// GetOccurredAtOk returns a tuple with the OccurredAt field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetOccurredAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OccurredAt, true
+}
+
+// SetOccurredAt sets field value
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetOccurredAt(v time.Time) {
+	o.OccurredAt = v
+}
+
+// GetNotificationCreated returns the NotificationCreated field value if set, zero value otherwise.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetNotificationCreated() bool {
+	if o == nil || IsNil(o.NotificationCreated) {
+		var ret bool
+		return ret
+	}
+	return *o.NotificationCreated
+}
+
+// GetNotificationCreatedOk returns a tuple with the NotificationCreated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetNotificationCreatedOk() (*bool, bool) {
+	if o == nil || IsNil(o.NotificationCreated) {
+		return nil, false
+	}
+	return o.NotificationCreated, true
+}
+
+// HasNotificationCreated returns a boolean if a field has been set.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasNotificationCreated() bool {
+	if o != nil && !IsNil(o.NotificationCreated) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotificationCreated gets a reference to the given bool and assigns it to the NotificationCreated field.
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetNotificationCreated(v bool) {
+	o.NotificationCreated = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +575,6 @@ func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetAttributes() WorkspaceWatchdogEvent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret WorkspaceWatchdogEvent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) GetAttributesOk() (*WorkspaceWatchdogEvent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given WorkspaceWatchdogEvent and assigns it to the Attributes field.
-func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) SetAttributes(v WorkspaceWatchdogEvent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +693,46 @@ func (o FindWorkspaceWatchdogEvent200ResponseDataInner) MarshalJSON() ([]byte, e
 
 func (o FindWorkspaceWatchdogEvent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["organisation"] = o.Organisation
+	if !IsNil(o.WorkspaceTenant) {
+		toSerialize["workspace_tenant"] = o.WorkspaceTenant
+	}
+	toSerialize["event_type"] = o.EventType
+	toSerialize["severity"] = o.Severity
+	if !IsNil(o.ActorEmail) {
+		toSerialize["actor_email"] = o.ActorEmail
+	}
+	if !IsNil(o.TargetEmail) {
+		toSerialize["target_email"] = o.TargetEmail
+	}
+	if !IsNil(o.Resource) {
+		toSerialize["resource"] = o.Resource
+	}
+	if !IsNil(o.IpAddress) {
+		toSerialize["ip_address"] = o.IpAddress
+	}
+	if !IsNil(o.UserAgent) {
+		toSerialize["user_agent"] = o.UserAgent
+	}
+	if o.RawEvent != nil {
+		toSerialize["raw_event"] = o.RawEvent
+	}
+	if o.EventData != nil {
+		toSerialize["event_data"] = o.EventData
+	}
+	toSerialize["status"] = o.Status
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
+	toSerialize["occurred_at"] = o.OccurredAt
+	if !IsNil(o.NotificationCreated) {
+		toSerialize["notification_created"] = o.NotificationCreated
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +744,47 @@ func (o FindWorkspaceWatchdogEvent200ResponseDataInner) ToMap() (map[string]inte
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindWorkspaceWatchdogEvent200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organisation",
+		"event_type",
+		"severity",
+		"status",
+		"occurred_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindWorkspaceWatchdogEvent200ResponseDataInner := _FindWorkspaceWatchdogEvent200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindWorkspaceWatchdogEvent200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindWorkspaceWatchdogEvent200ResponseDataInner(varFindWorkspaceWatchdogEvent200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindWorkspaceWatchdogEvent200ResponseDataInner struct {

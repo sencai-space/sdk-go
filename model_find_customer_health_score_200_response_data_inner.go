@@ -21,9 +21,20 @@ var _ MappedNullable = &FindCustomerHealthScore200ResponseDataInner{}
 
 // FindCustomerHealthScore200ResponseDataInner struct for FindCustomerHealthScore200ResponseDataInner
 type FindCustomerHealthScore200ResponseDataInner struct {
+	AdoptionScore *int32 `json:"adoption_score,omitempty"`
+	RiskLevel *string `json:"risk_level,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ActiveFeatures interface{} `json:"active_features,omitempty"`
+	LastLoginDays *int32 `json:"last_login_days,omitempty"`
+	CloudInstancesCount *int32 `json:"cloud_instances_count,omitempty"`
+	AuditEvents30d *int32 `json:"audit_events_30d,omitempty"`
+	OpenIncidentsCount *int32 `json:"open_incidents_count,omitempty"`
+	Trend *string `json:"trend,omitempty"`
+	Notes *string `json:"notes,omitempty"`
+	CalculatedAt *time.Time `json:"calculated_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CustomerHealthScore `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +55,359 @@ func NewFindCustomerHealthScore200ResponseDataInner() *FindCustomerHealthScore20
 func NewFindCustomerHealthScore200ResponseDataInnerWithDefaults() *FindCustomerHealthScore200ResponseDataInner {
 	this := FindCustomerHealthScore200ResponseDataInner{}
 	return &this
+}
+
+// GetAdoptionScore returns the AdoptionScore field value if set, zero value otherwise.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetAdoptionScore() int32 {
+	if o == nil || IsNil(o.AdoptionScore) {
+		var ret int32
+		return ret
+	}
+	return *o.AdoptionScore
+}
+
+// GetAdoptionScoreOk returns a tuple with the AdoptionScore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetAdoptionScoreOk() (*int32, bool) {
+	if o == nil || IsNil(o.AdoptionScore) {
+		return nil, false
+	}
+	return o.AdoptionScore, true
+}
+
+// HasAdoptionScore returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasAdoptionScore() bool {
+	if o != nil && !IsNil(o.AdoptionScore) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdoptionScore gets a reference to the given int32 and assigns it to the AdoptionScore field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetAdoptionScore(v int32) {
+	o.AdoptionScore = &v
+}
+
+// GetRiskLevel returns the RiskLevel field value if set, zero value otherwise.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetRiskLevel() string {
+	if o == nil || IsNil(o.RiskLevel) {
+		var ret string
+		return ret
+	}
+	return *o.RiskLevel
+}
+
+// GetRiskLevelOk returns a tuple with the RiskLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetRiskLevelOk() (*string, bool) {
+	if o == nil || IsNil(o.RiskLevel) {
+		return nil, false
+	}
+	return o.RiskLevel, true
+}
+
+// HasRiskLevel returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasRiskLevel() bool {
+	if o != nil && !IsNil(o.RiskLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetRiskLevel gets a reference to the given string and assigns it to the RiskLevel field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetRiskLevel(v string) {
+	o.RiskLevel = &v
+}
+
+// GetActiveFeatures returns the ActiveFeatures field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCustomerHealthScore200ResponseDataInner) GetActiveFeatures() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ActiveFeatures
+}
+
+// GetActiveFeaturesOk returns a tuple with the ActiveFeatures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCustomerHealthScore200ResponseDataInner) GetActiveFeaturesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ActiveFeatures) {
+		return nil, false
+	}
+	return &o.ActiveFeatures, true
+}
+
+// HasActiveFeatures returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasActiveFeatures() bool {
+	if o != nil && !IsNil(o.ActiveFeatures) {
+		return true
+	}
+
+	return false
+}
+
+// SetActiveFeatures gets a reference to the given interface{} and assigns it to the ActiveFeatures field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetActiveFeatures(v interface{}) {
+	o.ActiveFeatures = v
+}
+
+// GetLastLoginDays returns the LastLoginDays field value if set, zero value otherwise.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetLastLoginDays() int32 {
+	if o == nil || IsNil(o.LastLoginDays) {
+		var ret int32
+		return ret
+	}
+	return *o.LastLoginDays
+}
+
+// GetLastLoginDaysOk returns a tuple with the LastLoginDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetLastLoginDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.LastLoginDays) {
+		return nil, false
+	}
+	return o.LastLoginDays, true
+}
+
+// HasLastLoginDays returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasLastLoginDays() bool {
+	if o != nil && !IsNil(o.LastLoginDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastLoginDays gets a reference to the given int32 and assigns it to the LastLoginDays field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetLastLoginDays(v int32) {
+	o.LastLoginDays = &v
+}
+
+// GetCloudInstancesCount returns the CloudInstancesCount field value if set, zero value otherwise.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetCloudInstancesCount() int32 {
+	if o == nil || IsNil(o.CloudInstancesCount) {
+		var ret int32
+		return ret
+	}
+	return *o.CloudInstancesCount
+}
+
+// GetCloudInstancesCountOk returns a tuple with the CloudInstancesCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetCloudInstancesCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.CloudInstancesCount) {
+		return nil, false
+	}
+	return o.CloudInstancesCount, true
+}
+
+// HasCloudInstancesCount returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasCloudInstancesCount() bool {
+	if o != nil && !IsNil(o.CloudInstancesCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetCloudInstancesCount gets a reference to the given int32 and assigns it to the CloudInstancesCount field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetCloudInstancesCount(v int32) {
+	o.CloudInstancesCount = &v
+}
+
+// GetAuditEvents30d returns the AuditEvents30d field value if set, zero value otherwise.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetAuditEvents30d() int32 {
+	if o == nil || IsNil(o.AuditEvents30d) {
+		var ret int32
+		return ret
+	}
+	return *o.AuditEvents30d
+}
+
+// GetAuditEvents30dOk returns a tuple with the AuditEvents30d field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetAuditEvents30dOk() (*int32, bool) {
+	if o == nil || IsNil(o.AuditEvents30d) {
+		return nil, false
+	}
+	return o.AuditEvents30d, true
+}
+
+// HasAuditEvents30d returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasAuditEvents30d() bool {
+	if o != nil && !IsNil(o.AuditEvents30d) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuditEvents30d gets a reference to the given int32 and assigns it to the AuditEvents30d field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetAuditEvents30d(v int32) {
+	o.AuditEvents30d = &v
+}
+
+// GetOpenIncidentsCount returns the OpenIncidentsCount field value if set, zero value otherwise.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetOpenIncidentsCount() int32 {
+	if o == nil || IsNil(o.OpenIncidentsCount) {
+		var ret int32
+		return ret
+	}
+	return *o.OpenIncidentsCount
+}
+
+// GetOpenIncidentsCountOk returns a tuple with the OpenIncidentsCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetOpenIncidentsCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.OpenIncidentsCount) {
+		return nil, false
+	}
+	return o.OpenIncidentsCount, true
+}
+
+// HasOpenIncidentsCount returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasOpenIncidentsCount() bool {
+	if o != nil && !IsNil(o.OpenIncidentsCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetOpenIncidentsCount gets a reference to the given int32 and assigns it to the OpenIncidentsCount field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetOpenIncidentsCount(v int32) {
+	o.OpenIncidentsCount = &v
+}
+
+// GetTrend returns the Trend field value if set, zero value otherwise.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetTrend() string {
+	if o == nil || IsNil(o.Trend) {
+		var ret string
+		return ret
+	}
+	return *o.Trend
+}
+
+// GetTrendOk returns a tuple with the Trend field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetTrendOk() (*string, bool) {
+	if o == nil || IsNil(o.Trend) {
+		return nil, false
+	}
+	return o.Trend, true
+}
+
+// HasTrend returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasTrend() bool {
+	if o != nil && !IsNil(o.Trend) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrend gets a reference to the given string and assigns it to the Trend field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetTrend(v string) {
+	o.Trend = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
+}
+
+// GetCalculatedAt returns the CalculatedAt field value if set, zero value otherwise.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetCalculatedAt() time.Time {
+	if o == nil || IsNil(o.CalculatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CalculatedAt
+}
+
+// GetCalculatedAtOk returns a tuple with the CalculatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetCalculatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CalculatedAt) {
+		return nil, false
+	}
+	return o.CalculatedAt, true
+}
+
+// HasCalculatedAt returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasCalculatedAt() bool {
+	if o != nil && !IsNil(o.CalculatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCalculatedAt gets a reference to the given time.Time and assigns it to the CalculatedAt field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetCalculatedAt(v time.Time) {
+	o.CalculatedAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCustomerHealthScore200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCustomerHealthScore200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +472,6 @@ func (o *FindCustomerHealthScore200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCustomerHealthScore200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCustomerHealthScore200ResponseDataInner) GetAttributes() CustomerHealthScore {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CustomerHealthScore
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCustomerHealthScore200ResponseDataInner) GetAttributesOk() (*CustomerHealthScore, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCustomerHealthScore200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CustomerHealthScore and assigns it to the Attributes field.
-func (o *FindCustomerHealthScore200ResponseDataInner) SetAttributes(v CustomerHealthScore) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +590,44 @@ func (o FindCustomerHealthScore200ResponseDataInner) MarshalJSON() ([]byte, erro
 
 func (o FindCustomerHealthScore200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AdoptionScore) {
+		toSerialize["adoption_score"] = o.AdoptionScore
+	}
+	if !IsNil(o.RiskLevel) {
+		toSerialize["risk_level"] = o.RiskLevel
+	}
+	if o.ActiveFeatures != nil {
+		toSerialize["active_features"] = o.ActiveFeatures
+	}
+	if !IsNil(o.LastLoginDays) {
+		toSerialize["last_login_days"] = o.LastLoginDays
+	}
+	if !IsNil(o.CloudInstancesCount) {
+		toSerialize["cloud_instances_count"] = o.CloudInstancesCount
+	}
+	if !IsNil(o.AuditEvents30d) {
+		toSerialize["audit_events_30d"] = o.AuditEvents30d
+	}
+	if !IsNil(o.OpenIncidentsCount) {
+		toSerialize["open_incidents_count"] = o.OpenIncidentsCount
+	}
+	if !IsNil(o.Trend) {
+		toSerialize["trend"] = o.Trend
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
+	if !IsNil(o.CalculatedAt) {
+		toSerialize["calculated_at"] = o.CalculatedAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

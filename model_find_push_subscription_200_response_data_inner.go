@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindPushSubscription200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,41 @@ var _ MappedNullable = &FindPushSubscription200ResponseDataInner{}
 
 // FindPushSubscription200ResponseDataInner struct for FindPushSubscription200ResponseDataInner
 type FindPushSubscription200ResponseDataInner struct {
+	// Push service endpoint URL (unique per browser subscription, not a secret, but treated as sensitive since it identifies the device).
+	Endpoint string `json:"endpoint"`
+	// DEPRECATED plaintext field — retained read-only for pre-encryption legacy rows. New writes always go to encrypted_p256dh_key. NEVER returned by the API.
+	P256dhKey *string `json:"p256dh_key,omitempty"`
+	// DEPRECATED plaintext field — retained read-only for pre-encryption legacy rows. New writes always go to encrypted_auth_key. NEVER returned by the API.
+	AuthKey *string `json:"auth_key,omitempty"`
+	// AES-256-GCM encrypted PushSubscription.keys.p256dh (F3.PWA.01) — same iv:authTag:ciphertext:salt format as BYOC cloud-credential (src/utils/credential-crypto.ts). NEVER returned by the API; decrypted only server-side by push-notifier for dispatch.
+	EncryptedP256dhKey *string `json:"encrypted_p256dh_key,omitempty"`
+	// AES-256-GCM encrypted PushSubscription.keys.auth (F3.PWA.01). NEVER returned by the API.
+	EncryptedAuthKey *string `json:"encrypted_auth_key,omitempty"`
+	// Array of subscribed event-type strings. Canonical catalog (F3.CHATOPS.01/F3.PWA.01): 'billing.payment_failed', 'billing.trial_ending', 'cloud-instance.provision_failed', 'alert.fired'. Empty/null = all events.
+	EventFilters interface{} `json:"event_filters,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	// Browser User-Agent at subscribe time — helps the user identify which device/browser a subscription belongs to in settings.
+	UserAgent *string `json:"user_agent,omitempty"`
+	LastSentAt *time.Time `json:"last_sent_at,omitempty"`
+	FailureCount *int32 `json:"failure_count,omitempty"`
+	User *CreateAccessReviewRequestDataReviewer `json:"user,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *PushSubscription `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindPushSubscription200ResponseDataInner FindPushSubscription200ResponseDataInner
+
 // NewFindPushSubscription200ResponseDataInner instantiates a new FindPushSubscription200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindPushSubscription200ResponseDataInner() *FindPushSubscription200ResponseDataInner {
+func NewFindPushSubscription200ResponseDataInner(endpoint string) *FindPushSubscription200ResponseDataInner {
 	this := FindPushSubscription200ResponseDataInner{}
+	this.Endpoint = endpoint
 	return &this
 }
 
@@ -44,6 +67,383 @@ func NewFindPushSubscription200ResponseDataInner() *FindPushSubscription200Respo
 func NewFindPushSubscription200ResponseDataInnerWithDefaults() *FindPushSubscription200ResponseDataInner {
 	this := FindPushSubscription200ResponseDataInner{}
 	return &this
+}
+
+// GetEndpoint returns the Endpoint field value
+func (o *FindPushSubscription200ResponseDataInner) GetEndpoint() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Endpoint
+}
+
+// GetEndpointOk returns a tuple with the Endpoint field value
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetEndpointOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Endpoint, true
+}
+
+// SetEndpoint sets field value
+func (o *FindPushSubscription200ResponseDataInner) SetEndpoint(v string) {
+	o.Endpoint = v
+}
+
+// GetP256dhKey returns the P256dhKey field value if set, zero value otherwise.
+func (o *FindPushSubscription200ResponseDataInner) GetP256dhKey() string {
+	if o == nil || IsNil(o.P256dhKey) {
+		var ret string
+		return ret
+	}
+	return *o.P256dhKey
+}
+
+// GetP256dhKeyOk returns a tuple with the P256dhKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetP256dhKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.P256dhKey) {
+		return nil, false
+	}
+	return o.P256dhKey, true
+}
+
+// HasP256dhKey returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasP256dhKey() bool {
+	if o != nil && !IsNil(o.P256dhKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetP256dhKey gets a reference to the given string and assigns it to the P256dhKey field.
+func (o *FindPushSubscription200ResponseDataInner) SetP256dhKey(v string) {
+	o.P256dhKey = &v
+}
+
+// GetAuthKey returns the AuthKey field value if set, zero value otherwise.
+func (o *FindPushSubscription200ResponseDataInner) GetAuthKey() string {
+	if o == nil || IsNil(o.AuthKey) {
+		var ret string
+		return ret
+	}
+	return *o.AuthKey
+}
+
+// GetAuthKeyOk returns a tuple with the AuthKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetAuthKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.AuthKey) {
+		return nil, false
+	}
+	return o.AuthKey, true
+}
+
+// HasAuthKey returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasAuthKey() bool {
+	if o != nil && !IsNil(o.AuthKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthKey gets a reference to the given string and assigns it to the AuthKey field.
+func (o *FindPushSubscription200ResponseDataInner) SetAuthKey(v string) {
+	o.AuthKey = &v
+}
+
+// GetEncryptedP256dhKey returns the EncryptedP256dhKey field value if set, zero value otherwise.
+func (o *FindPushSubscription200ResponseDataInner) GetEncryptedP256dhKey() string {
+	if o == nil || IsNil(o.EncryptedP256dhKey) {
+		var ret string
+		return ret
+	}
+	return *o.EncryptedP256dhKey
+}
+
+// GetEncryptedP256dhKeyOk returns a tuple with the EncryptedP256dhKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetEncryptedP256dhKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.EncryptedP256dhKey) {
+		return nil, false
+	}
+	return o.EncryptedP256dhKey, true
+}
+
+// HasEncryptedP256dhKey returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasEncryptedP256dhKey() bool {
+	if o != nil && !IsNil(o.EncryptedP256dhKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetEncryptedP256dhKey gets a reference to the given string and assigns it to the EncryptedP256dhKey field.
+func (o *FindPushSubscription200ResponseDataInner) SetEncryptedP256dhKey(v string) {
+	o.EncryptedP256dhKey = &v
+}
+
+// GetEncryptedAuthKey returns the EncryptedAuthKey field value if set, zero value otherwise.
+func (o *FindPushSubscription200ResponseDataInner) GetEncryptedAuthKey() string {
+	if o == nil || IsNil(o.EncryptedAuthKey) {
+		var ret string
+		return ret
+	}
+	return *o.EncryptedAuthKey
+}
+
+// GetEncryptedAuthKeyOk returns a tuple with the EncryptedAuthKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetEncryptedAuthKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.EncryptedAuthKey) {
+		return nil, false
+	}
+	return o.EncryptedAuthKey, true
+}
+
+// HasEncryptedAuthKey returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasEncryptedAuthKey() bool {
+	if o != nil && !IsNil(o.EncryptedAuthKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetEncryptedAuthKey gets a reference to the given string and assigns it to the EncryptedAuthKey field.
+func (o *FindPushSubscription200ResponseDataInner) SetEncryptedAuthKey(v string) {
+	o.EncryptedAuthKey = &v
+}
+
+// GetEventFilters returns the EventFilters field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindPushSubscription200ResponseDataInner) GetEventFilters() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.EventFilters
+}
+
+// GetEventFiltersOk returns a tuple with the EventFilters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindPushSubscription200ResponseDataInner) GetEventFiltersOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.EventFilters) {
+		return nil, false
+	}
+	return &o.EventFilters, true
+}
+
+// HasEventFilters returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasEventFilters() bool {
+	if o != nil && !IsNil(o.EventFilters) {
+		return true
+	}
+
+	return false
+}
+
+// SetEventFilters gets a reference to the given interface{} and assigns it to the EventFilters field.
+func (o *FindPushSubscription200ResponseDataInner) SetEventFilters(v interface{}) {
+	o.EventFilters = v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindPushSubscription200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindPushSubscription200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetUserAgent returns the UserAgent field value if set, zero value otherwise.
+func (o *FindPushSubscription200ResponseDataInner) GetUserAgent() string {
+	if o == nil || IsNil(o.UserAgent) {
+		var ret string
+		return ret
+	}
+	return *o.UserAgent
+}
+
+// GetUserAgentOk returns a tuple with the UserAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetUserAgentOk() (*string, bool) {
+	if o == nil || IsNil(o.UserAgent) {
+		return nil, false
+	}
+	return o.UserAgent, true
+}
+
+// HasUserAgent returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasUserAgent() bool {
+	if o != nil && !IsNil(o.UserAgent) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserAgent gets a reference to the given string and assigns it to the UserAgent field.
+func (o *FindPushSubscription200ResponseDataInner) SetUserAgent(v string) {
+	o.UserAgent = &v
+}
+
+// GetLastSentAt returns the LastSentAt field value if set, zero value otherwise.
+func (o *FindPushSubscription200ResponseDataInner) GetLastSentAt() time.Time {
+	if o == nil || IsNil(o.LastSentAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSentAt
+}
+
+// GetLastSentAtOk returns a tuple with the LastSentAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetLastSentAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSentAt) {
+		return nil, false
+	}
+	return o.LastSentAt, true
+}
+
+// HasLastSentAt returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasLastSentAt() bool {
+	if o != nil && !IsNil(o.LastSentAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSentAt gets a reference to the given time.Time and assigns it to the LastSentAt field.
+func (o *FindPushSubscription200ResponseDataInner) SetLastSentAt(v time.Time) {
+	o.LastSentAt = &v
+}
+
+// GetFailureCount returns the FailureCount field value if set, zero value otherwise.
+func (o *FindPushSubscription200ResponseDataInner) GetFailureCount() int32 {
+	if o == nil || IsNil(o.FailureCount) {
+		var ret int32
+		return ret
+	}
+	return *o.FailureCount
+}
+
+// GetFailureCountOk returns a tuple with the FailureCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetFailureCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.FailureCount) {
+		return nil, false
+	}
+	return o.FailureCount, true
+}
+
+// HasFailureCount returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasFailureCount() bool {
+	if o != nil && !IsNil(o.FailureCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetFailureCount gets a reference to the given int32 and assigns it to the FailureCount field.
+func (o *FindPushSubscription200ResponseDataInner) SetFailureCount(v int32) {
+	o.FailureCount = &v
+}
+
+// GetUser returns the User field value if set, zero value otherwise.
+func (o *FindPushSubscription200ResponseDataInner) GetUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.User) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.User
+}
+
+// GetUserOk returns a tuple with the User field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.User) {
+		return nil, false
+	}
+	return o.User, true
+}
+
+// HasUser returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasUser() bool {
+	if o != nil && !IsNil(o.User) {
+		return true
+	}
+
+	return false
+}
+
+// SetUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the User field.
+func (o *FindPushSubscription200ResponseDataInner) SetUser(v CreateAccessReviewRequestDataReviewer) {
+	o.User = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindPushSubscription200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPushSubscription200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindPushSubscription200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindPushSubscription200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +508,6 @@ func (o *FindPushSubscription200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindPushSubscription200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindPushSubscription200ResponseDataInner) GetAttributes() PushSubscription {
-	if o == nil || IsNil(o.Attributes) {
-		var ret PushSubscription
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindPushSubscription200ResponseDataInner) GetAttributesOk() (*PushSubscription, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindPushSubscription200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given PushSubscription and assigns it to the Attributes field.
-func (o *FindPushSubscription200ResponseDataInner) SetAttributes(v PushSubscription) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +626,45 @@ func (o FindPushSubscription200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindPushSubscription200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["endpoint"] = o.Endpoint
+	if !IsNil(o.P256dhKey) {
+		toSerialize["p256dh_key"] = o.P256dhKey
+	}
+	if !IsNil(o.AuthKey) {
+		toSerialize["auth_key"] = o.AuthKey
+	}
+	if !IsNil(o.EncryptedP256dhKey) {
+		toSerialize["encrypted_p256dh_key"] = o.EncryptedP256dhKey
+	}
+	if !IsNil(o.EncryptedAuthKey) {
+		toSerialize["encrypted_auth_key"] = o.EncryptedAuthKey
+	}
+	if o.EventFilters != nil {
+		toSerialize["event_filters"] = o.EventFilters
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.UserAgent) {
+		toSerialize["user_agent"] = o.UserAgent
+	}
+	if !IsNil(o.LastSentAt) {
+		toSerialize["last_sent_at"] = o.LastSentAt
+	}
+	if !IsNil(o.FailureCount) {
+		toSerialize["failure_count"] = o.FailureCount
+	}
+	if !IsNil(o.User) {
+		toSerialize["user"] = o.User
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +676,43 @@ func (o FindPushSubscription200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindPushSubscription200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"endpoint",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindPushSubscription200ResponseDataInner := _FindPushSubscription200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindPushSubscription200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindPushSubscription200ResponseDataInner(varFindPushSubscription200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindPushSubscription200ResponseDataInner struct {

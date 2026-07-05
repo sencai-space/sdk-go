@@ -33,7 +33,8 @@ type DdosPosture struct {
 	Recommendation *string `json:"recommendation,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
-	ProviderMetadata map[string]interface{} `json:"provider_metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ProviderMetadata interface{} `json:"provider_metadata,omitempty"`
 }
 
 type _DdosPosture DdosPosture
@@ -361,10 +362,10 @@ func (o *DdosPosture) SetCredential(v CreateAccessReviewRequestDataReviewer) {
 	o.Credential = &v
 }
 
-// GetProviderMetadata returns the ProviderMetadata field value if set, zero value otherwise.
-func (o *DdosPosture) GetProviderMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.ProviderMetadata) {
-		var ret map[string]interface{}
+// GetProviderMetadata returns the ProviderMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DdosPosture) GetProviderMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ProviderMetadata
@@ -372,11 +373,12 @@ func (o *DdosPosture) GetProviderMetadata() map[string]interface{} {
 
 // GetProviderMetadataOk returns a tuple with the ProviderMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DdosPosture) GetProviderMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DdosPosture) GetProviderMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ProviderMetadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ProviderMetadata, true
+	return &o.ProviderMetadata, true
 }
 
 // HasProviderMetadata returns a boolean if a field has been set.
@@ -388,8 +390,8 @@ func (o *DdosPosture) HasProviderMetadata() bool {
 	return false
 }
 
-// SetProviderMetadata gets a reference to the given map[string]interface{} and assigns it to the ProviderMetadata field.
-func (o *DdosPosture) SetProviderMetadata(v map[string]interface{}) {
+// SetProviderMetadata gets a reference to the given interface{} and assigns it to the ProviderMetadata field.
+func (o *DdosPosture) SetProviderMetadata(v interface{}) {
 	o.ProviderMetadata = v
 }
 
@@ -429,7 +431,7 @@ func (o DdosPosture) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Credential) {
 		toSerialize["credential"] = o.Credential
 	}
-	if !IsNil(o.ProviderMetadata) {
+	if o.ProviderMetadata != nil {
 		toSerialize["provider_metadata"] = o.ProviderMetadata
 	}
 	return toSerialize, nil

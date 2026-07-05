@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSlaReport200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,38 @@ var _ MappedNullable = &FindSlaReport200ResponseDataInner{}
 
 // FindSlaReport200ResponseDataInner struct for FindSlaReport200ResponseDataInner
 type FindSlaReport200ResponseDataInner struct {
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	PeriodStart time.Time `json:"period_start"`
+	PeriodEnd time.Time `json:"period_end"`
+	UptimePercentage *float32 `json:"uptime_percentage,omitempty"`
+	P1ResponseAvgMinutes *float32 `json:"p1_response_avg_minutes,omitempty"`
+	P2ResponseAvgMinutes *float32 `json:"p2_response_avg_minutes,omitempty"`
+	P3ResponseAvgMinutes *float32 `json:"p3_response_avg_minutes,omitempty"`
+	TotalIncidents *int32 `json:"total_incidents,omitempty"`
+	P1Incidents *int32 `json:"p1_incidents,omitempty"`
+	SlaBreached *bool `json:"sla_breached,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	BreachDetails interface{} `json:"breach_details,omitempty"`
+	CreditPercentage *float32 `json:"credit_percentage,omitempty"`
+	PdfUrl *string `json:"pdf_url,omitempty"`
+	Status *string `json:"status,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SlaReport `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSlaReport200ResponseDataInner FindSlaReport200ResponseDataInner
+
 // NewFindSlaReport200ResponseDataInner instantiates a new FindSlaReport200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSlaReport200ResponseDataInner() *FindSlaReport200ResponseDataInner {
+func NewFindSlaReport200ResponseDataInner(periodStart time.Time, periodEnd time.Time) *FindSlaReport200ResponseDataInner {
 	this := FindSlaReport200ResponseDataInner{}
+	this.PeriodStart = periodStart
+	this.PeriodEnd = periodEnd
 	return &this
 }
 
@@ -44,6 +64,439 @@ func NewFindSlaReport200ResponseDataInner() *FindSlaReport200ResponseDataInner {
 func NewFindSlaReport200ResponseDataInnerWithDefaults() *FindSlaReport200ResponseDataInner {
 	this := FindSlaReport200ResponseDataInner{}
 	return &this
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSlaReport200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetPeriodStart returns the PeriodStart field value
+func (o *FindSlaReport200ResponseDataInner) GetPeriodStart() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.PeriodStart
+}
+
+// GetPeriodStartOk returns a tuple with the PeriodStart field value
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetPeriodStartOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PeriodStart, true
+}
+
+// SetPeriodStart sets field value
+func (o *FindSlaReport200ResponseDataInner) SetPeriodStart(v time.Time) {
+	o.PeriodStart = v
+}
+
+// GetPeriodEnd returns the PeriodEnd field value
+func (o *FindSlaReport200ResponseDataInner) GetPeriodEnd() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.PeriodEnd
+}
+
+// GetPeriodEndOk returns a tuple with the PeriodEnd field value
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetPeriodEndOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PeriodEnd, true
+}
+
+// SetPeriodEnd sets field value
+func (o *FindSlaReport200ResponseDataInner) SetPeriodEnd(v time.Time) {
+	o.PeriodEnd = v
+}
+
+// GetUptimePercentage returns the UptimePercentage field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetUptimePercentage() float32 {
+	if o == nil || IsNil(o.UptimePercentage) {
+		var ret float32
+		return ret
+	}
+	return *o.UptimePercentage
+}
+
+// GetUptimePercentageOk returns a tuple with the UptimePercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetUptimePercentageOk() (*float32, bool) {
+	if o == nil || IsNil(o.UptimePercentage) {
+		return nil, false
+	}
+	return o.UptimePercentage, true
+}
+
+// HasUptimePercentage returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasUptimePercentage() bool {
+	if o != nil && !IsNil(o.UptimePercentage) {
+		return true
+	}
+
+	return false
+}
+
+// SetUptimePercentage gets a reference to the given float32 and assigns it to the UptimePercentage field.
+func (o *FindSlaReport200ResponseDataInner) SetUptimePercentage(v float32) {
+	o.UptimePercentage = &v
+}
+
+// GetP1ResponseAvgMinutes returns the P1ResponseAvgMinutes field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetP1ResponseAvgMinutes() float32 {
+	if o == nil || IsNil(o.P1ResponseAvgMinutes) {
+		var ret float32
+		return ret
+	}
+	return *o.P1ResponseAvgMinutes
+}
+
+// GetP1ResponseAvgMinutesOk returns a tuple with the P1ResponseAvgMinutes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetP1ResponseAvgMinutesOk() (*float32, bool) {
+	if o == nil || IsNil(o.P1ResponseAvgMinutes) {
+		return nil, false
+	}
+	return o.P1ResponseAvgMinutes, true
+}
+
+// HasP1ResponseAvgMinutes returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasP1ResponseAvgMinutes() bool {
+	if o != nil && !IsNil(o.P1ResponseAvgMinutes) {
+		return true
+	}
+
+	return false
+}
+
+// SetP1ResponseAvgMinutes gets a reference to the given float32 and assigns it to the P1ResponseAvgMinutes field.
+func (o *FindSlaReport200ResponseDataInner) SetP1ResponseAvgMinutes(v float32) {
+	o.P1ResponseAvgMinutes = &v
+}
+
+// GetP2ResponseAvgMinutes returns the P2ResponseAvgMinutes field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetP2ResponseAvgMinutes() float32 {
+	if o == nil || IsNil(o.P2ResponseAvgMinutes) {
+		var ret float32
+		return ret
+	}
+	return *o.P2ResponseAvgMinutes
+}
+
+// GetP2ResponseAvgMinutesOk returns a tuple with the P2ResponseAvgMinutes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetP2ResponseAvgMinutesOk() (*float32, bool) {
+	if o == nil || IsNil(o.P2ResponseAvgMinutes) {
+		return nil, false
+	}
+	return o.P2ResponseAvgMinutes, true
+}
+
+// HasP2ResponseAvgMinutes returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasP2ResponseAvgMinutes() bool {
+	if o != nil && !IsNil(o.P2ResponseAvgMinutes) {
+		return true
+	}
+
+	return false
+}
+
+// SetP2ResponseAvgMinutes gets a reference to the given float32 and assigns it to the P2ResponseAvgMinutes field.
+func (o *FindSlaReport200ResponseDataInner) SetP2ResponseAvgMinutes(v float32) {
+	o.P2ResponseAvgMinutes = &v
+}
+
+// GetP3ResponseAvgMinutes returns the P3ResponseAvgMinutes field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetP3ResponseAvgMinutes() float32 {
+	if o == nil || IsNil(o.P3ResponseAvgMinutes) {
+		var ret float32
+		return ret
+	}
+	return *o.P3ResponseAvgMinutes
+}
+
+// GetP3ResponseAvgMinutesOk returns a tuple with the P3ResponseAvgMinutes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetP3ResponseAvgMinutesOk() (*float32, bool) {
+	if o == nil || IsNil(o.P3ResponseAvgMinutes) {
+		return nil, false
+	}
+	return o.P3ResponseAvgMinutes, true
+}
+
+// HasP3ResponseAvgMinutes returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasP3ResponseAvgMinutes() bool {
+	if o != nil && !IsNil(o.P3ResponseAvgMinutes) {
+		return true
+	}
+
+	return false
+}
+
+// SetP3ResponseAvgMinutes gets a reference to the given float32 and assigns it to the P3ResponseAvgMinutes field.
+func (o *FindSlaReport200ResponseDataInner) SetP3ResponseAvgMinutes(v float32) {
+	o.P3ResponseAvgMinutes = &v
+}
+
+// GetTotalIncidents returns the TotalIncidents field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetTotalIncidents() int32 {
+	if o == nil || IsNil(o.TotalIncidents) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalIncidents
+}
+
+// GetTotalIncidentsOk returns a tuple with the TotalIncidents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetTotalIncidentsOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalIncidents) {
+		return nil, false
+	}
+	return o.TotalIncidents, true
+}
+
+// HasTotalIncidents returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasTotalIncidents() bool {
+	if o != nil && !IsNil(o.TotalIncidents) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalIncidents gets a reference to the given int32 and assigns it to the TotalIncidents field.
+func (o *FindSlaReport200ResponseDataInner) SetTotalIncidents(v int32) {
+	o.TotalIncidents = &v
+}
+
+// GetP1Incidents returns the P1Incidents field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetP1Incidents() int32 {
+	if o == nil || IsNil(o.P1Incidents) {
+		var ret int32
+		return ret
+	}
+	return *o.P1Incidents
+}
+
+// GetP1IncidentsOk returns a tuple with the P1Incidents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetP1IncidentsOk() (*int32, bool) {
+	if o == nil || IsNil(o.P1Incidents) {
+		return nil, false
+	}
+	return o.P1Incidents, true
+}
+
+// HasP1Incidents returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasP1Incidents() bool {
+	if o != nil && !IsNil(o.P1Incidents) {
+		return true
+	}
+
+	return false
+}
+
+// SetP1Incidents gets a reference to the given int32 and assigns it to the P1Incidents field.
+func (o *FindSlaReport200ResponseDataInner) SetP1Incidents(v int32) {
+	o.P1Incidents = &v
+}
+
+// GetSlaBreached returns the SlaBreached field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetSlaBreached() bool {
+	if o == nil || IsNil(o.SlaBreached) {
+		var ret bool
+		return ret
+	}
+	return *o.SlaBreached
+}
+
+// GetSlaBreachedOk returns a tuple with the SlaBreached field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetSlaBreachedOk() (*bool, bool) {
+	if o == nil || IsNil(o.SlaBreached) {
+		return nil, false
+	}
+	return o.SlaBreached, true
+}
+
+// HasSlaBreached returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasSlaBreached() bool {
+	if o != nil && !IsNil(o.SlaBreached) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlaBreached gets a reference to the given bool and assigns it to the SlaBreached field.
+func (o *FindSlaReport200ResponseDataInner) SetSlaBreached(v bool) {
+	o.SlaBreached = &v
+}
+
+// GetBreachDetails returns the BreachDetails field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindSlaReport200ResponseDataInner) GetBreachDetails() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.BreachDetails
+}
+
+// GetBreachDetailsOk returns a tuple with the BreachDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindSlaReport200ResponseDataInner) GetBreachDetailsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.BreachDetails) {
+		return nil, false
+	}
+	return &o.BreachDetails, true
+}
+
+// HasBreachDetails returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasBreachDetails() bool {
+	if o != nil && !IsNil(o.BreachDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetBreachDetails gets a reference to the given interface{} and assigns it to the BreachDetails field.
+func (o *FindSlaReport200ResponseDataInner) SetBreachDetails(v interface{}) {
+	o.BreachDetails = v
+}
+
+// GetCreditPercentage returns the CreditPercentage field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetCreditPercentage() float32 {
+	if o == nil || IsNil(o.CreditPercentage) {
+		var ret float32
+		return ret
+	}
+	return *o.CreditPercentage
+}
+
+// GetCreditPercentageOk returns a tuple with the CreditPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetCreditPercentageOk() (*float32, bool) {
+	if o == nil || IsNil(o.CreditPercentage) {
+		return nil, false
+	}
+	return o.CreditPercentage, true
+}
+
+// HasCreditPercentage returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasCreditPercentage() bool {
+	if o != nil && !IsNil(o.CreditPercentage) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreditPercentage gets a reference to the given float32 and assigns it to the CreditPercentage field.
+func (o *FindSlaReport200ResponseDataInner) SetCreditPercentage(v float32) {
+	o.CreditPercentage = &v
+}
+
+// GetPdfUrl returns the PdfUrl field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetPdfUrl() string {
+	if o == nil || IsNil(o.PdfUrl) {
+		var ret string
+		return ret
+	}
+	return *o.PdfUrl
+}
+
+// GetPdfUrlOk returns a tuple with the PdfUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetPdfUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.PdfUrl) {
+		return nil, false
+	}
+	return o.PdfUrl, true
+}
+
+// HasPdfUrl returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasPdfUrl() bool {
+	if o != nil && !IsNil(o.PdfUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetPdfUrl gets a reference to the given string and assigns it to the PdfUrl field.
+func (o *FindSlaReport200ResponseDataInner) SetPdfUrl(v string) {
+	o.PdfUrl = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindSlaReport200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaReport200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindSlaReport200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindSlaReport200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +561,6 @@ func (o *FindSlaReport200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSlaReport200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSlaReport200ResponseDataInner) GetAttributes() SlaReport {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SlaReport
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSlaReport200ResponseDataInner) GetAttributesOk() (*SlaReport, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSlaReport200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SlaReport and assigns it to the Attributes field.
-func (o *FindSlaReport200ResponseDataInner) SetAttributes(v SlaReport) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +679,49 @@ func (o FindSlaReport200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindSlaReport200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	toSerialize["period_start"] = o.PeriodStart
+	toSerialize["period_end"] = o.PeriodEnd
+	if !IsNil(o.UptimePercentage) {
+		toSerialize["uptime_percentage"] = o.UptimePercentage
+	}
+	if !IsNil(o.P1ResponseAvgMinutes) {
+		toSerialize["p1_response_avg_minutes"] = o.P1ResponseAvgMinutes
+	}
+	if !IsNil(o.P2ResponseAvgMinutes) {
+		toSerialize["p2_response_avg_minutes"] = o.P2ResponseAvgMinutes
+	}
+	if !IsNil(o.P3ResponseAvgMinutes) {
+		toSerialize["p3_response_avg_minutes"] = o.P3ResponseAvgMinutes
+	}
+	if !IsNil(o.TotalIncidents) {
+		toSerialize["total_incidents"] = o.TotalIncidents
+	}
+	if !IsNil(o.P1Incidents) {
+		toSerialize["p1_incidents"] = o.P1Incidents
+	}
+	if !IsNil(o.SlaBreached) {
+		toSerialize["sla_breached"] = o.SlaBreached
+	}
+	if o.BreachDetails != nil {
+		toSerialize["breach_details"] = o.BreachDetails
+	}
+	if !IsNil(o.CreditPercentage) {
+		toSerialize["credit_percentage"] = o.CreditPercentage
+	}
+	if !IsNil(o.PdfUrl) {
+		toSerialize["pdf_url"] = o.PdfUrl
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +733,44 @@ func (o FindSlaReport200ResponseDataInner) ToMap() (map[string]interface{}, erro
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSlaReport200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"period_start",
+		"period_end",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSlaReport200ResponseDataInner := _FindSlaReport200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSlaReport200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSlaReport200ResponseDataInner(varFindSlaReport200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSlaReport200ResponseDataInner struct {

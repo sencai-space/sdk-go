@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCapacityForecast200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,33 @@ var _ MappedNullable = &FindCapacityForecast200ResponseDataInner{}
 
 // FindCapacityForecast200ResponseDataInner struct for FindCapacityForecast200ResponseDataInner
 type FindCapacityForecast200ResponseDataInner struct {
+	Service string `json:"service"`
+	MetricType string `json:"metric_type"`
+	CurrentUsage *float32 `json:"current_usage,omitempty"`
+	PredictedPeak *float32 `json:"predicted_peak,omitempty"`
+	RecommendedSize *string `json:"recommended_size,omitempty"`
+	Confidence *float32 `json:"confidence,omitempty"`
+	ForecastHorizonDays *int32 `json:"forecast_horizon_days,omitempty"`
+	ModelType *string `json:"model_type,omitempty"`
+	TrendDirection *string `json:"trend_direction,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CapacityForecast `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCapacityForecast200ResponseDataInner FindCapacityForecast200ResponseDataInner
+
 // NewFindCapacityForecast200ResponseDataInner instantiates a new FindCapacityForecast200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCapacityForecast200ResponseDataInner() *FindCapacityForecast200ResponseDataInner {
+func NewFindCapacityForecast200ResponseDataInner(service string, metricType string) *FindCapacityForecast200ResponseDataInner {
 	this := FindCapacityForecast200ResponseDataInner{}
+	this.Service = service
+	this.MetricType = metricType
 	return &this
 }
 
@@ -44,6 +59,310 @@ func NewFindCapacityForecast200ResponseDataInner() *FindCapacityForecast200Respo
 func NewFindCapacityForecast200ResponseDataInnerWithDefaults() *FindCapacityForecast200ResponseDataInner {
 	this := FindCapacityForecast200ResponseDataInner{}
 	return &this
+}
+
+// GetService returns the Service field value
+func (o *FindCapacityForecast200ResponseDataInner) GetService() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Service
+}
+
+// GetServiceOk returns a tuple with the Service field value
+// and a boolean to check if the value has been set.
+func (o *FindCapacityForecast200ResponseDataInner) GetServiceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Service, true
+}
+
+// SetService sets field value
+func (o *FindCapacityForecast200ResponseDataInner) SetService(v string) {
+	o.Service = v
+}
+
+// GetMetricType returns the MetricType field value
+func (o *FindCapacityForecast200ResponseDataInner) GetMetricType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.MetricType
+}
+
+// GetMetricTypeOk returns a tuple with the MetricType field value
+// and a boolean to check if the value has been set.
+func (o *FindCapacityForecast200ResponseDataInner) GetMetricTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MetricType, true
+}
+
+// SetMetricType sets field value
+func (o *FindCapacityForecast200ResponseDataInner) SetMetricType(v string) {
+	o.MetricType = v
+}
+
+// GetCurrentUsage returns the CurrentUsage field value if set, zero value otherwise.
+func (o *FindCapacityForecast200ResponseDataInner) GetCurrentUsage() float32 {
+	if o == nil || IsNil(o.CurrentUsage) {
+		var ret float32
+		return ret
+	}
+	return *o.CurrentUsage
+}
+
+// GetCurrentUsageOk returns a tuple with the CurrentUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCapacityForecast200ResponseDataInner) GetCurrentUsageOk() (*float32, bool) {
+	if o == nil || IsNil(o.CurrentUsage) {
+		return nil, false
+	}
+	return o.CurrentUsage, true
+}
+
+// HasCurrentUsage returns a boolean if a field has been set.
+func (o *FindCapacityForecast200ResponseDataInner) HasCurrentUsage() bool {
+	if o != nil && !IsNil(o.CurrentUsage) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentUsage gets a reference to the given float32 and assigns it to the CurrentUsage field.
+func (o *FindCapacityForecast200ResponseDataInner) SetCurrentUsage(v float32) {
+	o.CurrentUsage = &v
+}
+
+// GetPredictedPeak returns the PredictedPeak field value if set, zero value otherwise.
+func (o *FindCapacityForecast200ResponseDataInner) GetPredictedPeak() float32 {
+	if o == nil || IsNil(o.PredictedPeak) {
+		var ret float32
+		return ret
+	}
+	return *o.PredictedPeak
+}
+
+// GetPredictedPeakOk returns a tuple with the PredictedPeak field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCapacityForecast200ResponseDataInner) GetPredictedPeakOk() (*float32, bool) {
+	if o == nil || IsNil(o.PredictedPeak) {
+		return nil, false
+	}
+	return o.PredictedPeak, true
+}
+
+// HasPredictedPeak returns a boolean if a field has been set.
+func (o *FindCapacityForecast200ResponseDataInner) HasPredictedPeak() bool {
+	if o != nil && !IsNil(o.PredictedPeak) {
+		return true
+	}
+
+	return false
+}
+
+// SetPredictedPeak gets a reference to the given float32 and assigns it to the PredictedPeak field.
+func (o *FindCapacityForecast200ResponseDataInner) SetPredictedPeak(v float32) {
+	o.PredictedPeak = &v
+}
+
+// GetRecommendedSize returns the RecommendedSize field value if set, zero value otherwise.
+func (o *FindCapacityForecast200ResponseDataInner) GetRecommendedSize() string {
+	if o == nil || IsNil(o.RecommendedSize) {
+		var ret string
+		return ret
+	}
+	return *o.RecommendedSize
+}
+
+// GetRecommendedSizeOk returns a tuple with the RecommendedSize field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCapacityForecast200ResponseDataInner) GetRecommendedSizeOk() (*string, bool) {
+	if o == nil || IsNil(o.RecommendedSize) {
+		return nil, false
+	}
+	return o.RecommendedSize, true
+}
+
+// HasRecommendedSize returns a boolean if a field has been set.
+func (o *FindCapacityForecast200ResponseDataInner) HasRecommendedSize() bool {
+	if o != nil && !IsNil(o.RecommendedSize) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecommendedSize gets a reference to the given string and assigns it to the RecommendedSize field.
+func (o *FindCapacityForecast200ResponseDataInner) SetRecommendedSize(v string) {
+	o.RecommendedSize = &v
+}
+
+// GetConfidence returns the Confidence field value if set, zero value otherwise.
+func (o *FindCapacityForecast200ResponseDataInner) GetConfidence() float32 {
+	if o == nil || IsNil(o.Confidence) {
+		var ret float32
+		return ret
+	}
+	return *o.Confidence
+}
+
+// GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCapacityForecast200ResponseDataInner) GetConfidenceOk() (*float32, bool) {
+	if o == nil || IsNil(o.Confidence) {
+		return nil, false
+	}
+	return o.Confidence, true
+}
+
+// HasConfidence returns a boolean if a field has been set.
+func (o *FindCapacityForecast200ResponseDataInner) HasConfidence() bool {
+	if o != nil && !IsNil(o.Confidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfidence gets a reference to the given float32 and assigns it to the Confidence field.
+func (o *FindCapacityForecast200ResponseDataInner) SetConfidence(v float32) {
+	o.Confidence = &v
+}
+
+// GetForecastHorizonDays returns the ForecastHorizonDays field value if set, zero value otherwise.
+func (o *FindCapacityForecast200ResponseDataInner) GetForecastHorizonDays() int32 {
+	if o == nil || IsNil(o.ForecastHorizonDays) {
+		var ret int32
+		return ret
+	}
+	return *o.ForecastHorizonDays
+}
+
+// GetForecastHorizonDaysOk returns a tuple with the ForecastHorizonDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCapacityForecast200ResponseDataInner) GetForecastHorizonDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.ForecastHorizonDays) {
+		return nil, false
+	}
+	return o.ForecastHorizonDays, true
+}
+
+// HasForecastHorizonDays returns a boolean if a field has been set.
+func (o *FindCapacityForecast200ResponseDataInner) HasForecastHorizonDays() bool {
+	if o != nil && !IsNil(o.ForecastHorizonDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetForecastHorizonDays gets a reference to the given int32 and assigns it to the ForecastHorizonDays field.
+func (o *FindCapacityForecast200ResponseDataInner) SetForecastHorizonDays(v int32) {
+	o.ForecastHorizonDays = &v
+}
+
+// GetModelType returns the ModelType field value if set, zero value otherwise.
+func (o *FindCapacityForecast200ResponseDataInner) GetModelType() string {
+	if o == nil || IsNil(o.ModelType) {
+		var ret string
+		return ret
+	}
+	return *o.ModelType
+}
+
+// GetModelTypeOk returns a tuple with the ModelType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCapacityForecast200ResponseDataInner) GetModelTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ModelType) {
+		return nil, false
+	}
+	return o.ModelType, true
+}
+
+// HasModelType returns a boolean if a field has been set.
+func (o *FindCapacityForecast200ResponseDataInner) HasModelType() bool {
+	if o != nil && !IsNil(o.ModelType) {
+		return true
+	}
+
+	return false
+}
+
+// SetModelType gets a reference to the given string and assigns it to the ModelType field.
+func (o *FindCapacityForecast200ResponseDataInner) SetModelType(v string) {
+	o.ModelType = &v
+}
+
+// GetTrendDirection returns the TrendDirection field value if set, zero value otherwise.
+func (o *FindCapacityForecast200ResponseDataInner) GetTrendDirection() string {
+	if o == nil || IsNil(o.TrendDirection) {
+		var ret string
+		return ret
+	}
+	return *o.TrendDirection
+}
+
+// GetTrendDirectionOk returns a tuple with the TrendDirection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCapacityForecast200ResponseDataInner) GetTrendDirectionOk() (*string, bool) {
+	if o == nil || IsNil(o.TrendDirection) {
+		return nil, false
+	}
+	return o.TrendDirection, true
+}
+
+// HasTrendDirection returns a boolean if a field has been set.
+func (o *FindCapacityForecast200ResponseDataInner) HasTrendDirection() bool {
+	if o != nil && !IsNil(o.TrendDirection) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrendDirection gets a reference to the given string and assigns it to the TrendDirection field.
+func (o *FindCapacityForecast200ResponseDataInner) SetTrendDirection(v string) {
+	o.TrendDirection = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCapacityForecast200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCapacityForecast200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCapacityForecast200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCapacityForecast200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +427,6 @@ func (o *FindCapacityForecast200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCapacityForecast200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCapacityForecast200ResponseDataInner) GetAttributes() CapacityForecast {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CapacityForecast
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCapacityForecast200ResponseDataInner) GetAttributesOk() (*CapacityForecast, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCapacityForecast200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CapacityForecast and assigns it to the Attributes field.
-func (o *FindCapacityForecast200ResponseDataInner) SetAttributes(v CapacityForecast) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +545,37 @@ func (o FindCapacityForecast200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindCapacityForecast200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["service"] = o.Service
+	toSerialize["metric_type"] = o.MetricType
+	if !IsNil(o.CurrentUsage) {
+		toSerialize["current_usage"] = o.CurrentUsage
+	}
+	if !IsNil(o.PredictedPeak) {
+		toSerialize["predicted_peak"] = o.PredictedPeak
+	}
+	if !IsNil(o.RecommendedSize) {
+		toSerialize["recommended_size"] = o.RecommendedSize
+	}
+	if !IsNil(o.Confidence) {
+		toSerialize["confidence"] = o.Confidence
+	}
+	if !IsNil(o.ForecastHorizonDays) {
+		toSerialize["forecast_horizon_days"] = o.ForecastHorizonDays
+	}
+	if !IsNil(o.ModelType) {
+		toSerialize["model_type"] = o.ModelType
+	}
+	if !IsNil(o.TrendDirection) {
+		toSerialize["trend_direction"] = o.TrendDirection
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +587,44 @@ func (o FindCapacityForecast200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCapacityForecast200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"service",
+		"metric_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCapacityForecast200ResponseDataInner := _FindCapacityForecast200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCapacityForecast200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCapacityForecast200ResponseDataInner(varFindCapacityForecast200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCapacityForecast200ResponseDataInner struct {

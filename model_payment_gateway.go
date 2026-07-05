@@ -31,7 +31,8 @@ type PaymentGateway struct {
 	StripeSessionId *string `json:"stripe_session_id,omitempty"`
 	StripePaymentIntentId *string `json:"stripe_payment_intent_id,omitempty"`
 	TransactionId *string `json:"transaction_id,omitempty"`
-	GatewayResponse map[string]interface{} `json:"gateway_response,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	GatewayResponse interface{} `json:"gateway_response,omitempty"`
 	ErrorMessage *string `json:"error_message,omitempty"`
 	ProcessedAt *time.Time `json:"processed_at,omitempty"`
 	RefundedAt *time.Time `json:"refunded_at,omitempty"`
@@ -285,10 +286,10 @@ func (o *PaymentGateway) SetTransactionId(v string) {
 	o.TransactionId = &v
 }
 
-// GetGatewayResponse returns the GatewayResponse field value if set, zero value otherwise.
-func (o *PaymentGateway) GetGatewayResponse() map[string]interface{} {
-	if o == nil || IsNil(o.GatewayResponse) {
-		var ret map[string]interface{}
+// GetGatewayResponse returns the GatewayResponse field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PaymentGateway) GetGatewayResponse() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.GatewayResponse
@@ -296,11 +297,12 @@ func (o *PaymentGateway) GetGatewayResponse() map[string]interface{} {
 
 // GetGatewayResponseOk returns a tuple with the GatewayResponse field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentGateway) GetGatewayResponseOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentGateway) GetGatewayResponseOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.GatewayResponse) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.GatewayResponse, true
+	return &o.GatewayResponse, true
 }
 
 // HasGatewayResponse returns a boolean if a field has been set.
@@ -312,8 +314,8 @@ func (o *PaymentGateway) HasGatewayResponse() bool {
 	return false
 }
 
-// SetGatewayResponse gets a reference to the given map[string]interface{} and assigns it to the GatewayResponse field.
-func (o *PaymentGateway) SetGatewayResponse(v map[string]interface{}) {
+// SetGatewayResponse gets a reference to the given interface{} and assigns it to the GatewayResponse field.
+func (o *PaymentGateway) SetGatewayResponse(v interface{}) {
 	o.GatewayResponse = v
 }
 
@@ -471,7 +473,7 @@ func (o PaymentGateway) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TransactionId) {
 		toSerialize["transaction_id"] = o.TransactionId
 	}
-	if !IsNil(o.GatewayResponse) {
+	if o.GatewayResponse != nil {
 		toSerialize["gateway_response"] = o.GatewayResponse
 	}
 	if !IsNil(o.ErrorMessage) {

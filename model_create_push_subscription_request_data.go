@@ -34,7 +34,7 @@ type CreatePushSubscriptionRequestData struct {
 	// AES-256-GCM encrypted PushSubscription.keys.auth (F3.PWA.01). NEVER returned by the API.
 	EncryptedAuthKey *string `json:"encrypted_auth_key,omitempty"`
 	// Array of subscribed event-type strings. Canonical catalog (F3.CHATOPS.01/F3.PWA.01): 'billing.payment_failed', 'billing.trial_ending', 'cloud-instance.provision_failed', 'alert.fired'. Empty/null = all events.
-	EventFilters map[string]interface{} `json:"event_filters,omitempty"`
+	EventFilters interface{} `json:"event_filters,omitempty"`
 	Enabled *bool `json:"enabled,omitempty"`
 	// Browser User-Agent at subscribe time — helps the user identify which device/browser a subscription belongs to in settings.
 	UserAgent *string `json:"user_agent,omitempty"`
@@ -216,10 +216,10 @@ func (o *CreatePushSubscriptionRequestData) SetEncryptedAuthKey(v string) {
 	o.EncryptedAuthKey = &v
 }
 
-// GetEventFilters returns the EventFilters field value if set, zero value otherwise.
-func (o *CreatePushSubscriptionRequestData) GetEventFilters() map[string]interface{} {
-	if o == nil || IsNil(o.EventFilters) {
-		var ret map[string]interface{}
+// GetEventFilters returns the EventFilters field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreatePushSubscriptionRequestData) GetEventFilters() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.EventFilters
@@ -227,11 +227,12 @@ func (o *CreatePushSubscriptionRequestData) GetEventFilters() map[string]interfa
 
 // GetEventFiltersOk returns a tuple with the EventFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePushSubscriptionRequestData) GetEventFiltersOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreatePushSubscriptionRequestData) GetEventFiltersOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.EventFilters) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.EventFilters, true
+	return &o.EventFilters, true
 }
 
 // HasEventFilters returns a boolean if a field has been set.
@@ -243,8 +244,8 @@ func (o *CreatePushSubscriptionRequestData) HasEventFilters() bool {
 	return false
 }
 
-// SetEventFilters gets a reference to the given map[string]interface{} and assigns it to the EventFilters field.
-func (o *CreatePushSubscriptionRequestData) SetEventFilters(v map[string]interface{}) {
+// SetEventFilters gets a reference to the given interface{} and assigns it to the EventFilters field.
+func (o *CreatePushSubscriptionRequestData) SetEventFilters(v interface{}) {
 	o.EventFilters = v
 }
 
@@ -463,7 +464,7 @@ func (o CreatePushSubscriptionRequestData) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.EncryptedAuthKey) {
 		toSerialize["encrypted_auth_key"] = o.EncryptedAuthKey
 	}
-	if !IsNil(o.EventFilters) {
+	if o.EventFilters != nil {
 		toSerialize["event_filters"] = o.EventFilters
 	}
 	if !IsNil(o.Enabled) {

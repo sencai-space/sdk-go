@@ -26,12 +26,14 @@ type CustomerWebhook struct {
 	Name string `json:"name"`
 	Url string `json:"url"`
 	Secret *string `json:"secret,omitempty"`
-	Events map[string]interface{} `json:"events,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Events interface{} `json:"events,omitempty"`
 	IsActive *bool `json:"is_active,omitempty"`
 	LastDeliveryAt *time.Time `json:"last_delivery_at,omitempty"`
 	FailureCount *int32 `json:"failure_count,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 }
 
 type _CustomerWebhook CustomerWebhook
@@ -135,10 +137,10 @@ func (o *CustomerWebhook) SetSecret(v string) {
 	o.Secret = &v
 }
 
-// GetEvents returns the Events field value if set, zero value otherwise.
-func (o *CustomerWebhook) GetEvents() map[string]interface{} {
-	if o == nil || IsNil(o.Events) {
-		var ret map[string]interface{}
+// GetEvents returns the Events field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CustomerWebhook) GetEvents() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Events
@@ -146,11 +148,12 @@ func (o *CustomerWebhook) GetEvents() map[string]interface{} {
 
 // GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CustomerWebhook) GetEventsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CustomerWebhook) GetEventsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Events) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Events, true
+	return &o.Events, true
 }
 
 // HasEvents returns a boolean if a field has been set.
@@ -162,8 +165,8 @@ func (o *CustomerWebhook) HasEvents() bool {
 	return false
 }
 
-// SetEvents gets a reference to the given map[string]interface{} and assigns it to the Events field.
-func (o *CustomerWebhook) SetEvents(v map[string]interface{}) {
+// SetEvents gets a reference to the given interface{} and assigns it to the Events field.
+func (o *CustomerWebhook) SetEvents(v interface{}) {
 	o.Events = v
 }
 
@@ -295,10 +298,10 @@ func (o *CustomerWebhook) SetOrganisation(v CreateAccessReviewRequestDataReviewe
 	o.Organisation = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CustomerWebhook) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CustomerWebhook) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -306,11 +309,12 @@ func (o *CustomerWebhook) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CustomerWebhook) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CustomerWebhook) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -322,8 +326,8 @@ func (o *CustomerWebhook) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CustomerWebhook) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CustomerWebhook) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -342,7 +346,7 @@ func (o CustomerWebhook) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Secret) {
 		toSerialize["secret"] = o.Secret
 	}
-	if !IsNil(o.Events) {
+	if o.Events != nil {
 		toSerialize["events"] = o.Events
 	}
 	if !IsNil(o.IsActive) {
@@ -357,7 +361,7 @@ func (o CustomerWebhook) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Organisation) {
 		toSerialize["organisation"] = o.Organisation
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil

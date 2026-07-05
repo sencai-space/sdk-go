@@ -29,9 +29,9 @@ type FeatureFlag struct {
 	// Percentage of organisations that see this flag (0–100). Assigned deterministically via DJB2 hash of org documentId.
 	RolloutPct *int32 `json:"rollout_pct,omitempty"`
 	// Array of plan names that always see this flag, e.g. [\"enterprise\", \"pro\"].
-	EnabledPlans map[string]interface{} `json:"enabled_plans,omitempty"`
+	EnabledPlans interface{} `json:"enabled_plans,omitempty"`
 	// Array of organisation documentIds that are explicitly whitelisted.
-	EnabledOrgs map[string]interface{} `json:"enabled_orgs,omitempty"`
+	EnabledOrgs interface{} `json:"enabled_orgs,omitempty"`
 	// Master switch. When false the flag evaluates to false for all orgs regardless of other settings.
 	IsEnabled *bool `json:"is_enabled,omitempty"`
 	// Optional expiry. After this timestamp the flag evaluates to false automatically.
@@ -146,10 +146,10 @@ func (o *FeatureFlag) SetRolloutPct(v int32) {
 	o.RolloutPct = &v
 }
 
-// GetEnabledPlans returns the EnabledPlans field value if set, zero value otherwise.
-func (o *FeatureFlag) GetEnabledPlans() map[string]interface{} {
-	if o == nil || IsNil(o.EnabledPlans) {
-		var ret map[string]interface{}
+// GetEnabledPlans returns the EnabledPlans field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FeatureFlag) GetEnabledPlans() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.EnabledPlans
@@ -157,11 +157,12 @@ func (o *FeatureFlag) GetEnabledPlans() map[string]interface{} {
 
 // GetEnabledPlansOk returns a tuple with the EnabledPlans field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FeatureFlag) GetEnabledPlansOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FeatureFlag) GetEnabledPlansOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.EnabledPlans) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.EnabledPlans, true
+	return &o.EnabledPlans, true
 }
 
 // HasEnabledPlans returns a boolean if a field has been set.
@@ -173,15 +174,15 @@ func (o *FeatureFlag) HasEnabledPlans() bool {
 	return false
 }
 
-// SetEnabledPlans gets a reference to the given map[string]interface{} and assigns it to the EnabledPlans field.
-func (o *FeatureFlag) SetEnabledPlans(v map[string]interface{}) {
+// SetEnabledPlans gets a reference to the given interface{} and assigns it to the EnabledPlans field.
+func (o *FeatureFlag) SetEnabledPlans(v interface{}) {
 	o.EnabledPlans = v
 }
 
-// GetEnabledOrgs returns the EnabledOrgs field value if set, zero value otherwise.
-func (o *FeatureFlag) GetEnabledOrgs() map[string]interface{} {
-	if o == nil || IsNil(o.EnabledOrgs) {
-		var ret map[string]interface{}
+// GetEnabledOrgs returns the EnabledOrgs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FeatureFlag) GetEnabledOrgs() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.EnabledOrgs
@@ -189,11 +190,12 @@ func (o *FeatureFlag) GetEnabledOrgs() map[string]interface{} {
 
 // GetEnabledOrgsOk returns a tuple with the EnabledOrgs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FeatureFlag) GetEnabledOrgsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FeatureFlag) GetEnabledOrgsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.EnabledOrgs) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.EnabledOrgs, true
+	return &o.EnabledOrgs, true
 }
 
 // HasEnabledOrgs returns a boolean if a field has been set.
@@ -205,8 +207,8 @@ func (o *FeatureFlag) HasEnabledOrgs() bool {
 	return false
 }
 
-// SetEnabledOrgs gets a reference to the given map[string]interface{} and assigns it to the EnabledOrgs field.
-func (o *FeatureFlag) SetEnabledOrgs(v map[string]interface{}) {
+// SetEnabledOrgs gets a reference to the given interface{} and assigns it to the EnabledOrgs field.
+func (o *FeatureFlag) SetEnabledOrgs(v interface{}) {
 	o.EnabledOrgs = v
 }
 
@@ -291,10 +293,10 @@ func (o FeatureFlag) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RolloutPct) {
 		toSerialize["rollout_pct"] = o.RolloutPct
 	}
-	if !IsNil(o.EnabledPlans) {
+	if o.EnabledPlans != nil {
 		toSerialize["enabled_plans"] = o.EnabledPlans
 	}
-	if !IsNil(o.EnabledOrgs) {
+	if o.EnabledOrgs != nil {
 		toSerialize["enabled_orgs"] = o.EnabledOrgs
 	}
 	if !IsNil(o.IsEnabled) {

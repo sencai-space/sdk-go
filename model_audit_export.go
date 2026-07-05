@@ -24,7 +24,8 @@ type AuditExport struct {
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	RequestedBy *string `json:"requested_by,omitempty"`
 	Format *string `json:"format,omitempty"`
-	Filters map[string]interface{} `json:"filters,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Filters interface{} `json:"filters,omitempty"`
 	Status *string `json:"status,omitempty"`
 	FileUrl *string `json:"file_url,omitempty"`
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
@@ -147,10 +148,10 @@ func (o *AuditExport) SetFormat(v string) {
 	o.Format = &v
 }
 
-// GetFilters returns the Filters field value if set, zero value otherwise.
-func (o *AuditExport) GetFilters() map[string]interface{} {
-	if o == nil || IsNil(o.Filters) {
-		var ret map[string]interface{}
+// GetFilters returns the Filters field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuditExport) GetFilters() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Filters
@@ -158,11 +159,12 @@ func (o *AuditExport) GetFilters() map[string]interface{} {
 
 // GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditExport) GetFiltersOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuditExport) GetFiltersOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Filters) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Filters, true
+	return &o.Filters, true
 }
 
 // HasFilters returns a boolean if a field has been set.
@@ -174,8 +176,8 @@ func (o *AuditExport) HasFilters() bool {
 	return false
 }
 
-// SetFilters gets a reference to the given map[string]interface{} and assigns it to the Filters field.
-func (o *AuditExport) SetFilters(v map[string]interface{}) {
+// SetFilters gets a reference to the given interface{} and assigns it to the Filters field.
+func (o *AuditExport) SetFilters(v interface{}) {
 	o.Filters = v
 }
 
@@ -422,7 +424,7 @@ func (o AuditExport) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Format) {
 		toSerialize["format"] = o.Format
 	}
-	if !IsNil(o.Filters) {
+	if o.Filters != nil {
 		toSerialize["filters"] = o.Filters
 	}
 	if !IsNil(o.Status) {

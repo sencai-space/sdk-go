@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindNotificationChannel200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindNotificationChannel200ResponseDataInner{}
 
 // FindNotificationChannel200ResponseDataInner struct for FindNotificationChannel200ResponseDataInner
 type FindNotificationChannel200ResponseDataInner struct {
+	Name string `json:"name"`
+	ChannelType *string `json:"channel_type,omitempty"`
+	// DEPRECATED plaintext field — retained read-only for pre-encryption legacy rows. New writes always go to encrypted_webhook_url. NEVER returned by the API.
+	WebhookUrl *string `json:"webhook_url,omitempty"`
+	// AES-256-GCM encrypted webhook_url (F3.CHATOPS.01) — same iv:authTag:ciphertext:salt format as BYOC cloud-credential (src/utils/credential-crypto.ts). NEVER returned by the API; decrypted only server-side by webhook-notifier for dispatch.
+	EncryptedWebhookUrl *string `json:"encrypted_webhook_url,omitempty"`
+	// Array of subscribed event-type strings. Canonical catalog (F3.CHATOPS.01): 'billing.payment_failed', 'billing.trial_ending', 'cloud-instance.provision_failed', 'alert.fired'. Empty/null = all events.
+	EventsFilter interface{} `json:"events_filter,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	LastSentAt *time.Time `json:"last_sent_at,omitempty"`
+	FailureCount *int32 `json:"failure_count,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *NotificationChannel `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindNotificationChannel200ResponseDataInner FindNotificationChannel200ResponseDataInner
+
 // NewFindNotificationChannel200ResponseDataInner instantiates a new FindNotificationChannel200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindNotificationChannel200ResponseDataInner() *FindNotificationChannel200ResponseDataInner {
+func NewFindNotificationChannel200ResponseDataInner(name string) *FindNotificationChannel200ResponseDataInner {
 	this := FindNotificationChannel200ResponseDataInner{}
+	this.Name = name
 	return &this
 }
 
@@ -44,6 +60,287 @@ func NewFindNotificationChannel200ResponseDataInner() *FindNotificationChannel20
 func NewFindNotificationChannel200ResponseDataInnerWithDefaults() *FindNotificationChannel200ResponseDataInner {
 	this := FindNotificationChannel200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindNotificationChannel200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindNotificationChannel200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindNotificationChannel200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetChannelType returns the ChannelType field value if set, zero value otherwise.
+func (o *FindNotificationChannel200ResponseDataInner) GetChannelType() string {
+	if o == nil || IsNil(o.ChannelType) {
+		var ret string
+		return ret
+	}
+	return *o.ChannelType
+}
+
+// GetChannelTypeOk returns a tuple with the ChannelType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNotificationChannel200ResponseDataInner) GetChannelTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ChannelType) {
+		return nil, false
+	}
+	return o.ChannelType, true
+}
+
+// HasChannelType returns a boolean if a field has been set.
+func (o *FindNotificationChannel200ResponseDataInner) HasChannelType() bool {
+	if o != nil && !IsNil(o.ChannelType) {
+		return true
+	}
+
+	return false
+}
+
+// SetChannelType gets a reference to the given string and assigns it to the ChannelType field.
+func (o *FindNotificationChannel200ResponseDataInner) SetChannelType(v string) {
+	o.ChannelType = &v
+}
+
+// GetWebhookUrl returns the WebhookUrl field value if set, zero value otherwise.
+func (o *FindNotificationChannel200ResponseDataInner) GetWebhookUrl() string {
+	if o == nil || IsNil(o.WebhookUrl) {
+		var ret string
+		return ret
+	}
+	return *o.WebhookUrl
+}
+
+// GetWebhookUrlOk returns a tuple with the WebhookUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNotificationChannel200ResponseDataInner) GetWebhookUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.WebhookUrl) {
+		return nil, false
+	}
+	return o.WebhookUrl, true
+}
+
+// HasWebhookUrl returns a boolean if a field has been set.
+func (o *FindNotificationChannel200ResponseDataInner) HasWebhookUrl() bool {
+	if o != nil && !IsNil(o.WebhookUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetWebhookUrl gets a reference to the given string and assigns it to the WebhookUrl field.
+func (o *FindNotificationChannel200ResponseDataInner) SetWebhookUrl(v string) {
+	o.WebhookUrl = &v
+}
+
+// GetEncryptedWebhookUrl returns the EncryptedWebhookUrl field value if set, zero value otherwise.
+func (o *FindNotificationChannel200ResponseDataInner) GetEncryptedWebhookUrl() string {
+	if o == nil || IsNil(o.EncryptedWebhookUrl) {
+		var ret string
+		return ret
+	}
+	return *o.EncryptedWebhookUrl
+}
+
+// GetEncryptedWebhookUrlOk returns a tuple with the EncryptedWebhookUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNotificationChannel200ResponseDataInner) GetEncryptedWebhookUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.EncryptedWebhookUrl) {
+		return nil, false
+	}
+	return o.EncryptedWebhookUrl, true
+}
+
+// HasEncryptedWebhookUrl returns a boolean if a field has been set.
+func (o *FindNotificationChannel200ResponseDataInner) HasEncryptedWebhookUrl() bool {
+	if o != nil && !IsNil(o.EncryptedWebhookUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetEncryptedWebhookUrl gets a reference to the given string and assigns it to the EncryptedWebhookUrl field.
+func (o *FindNotificationChannel200ResponseDataInner) SetEncryptedWebhookUrl(v string) {
+	o.EncryptedWebhookUrl = &v
+}
+
+// GetEventsFilter returns the EventsFilter field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindNotificationChannel200ResponseDataInner) GetEventsFilter() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.EventsFilter
+}
+
+// GetEventsFilterOk returns a tuple with the EventsFilter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindNotificationChannel200ResponseDataInner) GetEventsFilterOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.EventsFilter) {
+		return nil, false
+	}
+	return &o.EventsFilter, true
+}
+
+// HasEventsFilter returns a boolean if a field has been set.
+func (o *FindNotificationChannel200ResponseDataInner) HasEventsFilter() bool {
+	if o != nil && !IsNil(o.EventsFilter) {
+		return true
+	}
+
+	return false
+}
+
+// SetEventsFilter gets a reference to the given interface{} and assigns it to the EventsFilter field.
+func (o *FindNotificationChannel200ResponseDataInner) SetEventsFilter(v interface{}) {
+	o.EventsFilter = v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindNotificationChannel200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNotificationChannel200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindNotificationChannel200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindNotificationChannel200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetLastSentAt returns the LastSentAt field value if set, zero value otherwise.
+func (o *FindNotificationChannel200ResponseDataInner) GetLastSentAt() time.Time {
+	if o == nil || IsNil(o.LastSentAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSentAt
+}
+
+// GetLastSentAtOk returns a tuple with the LastSentAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNotificationChannel200ResponseDataInner) GetLastSentAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSentAt) {
+		return nil, false
+	}
+	return o.LastSentAt, true
+}
+
+// HasLastSentAt returns a boolean if a field has been set.
+func (o *FindNotificationChannel200ResponseDataInner) HasLastSentAt() bool {
+	if o != nil && !IsNil(o.LastSentAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSentAt gets a reference to the given time.Time and assigns it to the LastSentAt field.
+func (o *FindNotificationChannel200ResponseDataInner) SetLastSentAt(v time.Time) {
+	o.LastSentAt = &v
+}
+
+// GetFailureCount returns the FailureCount field value if set, zero value otherwise.
+func (o *FindNotificationChannel200ResponseDataInner) GetFailureCount() int32 {
+	if o == nil || IsNil(o.FailureCount) {
+		var ret int32
+		return ret
+	}
+	return *o.FailureCount
+}
+
+// GetFailureCountOk returns a tuple with the FailureCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNotificationChannel200ResponseDataInner) GetFailureCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.FailureCount) {
+		return nil, false
+	}
+	return o.FailureCount, true
+}
+
+// HasFailureCount returns a boolean if a field has been set.
+func (o *FindNotificationChannel200ResponseDataInner) HasFailureCount() bool {
+	if o != nil && !IsNil(o.FailureCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetFailureCount gets a reference to the given int32 and assigns it to the FailureCount field.
+func (o *FindNotificationChannel200ResponseDataInner) SetFailureCount(v int32) {
+	o.FailureCount = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindNotificationChannel200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNotificationChannel200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindNotificationChannel200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindNotificationChannel200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +405,6 @@ func (o *FindNotificationChannel200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindNotificationChannel200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindNotificationChannel200ResponseDataInner) GetAttributes() NotificationChannel {
-	if o == nil || IsNil(o.Attributes) {
-		var ret NotificationChannel
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindNotificationChannel200ResponseDataInner) GetAttributesOk() (*NotificationChannel, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindNotificationChannel200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given NotificationChannel and assigns it to the Attributes field.
-func (o *FindNotificationChannel200ResponseDataInner) SetAttributes(v NotificationChannel) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +523,36 @@ func (o FindNotificationChannel200ResponseDataInner) MarshalJSON() ([]byte, erro
 
 func (o FindNotificationChannel200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.ChannelType) {
+		toSerialize["channel_type"] = o.ChannelType
+	}
+	if !IsNil(o.WebhookUrl) {
+		toSerialize["webhook_url"] = o.WebhookUrl
+	}
+	if !IsNil(o.EncryptedWebhookUrl) {
+		toSerialize["encrypted_webhook_url"] = o.EncryptedWebhookUrl
+	}
+	if o.EventsFilter != nil {
+		toSerialize["events_filter"] = o.EventsFilter
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.LastSentAt) {
+		toSerialize["last_sent_at"] = o.LastSentAt
+	}
+	if !IsNil(o.FailureCount) {
+		toSerialize["failure_count"] = o.FailureCount
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +564,43 @@ func (o FindNotificationChannel200ResponseDataInner) ToMap() (map[string]interfa
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindNotificationChannel200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindNotificationChannel200ResponseDataInner := _FindNotificationChannel200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindNotificationChannel200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindNotificationChannel200ResponseDataInner(varFindNotificationChannel200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindNotificationChannel200ResponseDataInner struct {

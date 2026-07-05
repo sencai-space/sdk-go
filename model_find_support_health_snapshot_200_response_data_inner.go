@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSupportHealthSnapshot200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindSupportHealthSnapshot200ResponseDataInner{}
 
 // FindSupportHealthSnapshot200ResponseDataInner struct for FindSupportHealthSnapshot200ResponseDataInner
 type FindSupportHealthSnapshot200ResponseDataInner struct {
+	SnapshotDate time.Time `json:"snapshot_date"`
+	OrgId string `json:"org_id"`
+	HealthScore *float32 `json:"health_score,omitempty"`
+	InstanceUptimePct *float32 `json:"instance_uptime_pct,omitempty"`
+	OpenIncidents *int32 `json:"open_incidents,omitempty"`
+	OpenTickets *int32 `json:"open_tickets,omitempty"`
+	ResolvedTickets *int32 `json:"resolved_tickets,omitempty"`
+	AvgResolutionHours *float32 `json:"avg_resolution_hours,omitempty"`
+	SlaBreached *bool `json:"sla_breached,omitempty"`
+	SlaThresholdHours *float32 `json:"sla_threshold_hours,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SupportHealthSnapshot `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSupportHealthSnapshot200ResponseDataInner FindSupportHealthSnapshot200ResponseDataInner
+
 // NewFindSupportHealthSnapshot200ResponseDataInner instantiates a new FindSupportHealthSnapshot200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSupportHealthSnapshot200ResponseDataInner() *FindSupportHealthSnapshot200ResponseDataInner {
+func NewFindSupportHealthSnapshot200ResponseDataInner(snapshotDate time.Time, orgId string) *FindSupportHealthSnapshot200ResponseDataInner {
 	this := FindSupportHealthSnapshot200ResponseDataInner{}
+	this.SnapshotDate = snapshotDate
+	this.OrgId = orgId
 	return &this
 }
 
@@ -44,6 +60,342 @@ func NewFindSupportHealthSnapshot200ResponseDataInner() *FindSupportHealthSnapsh
 func NewFindSupportHealthSnapshot200ResponseDataInnerWithDefaults() *FindSupportHealthSnapshot200ResponseDataInner {
 	this := FindSupportHealthSnapshot200ResponseDataInner{}
 	return &this
+}
+
+// GetSnapshotDate returns the SnapshotDate field value
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetSnapshotDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.SnapshotDate
+}
+
+// GetSnapshotDateOk returns a tuple with the SnapshotDate field value
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetSnapshotDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SnapshotDate, true
+}
+
+// SetSnapshotDate sets field value
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetSnapshotDate(v time.Time) {
+	o.SnapshotDate = v
+}
+
+// GetOrgId returns the OrgId field value
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetOrgId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OrgId
+}
+
+// GetOrgIdOk returns a tuple with the OrgId field value
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetOrgIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OrgId, true
+}
+
+// SetOrgId sets field value
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetOrgId(v string) {
+	o.OrgId = v
+}
+
+// GetHealthScore returns the HealthScore field value if set, zero value otherwise.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetHealthScore() float32 {
+	if o == nil || IsNil(o.HealthScore) {
+		var ret float32
+		return ret
+	}
+	return *o.HealthScore
+}
+
+// GetHealthScoreOk returns a tuple with the HealthScore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetHealthScoreOk() (*float32, bool) {
+	if o == nil || IsNil(o.HealthScore) {
+		return nil, false
+	}
+	return o.HealthScore, true
+}
+
+// HasHealthScore returns a boolean if a field has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) HasHealthScore() bool {
+	if o != nil && !IsNil(o.HealthScore) {
+		return true
+	}
+
+	return false
+}
+
+// SetHealthScore gets a reference to the given float32 and assigns it to the HealthScore field.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetHealthScore(v float32) {
+	o.HealthScore = &v
+}
+
+// GetInstanceUptimePct returns the InstanceUptimePct field value if set, zero value otherwise.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetInstanceUptimePct() float32 {
+	if o == nil || IsNil(o.InstanceUptimePct) {
+		var ret float32
+		return ret
+	}
+	return *o.InstanceUptimePct
+}
+
+// GetInstanceUptimePctOk returns a tuple with the InstanceUptimePct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetInstanceUptimePctOk() (*float32, bool) {
+	if o == nil || IsNil(o.InstanceUptimePct) {
+		return nil, false
+	}
+	return o.InstanceUptimePct, true
+}
+
+// HasInstanceUptimePct returns a boolean if a field has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) HasInstanceUptimePct() bool {
+	if o != nil && !IsNil(o.InstanceUptimePct) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstanceUptimePct gets a reference to the given float32 and assigns it to the InstanceUptimePct field.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetInstanceUptimePct(v float32) {
+	o.InstanceUptimePct = &v
+}
+
+// GetOpenIncidents returns the OpenIncidents field value if set, zero value otherwise.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetOpenIncidents() int32 {
+	if o == nil || IsNil(o.OpenIncidents) {
+		var ret int32
+		return ret
+	}
+	return *o.OpenIncidents
+}
+
+// GetOpenIncidentsOk returns a tuple with the OpenIncidents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetOpenIncidentsOk() (*int32, bool) {
+	if o == nil || IsNil(o.OpenIncidents) {
+		return nil, false
+	}
+	return o.OpenIncidents, true
+}
+
+// HasOpenIncidents returns a boolean if a field has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) HasOpenIncidents() bool {
+	if o != nil && !IsNil(o.OpenIncidents) {
+		return true
+	}
+
+	return false
+}
+
+// SetOpenIncidents gets a reference to the given int32 and assigns it to the OpenIncidents field.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetOpenIncidents(v int32) {
+	o.OpenIncidents = &v
+}
+
+// GetOpenTickets returns the OpenTickets field value if set, zero value otherwise.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetOpenTickets() int32 {
+	if o == nil || IsNil(o.OpenTickets) {
+		var ret int32
+		return ret
+	}
+	return *o.OpenTickets
+}
+
+// GetOpenTicketsOk returns a tuple with the OpenTickets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetOpenTicketsOk() (*int32, bool) {
+	if o == nil || IsNil(o.OpenTickets) {
+		return nil, false
+	}
+	return o.OpenTickets, true
+}
+
+// HasOpenTickets returns a boolean if a field has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) HasOpenTickets() bool {
+	if o != nil && !IsNil(o.OpenTickets) {
+		return true
+	}
+
+	return false
+}
+
+// SetOpenTickets gets a reference to the given int32 and assigns it to the OpenTickets field.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetOpenTickets(v int32) {
+	o.OpenTickets = &v
+}
+
+// GetResolvedTickets returns the ResolvedTickets field value if set, zero value otherwise.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetResolvedTickets() int32 {
+	if o == nil || IsNil(o.ResolvedTickets) {
+		var ret int32
+		return ret
+	}
+	return *o.ResolvedTickets
+}
+
+// GetResolvedTicketsOk returns a tuple with the ResolvedTickets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetResolvedTicketsOk() (*int32, bool) {
+	if o == nil || IsNil(o.ResolvedTickets) {
+		return nil, false
+	}
+	return o.ResolvedTickets, true
+}
+
+// HasResolvedTickets returns a boolean if a field has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) HasResolvedTickets() bool {
+	if o != nil && !IsNil(o.ResolvedTickets) {
+		return true
+	}
+
+	return false
+}
+
+// SetResolvedTickets gets a reference to the given int32 and assigns it to the ResolvedTickets field.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetResolvedTickets(v int32) {
+	o.ResolvedTickets = &v
+}
+
+// GetAvgResolutionHours returns the AvgResolutionHours field value if set, zero value otherwise.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetAvgResolutionHours() float32 {
+	if o == nil || IsNil(o.AvgResolutionHours) {
+		var ret float32
+		return ret
+	}
+	return *o.AvgResolutionHours
+}
+
+// GetAvgResolutionHoursOk returns a tuple with the AvgResolutionHours field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetAvgResolutionHoursOk() (*float32, bool) {
+	if o == nil || IsNil(o.AvgResolutionHours) {
+		return nil, false
+	}
+	return o.AvgResolutionHours, true
+}
+
+// HasAvgResolutionHours returns a boolean if a field has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) HasAvgResolutionHours() bool {
+	if o != nil && !IsNil(o.AvgResolutionHours) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvgResolutionHours gets a reference to the given float32 and assigns it to the AvgResolutionHours field.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetAvgResolutionHours(v float32) {
+	o.AvgResolutionHours = &v
+}
+
+// GetSlaBreached returns the SlaBreached field value if set, zero value otherwise.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetSlaBreached() bool {
+	if o == nil || IsNil(o.SlaBreached) {
+		var ret bool
+		return ret
+	}
+	return *o.SlaBreached
+}
+
+// GetSlaBreachedOk returns a tuple with the SlaBreached field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetSlaBreachedOk() (*bool, bool) {
+	if o == nil || IsNil(o.SlaBreached) {
+		return nil, false
+	}
+	return o.SlaBreached, true
+}
+
+// HasSlaBreached returns a boolean if a field has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) HasSlaBreached() bool {
+	if o != nil && !IsNil(o.SlaBreached) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlaBreached gets a reference to the given bool and assigns it to the SlaBreached field.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetSlaBreached(v bool) {
+	o.SlaBreached = &v
+}
+
+// GetSlaThresholdHours returns the SlaThresholdHours field value if set, zero value otherwise.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetSlaThresholdHours() float32 {
+	if o == nil || IsNil(o.SlaThresholdHours) {
+		var ret float32
+		return ret
+	}
+	return *o.SlaThresholdHours
+}
+
+// GetSlaThresholdHoursOk returns a tuple with the SlaThresholdHours field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetSlaThresholdHoursOk() (*float32, bool) {
+	if o == nil || IsNil(o.SlaThresholdHours) {
+		return nil, false
+	}
+	return o.SlaThresholdHours, true
+}
+
+// HasSlaThresholdHours returns a boolean if a field has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) HasSlaThresholdHours() bool {
+	if o != nil && !IsNil(o.SlaThresholdHours) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlaThresholdHours gets a reference to the given float32 and assigns it to the SlaThresholdHours field.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetSlaThresholdHours(v float32) {
+	o.SlaThresholdHours = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSupportHealthSnapshot200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +460,6 @@ func (o *FindSupportHealthSnapshot200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSupportHealthSnapshot200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSupportHealthSnapshot200ResponseDataInner) GetAttributes() SupportHealthSnapshot {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SupportHealthSnapshot
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSupportHealthSnapshot200ResponseDataInner) GetAttributesOk() (*SupportHealthSnapshot, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSupportHealthSnapshot200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SupportHealthSnapshot and assigns it to the Attributes field.
-func (o *FindSupportHealthSnapshot200ResponseDataInner) SetAttributes(v SupportHealthSnapshot) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +578,40 @@ func (o FindSupportHealthSnapshot200ResponseDataInner) MarshalJSON() ([]byte, er
 
 func (o FindSupportHealthSnapshot200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["snapshot_date"] = o.SnapshotDate
+	toSerialize["org_id"] = o.OrgId
+	if !IsNil(o.HealthScore) {
+		toSerialize["health_score"] = o.HealthScore
+	}
+	if !IsNil(o.InstanceUptimePct) {
+		toSerialize["instance_uptime_pct"] = o.InstanceUptimePct
+	}
+	if !IsNil(o.OpenIncidents) {
+		toSerialize["open_incidents"] = o.OpenIncidents
+	}
+	if !IsNil(o.OpenTickets) {
+		toSerialize["open_tickets"] = o.OpenTickets
+	}
+	if !IsNil(o.ResolvedTickets) {
+		toSerialize["resolved_tickets"] = o.ResolvedTickets
+	}
+	if !IsNil(o.AvgResolutionHours) {
+		toSerialize["avg_resolution_hours"] = o.AvgResolutionHours
+	}
+	if !IsNil(o.SlaBreached) {
+		toSerialize["sla_breached"] = o.SlaBreached
+	}
+	if !IsNil(o.SlaThresholdHours) {
+		toSerialize["sla_threshold_hours"] = o.SlaThresholdHours
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +623,44 @@ func (o FindSupportHealthSnapshot200ResponseDataInner) ToMap() (map[string]inter
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSupportHealthSnapshot200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"snapshot_date",
+		"org_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSupportHealthSnapshot200ResponseDataInner := _FindSupportHealthSnapshot200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSupportHealthSnapshot200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSupportHealthSnapshot200ResponseDataInner(varFindSupportHealthSnapshot200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSupportHealthSnapshot200ResponseDataInner struct {

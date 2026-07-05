@@ -23,8 +23,10 @@ var _ MappedNullable = &CreateSoftwareInventoryRequestData{}
 type CreateSoftwareInventoryRequestData struct {
 	SencaiAgent *CreateAccessReviewRequestDataReviewer `json:"sencai_agent,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
-	Packages map[string]interface{} `json:"packages,omitempty"`
-	EolFindings map[string]interface{} `json:"eol_findings,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Packages interface{} `json:"packages,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	EolFindings interface{} `json:"eol_findings,omitempty"`
 	PackagesCount *int32 `json:"packages_count,omitempty"`
 	EolCriticalCount *int32 `json:"eol_critical_count,omitempty"`
 	EolWarningCount *int32 `json:"eol_warning_count,omitempty"`
@@ -112,10 +114,10 @@ func (o *CreateSoftwareInventoryRequestData) SetOrganisation(v CreateAccessRevie
 	o.Organisation = &v
 }
 
-// GetPackages returns the Packages field value if set, zero value otherwise.
-func (o *CreateSoftwareInventoryRequestData) GetPackages() map[string]interface{} {
-	if o == nil || IsNil(o.Packages) {
-		var ret map[string]interface{}
+// GetPackages returns the Packages field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateSoftwareInventoryRequestData) GetPackages() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Packages
@@ -123,11 +125,12 @@ func (o *CreateSoftwareInventoryRequestData) GetPackages() map[string]interface{
 
 // GetPackagesOk returns a tuple with the Packages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateSoftwareInventoryRequestData) GetPackagesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateSoftwareInventoryRequestData) GetPackagesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Packages) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Packages, true
+	return &o.Packages, true
 }
 
 // HasPackages returns a boolean if a field has been set.
@@ -139,15 +142,15 @@ func (o *CreateSoftwareInventoryRequestData) HasPackages() bool {
 	return false
 }
 
-// SetPackages gets a reference to the given map[string]interface{} and assigns it to the Packages field.
-func (o *CreateSoftwareInventoryRequestData) SetPackages(v map[string]interface{}) {
+// SetPackages gets a reference to the given interface{} and assigns it to the Packages field.
+func (o *CreateSoftwareInventoryRequestData) SetPackages(v interface{}) {
 	o.Packages = v
 }
 
-// GetEolFindings returns the EolFindings field value if set, zero value otherwise.
-func (o *CreateSoftwareInventoryRequestData) GetEolFindings() map[string]interface{} {
-	if o == nil || IsNil(o.EolFindings) {
-		var ret map[string]interface{}
+// GetEolFindings returns the EolFindings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateSoftwareInventoryRequestData) GetEolFindings() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.EolFindings
@@ -155,11 +158,12 @@ func (o *CreateSoftwareInventoryRequestData) GetEolFindings() map[string]interfa
 
 // GetEolFindingsOk returns a tuple with the EolFindings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateSoftwareInventoryRequestData) GetEolFindingsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateSoftwareInventoryRequestData) GetEolFindingsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.EolFindings) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.EolFindings, true
+	return &o.EolFindings, true
 }
 
 // HasEolFindings returns a boolean if a field has been set.
@@ -171,8 +175,8 @@ func (o *CreateSoftwareInventoryRequestData) HasEolFindings() bool {
 	return false
 }
 
-// SetEolFindings gets a reference to the given map[string]interface{} and assigns it to the EolFindings field.
-func (o *CreateSoftwareInventoryRequestData) SetEolFindings(v map[string]interface{}) {
+// SetEolFindings gets a reference to the given interface{} and assigns it to the EolFindings field.
+func (o *CreateSoftwareInventoryRequestData) SetEolFindings(v interface{}) {
 	o.EolFindings = v
 }
 
@@ -320,10 +324,10 @@ func (o CreateSoftwareInventoryRequestData) ToMap() (map[string]interface{}, err
 	if !IsNil(o.Organisation) {
 		toSerialize["organisation"] = o.Organisation
 	}
-	if !IsNil(o.Packages) {
+	if o.Packages != nil {
 		toSerialize["packages"] = o.Packages
 	}
-	if !IsNil(o.EolFindings) {
+	if o.EolFindings != nil {
 		toSerialize["eol_findings"] = o.EolFindings
 	}
 	if !IsNil(o.PackagesCount) {

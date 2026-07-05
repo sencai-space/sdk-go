@@ -27,7 +27,8 @@ type CreateAiActReviewRequestData struct {
 	RiskCategory string `json:"risk_category"`
 	UseCase *string `json:"use_case,omitempty"`
 	ReviewStatus *string `json:"review_status,omitempty"`
-	TransparencyMeasures map[string]interface{} `json:"transparency_measures,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	TransparencyMeasures interface{} `json:"transparency_measures,omitempty"`
 	HumanOversightMechanism *string `json:"human_oversight_mechanism,omitempty"`
 	DataGovernanceNotes *string `json:"data_governance_notes,omitempty"`
 	ConformityAssessment *string `json:"conformity_assessment,omitempty"`
@@ -35,7 +36,8 @@ type CreateAiActReviewRequestData struct {
 	ReviewDate *string `json:"review_date,omitempty"`
 	NextReviewDate *string `json:"next_review_date,omitempty"`
 	Reviewer *string `json:"reviewer,omitempty"`
-	Findings map[string]interface{} `json:"findings,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Findings interface{} `json:"findings,omitempty"`
 	RemediationPlan *string `json:"remediation_plan,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
@@ -198,10 +200,10 @@ func (o *CreateAiActReviewRequestData) SetReviewStatus(v string) {
 	o.ReviewStatus = &v
 }
 
-// GetTransparencyMeasures returns the TransparencyMeasures field value if set, zero value otherwise.
-func (o *CreateAiActReviewRequestData) GetTransparencyMeasures() map[string]interface{} {
-	if o == nil || IsNil(o.TransparencyMeasures) {
-		var ret map[string]interface{}
+// GetTransparencyMeasures returns the TransparencyMeasures field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateAiActReviewRequestData) GetTransparencyMeasures() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.TransparencyMeasures
@@ -209,11 +211,12 @@ func (o *CreateAiActReviewRequestData) GetTransparencyMeasures() map[string]inte
 
 // GetTransparencyMeasuresOk returns a tuple with the TransparencyMeasures field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateAiActReviewRequestData) GetTransparencyMeasuresOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateAiActReviewRequestData) GetTransparencyMeasuresOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.TransparencyMeasures) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.TransparencyMeasures, true
+	return &o.TransparencyMeasures, true
 }
 
 // HasTransparencyMeasures returns a boolean if a field has been set.
@@ -225,8 +228,8 @@ func (o *CreateAiActReviewRequestData) HasTransparencyMeasures() bool {
 	return false
 }
 
-// SetTransparencyMeasures gets a reference to the given map[string]interface{} and assigns it to the TransparencyMeasures field.
-func (o *CreateAiActReviewRequestData) SetTransparencyMeasures(v map[string]interface{}) {
+// SetTransparencyMeasures gets a reference to the given interface{} and assigns it to the TransparencyMeasures field.
+func (o *CreateAiActReviewRequestData) SetTransparencyMeasures(v interface{}) {
 	o.TransparencyMeasures = v
 }
 
@@ -454,10 +457,10 @@ func (o *CreateAiActReviewRequestData) SetReviewer(v string) {
 	o.Reviewer = &v
 }
 
-// GetFindings returns the Findings field value if set, zero value otherwise.
-func (o *CreateAiActReviewRequestData) GetFindings() map[string]interface{} {
-	if o == nil || IsNil(o.Findings) {
-		var ret map[string]interface{}
+// GetFindings returns the Findings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateAiActReviewRequestData) GetFindings() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Findings
@@ -465,11 +468,12 @@ func (o *CreateAiActReviewRequestData) GetFindings() map[string]interface{} {
 
 // GetFindingsOk returns a tuple with the Findings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateAiActReviewRequestData) GetFindingsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateAiActReviewRequestData) GetFindingsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Findings) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Findings, true
+	return &o.Findings, true
 }
 
 // HasFindings returns a boolean if a field has been set.
@@ -481,8 +485,8 @@ func (o *CreateAiActReviewRequestData) HasFindings() bool {
 	return false
 }
 
-// SetFindings gets a reference to the given map[string]interface{} and assigns it to the Findings field.
-func (o *CreateAiActReviewRequestData) SetFindings(v map[string]interface{}) {
+// SetFindings gets a reference to the given interface{} and assigns it to the Findings field.
+func (o *CreateAiActReviewRequestData) SetFindings(v interface{}) {
 	o.Findings = v
 }
 
@@ -569,7 +573,7 @@ func (o CreateAiActReviewRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ReviewStatus) {
 		toSerialize["review_status"] = o.ReviewStatus
 	}
-	if !IsNil(o.TransparencyMeasures) {
+	if o.TransparencyMeasures != nil {
 		toSerialize["transparency_measures"] = o.TransparencyMeasures
 	}
 	if !IsNil(o.HumanOversightMechanism) {
@@ -593,7 +597,7 @@ func (o CreateAiActReviewRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Reviewer) {
 		toSerialize["reviewer"] = o.Reviewer
 	}
-	if !IsNil(o.Findings) {
+	if o.Findings != nil {
 		toSerialize["findings"] = o.Findings
 	}
 	if !IsNil(o.RemediationPlan) {

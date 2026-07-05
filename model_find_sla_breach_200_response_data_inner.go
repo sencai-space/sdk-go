@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSlaBreach200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,32 @@ var _ MappedNullable = &FindSlaBreach200ResponseDataInner{}
 
 // FindSlaBreach200ResponseDataInner struct for FindSlaBreach200ResponseDataInner
 type FindSlaBreach200ResponseDataInner struct {
+	TicketId string `json:"ticket_id"`
+	TicketDocId string `json:"ticket_doc_id"`
+	SlaTier *CreateAccessReviewRequestDataReviewer `json:"sla_tier,omitempty"`
+	BreachType string `json:"breach_type"`
+	BreachedAt time.Time `json:"breached_at"`
+	NotifiedAt *time.Time `json:"notified_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SlaBreach `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSlaBreach200ResponseDataInner FindSlaBreach200ResponseDataInner
+
 // NewFindSlaBreach200ResponseDataInner instantiates a new FindSlaBreach200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSlaBreach200ResponseDataInner() *FindSlaBreach200ResponseDataInner {
+func NewFindSlaBreach200ResponseDataInner(ticketId string, ticketDocId string, breachType string, breachedAt time.Time) *FindSlaBreach200ResponseDataInner {
 	this := FindSlaBreach200ResponseDataInner{}
+	this.TicketId = ticketId
+	this.TicketDocId = ticketDocId
+	this.BreachType = breachType
+	this.BreachedAt = breachedAt
 	return &this
 }
 
@@ -44,6 +58,198 @@ func NewFindSlaBreach200ResponseDataInner() *FindSlaBreach200ResponseDataInner {
 func NewFindSlaBreach200ResponseDataInnerWithDefaults() *FindSlaBreach200ResponseDataInner {
 	this := FindSlaBreach200ResponseDataInner{}
 	return &this
+}
+
+// GetTicketId returns the TicketId field value
+func (o *FindSlaBreach200ResponseDataInner) GetTicketId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TicketId
+}
+
+// GetTicketIdOk returns a tuple with the TicketId field value
+// and a boolean to check if the value has been set.
+func (o *FindSlaBreach200ResponseDataInner) GetTicketIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TicketId, true
+}
+
+// SetTicketId sets field value
+func (o *FindSlaBreach200ResponseDataInner) SetTicketId(v string) {
+	o.TicketId = v
+}
+
+// GetTicketDocId returns the TicketDocId field value
+func (o *FindSlaBreach200ResponseDataInner) GetTicketDocId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TicketDocId
+}
+
+// GetTicketDocIdOk returns a tuple with the TicketDocId field value
+// and a boolean to check if the value has been set.
+func (o *FindSlaBreach200ResponseDataInner) GetTicketDocIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TicketDocId, true
+}
+
+// SetTicketDocId sets field value
+func (o *FindSlaBreach200ResponseDataInner) SetTicketDocId(v string) {
+	o.TicketDocId = v
+}
+
+// GetSlaTier returns the SlaTier field value if set, zero value otherwise.
+func (o *FindSlaBreach200ResponseDataInner) GetSlaTier() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.SlaTier) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.SlaTier
+}
+
+// GetSlaTierOk returns a tuple with the SlaTier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaBreach200ResponseDataInner) GetSlaTierOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.SlaTier) {
+		return nil, false
+	}
+	return o.SlaTier, true
+}
+
+// HasSlaTier returns a boolean if a field has been set.
+func (o *FindSlaBreach200ResponseDataInner) HasSlaTier() bool {
+	if o != nil && !IsNil(o.SlaTier) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlaTier gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the SlaTier field.
+func (o *FindSlaBreach200ResponseDataInner) SetSlaTier(v CreateAccessReviewRequestDataReviewer) {
+	o.SlaTier = &v
+}
+
+// GetBreachType returns the BreachType field value
+func (o *FindSlaBreach200ResponseDataInner) GetBreachType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.BreachType
+}
+
+// GetBreachTypeOk returns a tuple with the BreachType field value
+// and a boolean to check if the value has been set.
+func (o *FindSlaBreach200ResponseDataInner) GetBreachTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.BreachType, true
+}
+
+// SetBreachType sets field value
+func (o *FindSlaBreach200ResponseDataInner) SetBreachType(v string) {
+	o.BreachType = v
+}
+
+// GetBreachedAt returns the BreachedAt field value
+func (o *FindSlaBreach200ResponseDataInner) GetBreachedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.BreachedAt
+}
+
+// GetBreachedAtOk returns a tuple with the BreachedAt field value
+// and a boolean to check if the value has been set.
+func (o *FindSlaBreach200ResponseDataInner) GetBreachedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.BreachedAt, true
+}
+
+// SetBreachedAt sets field value
+func (o *FindSlaBreach200ResponseDataInner) SetBreachedAt(v time.Time) {
+	o.BreachedAt = v
+}
+
+// GetNotifiedAt returns the NotifiedAt field value if set, zero value otherwise.
+func (o *FindSlaBreach200ResponseDataInner) GetNotifiedAt() time.Time {
+	if o == nil || IsNil(o.NotifiedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.NotifiedAt
+}
+
+// GetNotifiedAtOk returns a tuple with the NotifiedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaBreach200ResponseDataInner) GetNotifiedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.NotifiedAt) {
+		return nil, false
+	}
+	return o.NotifiedAt, true
+}
+
+// HasNotifiedAt returns a boolean if a field has been set.
+func (o *FindSlaBreach200ResponseDataInner) HasNotifiedAt() bool {
+	if o != nil && !IsNil(o.NotifiedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotifiedAt gets a reference to the given time.Time and assigns it to the NotifiedAt field.
+func (o *FindSlaBreach200ResponseDataInner) SetNotifiedAt(v time.Time) {
+	o.NotifiedAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSlaBreach200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSlaBreach200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSlaBreach200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSlaBreach200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +314,6 @@ func (o *FindSlaBreach200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSlaBreach200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSlaBreach200ResponseDataInner) GetAttributes() SlaBreach {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SlaBreach
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSlaBreach200ResponseDataInner) GetAttributesOk() (*SlaBreach, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSlaBreach200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SlaBreach and assigns it to the Attributes field.
-func (o *FindSlaBreach200ResponseDataInner) SetAttributes(v SlaBreach) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +432,24 @@ func (o FindSlaBreach200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindSlaBreach200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["ticket_id"] = o.TicketId
+	toSerialize["ticket_doc_id"] = o.TicketDocId
+	if !IsNil(o.SlaTier) {
+		toSerialize["sla_tier"] = o.SlaTier
+	}
+	toSerialize["breach_type"] = o.BreachType
+	toSerialize["breached_at"] = o.BreachedAt
+	if !IsNil(o.NotifiedAt) {
+		toSerialize["notified_at"] = o.NotifiedAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +461,46 @@ func (o FindSlaBreach200ResponseDataInner) ToMap() (map[string]interface{}, erro
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSlaBreach200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ticket_id",
+		"ticket_doc_id",
+		"breach_type",
+		"breached_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSlaBreach200ResponseDataInner := _FindSlaBreach200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSlaBreach200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSlaBreach200ResponseDataInner(varFindSlaBreach200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSlaBreach200ResponseDataInner struct {

@@ -28,11 +28,13 @@ type BackupPolicy struct {
 	Provider *string `json:"provider,omitempty"`
 	Schedule string `json:"schedule"`
 	RetentionDays *int32 `json:"retention_days,omitempty"`
-	Tags map[string]interface{} `json:"tags,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
 	IsActive *bool `json:"is_active,omitempty"`
 	AttachedInstances *CreateAccessReviewRequestDataReviewer `json:"attached_instances,omitempty"`
 	LastAppliedAt *time.Time `json:"last_applied_at,omitempty"`
-	ProviderPolicyIds map[string]interface{} `json:"provider_policy_ids,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ProviderPolicyIds interface{} `json:"provider_policy_ids,omitempty"`
 	Status *string `json:"status,omitempty"`
 }
 
@@ -201,10 +203,10 @@ func (o *BackupPolicy) SetRetentionDays(v int32) {
 	o.RetentionDays = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *BackupPolicy) GetTags() map[string]interface{} {
-	if o == nil || IsNil(o.Tags) {
-		var ret map[string]interface{}
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BackupPolicy) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Tags
@@ -212,11 +214,12 @@ func (o *BackupPolicy) GetTags() map[string]interface{} {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BackupPolicy) GetTagsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BackupPolicy) GetTagsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Tags) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -228,8 +231,8 @@ func (o *BackupPolicy) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given map[string]interface{} and assigns it to the Tags field.
-func (o *BackupPolicy) SetTags(v map[string]interface{}) {
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *BackupPolicy) SetTags(v interface{}) {
 	o.Tags = v
 }
 
@@ -329,10 +332,10 @@ func (o *BackupPolicy) SetLastAppliedAt(v time.Time) {
 	o.LastAppliedAt = &v
 }
 
-// GetProviderPolicyIds returns the ProviderPolicyIds field value if set, zero value otherwise.
-func (o *BackupPolicy) GetProviderPolicyIds() map[string]interface{} {
-	if o == nil || IsNil(o.ProviderPolicyIds) {
-		var ret map[string]interface{}
+// GetProviderPolicyIds returns the ProviderPolicyIds field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BackupPolicy) GetProviderPolicyIds() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ProviderPolicyIds
@@ -340,11 +343,12 @@ func (o *BackupPolicy) GetProviderPolicyIds() map[string]interface{} {
 
 // GetProviderPolicyIdsOk returns a tuple with the ProviderPolicyIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BackupPolicy) GetProviderPolicyIdsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BackupPolicy) GetProviderPolicyIdsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ProviderPolicyIds) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ProviderPolicyIds, true
+	return &o.ProviderPolicyIds, true
 }
 
 // HasProviderPolicyIds returns a boolean if a field has been set.
@@ -356,8 +360,8 @@ func (o *BackupPolicy) HasProviderPolicyIds() bool {
 	return false
 }
 
-// SetProviderPolicyIds gets a reference to the given map[string]interface{} and assigns it to the ProviderPolicyIds field.
-func (o *BackupPolicy) SetProviderPolicyIds(v map[string]interface{}) {
+// SetProviderPolicyIds gets a reference to the given interface{} and assigns it to the ProviderPolicyIds field.
+func (o *BackupPolicy) SetProviderPolicyIds(v interface{}) {
 	o.ProviderPolicyIds = v
 }
 
@@ -414,7 +418,7 @@ func (o BackupPolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RetentionDays) {
 		toSerialize["retention_days"] = o.RetentionDays
 	}
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
 	if !IsNil(o.IsActive) {
@@ -426,7 +430,7 @@ func (o BackupPolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastAppliedAt) {
 		toSerialize["last_applied_at"] = o.LastAppliedAt
 	}
-	if !IsNil(o.ProviderPolicyIds) {
+	if o.ProviderPolicyIds != nil {
 		toSerialize["provider_policy_ids"] = o.ProviderPolicyIds
 	}
 	if !IsNil(o.Status) {

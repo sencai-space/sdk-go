@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindNis2Gap200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindNis2Gap200ResponseDataInner{}
 
 // FindNis2Gap200ResponseDataInner struct for FindNis2Gap200ResponseDataInner
 type FindNis2Gap200ResponseDataInner struct {
+	Requirement string `json:"requirement"`
+	Article *string `json:"article,omitempty"`
+	Annex string `json:"annex"`
+	GapDescription *string `json:"gap_description,omitempty"`
+	Status *string `json:"status,omitempty"`
+	TargetDate *string `json:"target_date,omitempty"`
+	Owner *string `json:"owner,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	EvidenceLinks interface{} `json:"evidence_links,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AuditActionEvidence interface{} `json:"audit_action_evidence,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *Nis2Gap `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindNis2Gap200ResponseDataInner FindNis2Gap200ResponseDataInner
+
 // NewFindNis2Gap200ResponseDataInner instantiates a new FindNis2Gap200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindNis2Gap200ResponseDataInner() *FindNis2Gap200ResponseDataInner {
+func NewFindNis2Gap200ResponseDataInner(requirement string, annex string) *FindNis2Gap200ResponseDataInner {
 	this := FindNis2Gap200ResponseDataInner{}
+	this.Requirement = requirement
+	this.Annex = annex
 	return &this
 }
 
@@ -44,6 +61,312 @@ func NewFindNis2Gap200ResponseDataInner() *FindNis2Gap200ResponseDataInner {
 func NewFindNis2Gap200ResponseDataInnerWithDefaults() *FindNis2Gap200ResponseDataInner {
 	this := FindNis2Gap200ResponseDataInner{}
 	return &this
+}
+
+// GetRequirement returns the Requirement field value
+func (o *FindNis2Gap200ResponseDataInner) GetRequirement() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Requirement
+}
+
+// GetRequirementOk returns a tuple with the Requirement field value
+// and a boolean to check if the value has been set.
+func (o *FindNis2Gap200ResponseDataInner) GetRequirementOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Requirement, true
+}
+
+// SetRequirement sets field value
+func (o *FindNis2Gap200ResponseDataInner) SetRequirement(v string) {
+	o.Requirement = v
+}
+
+// GetArticle returns the Article field value if set, zero value otherwise.
+func (o *FindNis2Gap200ResponseDataInner) GetArticle() string {
+	if o == nil || IsNil(o.Article) {
+		var ret string
+		return ret
+	}
+	return *o.Article
+}
+
+// GetArticleOk returns a tuple with the Article field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNis2Gap200ResponseDataInner) GetArticleOk() (*string, bool) {
+	if o == nil || IsNil(o.Article) {
+		return nil, false
+	}
+	return o.Article, true
+}
+
+// HasArticle returns a boolean if a field has been set.
+func (o *FindNis2Gap200ResponseDataInner) HasArticle() bool {
+	if o != nil && !IsNil(o.Article) {
+		return true
+	}
+
+	return false
+}
+
+// SetArticle gets a reference to the given string and assigns it to the Article field.
+func (o *FindNis2Gap200ResponseDataInner) SetArticle(v string) {
+	o.Article = &v
+}
+
+// GetAnnex returns the Annex field value
+func (o *FindNis2Gap200ResponseDataInner) GetAnnex() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Annex
+}
+
+// GetAnnexOk returns a tuple with the Annex field value
+// and a boolean to check if the value has been set.
+func (o *FindNis2Gap200ResponseDataInner) GetAnnexOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Annex, true
+}
+
+// SetAnnex sets field value
+func (o *FindNis2Gap200ResponseDataInner) SetAnnex(v string) {
+	o.Annex = v
+}
+
+// GetGapDescription returns the GapDescription field value if set, zero value otherwise.
+func (o *FindNis2Gap200ResponseDataInner) GetGapDescription() string {
+	if o == nil || IsNil(o.GapDescription) {
+		var ret string
+		return ret
+	}
+	return *o.GapDescription
+}
+
+// GetGapDescriptionOk returns a tuple with the GapDescription field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNis2Gap200ResponseDataInner) GetGapDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.GapDescription) {
+		return nil, false
+	}
+	return o.GapDescription, true
+}
+
+// HasGapDescription returns a boolean if a field has been set.
+func (o *FindNis2Gap200ResponseDataInner) HasGapDescription() bool {
+	if o != nil && !IsNil(o.GapDescription) {
+		return true
+	}
+
+	return false
+}
+
+// SetGapDescription gets a reference to the given string and assigns it to the GapDescription field.
+func (o *FindNis2Gap200ResponseDataInner) SetGapDescription(v string) {
+	o.GapDescription = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindNis2Gap200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNis2Gap200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindNis2Gap200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindNis2Gap200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetTargetDate returns the TargetDate field value if set, zero value otherwise.
+func (o *FindNis2Gap200ResponseDataInner) GetTargetDate() string {
+	if o == nil || IsNil(o.TargetDate) {
+		var ret string
+		return ret
+	}
+	return *o.TargetDate
+}
+
+// GetTargetDateOk returns a tuple with the TargetDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNis2Gap200ResponseDataInner) GetTargetDateOk() (*string, bool) {
+	if o == nil || IsNil(o.TargetDate) {
+		return nil, false
+	}
+	return o.TargetDate, true
+}
+
+// HasTargetDate returns a boolean if a field has been set.
+func (o *FindNis2Gap200ResponseDataInner) HasTargetDate() bool {
+	if o != nil && !IsNil(o.TargetDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetDate gets a reference to the given string and assigns it to the TargetDate field.
+func (o *FindNis2Gap200ResponseDataInner) SetTargetDate(v string) {
+	o.TargetDate = &v
+}
+
+// GetOwner returns the Owner field value if set, zero value otherwise.
+func (o *FindNis2Gap200ResponseDataInner) GetOwner() string {
+	if o == nil || IsNil(o.Owner) {
+		var ret string
+		return ret
+	}
+	return *o.Owner
+}
+
+// GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNis2Gap200ResponseDataInner) GetOwnerOk() (*string, bool) {
+	if o == nil || IsNil(o.Owner) {
+		return nil, false
+	}
+	return o.Owner, true
+}
+
+// HasOwner returns a boolean if a field has been set.
+func (o *FindNis2Gap200ResponseDataInner) HasOwner() bool {
+	if o != nil && !IsNil(o.Owner) {
+		return true
+	}
+
+	return false
+}
+
+// SetOwner gets a reference to the given string and assigns it to the Owner field.
+func (o *FindNis2Gap200ResponseDataInner) SetOwner(v string) {
+	o.Owner = &v
+}
+
+// GetEvidenceLinks returns the EvidenceLinks field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindNis2Gap200ResponseDataInner) GetEvidenceLinks() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.EvidenceLinks
+}
+
+// GetEvidenceLinksOk returns a tuple with the EvidenceLinks field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindNis2Gap200ResponseDataInner) GetEvidenceLinksOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.EvidenceLinks) {
+		return nil, false
+	}
+	return &o.EvidenceLinks, true
+}
+
+// HasEvidenceLinks returns a boolean if a field has been set.
+func (o *FindNis2Gap200ResponseDataInner) HasEvidenceLinks() bool {
+	if o != nil && !IsNil(o.EvidenceLinks) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvidenceLinks gets a reference to the given interface{} and assigns it to the EvidenceLinks field.
+func (o *FindNis2Gap200ResponseDataInner) SetEvidenceLinks(v interface{}) {
+	o.EvidenceLinks = v
+}
+
+// GetAuditActionEvidence returns the AuditActionEvidence field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindNis2Gap200ResponseDataInner) GetAuditActionEvidence() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.AuditActionEvidence
+}
+
+// GetAuditActionEvidenceOk returns a tuple with the AuditActionEvidence field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindNis2Gap200ResponseDataInner) GetAuditActionEvidenceOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.AuditActionEvidence) {
+		return nil, false
+	}
+	return &o.AuditActionEvidence, true
+}
+
+// HasAuditActionEvidence returns a boolean if a field has been set.
+func (o *FindNis2Gap200ResponseDataInner) HasAuditActionEvidence() bool {
+	if o != nil && !IsNil(o.AuditActionEvidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuditActionEvidence gets a reference to the given interface{} and assigns it to the AuditActionEvidence field.
+func (o *FindNis2Gap200ResponseDataInner) SetAuditActionEvidence(v interface{}) {
+	o.AuditActionEvidence = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindNis2Gap200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNis2Gap200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindNis2Gap200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindNis2Gap200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +431,6 @@ func (o *FindNis2Gap200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindNis2Gap200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindNis2Gap200ResponseDataInner) GetAttributes() Nis2Gap {
-	if o == nil || IsNil(o.Attributes) {
-		var ret Nis2Gap
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindNis2Gap200ResponseDataInner) GetAttributesOk() (*Nis2Gap, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindNis2Gap200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given Nis2Gap and assigns it to the Attributes field.
-func (o *FindNis2Gap200ResponseDataInner) SetAttributes(v Nis2Gap) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +549,37 @@ func (o FindNis2Gap200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindNis2Gap200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["requirement"] = o.Requirement
+	if !IsNil(o.Article) {
+		toSerialize["article"] = o.Article
+	}
+	toSerialize["annex"] = o.Annex
+	if !IsNil(o.GapDescription) {
+		toSerialize["gap_description"] = o.GapDescription
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.TargetDate) {
+		toSerialize["target_date"] = o.TargetDate
+	}
+	if !IsNil(o.Owner) {
+		toSerialize["owner"] = o.Owner
+	}
+	if o.EvidenceLinks != nil {
+		toSerialize["evidence_links"] = o.EvidenceLinks
+	}
+	if o.AuditActionEvidence != nil {
+		toSerialize["audit_action_evidence"] = o.AuditActionEvidence
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +591,44 @@ func (o FindNis2Gap200ResponseDataInner) ToMap() (map[string]interface{}, error)
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindNis2Gap200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"requirement",
+		"annex",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindNis2Gap200ResponseDataInner := _FindNis2Gap200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindNis2Gap200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindNis2Gap200ResponseDataInner(varFindNis2Gap200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindNis2Gap200ResponseDataInner struct {

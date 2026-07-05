@@ -25,7 +25,7 @@ var _ MappedNullable = &BlueprintInstance{}
 type BlueprintInstance struct {
 	Blueprint CreateAccessReviewRequestDataReviewer `json:"blueprint"`
 	// Resolved parameter values used when rendering the blueprint template, e.g. {\"region\": \"eu-central-1\", \"size\": \"cx21\"}.
-	ParamValues map[string]interface{} `json:"param_values"`
+	ParamValues interface{} `json:"param_values"`
 	Status string `json:"status"`
 	CloudInstance *CreateAccessReviewRequestDataReviewer `json:"cloud_instance,omitempty"`
 	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
@@ -33,7 +33,7 @@ type BlueprintInstance struct {
 	DeployedAt *time.Time `json:"deployed_at,omitempty"`
 	Notes *string `json:"notes,omitempty"`
 	// Per-resource progress array: [{resource_id, resource_type, name, status: 'pending'|'provisioning'|'ready'|'failed', provider, region, cost_estimate_usd, error_msg?}]
-	Resources map[string]interface{} `json:"resources,omitempty"`
+	Resources interface{} `json:"resources,omitempty"`
 	// Sum of all resource cost estimates in USD/month.
 	TotalCostEstimateUsd *float32 `json:"total_cost_estimate_usd,omitempty"`
 	// Total number of resources in this blueprint instance.
@@ -52,7 +52,7 @@ type _BlueprintInstance BlueprintInstance
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBlueprintInstance(blueprint CreateAccessReviewRequestDataReviewer, paramValues map[string]interface{}, status string, organisation CreateAccessReviewRequestDataReviewer) *BlueprintInstance {
+func NewBlueprintInstance(blueprint CreateAccessReviewRequestDataReviewer, paramValues interface{}, status string, organisation CreateAccessReviewRequestDataReviewer) *BlueprintInstance {
 	this := BlueprintInstance{}
 	this.Blueprint = blueprint
 	this.ParamValues = paramValues
@@ -94,9 +94,10 @@ func (o *BlueprintInstance) SetBlueprint(v CreateAccessReviewRequestDataReviewer
 }
 
 // GetParamValues returns the ParamValues field value
-func (o *BlueprintInstance) GetParamValues() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *BlueprintInstance) GetParamValues() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -105,15 +106,16 @@ func (o *BlueprintInstance) GetParamValues() map[string]interface{} {
 
 // GetParamValuesOk returns a tuple with the ParamValues field value
 // and a boolean to check if the value has been set.
-func (o *BlueprintInstance) GetParamValuesOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BlueprintInstance) GetParamValuesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ParamValues) {
+		return nil, false
 	}
-	return o.ParamValues, true
+	return &o.ParamValues, true
 }
 
 // SetParamValues sets field value
-func (o *BlueprintInstance) SetParamValues(v map[string]interface{}) {
+func (o *BlueprintInstance) SetParamValues(v interface{}) {
 	o.ParamValues = v
 }
 
@@ -293,10 +295,10 @@ func (o *BlueprintInstance) SetNotes(v string) {
 	o.Notes = &v
 }
 
-// GetResources returns the Resources field value if set, zero value otherwise.
-func (o *BlueprintInstance) GetResources() map[string]interface{} {
-	if o == nil || IsNil(o.Resources) {
-		var ret map[string]interface{}
+// GetResources returns the Resources field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BlueprintInstance) GetResources() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Resources
@@ -304,11 +306,12 @@ func (o *BlueprintInstance) GetResources() map[string]interface{} {
 
 // GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BlueprintInstance) GetResourcesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BlueprintInstance) GetResourcesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Resources) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Resources, true
+	return &o.Resources, true
 }
 
 // HasResources returns a boolean if a field has been set.
@@ -320,8 +323,8 @@ func (o *BlueprintInstance) HasResources() bool {
 	return false
 }
 
-// SetResources gets a reference to the given map[string]interface{} and assigns it to the Resources field.
-func (o *BlueprintInstance) SetResources(v map[string]interface{}) {
+// SetResources gets a reference to the given interface{} and assigns it to the Resources field.
+func (o *BlueprintInstance) SetResources(v interface{}) {
 	o.Resources = v
 }
 
@@ -496,7 +499,9 @@ func (o BlueprintInstance) MarshalJSON() ([]byte, error) {
 func (o BlueprintInstance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["blueprint"] = o.Blueprint
-	toSerialize["param_values"] = o.ParamValues
+	if o.ParamValues != nil {
+		toSerialize["param_values"] = o.ParamValues
+	}
 	toSerialize["status"] = o.Status
 	if !IsNil(o.CloudInstance) {
 		toSerialize["cloud_instance"] = o.CloudInstance
@@ -511,7 +516,7 @@ func (o BlueprintInstance) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Notes) {
 		toSerialize["notes"] = o.Notes
 	}
-	if !IsNil(o.Resources) {
+	if o.Resources != nil {
 		toSerialize["resources"] = o.Resources
 	}
 	if !IsNil(o.TotalCostEstimateUsd) {

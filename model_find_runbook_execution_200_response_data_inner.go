@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindRunbookExecution200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,38 @@ var _ MappedNullable = &FindRunbookExecution200ResponseDataInner{}
 
 // FindRunbookExecution200ResponseDataInner struct for FindRunbookExecution200ResponseDataInner
 type FindRunbookExecution200ResponseDataInner struct {
+	Runbook *CreateAccessReviewRequestDataReviewer `json:"runbook,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	TriggeredBy string `json:"triggered_by"`
+	Status string `json:"status"`
+	// Execution result payload from agent. Array of {action, success, output, error}.
+	Result interface{} `json:"result,omitempty"`
+	DryRun *bool `json:"dry_run,omitempty"`
+	ApprovedAt *time.Time `json:"approved_at,omitempty"`
+	// Approval TTL — execution is auto-cancelled if not approved by this time (now+4h on create when confirmation_required).
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	ApprovalToken *string `json:"approval_token,omitempty"`
+	// agent_id (documentId) of the agent to execute the runbook on.
+	AgentTarget *string `json:"agent_target,omitempty"`
+	ErrorMessage *string `json:"error_message,omitempty"`
+	TriggeredByUser *CreateAccessReviewRequestDataReviewer `json:"triggered_by_user,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *RunbookExecution `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindRunbookExecution200ResponseDataInner FindRunbookExecution200ResponseDataInner
+
 // NewFindRunbookExecution200ResponseDataInner instantiates a new FindRunbookExecution200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindRunbookExecution200ResponseDataInner() *FindRunbookExecution200ResponseDataInner {
+func NewFindRunbookExecution200ResponseDataInner(triggeredBy string, status string) *FindRunbookExecution200ResponseDataInner {
 	this := FindRunbookExecution200ResponseDataInner{}
+	this.TriggeredBy = triggeredBy
+	this.Status = status
 	return &this
 }
 
@@ -44,6 +64,375 @@ func NewFindRunbookExecution200ResponseDataInner() *FindRunbookExecution200Respo
 func NewFindRunbookExecution200ResponseDataInnerWithDefaults() *FindRunbookExecution200ResponseDataInner {
 	this := FindRunbookExecution200ResponseDataInner{}
 	return &this
+}
+
+// GetRunbook returns the Runbook field value if set, zero value otherwise.
+func (o *FindRunbookExecution200ResponseDataInner) GetRunbook() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Runbook) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Runbook
+}
+
+// GetRunbookOk returns a tuple with the Runbook field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetRunbookOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Runbook) {
+		return nil, false
+	}
+	return o.Runbook, true
+}
+
+// HasRunbook returns a boolean if a field has been set.
+func (o *FindRunbookExecution200ResponseDataInner) HasRunbook() bool {
+	if o != nil && !IsNil(o.Runbook) {
+		return true
+	}
+
+	return false
+}
+
+// SetRunbook gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Runbook field.
+func (o *FindRunbookExecution200ResponseDataInner) SetRunbook(v CreateAccessReviewRequestDataReviewer) {
+	o.Runbook = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindRunbookExecution200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindRunbookExecution200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindRunbookExecution200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetTriggeredBy returns the TriggeredBy field value
+func (o *FindRunbookExecution200ResponseDataInner) GetTriggeredBy() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TriggeredBy
+}
+
+// GetTriggeredByOk returns a tuple with the TriggeredBy field value
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetTriggeredByOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TriggeredBy, true
+}
+
+// SetTriggeredBy sets field value
+func (o *FindRunbookExecution200ResponseDataInner) SetTriggeredBy(v string) {
+	o.TriggeredBy = v
+}
+
+// GetStatus returns the Status field value
+func (o *FindRunbookExecution200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindRunbookExecution200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetResult returns the Result field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindRunbookExecution200ResponseDataInner) GetResult() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Result
+}
+
+// GetResultOk returns a tuple with the Result field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindRunbookExecution200ResponseDataInner) GetResultOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Result) {
+		return nil, false
+	}
+	return &o.Result, true
+}
+
+// HasResult returns a boolean if a field has been set.
+func (o *FindRunbookExecution200ResponseDataInner) HasResult() bool {
+	if o != nil && !IsNil(o.Result) {
+		return true
+	}
+
+	return false
+}
+
+// SetResult gets a reference to the given interface{} and assigns it to the Result field.
+func (o *FindRunbookExecution200ResponseDataInner) SetResult(v interface{}) {
+	o.Result = v
+}
+
+// GetDryRun returns the DryRun field value if set, zero value otherwise.
+func (o *FindRunbookExecution200ResponseDataInner) GetDryRun() bool {
+	if o == nil || IsNil(o.DryRun) {
+		var ret bool
+		return ret
+	}
+	return *o.DryRun
+}
+
+// GetDryRunOk returns a tuple with the DryRun field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetDryRunOk() (*bool, bool) {
+	if o == nil || IsNil(o.DryRun) {
+		return nil, false
+	}
+	return o.DryRun, true
+}
+
+// HasDryRun returns a boolean if a field has been set.
+func (o *FindRunbookExecution200ResponseDataInner) HasDryRun() bool {
+	if o != nil && !IsNil(o.DryRun) {
+		return true
+	}
+
+	return false
+}
+
+// SetDryRun gets a reference to the given bool and assigns it to the DryRun field.
+func (o *FindRunbookExecution200ResponseDataInner) SetDryRun(v bool) {
+	o.DryRun = &v
+}
+
+// GetApprovedAt returns the ApprovedAt field value if set, zero value otherwise.
+func (o *FindRunbookExecution200ResponseDataInner) GetApprovedAt() time.Time {
+	if o == nil || IsNil(o.ApprovedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ApprovedAt
+}
+
+// GetApprovedAtOk returns a tuple with the ApprovedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetApprovedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ApprovedAt) {
+		return nil, false
+	}
+	return o.ApprovedAt, true
+}
+
+// HasApprovedAt returns a boolean if a field has been set.
+func (o *FindRunbookExecution200ResponseDataInner) HasApprovedAt() bool {
+	if o != nil && !IsNil(o.ApprovedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetApprovedAt gets a reference to the given time.Time and assigns it to the ApprovedAt field.
+func (o *FindRunbookExecution200ResponseDataInner) SetApprovedAt(v time.Time) {
+	o.ApprovedAt = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *FindRunbookExecution200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *FindRunbookExecution200ResponseDataInner) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *FindRunbookExecution200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
+}
+
+// GetApprovalToken returns the ApprovalToken field value if set, zero value otherwise.
+func (o *FindRunbookExecution200ResponseDataInner) GetApprovalToken() string {
+	if o == nil || IsNil(o.ApprovalToken) {
+		var ret string
+		return ret
+	}
+	return *o.ApprovalToken
+}
+
+// GetApprovalTokenOk returns a tuple with the ApprovalToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetApprovalTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.ApprovalToken) {
+		return nil, false
+	}
+	return o.ApprovalToken, true
+}
+
+// HasApprovalToken returns a boolean if a field has been set.
+func (o *FindRunbookExecution200ResponseDataInner) HasApprovalToken() bool {
+	if o != nil && !IsNil(o.ApprovalToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetApprovalToken gets a reference to the given string and assigns it to the ApprovalToken field.
+func (o *FindRunbookExecution200ResponseDataInner) SetApprovalToken(v string) {
+	o.ApprovalToken = &v
+}
+
+// GetAgentTarget returns the AgentTarget field value if set, zero value otherwise.
+func (o *FindRunbookExecution200ResponseDataInner) GetAgentTarget() string {
+	if o == nil || IsNil(o.AgentTarget) {
+		var ret string
+		return ret
+	}
+	return *o.AgentTarget
+}
+
+// GetAgentTargetOk returns a tuple with the AgentTarget field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetAgentTargetOk() (*string, bool) {
+	if o == nil || IsNil(o.AgentTarget) {
+		return nil, false
+	}
+	return o.AgentTarget, true
+}
+
+// HasAgentTarget returns a boolean if a field has been set.
+func (o *FindRunbookExecution200ResponseDataInner) HasAgentTarget() bool {
+	if o != nil && !IsNil(o.AgentTarget) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgentTarget gets a reference to the given string and assigns it to the AgentTarget field.
+func (o *FindRunbookExecution200ResponseDataInner) SetAgentTarget(v string) {
+	o.AgentTarget = &v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindRunbookExecution200ResponseDataInner) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindRunbookExecution200ResponseDataInner) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindRunbookExecution200ResponseDataInner) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
+// GetTriggeredByUser returns the TriggeredByUser field value if set, zero value otherwise.
+func (o *FindRunbookExecution200ResponseDataInner) GetTriggeredByUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.TriggeredByUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.TriggeredByUser
+}
+
+// GetTriggeredByUserOk returns a tuple with the TriggeredByUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRunbookExecution200ResponseDataInner) GetTriggeredByUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.TriggeredByUser) {
+		return nil, false
+	}
+	return o.TriggeredByUser, true
+}
+
+// HasTriggeredByUser returns a boolean if a field has been set.
+func (o *FindRunbookExecution200ResponseDataInner) HasTriggeredByUser() bool {
+	if o != nil && !IsNil(o.TriggeredByUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggeredByUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the TriggeredByUser field.
+func (o *FindRunbookExecution200ResponseDataInner) SetTriggeredByUser(v CreateAccessReviewRequestDataReviewer) {
+	o.TriggeredByUser = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +497,6 @@ func (o *FindRunbookExecution200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindRunbookExecution200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindRunbookExecution200ResponseDataInner) GetAttributes() RunbookExecution {
-	if o == nil || IsNil(o.Attributes) {
-		var ret RunbookExecution
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindRunbookExecution200ResponseDataInner) GetAttributesOk() (*RunbookExecution, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindRunbookExecution200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given RunbookExecution and assigns it to the Attributes field.
-func (o *FindRunbookExecution200ResponseDataInner) SetAttributes(v RunbookExecution) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +615,43 @@ func (o FindRunbookExecution200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindRunbookExecution200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Runbook) {
+		toSerialize["runbook"] = o.Runbook
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	toSerialize["triggered_by"] = o.TriggeredBy
+	toSerialize["status"] = o.Status
+	if o.Result != nil {
+		toSerialize["result"] = o.Result
+	}
+	if !IsNil(o.DryRun) {
+		toSerialize["dry_run"] = o.DryRun
+	}
+	if !IsNil(o.ApprovedAt) {
+		toSerialize["approved_at"] = o.ApprovedAt
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.ApprovalToken) {
+		toSerialize["approval_token"] = o.ApprovalToken
+	}
+	if !IsNil(o.AgentTarget) {
+		toSerialize["agent_target"] = o.AgentTarget
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
+	if !IsNil(o.TriggeredByUser) {
+		toSerialize["triggered_by_user"] = o.TriggeredByUser
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +663,44 @@ func (o FindRunbookExecution200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindRunbookExecution200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"triggered_by",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindRunbookExecution200ResponseDataInner := _FindRunbookExecution200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindRunbookExecution200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindRunbookExecution200ResponseDataInner(varFindRunbookExecution200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindRunbookExecution200ResponseDataInner struct {

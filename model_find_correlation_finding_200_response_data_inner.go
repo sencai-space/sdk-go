@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCorrelationFinding200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,33 @@ var _ MappedNullable = &FindCorrelationFinding200ResponseDataInner{}
 
 // FindCorrelationFinding200ResponseDataInner struct for FindCorrelationFinding200ResponseDataInner
 type FindCorrelationFinding200ResponseDataInner struct {
+	Pattern string `json:"pattern"`
+	Confidence *string `json:"confidence,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AffectedServices interface{} `json:"affected_services,omitempty"`
+	EvidenceCount *int32 `json:"evidence_count,omitempty"`
+	EvidenceSummary *string `json:"evidence_summary,omitempty"`
+	FindingType *string `json:"finding_type,omitempty"`
+	Status *string `json:"status,omitempty"`
+	FirstSeenAt *time.Time `json:"first_seen_at,omitempty"`
+	LastSeenAt *time.Time `json:"last_seen_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CorrelationFinding `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCorrelationFinding200ResponseDataInner FindCorrelationFinding200ResponseDataInner
+
 // NewFindCorrelationFinding200ResponseDataInner instantiates a new FindCorrelationFinding200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCorrelationFinding200ResponseDataInner() *FindCorrelationFinding200ResponseDataInner {
+func NewFindCorrelationFinding200ResponseDataInner(pattern string) *FindCorrelationFinding200ResponseDataInner {
 	this := FindCorrelationFinding200ResponseDataInner{}
+	this.Pattern = pattern
 	return &this
 }
 
@@ -44,6 +59,319 @@ func NewFindCorrelationFinding200ResponseDataInner() *FindCorrelationFinding200R
 func NewFindCorrelationFinding200ResponseDataInnerWithDefaults() *FindCorrelationFinding200ResponseDataInner {
 	this := FindCorrelationFinding200ResponseDataInner{}
 	return &this
+}
+
+// GetPattern returns the Pattern field value
+func (o *FindCorrelationFinding200ResponseDataInner) GetPattern() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Pattern
+}
+
+// GetPatternOk returns a tuple with the Pattern field value
+// and a boolean to check if the value has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) GetPatternOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Pattern, true
+}
+
+// SetPattern sets field value
+func (o *FindCorrelationFinding200ResponseDataInner) SetPattern(v string) {
+	o.Pattern = v
+}
+
+// GetConfidence returns the Confidence field value if set, zero value otherwise.
+func (o *FindCorrelationFinding200ResponseDataInner) GetConfidence() string {
+	if o == nil || IsNil(o.Confidence) {
+		var ret string
+		return ret
+	}
+	return *o.Confidence
+}
+
+// GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) GetConfidenceOk() (*string, bool) {
+	if o == nil || IsNil(o.Confidence) {
+		return nil, false
+	}
+	return o.Confidence, true
+}
+
+// HasConfidence returns a boolean if a field has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) HasConfidence() bool {
+	if o != nil && !IsNil(o.Confidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfidence gets a reference to the given string and assigns it to the Confidence field.
+func (o *FindCorrelationFinding200ResponseDataInner) SetConfidence(v string) {
+	o.Confidence = &v
+}
+
+// GetAffectedServices returns the AffectedServices field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCorrelationFinding200ResponseDataInner) GetAffectedServices() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.AffectedServices
+}
+
+// GetAffectedServicesOk returns a tuple with the AffectedServices field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCorrelationFinding200ResponseDataInner) GetAffectedServicesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.AffectedServices) {
+		return nil, false
+	}
+	return &o.AffectedServices, true
+}
+
+// HasAffectedServices returns a boolean if a field has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) HasAffectedServices() bool {
+	if o != nil && !IsNil(o.AffectedServices) {
+		return true
+	}
+
+	return false
+}
+
+// SetAffectedServices gets a reference to the given interface{} and assigns it to the AffectedServices field.
+func (o *FindCorrelationFinding200ResponseDataInner) SetAffectedServices(v interface{}) {
+	o.AffectedServices = v
+}
+
+// GetEvidenceCount returns the EvidenceCount field value if set, zero value otherwise.
+func (o *FindCorrelationFinding200ResponseDataInner) GetEvidenceCount() int32 {
+	if o == nil || IsNil(o.EvidenceCount) {
+		var ret int32
+		return ret
+	}
+	return *o.EvidenceCount
+}
+
+// GetEvidenceCountOk returns a tuple with the EvidenceCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) GetEvidenceCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.EvidenceCount) {
+		return nil, false
+	}
+	return o.EvidenceCount, true
+}
+
+// HasEvidenceCount returns a boolean if a field has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) HasEvidenceCount() bool {
+	if o != nil && !IsNil(o.EvidenceCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvidenceCount gets a reference to the given int32 and assigns it to the EvidenceCount field.
+func (o *FindCorrelationFinding200ResponseDataInner) SetEvidenceCount(v int32) {
+	o.EvidenceCount = &v
+}
+
+// GetEvidenceSummary returns the EvidenceSummary field value if set, zero value otherwise.
+func (o *FindCorrelationFinding200ResponseDataInner) GetEvidenceSummary() string {
+	if o == nil || IsNil(o.EvidenceSummary) {
+		var ret string
+		return ret
+	}
+	return *o.EvidenceSummary
+}
+
+// GetEvidenceSummaryOk returns a tuple with the EvidenceSummary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) GetEvidenceSummaryOk() (*string, bool) {
+	if o == nil || IsNil(o.EvidenceSummary) {
+		return nil, false
+	}
+	return o.EvidenceSummary, true
+}
+
+// HasEvidenceSummary returns a boolean if a field has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) HasEvidenceSummary() bool {
+	if o != nil && !IsNil(o.EvidenceSummary) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvidenceSummary gets a reference to the given string and assigns it to the EvidenceSummary field.
+func (o *FindCorrelationFinding200ResponseDataInner) SetEvidenceSummary(v string) {
+	o.EvidenceSummary = &v
+}
+
+// GetFindingType returns the FindingType field value if set, zero value otherwise.
+func (o *FindCorrelationFinding200ResponseDataInner) GetFindingType() string {
+	if o == nil || IsNil(o.FindingType) {
+		var ret string
+		return ret
+	}
+	return *o.FindingType
+}
+
+// GetFindingTypeOk returns a tuple with the FindingType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) GetFindingTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.FindingType) {
+		return nil, false
+	}
+	return o.FindingType, true
+}
+
+// HasFindingType returns a boolean if a field has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) HasFindingType() bool {
+	if o != nil && !IsNil(o.FindingType) {
+		return true
+	}
+
+	return false
+}
+
+// SetFindingType gets a reference to the given string and assigns it to the FindingType field.
+func (o *FindCorrelationFinding200ResponseDataInner) SetFindingType(v string) {
+	o.FindingType = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindCorrelationFinding200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindCorrelationFinding200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetFirstSeenAt returns the FirstSeenAt field value if set, zero value otherwise.
+func (o *FindCorrelationFinding200ResponseDataInner) GetFirstSeenAt() time.Time {
+	if o == nil || IsNil(o.FirstSeenAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.FirstSeenAt
+}
+
+// GetFirstSeenAtOk returns a tuple with the FirstSeenAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) GetFirstSeenAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.FirstSeenAt) {
+		return nil, false
+	}
+	return o.FirstSeenAt, true
+}
+
+// HasFirstSeenAt returns a boolean if a field has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) HasFirstSeenAt() bool {
+	if o != nil && !IsNil(o.FirstSeenAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstSeenAt gets a reference to the given time.Time and assigns it to the FirstSeenAt field.
+func (o *FindCorrelationFinding200ResponseDataInner) SetFirstSeenAt(v time.Time) {
+	o.FirstSeenAt = &v
+}
+
+// GetLastSeenAt returns the LastSeenAt field value if set, zero value otherwise.
+func (o *FindCorrelationFinding200ResponseDataInner) GetLastSeenAt() time.Time {
+	if o == nil || IsNil(o.LastSeenAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSeenAt
+}
+
+// GetLastSeenAtOk returns a tuple with the LastSeenAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) GetLastSeenAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSeenAt) {
+		return nil, false
+	}
+	return o.LastSeenAt, true
+}
+
+// HasLastSeenAt returns a boolean if a field has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) HasLastSeenAt() bool {
+	if o != nil && !IsNil(o.LastSeenAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSeenAt gets a reference to the given time.Time and assigns it to the LastSeenAt field.
+func (o *FindCorrelationFinding200ResponseDataInner) SetLastSeenAt(v time.Time) {
+	o.LastSeenAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCorrelationFinding200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCorrelationFinding200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCorrelationFinding200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +436,6 @@ func (o *FindCorrelationFinding200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCorrelationFinding200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCorrelationFinding200ResponseDataInner) GetAttributes() CorrelationFinding {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CorrelationFinding
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCorrelationFinding200ResponseDataInner) GetAttributesOk() (*CorrelationFinding, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCorrelationFinding200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CorrelationFinding and assigns it to the Attributes field.
-func (o *FindCorrelationFinding200ResponseDataInner) SetAttributes(v CorrelationFinding) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +554,39 @@ func (o FindCorrelationFinding200ResponseDataInner) MarshalJSON() ([]byte, error
 
 func (o FindCorrelationFinding200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["pattern"] = o.Pattern
+	if !IsNil(o.Confidence) {
+		toSerialize["confidence"] = o.Confidence
+	}
+	if o.AffectedServices != nil {
+		toSerialize["affected_services"] = o.AffectedServices
+	}
+	if !IsNil(o.EvidenceCount) {
+		toSerialize["evidence_count"] = o.EvidenceCount
+	}
+	if !IsNil(o.EvidenceSummary) {
+		toSerialize["evidence_summary"] = o.EvidenceSummary
+	}
+	if !IsNil(o.FindingType) {
+		toSerialize["finding_type"] = o.FindingType
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.FirstSeenAt) {
+		toSerialize["first_seen_at"] = o.FirstSeenAt
+	}
+	if !IsNil(o.LastSeenAt) {
+		toSerialize["last_seen_at"] = o.LastSeenAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +598,43 @@ func (o FindCorrelationFinding200ResponseDataInner) ToMap() (map[string]interfac
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCorrelationFinding200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"pattern",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCorrelationFinding200ResponseDataInner := _FindCorrelationFinding200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCorrelationFinding200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCorrelationFinding200ResponseDataInner(varFindCorrelationFinding200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCorrelationFinding200ResponseDataInner struct {

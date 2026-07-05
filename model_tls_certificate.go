@@ -33,7 +33,8 @@ type TlsCertificate struct {
 	ProviderCertId *string `json:"provider_cert_id,omitempty"`
 	DnsZone *CreateAccessReviewRequestDataReviewer `json:"dns_zone,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
-	SanDomains map[string]interface{} `json:"san_domains,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	SanDomains interface{} `json:"san_domains,omitempty"`
 	Issuer *string `json:"issuer,omitempty"`
 	LastCheckedAt *time.Time `json:"last_checked_at,omitempty"`
 	RenewalError *string `json:"renewal_error,omitempty"`
@@ -364,10 +365,10 @@ func (o *TlsCertificate) SetOrganisation(v CreateAccessReviewRequestDataReviewer
 	o.Organisation = &v
 }
 
-// GetSanDomains returns the SanDomains field value if set, zero value otherwise.
-func (o *TlsCertificate) GetSanDomains() map[string]interface{} {
-	if o == nil || IsNil(o.SanDomains) {
-		var ret map[string]interface{}
+// GetSanDomains returns the SanDomains field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TlsCertificate) GetSanDomains() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.SanDomains
@@ -375,11 +376,12 @@ func (o *TlsCertificate) GetSanDomains() map[string]interface{} {
 
 // GetSanDomainsOk returns a tuple with the SanDomains field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TlsCertificate) GetSanDomainsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TlsCertificate) GetSanDomainsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.SanDomains) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.SanDomains, true
+	return &o.SanDomains, true
 }
 
 // HasSanDomains returns a boolean if a field has been set.
@@ -391,8 +393,8 @@ func (o *TlsCertificate) HasSanDomains() bool {
 	return false
 }
 
-// SetSanDomains gets a reference to the given map[string]interface{} and assigns it to the SanDomains field.
-func (o *TlsCertificate) SetSanDomains(v map[string]interface{}) {
+// SetSanDomains gets a reference to the given interface{} and assigns it to the SanDomains field.
+func (o *TlsCertificate) SetSanDomains(v interface{}) {
 	o.SanDomains = v
 }
 
@@ -528,7 +530,7 @@ func (o TlsCertificate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Organisation) {
 		toSerialize["organisation"] = o.Organisation
 	}
-	if !IsNil(o.SanDomains) {
+	if o.SanDomains != nil {
 		toSerialize["san_domains"] = o.SanDomains
 	}
 	if !IsNil(o.Issuer) {

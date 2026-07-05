@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindQuarantineEvent200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,32 @@ var _ MappedNullable = &FindQuarantineEvent200ResponseDataInner{}
 
 // FindQuarantineEvent200ResponseDataInner struct for FindQuarantineEvent200ResponseDataInner
 type FindQuarantineEvent200ResponseDataInner struct {
+	AgentId string `json:"agent_id"`
+	AgentName *string `json:"agent_name,omitempty"`
+	TriggerType *string `json:"trigger_type,omitempty"`
+	PolicyId *string `json:"policy_id,omitempty"`
+	Status *string `json:"status,omitempty"`
+	QuarantinedAt time.Time `json:"quarantined_at"`
+	ReleasedAt *time.Time `json:"released_at,omitempty"`
+	ReleaseReason *string `json:"release_reason,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *QuarantineEvent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindQuarantineEvent200ResponseDataInner FindQuarantineEvent200ResponseDataInner
+
 // NewFindQuarantineEvent200ResponseDataInner instantiates a new FindQuarantineEvent200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindQuarantineEvent200ResponseDataInner() *FindQuarantineEvent200ResponseDataInner {
+func NewFindQuarantineEvent200ResponseDataInner(agentId string, quarantinedAt time.Time) *FindQuarantineEvent200ResponseDataInner {
 	this := FindQuarantineEvent200ResponseDataInner{}
+	this.AgentId = agentId
+	this.QuarantinedAt = quarantinedAt
 	return &this
 }
 
@@ -44,6 +58,278 @@ func NewFindQuarantineEvent200ResponseDataInner() *FindQuarantineEvent200Respons
 func NewFindQuarantineEvent200ResponseDataInnerWithDefaults() *FindQuarantineEvent200ResponseDataInner {
 	this := FindQuarantineEvent200ResponseDataInner{}
 	return &this
+}
+
+// GetAgentId returns the AgentId field value
+func (o *FindQuarantineEvent200ResponseDataInner) GetAgentId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AgentId
+}
+
+// GetAgentIdOk returns a tuple with the AgentId field value
+// and a boolean to check if the value has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) GetAgentIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AgentId, true
+}
+
+// SetAgentId sets field value
+func (o *FindQuarantineEvent200ResponseDataInner) SetAgentId(v string) {
+	o.AgentId = v
+}
+
+// GetAgentName returns the AgentName field value if set, zero value otherwise.
+func (o *FindQuarantineEvent200ResponseDataInner) GetAgentName() string {
+	if o == nil || IsNil(o.AgentName) {
+		var ret string
+		return ret
+	}
+	return *o.AgentName
+}
+
+// GetAgentNameOk returns a tuple with the AgentName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) GetAgentNameOk() (*string, bool) {
+	if o == nil || IsNil(o.AgentName) {
+		return nil, false
+	}
+	return o.AgentName, true
+}
+
+// HasAgentName returns a boolean if a field has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) HasAgentName() bool {
+	if o != nil && !IsNil(o.AgentName) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgentName gets a reference to the given string and assigns it to the AgentName field.
+func (o *FindQuarantineEvent200ResponseDataInner) SetAgentName(v string) {
+	o.AgentName = &v
+}
+
+// GetTriggerType returns the TriggerType field value if set, zero value otherwise.
+func (o *FindQuarantineEvent200ResponseDataInner) GetTriggerType() string {
+	if o == nil || IsNil(o.TriggerType) {
+		var ret string
+		return ret
+	}
+	return *o.TriggerType
+}
+
+// GetTriggerTypeOk returns a tuple with the TriggerType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) GetTriggerTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.TriggerType) {
+		return nil, false
+	}
+	return o.TriggerType, true
+}
+
+// HasTriggerType returns a boolean if a field has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) HasTriggerType() bool {
+	if o != nil && !IsNil(o.TriggerType) {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggerType gets a reference to the given string and assigns it to the TriggerType field.
+func (o *FindQuarantineEvent200ResponseDataInner) SetTriggerType(v string) {
+	o.TriggerType = &v
+}
+
+// GetPolicyId returns the PolicyId field value if set, zero value otherwise.
+func (o *FindQuarantineEvent200ResponseDataInner) GetPolicyId() string {
+	if o == nil || IsNil(o.PolicyId) {
+		var ret string
+		return ret
+	}
+	return *o.PolicyId
+}
+
+// GetPolicyIdOk returns a tuple with the PolicyId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) GetPolicyIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PolicyId) {
+		return nil, false
+	}
+	return o.PolicyId, true
+}
+
+// HasPolicyId returns a boolean if a field has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) HasPolicyId() bool {
+	if o != nil && !IsNil(o.PolicyId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicyId gets a reference to the given string and assigns it to the PolicyId field.
+func (o *FindQuarantineEvent200ResponseDataInner) SetPolicyId(v string) {
+	o.PolicyId = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindQuarantineEvent200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindQuarantineEvent200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetQuarantinedAt returns the QuarantinedAt field value
+func (o *FindQuarantineEvent200ResponseDataInner) GetQuarantinedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.QuarantinedAt
+}
+
+// GetQuarantinedAtOk returns a tuple with the QuarantinedAt field value
+// and a boolean to check if the value has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) GetQuarantinedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.QuarantinedAt, true
+}
+
+// SetQuarantinedAt sets field value
+func (o *FindQuarantineEvent200ResponseDataInner) SetQuarantinedAt(v time.Time) {
+	o.QuarantinedAt = v
+}
+
+// GetReleasedAt returns the ReleasedAt field value if set, zero value otherwise.
+func (o *FindQuarantineEvent200ResponseDataInner) GetReleasedAt() time.Time {
+	if o == nil || IsNil(o.ReleasedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ReleasedAt
+}
+
+// GetReleasedAtOk returns a tuple with the ReleasedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) GetReleasedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ReleasedAt) {
+		return nil, false
+	}
+	return o.ReleasedAt, true
+}
+
+// HasReleasedAt returns a boolean if a field has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) HasReleasedAt() bool {
+	if o != nil && !IsNil(o.ReleasedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetReleasedAt gets a reference to the given time.Time and assigns it to the ReleasedAt field.
+func (o *FindQuarantineEvent200ResponseDataInner) SetReleasedAt(v time.Time) {
+	o.ReleasedAt = &v
+}
+
+// GetReleaseReason returns the ReleaseReason field value if set, zero value otherwise.
+func (o *FindQuarantineEvent200ResponseDataInner) GetReleaseReason() string {
+	if o == nil || IsNil(o.ReleaseReason) {
+		var ret string
+		return ret
+	}
+	return *o.ReleaseReason
+}
+
+// GetReleaseReasonOk returns a tuple with the ReleaseReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) GetReleaseReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.ReleaseReason) {
+		return nil, false
+	}
+	return o.ReleaseReason, true
+}
+
+// HasReleaseReason returns a boolean if a field has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) HasReleaseReason() bool {
+	if o != nil && !IsNil(o.ReleaseReason) {
+		return true
+	}
+
+	return false
+}
+
+// SetReleaseReason gets a reference to the given string and assigns it to the ReleaseReason field.
+func (o *FindQuarantineEvent200ResponseDataInner) SetReleaseReason(v string) {
+	o.ReleaseReason = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindQuarantineEvent200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindQuarantineEvent200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindQuarantineEvent200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +394,6 @@ func (o *FindQuarantineEvent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindQuarantineEvent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindQuarantineEvent200ResponseDataInner) GetAttributes() QuarantineEvent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret QuarantineEvent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindQuarantineEvent200ResponseDataInner) GetAttributesOk() (*QuarantineEvent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindQuarantineEvent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given QuarantineEvent and assigns it to the Attributes field.
-func (o *FindQuarantineEvent200ResponseDataInner) SetAttributes(v QuarantineEvent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +512,34 @@ func (o FindQuarantineEvent200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindQuarantineEvent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["agent_id"] = o.AgentId
+	if !IsNil(o.AgentName) {
+		toSerialize["agent_name"] = o.AgentName
+	}
+	if !IsNil(o.TriggerType) {
+		toSerialize["trigger_type"] = o.TriggerType
+	}
+	if !IsNil(o.PolicyId) {
+		toSerialize["policy_id"] = o.PolicyId
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	toSerialize["quarantined_at"] = o.QuarantinedAt
+	if !IsNil(o.ReleasedAt) {
+		toSerialize["released_at"] = o.ReleasedAt
+	}
+	if !IsNil(o.ReleaseReason) {
+		toSerialize["release_reason"] = o.ReleaseReason
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +551,44 @@ func (o FindQuarantineEvent200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindQuarantineEvent200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"agent_id",
+		"quarantined_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindQuarantineEvent200ResponseDataInner := _FindQuarantineEvent200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindQuarantineEvent200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindQuarantineEvent200ResponseDataInner(varFindQuarantineEvent200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindQuarantineEvent200ResponseDataInner struct {

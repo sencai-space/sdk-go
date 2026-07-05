@@ -31,18 +31,18 @@ type CreateBlueprintDraftRequestData struct {
 	Category *string `json:"category,omitempty"`
 	Provider *string `json:"provider,omitempty"`
 	// Array of {id, name, type: 'provision'|'configure'|'verify', resource_type, config JSON, depends_on: string[]}.
-	Steps map[string]interface{} `json:"steps,omitempty"`
+	Steps interface{} `json:"steps,omitempty"`
 	// JSON Schema for input variables, e.g. {\"region\": {\"type\": \"string\", \"default\": \"eu-west-1\"}}.
-	Variables map[string]interface{} `json:"variables,omitempty"`
+	Variables interface{} `json:"variables,omitempty"`
 	// Array of strings listing the cloud resource types used in this blueprint.
-	ResourceTypes map[string]interface{} `json:"resource_types,omitempty"`
+	ResourceTypes interface{} `json:"resource_types,omitempty"`
 	// Estimated monthly cost in USD.
 	EstimatedCostMonthly *float32 `json:"estimated_cost_monthly,omitempty"`
 	CostNotes *string `json:"cost_notes,omitempty"`
 	Status *string `json:"status,omitempty"`
 	Version *string `json:"version,omitempty"`
 	// Array of string tags.
-	Tags map[string]interface{} `json:"tags,omitempty"`
+	Tags interface{} `json:"tags,omitempty"`
 }
 
 type _CreateBlueprintDraftRequestData CreateBlueprintDraftRequestData
@@ -274,10 +274,10 @@ func (o *CreateBlueprintDraftRequestData) SetProvider(v string) {
 	o.Provider = &v
 }
 
-// GetSteps returns the Steps field value if set, zero value otherwise.
-func (o *CreateBlueprintDraftRequestData) GetSteps() map[string]interface{} {
-	if o == nil || IsNil(o.Steps) {
-		var ret map[string]interface{}
+// GetSteps returns the Steps field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateBlueprintDraftRequestData) GetSteps() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Steps
@@ -285,11 +285,12 @@ func (o *CreateBlueprintDraftRequestData) GetSteps() map[string]interface{} {
 
 // GetStepsOk returns a tuple with the Steps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateBlueprintDraftRequestData) GetStepsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBlueprintDraftRequestData) GetStepsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Steps) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Steps, true
+	return &o.Steps, true
 }
 
 // HasSteps returns a boolean if a field has been set.
@@ -301,15 +302,15 @@ func (o *CreateBlueprintDraftRequestData) HasSteps() bool {
 	return false
 }
 
-// SetSteps gets a reference to the given map[string]interface{} and assigns it to the Steps field.
-func (o *CreateBlueprintDraftRequestData) SetSteps(v map[string]interface{}) {
+// SetSteps gets a reference to the given interface{} and assigns it to the Steps field.
+func (o *CreateBlueprintDraftRequestData) SetSteps(v interface{}) {
 	o.Steps = v
 }
 
-// GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *CreateBlueprintDraftRequestData) GetVariables() map[string]interface{} {
-	if o == nil || IsNil(o.Variables) {
-		var ret map[string]interface{}
+// GetVariables returns the Variables field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateBlueprintDraftRequestData) GetVariables() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Variables
@@ -317,11 +318,12 @@ func (o *CreateBlueprintDraftRequestData) GetVariables() map[string]interface{} 
 
 // GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateBlueprintDraftRequestData) GetVariablesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBlueprintDraftRequestData) GetVariablesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Variables) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Variables, true
+	return &o.Variables, true
 }
 
 // HasVariables returns a boolean if a field has been set.
@@ -333,15 +335,15 @@ func (o *CreateBlueprintDraftRequestData) HasVariables() bool {
 	return false
 }
 
-// SetVariables gets a reference to the given map[string]interface{} and assigns it to the Variables field.
-func (o *CreateBlueprintDraftRequestData) SetVariables(v map[string]interface{}) {
+// SetVariables gets a reference to the given interface{} and assigns it to the Variables field.
+func (o *CreateBlueprintDraftRequestData) SetVariables(v interface{}) {
 	o.Variables = v
 }
 
-// GetResourceTypes returns the ResourceTypes field value if set, zero value otherwise.
-func (o *CreateBlueprintDraftRequestData) GetResourceTypes() map[string]interface{} {
-	if o == nil || IsNil(o.ResourceTypes) {
-		var ret map[string]interface{}
+// GetResourceTypes returns the ResourceTypes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateBlueprintDraftRequestData) GetResourceTypes() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ResourceTypes
@@ -349,11 +351,12 @@ func (o *CreateBlueprintDraftRequestData) GetResourceTypes() map[string]interfac
 
 // GetResourceTypesOk returns a tuple with the ResourceTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateBlueprintDraftRequestData) GetResourceTypesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBlueprintDraftRequestData) GetResourceTypesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ResourceTypes) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ResourceTypes, true
+	return &o.ResourceTypes, true
 }
 
 // HasResourceTypes returns a boolean if a field has been set.
@@ -365,8 +368,8 @@ func (o *CreateBlueprintDraftRequestData) HasResourceTypes() bool {
 	return false
 }
 
-// SetResourceTypes gets a reference to the given map[string]interface{} and assigns it to the ResourceTypes field.
-func (o *CreateBlueprintDraftRequestData) SetResourceTypes(v map[string]interface{}) {
+// SetResourceTypes gets a reference to the given interface{} and assigns it to the ResourceTypes field.
+func (o *CreateBlueprintDraftRequestData) SetResourceTypes(v interface{}) {
 	o.ResourceTypes = v
 }
 
@@ -498,10 +501,10 @@ func (o *CreateBlueprintDraftRequestData) SetVersion(v string) {
 	o.Version = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateBlueprintDraftRequestData) GetTags() map[string]interface{} {
-	if o == nil || IsNil(o.Tags) {
-		var ret map[string]interface{}
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateBlueprintDraftRequestData) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Tags
@@ -509,11 +512,12 @@ func (o *CreateBlueprintDraftRequestData) GetTags() map[string]interface{} {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateBlueprintDraftRequestData) GetTagsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateBlueprintDraftRequestData) GetTagsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Tags) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -525,8 +529,8 @@ func (o *CreateBlueprintDraftRequestData) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given map[string]interface{} and assigns it to the Tags field.
-func (o *CreateBlueprintDraftRequestData) SetTags(v map[string]interface{}) {
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *CreateBlueprintDraftRequestData) SetTags(v interface{}) {
 	o.Tags = v
 }
 
@@ -557,13 +561,13 @@ func (o CreateBlueprintDraftRequestData) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}
-	if !IsNil(o.Steps) {
+	if o.Steps != nil {
 		toSerialize["steps"] = o.Steps
 	}
-	if !IsNil(o.Variables) {
+	if o.Variables != nil {
 		toSerialize["variables"] = o.Variables
 	}
-	if !IsNil(o.ResourceTypes) {
+	if o.ResourceTypes != nil {
 		toSerialize["resource_types"] = o.ResourceTypes
 	}
 	if !IsNil(o.EstimatedCostMonthly) {
@@ -578,7 +582,7 @@ func (o CreateBlueprintDraftRequestData) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
 	return toSerialize, nil

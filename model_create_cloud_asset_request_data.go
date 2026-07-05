@@ -37,9 +37,9 @@ type CreateCloudAssetRequestData struct {
 	// Human-readable name/label of the resource (provider Name tag, display name, ...).
 	Name *string `json:"name,omitempty"`
 	// Provider tags as a {k:v} map.
-	Tags map[string]interface{} `json:"tags,omitempty"`
+	Tags interface{} `json:"tags,omitempty"`
 	// Raw resource descriptor (instance type, IPs, SG ids, ...). LONGTEXT — do not store binary blobs.
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	Metadata interface{} `json:"metadata,omitempty"`
 	// Adoption state of the asset relative to Sencai management.
 	Ownership *string `json:"ownership,omitempty"`
 	// True once Sencai actively manages this asset (adopted-for-management).
@@ -316,10 +316,10 @@ func (o *CreateCloudAssetRequestData) SetName(v string) {
 	o.Name = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateCloudAssetRequestData) GetTags() map[string]interface{} {
-	if o == nil || IsNil(o.Tags) {
-		var ret map[string]interface{}
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudAssetRequestData) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Tags
@@ -327,11 +327,12 @@ func (o *CreateCloudAssetRequestData) GetTags() map[string]interface{} {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudAssetRequestData) GetTagsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudAssetRequestData) GetTagsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Tags) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -343,15 +344,15 @@ func (o *CreateCloudAssetRequestData) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given map[string]interface{} and assigns it to the Tags field.
-func (o *CreateCloudAssetRequestData) SetTags(v map[string]interface{}) {
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *CreateCloudAssetRequestData) SetTags(v interface{}) {
 	o.Tags = v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CreateCloudAssetRequestData) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudAssetRequestData) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -359,11 +360,12 @@ func (o *CreateCloudAssetRequestData) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudAssetRequestData) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudAssetRequestData) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -375,8 +377,8 @@ func (o *CreateCloudAssetRequestData) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CreateCloudAssetRequestData) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CreateCloudAssetRequestData) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -728,10 +730,10 @@ func (o CreateCloudAssetRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.Ownership) {

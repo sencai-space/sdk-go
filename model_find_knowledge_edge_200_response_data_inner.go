@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindKnowledgeEdge200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindKnowledgeEdge200ResponseDataInner{}
 
 // FindKnowledgeEdge200ResponseDataInner struct for FindKnowledgeEdge200ResponseDataInner
 type FindKnowledgeEdge200ResponseDataInner struct {
+	SourceNode *CreateAccessReviewRequestDataReviewer `json:"source_node,omitempty"`
+	TargetNode *CreateAccessReviewRequestDataReviewer `json:"target_node,omitempty"`
+	RelationType string `json:"relation_type"`
+	// Edge weight; higher = stronger or more recent relationship signal.
+	Weight *float32 `json:"weight,omitempty"`
+	LastChangedAt *time.Time `json:"last_changed_at,omitempty"`
+	// platform-event correlation_id that triggered this edge, or 'manual'.
+	ChangeSource *string `json:"change_source,omitempty"`
+	// Arbitrary metadata for this edge.
+	Properties interface{} `json:"properties,omitempty"`
+	IsActive *bool `json:"is_active,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *KnowledgeEdge `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindKnowledgeEdge200ResponseDataInner FindKnowledgeEdge200ResponseDataInner
+
 // NewFindKnowledgeEdge200ResponseDataInner instantiates a new FindKnowledgeEdge200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindKnowledgeEdge200ResponseDataInner() *FindKnowledgeEdge200ResponseDataInner {
+func NewFindKnowledgeEdge200ResponseDataInner(relationType string) *FindKnowledgeEdge200ResponseDataInner {
 	this := FindKnowledgeEdge200ResponseDataInner{}
+	this.RelationType = relationType
 	return &this
 }
 
@@ -44,6 +60,287 @@ func NewFindKnowledgeEdge200ResponseDataInner() *FindKnowledgeEdge200ResponseDat
 func NewFindKnowledgeEdge200ResponseDataInnerWithDefaults() *FindKnowledgeEdge200ResponseDataInner {
 	this := FindKnowledgeEdge200ResponseDataInner{}
 	return &this
+}
+
+// GetSourceNode returns the SourceNode field value if set, zero value otherwise.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetSourceNode() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.SourceNode) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.SourceNode
+}
+
+// GetSourceNodeOk returns a tuple with the SourceNode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetSourceNodeOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.SourceNode) {
+		return nil, false
+	}
+	return o.SourceNode, true
+}
+
+// HasSourceNode returns a boolean if a field has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) HasSourceNode() bool {
+	if o != nil && !IsNil(o.SourceNode) {
+		return true
+	}
+
+	return false
+}
+
+// SetSourceNode gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the SourceNode field.
+func (o *FindKnowledgeEdge200ResponseDataInner) SetSourceNode(v CreateAccessReviewRequestDataReviewer) {
+	o.SourceNode = &v
+}
+
+// GetTargetNode returns the TargetNode field value if set, zero value otherwise.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetTargetNode() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.TargetNode) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.TargetNode
+}
+
+// GetTargetNodeOk returns a tuple with the TargetNode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetTargetNodeOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.TargetNode) {
+		return nil, false
+	}
+	return o.TargetNode, true
+}
+
+// HasTargetNode returns a boolean if a field has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) HasTargetNode() bool {
+	if o != nil && !IsNil(o.TargetNode) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetNode gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the TargetNode field.
+func (o *FindKnowledgeEdge200ResponseDataInner) SetTargetNode(v CreateAccessReviewRequestDataReviewer) {
+	o.TargetNode = &v
+}
+
+// GetRelationType returns the RelationType field value
+func (o *FindKnowledgeEdge200ResponseDataInner) GetRelationType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RelationType
+}
+
+// GetRelationTypeOk returns a tuple with the RelationType field value
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetRelationTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RelationType, true
+}
+
+// SetRelationType sets field value
+func (o *FindKnowledgeEdge200ResponseDataInner) SetRelationType(v string) {
+	o.RelationType = v
+}
+
+// GetWeight returns the Weight field value if set, zero value otherwise.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetWeight() float32 {
+	if o == nil || IsNil(o.Weight) {
+		var ret float32
+		return ret
+	}
+	return *o.Weight
+}
+
+// GetWeightOk returns a tuple with the Weight field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetWeightOk() (*float32, bool) {
+	if o == nil || IsNil(o.Weight) {
+		return nil, false
+	}
+	return o.Weight, true
+}
+
+// HasWeight returns a boolean if a field has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) HasWeight() bool {
+	if o != nil && !IsNil(o.Weight) {
+		return true
+	}
+
+	return false
+}
+
+// SetWeight gets a reference to the given float32 and assigns it to the Weight field.
+func (o *FindKnowledgeEdge200ResponseDataInner) SetWeight(v float32) {
+	o.Weight = &v
+}
+
+// GetLastChangedAt returns the LastChangedAt field value if set, zero value otherwise.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetLastChangedAt() time.Time {
+	if o == nil || IsNil(o.LastChangedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastChangedAt
+}
+
+// GetLastChangedAtOk returns a tuple with the LastChangedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetLastChangedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastChangedAt) {
+		return nil, false
+	}
+	return o.LastChangedAt, true
+}
+
+// HasLastChangedAt returns a boolean if a field has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) HasLastChangedAt() bool {
+	if o != nil && !IsNil(o.LastChangedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastChangedAt gets a reference to the given time.Time and assigns it to the LastChangedAt field.
+func (o *FindKnowledgeEdge200ResponseDataInner) SetLastChangedAt(v time.Time) {
+	o.LastChangedAt = &v
+}
+
+// GetChangeSource returns the ChangeSource field value if set, zero value otherwise.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetChangeSource() string {
+	if o == nil || IsNil(o.ChangeSource) {
+		var ret string
+		return ret
+	}
+	return *o.ChangeSource
+}
+
+// GetChangeSourceOk returns a tuple with the ChangeSource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetChangeSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.ChangeSource) {
+		return nil, false
+	}
+	return o.ChangeSource, true
+}
+
+// HasChangeSource returns a boolean if a field has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) HasChangeSource() bool {
+	if o != nil && !IsNil(o.ChangeSource) {
+		return true
+	}
+
+	return false
+}
+
+// SetChangeSource gets a reference to the given string and assigns it to the ChangeSource field.
+func (o *FindKnowledgeEdge200ResponseDataInner) SetChangeSource(v string) {
+	o.ChangeSource = &v
+}
+
+// GetProperties returns the Properties field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindKnowledgeEdge200ResponseDataInner) GetProperties() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Properties
+}
+
+// GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindKnowledgeEdge200ResponseDataInner) GetPropertiesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Properties) {
+		return nil, false
+	}
+	return &o.Properties, true
+}
+
+// HasProperties returns a boolean if a field has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) HasProperties() bool {
+	if o != nil && !IsNil(o.Properties) {
+		return true
+	}
+
+	return false
+}
+
+// SetProperties gets a reference to the given interface{} and assigns it to the Properties field.
+func (o *FindKnowledgeEdge200ResponseDataInner) SetProperties(v interface{}) {
+	o.Properties = v
+}
+
+// GetIsActive returns the IsActive field value if set, zero value otherwise.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetIsActive() bool {
+	if o == nil || IsNil(o.IsActive) {
+		var ret bool
+		return ret
+	}
+	return *o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetIsActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsActive) {
+		return nil, false
+	}
+	return o.IsActive, true
+}
+
+// HasIsActive returns a boolean if a field has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) HasIsActive() bool {
+	if o != nil && !IsNil(o.IsActive) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsActive gets a reference to the given bool and assigns it to the IsActive field.
+func (o *FindKnowledgeEdge200ResponseDataInner) SetIsActive(v bool) {
+	o.IsActive = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindKnowledgeEdge200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindKnowledgeEdge200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +405,6 @@ func (o *FindKnowledgeEdge200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindKnowledgeEdge200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindKnowledgeEdge200ResponseDataInner) GetAttributes() KnowledgeEdge {
-	if o == nil || IsNil(o.Attributes) {
-		var ret KnowledgeEdge
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindKnowledgeEdge200ResponseDataInner) GetAttributesOk() (*KnowledgeEdge, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindKnowledgeEdge200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given KnowledgeEdge and assigns it to the Attributes field.
-func (o *FindKnowledgeEdge200ResponseDataInner) SetAttributes(v KnowledgeEdge) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +523,36 @@ func (o FindKnowledgeEdge200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindKnowledgeEdge200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SourceNode) {
+		toSerialize["source_node"] = o.SourceNode
+	}
+	if !IsNil(o.TargetNode) {
+		toSerialize["target_node"] = o.TargetNode
+	}
+	toSerialize["relation_type"] = o.RelationType
+	if !IsNil(o.Weight) {
+		toSerialize["weight"] = o.Weight
+	}
+	if !IsNil(o.LastChangedAt) {
+		toSerialize["last_changed_at"] = o.LastChangedAt
+	}
+	if !IsNil(o.ChangeSource) {
+		toSerialize["change_source"] = o.ChangeSource
+	}
+	if o.Properties != nil {
+		toSerialize["properties"] = o.Properties
+	}
+	if !IsNil(o.IsActive) {
+		toSerialize["is_active"] = o.IsActive
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +564,43 @@ func (o FindKnowledgeEdge200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindKnowledgeEdge200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"relation_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindKnowledgeEdge200ResponseDataInner := _FindKnowledgeEdge200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindKnowledgeEdge200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindKnowledgeEdge200ResponseDataInner(varFindKnowledgeEdge200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindKnowledgeEdge200ResponseDataInner struct {

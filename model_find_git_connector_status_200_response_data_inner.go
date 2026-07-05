@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindGitConnectorStatus200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindGitConnectorStatus200ResponseDataInner{}
 
 // FindGitConnectorStatus200ResponseDataInner struct for FindGitConnectorStatus200ResponseDataInner
 type FindGitConnectorStatus200ResponseDataInner struct {
+	InstanceId string `json:"instanceId"`
+	Gitstatus *string `json:"gitstatus,omitempty"`
+	LastHeartbeat *time.Time `json:"lastHeartbeat,omitempty"`
+	Uptime *int32 `json:"uptime,omitempty"`
+	Version *string `json:"version,omitempty"`
+	ToolboxStatus *string `json:"toolboxStatus,omitempty"`
+	AppsStatus *string `json:"appsStatus,omitempty"`
+	TotalRepositories *int32 `json:"totalRepositories,omitempty"`
+	ToolboxRepositories *int32 `json:"toolboxRepositories,omitempty"`
+	AppsRepositories *int32 `json:"appsRepositories,omitempty"`
+	LastSyncDate *time.Time `json:"lastSyncDate,omitempty"`
+	LastError *string `json:"lastError,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *GitConnectorStatus `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindGitConnectorStatus200ResponseDataInner FindGitConnectorStatus200ResponseDataInner
+
 // NewFindGitConnectorStatus200ResponseDataInner instantiates a new FindGitConnectorStatus200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindGitConnectorStatus200ResponseDataInner() *FindGitConnectorStatus200ResponseDataInner {
+func NewFindGitConnectorStatus200ResponseDataInner(instanceId string) *FindGitConnectorStatus200ResponseDataInner {
 	this := FindGitConnectorStatus200ResponseDataInner{}
+	this.InstanceId = instanceId
 	return &this
 }
 
@@ -44,6 +62,415 @@ func NewFindGitConnectorStatus200ResponseDataInner() *FindGitConnectorStatus200R
 func NewFindGitConnectorStatus200ResponseDataInnerWithDefaults() *FindGitConnectorStatus200ResponseDataInner {
 	this := FindGitConnectorStatus200ResponseDataInner{}
 	return &this
+}
+
+// GetInstanceId returns the InstanceId field value
+func (o *FindGitConnectorStatus200ResponseDataInner) GetInstanceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.InstanceId
+}
+
+// GetInstanceIdOk returns a tuple with the InstanceId field value
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetInstanceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.InstanceId, true
+}
+
+// SetInstanceId sets field value
+func (o *FindGitConnectorStatus200ResponseDataInner) SetInstanceId(v string) {
+	o.InstanceId = v
+}
+
+// GetGitstatus returns the Gitstatus field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetGitstatus() string {
+	if o == nil || IsNil(o.Gitstatus) {
+		var ret string
+		return ret
+	}
+	return *o.Gitstatus
+}
+
+// GetGitstatusOk returns a tuple with the Gitstatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetGitstatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Gitstatus) {
+		return nil, false
+	}
+	return o.Gitstatus, true
+}
+
+// HasGitstatus returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasGitstatus() bool {
+	if o != nil && !IsNil(o.Gitstatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetGitstatus gets a reference to the given string and assigns it to the Gitstatus field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetGitstatus(v string) {
+	o.Gitstatus = &v
+}
+
+// GetLastHeartbeat returns the LastHeartbeat field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetLastHeartbeat() time.Time {
+	if o == nil || IsNil(o.LastHeartbeat) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastHeartbeat
+}
+
+// GetLastHeartbeatOk returns a tuple with the LastHeartbeat field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetLastHeartbeatOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastHeartbeat) {
+		return nil, false
+	}
+	return o.LastHeartbeat, true
+}
+
+// HasLastHeartbeat returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasLastHeartbeat() bool {
+	if o != nil && !IsNil(o.LastHeartbeat) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastHeartbeat gets a reference to the given time.Time and assigns it to the LastHeartbeat field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetLastHeartbeat(v time.Time) {
+	o.LastHeartbeat = &v
+}
+
+// GetUptime returns the Uptime field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetUptime() int32 {
+	if o == nil || IsNil(o.Uptime) {
+		var ret int32
+		return ret
+	}
+	return *o.Uptime
+}
+
+// GetUptimeOk returns a tuple with the Uptime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetUptimeOk() (*int32, bool) {
+	if o == nil || IsNil(o.Uptime) {
+		return nil, false
+	}
+	return o.Uptime, true
+}
+
+// HasUptime returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasUptime() bool {
+	if o != nil && !IsNil(o.Uptime) {
+		return true
+	}
+
+	return false
+}
+
+// SetUptime gets a reference to the given int32 and assigns it to the Uptime field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetUptime(v int32) {
+	o.Uptime = &v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetVersion(v string) {
+	o.Version = &v
+}
+
+// GetToolboxStatus returns the ToolboxStatus field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetToolboxStatus() string {
+	if o == nil || IsNil(o.ToolboxStatus) {
+		var ret string
+		return ret
+	}
+	return *o.ToolboxStatus
+}
+
+// GetToolboxStatusOk returns a tuple with the ToolboxStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetToolboxStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.ToolboxStatus) {
+		return nil, false
+	}
+	return o.ToolboxStatus, true
+}
+
+// HasToolboxStatus returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasToolboxStatus() bool {
+	if o != nil && !IsNil(o.ToolboxStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetToolboxStatus gets a reference to the given string and assigns it to the ToolboxStatus field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetToolboxStatus(v string) {
+	o.ToolboxStatus = &v
+}
+
+// GetAppsStatus returns the AppsStatus field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetAppsStatus() string {
+	if o == nil || IsNil(o.AppsStatus) {
+		var ret string
+		return ret
+	}
+	return *o.AppsStatus
+}
+
+// GetAppsStatusOk returns a tuple with the AppsStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetAppsStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.AppsStatus) {
+		return nil, false
+	}
+	return o.AppsStatus, true
+}
+
+// HasAppsStatus returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasAppsStatus() bool {
+	if o != nil && !IsNil(o.AppsStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetAppsStatus gets a reference to the given string and assigns it to the AppsStatus field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetAppsStatus(v string) {
+	o.AppsStatus = &v
+}
+
+// GetTotalRepositories returns the TotalRepositories field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetTotalRepositories() int32 {
+	if o == nil || IsNil(o.TotalRepositories) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalRepositories
+}
+
+// GetTotalRepositoriesOk returns a tuple with the TotalRepositories field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetTotalRepositoriesOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalRepositories) {
+		return nil, false
+	}
+	return o.TotalRepositories, true
+}
+
+// HasTotalRepositories returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasTotalRepositories() bool {
+	if o != nil && !IsNil(o.TotalRepositories) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalRepositories gets a reference to the given int32 and assigns it to the TotalRepositories field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetTotalRepositories(v int32) {
+	o.TotalRepositories = &v
+}
+
+// GetToolboxRepositories returns the ToolboxRepositories field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetToolboxRepositories() int32 {
+	if o == nil || IsNil(o.ToolboxRepositories) {
+		var ret int32
+		return ret
+	}
+	return *o.ToolboxRepositories
+}
+
+// GetToolboxRepositoriesOk returns a tuple with the ToolboxRepositories field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetToolboxRepositoriesOk() (*int32, bool) {
+	if o == nil || IsNil(o.ToolboxRepositories) {
+		return nil, false
+	}
+	return o.ToolboxRepositories, true
+}
+
+// HasToolboxRepositories returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasToolboxRepositories() bool {
+	if o != nil && !IsNil(o.ToolboxRepositories) {
+		return true
+	}
+
+	return false
+}
+
+// SetToolboxRepositories gets a reference to the given int32 and assigns it to the ToolboxRepositories field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetToolboxRepositories(v int32) {
+	o.ToolboxRepositories = &v
+}
+
+// GetAppsRepositories returns the AppsRepositories field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetAppsRepositories() int32 {
+	if o == nil || IsNil(o.AppsRepositories) {
+		var ret int32
+		return ret
+	}
+	return *o.AppsRepositories
+}
+
+// GetAppsRepositoriesOk returns a tuple with the AppsRepositories field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetAppsRepositoriesOk() (*int32, bool) {
+	if o == nil || IsNil(o.AppsRepositories) {
+		return nil, false
+	}
+	return o.AppsRepositories, true
+}
+
+// HasAppsRepositories returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasAppsRepositories() bool {
+	if o != nil && !IsNil(o.AppsRepositories) {
+		return true
+	}
+
+	return false
+}
+
+// SetAppsRepositories gets a reference to the given int32 and assigns it to the AppsRepositories field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetAppsRepositories(v int32) {
+	o.AppsRepositories = &v
+}
+
+// GetLastSyncDate returns the LastSyncDate field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetLastSyncDate() time.Time {
+	if o == nil || IsNil(o.LastSyncDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSyncDate
+}
+
+// GetLastSyncDateOk returns a tuple with the LastSyncDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetLastSyncDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSyncDate) {
+		return nil, false
+	}
+	return o.LastSyncDate, true
+}
+
+// HasLastSyncDate returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasLastSyncDate() bool {
+	if o != nil && !IsNil(o.LastSyncDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSyncDate gets a reference to the given time.Time and assigns it to the LastSyncDate field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetLastSyncDate(v time.Time) {
+	o.LastSyncDate = &v
+}
+
+// GetLastError returns the LastError field value if set, zero value otherwise.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetLastError() string {
+	if o == nil || IsNil(o.LastError) {
+		var ret string
+		return ret
+	}
+	return *o.LastError
+}
+
+// GetLastErrorOk returns a tuple with the LastError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) GetLastErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.LastError) {
+		return nil, false
+	}
+	return o.LastError, true
+}
+
+// HasLastError returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasLastError() bool {
+	if o != nil && !IsNil(o.LastError) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastError gets a reference to the given string and assigns it to the LastError field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetLastError(v string) {
+	o.LastError = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindGitConnectorStatus200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindGitConnectorStatus200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindGitConnectorStatus200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindGitConnectorStatus200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +535,6 @@ func (o *FindGitConnectorStatus200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindGitConnectorStatus200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindGitConnectorStatus200ResponseDataInner) GetAttributes() GitConnectorStatus {
-	if o == nil || IsNil(o.Attributes) {
-		var ret GitConnectorStatus
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindGitConnectorStatus200ResponseDataInner) GetAttributesOk() (*GitConnectorStatus, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindGitConnectorStatus200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given GitConnectorStatus and assigns it to the Attributes field.
-func (o *FindGitConnectorStatus200ResponseDataInner) SetAttributes(v GitConnectorStatus) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +653,48 @@ func (o FindGitConnectorStatus200ResponseDataInner) MarshalJSON() ([]byte, error
 
 func (o FindGitConnectorStatus200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["instanceId"] = o.InstanceId
+	if !IsNil(o.Gitstatus) {
+		toSerialize["gitstatus"] = o.Gitstatus
+	}
+	if !IsNil(o.LastHeartbeat) {
+		toSerialize["lastHeartbeat"] = o.LastHeartbeat
+	}
+	if !IsNil(o.Uptime) {
+		toSerialize["uptime"] = o.Uptime
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.ToolboxStatus) {
+		toSerialize["toolboxStatus"] = o.ToolboxStatus
+	}
+	if !IsNil(o.AppsStatus) {
+		toSerialize["appsStatus"] = o.AppsStatus
+	}
+	if !IsNil(o.TotalRepositories) {
+		toSerialize["totalRepositories"] = o.TotalRepositories
+	}
+	if !IsNil(o.ToolboxRepositories) {
+		toSerialize["toolboxRepositories"] = o.ToolboxRepositories
+	}
+	if !IsNil(o.AppsRepositories) {
+		toSerialize["appsRepositories"] = o.AppsRepositories
+	}
+	if !IsNil(o.LastSyncDate) {
+		toSerialize["lastSyncDate"] = o.LastSyncDate
+	}
+	if !IsNil(o.LastError) {
+		toSerialize["lastError"] = o.LastError
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +706,43 @@ func (o FindGitConnectorStatus200ResponseDataInner) ToMap() (map[string]interfac
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindGitConnectorStatus200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"instanceId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindGitConnectorStatus200ResponseDataInner := _FindGitConnectorStatus200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindGitConnectorStatus200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindGitConnectorStatus200ResponseDataInner(varFindGitConnectorStatus200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindGitConnectorStatus200ResponseDataInner struct {

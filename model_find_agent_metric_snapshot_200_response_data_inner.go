@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAgentMetricSnapshot200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,32 @@ var _ MappedNullable = &FindAgentMetricSnapshot200ResponseDataInner{}
 
 // FindAgentMetricSnapshot200ResponseDataInner struct for FindAgentMetricSnapshot200ResponseDataInner
 type FindAgentMetricSnapshot200ResponseDataInner struct {
+	AgentId string `json:"agent_id"`
+	AgentName *string `json:"agent_name,omitempty"`
+	CpuPct *float32 `json:"cpu_pct,omitempty"`
+	MemMb *float32 `json:"mem_mb,omitempty"`
+	DiskPct *float32 `json:"disk_pct,omitempty"`
+	NetBytesIn *int32 `json:"net_bytes_in,omitempty"`
+	NetBytesOut *int32 `json:"net_bytes_out,omitempty"`
+	UptimeSeconds *int32 `json:"uptime_seconds,omitempty"`
+	RecordedAt *time.Time `json:"recorded_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AgentMetricSnapshot `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAgentMetricSnapshot200ResponseDataInner FindAgentMetricSnapshot200ResponseDataInner
+
 // NewFindAgentMetricSnapshot200ResponseDataInner instantiates a new FindAgentMetricSnapshot200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAgentMetricSnapshot200ResponseDataInner() *FindAgentMetricSnapshot200ResponseDataInner {
+func NewFindAgentMetricSnapshot200ResponseDataInner(agentId string) *FindAgentMetricSnapshot200ResponseDataInner {
 	this := FindAgentMetricSnapshot200ResponseDataInner{}
+	this.AgentId = agentId
 	return &this
 }
 
@@ -44,6 +58,318 @@ func NewFindAgentMetricSnapshot200ResponseDataInner() *FindAgentMetricSnapshot20
 func NewFindAgentMetricSnapshot200ResponseDataInnerWithDefaults() *FindAgentMetricSnapshot200ResponseDataInner {
 	this := FindAgentMetricSnapshot200ResponseDataInner{}
 	return &this
+}
+
+// GetAgentId returns the AgentId field value
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetAgentId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AgentId
+}
+
+// GetAgentIdOk returns a tuple with the AgentId field value
+// and a boolean to check if the value has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetAgentIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AgentId, true
+}
+
+// SetAgentId sets field value
+func (o *FindAgentMetricSnapshot200ResponseDataInner) SetAgentId(v string) {
+	o.AgentId = v
+}
+
+// GetAgentName returns the AgentName field value if set, zero value otherwise.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetAgentName() string {
+	if o == nil || IsNil(o.AgentName) {
+		var ret string
+		return ret
+	}
+	return *o.AgentName
+}
+
+// GetAgentNameOk returns a tuple with the AgentName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetAgentNameOk() (*string, bool) {
+	if o == nil || IsNil(o.AgentName) {
+		return nil, false
+	}
+	return o.AgentName, true
+}
+
+// HasAgentName returns a boolean if a field has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) HasAgentName() bool {
+	if o != nil && !IsNil(o.AgentName) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgentName gets a reference to the given string and assigns it to the AgentName field.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) SetAgentName(v string) {
+	o.AgentName = &v
+}
+
+// GetCpuPct returns the CpuPct field value if set, zero value otherwise.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetCpuPct() float32 {
+	if o == nil || IsNil(o.CpuPct) {
+		var ret float32
+		return ret
+	}
+	return *o.CpuPct
+}
+
+// GetCpuPctOk returns a tuple with the CpuPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetCpuPctOk() (*float32, bool) {
+	if o == nil || IsNil(o.CpuPct) {
+		return nil, false
+	}
+	return o.CpuPct, true
+}
+
+// HasCpuPct returns a boolean if a field has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) HasCpuPct() bool {
+	if o != nil && !IsNil(o.CpuPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetCpuPct gets a reference to the given float32 and assigns it to the CpuPct field.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) SetCpuPct(v float32) {
+	o.CpuPct = &v
+}
+
+// GetMemMb returns the MemMb field value if set, zero value otherwise.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetMemMb() float32 {
+	if o == nil || IsNil(o.MemMb) {
+		var ret float32
+		return ret
+	}
+	return *o.MemMb
+}
+
+// GetMemMbOk returns a tuple with the MemMb field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetMemMbOk() (*float32, bool) {
+	if o == nil || IsNil(o.MemMb) {
+		return nil, false
+	}
+	return o.MemMb, true
+}
+
+// HasMemMb returns a boolean if a field has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) HasMemMb() bool {
+	if o != nil && !IsNil(o.MemMb) {
+		return true
+	}
+
+	return false
+}
+
+// SetMemMb gets a reference to the given float32 and assigns it to the MemMb field.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) SetMemMb(v float32) {
+	o.MemMb = &v
+}
+
+// GetDiskPct returns the DiskPct field value if set, zero value otherwise.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetDiskPct() float32 {
+	if o == nil || IsNil(o.DiskPct) {
+		var ret float32
+		return ret
+	}
+	return *o.DiskPct
+}
+
+// GetDiskPctOk returns a tuple with the DiskPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetDiskPctOk() (*float32, bool) {
+	if o == nil || IsNil(o.DiskPct) {
+		return nil, false
+	}
+	return o.DiskPct, true
+}
+
+// HasDiskPct returns a boolean if a field has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) HasDiskPct() bool {
+	if o != nil && !IsNil(o.DiskPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetDiskPct gets a reference to the given float32 and assigns it to the DiskPct field.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) SetDiskPct(v float32) {
+	o.DiskPct = &v
+}
+
+// GetNetBytesIn returns the NetBytesIn field value if set, zero value otherwise.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetNetBytesIn() int32 {
+	if o == nil || IsNil(o.NetBytesIn) {
+		var ret int32
+		return ret
+	}
+	return *o.NetBytesIn
+}
+
+// GetNetBytesInOk returns a tuple with the NetBytesIn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetNetBytesInOk() (*int32, bool) {
+	if o == nil || IsNil(o.NetBytesIn) {
+		return nil, false
+	}
+	return o.NetBytesIn, true
+}
+
+// HasNetBytesIn returns a boolean if a field has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) HasNetBytesIn() bool {
+	if o != nil && !IsNil(o.NetBytesIn) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetBytesIn gets a reference to the given int32 and assigns it to the NetBytesIn field.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) SetNetBytesIn(v int32) {
+	o.NetBytesIn = &v
+}
+
+// GetNetBytesOut returns the NetBytesOut field value if set, zero value otherwise.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetNetBytesOut() int32 {
+	if o == nil || IsNil(o.NetBytesOut) {
+		var ret int32
+		return ret
+	}
+	return *o.NetBytesOut
+}
+
+// GetNetBytesOutOk returns a tuple with the NetBytesOut field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetNetBytesOutOk() (*int32, bool) {
+	if o == nil || IsNil(o.NetBytesOut) {
+		return nil, false
+	}
+	return o.NetBytesOut, true
+}
+
+// HasNetBytesOut returns a boolean if a field has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) HasNetBytesOut() bool {
+	if o != nil && !IsNil(o.NetBytesOut) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetBytesOut gets a reference to the given int32 and assigns it to the NetBytesOut field.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) SetNetBytesOut(v int32) {
+	o.NetBytesOut = &v
+}
+
+// GetUptimeSeconds returns the UptimeSeconds field value if set, zero value otherwise.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetUptimeSeconds() int32 {
+	if o == nil || IsNil(o.UptimeSeconds) {
+		var ret int32
+		return ret
+	}
+	return *o.UptimeSeconds
+}
+
+// GetUptimeSecondsOk returns a tuple with the UptimeSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetUptimeSecondsOk() (*int32, bool) {
+	if o == nil || IsNil(o.UptimeSeconds) {
+		return nil, false
+	}
+	return o.UptimeSeconds, true
+}
+
+// HasUptimeSeconds returns a boolean if a field has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) HasUptimeSeconds() bool {
+	if o != nil && !IsNil(o.UptimeSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetUptimeSeconds gets a reference to the given int32 and assigns it to the UptimeSeconds field.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) SetUptimeSeconds(v int32) {
+	o.UptimeSeconds = &v
+}
+
+// GetRecordedAt returns the RecordedAt field value if set, zero value otherwise.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetRecordedAt() time.Time {
+	if o == nil || IsNil(o.RecordedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.RecordedAt
+}
+
+// GetRecordedAtOk returns a tuple with the RecordedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetRecordedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.RecordedAt) {
+		return nil, false
+	}
+	return o.RecordedAt, true
+}
+
+// HasRecordedAt returns a boolean if a field has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) HasRecordedAt() bool {
+	if o != nil && !IsNil(o.RecordedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecordedAt gets a reference to the given time.Time and assigns it to the RecordedAt field.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) SetRecordedAt(v time.Time) {
+	o.RecordedAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindAgentMetricSnapshot200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +434,6 @@ func (o *FindAgentMetricSnapshot200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAgentMetricSnapshot200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAgentMetricSnapshot200ResponseDataInner) GetAttributes() AgentMetricSnapshot {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AgentMetricSnapshot
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAgentMetricSnapshot200ResponseDataInner) GetAttributesOk() (*AgentMetricSnapshot, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAgentMetricSnapshot200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AgentMetricSnapshot and assigns it to the Attributes field.
-func (o *FindAgentMetricSnapshot200ResponseDataInner) SetAttributes(v AgentMetricSnapshot) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +552,39 @@ func (o FindAgentMetricSnapshot200ResponseDataInner) MarshalJSON() ([]byte, erro
 
 func (o FindAgentMetricSnapshot200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["agent_id"] = o.AgentId
+	if !IsNil(o.AgentName) {
+		toSerialize["agent_name"] = o.AgentName
+	}
+	if !IsNil(o.CpuPct) {
+		toSerialize["cpu_pct"] = o.CpuPct
+	}
+	if !IsNil(o.MemMb) {
+		toSerialize["mem_mb"] = o.MemMb
+	}
+	if !IsNil(o.DiskPct) {
+		toSerialize["disk_pct"] = o.DiskPct
+	}
+	if !IsNil(o.NetBytesIn) {
+		toSerialize["net_bytes_in"] = o.NetBytesIn
+	}
+	if !IsNil(o.NetBytesOut) {
+		toSerialize["net_bytes_out"] = o.NetBytesOut
+	}
+	if !IsNil(o.UptimeSeconds) {
+		toSerialize["uptime_seconds"] = o.UptimeSeconds
+	}
+	if !IsNil(o.RecordedAt) {
+		toSerialize["recorded_at"] = o.RecordedAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +596,43 @@ func (o FindAgentMetricSnapshot200ResponseDataInner) ToMap() (map[string]interfa
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAgentMetricSnapshot200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"agent_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAgentMetricSnapshot200ResponseDataInner := _FindAgentMetricSnapshot200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAgentMetricSnapshot200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAgentMetricSnapshot200ResponseDataInner(varFindAgentMetricSnapshot200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAgentMetricSnapshot200ResponseDataInner struct {

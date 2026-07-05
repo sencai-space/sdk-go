@@ -22,13 +22,15 @@ var _ MappedNullable = &CreatePatchRunRequestData{}
 type CreatePatchRunRequestData struct {
 	SencaiAgent *CreateAccessReviewRequestDataReviewer `json:"sencai_agent,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
-	ScanResult map[string]interface{} `json:"scan_result,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ScanResult interface{} `json:"scan_result,omitempty"`
 	Status *string `json:"status,omitempty"`
 	PackagesAvailable *int32 `json:"packages_available,omitempty"`
 	PackagesApplied *int32 `json:"packages_applied,omitempty"`
 	PackageMgr *string `json:"package_mgr,omitempty"`
 	Error *string `json:"error,omitempty"`
-	MaintenanceWindows map[string]interface{} `json:"maintenance_windows,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	MaintenanceWindows interface{} `json:"maintenance_windows,omitempty"`
 }
 
 // NewCreatePatchRunRequestData instantiates a new CreatePatchRunRequestData object
@@ -112,10 +114,10 @@ func (o *CreatePatchRunRequestData) SetOrganisation(v CreateAccessReviewRequestD
 	o.Organisation = &v
 }
 
-// GetScanResult returns the ScanResult field value if set, zero value otherwise.
-func (o *CreatePatchRunRequestData) GetScanResult() map[string]interface{} {
-	if o == nil || IsNil(o.ScanResult) {
-		var ret map[string]interface{}
+// GetScanResult returns the ScanResult field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreatePatchRunRequestData) GetScanResult() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ScanResult
@@ -123,11 +125,12 @@ func (o *CreatePatchRunRequestData) GetScanResult() map[string]interface{} {
 
 // GetScanResultOk returns a tuple with the ScanResult field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePatchRunRequestData) GetScanResultOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreatePatchRunRequestData) GetScanResultOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ScanResult) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ScanResult, true
+	return &o.ScanResult, true
 }
 
 // HasScanResult returns a boolean if a field has been set.
@@ -139,8 +142,8 @@ func (o *CreatePatchRunRequestData) HasScanResult() bool {
 	return false
 }
 
-// SetScanResult gets a reference to the given map[string]interface{} and assigns it to the ScanResult field.
-func (o *CreatePatchRunRequestData) SetScanResult(v map[string]interface{}) {
+// SetScanResult gets a reference to the given interface{} and assigns it to the ScanResult field.
+func (o *CreatePatchRunRequestData) SetScanResult(v interface{}) {
 	o.ScanResult = v
 }
 
@@ -304,10 +307,10 @@ func (o *CreatePatchRunRequestData) SetError(v string) {
 	o.Error = &v
 }
 
-// GetMaintenanceWindows returns the MaintenanceWindows field value if set, zero value otherwise.
-func (o *CreatePatchRunRequestData) GetMaintenanceWindows() map[string]interface{} {
-	if o == nil || IsNil(o.MaintenanceWindows) {
-		var ret map[string]interface{}
+// GetMaintenanceWindows returns the MaintenanceWindows field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreatePatchRunRequestData) GetMaintenanceWindows() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.MaintenanceWindows
@@ -315,11 +318,12 @@ func (o *CreatePatchRunRequestData) GetMaintenanceWindows() map[string]interface
 
 // GetMaintenanceWindowsOk returns a tuple with the MaintenanceWindows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePatchRunRequestData) GetMaintenanceWindowsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreatePatchRunRequestData) GetMaintenanceWindowsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.MaintenanceWindows) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.MaintenanceWindows, true
+	return &o.MaintenanceWindows, true
 }
 
 // HasMaintenanceWindows returns a boolean if a field has been set.
@@ -331,8 +335,8 @@ func (o *CreatePatchRunRequestData) HasMaintenanceWindows() bool {
 	return false
 }
 
-// SetMaintenanceWindows gets a reference to the given map[string]interface{} and assigns it to the MaintenanceWindows field.
-func (o *CreatePatchRunRequestData) SetMaintenanceWindows(v map[string]interface{}) {
+// SetMaintenanceWindows gets a reference to the given interface{} and assigns it to the MaintenanceWindows field.
+func (o *CreatePatchRunRequestData) SetMaintenanceWindows(v interface{}) {
 	o.MaintenanceWindows = v
 }
 
@@ -352,7 +356,7 @@ func (o CreatePatchRunRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Organisation) {
 		toSerialize["organisation"] = o.Organisation
 	}
-	if !IsNil(o.ScanResult) {
+	if o.ScanResult != nil {
 		toSerialize["scan_result"] = o.ScanResult
 	}
 	if !IsNil(o.Status) {
@@ -370,7 +374,7 @@ func (o CreatePatchRunRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
-	if !IsNil(o.MaintenanceWindows) {
+	if o.MaintenanceWindows != nil {
 		toSerialize["maintenance_windows"] = o.MaintenanceWindows
 	}
 	return toSerialize, nil

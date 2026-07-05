@@ -30,7 +30,7 @@ type WafAcl struct {
 	// Default action for requests that do not match any rule.
 	DefaultAction *string `json:"default_action,omitempty"`
 	// WAF rules array (WafRule[]) — synced from provider.
-	Rules map[string]interface{} `json:"rules,omitempty"`
+	Rules interface{} `json:"rules,omitempty"`
 	// WCU capacity consumed by this ACL (AWS-specific).
 	Capacity *int32 `json:"capacity,omitempty"`
 	Status *string `json:"status,omitempty"`
@@ -174,10 +174,10 @@ func (o *WafAcl) SetDefaultAction(v string) {
 	o.DefaultAction = &v
 }
 
-// GetRules returns the Rules field value if set, zero value otherwise.
-func (o *WafAcl) GetRules() map[string]interface{} {
-	if o == nil || IsNil(o.Rules) {
-		var ret map[string]interface{}
+// GetRules returns the Rules field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WafAcl) GetRules() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Rules
@@ -185,11 +185,12 @@ func (o *WafAcl) GetRules() map[string]interface{} {
 
 // GetRulesOk returns a tuple with the Rules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WafAcl) GetRulesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WafAcl) GetRulesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Rules) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Rules, true
+	return &o.Rules, true
 }
 
 // HasRules returns a boolean if a field has been set.
@@ -201,8 +202,8 @@ func (o *WafAcl) HasRules() bool {
 	return false
 }
 
-// SetRules gets a reference to the given map[string]interface{} and assigns it to the Rules field.
-func (o *WafAcl) SetRules(v map[string]interface{}) {
+// SetRules gets a reference to the given interface{} and assigns it to the Rules field.
+func (o *WafAcl) SetRules(v interface{}) {
 	o.Rules = v
 }
 
@@ -376,7 +377,7 @@ func (o WafAcl) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DefaultAction) {
 		toSerialize["default_action"] = o.DefaultAction
 	}
-	if !IsNil(o.Rules) {
+	if o.Rules != nil {
 		toSerialize["rules"] = o.Rules
 	}
 	if !IsNil(o.Capacity) {

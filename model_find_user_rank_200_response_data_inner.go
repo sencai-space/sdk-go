@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindUserRank200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindUserRank200ResponseDataInner{}
 
 // FindUserRank200ResponseDataInner struct for FindUserRank200ResponseDataInner
 type FindUserRank200ResponseDataInner struct {
+	User CreateAccessReviewRequestDataReviewer `json:"user"`
+	XpTotal int32 `json:"xp_total"`
+	RankLevel string `json:"rank_level"`
+	// Array of { badge_code, awarded_at } — badge_code references badge-definition.code
+	Badges interface{} `json:"badges,omitempty"`
+	// Latest automation-score snapshot; historical values live in gamification-event, not here
+	AutomationScore *float32 `json:"automation_score,omitempty"`
+	CurrentStreakDays int32 `json:"current_streak_days"`
+	LongestStreakDays int32 `json:"longest_streak_days"`
+	LastActivityAt *time.Time `json:"last_activity_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *UserRank `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindUserRank200ResponseDataInner FindUserRank200ResponseDataInner
+
 // NewFindUserRank200ResponseDataInner instantiates a new FindUserRank200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindUserRank200ResponseDataInner() *FindUserRank200ResponseDataInner {
+func NewFindUserRank200ResponseDataInner(user CreateAccessReviewRequestDataReviewer, xpTotal int32, rankLevel string, currentStreakDays int32, longestStreakDays int32) *FindUserRank200ResponseDataInner {
 	this := FindUserRank200ResponseDataInner{}
+	this.User = user
+	this.XpTotal = xpTotal
+	this.RankLevel = rankLevel
+	this.CurrentStreakDays = currentStreakDays
+	this.LongestStreakDays = longestStreakDays
 	return &this
 }
 
@@ -44,6 +62,223 @@ func NewFindUserRank200ResponseDataInner() *FindUserRank200ResponseDataInner {
 func NewFindUserRank200ResponseDataInnerWithDefaults() *FindUserRank200ResponseDataInner {
 	this := FindUserRank200ResponseDataInner{}
 	return &this
+}
+
+// GetUser returns the User field value
+func (o *FindUserRank200ResponseDataInner) GetUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.User
+}
+
+// GetUserOk returns a tuple with the User field value
+// and a boolean to check if the value has been set.
+func (o *FindUserRank200ResponseDataInner) GetUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.User, true
+}
+
+// SetUser sets field value
+func (o *FindUserRank200ResponseDataInner) SetUser(v CreateAccessReviewRequestDataReviewer) {
+	o.User = v
+}
+
+// GetXpTotal returns the XpTotal field value
+func (o *FindUserRank200ResponseDataInner) GetXpTotal() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.XpTotal
+}
+
+// GetXpTotalOk returns a tuple with the XpTotal field value
+// and a boolean to check if the value has been set.
+func (o *FindUserRank200ResponseDataInner) GetXpTotalOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.XpTotal, true
+}
+
+// SetXpTotal sets field value
+func (o *FindUserRank200ResponseDataInner) SetXpTotal(v int32) {
+	o.XpTotal = v
+}
+
+// GetRankLevel returns the RankLevel field value
+func (o *FindUserRank200ResponseDataInner) GetRankLevel() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RankLevel
+}
+
+// GetRankLevelOk returns a tuple with the RankLevel field value
+// and a boolean to check if the value has been set.
+func (o *FindUserRank200ResponseDataInner) GetRankLevelOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RankLevel, true
+}
+
+// SetRankLevel sets field value
+func (o *FindUserRank200ResponseDataInner) SetRankLevel(v string) {
+	o.RankLevel = v
+}
+
+// GetBadges returns the Badges field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindUserRank200ResponseDataInner) GetBadges() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Badges
+}
+
+// GetBadgesOk returns a tuple with the Badges field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindUserRank200ResponseDataInner) GetBadgesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Badges) {
+		return nil, false
+	}
+	return &o.Badges, true
+}
+
+// HasBadges returns a boolean if a field has been set.
+func (o *FindUserRank200ResponseDataInner) HasBadges() bool {
+	if o != nil && !IsNil(o.Badges) {
+		return true
+	}
+
+	return false
+}
+
+// SetBadges gets a reference to the given interface{} and assigns it to the Badges field.
+func (o *FindUserRank200ResponseDataInner) SetBadges(v interface{}) {
+	o.Badges = v
+}
+
+// GetAutomationScore returns the AutomationScore field value if set, zero value otherwise.
+func (o *FindUserRank200ResponseDataInner) GetAutomationScore() float32 {
+	if o == nil || IsNil(o.AutomationScore) {
+		var ret float32
+		return ret
+	}
+	return *o.AutomationScore
+}
+
+// GetAutomationScoreOk returns a tuple with the AutomationScore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserRank200ResponseDataInner) GetAutomationScoreOk() (*float32, bool) {
+	if o == nil || IsNil(o.AutomationScore) {
+		return nil, false
+	}
+	return o.AutomationScore, true
+}
+
+// HasAutomationScore returns a boolean if a field has been set.
+func (o *FindUserRank200ResponseDataInner) HasAutomationScore() bool {
+	if o != nil && !IsNil(o.AutomationScore) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutomationScore gets a reference to the given float32 and assigns it to the AutomationScore field.
+func (o *FindUserRank200ResponseDataInner) SetAutomationScore(v float32) {
+	o.AutomationScore = &v
+}
+
+// GetCurrentStreakDays returns the CurrentStreakDays field value
+func (o *FindUserRank200ResponseDataInner) GetCurrentStreakDays() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.CurrentStreakDays
+}
+
+// GetCurrentStreakDaysOk returns a tuple with the CurrentStreakDays field value
+// and a boolean to check if the value has been set.
+func (o *FindUserRank200ResponseDataInner) GetCurrentStreakDaysOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CurrentStreakDays, true
+}
+
+// SetCurrentStreakDays sets field value
+func (o *FindUserRank200ResponseDataInner) SetCurrentStreakDays(v int32) {
+	o.CurrentStreakDays = v
+}
+
+// GetLongestStreakDays returns the LongestStreakDays field value
+func (o *FindUserRank200ResponseDataInner) GetLongestStreakDays() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.LongestStreakDays
+}
+
+// GetLongestStreakDaysOk returns a tuple with the LongestStreakDays field value
+// and a boolean to check if the value has been set.
+func (o *FindUserRank200ResponseDataInner) GetLongestStreakDaysOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LongestStreakDays, true
+}
+
+// SetLongestStreakDays sets field value
+func (o *FindUserRank200ResponseDataInner) SetLongestStreakDays(v int32) {
+	o.LongestStreakDays = v
+}
+
+// GetLastActivityAt returns the LastActivityAt field value if set, zero value otherwise.
+func (o *FindUserRank200ResponseDataInner) GetLastActivityAt() time.Time {
+	if o == nil || IsNil(o.LastActivityAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastActivityAt
+}
+
+// GetLastActivityAtOk returns a tuple with the LastActivityAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserRank200ResponseDataInner) GetLastActivityAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastActivityAt) {
+		return nil, false
+	}
+	return o.LastActivityAt, true
+}
+
+// HasLastActivityAt returns a boolean if a field has been set.
+func (o *FindUserRank200ResponseDataInner) HasLastActivityAt() bool {
+	if o != nil && !IsNil(o.LastActivityAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastActivityAt gets a reference to the given time.Time and assigns it to the LastActivityAt field.
+func (o *FindUserRank200ResponseDataInner) SetLastActivityAt(v time.Time) {
+	o.LastActivityAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +343,6 @@ func (o *FindUserRank200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindUserRank200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindUserRank200ResponseDataInner) GetAttributes() UserRank {
-	if o == nil || IsNil(o.Attributes) {
-		var ret UserRank
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindUserRank200ResponseDataInner) GetAttributesOk() (*UserRank, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindUserRank200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given UserRank and assigns it to the Attributes field.
-func (o *FindUserRank200ResponseDataInner) SetAttributes(v UserRank) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +461,25 @@ func (o FindUserRank200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindUserRank200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["user"] = o.User
+	toSerialize["xp_total"] = o.XpTotal
+	toSerialize["rank_level"] = o.RankLevel
+	if o.Badges != nil {
+		toSerialize["badges"] = o.Badges
+	}
+	if !IsNil(o.AutomationScore) {
+		toSerialize["automation_score"] = o.AutomationScore
+	}
+	toSerialize["current_streak_days"] = o.CurrentStreakDays
+	toSerialize["longest_streak_days"] = o.LongestStreakDays
+	if !IsNil(o.LastActivityAt) {
+		toSerialize["last_activity_at"] = o.LastActivityAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +491,47 @@ func (o FindUserRank200ResponseDataInner) ToMap() (map[string]interface{}, error
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindUserRank200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"user",
+		"xp_total",
+		"rank_level",
+		"current_streak_days",
+		"longest_streak_days",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindUserRank200ResponseDataInner := _FindUserRank200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindUserRank200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindUserRank200ResponseDataInner(varFindUserRank200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindUserRank200ResponseDataInner struct {

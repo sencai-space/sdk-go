@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindBillingSyncLog200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindBillingSyncLog200ResponseDataInner{}
 
 // FindBillingSyncLog200ResponseDataInner struct for FindBillingSyncLog200ResponseDataInner
 type FindBillingSyncLog200ResponseDataInner struct {
+	Adapter string `json:"adapter"`
+	SyncType string `json:"sync_type"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	UsageEventIds interface{} `json:"usage_event_ids,omitempty"`
+	ExternalId *string `json:"external_id,omitempty"`
+	Status *string `json:"status,omitempty"`
+	SyncedAt time.Time `json:"synced_at"`
+	ErrorMessage *string `json:"error_message,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *BillingSyncLog `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindBillingSyncLog200ResponseDataInner FindBillingSyncLog200ResponseDataInner
+
 // NewFindBillingSyncLog200ResponseDataInner instantiates a new FindBillingSyncLog200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindBillingSyncLog200ResponseDataInner() *FindBillingSyncLog200ResponseDataInner {
+func NewFindBillingSyncLog200ResponseDataInner(adapter string, syncType string, syncedAt time.Time) *FindBillingSyncLog200ResponseDataInner {
 	this := FindBillingSyncLog200ResponseDataInner{}
+	this.Adapter = adapter
+	this.SyncType = syncType
+	this.SyncedAt = syncedAt
 	return &this
 }
 
@@ -44,6 +61,272 @@ func NewFindBillingSyncLog200ResponseDataInner() *FindBillingSyncLog200ResponseD
 func NewFindBillingSyncLog200ResponseDataInnerWithDefaults() *FindBillingSyncLog200ResponseDataInner {
 	this := FindBillingSyncLog200ResponseDataInner{}
 	return &this
+}
+
+// GetAdapter returns the Adapter field value
+func (o *FindBillingSyncLog200ResponseDataInner) GetAdapter() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Adapter
+}
+
+// GetAdapterOk returns a tuple with the Adapter field value
+// and a boolean to check if the value has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) GetAdapterOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Adapter, true
+}
+
+// SetAdapter sets field value
+func (o *FindBillingSyncLog200ResponseDataInner) SetAdapter(v string) {
+	o.Adapter = v
+}
+
+// GetSyncType returns the SyncType field value
+func (o *FindBillingSyncLog200ResponseDataInner) GetSyncType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SyncType
+}
+
+// GetSyncTypeOk returns a tuple with the SyncType field value
+// and a boolean to check if the value has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) GetSyncTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SyncType, true
+}
+
+// SetSyncType sets field value
+func (o *FindBillingSyncLog200ResponseDataInner) SetSyncType(v string) {
+	o.SyncType = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindBillingSyncLog200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindBillingSyncLog200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetUsageEventIds returns the UsageEventIds field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBillingSyncLog200ResponseDataInner) GetUsageEventIds() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.UsageEventIds
+}
+
+// GetUsageEventIdsOk returns a tuple with the UsageEventIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBillingSyncLog200ResponseDataInner) GetUsageEventIdsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.UsageEventIds) {
+		return nil, false
+	}
+	return &o.UsageEventIds, true
+}
+
+// HasUsageEventIds returns a boolean if a field has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) HasUsageEventIds() bool {
+	if o != nil && !IsNil(o.UsageEventIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsageEventIds gets a reference to the given interface{} and assigns it to the UsageEventIds field.
+func (o *FindBillingSyncLog200ResponseDataInner) SetUsageEventIds(v interface{}) {
+	o.UsageEventIds = v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *FindBillingSyncLog200ResponseDataInner) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *FindBillingSyncLog200ResponseDataInner) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindBillingSyncLog200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindBillingSyncLog200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetSyncedAt returns the SyncedAt field value
+func (o *FindBillingSyncLog200ResponseDataInner) GetSyncedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.SyncedAt
+}
+
+// GetSyncedAtOk returns a tuple with the SyncedAt field value
+// and a boolean to check if the value has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) GetSyncedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SyncedAt, true
+}
+
+// SetSyncedAt sets field value
+func (o *FindBillingSyncLog200ResponseDataInner) SetSyncedAt(v time.Time) {
+	o.SyncedAt = v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindBillingSyncLog200ResponseDataInner) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindBillingSyncLog200ResponseDataInner) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBillingSyncLog200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBillingSyncLog200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindBillingSyncLog200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindBillingSyncLog200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +391,6 @@ func (o *FindBillingSyncLog200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindBillingSyncLog200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindBillingSyncLog200ResponseDataInner) GetAttributes() BillingSyncLog {
-	if o == nil || IsNil(o.Attributes) {
-		var ret BillingSyncLog
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindBillingSyncLog200ResponseDataInner) GetAttributesOk() (*BillingSyncLog, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindBillingSyncLog200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given BillingSyncLog and assigns it to the Attributes field.
-func (o *FindBillingSyncLog200ResponseDataInner) SetAttributes(v BillingSyncLog) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +509,32 @@ func (o FindBillingSyncLog200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindBillingSyncLog200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["adapter"] = o.Adapter
+	toSerialize["sync_type"] = o.SyncType
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if o.UsageEventIds != nil {
+		toSerialize["usage_event_ids"] = o.UsageEventIds
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["external_id"] = o.ExternalId
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	toSerialize["synced_at"] = o.SyncedAt
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +546,45 @@ func (o FindBillingSyncLog200ResponseDataInner) ToMap() (map[string]interface{},
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindBillingSyncLog200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"adapter",
+		"sync_type",
+		"synced_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindBillingSyncLog200ResponseDataInner := _FindBillingSyncLog200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindBillingSyncLog200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindBillingSyncLog200ResponseDataInner(varFindBillingSyncLog200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindBillingSyncLog200ResponseDataInner struct {

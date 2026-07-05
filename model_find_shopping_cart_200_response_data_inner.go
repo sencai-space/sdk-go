@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindShoppingCart200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,30 @@ var _ MappedNullable = &FindShoppingCart200ResponseDataInner{}
 
 // FindShoppingCart200ResponseDataInner struct for FindShoppingCart200ResponseDataInner
 type FindShoppingCart200ResponseDataInner struct {
+	UsersPermissionsUser *CreateAccessReviewRequestDataReviewer `json:"users_permissions_user,omitempty"`
+	SessionId *string `json:"session_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ShoppingItems interface{} `json:"shopping_items"`
+	TotalAmount *float32 `json:"total_amount,omitempty"`
+	Currency *string `json:"currency,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	CartItems *CreateAccessReviewRequestDataReviewer `json:"cart_items,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ShoppingCart `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindShoppingCart200ResponseDataInner FindShoppingCart200ResponseDataInner
+
 // NewFindShoppingCart200ResponseDataInner instantiates a new FindShoppingCart200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindShoppingCart200ResponseDataInner() *FindShoppingCart200ResponseDataInner {
+func NewFindShoppingCart200ResponseDataInner(shoppingItems interface{}) *FindShoppingCart200ResponseDataInner {
 	this := FindShoppingCart200ResponseDataInner{}
+	this.ShoppingItems = shoppingItems
 	return &this
 }
 
@@ -44,6 +56,224 @@ func NewFindShoppingCart200ResponseDataInner() *FindShoppingCart200ResponseDataI
 func NewFindShoppingCart200ResponseDataInnerWithDefaults() *FindShoppingCart200ResponseDataInner {
 	this := FindShoppingCart200ResponseDataInner{}
 	return &this
+}
+
+// GetUsersPermissionsUser returns the UsersPermissionsUser field value if set, zero value otherwise.
+func (o *FindShoppingCart200ResponseDataInner) GetUsersPermissionsUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.UsersPermissionsUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.UsersPermissionsUser
+}
+
+// GetUsersPermissionsUserOk returns a tuple with the UsersPermissionsUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindShoppingCart200ResponseDataInner) GetUsersPermissionsUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.UsersPermissionsUser) {
+		return nil, false
+	}
+	return o.UsersPermissionsUser, true
+}
+
+// HasUsersPermissionsUser returns a boolean if a field has been set.
+func (o *FindShoppingCart200ResponseDataInner) HasUsersPermissionsUser() bool {
+	if o != nil && !IsNil(o.UsersPermissionsUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsersPermissionsUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the UsersPermissionsUser field.
+func (o *FindShoppingCart200ResponseDataInner) SetUsersPermissionsUser(v CreateAccessReviewRequestDataReviewer) {
+	o.UsersPermissionsUser = &v
+}
+
+// GetSessionId returns the SessionId field value if set, zero value otherwise.
+func (o *FindShoppingCart200ResponseDataInner) GetSessionId() string {
+	if o == nil || IsNil(o.SessionId) {
+		var ret string
+		return ret
+	}
+	return *o.SessionId
+}
+
+// GetSessionIdOk returns a tuple with the SessionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindShoppingCart200ResponseDataInner) GetSessionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.SessionId) {
+		return nil, false
+	}
+	return o.SessionId, true
+}
+
+// HasSessionId returns a boolean if a field has been set.
+func (o *FindShoppingCart200ResponseDataInner) HasSessionId() bool {
+	if o != nil && !IsNil(o.SessionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetSessionId gets a reference to the given string and assigns it to the SessionId field.
+func (o *FindShoppingCart200ResponseDataInner) SetSessionId(v string) {
+	o.SessionId = &v
+}
+
+// GetShoppingItems returns the ShoppingItems field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *FindShoppingCart200ResponseDataInner) GetShoppingItems() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+
+	return o.ShoppingItems
+}
+
+// GetShoppingItemsOk returns a tuple with the ShoppingItems field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindShoppingCart200ResponseDataInner) GetShoppingItemsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ShoppingItems) {
+		return nil, false
+	}
+	return &o.ShoppingItems, true
+}
+
+// SetShoppingItems sets field value
+func (o *FindShoppingCart200ResponseDataInner) SetShoppingItems(v interface{}) {
+	o.ShoppingItems = v
+}
+
+// GetTotalAmount returns the TotalAmount field value if set, zero value otherwise.
+func (o *FindShoppingCart200ResponseDataInner) GetTotalAmount() float32 {
+	if o == nil || IsNil(o.TotalAmount) {
+		var ret float32
+		return ret
+	}
+	return *o.TotalAmount
+}
+
+// GetTotalAmountOk returns a tuple with the TotalAmount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindShoppingCart200ResponseDataInner) GetTotalAmountOk() (*float32, bool) {
+	if o == nil || IsNil(o.TotalAmount) {
+		return nil, false
+	}
+	return o.TotalAmount, true
+}
+
+// HasTotalAmount returns a boolean if a field has been set.
+func (o *FindShoppingCart200ResponseDataInner) HasTotalAmount() bool {
+	if o != nil && !IsNil(o.TotalAmount) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalAmount gets a reference to the given float32 and assigns it to the TotalAmount field.
+func (o *FindShoppingCart200ResponseDataInner) SetTotalAmount(v float32) {
+	o.TotalAmount = &v
+}
+
+// GetCurrency returns the Currency field value if set, zero value otherwise.
+func (o *FindShoppingCart200ResponseDataInner) GetCurrency() string {
+	if o == nil || IsNil(o.Currency) {
+		var ret string
+		return ret
+	}
+	return *o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindShoppingCart200ResponseDataInner) GetCurrencyOk() (*string, bool) {
+	if o == nil || IsNil(o.Currency) {
+		return nil, false
+	}
+	return o.Currency, true
+}
+
+// HasCurrency returns a boolean if a field has been set.
+func (o *FindShoppingCart200ResponseDataInner) HasCurrency() bool {
+	if o != nil && !IsNil(o.Currency) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+func (o *FindShoppingCart200ResponseDataInner) SetCurrency(v string) {
+	o.Currency = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *FindShoppingCart200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindShoppingCart200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *FindShoppingCart200ResponseDataInner) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *FindShoppingCart200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
+}
+
+// GetCartItems returns the CartItems field value if set, zero value otherwise.
+func (o *FindShoppingCart200ResponseDataInner) GetCartItems() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CartItems) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CartItems
+}
+
+// GetCartItemsOk returns a tuple with the CartItems field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindShoppingCart200ResponseDataInner) GetCartItemsOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CartItems) {
+		return nil, false
+	}
+	return o.CartItems, true
+}
+
+// HasCartItems returns a boolean if a field has been set.
+func (o *FindShoppingCart200ResponseDataInner) HasCartItems() bool {
+	if o != nil && !IsNil(o.CartItems) {
+		return true
+	}
+
+	return false
+}
+
+// SetCartItems gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CartItems field.
+func (o *FindShoppingCart200ResponseDataInner) SetCartItems(v CreateAccessReviewRequestDataReviewer) {
+	o.CartItems = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +338,6 @@ func (o *FindShoppingCart200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindShoppingCart200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindShoppingCart200ResponseDataInner) GetAttributes() ShoppingCart {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ShoppingCart
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindShoppingCart200ResponseDataInner) GetAttributesOk() (*ShoppingCart, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindShoppingCart200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ShoppingCart and assigns it to the Attributes field.
-func (o *FindShoppingCart200ResponseDataInner) SetAttributes(v ShoppingCart) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +456,32 @@ func (o FindShoppingCart200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindShoppingCart200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.UsersPermissionsUser) {
+		toSerialize["users_permissions_user"] = o.UsersPermissionsUser
+	}
+	if !IsNil(o.SessionId) {
+		toSerialize["session_id"] = o.SessionId
+	}
+	if o.ShoppingItems != nil {
+		toSerialize["shopping_items"] = o.ShoppingItems
+	}
+	if !IsNil(o.TotalAmount) {
+		toSerialize["total_amount"] = o.TotalAmount
+	}
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.CartItems) {
+		toSerialize["cart_items"] = o.CartItems
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +493,43 @@ func (o FindShoppingCart200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindShoppingCart200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"shopping_items",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindShoppingCart200ResponseDataInner := _FindShoppingCart200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindShoppingCart200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindShoppingCart200ResponseDataInner(varFindShoppingCart200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindShoppingCart200ResponseDataInner struct {

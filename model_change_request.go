@@ -31,7 +31,7 @@ type ChangeRequest struct {
 	RollbackPlan *string `json:"rollback_plan,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// Array of { email, approved_at } objects
-	Approvers map[string]interface{} `json:"approvers,omitempty"`
+	Approvers interface{} `json:"approvers,omitempty"`
 	ApprovedAt *time.Time `json:"approved_at,omitempty"`
 	RejectedAt *time.Time `json:"rejected_at,omitempty"`
 	ImplementedAt *time.Time `json:"implemented_at,omitempty"`
@@ -269,10 +269,10 @@ func (o *ChangeRequest) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetApprovers returns the Approvers field value if set, zero value otherwise.
-func (o *ChangeRequest) GetApprovers() map[string]interface{} {
-	if o == nil || IsNil(o.Approvers) {
-		var ret map[string]interface{}
+// GetApprovers returns the Approvers field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ChangeRequest) GetApprovers() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Approvers
@@ -280,11 +280,12 @@ func (o *ChangeRequest) GetApprovers() map[string]interface{} {
 
 // GetApproversOk returns a tuple with the Approvers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ChangeRequest) GetApproversOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ChangeRequest) GetApproversOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Approvers) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Approvers, true
+	return &o.Approvers, true
 }
 
 // HasApprovers returns a boolean if a field has been set.
@@ -296,8 +297,8 @@ func (o *ChangeRequest) HasApprovers() bool {
 	return false
 }
 
-// SetApprovers gets a reference to the given map[string]interface{} and assigns it to the Approvers field.
-func (o *ChangeRequest) SetApprovers(v map[string]interface{}) {
+// SetApprovers gets a reference to the given interface{} and assigns it to the Approvers field.
+func (o *ChangeRequest) SetApprovers(v interface{}) {
 	o.Approvers = v
 }
 
@@ -520,7 +521,7 @@ func (o ChangeRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !IsNil(o.Approvers) {
+	if o.Approvers != nil {
 		toSerialize["approvers"] = o.Approvers
 	}
 	if !IsNil(o.ApprovedAt) {

@@ -26,13 +26,16 @@ type AgentRelease struct {
 	BinaryUrl *string `json:"binary_url,omitempty"`
 	ChecksumSha256 *string `json:"checksum_sha256,omitempty"`
 	ReleaseNotes *string `json:"release_notes,omitempty"`
-	RolloutPolicy map[string]interface{} `json:"rollout_policy,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	RolloutPolicy interface{} `json:"rollout_policy,omitempty"`
 	RolloutPercentage *int32 `json:"rollout_percentage,omitempty"`
 	IsStable *bool `json:"is_stable,omitempty"`
 	Channel *string `json:"channel,omitempty"`
 	MinAgentVersion *string `json:"min_agent_version,omitempty"`
-	BinaryUrls map[string]interface{} `json:"binary_urls,omitempty"`
-	Architectures map[string]interface{} `json:"architectures,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	BinaryUrls interface{} `json:"binary_urls,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Architectures interface{} `json:"architectures,omitempty"`
 }
 
 type _AgentRelease AgentRelease
@@ -175,10 +178,10 @@ func (o *AgentRelease) SetReleaseNotes(v string) {
 	o.ReleaseNotes = &v
 }
 
-// GetRolloutPolicy returns the RolloutPolicy field value if set, zero value otherwise.
-func (o *AgentRelease) GetRolloutPolicy() map[string]interface{} {
-	if o == nil || IsNil(o.RolloutPolicy) {
-		var ret map[string]interface{}
+// GetRolloutPolicy returns the RolloutPolicy field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentRelease) GetRolloutPolicy() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.RolloutPolicy
@@ -186,11 +189,12 @@ func (o *AgentRelease) GetRolloutPolicy() map[string]interface{} {
 
 // GetRolloutPolicyOk returns a tuple with the RolloutPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentRelease) GetRolloutPolicyOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentRelease) GetRolloutPolicyOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.RolloutPolicy) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.RolloutPolicy, true
+	return &o.RolloutPolicy, true
 }
 
 // HasRolloutPolicy returns a boolean if a field has been set.
@@ -202,8 +206,8 @@ func (o *AgentRelease) HasRolloutPolicy() bool {
 	return false
 }
 
-// SetRolloutPolicy gets a reference to the given map[string]interface{} and assigns it to the RolloutPolicy field.
-func (o *AgentRelease) SetRolloutPolicy(v map[string]interface{}) {
+// SetRolloutPolicy gets a reference to the given interface{} and assigns it to the RolloutPolicy field.
+func (o *AgentRelease) SetRolloutPolicy(v interface{}) {
 	o.RolloutPolicy = v
 }
 
@@ -335,10 +339,10 @@ func (o *AgentRelease) SetMinAgentVersion(v string) {
 	o.MinAgentVersion = &v
 }
 
-// GetBinaryUrls returns the BinaryUrls field value if set, zero value otherwise.
-func (o *AgentRelease) GetBinaryUrls() map[string]interface{} {
-	if o == nil || IsNil(o.BinaryUrls) {
-		var ret map[string]interface{}
+// GetBinaryUrls returns the BinaryUrls field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentRelease) GetBinaryUrls() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.BinaryUrls
@@ -346,11 +350,12 @@ func (o *AgentRelease) GetBinaryUrls() map[string]interface{} {
 
 // GetBinaryUrlsOk returns a tuple with the BinaryUrls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentRelease) GetBinaryUrlsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentRelease) GetBinaryUrlsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.BinaryUrls) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.BinaryUrls, true
+	return &o.BinaryUrls, true
 }
 
 // HasBinaryUrls returns a boolean if a field has been set.
@@ -362,15 +367,15 @@ func (o *AgentRelease) HasBinaryUrls() bool {
 	return false
 }
 
-// SetBinaryUrls gets a reference to the given map[string]interface{} and assigns it to the BinaryUrls field.
-func (o *AgentRelease) SetBinaryUrls(v map[string]interface{}) {
+// SetBinaryUrls gets a reference to the given interface{} and assigns it to the BinaryUrls field.
+func (o *AgentRelease) SetBinaryUrls(v interface{}) {
 	o.BinaryUrls = v
 }
 
-// GetArchitectures returns the Architectures field value if set, zero value otherwise.
-func (o *AgentRelease) GetArchitectures() map[string]interface{} {
-	if o == nil || IsNil(o.Architectures) {
-		var ret map[string]interface{}
+// GetArchitectures returns the Architectures field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AgentRelease) GetArchitectures() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Architectures
@@ -378,11 +383,12 @@ func (o *AgentRelease) GetArchitectures() map[string]interface{} {
 
 // GetArchitecturesOk returns a tuple with the Architectures field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentRelease) GetArchitecturesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgentRelease) GetArchitecturesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Architectures) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Architectures, true
+	return &o.Architectures, true
 }
 
 // HasArchitectures returns a boolean if a field has been set.
@@ -394,8 +400,8 @@ func (o *AgentRelease) HasArchitectures() bool {
 	return false
 }
 
-// SetArchitectures gets a reference to the given map[string]interface{} and assigns it to the Architectures field.
-func (o *AgentRelease) SetArchitectures(v map[string]interface{}) {
+// SetArchitectures gets a reference to the given interface{} and assigns it to the Architectures field.
+func (o *AgentRelease) SetArchitectures(v interface{}) {
 	o.Architectures = v
 }
 
@@ -419,7 +425,7 @@ func (o AgentRelease) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ReleaseNotes) {
 		toSerialize["release_notes"] = o.ReleaseNotes
 	}
-	if !IsNil(o.RolloutPolicy) {
+	if o.RolloutPolicy != nil {
 		toSerialize["rollout_policy"] = o.RolloutPolicy
 	}
 	if !IsNil(o.RolloutPercentage) {
@@ -434,10 +440,10 @@ func (o AgentRelease) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MinAgentVersion) {
 		toSerialize["min_agent_version"] = o.MinAgentVersion
 	}
-	if !IsNil(o.BinaryUrls) {
+	if o.BinaryUrls != nil {
 		toSerialize["binary_urls"] = o.BinaryUrls
 	}
-	if !IsNil(o.Architectures) {
+	if o.Architectures != nil {
 		toSerialize["architectures"] = o.Architectures
 	}
 	return toSerialize, nil

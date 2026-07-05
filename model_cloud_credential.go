@@ -26,14 +26,15 @@ type CloudCredential struct {
 	Name string `json:"name"`
 	Provider string `json:"provider"`
 	IsActive bool `json:"is_active"`
-	CredentialData map[string]interface{} `json:"credential_data,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	CredentialData interface{} `json:"credential_data,omitempty"`
 	// AES-256-GCM šifrovaný JSON s credentials (F2.C.03). NIKDY se nevrací v API. Dešifruje cloud-connector sdíleným BYOC_ENCRYPTION_KEY.
 	EncryptedPayload *string `json:"encrypted_payload,omitempty"`
 	// Stav ověření credentials reálným API voláním (F2.C.03).
 	ValidationStatus string `json:"validation_status"`
 	LastValidatedAt *time.Time `json:"last_validated_at,omitempty"`
 	// Detekovaná oprávnění z validace (např. ['ec2:read','rds:write']).
-	Scopes map[string]interface{} `json:"scopes,omitempty"`
+	Scopes interface{} `json:"scopes,omitempty"`
 	LastUsedAt *time.Time `json:"last_used_at,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	CreatedByUser *CreateAccessReviewRequestDataReviewer `json:"created_by_user,omitempty"`
@@ -144,10 +145,10 @@ func (o *CloudCredential) SetIsActive(v bool) {
 	o.IsActive = v
 }
 
-// GetCredentialData returns the CredentialData field value if set, zero value otherwise.
-func (o *CloudCredential) GetCredentialData() map[string]interface{} {
-	if o == nil || IsNil(o.CredentialData) {
-		var ret map[string]interface{}
+// GetCredentialData returns the CredentialData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CloudCredential) GetCredentialData() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.CredentialData
@@ -155,11 +156,12 @@ func (o *CloudCredential) GetCredentialData() map[string]interface{} {
 
 // GetCredentialDataOk returns a tuple with the CredentialData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CloudCredential) GetCredentialDataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CloudCredential) GetCredentialDataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.CredentialData) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.CredentialData, true
+	return &o.CredentialData, true
 }
 
 // HasCredentialData returns a boolean if a field has been set.
@@ -171,8 +173,8 @@ func (o *CloudCredential) HasCredentialData() bool {
 	return false
 }
 
-// SetCredentialData gets a reference to the given map[string]interface{} and assigns it to the CredentialData field.
-func (o *CloudCredential) SetCredentialData(v map[string]interface{}) {
+// SetCredentialData gets a reference to the given interface{} and assigns it to the CredentialData field.
+func (o *CloudCredential) SetCredentialData(v interface{}) {
 	o.CredentialData = v
 }
 
@@ -264,10 +266,10 @@ func (o *CloudCredential) SetLastValidatedAt(v time.Time) {
 	o.LastValidatedAt = &v
 }
 
-// GetScopes returns the Scopes field value if set, zero value otherwise.
-func (o *CloudCredential) GetScopes() map[string]interface{} {
-	if o == nil || IsNil(o.Scopes) {
-		var ret map[string]interface{}
+// GetScopes returns the Scopes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CloudCredential) GetScopes() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Scopes
@@ -275,11 +277,12 @@ func (o *CloudCredential) GetScopes() map[string]interface{} {
 
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CloudCredential) GetScopesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CloudCredential) GetScopesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Scopes) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Scopes, true
+	return &o.Scopes, true
 }
 
 // HasScopes returns a boolean if a field has been set.
@@ -291,8 +294,8 @@ func (o *CloudCredential) HasScopes() bool {
 	return false
 }
 
-// SetScopes gets a reference to the given map[string]interface{} and assigns it to the Scopes field.
-func (o *CloudCredential) SetScopes(v map[string]interface{}) {
+// SetScopes gets a reference to the given interface{} and assigns it to the Scopes field.
+func (o *CloudCredential) SetScopes(v interface{}) {
 	o.Scopes = v
 }
 
@@ -621,7 +624,7 @@ func (o CloudCredential) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["provider"] = o.Provider
 	toSerialize["is_active"] = o.IsActive
-	if !IsNil(o.CredentialData) {
+	if o.CredentialData != nil {
 		toSerialize["credential_data"] = o.CredentialData
 	}
 	if !IsNil(o.EncryptedPayload) {
@@ -631,7 +634,7 @@ func (o CloudCredential) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastValidatedAt) {
 		toSerialize["last_validated_at"] = o.LastValidatedAt
 	}
-	if !IsNil(o.Scopes) {
+	if o.Scopes != nil {
 		toSerialize["scopes"] = o.Scopes
 	}
 	if !IsNil(o.LastUsedAt) {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindBusinessMetricSnapshot200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,59 @@ var _ MappedNullable = &FindBusinessMetricSnapshot200ResponseDataInner{}
 
 // FindBusinessMetricSnapshot200ResponseDataInner struct for FindBusinessMetricSnapshot200ResponseDataInner
 type FindBusinessMetricSnapshot200ResponseDataInner struct {
+	// Calendar day (UTC) this snapshot represents — one row per day, upserted idempotently by the cron.
+	SnapshotDate string `json:"snapshot_date"`
+	ComputedAt time.Time `json:"computed_at"`
+	// Monthly Recurring Revenue — sum of active subscription-enrollment tier prices (yearly normalized /12).
+	MrrUsd float32 `json:"mrr_usd"`
+	// MRR percentage growth vs the previous snapshot (day-over-day here; dashboard aggregates for month-over-month).
+	MrrGrowthPct *float32 `json:"mrr_growth_pct,omitempty"`
+	// Annual Recurring Revenue — mrr_usd * 12.
+	ArrUsd *float32 `json:"arr_usd,omitempty"`
+	// Fraction (0..1) of active accounts at start of trailing 30d window that cancelled/expired by end of window.
+	LogoChurnRateMonthly *float32 `json:"logo_churn_rate_monthly,omitempty"`
+	// Fraction (0..1) of MRR at start of trailing 30d window lost to cancellations/downgrades (gross, pre-expansion).
+	RevenueChurnRateMonthly *float32 `json:"revenue_churn_rate_monthly,omitempty"`
+	// NRR — (starting MRR + expansion - contraction - churned MRR) / starting MRR * 100, trailing 30d cohort.
+	NetRevenueRetentionPct *float32 `json:"net_revenue_retention_pct,omitempty"`
+	// Distinct active users (platform-event actor_user_id) in the trailing 24h window.
+	Dau *int32 `json:"dau,omitempty"`
+	// Distinct active users (platform-event actor_user_id) in the trailing 30d window.
+	Mau *int32 `json:"mau,omitempty"`
+	// DAU / MAU * 100 — engagement stickiness ratio.
+	StickinessPct *float32 `json:"stickiness_pct,omitempty"`
+	// Activation funnel snapshot — reuses computeActivationFunnel() (F3.ONBOARDING.03), stored verbatim ({ steps, ttv, ... }).
+	Funnel interface{} `json:"funnel,omitempty"`
+	// Mean time to paid — average hours between signup (onboarding.signup platform-event) and first billing-event for the same organisation.
+	MttpHours *float32 `json:"mttp_hours,omitempty"`
+	// Median time-to-value hours, taken from the activation-funnel ttv computation (signup -> first value event).
+	TtvMedianHours *float32 `json:"ttv_median_hours,omitempty"`
+	// Average Revenue Per Account — mrr_usd / active_paid_accounts.
+	ArpaUsd *float32 `json:"arpa_usd,omitempty"`
+	// % of trials started (trailing 90d) that converted to a paid subscription-enrollment.
+	TrialConversionRatePct *float32 `json:"trial_conversion_rate_pct,omitempty"`
+	ActivePaidAccounts *int32 `json:"active_paid_accounts,omitempty"`
+	TotalAccounts *int32 `json:"total_accounts,omitempty"`
+	// Full computation result object (BusinessMetricsResult) — superset of the flattened columns above, kept for forward-compatible dashboard consumption without a migration.
+	Raw interface{} `json:"raw,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *BusinessMetricSnapshot `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindBusinessMetricSnapshot200ResponseDataInner FindBusinessMetricSnapshot200ResponseDataInner
+
 // NewFindBusinessMetricSnapshot200ResponseDataInner instantiates a new FindBusinessMetricSnapshot200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindBusinessMetricSnapshot200ResponseDataInner() *FindBusinessMetricSnapshot200ResponseDataInner {
+func NewFindBusinessMetricSnapshot200ResponseDataInner(snapshotDate string, computedAt time.Time, mrrUsd float32) *FindBusinessMetricSnapshot200ResponseDataInner {
 	this := FindBusinessMetricSnapshot200ResponseDataInner{}
+	this.SnapshotDate = snapshotDate
+	this.ComputedAt = computedAt
+	this.MrrUsd = mrrUsd
 	return &this
 }
 
@@ -44,6 +85,592 @@ func NewFindBusinessMetricSnapshot200ResponseDataInner() *FindBusinessMetricSnap
 func NewFindBusinessMetricSnapshot200ResponseDataInnerWithDefaults() *FindBusinessMetricSnapshot200ResponseDataInner {
 	this := FindBusinessMetricSnapshot200ResponseDataInner{}
 	return &this
+}
+
+// GetSnapshotDate returns the SnapshotDate field value
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetSnapshotDate() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SnapshotDate
+}
+
+// GetSnapshotDateOk returns a tuple with the SnapshotDate field value
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetSnapshotDateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SnapshotDate, true
+}
+
+// SetSnapshotDate sets field value
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetSnapshotDate(v string) {
+	o.SnapshotDate = v
+}
+
+// GetComputedAt returns the ComputedAt field value
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetComputedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.ComputedAt
+}
+
+// GetComputedAtOk returns a tuple with the ComputedAt field value
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetComputedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ComputedAt, true
+}
+
+// SetComputedAt sets field value
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetComputedAt(v time.Time) {
+	o.ComputedAt = v
+}
+
+// GetMrrUsd returns the MrrUsd field value
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetMrrUsd() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.MrrUsd
+}
+
+// GetMrrUsdOk returns a tuple with the MrrUsd field value
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetMrrUsdOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MrrUsd, true
+}
+
+// SetMrrUsd sets field value
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetMrrUsd(v float32) {
+	o.MrrUsd = v
+}
+
+// GetMrrGrowthPct returns the MrrGrowthPct field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetMrrGrowthPct() float32 {
+	if o == nil || IsNil(o.MrrGrowthPct) {
+		var ret float32
+		return ret
+	}
+	return *o.MrrGrowthPct
+}
+
+// GetMrrGrowthPctOk returns a tuple with the MrrGrowthPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetMrrGrowthPctOk() (*float32, bool) {
+	if o == nil || IsNil(o.MrrGrowthPct) {
+		return nil, false
+	}
+	return o.MrrGrowthPct, true
+}
+
+// HasMrrGrowthPct returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasMrrGrowthPct() bool {
+	if o != nil && !IsNil(o.MrrGrowthPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetMrrGrowthPct gets a reference to the given float32 and assigns it to the MrrGrowthPct field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetMrrGrowthPct(v float32) {
+	o.MrrGrowthPct = &v
+}
+
+// GetArrUsd returns the ArrUsd field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetArrUsd() float32 {
+	if o == nil || IsNil(o.ArrUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.ArrUsd
+}
+
+// GetArrUsdOk returns a tuple with the ArrUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetArrUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.ArrUsd) {
+		return nil, false
+	}
+	return o.ArrUsd, true
+}
+
+// HasArrUsd returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasArrUsd() bool {
+	if o != nil && !IsNil(o.ArrUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetArrUsd gets a reference to the given float32 and assigns it to the ArrUsd field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetArrUsd(v float32) {
+	o.ArrUsd = &v
+}
+
+// GetLogoChurnRateMonthly returns the LogoChurnRateMonthly field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetLogoChurnRateMonthly() float32 {
+	if o == nil || IsNil(o.LogoChurnRateMonthly) {
+		var ret float32
+		return ret
+	}
+	return *o.LogoChurnRateMonthly
+}
+
+// GetLogoChurnRateMonthlyOk returns a tuple with the LogoChurnRateMonthly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetLogoChurnRateMonthlyOk() (*float32, bool) {
+	if o == nil || IsNil(o.LogoChurnRateMonthly) {
+		return nil, false
+	}
+	return o.LogoChurnRateMonthly, true
+}
+
+// HasLogoChurnRateMonthly returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasLogoChurnRateMonthly() bool {
+	if o != nil && !IsNil(o.LogoChurnRateMonthly) {
+		return true
+	}
+
+	return false
+}
+
+// SetLogoChurnRateMonthly gets a reference to the given float32 and assigns it to the LogoChurnRateMonthly field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetLogoChurnRateMonthly(v float32) {
+	o.LogoChurnRateMonthly = &v
+}
+
+// GetRevenueChurnRateMonthly returns the RevenueChurnRateMonthly field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetRevenueChurnRateMonthly() float32 {
+	if o == nil || IsNil(o.RevenueChurnRateMonthly) {
+		var ret float32
+		return ret
+	}
+	return *o.RevenueChurnRateMonthly
+}
+
+// GetRevenueChurnRateMonthlyOk returns a tuple with the RevenueChurnRateMonthly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetRevenueChurnRateMonthlyOk() (*float32, bool) {
+	if o == nil || IsNil(o.RevenueChurnRateMonthly) {
+		return nil, false
+	}
+	return o.RevenueChurnRateMonthly, true
+}
+
+// HasRevenueChurnRateMonthly returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasRevenueChurnRateMonthly() bool {
+	if o != nil && !IsNil(o.RevenueChurnRateMonthly) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevenueChurnRateMonthly gets a reference to the given float32 and assigns it to the RevenueChurnRateMonthly field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetRevenueChurnRateMonthly(v float32) {
+	o.RevenueChurnRateMonthly = &v
+}
+
+// GetNetRevenueRetentionPct returns the NetRevenueRetentionPct field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetNetRevenueRetentionPct() float32 {
+	if o == nil || IsNil(o.NetRevenueRetentionPct) {
+		var ret float32
+		return ret
+	}
+	return *o.NetRevenueRetentionPct
+}
+
+// GetNetRevenueRetentionPctOk returns a tuple with the NetRevenueRetentionPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetNetRevenueRetentionPctOk() (*float32, bool) {
+	if o == nil || IsNil(o.NetRevenueRetentionPct) {
+		return nil, false
+	}
+	return o.NetRevenueRetentionPct, true
+}
+
+// HasNetRevenueRetentionPct returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasNetRevenueRetentionPct() bool {
+	if o != nil && !IsNil(o.NetRevenueRetentionPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetRevenueRetentionPct gets a reference to the given float32 and assigns it to the NetRevenueRetentionPct field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetNetRevenueRetentionPct(v float32) {
+	o.NetRevenueRetentionPct = &v
+}
+
+// GetDau returns the Dau field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetDau() int32 {
+	if o == nil || IsNil(o.Dau) {
+		var ret int32
+		return ret
+	}
+	return *o.Dau
+}
+
+// GetDauOk returns a tuple with the Dau field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetDauOk() (*int32, bool) {
+	if o == nil || IsNil(o.Dau) {
+		return nil, false
+	}
+	return o.Dau, true
+}
+
+// HasDau returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasDau() bool {
+	if o != nil && !IsNil(o.Dau) {
+		return true
+	}
+
+	return false
+}
+
+// SetDau gets a reference to the given int32 and assigns it to the Dau field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetDau(v int32) {
+	o.Dau = &v
+}
+
+// GetMau returns the Mau field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetMau() int32 {
+	if o == nil || IsNil(o.Mau) {
+		var ret int32
+		return ret
+	}
+	return *o.Mau
+}
+
+// GetMauOk returns a tuple with the Mau field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetMauOk() (*int32, bool) {
+	if o == nil || IsNil(o.Mau) {
+		return nil, false
+	}
+	return o.Mau, true
+}
+
+// HasMau returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasMau() bool {
+	if o != nil && !IsNil(o.Mau) {
+		return true
+	}
+
+	return false
+}
+
+// SetMau gets a reference to the given int32 and assigns it to the Mau field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetMau(v int32) {
+	o.Mau = &v
+}
+
+// GetStickinessPct returns the StickinessPct field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetStickinessPct() float32 {
+	if o == nil || IsNil(o.StickinessPct) {
+		var ret float32
+		return ret
+	}
+	return *o.StickinessPct
+}
+
+// GetStickinessPctOk returns a tuple with the StickinessPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetStickinessPctOk() (*float32, bool) {
+	if o == nil || IsNil(o.StickinessPct) {
+		return nil, false
+	}
+	return o.StickinessPct, true
+}
+
+// HasStickinessPct returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasStickinessPct() bool {
+	if o != nil && !IsNil(o.StickinessPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetStickinessPct gets a reference to the given float32 and assigns it to the StickinessPct field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetStickinessPct(v float32) {
+	o.StickinessPct = &v
+}
+
+// GetFunnel returns the Funnel field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetFunnel() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Funnel
+}
+
+// GetFunnelOk returns a tuple with the Funnel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetFunnelOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Funnel) {
+		return nil, false
+	}
+	return &o.Funnel, true
+}
+
+// HasFunnel returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasFunnel() bool {
+	if o != nil && !IsNil(o.Funnel) {
+		return true
+	}
+
+	return false
+}
+
+// SetFunnel gets a reference to the given interface{} and assigns it to the Funnel field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetFunnel(v interface{}) {
+	o.Funnel = v
+}
+
+// GetMttpHours returns the MttpHours field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetMttpHours() float32 {
+	if o == nil || IsNil(o.MttpHours) {
+		var ret float32
+		return ret
+	}
+	return *o.MttpHours
+}
+
+// GetMttpHoursOk returns a tuple with the MttpHours field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetMttpHoursOk() (*float32, bool) {
+	if o == nil || IsNil(o.MttpHours) {
+		return nil, false
+	}
+	return o.MttpHours, true
+}
+
+// HasMttpHours returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasMttpHours() bool {
+	if o != nil && !IsNil(o.MttpHours) {
+		return true
+	}
+
+	return false
+}
+
+// SetMttpHours gets a reference to the given float32 and assigns it to the MttpHours field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetMttpHours(v float32) {
+	o.MttpHours = &v
+}
+
+// GetTtvMedianHours returns the TtvMedianHours field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetTtvMedianHours() float32 {
+	if o == nil || IsNil(o.TtvMedianHours) {
+		var ret float32
+		return ret
+	}
+	return *o.TtvMedianHours
+}
+
+// GetTtvMedianHoursOk returns a tuple with the TtvMedianHours field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetTtvMedianHoursOk() (*float32, bool) {
+	if o == nil || IsNil(o.TtvMedianHours) {
+		return nil, false
+	}
+	return o.TtvMedianHours, true
+}
+
+// HasTtvMedianHours returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasTtvMedianHours() bool {
+	if o != nil && !IsNil(o.TtvMedianHours) {
+		return true
+	}
+
+	return false
+}
+
+// SetTtvMedianHours gets a reference to the given float32 and assigns it to the TtvMedianHours field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetTtvMedianHours(v float32) {
+	o.TtvMedianHours = &v
+}
+
+// GetArpaUsd returns the ArpaUsd field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetArpaUsd() float32 {
+	if o == nil || IsNil(o.ArpaUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.ArpaUsd
+}
+
+// GetArpaUsdOk returns a tuple with the ArpaUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetArpaUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.ArpaUsd) {
+		return nil, false
+	}
+	return o.ArpaUsd, true
+}
+
+// HasArpaUsd returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasArpaUsd() bool {
+	if o != nil && !IsNil(o.ArpaUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetArpaUsd gets a reference to the given float32 and assigns it to the ArpaUsd field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetArpaUsd(v float32) {
+	o.ArpaUsd = &v
+}
+
+// GetTrialConversionRatePct returns the TrialConversionRatePct field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetTrialConversionRatePct() float32 {
+	if o == nil || IsNil(o.TrialConversionRatePct) {
+		var ret float32
+		return ret
+	}
+	return *o.TrialConversionRatePct
+}
+
+// GetTrialConversionRatePctOk returns a tuple with the TrialConversionRatePct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetTrialConversionRatePctOk() (*float32, bool) {
+	if o == nil || IsNil(o.TrialConversionRatePct) {
+		return nil, false
+	}
+	return o.TrialConversionRatePct, true
+}
+
+// HasTrialConversionRatePct returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasTrialConversionRatePct() bool {
+	if o != nil && !IsNil(o.TrialConversionRatePct) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrialConversionRatePct gets a reference to the given float32 and assigns it to the TrialConversionRatePct field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetTrialConversionRatePct(v float32) {
+	o.TrialConversionRatePct = &v
+}
+
+// GetActivePaidAccounts returns the ActivePaidAccounts field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetActivePaidAccounts() int32 {
+	if o == nil || IsNil(o.ActivePaidAccounts) {
+		var ret int32
+		return ret
+	}
+	return *o.ActivePaidAccounts
+}
+
+// GetActivePaidAccountsOk returns a tuple with the ActivePaidAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetActivePaidAccountsOk() (*int32, bool) {
+	if o == nil || IsNil(o.ActivePaidAccounts) {
+		return nil, false
+	}
+	return o.ActivePaidAccounts, true
+}
+
+// HasActivePaidAccounts returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasActivePaidAccounts() bool {
+	if o != nil && !IsNil(o.ActivePaidAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetActivePaidAccounts gets a reference to the given int32 and assigns it to the ActivePaidAccounts field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetActivePaidAccounts(v int32) {
+	o.ActivePaidAccounts = &v
+}
+
+// GetTotalAccounts returns the TotalAccounts field value if set, zero value otherwise.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetTotalAccounts() int32 {
+	if o == nil || IsNil(o.TotalAccounts) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalAccounts
+}
+
+// GetTotalAccountsOk returns a tuple with the TotalAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetTotalAccountsOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalAccounts) {
+		return nil, false
+	}
+	return o.TotalAccounts, true
+}
+
+// HasTotalAccounts returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasTotalAccounts() bool {
+	if o != nil && !IsNil(o.TotalAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalAccounts gets a reference to the given int32 and assigns it to the TotalAccounts field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetTotalAccounts(v int32) {
+	o.TotalAccounts = &v
+}
+
+// GetRaw returns the Raw field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetRaw() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Raw
+}
+
+// GetRawOk returns a tuple with the Raw field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetRawOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Raw) {
+		return nil, false
+	}
+	return &o.Raw, true
+}
+
+// HasRaw returns a boolean if a field has been set.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasRaw() bool {
+	if o != nil && !IsNil(o.Raw) {
+		return true
+	}
+
+	return false
+}
+
+// SetRaw gets a reference to the given interface{} and assigns it to the Raw field.
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetRaw(v interface{}) {
+	o.Raw = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +735,6 @@ func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetAttributes() BusinessMetricSnapshot {
-	if o == nil || IsNil(o.Attributes) {
-		var ret BusinessMetricSnapshot
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindBusinessMetricSnapshot200ResponseDataInner) GetAttributesOk() (*BusinessMetricSnapshot, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindBusinessMetricSnapshot200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given BusinessMetricSnapshot and assigns it to the Attributes field.
-func (o *FindBusinessMetricSnapshot200ResponseDataInner) SetAttributes(v BusinessMetricSnapshot) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +853,62 @@ func (o FindBusinessMetricSnapshot200ResponseDataInner) MarshalJSON() ([]byte, e
 
 func (o FindBusinessMetricSnapshot200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["snapshot_date"] = o.SnapshotDate
+	toSerialize["computed_at"] = o.ComputedAt
+	toSerialize["mrr_usd"] = o.MrrUsd
+	if !IsNil(o.MrrGrowthPct) {
+		toSerialize["mrr_growth_pct"] = o.MrrGrowthPct
+	}
+	if !IsNil(o.ArrUsd) {
+		toSerialize["arr_usd"] = o.ArrUsd
+	}
+	if !IsNil(o.LogoChurnRateMonthly) {
+		toSerialize["logo_churn_rate_monthly"] = o.LogoChurnRateMonthly
+	}
+	if !IsNil(o.RevenueChurnRateMonthly) {
+		toSerialize["revenue_churn_rate_monthly"] = o.RevenueChurnRateMonthly
+	}
+	if !IsNil(o.NetRevenueRetentionPct) {
+		toSerialize["net_revenue_retention_pct"] = o.NetRevenueRetentionPct
+	}
+	if !IsNil(o.Dau) {
+		toSerialize["dau"] = o.Dau
+	}
+	if !IsNil(o.Mau) {
+		toSerialize["mau"] = o.Mau
+	}
+	if !IsNil(o.StickinessPct) {
+		toSerialize["stickiness_pct"] = o.StickinessPct
+	}
+	if o.Funnel != nil {
+		toSerialize["funnel"] = o.Funnel
+	}
+	if !IsNil(o.MttpHours) {
+		toSerialize["mttp_hours"] = o.MttpHours
+	}
+	if !IsNil(o.TtvMedianHours) {
+		toSerialize["ttv_median_hours"] = o.TtvMedianHours
+	}
+	if !IsNil(o.ArpaUsd) {
+		toSerialize["arpa_usd"] = o.ArpaUsd
+	}
+	if !IsNil(o.TrialConversionRatePct) {
+		toSerialize["trial_conversion_rate_pct"] = o.TrialConversionRatePct
+	}
+	if !IsNil(o.ActivePaidAccounts) {
+		toSerialize["active_paid_accounts"] = o.ActivePaidAccounts
+	}
+	if !IsNil(o.TotalAccounts) {
+		toSerialize["total_accounts"] = o.TotalAccounts
+	}
+	if o.Raw != nil {
+		toSerialize["raw"] = o.Raw
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +920,45 @@ func (o FindBusinessMetricSnapshot200ResponseDataInner) ToMap() (map[string]inte
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindBusinessMetricSnapshot200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"snapshot_date",
+		"computed_at",
+		"mrr_usd",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindBusinessMetricSnapshot200ResponseDataInner := _FindBusinessMetricSnapshot200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindBusinessMetricSnapshot200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindBusinessMetricSnapshot200ResponseDataInner(varFindBusinessMetricSnapshot200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindBusinessMetricSnapshot200ResponseDataInner struct {

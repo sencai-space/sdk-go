@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindProviderImageCache200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,43 @@ var _ MappedNullable = &FindProviderImageCache200ResponseDataInner{}
 
 // FindProviderImageCache200ResponseDataInner struct for FindProviderImageCache200ResponseDataInner
 type FindProviderImageCache200ResponseDataInner struct {
+	Provider string `json:"provider"`
+	ImageId string `json:"image_id"`
+	Name string `json:"name"`
+	OsFamily string `json:"os_family"`
+	OsVersion string `json:"os_version"`
+	Architecture string `json:"architecture"`
+	IsActive bool `json:"is_active"`
+	IsLts *bool `json:"is_lts,omitempty"`
+	DiskSizeGb *int32 `json:"disk_size_gb,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Regions interface{} `json:"regions,omitempty"`
+	Description *string `json:"description,omitempty"`
+	ProviderCreatedAt *time.Time `json:"provider_created_at,omitempty"`
+	CachedAt time.Time `json:"cached_at"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ProviderImageCache `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindProviderImageCache200ResponseDataInner FindProviderImageCache200ResponseDataInner
+
 // NewFindProviderImageCache200ResponseDataInner instantiates a new FindProviderImageCache200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindProviderImageCache200ResponseDataInner() *FindProviderImageCache200ResponseDataInner {
+func NewFindProviderImageCache200ResponseDataInner(provider string, imageId string, name string, osFamily string, osVersion string, architecture string, isActive bool, cachedAt time.Time) *FindProviderImageCache200ResponseDataInner {
 	this := FindProviderImageCache200ResponseDataInner{}
+	this.Provider = provider
+	this.ImageId = imageId
+	this.Name = name
+	this.OsFamily = osFamily
+	this.OsVersion = osVersion
+	this.Architecture = architecture
+	this.IsActive = isActive
+	this.CachedAt = cachedAt
 	return &this
 }
 
@@ -44,6 +69,359 @@ func NewFindProviderImageCache200ResponseDataInner() *FindProviderImageCache200R
 func NewFindProviderImageCache200ResponseDataInnerWithDefaults() *FindProviderImageCache200ResponseDataInner {
 	this := FindProviderImageCache200ResponseDataInner{}
 	return &this
+}
+
+// GetProvider returns the Provider field value
+func (o *FindProviderImageCache200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindProviderImageCache200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetImageId returns the ImageId field value
+func (o *FindProviderImageCache200ResponseDataInner) GetImageId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ImageId
+}
+
+// GetImageIdOk returns a tuple with the ImageId field value
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetImageIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ImageId, true
+}
+
+// SetImageId sets field value
+func (o *FindProviderImageCache200ResponseDataInner) SetImageId(v string) {
+	o.ImageId = v
+}
+
+// GetName returns the Name field value
+func (o *FindProviderImageCache200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindProviderImageCache200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetOsFamily returns the OsFamily field value
+func (o *FindProviderImageCache200ResponseDataInner) GetOsFamily() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OsFamily
+}
+
+// GetOsFamilyOk returns a tuple with the OsFamily field value
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetOsFamilyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OsFamily, true
+}
+
+// SetOsFamily sets field value
+func (o *FindProviderImageCache200ResponseDataInner) SetOsFamily(v string) {
+	o.OsFamily = v
+}
+
+// GetOsVersion returns the OsVersion field value
+func (o *FindProviderImageCache200ResponseDataInner) GetOsVersion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OsVersion
+}
+
+// GetOsVersionOk returns a tuple with the OsVersion field value
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetOsVersionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OsVersion, true
+}
+
+// SetOsVersion sets field value
+func (o *FindProviderImageCache200ResponseDataInner) SetOsVersion(v string) {
+	o.OsVersion = v
+}
+
+// GetArchitecture returns the Architecture field value
+func (o *FindProviderImageCache200ResponseDataInner) GetArchitecture() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Architecture
+}
+
+// GetArchitectureOk returns a tuple with the Architecture field value
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetArchitectureOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Architecture, true
+}
+
+// SetArchitecture sets field value
+func (o *FindProviderImageCache200ResponseDataInner) SetArchitecture(v string) {
+	o.Architecture = v
+}
+
+// GetIsActive returns the IsActive field value
+func (o *FindProviderImageCache200ResponseDataInner) GetIsActive() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetIsActiveOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsActive, true
+}
+
+// SetIsActive sets field value
+func (o *FindProviderImageCache200ResponseDataInner) SetIsActive(v bool) {
+	o.IsActive = v
+}
+
+// GetIsLts returns the IsLts field value if set, zero value otherwise.
+func (o *FindProviderImageCache200ResponseDataInner) GetIsLts() bool {
+	if o == nil || IsNil(o.IsLts) {
+		var ret bool
+		return ret
+	}
+	return *o.IsLts
+}
+
+// GetIsLtsOk returns a tuple with the IsLts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetIsLtsOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsLts) {
+		return nil, false
+	}
+	return o.IsLts, true
+}
+
+// HasIsLts returns a boolean if a field has been set.
+func (o *FindProviderImageCache200ResponseDataInner) HasIsLts() bool {
+	if o != nil && !IsNil(o.IsLts) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsLts gets a reference to the given bool and assigns it to the IsLts field.
+func (o *FindProviderImageCache200ResponseDataInner) SetIsLts(v bool) {
+	o.IsLts = &v
+}
+
+// GetDiskSizeGb returns the DiskSizeGb field value if set, zero value otherwise.
+func (o *FindProviderImageCache200ResponseDataInner) GetDiskSizeGb() int32 {
+	if o == nil || IsNil(o.DiskSizeGb) {
+		var ret int32
+		return ret
+	}
+	return *o.DiskSizeGb
+}
+
+// GetDiskSizeGbOk returns a tuple with the DiskSizeGb field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetDiskSizeGbOk() (*int32, bool) {
+	if o == nil || IsNil(o.DiskSizeGb) {
+		return nil, false
+	}
+	return o.DiskSizeGb, true
+}
+
+// HasDiskSizeGb returns a boolean if a field has been set.
+func (o *FindProviderImageCache200ResponseDataInner) HasDiskSizeGb() bool {
+	if o != nil && !IsNil(o.DiskSizeGb) {
+		return true
+	}
+
+	return false
+}
+
+// SetDiskSizeGb gets a reference to the given int32 and assigns it to the DiskSizeGb field.
+func (o *FindProviderImageCache200ResponseDataInner) SetDiskSizeGb(v int32) {
+	o.DiskSizeGb = &v
+}
+
+// GetRegions returns the Regions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindProviderImageCache200ResponseDataInner) GetRegions() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Regions
+}
+
+// GetRegionsOk returns a tuple with the Regions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindProviderImageCache200ResponseDataInner) GetRegionsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Regions) {
+		return nil, false
+	}
+	return &o.Regions, true
+}
+
+// HasRegions returns a boolean if a field has been set.
+func (o *FindProviderImageCache200ResponseDataInner) HasRegions() bool {
+	if o != nil && !IsNil(o.Regions) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegions gets a reference to the given interface{} and assigns it to the Regions field.
+func (o *FindProviderImageCache200ResponseDataInner) SetRegions(v interface{}) {
+	o.Regions = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindProviderImageCache200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindProviderImageCache200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindProviderImageCache200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetProviderCreatedAt returns the ProviderCreatedAt field value if set, zero value otherwise.
+func (o *FindProviderImageCache200ResponseDataInner) GetProviderCreatedAt() time.Time {
+	if o == nil || IsNil(o.ProviderCreatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ProviderCreatedAt
+}
+
+// GetProviderCreatedAtOk returns a tuple with the ProviderCreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetProviderCreatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ProviderCreatedAt) {
+		return nil, false
+	}
+	return o.ProviderCreatedAt, true
+}
+
+// HasProviderCreatedAt returns a boolean if a field has been set.
+func (o *FindProviderImageCache200ResponseDataInner) HasProviderCreatedAt() bool {
+	if o != nil && !IsNil(o.ProviderCreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderCreatedAt gets a reference to the given time.Time and assigns it to the ProviderCreatedAt field.
+func (o *FindProviderImageCache200ResponseDataInner) SetProviderCreatedAt(v time.Time) {
+	o.ProviderCreatedAt = &v
+}
+
+// GetCachedAt returns the CachedAt field value
+func (o *FindProviderImageCache200ResponseDataInner) GetCachedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.CachedAt
+}
+
+// GetCachedAtOk returns a tuple with the CachedAt field value
+// and a boolean to check if the value has been set.
+func (o *FindProviderImageCache200ResponseDataInner) GetCachedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CachedAt, true
+}
+
+// SetCachedAt sets field value
+func (o *FindProviderImageCache200ResponseDataInner) SetCachedAt(v time.Time) {
+	o.CachedAt = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +486,6 @@ func (o *FindProviderImageCache200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindProviderImageCache200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindProviderImageCache200ResponseDataInner) GetAttributes() ProviderImageCache {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ProviderImageCache
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindProviderImageCache200ResponseDataInner) GetAttributesOk() (*ProviderImageCache, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindProviderImageCache200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ProviderImageCache and assigns it to the Attributes field.
-func (o *FindProviderImageCache200ResponseDataInner) SetAttributes(v ProviderImageCache) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +604,34 @@ func (o FindProviderImageCache200ResponseDataInner) MarshalJSON() ([]byte, error
 
 func (o FindProviderImageCache200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["provider"] = o.Provider
+	toSerialize["image_id"] = o.ImageId
+	toSerialize["name"] = o.Name
+	toSerialize["os_family"] = o.OsFamily
+	toSerialize["os_version"] = o.OsVersion
+	toSerialize["architecture"] = o.Architecture
+	toSerialize["is_active"] = o.IsActive
+	if !IsNil(o.IsLts) {
+		toSerialize["is_lts"] = o.IsLts
+	}
+	if !IsNil(o.DiskSizeGb) {
+		toSerialize["disk_size_gb"] = o.DiskSizeGb
+	}
+	if o.Regions != nil {
+		toSerialize["regions"] = o.Regions
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.ProviderCreatedAt) {
+		toSerialize["provider_created_at"] = o.ProviderCreatedAt
+	}
+	toSerialize["cached_at"] = o.CachedAt
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +643,50 @@ func (o FindProviderImageCache200ResponseDataInner) ToMap() (map[string]interfac
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindProviderImageCache200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"provider",
+		"image_id",
+		"name",
+		"os_family",
+		"os_version",
+		"architecture",
+		"is_active",
+		"cached_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindProviderImageCache200ResponseDataInner := _FindProviderImageCache200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindProviderImageCache200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindProviderImageCache200ResponseDataInner(varFindProviderImageCache200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindProviderImageCache200ResponseDataInner struct {

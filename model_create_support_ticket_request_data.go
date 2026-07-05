@@ -36,8 +36,10 @@ type CreateSupportTicketRequestData struct {
 	ResolvedAt *time.Time `json:"resolved_at,omitempty"`
 	FirstResponseAt *time.Time `json:"first_response_at,omitempty"`
 	SlaBreach *bool `json:"sla_breach,omitempty"`
-	Tags map[string]interface{} `json:"tags,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	FreshdeskTicketId *string `json:"freshdesk_ticket_id,omitempty"`
 	Comments *CreateAccessReviewRequestDataReviewer `json:"comments,omitempty"`
 	FeedbackType *string `json:"feedback_type,omitempty"`
@@ -463,10 +465,10 @@ func (o *CreateSupportTicketRequestData) SetSlaBreach(v bool) {
 	o.SlaBreach = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateSupportTicketRequestData) GetTags() map[string]interface{} {
-	if o == nil || IsNil(o.Tags) {
-		var ret map[string]interface{}
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateSupportTicketRequestData) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Tags
@@ -474,11 +476,12 @@ func (o *CreateSupportTicketRequestData) GetTags() map[string]interface{} {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateSupportTicketRequestData) GetTagsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateSupportTicketRequestData) GetTagsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Tags) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -490,15 +493,15 @@ func (o *CreateSupportTicketRequestData) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given map[string]interface{} and assigns it to the Tags field.
-func (o *CreateSupportTicketRequestData) SetTags(v map[string]interface{}) {
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *CreateSupportTicketRequestData) SetTags(v interface{}) {
 	o.Tags = v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CreateSupportTicketRequestData) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateSupportTicketRequestData) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -506,11 +509,12 @@ func (o *CreateSupportTicketRequestData) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateSupportTicketRequestData) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateSupportTicketRequestData) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -522,8 +526,8 @@ func (o *CreateSupportTicketRequestData) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CreateSupportTicketRequestData) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CreateSupportTicketRequestData) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -826,10 +830,10 @@ func (o CreateSupportTicketRequestData) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.SlaBreach) {
 		toSerialize["sla_breach"] = o.SlaBreach
 	}
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.FreshdeskTicketId) {

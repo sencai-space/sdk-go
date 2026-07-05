@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindIncident200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,47 @@ var _ MappedNullable = &FindIncident200ResponseDataInner{}
 
 // FindIncident200ResponseDataInner struct for FindIncident200ResponseDataInner
 type FindIncident200ResponseDataInner struct {
+	Title string `json:"title"`
+	Description *string `json:"description,omitempty"`
+	Severity string `json:"severity"`
+	Status *string `json:"status,omitempty"`
+	Source *string `json:"source,omitempty"`
+	DedupKey string `json:"dedup_key"`
+	CorrelationId *string `json:"correlation_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ContextBundle interface{} `json:"context_bundle,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	RcaCandidates interface{} `json:"rca_candidates,omitempty"`
+	AlertCount *int32 `json:"alert_count,omitempty"`
+	FirstSeenAt *time.Time `json:"first_seen_at,omitempty"`
+	LastSeenAt *time.Time `json:"last_seen_at,omitempty"`
+	ResolvedAt *time.Time `json:"resolved_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	PostmortemDraft *string `json:"postmortem_draft,omitempty"`
+	PostmortemStatus *string `json:"postmortem_status,omitempty"`
+	PostmortemGeneratedAt *time.Time `json:"postmortem_generated_at,omitempty"`
+	AssignedTo *string `json:"assigned_to,omitempty"`
+	RunbookId *string `json:"runbook_id,omitempty"`
+	// F3.SUPPORT.03 — when true, this incident is mirrored onto the public status.sencai.space status page (Uptime Kuma) as a pinned incident banner. Sencai-admin only; never set from a tenant-facing route. Does NOT change the underlying org-scoped find/findOne ACL on this content-type — the public status page never queries Strapi directly, only the outbound sync in status-page-sync.ts reads is_public=true records via the service-account path.
+	IsPublic *bool `json:"is_public,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *Incident `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindIncident200ResponseDataInner FindIncident200ResponseDataInner
+
 // NewFindIncident200ResponseDataInner instantiates a new FindIncident200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindIncident200ResponseDataInner() *FindIncident200ResponseDataInner {
+func NewFindIncident200ResponseDataInner(title string, severity string, dedupKey string) *FindIncident200ResponseDataInner {
 	this := FindIncident200ResponseDataInner{}
+	this.Title = title
+	this.Severity = severity
+	this.DedupKey = dedupKey
 	return &this
 }
 
@@ -44,6 +73,624 @@ func NewFindIncident200ResponseDataInner() *FindIncident200ResponseDataInner {
 func NewFindIncident200ResponseDataInnerWithDefaults() *FindIncident200ResponseDataInner {
 	this := FindIncident200ResponseDataInner{}
 	return &this
+}
+
+// GetTitle returns the Title field value
+func (o *FindIncident200ResponseDataInner) GetTitle() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Title, true
+}
+
+// SetTitle sets field value
+func (o *FindIncident200ResponseDataInner) SetTitle(v string) {
+	o.Title = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindIncident200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetSeverity returns the Severity field value
+func (o *FindIncident200ResponseDataInner) GetSeverity() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Severity
+}
+
+// GetSeverityOk returns a tuple with the Severity field value
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetSeverityOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Severity, true
+}
+
+// SetSeverity sets field value
+func (o *FindIncident200ResponseDataInner) SetSeverity(v string) {
+	o.Severity = v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindIncident200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Source) {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *FindIncident200ResponseDataInner) SetSource(v string) {
+	o.Source = &v
+}
+
+// GetDedupKey returns the DedupKey field value
+func (o *FindIncident200ResponseDataInner) GetDedupKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.DedupKey
+}
+
+// GetDedupKeyOk returns a tuple with the DedupKey field value
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetDedupKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DedupKey, true
+}
+
+// SetDedupKey sets field value
+func (o *FindIncident200ResponseDataInner) SetDedupKey(v string) {
+	o.DedupKey = v
+}
+
+// GetCorrelationId returns the CorrelationId field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetCorrelationId() string {
+	if o == nil || IsNil(o.CorrelationId) {
+		var ret string
+		return ret
+	}
+	return *o.CorrelationId
+}
+
+// GetCorrelationIdOk returns a tuple with the CorrelationId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetCorrelationIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CorrelationId) {
+		return nil, false
+	}
+	return o.CorrelationId, true
+}
+
+// HasCorrelationId returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasCorrelationId() bool {
+	if o != nil && !IsNil(o.CorrelationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCorrelationId gets a reference to the given string and assigns it to the CorrelationId field.
+func (o *FindIncident200ResponseDataInner) SetCorrelationId(v string) {
+	o.CorrelationId = &v
+}
+
+// GetContextBundle returns the ContextBundle field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindIncident200ResponseDataInner) GetContextBundle() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ContextBundle
+}
+
+// GetContextBundleOk returns a tuple with the ContextBundle field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindIncident200ResponseDataInner) GetContextBundleOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ContextBundle) {
+		return nil, false
+	}
+	return &o.ContextBundle, true
+}
+
+// HasContextBundle returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasContextBundle() bool {
+	if o != nil && !IsNil(o.ContextBundle) {
+		return true
+	}
+
+	return false
+}
+
+// SetContextBundle gets a reference to the given interface{} and assigns it to the ContextBundle field.
+func (o *FindIncident200ResponseDataInner) SetContextBundle(v interface{}) {
+	o.ContextBundle = v
+}
+
+// GetRcaCandidates returns the RcaCandidates field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindIncident200ResponseDataInner) GetRcaCandidates() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.RcaCandidates
+}
+
+// GetRcaCandidatesOk returns a tuple with the RcaCandidates field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindIncident200ResponseDataInner) GetRcaCandidatesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.RcaCandidates) {
+		return nil, false
+	}
+	return &o.RcaCandidates, true
+}
+
+// HasRcaCandidates returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasRcaCandidates() bool {
+	if o != nil && !IsNil(o.RcaCandidates) {
+		return true
+	}
+
+	return false
+}
+
+// SetRcaCandidates gets a reference to the given interface{} and assigns it to the RcaCandidates field.
+func (o *FindIncident200ResponseDataInner) SetRcaCandidates(v interface{}) {
+	o.RcaCandidates = v
+}
+
+// GetAlertCount returns the AlertCount field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetAlertCount() int32 {
+	if o == nil || IsNil(o.AlertCount) {
+		var ret int32
+		return ret
+	}
+	return *o.AlertCount
+}
+
+// GetAlertCountOk returns a tuple with the AlertCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetAlertCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.AlertCount) {
+		return nil, false
+	}
+	return o.AlertCount, true
+}
+
+// HasAlertCount returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasAlertCount() bool {
+	if o != nil && !IsNil(o.AlertCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlertCount gets a reference to the given int32 and assigns it to the AlertCount field.
+func (o *FindIncident200ResponseDataInner) SetAlertCount(v int32) {
+	o.AlertCount = &v
+}
+
+// GetFirstSeenAt returns the FirstSeenAt field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetFirstSeenAt() time.Time {
+	if o == nil || IsNil(o.FirstSeenAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.FirstSeenAt
+}
+
+// GetFirstSeenAtOk returns a tuple with the FirstSeenAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetFirstSeenAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.FirstSeenAt) {
+		return nil, false
+	}
+	return o.FirstSeenAt, true
+}
+
+// HasFirstSeenAt returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasFirstSeenAt() bool {
+	if o != nil && !IsNil(o.FirstSeenAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstSeenAt gets a reference to the given time.Time and assigns it to the FirstSeenAt field.
+func (o *FindIncident200ResponseDataInner) SetFirstSeenAt(v time.Time) {
+	o.FirstSeenAt = &v
+}
+
+// GetLastSeenAt returns the LastSeenAt field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetLastSeenAt() time.Time {
+	if o == nil || IsNil(o.LastSeenAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSeenAt
+}
+
+// GetLastSeenAtOk returns a tuple with the LastSeenAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetLastSeenAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSeenAt) {
+		return nil, false
+	}
+	return o.LastSeenAt, true
+}
+
+// HasLastSeenAt returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasLastSeenAt() bool {
+	if o != nil && !IsNil(o.LastSeenAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSeenAt gets a reference to the given time.Time and assigns it to the LastSeenAt field.
+func (o *FindIncident200ResponseDataInner) SetLastSeenAt(v time.Time) {
+	o.LastSeenAt = &v
+}
+
+// GetResolvedAt returns the ResolvedAt field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetResolvedAt() time.Time {
+	if o == nil || IsNil(o.ResolvedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ResolvedAt
+}
+
+// GetResolvedAtOk returns a tuple with the ResolvedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetResolvedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ResolvedAt) {
+		return nil, false
+	}
+	return o.ResolvedAt, true
+}
+
+// HasResolvedAt returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasResolvedAt() bool {
+	if o != nil && !IsNil(o.ResolvedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetResolvedAt gets a reference to the given time.Time and assigns it to the ResolvedAt field.
+func (o *FindIncident200ResponseDataInner) SetResolvedAt(v time.Time) {
+	o.ResolvedAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindIncident200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetPostmortemDraft returns the PostmortemDraft field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetPostmortemDraft() string {
+	if o == nil || IsNil(o.PostmortemDraft) {
+		var ret string
+		return ret
+	}
+	return *o.PostmortemDraft
+}
+
+// GetPostmortemDraftOk returns a tuple with the PostmortemDraft field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetPostmortemDraftOk() (*string, bool) {
+	if o == nil || IsNil(o.PostmortemDraft) {
+		return nil, false
+	}
+	return o.PostmortemDraft, true
+}
+
+// HasPostmortemDraft returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasPostmortemDraft() bool {
+	if o != nil && !IsNil(o.PostmortemDraft) {
+		return true
+	}
+
+	return false
+}
+
+// SetPostmortemDraft gets a reference to the given string and assigns it to the PostmortemDraft field.
+func (o *FindIncident200ResponseDataInner) SetPostmortemDraft(v string) {
+	o.PostmortemDraft = &v
+}
+
+// GetPostmortemStatus returns the PostmortemStatus field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetPostmortemStatus() string {
+	if o == nil || IsNil(o.PostmortemStatus) {
+		var ret string
+		return ret
+	}
+	return *o.PostmortemStatus
+}
+
+// GetPostmortemStatusOk returns a tuple with the PostmortemStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetPostmortemStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.PostmortemStatus) {
+		return nil, false
+	}
+	return o.PostmortemStatus, true
+}
+
+// HasPostmortemStatus returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasPostmortemStatus() bool {
+	if o != nil && !IsNil(o.PostmortemStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetPostmortemStatus gets a reference to the given string and assigns it to the PostmortemStatus field.
+func (o *FindIncident200ResponseDataInner) SetPostmortemStatus(v string) {
+	o.PostmortemStatus = &v
+}
+
+// GetPostmortemGeneratedAt returns the PostmortemGeneratedAt field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetPostmortemGeneratedAt() time.Time {
+	if o == nil || IsNil(o.PostmortemGeneratedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PostmortemGeneratedAt
+}
+
+// GetPostmortemGeneratedAtOk returns a tuple with the PostmortemGeneratedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetPostmortemGeneratedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PostmortemGeneratedAt) {
+		return nil, false
+	}
+	return o.PostmortemGeneratedAt, true
+}
+
+// HasPostmortemGeneratedAt returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasPostmortemGeneratedAt() bool {
+	if o != nil && !IsNil(o.PostmortemGeneratedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetPostmortemGeneratedAt gets a reference to the given time.Time and assigns it to the PostmortemGeneratedAt field.
+func (o *FindIncident200ResponseDataInner) SetPostmortemGeneratedAt(v time.Time) {
+	o.PostmortemGeneratedAt = &v
+}
+
+// GetAssignedTo returns the AssignedTo field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetAssignedTo() string {
+	if o == nil || IsNil(o.AssignedTo) {
+		var ret string
+		return ret
+	}
+	return *o.AssignedTo
+}
+
+// GetAssignedToOk returns a tuple with the AssignedTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetAssignedToOk() (*string, bool) {
+	if o == nil || IsNil(o.AssignedTo) {
+		return nil, false
+	}
+	return o.AssignedTo, true
+}
+
+// HasAssignedTo returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasAssignedTo() bool {
+	if o != nil && !IsNil(o.AssignedTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssignedTo gets a reference to the given string and assigns it to the AssignedTo field.
+func (o *FindIncident200ResponseDataInner) SetAssignedTo(v string) {
+	o.AssignedTo = &v
+}
+
+// GetRunbookId returns the RunbookId field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetRunbookId() string {
+	if o == nil || IsNil(o.RunbookId) {
+		var ret string
+		return ret
+	}
+	return *o.RunbookId
+}
+
+// GetRunbookIdOk returns a tuple with the RunbookId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetRunbookIdOk() (*string, bool) {
+	if o == nil || IsNil(o.RunbookId) {
+		return nil, false
+	}
+	return o.RunbookId, true
+}
+
+// HasRunbookId returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasRunbookId() bool {
+	if o != nil && !IsNil(o.RunbookId) {
+		return true
+	}
+
+	return false
+}
+
+// SetRunbookId gets a reference to the given string and assigns it to the RunbookId field.
+func (o *FindIncident200ResponseDataInner) SetRunbookId(v string) {
+	o.RunbookId = &v
+}
+
+// GetIsPublic returns the IsPublic field value if set, zero value otherwise.
+func (o *FindIncident200ResponseDataInner) GetIsPublic() bool {
+	if o == nil || IsNil(o.IsPublic) {
+		var ret bool
+		return ret
+	}
+	return *o.IsPublic
+}
+
+// GetIsPublicOk returns a tuple with the IsPublic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIncident200ResponseDataInner) GetIsPublicOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsPublic) {
+		return nil, false
+	}
+	return o.IsPublic, true
+}
+
+// HasIsPublic returns a boolean if a field has been set.
+func (o *FindIncident200ResponseDataInner) HasIsPublic() bool {
+	if o != nil && !IsNil(o.IsPublic) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsPublic gets a reference to the given bool and assigns it to the IsPublic field.
+func (o *FindIncident200ResponseDataInner) SetIsPublic(v bool) {
+	o.IsPublic = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +755,6 @@ func (o *FindIncident200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindIncident200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindIncident200ResponseDataInner) GetAttributes() Incident {
-	if o == nil || IsNil(o.Attributes) {
-		var ret Incident
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindIncident200ResponseDataInner) GetAttributesOk() (*Incident, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindIncident200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given Incident and assigns it to the Attributes field.
-func (o *FindIncident200ResponseDataInner) SetAttributes(v Incident) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +873,65 @@ func (o FindIncident200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindIncident200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["title"] = o.Title
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["severity"] = o.Severity
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	toSerialize["dedup_key"] = o.DedupKey
+	if !IsNil(o.CorrelationId) {
+		toSerialize["correlation_id"] = o.CorrelationId
+	}
+	if o.ContextBundle != nil {
+		toSerialize["context_bundle"] = o.ContextBundle
+	}
+	if o.RcaCandidates != nil {
+		toSerialize["rca_candidates"] = o.RcaCandidates
+	}
+	if !IsNil(o.AlertCount) {
+		toSerialize["alert_count"] = o.AlertCount
+	}
+	if !IsNil(o.FirstSeenAt) {
+		toSerialize["first_seen_at"] = o.FirstSeenAt
+	}
+	if !IsNil(o.LastSeenAt) {
+		toSerialize["last_seen_at"] = o.LastSeenAt
+	}
+	if !IsNil(o.ResolvedAt) {
+		toSerialize["resolved_at"] = o.ResolvedAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.PostmortemDraft) {
+		toSerialize["postmortem_draft"] = o.PostmortemDraft
+	}
+	if !IsNil(o.PostmortemStatus) {
+		toSerialize["postmortem_status"] = o.PostmortemStatus
+	}
+	if !IsNil(o.PostmortemGeneratedAt) {
+		toSerialize["postmortem_generated_at"] = o.PostmortemGeneratedAt
+	}
+	if !IsNil(o.AssignedTo) {
+		toSerialize["assigned_to"] = o.AssignedTo
+	}
+	if !IsNil(o.RunbookId) {
+		toSerialize["runbook_id"] = o.RunbookId
+	}
+	if !IsNil(o.IsPublic) {
+		toSerialize["is_public"] = o.IsPublic
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +943,45 @@ func (o FindIncident200ResponseDataInner) ToMap() (map[string]interface{}, error
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindIncident200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"title",
+		"severity",
+		"dedup_key",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindIncident200ResponseDataInner := _FindIncident200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindIncident200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindIncident200ResponseDataInner(varFindIncident200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindIncident200ResponseDataInner struct {

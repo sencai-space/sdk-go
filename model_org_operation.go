@@ -30,7 +30,7 @@ type OrgOperation struct {
 	TargetOrgId *string `json:"target_org_id,omitempty"`
 	Status string `json:"status"`
 	// Merge: {}. Split: { member_ids: string[], instance_ids: string[] }
-	Config map[string]interface{} `json:"config,omitempty"`
+	Config interface{} `json:"config,omitempty"`
 	ErrorMessage *string `json:"error_message,omitempty"`
 	// Email of the user who initiated the operation
 	InitiatedBy *string `json:"initiated_by,omitempty"`
@@ -163,10 +163,10 @@ func (o *OrgOperation) SetStatus(v string) {
 	o.Status = v
 }
 
-// GetConfig returns the Config field value if set, zero value otherwise.
-func (o *OrgOperation) GetConfig() map[string]interface{} {
-	if o == nil || IsNil(o.Config) {
-		var ret map[string]interface{}
+// GetConfig returns the Config field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OrgOperation) GetConfig() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Config
@@ -174,11 +174,12 @@ func (o *OrgOperation) GetConfig() map[string]interface{} {
 
 // GetConfigOk returns a tuple with the Config field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrgOperation) GetConfigOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *OrgOperation) GetConfigOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Config) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Config, true
+	return &o.Config, true
 }
 
 // HasConfig returns a boolean if a field has been set.
@@ -190,8 +191,8 @@ func (o *OrgOperation) HasConfig() bool {
 	return false
 }
 
-// SetConfig gets a reference to the given map[string]interface{} and assigns it to the Config field.
-func (o *OrgOperation) SetConfig(v map[string]interface{}) {
+// SetConfig gets a reference to the given interface{} and assigns it to the Config field.
+func (o *OrgOperation) SetConfig(v interface{}) {
 	o.Config = v
 }
 
@@ -307,7 +308,7 @@ func (o OrgOperation) ToMap() (map[string]interface{}, error) {
 		toSerialize["target_org_id"] = o.TargetOrgId
 	}
 	toSerialize["status"] = o.Status
-	if !IsNil(o.Config) {
+	if o.Config != nil {
 		toSerialize["config"] = o.Config
 	}
 	if !IsNil(o.ErrorMessage) {

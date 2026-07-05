@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindBulkOperation200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,47 @@ var _ MappedNullable = &FindBulkOperation200ResponseDataInner{}
 
 // FindBulkOperation200ResponseDataInner struct for FindBulkOperation200ResponseDataInner
 type FindBulkOperation200ResponseDataInner struct {
+	// Human-readable operation name, e.g. 'Apply security patches to web tier'
+	Name string `json:"name"`
+	OperationType string `json:"operation_type"`
+	// e.g. cloud-instance, fleet-agent
+	TargetResourceType *string `json:"target_resource_type,omitempty"`
+	// Filter criteria for targeting resources, e.g. {tags: ['web-tier'], providers: ['hetzner']}
+	TargetFilters interface{} `json:"target_filters,omitempty"`
+	// Preview result: {affected_count, affected_tenants: [{org_name, resource_count}], skipped_tenants: [{org_name, reason}]}
+	DryRunResult interface{} `json:"dry_run_result,omitempty"`
+	// Per-tenant results after execution
+	ExecutionResult interface{} `json:"execution_result,omitempty"`
+	Status string `json:"status"`
+	// Number of targeted managed tenants
+	TenantCount *int32 `json:"tenant_count,omitempty"`
+	// Total resources targeted
+	ResourceCount *int32 `json:"resource_count,omitempty"`
+	// Tenants skipped due to missing capability
+	SkippedCount *int32 `json:"skipped_count,omitempty"`
+	OperatorOrg *CreateAccessReviewRequestDataReviewer `json:"operator_org,omitempty"`
+	ExecutedBy *CreateAccessReviewRequestDataReviewer `json:"executed_by,omitempty"`
+	ExecutedAt *time.Time `json:"executed_at,omitempty"`
+	// Operation-specific parameters (patch version, tag key/value, etc.)
+	Payload interface{} `json:"payload,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *BulkOperation `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindBulkOperation200ResponseDataInner FindBulkOperation200ResponseDataInner
+
 // NewFindBulkOperation200ResponseDataInner instantiates a new FindBulkOperation200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindBulkOperation200ResponseDataInner() *FindBulkOperation200ResponseDataInner {
+func NewFindBulkOperation200ResponseDataInner(name string, operationType string, status string) *FindBulkOperation200ResponseDataInner {
 	this := FindBulkOperation200ResponseDataInner{}
+	this.Name = name
+	this.OperationType = operationType
+	this.Status = status
 	return &this
 }
 
@@ -44,6 +73,434 @@ func NewFindBulkOperation200ResponseDataInner() *FindBulkOperation200ResponseDat
 func NewFindBulkOperation200ResponseDataInnerWithDefaults() *FindBulkOperation200ResponseDataInner {
 	this := FindBulkOperation200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindBulkOperation200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindBulkOperation200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindBulkOperation200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetOperationType returns the OperationType field value
+func (o *FindBulkOperation200ResponseDataInner) GetOperationType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OperationType
+}
+
+// GetOperationTypeOk returns a tuple with the OperationType field value
+// and a boolean to check if the value has been set.
+func (o *FindBulkOperation200ResponseDataInner) GetOperationTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OperationType, true
+}
+
+// SetOperationType sets field value
+func (o *FindBulkOperation200ResponseDataInner) SetOperationType(v string) {
+	o.OperationType = v
+}
+
+// GetTargetResourceType returns the TargetResourceType field value if set, zero value otherwise.
+func (o *FindBulkOperation200ResponseDataInner) GetTargetResourceType() string {
+	if o == nil || IsNil(o.TargetResourceType) {
+		var ret string
+		return ret
+	}
+	return *o.TargetResourceType
+}
+
+// GetTargetResourceTypeOk returns a tuple with the TargetResourceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBulkOperation200ResponseDataInner) GetTargetResourceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.TargetResourceType) {
+		return nil, false
+	}
+	return o.TargetResourceType, true
+}
+
+// HasTargetResourceType returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasTargetResourceType() bool {
+	if o != nil && !IsNil(o.TargetResourceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetResourceType gets a reference to the given string and assigns it to the TargetResourceType field.
+func (o *FindBulkOperation200ResponseDataInner) SetTargetResourceType(v string) {
+	o.TargetResourceType = &v
+}
+
+// GetTargetFilters returns the TargetFilters field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBulkOperation200ResponseDataInner) GetTargetFilters() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.TargetFilters
+}
+
+// GetTargetFiltersOk returns a tuple with the TargetFilters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBulkOperation200ResponseDataInner) GetTargetFiltersOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.TargetFilters) {
+		return nil, false
+	}
+	return &o.TargetFilters, true
+}
+
+// HasTargetFilters returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasTargetFilters() bool {
+	if o != nil && !IsNil(o.TargetFilters) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetFilters gets a reference to the given interface{} and assigns it to the TargetFilters field.
+func (o *FindBulkOperation200ResponseDataInner) SetTargetFilters(v interface{}) {
+	o.TargetFilters = v
+}
+
+// GetDryRunResult returns the DryRunResult field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBulkOperation200ResponseDataInner) GetDryRunResult() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.DryRunResult
+}
+
+// GetDryRunResultOk returns a tuple with the DryRunResult field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBulkOperation200ResponseDataInner) GetDryRunResultOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.DryRunResult) {
+		return nil, false
+	}
+	return &o.DryRunResult, true
+}
+
+// HasDryRunResult returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasDryRunResult() bool {
+	if o != nil && !IsNil(o.DryRunResult) {
+		return true
+	}
+
+	return false
+}
+
+// SetDryRunResult gets a reference to the given interface{} and assigns it to the DryRunResult field.
+func (o *FindBulkOperation200ResponseDataInner) SetDryRunResult(v interface{}) {
+	o.DryRunResult = v
+}
+
+// GetExecutionResult returns the ExecutionResult field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBulkOperation200ResponseDataInner) GetExecutionResult() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ExecutionResult
+}
+
+// GetExecutionResultOk returns a tuple with the ExecutionResult field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBulkOperation200ResponseDataInner) GetExecutionResultOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ExecutionResult) {
+		return nil, false
+	}
+	return &o.ExecutionResult, true
+}
+
+// HasExecutionResult returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasExecutionResult() bool {
+	if o != nil && !IsNil(o.ExecutionResult) {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutionResult gets a reference to the given interface{} and assigns it to the ExecutionResult field.
+func (o *FindBulkOperation200ResponseDataInner) SetExecutionResult(v interface{}) {
+	o.ExecutionResult = v
+}
+
+// GetStatus returns the Status field value
+func (o *FindBulkOperation200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindBulkOperation200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindBulkOperation200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetTenantCount returns the TenantCount field value if set, zero value otherwise.
+func (o *FindBulkOperation200ResponseDataInner) GetTenantCount() int32 {
+	if o == nil || IsNil(o.TenantCount) {
+		var ret int32
+		return ret
+	}
+	return *o.TenantCount
+}
+
+// GetTenantCountOk returns a tuple with the TenantCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBulkOperation200ResponseDataInner) GetTenantCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.TenantCount) {
+		return nil, false
+	}
+	return o.TenantCount, true
+}
+
+// HasTenantCount returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasTenantCount() bool {
+	if o != nil && !IsNil(o.TenantCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantCount gets a reference to the given int32 and assigns it to the TenantCount field.
+func (o *FindBulkOperation200ResponseDataInner) SetTenantCount(v int32) {
+	o.TenantCount = &v
+}
+
+// GetResourceCount returns the ResourceCount field value if set, zero value otherwise.
+func (o *FindBulkOperation200ResponseDataInner) GetResourceCount() int32 {
+	if o == nil || IsNil(o.ResourceCount) {
+		var ret int32
+		return ret
+	}
+	return *o.ResourceCount
+}
+
+// GetResourceCountOk returns a tuple with the ResourceCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBulkOperation200ResponseDataInner) GetResourceCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.ResourceCount) {
+		return nil, false
+	}
+	return o.ResourceCount, true
+}
+
+// HasResourceCount returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasResourceCount() bool {
+	if o != nil && !IsNil(o.ResourceCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceCount gets a reference to the given int32 and assigns it to the ResourceCount field.
+func (o *FindBulkOperation200ResponseDataInner) SetResourceCount(v int32) {
+	o.ResourceCount = &v
+}
+
+// GetSkippedCount returns the SkippedCount field value if set, zero value otherwise.
+func (o *FindBulkOperation200ResponseDataInner) GetSkippedCount() int32 {
+	if o == nil || IsNil(o.SkippedCount) {
+		var ret int32
+		return ret
+	}
+	return *o.SkippedCount
+}
+
+// GetSkippedCountOk returns a tuple with the SkippedCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBulkOperation200ResponseDataInner) GetSkippedCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.SkippedCount) {
+		return nil, false
+	}
+	return o.SkippedCount, true
+}
+
+// HasSkippedCount returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasSkippedCount() bool {
+	if o != nil && !IsNil(o.SkippedCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetSkippedCount gets a reference to the given int32 and assigns it to the SkippedCount field.
+func (o *FindBulkOperation200ResponseDataInner) SetSkippedCount(v int32) {
+	o.SkippedCount = &v
+}
+
+// GetOperatorOrg returns the OperatorOrg field value if set, zero value otherwise.
+func (o *FindBulkOperation200ResponseDataInner) GetOperatorOrg() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.OperatorOrg) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.OperatorOrg
+}
+
+// GetOperatorOrgOk returns a tuple with the OperatorOrg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBulkOperation200ResponseDataInner) GetOperatorOrgOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.OperatorOrg) {
+		return nil, false
+	}
+	return o.OperatorOrg, true
+}
+
+// HasOperatorOrg returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasOperatorOrg() bool {
+	if o != nil && !IsNil(o.OperatorOrg) {
+		return true
+	}
+
+	return false
+}
+
+// SetOperatorOrg gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the OperatorOrg field.
+func (o *FindBulkOperation200ResponseDataInner) SetOperatorOrg(v CreateAccessReviewRequestDataReviewer) {
+	o.OperatorOrg = &v
+}
+
+// GetExecutedBy returns the ExecutedBy field value if set, zero value otherwise.
+func (o *FindBulkOperation200ResponseDataInner) GetExecutedBy() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.ExecutedBy) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.ExecutedBy
+}
+
+// GetExecutedByOk returns a tuple with the ExecutedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBulkOperation200ResponseDataInner) GetExecutedByOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.ExecutedBy) {
+		return nil, false
+	}
+	return o.ExecutedBy, true
+}
+
+// HasExecutedBy returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasExecutedBy() bool {
+	if o != nil && !IsNil(o.ExecutedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutedBy gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the ExecutedBy field.
+func (o *FindBulkOperation200ResponseDataInner) SetExecutedBy(v CreateAccessReviewRequestDataReviewer) {
+	o.ExecutedBy = &v
+}
+
+// GetExecutedAt returns the ExecutedAt field value if set, zero value otherwise.
+func (o *FindBulkOperation200ResponseDataInner) GetExecutedAt() time.Time {
+	if o == nil || IsNil(o.ExecutedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExecutedAt
+}
+
+// GetExecutedAtOk returns a tuple with the ExecutedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBulkOperation200ResponseDataInner) GetExecutedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExecutedAt) {
+		return nil, false
+	}
+	return o.ExecutedAt, true
+}
+
+// HasExecutedAt returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasExecutedAt() bool {
+	if o != nil && !IsNil(o.ExecutedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExecutedAt gets a reference to the given time.Time and assigns it to the ExecutedAt field.
+func (o *FindBulkOperation200ResponseDataInner) SetExecutedAt(v time.Time) {
+	o.ExecutedAt = &v
+}
+
+// GetPayload returns the Payload field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBulkOperation200ResponseDataInner) GetPayload() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Payload
+}
+
+// GetPayloadOk returns a tuple with the Payload field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBulkOperation200ResponseDataInner) GetPayloadOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Payload) {
+		return nil, false
+	}
+	return &o.Payload, true
+}
+
+// HasPayload returns a boolean if a field has been set.
+func (o *FindBulkOperation200ResponseDataInner) HasPayload() bool {
+	if o != nil && !IsNil(o.Payload) {
+		return true
+	}
+
+	return false
+}
+
+// SetPayload gets a reference to the given interface{} and assigns it to the Payload field.
+func (o *FindBulkOperation200ResponseDataInner) SetPayload(v interface{}) {
+	o.Payload = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +565,6 @@ func (o *FindBulkOperation200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindBulkOperation200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindBulkOperation200ResponseDataInner) GetAttributes() BulkOperation {
-	if o == nil || IsNil(o.Attributes) {
-		var ret BulkOperation
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindBulkOperation200ResponseDataInner) GetAttributesOk() (*BulkOperation, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindBulkOperation200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given BulkOperation and assigns it to the Attributes field.
-func (o *FindBulkOperation200ResponseDataInner) SetAttributes(v BulkOperation) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +683,47 @@ func (o FindBulkOperation200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindBulkOperation200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["operation_type"] = o.OperationType
+	if !IsNil(o.TargetResourceType) {
+		toSerialize["target_resource_type"] = o.TargetResourceType
+	}
+	if o.TargetFilters != nil {
+		toSerialize["target_filters"] = o.TargetFilters
+	}
+	if o.DryRunResult != nil {
+		toSerialize["dry_run_result"] = o.DryRunResult
+	}
+	if o.ExecutionResult != nil {
+		toSerialize["execution_result"] = o.ExecutionResult
+	}
+	toSerialize["status"] = o.Status
+	if !IsNil(o.TenantCount) {
+		toSerialize["tenant_count"] = o.TenantCount
+	}
+	if !IsNil(o.ResourceCount) {
+		toSerialize["resource_count"] = o.ResourceCount
+	}
+	if !IsNil(o.SkippedCount) {
+		toSerialize["skipped_count"] = o.SkippedCount
+	}
+	if !IsNil(o.OperatorOrg) {
+		toSerialize["operator_org"] = o.OperatorOrg
+	}
+	if !IsNil(o.ExecutedBy) {
+		toSerialize["executed_by"] = o.ExecutedBy
+	}
+	if !IsNil(o.ExecutedAt) {
+		toSerialize["executed_at"] = o.ExecutedAt
+	}
+	if o.Payload != nil {
+		toSerialize["payload"] = o.Payload
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +735,45 @@ func (o FindBulkOperation200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindBulkOperation200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"operation_type",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindBulkOperation200ResponseDataInner := _FindBulkOperation200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindBulkOperation200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindBulkOperation200ResponseDataInner(varFindBulkOperation200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindBulkOperation200ResponseDataInner struct {

@@ -46,20 +46,27 @@ type CreateCloudConnectorStatusRequestData struct {
 	DigitaloceanHealth *string `json:"digitaloceanHealth,omitempty"`
 	QueueStatus *string `json:"queueStatus,omitempty"`
 	BackendIntegration *bool `json:"backendIntegration,omitempty"`
-	AvailableRegions map[string]interface{} `json:"availableRegions,omitempty"`
-	ActiveRegions map[string]interface{} `json:"activeRegions,omitempty"`
-	SupportedProviders map[string]interface{} `json:"supportedProviders,omitempty"`
-	DeploymentCapabilities map[string]interface{} `json:"deploymentCapabilities,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AvailableRegions interface{} `json:"availableRegions,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ActiveRegions interface{} `json:"activeRegions,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	SupportedProviders interface{} `json:"supportedProviders,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	DeploymentCapabilities interface{} `json:"deploymentCapabilities,omitempty"`
 	AvgResponseTimeMs *int32 `json:"avgResponseTimeMs,omitempty"`
 	SuccessRate *float32 `json:"successRate,omitempty"`
 	ThroughputJobsPerHour *int32 `json:"throughputJobsPerHour,omitempty"`
 	ErrorRate *float32 `json:"errorRate,omitempty"`
 	MemoryUsageMB *int32 `json:"memoryUsageMB,omitempty"`
 	CpuUsagePercent *float32 `json:"cpuUsagePercent,omitempty"`
-	ConnectorInfo map[string]interface{} `json:"connectorInfo,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ConnectorInfo interface{} `json:"connectorInfo,omitempty"`
 	LastError *string `json:"lastError,omitempty"`
-	DiagnosticInfo map[string]interface{} `json:"diagnosticInfo,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	DiagnosticInfo interface{} `json:"diagnosticInfo,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 }
 
 type _CreateCloudConnectorStatusRequestData CreateCloudConnectorStatusRequestData
@@ -761,10 +768,10 @@ func (o *CreateCloudConnectorStatusRequestData) SetBackendIntegration(v bool) {
 	o.BackendIntegration = &v
 }
 
-// GetAvailableRegions returns the AvailableRegions field value if set, zero value otherwise.
-func (o *CreateCloudConnectorStatusRequestData) GetAvailableRegions() map[string]interface{} {
-	if o == nil || IsNil(o.AvailableRegions) {
-		var ret map[string]interface{}
+// GetAvailableRegions returns the AvailableRegions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudConnectorStatusRequestData) GetAvailableRegions() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.AvailableRegions
@@ -772,11 +779,12 @@ func (o *CreateCloudConnectorStatusRequestData) GetAvailableRegions() map[string
 
 // GetAvailableRegionsOk returns a tuple with the AvailableRegions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudConnectorStatusRequestData) GetAvailableRegionsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudConnectorStatusRequestData) GetAvailableRegionsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AvailableRegions) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.AvailableRegions, true
+	return &o.AvailableRegions, true
 }
 
 // HasAvailableRegions returns a boolean if a field has been set.
@@ -788,15 +796,15 @@ func (o *CreateCloudConnectorStatusRequestData) HasAvailableRegions() bool {
 	return false
 }
 
-// SetAvailableRegions gets a reference to the given map[string]interface{} and assigns it to the AvailableRegions field.
-func (o *CreateCloudConnectorStatusRequestData) SetAvailableRegions(v map[string]interface{}) {
+// SetAvailableRegions gets a reference to the given interface{} and assigns it to the AvailableRegions field.
+func (o *CreateCloudConnectorStatusRequestData) SetAvailableRegions(v interface{}) {
 	o.AvailableRegions = v
 }
 
-// GetActiveRegions returns the ActiveRegions field value if set, zero value otherwise.
-func (o *CreateCloudConnectorStatusRequestData) GetActiveRegions() map[string]interface{} {
-	if o == nil || IsNil(o.ActiveRegions) {
-		var ret map[string]interface{}
+// GetActiveRegions returns the ActiveRegions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudConnectorStatusRequestData) GetActiveRegions() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ActiveRegions
@@ -804,11 +812,12 @@ func (o *CreateCloudConnectorStatusRequestData) GetActiveRegions() map[string]in
 
 // GetActiveRegionsOk returns a tuple with the ActiveRegions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudConnectorStatusRequestData) GetActiveRegionsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudConnectorStatusRequestData) GetActiveRegionsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ActiveRegions) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ActiveRegions, true
+	return &o.ActiveRegions, true
 }
 
 // HasActiveRegions returns a boolean if a field has been set.
@@ -820,15 +829,15 @@ func (o *CreateCloudConnectorStatusRequestData) HasActiveRegions() bool {
 	return false
 }
 
-// SetActiveRegions gets a reference to the given map[string]interface{} and assigns it to the ActiveRegions field.
-func (o *CreateCloudConnectorStatusRequestData) SetActiveRegions(v map[string]interface{}) {
+// SetActiveRegions gets a reference to the given interface{} and assigns it to the ActiveRegions field.
+func (o *CreateCloudConnectorStatusRequestData) SetActiveRegions(v interface{}) {
 	o.ActiveRegions = v
 }
 
-// GetSupportedProviders returns the SupportedProviders field value if set, zero value otherwise.
-func (o *CreateCloudConnectorStatusRequestData) GetSupportedProviders() map[string]interface{} {
-	if o == nil || IsNil(o.SupportedProviders) {
-		var ret map[string]interface{}
+// GetSupportedProviders returns the SupportedProviders field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudConnectorStatusRequestData) GetSupportedProviders() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.SupportedProviders
@@ -836,11 +845,12 @@ func (o *CreateCloudConnectorStatusRequestData) GetSupportedProviders() map[stri
 
 // GetSupportedProvidersOk returns a tuple with the SupportedProviders field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudConnectorStatusRequestData) GetSupportedProvidersOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudConnectorStatusRequestData) GetSupportedProvidersOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.SupportedProviders) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.SupportedProviders, true
+	return &o.SupportedProviders, true
 }
 
 // HasSupportedProviders returns a boolean if a field has been set.
@@ -852,15 +862,15 @@ func (o *CreateCloudConnectorStatusRequestData) HasSupportedProviders() bool {
 	return false
 }
 
-// SetSupportedProviders gets a reference to the given map[string]interface{} and assigns it to the SupportedProviders field.
-func (o *CreateCloudConnectorStatusRequestData) SetSupportedProviders(v map[string]interface{}) {
+// SetSupportedProviders gets a reference to the given interface{} and assigns it to the SupportedProviders field.
+func (o *CreateCloudConnectorStatusRequestData) SetSupportedProviders(v interface{}) {
 	o.SupportedProviders = v
 }
 
-// GetDeploymentCapabilities returns the DeploymentCapabilities field value if set, zero value otherwise.
-func (o *CreateCloudConnectorStatusRequestData) GetDeploymentCapabilities() map[string]interface{} {
-	if o == nil || IsNil(o.DeploymentCapabilities) {
-		var ret map[string]interface{}
+// GetDeploymentCapabilities returns the DeploymentCapabilities field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudConnectorStatusRequestData) GetDeploymentCapabilities() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.DeploymentCapabilities
@@ -868,11 +878,12 @@ func (o *CreateCloudConnectorStatusRequestData) GetDeploymentCapabilities() map[
 
 // GetDeploymentCapabilitiesOk returns a tuple with the DeploymentCapabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudConnectorStatusRequestData) GetDeploymentCapabilitiesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudConnectorStatusRequestData) GetDeploymentCapabilitiesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.DeploymentCapabilities) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.DeploymentCapabilities, true
+	return &o.DeploymentCapabilities, true
 }
 
 // HasDeploymentCapabilities returns a boolean if a field has been set.
@@ -884,8 +895,8 @@ func (o *CreateCloudConnectorStatusRequestData) HasDeploymentCapabilities() bool
 	return false
 }
 
-// SetDeploymentCapabilities gets a reference to the given map[string]interface{} and assigns it to the DeploymentCapabilities field.
-func (o *CreateCloudConnectorStatusRequestData) SetDeploymentCapabilities(v map[string]interface{}) {
+// SetDeploymentCapabilities gets a reference to the given interface{} and assigns it to the DeploymentCapabilities field.
+func (o *CreateCloudConnectorStatusRequestData) SetDeploymentCapabilities(v interface{}) {
 	o.DeploymentCapabilities = v
 }
 
@@ -1081,10 +1092,10 @@ func (o *CreateCloudConnectorStatusRequestData) SetCpuUsagePercent(v float32) {
 	o.CpuUsagePercent = &v
 }
 
-// GetConnectorInfo returns the ConnectorInfo field value if set, zero value otherwise.
-func (o *CreateCloudConnectorStatusRequestData) GetConnectorInfo() map[string]interface{} {
-	if o == nil || IsNil(o.ConnectorInfo) {
-		var ret map[string]interface{}
+// GetConnectorInfo returns the ConnectorInfo field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudConnectorStatusRequestData) GetConnectorInfo() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ConnectorInfo
@@ -1092,11 +1103,12 @@ func (o *CreateCloudConnectorStatusRequestData) GetConnectorInfo() map[string]in
 
 // GetConnectorInfoOk returns a tuple with the ConnectorInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudConnectorStatusRequestData) GetConnectorInfoOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudConnectorStatusRequestData) GetConnectorInfoOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ConnectorInfo) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ConnectorInfo, true
+	return &o.ConnectorInfo, true
 }
 
 // HasConnectorInfo returns a boolean if a field has been set.
@@ -1108,8 +1120,8 @@ func (o *CreateCloudConnectorStatusRequestData) HasConnectorInfo() bool {
 	return false
 }
 
-// SetConnectorInfo gets a reference to the given map[string]interface{} and assigns it to the ConnectorInfo field.
-func (o *CreateCloudConnectorStatusRequestData) SetConnectorInfo(v map[string]interface{}) {
+// SetConnectorInfo gets a reference to the given interface{} and assigns it to the ConnectorInfo field.
+func (o *CreateCloudConnectorStatusRequestData) SetConnectorInfo(v interface{}) {
 	o.ConnectorInfo = v
 }
 
@@ -1145,10 +1157,10 @@ func (o *CreateCloudConnectorStatusRequestData) SetLastError(v string) {
 	o.LastError = &v
 }
 
-// GetDiagnosticInfo returns the DiagnosticInfo field value if set, zero value otherwise.
-func (o *CreateCloudConnectorStatusRequestData) GetDiagnosticInfo() map[string]interface{} {
-	if o == nil || IsNil(o.DiagnosticInfo) {
-		var ret map[string]interface{}
+// GetDiagnosticInfo returns the DiagnosticInfo field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudConnectorStatusRequestData) GetDiagnosticInfo() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.DiagnosticInfo
@@ -1156,11 +1168,12 @@ func (o *CreateCloudConnectorStatusRequestData) GetDiagnosticInfo() map[string]i
 
 // GetDiagnosticInfoOk returns a tuple with the DiagnosticInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudConnectorStatusRequestData) GetDiagnosticInfoOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudConnectorStatusRequestData) GetDiagnosticInfoOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.DiagnosticInfo) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.DiagnosticInfo, true
+	return &o.DiagnosticInfo, true
 }
 
 // HasDiagnosticInfo returns a boolean if a field has been set.
@@ -1172,15 +1185,15 @@ func (o *CreateCloudConnectorStatusRequestData) HasDiagnosticInfo() bool {
 	return false
 }
 
-// SetDiagnosticInfo gets a reference to the given map[string]interface{} and assigns it to the DiagnosticInfo field.
-func (o *CreateCloudConnectorStatusRequestData) SetDiagnosticInfo(v map[string]interface{}) {
+// SetDiagnosticInfo gets a reference to the given interface{} and assigns it to the DiagnosticInfo field.
+func (o *CreateCloudConnectorStatusRequestData) SetDiagnosticInfo(v interface{}) {
 	o.DiagnosticInfo = v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CreateCloudConnectorStatusRequestData) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudConnectorStatusRequestData) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -1188,11 +1201,12 @@ func (o *CreateCloudConnectorStatusRequestData) GetMetadata() map[string]interfa
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudConnectorStatusRequestData) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudConnectorStatusRequestData) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -1204,8 +1218,8 @@ func (o *CreateCloudConnectorStatusRequestData) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CreateCloudConnectorStatusRequestData) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CreateCloudConnectorStatusRequestData) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -1272,16 +1286,16 @@ func (o CreateCloudConnectorStatusRequestData) ToMap() (map[string]interface{}, 
 	if !IsNil(o.BackendIntegration) {
 		toSerialize["backendIntegration"] = o.BackendIntegration
 	}
-	if !IsNil(o.AvailableRegions) {
+	if o.AvailableRegions != nil {
 		toSerialize["availableRegions"] = o.AvailableRegions
 	}
-	if !IsNil(o.ActiveRegions) {
+	if o.ActiveRegions != nil {
 		toSerialize["activeRegions"] = o.ActiveRegions
 	}
-	if !IsNil(o.SupportedProviders) {
+	if o.SupportedProviders != nil {
 		toSerialize["supportedProviders"] = o.SupportedProviders
 	}
-	if !IsNil(o.DeploymentCapabilities) {
+	if o.DeploymentCapabilities != nil {
 		toSerialize["deploymentCapabilities"] = o.DeploymentCapabilities
 	}
 	if !IsNil(o.AvgResponseTimeMs) {
@@ -1302,16 +1316,16 @@ func (o CreateCloudConnectorStatusRequestData) ToMap() (map[string]interface{}, 
 	if !IsNil(o.CpuUsagePercent) {
 		toSerialize["cpuUsagePercent"] = o.CpuUsagePercent
 	}
-	if !IsNil(o.ConnectorInfo) {
+	if o.ConnectorInfo != nil {
 		toSerialize["connectorInfo"] = o.ConnectorInfo
 	}
 	if !IsNil(o.LastError) {
 		toSerialize["lastError"] = o.LastError
 	}
-	if !IsNil(o.DiagnosticInfo) {
+	if o.DiagnosticInfo != nil {
 		toSerialize["diagnosticInfo"] = o.DiagnosticInfo
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil

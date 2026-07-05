@@ -21,9 +21,12 @@ var _ MappedNullable = &FindCartItem200ResponseDataInner{}
 
 // FindCartItem200ResponseDataInner struct for FindCartItem200ResponseDataInner
 type FindCartItem200ResponseDataInner struct {
+	ShoppingCarts *CreateAccessReviewRequestDataReviewer `json:"shopping_carts,omitempty"`
+	GiteaToolboxRepositories *CreateAccessReviewRequestDataReviewer `json:"gitea_toolbox_repositories,omitempty"`
+	Quantity *int32 `json:"quantity,omitempty"`
+	ClusterId *string `json:"cluster_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CartItem `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +47,134 @@ func NewFindCartItem200ResponseDataInner() *FindCartItem200ResponseDataInner {
 func NewFindCartItem200ResponseDataInnerWithDefaults() *FindCartItem200ResponseDataInner {
 	this := FindCartItem200ResponseDataInner{}
 	return &this
+}
+
+// GetShoppingCarts returns the ShoppingCarts field value if set, zero value otherwise.
+func (o *FindCartItem200ResponseDataInner) GetShoppingCarts() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.ShoppingCarts) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.ShoppingCarts
+}
+
+// GetShoppingCartsOk returns a tuple with the ShoppingCarts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCartItem200ResponseDataInner) GetShoppingCartsOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.ShoppingCarts) {
+		return nil, false
+	}
+	return o.ShoppingCarts, true
+}
+
+// HasShoppingCarts returns a boolean if a field has been set.
+func (o *FindCartItem200ResponseDataInner) HasShoppingCarts() bool {
+	if o != nil && !IsNil(o.ShoppingCarts) {
+		return true
+	}
+
+	return false
+}
+
+// SetShoppingCarts gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the ShoppingCarts field.
+func (o *FindCartItem200ResponseDataInner) SetShoppingCarts(v CreateAccessReviewRequestDataReviewer) {
+	o.ShoppingCarts = &v
+}
+
+// GetGiteaToolboxRepositories returns the GiteaToolboxRepositories field value if set, zero value otherwise.
+func (o *FindCartItem200ResponseDataInner) GetGiteaToolboxRepositories() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.GiteaToolboxRepositories) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.GiteaToolboxRepositories
+}
+
+// GetGiteaToolboxRepositoriesOk returns a tuple with the GiteaToolboxRepositories field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCartItem200ResponseDataInner) GetGiteaToolboxRepositoriesOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.GiteaToolboxRepositories) {
+		return nil, false
+	}
+	return o.GiteaToolboxRepositories, true
+}
+
+// HasGiteaToolboxRepositories returns a boolean if a field has been set.
+func (o *FindCartItem200ResponseDataInner) HasGiteaToolboxRepositories() bool {
+	if o != nil && !IsNil(o.GiteaToolboxRepositories) {
+		return true
+	}
+
+	return false
+}
+
+// SetGiteaToolboxRepositories gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the GiteaToolboxRepositories field.
+func (o *FindCartItem200ResponseDataInner) SetGiteaToolboxRepositories(v CreateAccessReviewRequestDataReviewer) {
+	o.GiteaToolboxRepositories = &v
+}
+
+// GetQuantity returns the Quantity field value if set, zero value otherwise.
+func (o *FindCartItem200ResponseDataInner) GetQuantity() int32 {
+	if o == nil || IsNil(o.Quantity) {
+		var ret int32
+		return ret
+	}
+	return *o.Quantity
+}
+
+// GetQuantityOk returns a tuple with the Quantity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCartItem200ResponseDataInner) GetQuantityOk() (*int32, bool) {
+	if o == nil || IsNil(o.Quantity) {
+		return nil, false
+	}
+	return o.Quantity, true
+}
+
+// HasQuantity returns a boolean if a field has been set.
+func (o *FindCartItem200ResponseDataInner) HasQuantity() bool {
+	if o != nil && !IsNil(o.Quantity) {
+		return true
+	}
+
+	return false
+}
+
+// SetQuantity gets a reference to the given int32 and assigns it to the Quantity field.
+func (o *FindCartItem200ResponseDataInner) SetQuantity(v int32) {
+	o.Quantity = &v
+}
+
+// GetClusterId returns the ClusterId field value if set, zero value otherwise.
+func (o *FindCartItem200ResponseDataInner) GetClusterId() string {
+	if o == nil || IsNil(o.ClusterId) {
+		var ret string
+		return ret
+	}
+	return *o.ClusterId
+}
+
+// GetClusterIdOk returns a tuple with the ClusterId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCartItem200ResponseDataInner) GetClusterIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ClusterId) {
+		return nil, false
+	}
+	return o.ClusterId, true
+}
+
+// HasClusterId returns a boolean if a field has been set.
+func (o *FindCartItem200ResponseDataInner) HasClusterId() bool {
+	if o != nil && !IsNil(o.ClusterId) {
+		return true
+	}
+
+	return false
+}
+
+// SetClusterId gets a reference to the given string and assigns it to the ClusterId field.
+func (o *FindCartItem200ResponseDataInner) SetClusterId(v string) {
+	o.ClusterId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +239,6 @@ func (o *FindCartItem200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCartItem200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCartItem200ResponseDataInner) GetAttributes() CartItem {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CartItem
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCartItem200ResponseDataInner) GetAttributesOk() (*CartItem, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCartItem200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CartItem and assigns it to the Attributes field.
-func (o *FindCartItem200ResponseDataInner) SetAttributes(v CartItem) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +357,23 @@ func (o FindCartItem200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCartItem200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ShoppingCarts) {
+		toSerialize["shopping_carts"] = o.ShoppingCarts
+	}
+	if !IsNil(o.GiteaToolboxRepositories) {
+		toSerialize["gitea_toolbox_repositories"] = o.GiteaToolboxRepositories
+	}
+	if !IsNil(o.Quantity) {
+		toSerialize["quantity"] = o.Quantity
+	}
+	if !IsNil(o.ClusterId) {
+		toSerialize["cluster_id"] = o.ClusterId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

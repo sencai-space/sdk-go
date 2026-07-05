@@ -25,10 +25,12 @@ type CreateCloudIamPolicyRequestData struct {
 	Name string `json:"name"`
 	Provider string `json:"provider"`
 	ArnOrPolicyId *string `json:"arn_or_policy_id,omitempty"`
-	PolicyDocument map[string]interface{} `json:"policy_document,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	PolicyDocument interface{} `json:"policy_document,omitempty"`
 	IsManaged *bool `json:"is_managed,omitempty"`
 	ExternalId *string `json:"external_id,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
@@ -134,10 +136,10 @@ func (o *CreateCloudIamPolicyRequestData) SetArnOrPolicyId(v string) {
 	o.ArnOrPolicyId = &v
 }
 
-// GetPolicyDocument returns the PolicyDocument field value if set, zero value otherwise.
-func (o *CreateCloudIamPolicyRequestData) GetPolicyDocument() map[string]interface{} {
-	if o == nil || IsNil(o.PolicyDocument) {
-		var ret map[string]interface{}
+// GetPolicyDocument returns the PolicyDocument field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudIamPolicyRequestData) GetPolicyDocument() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.PolicyDocument
@@ -145,11 +147,12 @@ func (o *CreateCloudIamPolicyRequestData) GetPolicyDocument() map[string]interfa
 
 // GetPolicyDocumentOk returns a tuple with the PolicyDocument field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudIamPolicyRequestData) GetPolicyDocumentOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudIamPolicyRequestData) GetPolicyDocumentOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.PolicyDocument) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.PolicyDocument, true
+	return &o.PolicyDocument, true
 }
 
 // HasPolicyDocument returns a boolean if a field has been set.
@@ -161,8 +164,8 @@ func (o *CreateCloudIamPolicyRequestData) HasPolicyDocument() bool {
 	return false
 }
 
-// SetPolicyDocument gets a reference to the given map[string]interface{} and assigns it to the PolicyDocument field.
-func (o *CreateCloudIamPolicyRequestData) SetPolicyDocument(v map[string]interface{}) {
+// SetPolicyDocument gets a reference to the given interface{} and assigns it to the PolicyDocument field.
+func (o *CreateCloudIamPolicyRequestData) SetPolicyDocument(v interface{}) {
 	o.PolicyDocument = v
 }
 
@@ -230,10 +233,10 @@ func (o *CreateCloudIamPolicyRequestData) SetExternalId(v string) {
 	o.ExternalId = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CreateCloudIamPolicyRequestData) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudIamPolicyRequestData) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -241,11 +244,12 @@ func (o *CreateCloudIamPolicyRequestData) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudIamPolicyRequestData) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudIamPolicyRequestData) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -257,8 +261,8 @@ func (o *CreateCloudIamPolicyRequestData) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CreateCloudIamPolicyRequestData) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CreateCloudIamPolicyRequestData) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -341,7 +345,7 @@ func (o CreateCloudIamPolicyRequestData) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.ArnOrPolicyId) {
 		toSerialize["arn_or_policy_id"] = o.ArnOrPolicyId
 	}
-	if !IsNil(o.PolicyDocument) {
+	if o.PolicyDocument != nil {
 		toSerialize["policy_document"] = o.PolicyDocument
 	}
 	if !IsNil(o.IsManaged) {
@@ -350,7 +354,7 @@ func (o CreateCloudIamPolicyRequestData) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.ExternalId) {
 		toSerialize["external_id"] = o.ExternalId
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.Credential) {

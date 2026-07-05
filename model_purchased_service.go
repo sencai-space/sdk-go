@@ -26,11 +26,13 @@ type PurchasedService struct {
 	State *string `json:"state,omitempty"`
 	PurchaseDate *time.Time `json:"purchase_date,omitempty"`
 	AccountType *CreateAccessReviewRequestDataReviewer `json:"account_type,omitempty"`
-	CostStats map[string]interface{} `json:"cost_stats,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	CostStats interface{} `json:"cost_stats,omitempty"`
 	ActivationDate *time.Time `json:"activation_date,omitempty"`
 	TerminationDate *time.Time `json:"termination_date,omitempty"`
 	ServiceUrl *string `json:"service_url,omitempty"`
-	Configuration map[string]interface{} `json:"configuration,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Configuration interface{} `json:"configuration,omitempty"`
 	MonthlyCost *float32 `json:"monthly_cost,omitempty"`
 }
 
@@ -211,10 +213,10 @@ func (o *PurchasedService) SetAccountType(v CreateAccessReviewRequestDataReviewe
 	o.AccountType = &v
 }
 
-// GetCostStats returns the CostStats field value if set, zero value otherwise.
-func (o *PurchasedService) GetCostStats() map[string]interface{} {
-	if o == nil || IsNil(o.CostStats) {
-		var ret map[string]interface{}
+// GetCostStats returns the CostStats field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PurchasedService) GetCostStats() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.CostStats
@@ -222,11 +224,12 @@ func (o *PurchasedService) GetCostStats() map[string]interface{} {
 
 // GetCostStatsOk returns a tuple with the CostStats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PurchasedService) GetCostStatsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PurchasedService) GetCostStatsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.CostStats) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.CostStats, true
+	return &o.CostStats, true
 }
 
 // HasCostStats returns a boolean if a field has been set.
@@ -238,8 +241,8 @@ func (o *PurchasedService) HasCostStats() bool {
 	return false
 }
 
-// SetCostStats gets a reference to the given map[string]interface{} and assigns it to the CostStats field.
-func (o *PurchasedService) SetCostStats(v map[string]interface{}) {
+// SetCostStats gets a reference to the given interface{} and assigns it to the CostStats field.
+func (o *PurchasedService) SetCostStats(v interface{}) {
 	o.CostStats = v
 }
 
@@ -339,10 +342,10 @@ func (o *PurchasedService) SetServiceUrl(v string) {
 	o.ServiceUrl = &v
 }
 
-// GetConfiguration returns the Configuration field value if set, zero value otherwise.
-func (o *PurchasedService) GetConfiguration() map[string]interface{} {
-	if o == nil || IsNil(o.Configuration) {
-		var ret map[string]interface{}
+// GetConfiguration returns the Configuration field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PurchasedService) GetConfiguration() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Configuration
@@ -350,11 +353,12 @@ func (o *PurchasedService) GetConfiguration() map[string]interface{} {
 
 // GetConfigurationOk returns a tuple with the Configuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PurchasedService) GetConfigurationOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PurchasedService) GetConfigurationOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Configuration) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Configuration, true
+	return &o.Configuration, true
 }
 
 // HasConfiguration returns a boolean if a field has been set.
@@ -366,8 +370,8 @@ func (o *PurchasedService) HasConfiguration() bool {
 	return false
 }
 
-// SetConfiguration gets a reference to the given map[string]interface{} and assigns it to the Configuration field.
-func (o *PurchasedService) SetConfiguration(v map[string]interface{}) {
+// SetConfiguration gets a reference to the given interface{} and assigns it to the Configuration field.
+func (o *PurchasedService) SetConfiguration(v interface{}) {
 	o.Configuration = v
 }
 
@@ -428,7 +432,7 @@ func (o PurchasedService) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountType) {
 		toSerialize["account_type"] = o.AccountType
 	}
-	if !IsNil(o.CostStats) {
+	if o.CostStats != nil {
 		toSerialize["cost_stats"] = o.CostStats
 	}
 	if !IsNil(o.ActivationDate) {
@@ -440,7 +444,7 @@ func (o PurchasedService) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ServiceUrl) {
 		toSerialize["service_url"] = o.ServiceUrl
 	}
-	if !IsNil(o.Configuration) {
+	if o.Configuration != nil {
 		toSerialize["configuration"] = o.Configuration
 	}
 	if !IsNil(o.MonthlyCost) {

@@ -32,7 +32,8 @@ type ProviderImageCache struct {
 	IsActive bool `json:"is_active"`
 	IsLts *bool `json:"is_lts,omitempty"`
 	DiskSizeGb *int32 `json:"disk_size_gb,omitempty"`
-	Regions map[string]interface{} `json:"regions,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Regions interface{} `json:"regions,omitempty"`
 	Description *string `json:"description,omitempty"`
 	ProviderCreatedAt *time.Time `json:"provider_created_at,omitempty"`
 	CachedAt time.Time `json:"cached_at"`
@@ -297,10 +298,10 @@ func (o *ProviderImageCache) SetDiskSizeGb(v int32) {
 	o.DiskSizeGb = &v
 }
 
-// GetRegions returns the Regions field value if set, zero value otherwise.
-func (o *ProviderImageCache) GetRegions() map[string]interface{} {
-	if o == nil || IsNil(o.Regions) {
-		var ret map[string]interface{}
+// GetRegions returns the Regions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ProviderImageCache) GetRegions() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Regions
@@ -308,11 +309,12 @@ func (o *ProviderImageCache) GetRegions() map[string]interface{} {
 
 // GetRegionsOk returns a tuple with the Regions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProviderImageCache) GetRegionsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ProviderImageCache) GetRegionsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Regions) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Regions, true
+	return &o.Regions, true
 }
 
 // HasRegions returns a boolean if a field has been set.
@@ -324,8 +326,8 @@ func (o *ProviderImageCache) HasRegions() bool {
 	return false
 }
 
-// SetRegions gets a reference to the given map[string]interface{} and assigns it to the Regions field.
-func (o *ProviderImageCache) SetRegions(v map[string]interface{}) {
+// SetRegions gets a reference to the given interface{} and assigns it to the Regions field.
+func (o *ProviderImageCache) SetRegions(v interface{}) {
 	o.Regions = v
 }
 
@@ -440,7 +442,7 @@ func (o ProviderImageCache) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DiskSizeGb) {
 		toSerialize["disk_size_gb"] = o.DiskSizeGb
 	}
-	if !IsNil(o.Regions) {
+	if o.Regions != nil {
 		toSerialize["regions"] = o.Regions
 	}
 	if !IsNil(o.Description) {

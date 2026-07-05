@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindWorkspaceSecurityPosture200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindWorkspaceSecurityPosture200ResponseDataInner{}
 
 // FindWorkspaceSecurityPosture200ResponseDataInner struct for FindWorkspaceSecurityPosture200ResponseDataInner
 type FindWorkspaceSecurityPosture200ResponseDataInner struct {
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	TotalUsers *int32 `json:"total_users,omitempty"`
+	UsersWithout2sv *int32 `json:"users_without_2sv,omitempty"`
+	UsersWithWeakPassword *int32 `json:"users_with_weak_password,omitempty"`
+	UnreviewedOauthApps *int32 `json:"unreviewed_oauth_apps,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	OauthApps interface{} `json:"oauth_apps,omitempty"`
+	SuspiciousLogins24h *int32 `json:"suspicious_logins_24h,omitempty"`
+	AdminAccountsWithout2sv *int32 `json:"admin_accounts_without_2sv,omitempty"`
+	LastAssessedAt time.Time `json:"last_assessed_at"`
+	PostureScore *float32 `json:"posture_score,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *WorkspaceSecurityPosture `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindWorkspaceSecurityPosture200ResponseDataInner FindWorkspaceSecurityPosture200ResponseDataInner
+
 // NewFindWorkspaceSecurityPosture200ResponseDataInner instantiates a new FindWorkspaceSecurityPosture200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindWorkspaceSecurityPosture200ResponseDataInner() *FindWorkspaceSecurityPosture200ResponseDataInner {
+func NewFindWorkspaceSecurityPosture200ResponseDataInner(organisation CreateAccessReviewRequestDataReviewer, lastAssessedAt time.Time) *FindWorkspaceSecurityPosture200ResponseDataInner {
 	this := FindWorkspaceSecurityPosture200ResponseDataInner{}
+	this.Organisation = organisation
+	this.LastAssessedAt = lastAssessedAt
 	return &this
 }
 
@@ -44,6 +60,311 @@ func NewFindWorkspaceSecurityPosture200ResponseDataInner() *FindWorkspaceSecurit
 func NewFindWorkspaceSecurityPosture200ResponseDataInnerWithDefaults() *FindWorkspaceSecurityPosture200ResponseDataInner {
 	this := FindWorkspaceSecurityPosture200ResponseDataInner{}
 	return &this
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetTotalUsers returns the TotalUsers field value if set, zero value otherwise.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetTotalUsers() int32 {
+	if o == nil || IsNil(o.TotalUsers) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalUsers
+}
+
+// GetTotalUsersOk returns a tuple with the TotalUsers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetTotalUsersOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalUsers) {
+		return nil, false
+	}
+	return o.TotalUsers, true
+}
+
+// HasTotalUsers returns a boolean if a field has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) HasTotalUsers() bool {
+	if o != nil && !IsNil(o.TotalUsers) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalUsers gets a reference to the given int32 and assigns it to the TotalUsers field.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetTotalUsers(v int32) {
+	o.TotalUsers = &v
+}
+
+// GetUsersWithout2sv returns the UsersWithout2sv field value if set, zero value otherwise.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetUsersWithout2sv() int32 {
+	if o == nil || IsNil(o.UsersWithout2sv) {
+		var ret int32
+		return ret
+	}
+	return *o.UsersWithout2sv
+}
+
+// GetUsersWithout2svOk returns a tuple with the UsersWithout2sv field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetUsersWithout2svOk() (*int32, bool) {
+	if o == nil || IsNil(o.UsersWithout2sv) {
+		return nil, false
+	}
+	return o.UsersWithout2sv, true
+}
+
+// HasUsersWithout2sv returns a boolean if a field has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) HasUsersWithout2sv() bool {
+	if o != nil && !IsNil(o.UsersWithout2sv) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsersWithout2sv gets a reference to the given int32 and assigns it to the UsersWithout2sv field.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetUsersWithout2sv(v int32) {
+	o.UsersWithout2sv = &v
+}
+
+// GetUsersWithWeakPassword returns the UsersWithWeakPassword field value if set, zero value otherwise.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetUsersWithWeakPassword() int32 {
+	if o == nil || IsNil(o.UsersWithWeakPassword) {
+		var ret int32
+		return ret
+	}
+	return *o.UsersWithWeakPassword
+}
+
+// GetUsersWithWeakPasswordOk returns a tuple with the UsersWithWeakPassword field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetUsersWithWeakPasswordOk() (*int32, bool) {
+	if o == nil || IsNil(o.UsersWithWeakPassword) {
+		return nil, false
+	}
+	return o.UsersWithWeakPassword, true
+}
+
+// HasUsersWithWeakPassword returns a boolean if a field has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) HasUsersWithWeakPassword() bool {
+	if o != nil && !IsNil(o.UsersWithWeakPassword) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsersWithWeakPassword gets a reference to the given int32 and assigns it to the UsersWithWeakPassword field.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetUsersWithWeakPassword(v int32) {
+	o.UsersWithWeakPassword = &v
+}
+
+// GetUnreviewedOauthApps returns the UnreviewedOauthApps field value if set, zero value otherwise.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetUnreviewedOauthApps() int32 {
+	if o == nil || IsNil(o.UnreviewedOauthApps) {
+		var ret int32
+		return ret
+	}
+	return *o.UnreviewedOauthApps
+}
+
+// GetUnreviewedOauthAppsOk returns a tuple with the UnreviewedOauthApps field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetUnreviewedOauthAppsOk() (*int32, bool) {
+	if o == nil || IsNil(o.UnreviewedOauthApps) {
+		return nil, false
+	}
+	return o.UnreviewedOauthApps, true
+}
+
+// HasUnreviewedOauthApps returns a boolean if a field has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) HasUnreviewedOauthApps() bool {
+	if o != nil && !IsNil(o.UnreviewedOauthApps) {
+		return true
+	}
+
+	return false
+}
+
+// SetUnreviewedOauthApps gets a reference to the given int32 and assigns it to the UnreviewedOauthApps field.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetUnreviewedOauthApps(v int32) {
+	o.UnreviewedOauthApps = &v
+}
+
+// GetOauthApps returns the OauthApps field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetOauthApps() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.OauthApps
+}
+
+// GetOauthAppsOk returns a tuple with the OauthApps field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetOauthAppsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.OauthApps) {
+		return nil, false
+	}
+	return &o.OauthApps, true
+}
+
+// HasOauthApps returns a boolean if a field has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) HasOauthApps() bool {
+	if o != nil && !IsNil(o.OauthApps) {
+		return true
+	}
+
+	return false
+}
+
+// SetOauthApps gets a reference to the given interface{} and assigns it to the OauthApps field.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetOauthApps(v interface{}) {
+	o.OauthApps = v
+}
+
+// GetSuspiciousLogins24h returns the SuspiciousLogins24h field value if set, zero value otherwise.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetSuspiciousLogins24h() int32 {
+	if o == nil || IsNil(o.SuspiciousLogins24h) {
+		var ret int32
+		return ret
+	}
+	return *o.SuspiciousLogins24h
+}
+
+// GetSuspiciousLogins24hOk returns a tuple with the SuspiciousLogins24h field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetSuspiciousLogins24hOk() (*int32, bool) {
+	if o == nil || IsNil(o.SuspiciousLogins24h) {
+		return nil, false
+	}
+	return o.SuspiciousLogins24h, true
+}
+
+// HasSuspiciousLogins24h returns a boolean if a field has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) HasSuspiciousLogins24h() bool {
+	if o != nil && !IsNil(o.SuspiciousLogins24h) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuspiciousLogins24h gets a reference to the given int32 and assigns it to the SuspiciousLogins24h field.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetSuspiciousLogins24h(v int32) {
+	o.SuspiciousLogins24h = &v
+}
+
+// GetAdminAccountsWithout2sv returns the AdminAccountsWithout2sv field value if set, zero value otherwise.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetAdminAccountsWithout2sv() int32 {
+	if o == nil || IsNil(o.AdminAccountsWithout2sv) {
+		var ret int32
+		return ret
+	}
+	return *o.AdminAccountsWithout2sv
+}
+
+// GetAdminAccountsWithout2svOk returns a tuple with the AdminAccountsWithout2sv field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetAdminAccountsWithout2svOk() (*int32, bool) {
+	if o == nil || IsNil(o.AdminAccountsWithout2sv) {
+		return nil, false
+	}
+	return o.AdminAccountsWithout2sv, true
+}
+
+// HasAdminAccountsWithout2sv returns a boolean if a field has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) HasAdminAccountsWithout2sv() bool {
+	if o != nil && !IsNil(o.AdminAccountsWithout2sv) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdminAccountsWithout2sv gets a reference to the given int32 and assigns it to the AdminAccountsWithout2sv field.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetAdminAccountsWithout2sv(v int32) {
+	o.AdminAccountsWithout2sv = &v
+}
+
+// GetLastAssessedAt returns the LastAssessedAt field value
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetLastAssessedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.LastAssessedAt
+}
+
+// GetLastAssessedAtOk returns a tuple with the LastAssessedAt field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetLastAssessedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastAssessedAt, true
+}
+
+// SetLastAssessedAt sets field value
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetLastAssessedAt(v time.Time) {
+	o.LastAssessedAt = v
+}
+
+// GetPostureScore returns the PostureScore field value if set, zero value otherwise.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetPostureScore() float32 {
+	if o == nil || IsNil(o.PostureScore) {
+		var ret float32
+		return ret
+	}
+	return *o.PostureScore
+}
+
+// GetPostureScoreOk returns a tuple with the PostureScore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetPostureScoreOk() (*float32, bool) {
+	if o == nil || IsNil(o.PostureScore) {
+		return nil, false
+	}
+	return o.PostureScore, true
+}
+
+// HasPostureScore returns a boolean if a field has been set.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) HasPostureScore() bool {
+	if o != nil && !IsNil(o.PostureScore) {
+		return true
+	}
+
+	return false
+}
+
+// SetPostureScore gets a reference to the given float32 and assigns it to the PostureScore field.
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetPostureScore(v float32) {
+	o.PostureScore = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +429,6 @@ func (o *FindWorkspaceSecurityPosture200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetAttributes() WorkspaceSecurityPosture {
-	if o == nil || IsNil(o.Attributes) {
-		var ret WorkspaceSecurityPosture
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindWorkspaceSecurityPosture200ResponseDataInner) GetAttributesOk() (*WorkspaceSecurityPosture, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindWorkspaceSecurityPosture200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given WorkspaceSecurityPosture and assigns it to the Attributes field.
-func (o *FindWorkspaceSecurityPosture200ResponseDataInner) SetAttributes(v WorkspaceSecurityPosture) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +547,37 @@ func (o FindWorkspaceSecurityPosture200ResponseDataInner) MarshalJSON() ([]byte,
 
 func (o FindWorkspaceSecurityPosture200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["organisation"] = o.Organisation
+	if !IsNil(o.TotalUsers) {
+		toSerialize["total_users"] = o.TotalUsers
+	}
+	if !IsNil(o.UsersWithout2sv) {
+		toSerialize["users_without_2sv"] = o.UsersWithout2sv
+	}
+	if !IsNil(o.UsersWithWeakPassword) {
+		toSerialize["users_with_weak_password"] = o.UsersWithWeakPassword
+	}
+	if !IsNil(o.UnreviewedOauthApps) {
+		toSerialize["unreviewed_oauth_apps"] = o.UnreviewedOauthApps
+	}
+	if o.OauthApps != nil {
+		toSerialize["oauth_apps"] = o.OauthApps
+	}
+	if !IsNil(o.SuspiciousLogins24h) {
+		toSerialize["suspicious_logins_24h"] = o.SuspiciousLogins24h
+	}
+	if !IsNil(o.AdminAccountsWithout2sv) {
+		toSerialize["admin_accounts_without_2sv"] = o.AdminAccountsWithout2sv
+	}
+	toSerialize["last_assessed_at"] = o.LastAssessedAt
+	if !IsNil(o.PostureScore) {
+		toSerialize["posture_score"] = o.PostureScore
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +589,44 @@ func (o FindWorkspaceSecurityPosture200ResponseDataInner) ToMap() (map[string]in
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindWorkspaceSecurityPosture200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organisation",
+		"last_assessed_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindWorkspaceSecurityPosture200ResponseDataInner := _FindWorkspaceSecurityPosture200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindWorkspaceSecurityPosture200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindWorkspaceSecurityPosture200ResponseDataInner(varFindWorkspaceSecurityPosture200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindWorkspaceSecurityPosture200ResponseDataInner struct {

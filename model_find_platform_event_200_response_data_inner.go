@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindPlatformEvent200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindPlatformEvent200ResponseDataInner{}
 
 // FindPlatformEvent200ResponseDataInner struct for FindPlatformEvent200ResponseDataInner
 type FindPlatformEvent200ResponseDataInner struct {
+	EventType string `json:"event_type"`
+	SourceService string `json:"source_service"`
+	CorrelationId *string `json:"correlation_id,omitempty"`
+	IdempotencyKey *string `json:"idempotency_key,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Payload interface{} `json:"payload"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	ActorUserId *string `json:"actor_user_id,omitempty"`
+	RiskLevel *string `json:"risk_level,omitempty"`
+	Region *string `json:"region,omitempty"`
+	ProcessedAt *time.Time `json:"processed_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *PlatformEvent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindPlatformEvent200ResponseDataInner FindPlatformEvent200ResponseDataInner
+
 // NewFindPlatformEvent200ResponseDataInner instantiates a new FindPlatformEvent200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindPlatformEvent200ResponseDataInner() *FindPlatformEvent200ResponseDataInner {
+func NewFindPlatformEvent200ResponseDataInner(eventType string, sourceService string, payload interface{}) *FindPlatformEvent200ResponseDataInner {
 	this := FindPlatformEvent200ResponseDataInner{}
+	this.EventType = eventType
+	this.SourceService = sourceService
+	this.Payload = payload
 	return &this
 }
 
@@ -44,6 +61,304 @@ func NewFindPlatformEvent200ResponseDataInner() *FindPlatformEvent200ResponseDat
 func NewFindPlatformEvent200ResponseDataInnerWithDefaults() *FindPlatformEvent200ResponseDataInner {
 	this := FindPlatformEvent200ResponseDataInner{}
 	return &this
+}
+
+// GetEventType returns the EventType field value
+func (o *FindPlatformEvent200ResponseDataInner) GetEventType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EventType
+}
+
+// GetEventTypeOk returns a tuple with the EventType field value
+// and a boolean to check if the value has been set.
+func (o *FindPlatformEvent200ResponseDataInner) GetEventTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EventType, true
+}
+
+// SetEventType sets field value
+func (o *FindPlatformEvent200ResponseDataInner) SetEventType(v string) {
+	o.EventType = v
+}
+
+// GetSourceService returns the SourceService field value
+func (o *FindPlatformEvent200ResponseDataInner) GetSourceService() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SourceService
+}
+
+// GetSourceServiceOk returns a tuple with the SourceService field value
+// and a boolean to check if the value has been set.
+func (o *FindPlatformEvent200ResponseDataInner) GetSourceServiceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SourceService, true
+}
+
+// SetSourceService sets field value
+func (o *FindPlatformEvent200ResponseDataInner) SetSourceService(v string) {
+	o.SourceService = v
+}
+
+// GetCorrelationId returns the CorrelationId field value if set, zero value otherwise.
+func (o *FindPlatformEvent200ResponseDataInner) GetCorrelationId() string {
+	if o == nil || IsNil(o.CorrelationId) {
+		var ret string
+		return ret
+	}
+	return *o.CorrelationId
+}
+
+// GetCorrelationIdOk returns a tuple with the CorrelationId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPlatformEvent200ResponseDataInner) GetCorrelationIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CorrelationId) {
+		return nil, false
+	}
+	return o.CorrelationId, true
+}
+
+// HasCorrelationId returns a boolean if a field has been set.
+func (o *FindPlatformEvent200ResponseDataInner) HasCorrelationId() bool {
+	if o != nil && !IsNil(o.CorrelationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCorrelationId gets a reference to the given string and assigns it to the CorrelationId field.
+func (o *FindPlatformEvent200ResponseDataInner) SetCorrelationId(v string) {
+	o.CorrelationId = &v
+}
+
+// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise.
+func (o *FindPlatformEvent200ResponseDataInner) GetIdempotencyKey() string {
+	if o == nil || IsNil(o.IdempotencyKey) {
+		var ret string
+		return ret
+	}
+	return *o.IdempotencyKey
+}
+
+// GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPlatformEvent200ResponseDataInner) GetIdempotencyKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.IdempotencyKey) {
+		return nil, false
+	}
+	return o.IdempotencyKey, true
+}
+
+// HasIdempotencyKey returns a boolean if a field has been set.
+func (o *FindPlatformEvent200ResponseDataInner) HasIdempotencyKey() bool {
+	if o != nil && !IsNil(o.IdempotencyKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdempotencyKey gets a reference to the given string and assigns it to the IdempotencyKey field.
+func (o *FindPlatformEvent200ResponseDataInner) SetIdempotencyKey(v string) {
+	o.IdempotencyKey = &v
+}
+
+// GetPayload returns the Payload field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *FindPlatformEvent200ResponseDataInner) GetPayload() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+
+	return o.Payload
+}
+
+// GetPayloadOk returns a tuple with the Payload field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindPlatformEvent200ResponseDataInner) GetPayloadOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Payload) {
+		return nil, false
+	}
+	return &o.Payload, true
+}
+
+// SetPayload sets field value
+func (o *FindPlatformEvent200ResponseDataInner) SetPayload(v interface{}) {
+	o.Payload = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindPlatformEvent200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPlatformEvent200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindPlatformEvent200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindPlatformEvent200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetActorUserId returns the ActorUserId field value if set, zero value otherwise.
+func (o *FindPlatformEvent200ResponseDataInner) GetActorUserId() string {
+	if o == nil || IsNil(o.ActorUserId) {
+		var ret string
+		return ret
+	}
+	return *o.ActorUserId
+}
+
+// GetActorUserIdOk returns a tuple with the ActorUserId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPlatformEvent200ResponseDataInner) GetActorUserIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ActorUserId) {
+		return nil, false
+	}
+	return o.ActorUserId, true
+}
+
+// HasActorUserId returns a boolean if a field has been set.
+func (o *FindPlatformEvent200ResponseDataInner) HasActorUserId() bool {
+	if o != nil && !IsNil(o.ActorUserId) {
+		return true
+	}
+
+	return false
+}
+
+// SetActorUserId gets a reference to the given string and assigns it to the ActorUserId field.
+func (o *FindPlatformEvent200ResponseDataInner) SetActorUserId(v string) {
+	o.ActorUserId = &v
+}
+
+// GetRiskLevel returns the RiskLevel field value if set, zero value otherwise.
+func (o *FindPlatformEvent200ResponseDataInner) GetRiskLevel() string {
+	if o == nil || IsNil(o.RiskLevel) {
+		var ret string
+		return ret
+	}
+	return *o.RiskLevel
+}
+
+// GetRiskLevelOk returns a tuple with the RiskLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPlatformEvent200ResponseDataInner) GetRiskLevelOk() (*string, bool) {
+	if o == nil || IsNil(o.RiskLevel) {
+		return nil, false
+	}
+	return o.RiskLevel, true
+}
+
+// HasRiskLevel returns a boolean if a field has been set.
+func (o *FindPlatformEvent200ResponseDataInner) HasRiskLevel() bool {
+	if o != nil && !IsNil(o.RiskLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetRiskLevel gets a reference to the given string and assigns it to the RiskLevel field.
+func (o *FindPlatformEvent200ResponseDataInner) SetRiskLevel(v string) {
+	o.RiskLevel = &v
+}
+
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *FindPlatformEvent200ResponseDataInner) GetRegion() string {
+	if o == nil || IsNil(o.Region) {
+		var ret string
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPlatformEvent200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.Region) {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *FindPlatformEvent200ResponseDataInner) HasRegion() bool {
+	if o != nil && !IsNil(o.Region) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegion gets a reference to the given string and assigns it to the Region field.
+func (o *FindPlatformEvent200ResponseDataInner) SetRegion(v string) {
+	o.Region = &v
+}
+
+// GetProcessedAt returns the ProcessedAt field value if set, zero value otherwise.
+func (o *FindPlatformEvent200ResponseDataInner) GetProcessedAt() time.Time {
+	if o == nil || IsNil(o.ProcessedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ProcessedAt
+}
+
+// GetProcessedAtOk returns a tuple with the ProcessedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPlatformEvent200ResponseDataInner) GetProcessedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ProcessedAt) {
+		return nil, false
+	}
+	return o.ProcessedAt, true
+}
+
+// HasProcessedAt returns a boolean if a field has been set.
+func (o *FindPlatformEvent200ResponseDataInner) HasProcessedAt() bool {
+	if o != nil && !IsNil(o.ProcessedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessedAt gets a reference to the given time.Time and assigns it to the ProcessedAt field.
+func (o *FindPlatformEvent200ResponseDataInner) SetProcessedAt(v time.Time) {
+	o.ProcessedAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +423,6 @@ func (o *FindPlatformEvent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindPlatformEvent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindPlatformEvent200ResponseDataInner) GetAttributes() PlatformEvent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret PlatformEvent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindPlatformEvent200ResponseDataInner) GetAttributesOk() (*PlatformEvent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindPlatformEvent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given PlatformEvent and assigns it to the Attributes field.
-func (o *FindPlatformEvent200ResponseDataInner) SetAttributes(v PlatformEvent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +541,37 @@ func (o FindPlatformEvent200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindPlatformEvent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["event_type"] = o.EventType
+	toSerialize["source_service"] = o.SourceService
+	if !IsNil(o.CorrelationId) {
+		toSerialize["correlation_id"] = o.CorrelationId
+	}
+	if !IsNil(o.IdempotencyKey) {
+		toSerialize["idempotency_key"] = o.IdempotencyKey
+	}
+	if o.Payload != nil {
+		toSerialize["payload"] = o.Payload
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.ActorUserId) {
+		toSerialize["actor_user_id"] = o.ActorUserId
+	}
+	if !IsNil(o.RiskLevel) {
+		toSerialize["risk_level"] = o.RiskLevel
+	}
+	if !IsNil(o.Region) {
+		toSerialize["region"] = o.Region
+	}
+	if !IsNil(o.ProcessedAt) {
+		toSerialize["processed_at"] = o.ProcessedAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +583,45 @@ func (o FindPlatformEvent200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindPlatformEvent200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"event_type",
+		"source_service",
+		"payload",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindPlatformEvent200ResponseDataInner := _FindPlatformEvent200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindPlatformEvent200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindPlatformEvent200ResponseDataInner(varFindPlatformEvent200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindPlatformEvent200ResponseDataInner struct {

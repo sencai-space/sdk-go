@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindFleetCohort200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,33 @@ var _ MappedNullable = &FindFleetCohort200ResponseDataInner{}
 
 // FindFleetCohort200ResponseDataInner struct for FindFleetCohort200ResponseDataInner
 type FindFleetCohort200ResponseDataInner struct {
+	Name string `json:"name"`
+	OrgDocId *string `json:"org_doc_id,omitempty"`
+	PlatformFilter *string `json:"platform_filter,omitempty"`
+	Query *string `json:"query,omitempty"`
+	ScheduleIntervalSeconds *int32 `json:"schedule_interval_seconds,omitempty"`
+	FleetdmPolicyId *string `json:"fleetdm_policy_id,omitempty"`
+	Status *string `json:"status,omitempty"`
+	HostCount *int32 `json:"host_count,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	LastResult interface{} `json:"last_result,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *FleetCohort `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindFleetCohort200ResponseDataInner FindFleetCohort200ResponseDataInner
+
 // NewFindFleetCohort200ResponseDataInner instantiates a new FindFleetCohort200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindFleetCohort200ResponseDataInner() *FindFleetCohort200ResponseDataInner {
+func NewFindFleetCohort200ResponseDataInner(name string) *FindFleetCohort200ResponseDataInner {
 	this := FindFleetCohort200ResponseDataInner{}
+	this.Name = name
 	return &this
 }
 
@@ -44,6 +59,319 @@ func NewFindFleetCohort200ResponseDataInner() *FindFleetCohort200ResponseDataInn
 func NewFindFleetCohort200ResponseDataInnerWithDefaults() *FindFleetCohort200ResponseDataInner {
 	this := FindFleetCohort200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindFleetCohort200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindFleetCohort200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindFleetCohort200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetOrgDocId returns the OrgDocId field value if set, zero value otherwise.
+func (o *FindFleetCohort200ResponseDataInner) GetOrgDocId() string {
+	if o == nil || IsNil(o.OrgDocId) {
+		var ret string
+		return ret
+	}
+	return *o.OrgDocId
+}
+
+// GetOrgDocIdOk returns a tuple with the OrgDocId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFleetCohort200ResponseDataInner) GetOrgDocIdOk() (*string, bool) {
+	if o == nil || IsNil(o.OrgDocId) {
+		return nil, false
+	}
+	return o.OrgDocId, true
+}
+
+// HasOrgDocId returns a boolean if a field has been set.
+func (o *FindFleetCohort200ResponseDataInner) HasOrgDocId() bool {
+	if o != nil && !IsNil(o.OrgDocId) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrgDocId gets a reference to the given string and assigns it to the OrgDocId field.
+func (o *FindFleetCohort200ResponseDataInner) SetOrgDocId(v string) {
+	o.OrgDocId = &v
+}
+
+// GetPlatformFilter returns the PlatformFilter field value if set, zero value otherwise.
+func (o *FindFleetCohort200ResponseDataInner) GetPlatformFilter() string {
+	if o == nil || IsNil(o.PlatformFilter) {
+		var ret string
+		return ret
+	}
+	return *o.PlatformFilter
+}
+
+// GetPlatformFilterOk returns a tuple with the PlatformFilter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFleetCohort200ResponseDataInner) GetPlatformFilterOk() (*string, bool) {
+	if o == nil || IsNil(o.PlatformFilter) {
+		return nil, false
+	}
+	return o.PlatformFilter, true
+}
+
+// HasPlatformFilter returns a boolean if a field has been set.
+func (o *FindFleetCohort200ResponseDataInner) HasPlatformFilter() bool {
+	if o != nil && !IsNil(o.PlatformFilter) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlatformFilter gets a reference to the given string and assigns it to the PlatformFilter field.
+func (o *FindFleetCohort200ResponseDataInner) SetPlatformFilter(v string) {
+	o.PlatformFilter = &v
+}
+
+// GetQuery returns the Query field value if set, zero value otherwise.
+func (o *FindFleetCohort200ResponseDataInner) GetQuery() string {
+	if o == nil || IsNil(o.Query) {
+		var ret string
+		return ret
+	}
+	return *o.Query
+}
+
+// GetQueryOk returns a tuple with the Query field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFleetCohort200ResponseDataInner) GetQueryOk() (*string, bool) {
+	if o == nil || IsNil(o.Query) {
+		return nil, false
+	}
+	return o.Query, true
+}
+
+// HasQuery returns a boolean if a field has been set.
+func (o *FindFleetCohort200ResponseDataInner) HasQuery() bool {
+	if o != nil && !IsNil(o.Query) {
+		return true
+	}
+
+	return false
+}
+
+// SetQuery gets a reference to the given string and assigns it to the Query field.
+func (o *FindFleetCohort200ResponseDataInner) SetQuery(v string) {
+	o.Query = &v
+}
+
+// GetScheduleIntervalSeconds returns the ScheduleIntervalSeconds field value if set, zero value otherwise.
+func (o *FindFleetCohort200ResponseDataInner) GetScheduleIntervalSeconds() int32 {
+	if o == nil || IsNil(o.ScheduleIntervalSeconds) {
+		var ret int32
+		return ret
+	}
+	return *o.ScheduleIntervalSeconds
+}
+
+// GetScheduleIntervalSecondsOk returns a tuple with the ScheduleIntervalSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFleetCohort200ResponseDataInner) GetScheduleIntervalSecondsOk() (*int32, bool) {
+	if o == nil || IsNil(o.ScheduleIntervalSeconds) {
+		return nil, false
+	}
+	return o.ScheduleIntervalSeconds, true
+}
+
+// HasScheduleIntervalSeconds returns a boolean if a field has been set.
+func (o *FindFleetCohort200ResponseDataInner) HasScheduleIntervalSeconds() bool {
+	if o != nil && !IsNil(o.ScheduleIntervalSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetScheduleIntervalSeconds gets a reference to the given int32 and assigns it to the ScheduleIntervalSeconds field.
+func (o *FindFleetCohort200ResponseDataInner) SetScheduleIntervalSeconds(v int32) {
+	o.ScheduleIntervalSeconds = &v
+}
+
+// GetFleetdmPolicyId returns the FleetdmPolicyId field value if set, zero value otherwise.
+func (o *FindFleetCohort200ResponseDataInner) GetFleetdmPolicyId() string {
+	if o == nil || IsNil(o.FleetdmPolicyId) {
+		var ret string
+		return ret
+	}
+	return *o.FleetdmPolicyId
+}
+
+// GetFleetdmPolicyIdOk returns a tuple with the FleetdmPolicyId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFleetCohort200ResponseDataInner) GetFleetdmPolicyIdOk() (*string, bool) {
+	if o == nil || IsNil(o.FleetdmPolicyId) {
+		return nil, false
+	}
+	return o.FleetdmPolicyId, true
+}
+
+// HasFleetdmPolicyId returns a boolean if a field has been set.
+func (o *FindFleetCohort200ResponseDataInner) HasFleetdmPolicyId() bool {
+	if o != nil && !IsNil(o.FleetdmPolicyId) {
+		return true
+	}
+
+	return false
+}
+
+// SetFleetdmPolicyId gets a reference to the given string and assigns it to the FleetdmPolicyId field.
+func (o *FindFleetCohort200ResponseDataInner) SetFleetdmPolicyId(v string) {
+	o.FleetdmPolicyId = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindFleetCohort200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFleetCohort200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindFleetCohort200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindFleetCohort200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetHostCount returns the HostCount field value if set, zero value otherwise.
+func (o *FindFleetCohort200ResponseDataInner) GetHostCount() int32 {
+	if o == nil || IsNil(o.HostCount) {
+		var ret int32
+		return ret
+	}
+	return *o.HostCount
+}
+
+// GetHostCountOk returns a tuple with the HostCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFleetCohort200ResponseDataInner) GetHostCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.HostCount) {
+		return nil, false
+	}
+	return o.HostCount, true
+}
+
+// HasHostCount returns a boolean if a field has been set.
+func (o *FindFleetCohort200ResponseDataInner) HasHostCount() bool {
+	if o != nil && !IsNil(o.HostCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetHostCount gets a reference to the given int32 and assigns it to the HostCount field.
+func (o *FindFleetCohort200ResponseDataInner) SetHostCount(v int32) {
+	o.HostCount = &v
+}
+
+// GetLastResult returns the LastResult field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindFleetCohort200ResponseDataInner) GetLastResult() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.LastResult
+}
+
+// GetLastResultOk returns a tuple with the LastResult field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindFleetCohort200ResponseDataInner) GetLastResultOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.LastResult) {
+		return nil, false
+	}
+	return &o.LastResult, true
+}
+
+// HasLastResult returns a boolean if a field has been set.
+func (o *FindFleetCohort200ResponseDataInner) HasLastResult() bool {
+	if o != nil && !IsNil(o.LastResult) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastResult gets a reference to the given interface{} and assigns it to the LastResult field.
+func (o *FindFleetCohort200ResponseDataInner) SetLastResult(v interface{}) {
+	o.LastResult = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindFleetCohort200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFleetCohort200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindFleetCohort200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindFleetCohort200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +436,6 @@ func (o *FindFleetCohort200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindFleetCohort200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindFleetCohort200ResponseDataInner) GetAttributes() FleetCohort {
-	if o == nil || IsNil(o.Attributes) {
-		var ret FleetCohort
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindFleetCohort200ResponseDataInner) GetAttributesOk() (*FleetCohort, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindFleetCohort200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given FleetCohort and assigns it to the Attributes field.
-func (o *FindFleetCohort200ResponseDataInner) SetAttributes(v FleetCohort) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +554,39 @@ func (o FindFleetCohort200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindFleetCohort200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.OrgDocId) {
+		toSerialize["org_doc_id"] = o.OrgDocId
+	}
+	if !IsNil(o.PlatformFilter) {
+		toSerialize["platform_filter"] = o.PlatformFilter
+	}
+	if !IsNil(o.Query) {
+		toSerialize["query"] = o.Query
+	}
+	if !IsNil(o.ScheduleIntervalSeconds) {
+		toSerialize["schedule_interval_seconds"] = o.ScheduleIntervalSeconds
+	}
+	if !IsNil(o.FleetdmPolicyId) {
+		toSerialize["fleetdm_policy_id"] = o.FleetdmPolicyId
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.HostCount) {
+		toSerialize["host_count"] = o.HostCount
+	}
+	if o.LastResult != nil {
+		toSerialize["last_result"] = o.LastResult
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +598,43 @@ func (o FindFleetCohort200ResponseDataInner) ToMap() (map[string]interface{}, er
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindFleetCohort200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindFleetCohort200ResponseDataInner := _FindFleetCohort200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindFleetCohort200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindFleetCohort200ResponseDataInner(varFindFleetCohort200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindFleetCohort200ResponseDataInner struct {

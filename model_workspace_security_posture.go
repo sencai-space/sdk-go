@@ -28,7 +28,8 @@ type WorkspaceSecurityPosture struct {
 	UsersWithout2sv *int32 `json:"users_without_2sv,omitempty"`
 	UsersWithWeakPassword *int32 `json:"users_with_weak_password,omitempty"`
 	UnreviewedOauthApps *int32 `json:"unreviewed_oauth_apps,omitempty"`
-	OauthApps map[string]interface{} `json:"oauth_apps,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	OauthApps interface{} `json:"oauth_apps,omitempty"`
 	SuspiciousLogins24h *int32 `json:"suspicious_logins_24h,omitempty"`
 	AdminAccountsWithout2sv *int32 `json:"admin_accounts_without_2sv,omitempty"`
 	LastAssessedAt time.Time `json:"last_assessed_at"`
@@ -208,10 +209,10 @@ func (o *WorkspaceSecurityPosture) SetUnreviewedOauthApps(v int32) {
 	o.UnreviewedOauthApps = &v
 }
 
-// GetOauthApps returns the OauthApps field value if set, zero value otherwise.
-func (o *WorkspaceSecurityPosture) GetOauthApps() map[string]interface{} {
-	if o == nil || IsNil(o.OauthApps) {
-		var ret map[string]interface{}
+// GetOauthApps returns the OauthApps field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkspaceSecurityPosture) GetOauthApps() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.OauthApps
@@ -219,11 +220,12 @@ func (o *WorkspaceSecurityPosture) GetOauthApps() map[string]interface{} {
 
 // GetOauthAppsOk returns a tuple with the OauthApps field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkspaceSecurityPosture) GetOauthAppsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkspaceSecurityPosture) GetOauthAppsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.OauthApps) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.OauthApps, true
+	return &o.OauthApps, true
 }
 
 // HasOauthApps returns a boolean if a field has been set.
@@ -235,8 +237,8 @@ func (o *WorkspaceSecurityPosture) HasOauthApps() bool {
 	return false
 }
 
-// SetOauthApps gets a reference to the given map[string]interface{} and assigns it to the OauthApps field.
-func (o *WorkspaceSecurityPosture) SetOauthApps(v map[string]interface{}) {
+// SetOauthApps gets a reference to the given interface{} and assigns it to the OauthApps field.
+func (o *WorkspaceSecurityPosture) SetOauthApps(v interface{}) {
 	o.OauthApps = v
 }
 
@@ -383,7 +385,7 @@ func (o WorkspaceSecurityPosture) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UnreviewedOauthApps) {
 		toSerialize["unreviewed_oauth_apps"] = o.UnreviewedOauthApps
 	}
-	if !IsNil(o.OauthApps) {
+	if o.OauthApps != nil {
 		toSerialize["oauth_apps"] = o.OauthApps
 	}
 	if !IsNil(o.SuspiciousLogins24h) {

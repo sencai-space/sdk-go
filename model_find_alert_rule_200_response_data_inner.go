@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAlertRule200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,49 @@ var _ MappedNullable = &FindAlertRule200ResponseDataInner{}
 
 // FindAlertRule200ResponseDataInner struct for FindAlertRule200ResponseDataInner
 type FindAlertRule200ResponseDataInner struct {
+	Name string `json:"name"`
+	Description *string `json:"description,omitempty"`
+	Metric string `json:"metric"`
+	Operator string `json:"operator"`
+	Threshold float32 `json:"threshold"`
+	Severity string `json:"severity"`
+	Enabled *bool `json:"enabled,omitempty"`
+	// Target cloud instance ID, or '*' for all instances
+	InstanceId *string `json:"instanceId,omitempty"`
+	Provider *string `json:"provider,omitempty"`
+	// Minimum minutes between repeated alerts for the same rule+instance
+	CooldownMinutes *int32 `json:"cooldownMinutes,omitempty"`
+	// Comma-separated email addresses for alert notifications
+	NotifyEmail *string `json:"notifyEmail,omitempty"`
+	// HTTP endpoint to POST alert payload to
+	NotifyWebhookUrl *string `json:"notifyWebhookUrl,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	CreatedBy *CreateAccessReviewRequestDataReviewer `json:"createdBy,omitempty"`
+	// Logical data-residency region of the tenant (CELL invariant, F2.CELL.01)
+	HomeRegion string `json:"home_region"`
+	// Deployment cell within home_region for blast-radius isolation (CELL invariant, F2.CELL.01)
+	CellId *string `json:"cell_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AlertRule `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAlertRule200ResponseDataInner FindAlertRule200ResponseDataInner
+
 // NewFindAlertRule200ResponseDataInner instantiates a new FindAlertRule200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAlertRule200ResponseDataInner() *FindAlertRule200ResponseDataInner {
+func NewFindAlertRule200ResponseDataInner(name string, metric string, operator string, threshold float32, severity string, homeRegion string) *FindAlertRule200ResponseDataInner {
 	this := FindAlertRule200ResponseDataInner{}
+	this.Name = name
+	this.Metric = metric
+	this.Operator = operator
+	this.Threshold = threshold
+	this.Severity = severity
+	this.HomeRegion = homeRegion
 	return &this
 }
 
@@ -44,6 +75,470 @@ func NewFindAlertRule200ResponseDataInner() *FindAlertRule200ResponseDataInner {
 func NewFindAlertRule200ResponseDataInnerWithDefaults() *FindAlertRule200ResponseDataInner {
 	this := FindAlertRule200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindAlertRule200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindAlertRule200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindAlertRule200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindAlertRule200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindAlertRule200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetMetric returns the Metric field value
+func (o *FindAlertRule200ResponseDataInner) GetMetric() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Metric
+}
+
+// GetMetricOk returns a tuple with the Metric field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetMetricOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Metric, true
+}
+
+// SetMetric sets field value
+func (o *FindAlertRule200ResponseDataInner) SetMetric(v string) {
+	o.Metric = v
+}
+
+// GetOperator returns the Operator field value
+func (o *FindAlertRule200ResponseDataInner) GetOperator() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Operator
+}
+
+// GetOperatorOk returns a tuple with the Operator field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetOperatorOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Operator, true
+}
+
+// SetOperator sets field value
+func (o *FindAlertRule200ResponseDataInner) SetOperator(v string) {
+	o.Operator = v
+}
+
+// GetThreshold returns the Threshold field value
+func (o *FindAlertRule200ResponseDataInner) GetThreshold() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Threshold
+}
+
+// GetThresholdOk returns a tuple with the Threshold field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetThresholdOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Threshold, true
+}
+
+// SetThreshold sets field value
+func (o *FindAlertRule200ResponseDataInner) SetThreshold(v float32) {
+	o.Threshold = v
+}
+
+// GetSeverity returns the Severity field value
+func (o *FindAlertRule200ResponseDataInner) GetSeverity() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Severity
+}
+
+// GetSeverityOk returns a tuple with the Severity field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetSeverityOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Severity, true
+}
+
+// SetSeverity sets field value
+func (o *FindAlertRule200ResponseDataInner) SetSeverity(v string) {
+	o.Severity = v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindAlertRule200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindAlertRule200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindAlertRule200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetInstanceId returns the InstanceId field value if set, zero value otherwise.
+func (o *FindAlertRule200ResponseDataInner) GetInstanceId() string {
+	if o == nil || IsNil(o.InstanceId) {
+		var ret string
+		return ret
+	}
+	return *o.InstanceId
+}
+
+// GetInstanceIdOk returns a tuple with the InstanceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetInstanceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.InstanceId) {
+		return nil, false
+	}
+	return o.InstanceId, true
+}
+
+// HasInstanceId returns a boolean if a field has been set.
+func (o *FindAlertRule200ResponseDataInner) HasInstanceId() bool {
+	if o != nil && !IsNil(o.InstanceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstanceId gets a reference to the given string and assigns it to the InstanceId field.
+func (o *FindAlertRule200ResponseDataInner) SetInstanceId(v string) {
+	o.InstanceId = &v
+}
+
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *FindAlertRule200ResponseDataInner) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *FindAlertRule200ResponseDataInner) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *FindAlertRule200ResponseDataInner) SetProvider(v string) {
+	o.Provider = &v
+}
+
+// GetCooldownMinutes returns the CooldownMinutes field value if set, zero value otherwise.
+func (o *FindAlertRule200ResponseDataInner) GetCooldownMinutes() int32 {
+	if o == nil || IsNil(o.CooldownMinutes) {
+		var ret int32
+		return ret
+	}
+	return *o.CooldownMinutes
+}
+
+// GetCooldownMinutesOk returns a tuple with the CooldownMinutes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetCooldownMinutesOk() (*int32, bool) {
+	if o == nil || IsNil(o.CooldownMinutes) {
+		return nil, false
+	}
+	return o.CooldownMinutes, true
+}
+
+// HasCooldownMinutes returns a boolean if a field has been set.
+func (o *FindAlertRule200ResponseDataInner) HasCooldownMinutes() bool {
+	if o != nil && !IsNil(o.CooldownMinutes) {
+		return true
+	}
+
+	return false
+}
+
+// SetCooldownMinutes gets a reference to the given int32 and assigns it to the CooldownMinutes field.
+func (o *FindAlertRule200ResponseDataInner) SetCooldownMinutes(v int32) {
+	o.CooldownMinutes = &v
+}
+
+// GetNotifyEmail returns the NotifyEmail field value if set, zero value otherwise.
+func (o *FindAlertRule200ResponseDataInner) GetNotifyEmail() string {
+	if o == nil || IsNil(o.NotifyEmail) {
+		var ret string
+		return ret
+	}
+	return *o.NotifyEmail
+}
+
+// GetNotifyEmailOk returns a tuple with the NotifyEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetNotifyEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.NotifyEmail) {
+		return nil, false
+	}
+	return o.NotifyEmail, true
+}
+
+// HasNotifyEmail returns a boolean if a field has been set.
+func (o *FindAlertRule200ResponseDataInner) HasNotifyEmail() bool {
+	if o != nil && !IsNil(o.NotifyEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotifyEmail gets a reference to the given string and assigns it to the NotifyEmail field.
+func (o *FindAlertRule200ResponseDataInner) SetNotifyEmail(v string) {
+	o.NotifyEmail = &v
+}
+
+// GetNotifyWebhookUrl returns the NotifyWebhookUrl field value if set, zero value otherwise.
+func (o *FindAlertRule200ResponseDataInner) GetNotifyWebhookUrl() string {
+	if o == nil || IsNil(o.NotifyWebhookUrl) {
+		var ret string
+		return ret
+	}
+	return *o.NotifyWebhookUrl
+}
+
+// GetNotifyWebhookUrlOk returns a tuple with the NotifyWebhookUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetNotifyWebhookUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.NotifyWebhookUrl) {
+		return nil, false
+	}
+	return o.NotifyWebhookUrl, true
+}
+
+// HasNotifyWebhookUrl returns a boolean if a field has been set.
+func (o *FindAlertRule200ResponseDataInner) HasNotifyWebhookUrl() bool {
+	if o != nil && !IsNil(o.NotifyWebhookUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotifyWebhookUrl gets a reference to the given string and assigns it to the NotifyWebhookUrl field.
+func (o *FindAlertRule200ResponseDataInner) SetNotifyWebhookUrl(v string) {
+	o.NotifyWebhookUrl = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindAlertRule200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindAlertRule200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindAlertRule200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *FindAlertRule200ResponseDataInner) GetCreatedBy() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CreatedBy) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetCreatedByOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CreatedBy) {
+		return nil, false
+	}
+	return o.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *FindAlertRule200ResponseDataInner) HasCreatedBy() bool {
+	if o != nil && !IsNil(o.CreatedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CreatedBy field.
+func (o *FindAlertRule200ResponseDataInner) SetCreatedBy(v CreateAccessReviewRequestDataReviewer) {
+	o.CreatedBy = &v
+}
+
+// GetHomeRegion returns the HomeRegion field value
+func (o *FindAlertRule200ResponseDataInner) GetHomeRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.HomeRegion
+}
+
+// GetHomeRegionOk returns a tuple with the HomeRegion field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetHomeRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HomeRegion, true
+}
+
+// SetHomeRegion sets field value
+func (o *FindAlertRule200ResponseDataInner) SetHomeRegion(v string) {
+	o.HomeRegion = v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindAlertRule200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertRule200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindAlertRule200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindAlertRule200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +603,6 @@ func (o *FindAlertRule200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAlertRule200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAlertRule200ResponseDataInner) GetAttributes() AlertRule {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AlertRule
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAlertRule200ResponseDataInner) GetAttributesOk() (*AlertRule, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAlertRule200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AlertRule and assigns it to the Attributes field.
-func (o *FindAlertRule200ResponseDataInner) SetAttributes(v AlertRule) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +721,47 @@ func (o FindAlertRule200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAlertRule200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["metric"] = o.Metric
+	toSerialize["operator"] = o.Operator
+	toSerialize["threshold"] = o.Threshold
+	toSerialize["severity"] = o.Severity
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.InstanceId) {
+		toSerialize["instanceId"] = o.InstanceId
+	}
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
+	if !IsNil(o.CooldownMinutes) {
+		toSerialize["cooldownMinutes"] = o.CooldownMinutes
+	}
+	if !IsNil(o.NotifyEmail) {
+		toSerialize["notifyEmail"] = o.NotifyEmail
+	}
+	if !IsNil(o.NotifyWebhookUrl) {
+		toSerialize["notifyWebhookUrl"] = o.NotifyWebhookUrl
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.CreatedBy) {
+		toSerialize["createdBy"] = o.CreatedBy
+	}
+	toSerialize["home_region"] = o.HomeRegion
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +773,48 @@ func (o FindAlertRule200ResponseDataInner) ToMap() (map[string]interface{}, erro
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAlertRule200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"metric",
+		"operator",
+		"threshold",
+		"severity",
+		"home_region",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAlertRule200ResponseDataInner := _FindAlertRule200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAlertRule200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAlertRule200ResponseDataInner(varFindAlertRule200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAlertRule200ResponseDataInner struct {

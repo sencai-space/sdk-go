@@ -21,9 +21,21 @@ var _ MappedNullable = &FindPurchasedService200ResponseDataInner{}
 
 // FindPurchasedService200ResponseDataInner struct for FindPurchasedService200ResponseDataInner
 type FindPurchasedService200ResponseDataInner struct {
+	UsersPermissionsUser *CreateAccessReviewRequestDataReviewer `json:"users_permissions_user,omitempty"`
+	GiteaToolboxRepository *CreateAccessReviewRequestDataReviewer `json:"gitea_toolbox_repository,omitempty"`
+	State *string `json:"state,omitempty"`
+	PurchaseDate *time.Time `json:"purchase_date,omitempty"`
+	AccountType *CreateAccessReviewRequestDataReviewer `json:"account_type,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	CostStats interface{} `json:"cost_stats,omitempty"`
+	ActivationDate *time.Time `json:"activation_date,omitempty"`
+	TerminationDate *time.Time `json:"termination_date,omitempty"`
+	ServiceUrl *string `json:"service_url,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Configuration interface{} `json:"configuration,omitempty"`
+	MonthlyCost *float32 `json:"monthly_cost,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *PurchasedService `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +56,360 @@ func NewFindPurchasedService200ResponseDataInner() *FindPurchasedService200Respo
 func NewFindPurchasedService200ResponseDataInnerWithDefaults() *FindPurchasedService200ResponseDataInner {
 	this := FindPurchasedService200ResponseDataInner{}
 	return &this
+}
+
+// GetUsersPermissionsUser returns the UsersPermissionsUser field value if set, zero value otherwise.
+func (o *FindPurchasedService200ResponseDataInner) GetUsersPermissionsUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.UsersPermissionsUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.UsersPermissionsUser
+}
+
+// GetUsersPermissionsUserOk returns a tuple with the UsersPermissionsUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPurchasedService200ResponseDataInner) GetUsersPermissionsUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.UsersPermissionsUser) {
+		return nil, false
+	}
+	return o.UsersPermissionsUser, true
+}
+
+// HasUsersPermissionsUser returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasUsersPermissionsUser() bool {
+	if o != nil && !IsNil(o.UsersPermissionsUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsersPermissionsUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the UsersPermissionsUser field.
+func (o *FindPurchasedService200ResponseDataInner) SetUsersPermissionsUser(v CreateAccessReviewRequestDataReviewer) {
+	o.UsersPermissionsUser = &v
+}
+
+// GetGiteaToolboxRepository returns the GiteaToolboxRepository field value if set, zero value otherwise.
+func (o *FindPurchasedService200ResponseDataInner) GetGiteaToolboxRepository() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.GiteaToolboxRepository) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.GiteaToolboxRepository
+}
+
+// GetGiteaToolboxRepositoryOk returns a tuple with the GiteaToolboxRepository field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPurchasedService200ResponseDataInner) GetGiteaToolboxRepositoryOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.GiteaToolboxRepository) {
+		return nil, false
+	}
+	return o.GiteaToolboxRepository, true
+}
+
+// HasGiteaToolboxRepository returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasGiteaToolboxRepository() bool {
+	if o != nil && !IsNil(o.GiteaToolboxRepository) {
+		return true
+	}
+
+	return false
+}
+
+// SetGiteaToolboxRepository gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the GiteaToolboxRepository field.
+func (o *FindPurchasedService200ResponseDataInner) SetGiteaToolboxRepository(v CreateAccessReviewRequestDataReviewer) {
+	o.GiteaToolboxRepository = &v
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *FindPurchasedService200ResponseDataInner) GetState() string {
+	if o == nil || IsNil(o.State) {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPurchasedService200ResponseDataInner) GetStateOk() (*string, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *FindPurchasedService200ResponseDataInner) SetState(v string) {
+	o.State = &v
+}
+
+// GetPurchaseDate returns the PurchaseDate field value if set, zero value otherwise.
+func (o *FindPurchasedService200ResponseDataInner) GetPurchaseDate() time.Time {
+	if o == nil || IsNil(o.PurchaseDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PurchaseDate
+}
+
+// GetPurchaseDateOk returns a tuple with the PurchaseDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPurchasedService200ResponseDataInner) GetPurchaseDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PurchaseDate) {
+		return nil, false
+	}
+	return o.PurchaseDate, true
+}
+
+// HasPurchaseDate returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasPurchaseDate() bool {
+	if o != nil && !IsNil(o.PurchaseDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetPurchaseDate gets a reference to the given time.Time and assigns it to the PurchaseDate field.
+func (o *FindPurchasedService200ResponseDataInner) SetPurchaseDate(v time.Time) {
+	o.PurchaseDate = &v
+}
+
+// GetAccountType returns the AccountType field value if set, zero value otherwise.
+func (o *FindPurchasedService200ResponseDataInner) GetAccountType() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.AccountType) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.AccountType
+}
+
+// GetAccountTypeOk returns a tuple with the AccountType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPurchasedService200ResponseDataInner) GetAccountTypeOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.AccountType) {
+		return nil, false
+	}
+	return o.AccountType, true
+}
+
+// HasAccountType returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasAccountType() bool {
+	if o != nil && !IsNil(o.AccountType) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountType gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the AccountType field.
+func (o *FindPurchasedService200ResponseDataInner) SetAccountType(v CreateAccessReviewRequestDataReviewer) {
+	o.AccountType = &v
+}
+
+// GetCostStats returns the CostStats field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindPurchasedService200ResponseDataInner) GetCostStats() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.CostStats
+}
+
+// GetCostStatsOk returns a tuple with the CostStats field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindPurchasedService200ResponseDataInner) GetCostStatsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.CostStats) {
+		return nil, false
+	}
+	return &o.CostStats, true
+}
+
+// HasCostStats returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasCostStats() bool {
+	if o != nil && !IsNil(o.CostStats) {
+		return true
+	}
+
+	return false
+}
+
+// SetCostStats gets a reference to the given interface{} and assigns it to the CostStats field.
+func (o *FindPurchasedService200ResponseDataInner) SetCostStats(v interface{}) {
+	o.CostStats = v
+}
+
+// GetActivationDate returns the ActivationDate field value if set, zero value otherwise.
+func (o *FindPurchasedService200ResponseDataInner) GetActivationDate() time.Time {
+	if o == nil || IsNil(o.ActivationDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ActivationDate
+}
+
+// GetActivationDateOk returns a tuple with the ActivationDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPurchasedService200ResponseDataInner) GetActivationDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ActivationDate) {
+		return nil, false
+	}
+	return o.ActivationDate, true
+}
+
+// HasActivationDate returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasActivationDate() bool {
+	if o != nil && !IsNil(o.ActivationDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetActivationDate gets a reference to the given time.Time and assigns it to the ActivationDate field.
+func (o *FindPurchasedService200ResponseDataInner) SetActivationDate(v time.Time) {
+	o.ActivationDate = &v
+}
+
+// GetTerminationDate returns the TerminationDate field value if set, zero value otherwise.
+func (o *FindPurchasedService200ResponseDataInner) GetTerminationDate() time.Time {
+	if o == nil || IsNil(o.TerminationDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.TerminationDate
+}
+
+// GetTerminationDateOk returns a tuple with the TerminationDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPurchasedService200ResponseDataInner) GetTerminationDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.TerminationDate) {
+		return nil, false
+	}
+	return o.TerminationDate, true
+}
+
+// HasTerminationDate returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasTerminationDate() bool {
+	if o != nil && !IsNil(o.TerminationDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetTerminationDate gets a reference to the given time.Time and assigns it to the TerminationDate field.
+func (o *FindPurchasedService200ResponseDataInner) SetTerminationDate(v time.Time) {
+	o.TerminationDate = &v
+}
+
+// GetServiceUrl returns the ServiceUrl field value if set, zero value otherwise.
+func (o *FindPurchasedService200ResponseDataInner) GetServiceUrl() string {
+	if o == nil || IsNil(o.ServiceUrl) {
+		var ret string
+		return ret
+	}
+	return *o.ServiceUrl
+}
+
+// GetServiceUrlOk returns a tuple with the ServiceUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPurchasedService200ResponseDataInner) GetServiceUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.ServiceUrl) {
+		return nil, false
+	}
+	return o.ServiceUrl, true
+}
+
+// HasServiceUrl returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasServiceUrl() bool {
+	if o != nil && !IsNil(o.ServiceUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceUrl gets a reference to the given string and assigns it to the ServiceUrl field.
+func (o *FindPurchasedService200ResponseDataInner) SetServiceUrl(v string) {
+	o.ServiceUrl = &v
+}
+
+// GetConfiguration returns the Configuration field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindPurchasedService200ResponseDataInner) GetConfiguration() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Configuration
+}
+
+// GetConfigurationOk returns a tuple with the Configuration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindPurchasedService200ResponseDataInner) GetConfigurationOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Configuration) {
+		return nil, false
+	}
+	return &o.Configuration, true
+}
+
+// HasConfiguration returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasConfiguration() bool {
+	if o != nil && !IsNil(o.Configuration) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfiguration gets a reference to the given interface{} and assigns it to the Configuration field.
+func (o *FindPurchasedService200ResponseDataInner) SetConfiguration(v interface{}) {
+	o.Configuration = v
+}
+
+// GetMonthlyCost returns the MonthlyCost field value if set, zero value otherwise.
+func (o *FindPurchasedService200ResponseDataInner) GetMonthlyCost() float32 {
+	if o == nil || IsNil(o.MonthlyCost) {
+		var ret float32
+		return ret
+	}
+	return *o.MonthlyCost
+}
+
+// GetMonthlyCostOk returns a tuple with the MonthlyCost field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPurchasedService200ResponseDataInner) GetMonthlyCostOk() (*float32, bool) {
+	if o == nil || IsNil(o.MonthlyCost) {
+		return nil, false
+	}
+	return o.MonthlyCost, true
+}
+
+// HasMonthlyCost returns a boolean if a field has been set.
+func (o *FindPurchasedService200ResponseDataInner) HasMonthlyCost() bool {
+	if o != nil && !IsNil(o.MonthlyCost) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonthlyCost gets a reference to the given float32 and assigns it to the MonthlyCost field.
+func (o *FindPurchasedService200ResponseDataInner) SetMonthlyCost(v float32) {
+	o.MonthlyCost = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +474,6 @@ func (o *FindPurchasedService200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindPurchasedService200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindPurchasedService200ResponseDataInner) GetAttributes() PurchasedService {
-	if o == nil || IsNil(o.Attributes) {
-		var ret PurchasedService
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindPurchasedService200ResponseDataInner) GetAttributesOk() (*PurchasedService, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindPurchasedService200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given PurchasedService and assigns it to the Attributes field.
-func (o *FindPurchasedService200ResponseDataInner) SetAttributes(v PurchasedService) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +592,44 @@ func (o FindPurchasedService200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindPurchasedService200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.UsersPermissionsUser) {
+		toSerialize["users_permissions_user"] = o.UsersPermissionsUser
+	}
+	if !IsNil(o.GiteaToolboxRepository) {
+		toSerialize["gitea_toolbox_repository"] = o.GiteaToolboxRepository
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.PurchaseDate) {
+		toSerialize["purchase_date"] = o.PurchaseDate
+	}
+	if !IsNil(o.AccountType) {
+		toSerialize["account_type"] = o.AccountType
+	}
+	if o.CostStats != nil {
+		toSerialize["cost_stats"] = o.CostStats
+	}
+	if !IsNil(o.ActivationDate) {
+		toSerialize["activation_date"] = o.ActivationDate
+	}
+	if !IsNil(o.TerminationDate) {
+		toSerialize["termination_date"] = o.TerminationDate
+	}
+	if !IsNil(o.ServiceUrl) {
+		toSerialize["service_url"] = o.ServiceUrl
+	}
+	if o.Configuration != nil {
+		toSerialize["configuration"] = o.Configuration
+	}
+	if !IsNil(o.MonthlyCost) {
+		toSerialize["monthly_cost"] = o.MonthlyCost
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

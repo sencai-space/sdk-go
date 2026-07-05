@@ -28,16 +28,16 @@ type CreateApprovalRequestRequestData struct {
 	// Human-readable label for the action
 	ActionLabel *string `json:"action_label,omitempty"`
 	// The action payload that will be executed on approval
-	Payload map[string]interface{} `json:"payload"`
+	Payload interface{} `json:"payload"`
 	Status string `json:"status"`
 	// { resource_count: number, resource_types: string[], estimated_impact: string }
-	BlastRadius map[string]interface{} `json:"blast_radius,omitempty"`
+	BlastRadius interface{} `json:"blast_radius,omitempty"`
 	// Estimated cost change in USD (negative = savings)
 	CostDelta *float32 `json:"cost_delta,omitempty"`
 	// Step-by-step rollback instructions
 	RollbackPlan *string `json:"rollback_plan,omitempty"`
 	// Result of pre-execution dry run
-	DryRunResult map[string]interface{} `json:"dry_run_result,omitempty"`
+	DryRunResult interface{} `json:"dry_run_result,omitempty"`
 	// Lifecycle status of the dry-run simulation
 	DryRunStatus *string `json:"dry_run_status,omitempty"`
 	// Estimated cost change in USD from running this action (negative = savings)
@@ -57,7 +57,7 @@ type _CreateApprovalRequestRequestData CreateApprovalRequestRequestData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateApprovalRequestRequestData(actionType string, payload map[string]interface{}, status string, expiresAt time.Time) *CreateApprovalRequestRequestData {
+func NewCreateApprovalRequestRequestData(actionType string, payload interface{}, status string, expiresAt time.Time) *CreateApprovalRequestRequestData {
 	this := CreateApprovalRequestRequestData{}
 	this.ActionType = actionType
 	this.Payload = payload
@@ -131,9 +131,10 @@ func (o *CreateApprovalRequestRequestData) SetActionLabel(v string) {
 }
 
 // GetPayload returns the Payload field value
-func (o *CreateApprovalRequestRequestData) GetPayload() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *CreateApprovalRequestRequestData) GetPayload() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -142,15 +143,16 @@ func (o *CreateApprovalRequestRequestData) GetPayload() map[string]interface{} {
 
 // GetPayloadOk returns a tuple with the Payload field value
 // and a boolean to check if the value has been set.
-func (o *CreateApprovalRequestRequestData) GetPayloadOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateApprovalRequestRequestData) GetPayloadOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Payload) {
+		return nil, false
 	}
-	return o.Payload, true
+	return &o.Payload, true
 }
 
 // SetPayload sets field value
-func (o *CreateApprovalRequestRequestData) SetPayload(v map[string]interface{}) {
+func (o *CreateApprovalRequestRequestData) SetPayload(v interface{}) {
 	o.Payload = v
 }
 
@@ -178,10 +180,10 @@ func (o *CreateApprovalRequestRequestData) SetStatus(v string) {
 	o.Status = v
 }
 
-// GetBlastRadius returns the BlastRadius field value if set, zero value otherwise.
-func (o *CreateApprovalRequestRequestData) GetBlastRadius() map[string]interface{} {
-	if o == nil || IsNil(o.BlastRadius) {
-		var ret map[string]interface{}
+// GetBlastRadius returns the BlastRadius field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateApprovalRequestRequestData) GetBlastRadius() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.BlastRadius
@@ -189,11 +191,12 @@ func (o *CreateApprovalRequestRequestData) GetBlastRadius() map[string]interface
 
 // GetBlastRadiusOk returns a tuple with the BlastRadius field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateApprovalRequestRequestData) GetBlastRadiusOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateApprovalRequestRequestData) GetBlastRadiusOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.BlastRadius) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.BlastRadius, true
+	return &o.BlastRadius, true
 }
 
 // HasBlastRadius returns a boolean if a field has been set.
@@ -205,8 +208,8 @@ func (o *CreateApprovalRequestRequestData) HasBlastRadius() bool {
 	return false
 }
 
-// SetBlastRadius gets a reference to the given map[string]interface{} and assigns it to the BlastRadius field.
-func (o *CreateApprovalRequestRequestData) SetBlastRadius(v map[string]interface{}) {
+// SetBlastRadius gets a reference to the given interface{} and assigns it to the BlastRadius field.
+func (o *CreateApprovalRequestRequestData) SetBlastRadius(v interface{}) {
 	o.BlastRadius = v
 }
 
@@ -274,10 +277,10 @@ func (o *CreateApprovalRequestRequestData) SetRollbackPlan(v string) {
 	o.RollbackPlan = &v
 }
 
-// GetDryRunResult returns the DryRunResult field value if set, zero value otherwise.
-func (o *CreateApprovalRequestRequestData) GetDryRunResult() map[string]interface{} {
-	if o == nil || IsNil(o.DryRunResult) {
-		var ret map[string]interface{}
+// GetDryRunResult returns the DryRunResult field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateApprovalRequestRequestData) GetDryRunResult() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.DryRunResult
@@ -285,11 +288,12 @@ func (o *CreateApprovalRequestRequestData) GetDryRunResult() map[string]interfac
 
 // GetDryRunResultOk returns a tuple with the DryRunResult field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateApprovalRequestRequestData) GetDryRunResultOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateApprovalRequestRequestData) GetDryRunResultOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.DryRunResult) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.DryRunResult, true
+	return &o.DryRunResult, true
 }
 
 // HasDryRunResult returns a boolean if a field has been set.
@@ -301,8 +305,8 @@ func (o *CreateApprovalRequestRequestData) HasDryRunResult() bool {
 	return false
 }
 
-// SetDryRunResult gets a reference to the given map[string]interface{} and assigns it to the DryRunResult field.
-func (o *CreateApprovalRequestRequestData) SetDryRunResult(v map[string]interface{}) {
+// SetDryRunResult gets a reference to the given interface{} and assigns it to the DryRunResult field.
+func (o *CreateApprovalRequestRequestData) SetDryRunResult(v interface{}) {
 	o.DryRunResult = v
 }
 
@@ -568,9 +572,11 @@ func (o CreateApprovalRequestRequestData) ToMap() (map[string]interface{}, error
 	if !IsNil(o.ActionLabel) {
 		toSerialize["action_label"] = o.ActionLabel
 	}
-	toSerialize["payload"] = o.Payload
+	if o.Payload != nil {
+		toSerialize["payload"] = o.Payload
+	}
 	toSerialize["status"] = o.Status
-	if !IsNil(o.BlastRadius) {
+	if o.BlastRadius != nil {
 		toSerialize["blast_radius"] = o.BlastRadius
 	}
 	if !IsNil(o.CostDelta) {
@@ -579,7 +585,7 @@ func (o CreateApprovalRequestRequestData) ToMap() (map[string]interface{}, error
 	if !IsNil(o.RollbackPlan) {
 		toSerialize["rollback_plan"] = o.RollbackPlan
 	}
-	if !IsNil(o.DryRunResult) {
+	if o.DryRunResult != nil {
 		toSerialize["dry_run_result"] = o.DryRunResult
 	}
 	if !IsNil(o.DryRunStatus) {

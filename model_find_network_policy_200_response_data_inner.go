@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindNetworkPolicy200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,31 @@ var _ MappedNullable = &FindNetworkPolicy200ResponseDataInner{}
 
 // FindNetworkPolicy200ResponseDataInner struct for FindNetworkPolicy200ResponseDataInner
 type FindNetworkPolicy200ResponseDataInner struct {
+	Name string `json:"name"`
+	Description *string `json:"description,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Rules interface{} `json:"rules"`
+	Scope *string `json:"scope,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	Priority *int32 `json:"priority,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *NetworkPolicy `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindNetworkPolicy200ResponseDataInner FindNetworkPolicy200ResponseDataInner
+
 // NewFindNetworkPolicy200ResponseDataInner instantiates a new FindNetworkPolicy200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindNetworkPolicy200ResponseDataInner() *FindNetworkPolicy200ResponseDataInner {
+func NewFindNetworkPolicy200ResponseDataInner(name string, rules interface{}) *FindNetworkPolicy200ResponseDataInner {
 	this := FindNetworkPolicy200ResponseDataInner{}
+	this.Name = name
+	this.Rules = rules
 	return &this
 }
 
@@ -44,6 +57,216 @@ func NewFindNetworkPolicy200ResponseDataInner() *FindNetworkPolicy200ResponseDat
 func NewFindNetworkPolicy200ResponseDataInnerWithDefaults() *FindNetworkPolicy200ResponseDataInner {
 	this := FindNetworkPolicy200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindNetworkPolicy200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindNetworkPolicy200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindNetworkPolicy200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindNetworkPolicy200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetRules returns the Rules field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *FindNetworkPolicy200ResponseDataInner) GetRules() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+
+	return o.Rules
+}
+
+// GetRulesOk returns a tuple with the Rules field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindNetworkPolicy200ResponseDataInner) GetRulesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Rules) {
+		return nil, false
+	}
+	return &o.Rules, true
+}
+
+// SetRules sets field value
+func (o *FindNetworkPolicy200ResponseDataInner) SetRules(v interface{}) {
+	o.Rules = v
+}
+
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *FindNetworkPolicy200ResponseDataInner) GetScope() string {
+	if o == nil || IsNil(o.Scope) {
+		var ret string
+		return ret
+	}
+	return *o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) GetScopeOk() (*string, bool) {
+	if o == nil || IsNil(o.Scope) {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) HasScope() bool {
+	if o != nil && !IsNil(o.Scope) {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given string and assigns it to the Scope field.
+func (o *FindNetworkPolicy200ResponseDataInner) SetScope(v string) {
+	o.Scope = &v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindNetworkPolicy200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindNetworkPolicy200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetPriority returns the Priority field value if set, zero value otherwise.
+func (o *FindNetworkPolicy200ResponseDataInner) GetPriority() int32 {
+	if o == nil || IsNil(o.Priority) {
+		var ret int32
+		return ret
+	}
+	return *o.Priority
+}
+
+// GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) GetPriorityOk() (*int32, bool) {
+	if o == nil || IsNil(o.Priority) {
+		return nil, false
+	}
+	return o.Priority, true
+}
+
+// HasPriority returns a boolean if a field has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) HasPriority() bool {
+	if o != nil && !IsNil(o.Priority) {
+		return true
+	}
+
+	return false
+}
+
+// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
+func (o *FindNetworkPolicy200ResponseDataInner) SetPriority(v int32) {
+	o.Priority = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindNetworkPolicy200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindNetworkPolicy200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindNetworkPolicy200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +331,6 @@ func (o *FindNetworkPolicy200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindNetworkPolicy200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindNetworkPolicy200ResponseDataInner) GetAttributes() NetworkPolicy {
-	if o == nil || IsNil(o.Attributes) {
-		var ret NetworkPolicy
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindNetworkPolicy200ResponseDataInner) GetAttributesOk() (*NetworkPolicy, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindNetworkPolicy200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given NetworkPolicy and assigns it to the Attributes field.
-func (o *FindNetworkPolicy200ResponseDataInner) SetAttributes(v NetworkPolicy) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +449,30 @@ func (o FindNetworkPolicy200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindNetworkPolicy200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if o.Rules != nil {
+		toSerialize["rules"] = o.Rules
+	}
+	if !IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.Priority) {
+		toSerialize["priority"] = o.Priority
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +484,44 @@ func (o FindNetworkPolicy200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindNetworkPolicy200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"rules",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindNetworkPolicy200ResponseDataInner := _FindNetworkPolicy200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindNetworkPolicy200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindNetworkPolicy200ResponseDataInner(varFindNetworkPolicy200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindNetworkPolicy200ResponseDataInner struct {

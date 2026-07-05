@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindOrganisationRelationship200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,41 @@ var _ MappedNullable = &FindOrganisationRelationship200ResponseDataInner{}
 
 // FindOrganisationRelationship200ResponseDataInner struct for FindOrganisationRelationship200ResponseDataInner
 type FindOrganisationRelationship200ResponseDataInner struct {
+	ParentOrg *CreateAccessReviewRequestDataReviewer `json:"parent_org,omitempty"`
+	ChildOrg *CreateAccessReviewRequestDataReviewer `json:"child_org,omitempty"`
+	Type string `json:"type"`
+	// List of capability names parent org has over child org
+	Scope interface{} `json:"scope,omitempty"`
+	Status string `json:"status"`
+	GrantedBy *CreateAccessReviewRequestDataReviewer `json:"granted_by,omitempty"`
+	// Child org owner must explicitly accept the relationship
+	AcceptedByManaged *bool `json:"accepted_by_managed,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	Notes *string `json:"notes,omitempty"`
+	// Logical data-residency region of the tenant (CELL invariant, F2.CELL.01)
+	HomeRegion string `json:"home_region"`
+	// Deployment cell within home_region for blast-radius isolation (CELL invariant, F2.CELL.01)
+	CellId *string `json:"cell_id,omitempty"`
+	// Who is billed: agency_billed = operator pays for managed tenant; managed_billed = tenant pays separately; sencai_internal = Sencai-internal relationship
+	BillingModel *string `json:"billing_model,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *OrganisationRelationship `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindOrganisationRelationship200ResponseDataInner FindOrganisationRelationship200ResponseDataInner
+
 // NewFindOrganisationRelationship200ResponseDataInner instantiates a new FindOrganisationRelationship200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindOrganisationRelationship200ResponseDataInner() *FindOrganisationRelationship200ResponseDataInner {
+func NewFindOrganisationRelationship200ResponseDataInner(type_ string, status string, homeRegion string) *FindOrganisationRelationship200ResponseDataInner {
 	this := FindOrganisationRelationship200ResponseDataInner{}
+	this.Type = type_
+	this.Status = status
+	this.HomeRegion = homeRegion
 	return &this
 }
 
@@ -44,6 +67,367 @@ func NewFindOrganisationRelationship200ResponseDataInner() *FindOrganisationRela
 func NewFindOrganisationRelationship200ResponseDataInnerWithDefaults() *FindOrganisationRelationship200ResponseDataInner {
 	this := FindOrganisationRelationship200ResponseDataInner{}
 	return &this
+}
+
+// GetParentOrg returns the ParentOrg field value if set, zero value otherwise.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetParentOrg() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.ParentOrg) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.ParentOrg
+}
+
+// GetParentOrgOk returns a tuple with the ParentOrg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetParentOrgOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.ParentOrg) {
+		return nil, false
+	}
+	return o.ParentOrg, true
+}
+
+// HasParentOrg returns a boolean if a field has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) HasParentOrg() bool {
+	if o != nil && !IsNil(o.ParentOrg) {
+		return true
+	}
+
+	return false
+}
+
+// SetParentOrg gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the ParentOrg field.
+func (o *FindOrganisationRelationship200ResponseDataInner) SetParentOrg(v CreateAccessReviewRequestDataReviewer) {
+	o.ParentOrg = &v
+}
+
+// GetChildOrg returns the ChildOrg field value if set, zero value otherwise.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetChildOrg() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.ChildOrg) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.ChildOrg
+}
+
+// GetChildOrgOk returns a tuple with the ChildOrg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetChildOrgOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.ChildOrg) {
+		return nil, false
+	}
+	return o.ChildOrg, true
+}
+
+// HasChildOrg returns a boolean if a field has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) HasChildOrg() bool {
+	if o != nil && !IsNil(o.ChildOrg) {
+		return true
+	}
+
+	return false
+}
+
+// SetChildOrg gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the ChildOrg field.
+func (o *FindOrganisationRelationship200ResponseDataInner) SetChildOrg(v CreateAccessReviewRequestDataReviewer) {
+	o.ChildOrg = &v
+}
+
+// GetType returns the Type field value
+func (o *FindOrganisationRelationship200ResponseDataInner) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *FindOrganisationRelationship200ResponseDataInner) SetType(v string) {
+	o.Type = v
+}
+
+// GetScope returns the Scope field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindOrganisationRelationship200ResponseDataInner) GetScope() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindOrganisationRelationship200ResponseDataInner) GetScopeOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Scope) {
+		return nil, false
+	}
+	return &o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) HasScope() bool {
+	if o != nil && !IsNil(o.Scope) {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given interface{} and assigns it to the Scope field.
+func (o *FindOrganisationRelationship200ResponseDataInner) SetScope(v interface{}) {
+	o.Scope = v
+}
+
+// GetStatus returns the Status field value
+func (o *FindOrganisationRelationship200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindOrganisationRelationship200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetGrantedBy returns the GrantedBy field value if set, zero value otherwise.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetGrantedBy() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.GrantedBy) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.GrantedBy
+}
+
+// GetGrantedByOk returns a tuple with the GrantedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetGrantedByOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.GrantedBy) {
+		return nil, false
+	}
+	return o.GrantedBy, true
+}
+
+// HasGrantedBy returns a boolean if a field has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) HasGrantedBy() bool {
+	if o != nil && !IsNil(o.GrantedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetGrantedBy gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the GrantedBy field.
+func (o *FindOrganisationRelationship200ResponseDataInner) SetGrantedBy(v CreateAccessReviewRequestDataReviewer) {
+	o.GrantedBy = &v
+}
+
+// GetAcceptedByManaged returns the AcceptedByManaged field value if set, zero value otherwise.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetAcceptedByManaged() bool {
+	if o == nil || IsNil(o.AcceptedByManaged) {
+		var ret bool
+		return ret
+	}
+	return *o.AcceptedByManaged
+}
+
+// GetAcceptedByManagedOk returns a tuple with the AcceptedByManaged field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetAcceptedByManagedOk() (*bool, bool) {
+	if o == nil || IsNil(o.AcceptedByManaged) {
+		return nil, false
+	}
+	return o.AcceptedByManaged, true
+}
+
+// HasAcceptedByManaged returns a boolean if a field has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) HasAcceptedByManaged() bool {
+	if o != nil && !IsNil(o.AcceptedByManaged) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcceptedByManaged gets a reference to the given bool and assigns it to the AcceptedByManaged field.
+func (o *FindOrganisationRelationship200ResponseDataInner) SetAcceptedByManaged(v bool) {
+	o.AcceptedByManaged = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *FindOrganisationRelationship200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindOrganisationRelationship200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
+}
+
+// GetHomeRegion returns the HomeRegion field value
+func (o *FindOrganisationRelationship200ResponseDataInner) GetHomeRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.HomeRegion
+}
+
+// GetHomeRegionOk returns a tuple with the HomeRegion field value
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetHomeRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HomeRegion, true
+}
+
+// SetHomeRegion sets field value
+func (o *FindOrganisationRelationship200ResponseDataInner) SetHomeRegion(v string) {
+	o.HomeRegion = v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindOrganisationRelationship200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
+}
+
+// GetBillingModel returns the BillingModel field value if set, zero value otherwise.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetBillingModel() string {
+	if o == nil || IsNil(o.BillingModel) {
+		var ret string
+		return ret
+	}
+	return *o.BillingModel
+}
+
+// GetBillingModelOk returns a tuple with the BillingModel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) GetBillingModelOk() (*string, bool) {
+	if o == nil || IsNil(o.BillingModel) {
+		return nil, false
+	}
+	return o.BillingModel, true
+}
+
+// HasBillingModel returns a boolean if a field has been set.
+func (o *FindOrganisationRelationship200ResponseDataInner) HasBillingModel() bool {
+	if o != nil && !IsNil(o.BillingModel) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillingModel gets a reference to the given string and assigns it to the BillingModel field.
+func (o *FindOrganisationRelationship200ResponseDataInner) SetBillingModel(v string) {
+	o.BillingModel = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +492,6 @@ func (o *FindOrganisationRelationship200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindOrganisationRelationship200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindOrganisationRelationship200ResponseDataInner) GetAttributes() OrganisationRelationship {
-	if o == nil || IsNil(o.Attributes) {
-		var ret OrganisationRelationship
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindOrganisationRelationship200ResponseDataInner) GetAttributesOk() (*OrganisationRelationship, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindOrganisationRelationship200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given OrganisationRelationship and assigns it to the Attributes field.
-func (o *FindOrganisationRelationship200ResponseDataInner) SetAttributes(v OrganisationRelationship) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +610,41 @@ func (o FindOrganisationRelationship200ResponseDataInner) MarshalJSON() ([]byte,
 
 func (o FindOrganisationRelationship200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ParentOrg) {
+		toSerialize["parent_org"] = o.ParentOrg
+	}
+	if !IsNil(o.ChildOrg) {
+		toSerialize["child_org"] = o.ChildOrg
+	}
+	toSerialize["type"] = o.Type
+	if o.Scope != nil {
+		toSerialize["scope"] = o.Scope
+	}
+	toSerialize["status"] = o.Status
+	if !IsNil(o.GrantedBy) {
+		toSerialize["granted_by"] = o.GrantedBy
+	}
+	if !IsNil(o.AcceptedByManaged) {
+		toSerialize["accepted_by_managed"] = o.AcceptedByManaged
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
+	toSerialize["home_region"] = o.HomeRegion
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
+	if !IsNil(o.BillingModel) {
+		toSerialize["billing_model"] = o.BillingModel
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +656,45 @@ func (o FindOrganisationRelationship200ResponseDataInner) ToMap() (map[string]in
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindOrganisationRelationship200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"status",
+		"home_region",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindOrganisationRelationship200ResponseDataInner := _FindOrganisationRelationship200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindOrganisationRelationship200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindOrganisationRelationship200ResponseDataInner(varFindOrganisationRelationship200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindOrganisationRelationship200ResponseDataInner struct {

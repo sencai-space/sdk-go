@@ -26,7 +26,8 @@ type EscalationPolicy struct {
 	Provider *string `json:"provider,omitempty"`
 	RoutingKey *string `json:"routing_key,omitempty"`
 	ApiKeyEncrypted *string `json:"api_key_encrypted,omitempty"`
-	SeverityMap map[string]interface{} `json:"severity_map,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	SeverityMap interface{} `json:"severity_map,omitempty"`
 	Enabled *bool `json:"enabled,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
@@ -171,10 +172,10 @@ func (o *EscalationPolicy) SetApiKeyEncrypted(v string) {
 	o.ApiKeyEncrypted = &v
 }
 
-// GetSeverityMap returns the SeverityMap field value if set, zero value otherwise.
-func (o *EscalationPolicy) GetSeverityMap() map[string]interface{} {
-	if o == nil || IsNil(o.SeverityMap) {
-		var ret map[string]interface{}
+// GetSeverityMap returns the SeverityMap field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *EscalationPolicy) GetSeverityMap() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.SeverityMap
@@ -182,11 +183,12 @@ func (o *EscalationPolicy) GetSeverityMap() map[string]interface{} {
 
 // GetSeverityMapOk returns a tuple with the SeverityMap field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EscalationPolicy) GetSeverityMapOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *EscalationPolicy) GetSeverityMapOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.SeverityMap) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.SeverityMap, true
+	return &o.SeverityMap, true
 }
 
 // HasSeverityMap returns a boolean if a field has been set.
@@ -198,8 +200,8 @@ func (o *EscalationPolicy) HasSeverityMap() bool {
 	return false
 }
 
-// SetSeverityMap gets a reference to the given map[string]interface{} and assigns it to the SeverityMap field.
-func (o *EscalationPolicy) SetSeverityMap(v map[string]interface{}) {
+// SetSeverityMap gets a reference to the given interface{} and assigns it to the SeverityMap field.
+func (o *EscalationPolicy) SetSeverityMap(v interface{}) {
 	o.SeverityMap = v
 }
 
@@ -287,7 +289,7 @@ func (o EscalationPolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ApiKeyEncrypted) {
 		toSerialize["api_key_encrypted"] = o.ApiKeyEncrypted
 	}
-	if !IsNil(o.SeverityMap) {
+	if o.SeverityMap != nil {
 		toSerialize["severity_map"] = o.SeverityMap
 	}
 	if !IsNil(o.Enabled) {

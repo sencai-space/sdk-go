@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindRateLimitPolicy200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,32 @@ var _ MappedNullable = &FindRateLimitPolicy200ResponseDataInner{}
 
 // FindRateLimitPolicy200ResponseDataInner struct for FindRateLimitPolicy200ResponseDataInner
 type FindRateLimitPolicy200ResponseDataInner struct {
+	Name string `json:"name"`
+	Tier *string `json:"tier,omitempty"`
+	EndpointPattern *string `json:"endpoint_pattern,omitempty"`
+	RequestsPerMinute *int32 `json:"requests_per_minute,omitempty"`
+	BurstAllowance *int32 `json:"burst_allowance,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	AiTokensPerMinute *int32 `json:"ai_tokens_per_minute,omitempty"`
+	AiTokensPerDay *int32 `json:"ai_tokens_per_day,omitempty"`
+	AiHallucinationThreshold *float32 `json:"ai_hallucination_threshold,omitempty"`
+	AiRateLimitEnabled *bool `json:"ai_rate_limit_enabled,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *RateLimitPolicy `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindRateLimitPolicy200ResponseDataInner FindRateLimitPolicy200ResponseDataInner
+
 // NewFindRateLimitPolicy200ResponseDataInner instantiates a new FindRateLimitPolicy200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindRateLimitPolicy200ResponseDataInner() *FindRateLimitPolicy200ResponseDataInner {
+func NewFindRateLimitPolicy200ResponseDataInner(name string) *FindRateLimitPolicy200ResponseDataInner {
 	this := FindRateLimitPolicy200ResponseDataInner{}
+	this.Name = name
 	return &this
 }
 
@@ -44,6 +58,318 @@ func NewFindRateLimitPolicy200ResponseDataInner() *FindRateLimitPolicy200Respons
 func NewFindRateLimitPolicy200ResponseDataInnerWithDefaults() *FindRateLimitPolicy200ResponseDataInner {
 	this := FindRateLimitPolicy200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindRateLimitPolicy200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindRateLimitPolicy200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetTier returns the Tier field value if set, zero value otherwise.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetTier() string {
+	if o == nil || IsNil(o.Tier) {
+		var ret string
+		return ret
+	}
+	return *o.Tier
+}
+
+// GetTierOk returns a tuple with the Tier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetTierOk() (*string, bool) {
+	if o == nil || IsNil(o.Tier) {
+		return nil, false
+	}
+	return o.Tier, true
+}
+
+// HasTier returns a boolean if a field has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) HasTier() bool {
+	if o != nil && !IsNil(o.Tier) {
+		return true
+	}
+
+	return false
+}
+
+// SetTier gets a reference to the given string and assigns it to the Tier field.
+func (o *FindRateLimitPolicy200ResponseDataInner) SetTier(v string) {
+	o.Tier = &v
+}
+
+// GetEndpointPattern returns the EndpointPattern field value if set, zero value otherwise.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetEndpointPattern() string {
+	if o == nil || IsNil(o.EndpointPattern) {
+		var ret string
+		return ret
+	}
+	return *o.EndpointPattern
+}
+
+// GetEndpointPatternOk returns a tuple with the EndpointPattern field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetEndpointPatternOk() (*string, bool) {
+	if o == nil || IsNil(o.EndpointPattern) {
+		return nil, false
+	}
+	return o.EndpointPattern, true
+}
+
+// HasEndpointPattern returns a boolean if a field has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) HasEndpointPattern() bool {
+	if o != nil && !IsNil(o.EndpointPattern) {
+		return true
+	}
+
+	return false
+}
+
+// SetEndpointPattern gets a reference to the given string and assigns it to the EndpointPattern field.
+func (o *FindRateLimitPolicy200ResponseDataInner) SetEndpointPattern(v string) {
+	o.EndpointPattern = &v
+}
+
+// GetRequestsPerMinute returns the RequestsPerMinute field value if set, zero value otherwise.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetRequestsPerMinute() int32 {
+	if o == nil || IsNil(o.RequestsPerMinute) {
+		var ret int32
+		return ret
+	}
+	return *o.RequestsPerMinute
+}
+
+// GetRequestsPerMinuteOk returns a tuple with the RequestsPerMinute field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetRequestsPerMinuteOk() (*int32, bool) {
+	if o == nil || IsNil(o.RequestsPerMinute) {
+		return nil, false
+	}
+	return o.RequestsPerMinute, true
+}
+
+// HasRequestsPerMinute returns a boolean if a field has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) HasRequestsPerMinute() bool {
+	if o != nil && !IsNil(o.RequestsPerMinute) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestsPerMinute gets a reference to the given int32 and assigns it to the RequestsPerMinute field.
+func (o *FindRateLimitPolicy200ResponseDataInner) SetRequestsPerMinute(v int32) {
+	o.RequestsPerMinute = &v
+}
+
+// GetBurstAllowance returns the BurstAllowance field value if set, zero value otherwise.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetBurstAllowance() int32 {
+	if o == nil || IsNil(o.BurstAllowance) {
+		var ret int32
+		return ret
+	}
+	return *o.BurstAllowance
+}
+
+// GetBurstAllowanceOk returns a tuple with the BurstAllowance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetBurstAllowanceOk() (*int32, bool) {
+	if o == nil || IsNil(o.BurstAllowance) {
+		return nil, false
+	}
+	return o.BurstAllowance, true
+}
+
+// HasBurstAllowance returns a boolean if a field has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) HasBurstAllowance() bool {
+	if o != nil && !IsNil(o.BurstAllowance) {
+		return true
+	}
+
+	return false
+}
+
+// SetBurstAllowance gets a reference to the given int32 and assigns it to the BurstAllowance field.
+func (o *FindRateLimitPolicy200ResponseDataInner) SetBurstAllowance(v int32) {
+	o.BurstAllowance = &v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindRateLimitPolicy200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetAiTokensPerMinute returns the AiTokensPerMinute field value if set, zero value otherwise.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetAiTokensPerMinute() int32 {
+	if o == nil || IsNil(o.AiTokensPerMinute) {
+		var ret int32
+		return ret
+	}
+	return *o.AiTokensPerMinute
+}
+
+// GetAiTokensPerMinuteOk returns a tuple with the AiTokensPerMinute field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetAiTokensPerMinuteOk() (*int32, bool) {
+	if o == nil || IsNil(o.AiTokensPerMinute) {
+		return nil, false
+	}
+	return o.AiTokensPerMinute, true
+}
+
+// HasAiTokensPerMinute returns a boolean if a field has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) HasAiTokensPerMinute() bool {
+	if o != nil && !IsNil(o.AiTokensPerMinute) {
+		return true
+	}
+
+	return false
+}
+
+// SetAiTokensPerMinute gets a reference to the given int32 and assigns it to the AiTokensPerMinute field.
+func (o *FindRateLimitPolicy200ResponseDataInner) SetAiTokensPerMinute(v int32) {
+	o.AiTokensPerMinute = &v
+}
+
+// GetAiTokensPerDay returns the AiTokensPerDay field value if set, zero value otherwise.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetAiTokensPerDay() int32 {
+	if o == nil || IsNil(o.AiTokensPerDay) {
+		var ret int32
+		return ret
+	}
+	return *o.AiTokensPerDay
+}
+
+// GetAiTokensPerDayOk returns a tuple with the AiTokensPerDay field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetAiTokensPerDayOk() (*int32, bool) {
+	if o == nil || IsNil(o.AiTokensPerDay) {
+		return nil, false
+	}
+	return o.AiTokensPerDay, true
+}
+
+// HasAiTokensPerDay returns a boolean if a field has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) HasAiTokensPerDay() bool {
+	if o != nil && !IsNil(o.AiTokensPerDay) {
+		return true
+	}
+
+	return false
+}
+
+// SetAiTokensPerDay gets a reference to the given int32 and assigns it to the AiTokensPerDay field.
+func (o *FindRateLimitPolicy200ResponseDataInner) SetAiTokensPerDay(v int32) {
+	o.AiTokensPerDay = &v
+}
+
+// GetAiHallucinationThreshold returns the AiHallucinationThreshold field value if set, zero value otherwise.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetAiHallucinationThreshold() float32 {
+	if o == nil || IsNil(o.AiHallucinationThreshold) {
+		var ret float32
+		return ret
+	}
+	return *o.AiHallucinationThreshold
+}
+
+// GetAiHallucinationThresholdOk returns a tuple with the AiHallucinationThreshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetAiHallucinationThresholdOk() (*float32, bool) {
+	if o == nil || IsNil(o.AiHallucinationThreshold) {
+		return nil, false
+	}
+	return o.AiHallucinationThreshold, true
+}
+
+// HasAiHallucinationThreshold returns a boolean if a field has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) HasAiHallucinationThreshold() bool {
+	if o != nil && !IsNil(o.AiHallucinationThreshold) {
+		return true
+	}
+
+	return false
+}
+
+// SetAiHallucinationThreshold gets a reference to the given float32 and assigns it to the AiHallucinationThreshold field.
+func (o *FindRateLimitPolicy200ResponseDataInner) SetAiHallucinationThreshold(v float32) {
+	o.AiHallucinationThreshold = &v
+}
+
+// GetAiRateLimitEnabled returns the AiRateLimitEnabled field value if set, zero value otherwise.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetAiRateLimitEnabled() bool {
+	if o == nil || IsNil(o.AiRateLimitEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.AiRateLimitEnabled
+}
+
+// GetAiRateLimitEnabledOk returns a tuple with the AiRateLimitEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) GetAiRateLimitEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.AiRateLimitEnabled) {
+		return nil, false
+	}
+	return o.AiRateLimitEnabled, true
+}
+
+// HasAiRateLimitEnabled returns a boolean if a field has been set.
+func (o *FindRateLimitPolicy200ResponseDataInner) HasAiRateLimitEnabled() bool {
+	if o != nil && !IsNil(o.AiRateLimitEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetAiRateLimitEnabled gets a reference to the given bool and assigns it to the AiRateLimitEnabled field.
+func (o *FindRateLimitPolicy200ResponseDataInner) SetAiRateLimitEnabled(v bool) {
+	o.AiRateLimitEnabled = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +434,6 @@ func (o *FindRateLimitPolicy200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindRateLimitPolicy200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindRateLimitPolicy200ResponseDataInner) GetAttributes() RateLimitPolicy {
-	if o == nil || IsNil(o.Attributes) {
-		var ret RateLimitPolicy
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindRateLimitPolicy200ResponseDataInner) GetAttributesOk() (*RateLimitPolicy, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindRateLimitPolicy200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given RateLimitPolicy and assigns it to the Attributes field.
-func (o *FindRateLimitPolicy200ResponseDataInner) SetAttributes(v RateLimitPolicy) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +552,39 @@ func (o FindRateLimitPolicy200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindRateLimitPolicy200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Tier) {
+		toSerialize["tier"] = o.Tier
+	}
+	if !IsNil(o.EndpointPattern) {
+		toSerialize["endpoint_pattern"] = o.EndpointPattern
+	}
+	if !IsNil(o.RequestsPerMinute) {
+		toSerialize["requests_per_minute"] = o.RequestsPerMinute
+	}
+	if !IsNil(o.BurstAllowance) {
+		toSerialize["burst_allowance"] = o.BurstAllowance
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.AiTokensPerMinute) {
+		toSerialize["ai_tokens_per_minute"] = o.AiTokensPerMinute
+	}
+	if !IsNil(o.AiTokensPerDay) {
+		toSerialize["ai_tokens_per_day"] = o.AiTokensPerDay
+	}
+	if !IsNil(o.AiHallucinationThreshold) {
+		toSerialize["ai_hallucination_threshold"] = o.AiHallucinationThreshold
+	}
+	if !IsNil(o.AiRateLimitEnabled) {
+		toSerialize["ai_rate_limit_enabled"] = o.AiRateLimitEnabled
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +596,43 @@ func (o FindRateLimitPolicy200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindRateLimitPolicy200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindRateLimitPolicy200ResponseDataInner := _FindRateLimitPolicy200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindRateLimitPolicy200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindRateLimitPolicy200ResponseDataInner(varFindRateLimitPolicy200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindRateLimitPolicy200ResponseDataInner struct {

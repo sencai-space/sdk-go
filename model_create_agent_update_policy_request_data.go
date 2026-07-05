@@ -27,7 +27,8 @@ type CreateAgentUpdatePolicyRequestData struct {
 	BinarySha256 *string `json:"binary_sha256,omitempty"`
 	CosignSignature *string `json:"cosign_signature,omitempty"`
 	SbomUrl *string `json:"sbom_url,omitempty"`
-	StagedRollout map[string]interface{} `json:"staged_rollout,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	StagedRollout interface{} `json:"staged_rollout,omitempty"`
 	CurrentRing *string `json:"current_ring,omitempty"`
 	HealthcheckFailures *int32 `json:"healthcheck_failures,omitempty"`
 	AutoPauseThreshold *int32 `json:"auto_pause_threshold,omitempty"`
@@ -208,10 +209,10 @@ func (o *CreateAgentUpdatePolicyRequestData) SetSbomUrl(v string) {
 	o.SbomUrl = &v
 }
 
-// GetStagedRollout returns the StagedRollout field value if set, zero value otherwise.
-func (o *CreateAgentUpdatePolicyRequestData) GetStagedRollout() map[string]interface{} {
-	if o == nil || IsNil(o.StagedRollout) {
-		var ret map[string]interface{}
+// GetStagedRollout returns the StagedRollout field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateAgentUpdatePolicyRequestData) GetStagedRollout() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.StagedRollout
@@ -219,11 +220,12 @@ func (o *CreateAgentUpdatePolicyRequestData) GetStagedRollout() map[string]inter
 
 // GetStagedRolloutOk returns a tuple with the StagedRollout field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateAgentUpdatePolicyRequestData) GetStagedRolloutOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateAgentUpdatePolicyRequestData) GetStagedRolloutOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.StagedRollout) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.StagedRollout, true
+	return &o.StagedRollout, true
 }
 
 // HasStagedRollout returns a boolean if a field has been set.
@@ -235,8 +237,8 @@ func (o *CreateAgentUpdatePolicyRequestData) HasStagedRollout() bool {
 	return false
 }
 
-// SetStagedRollout gets a reference to the given map[string]interface{} and assigns it to the StagedRollout field.
-func (o *CreateAgentUpdatePolicyRequestData) SetStagedRollout(v map[string]interface{}) {
+// SetStagedRollout gets a reference to the given interface{} and assigns it to the StagedRollout field.
+func (o *CreateAgentUpdatePolicyRequestData) SetStagedRollout(v interface{}) {
 	o.StagedRollout = v
 }
 
@@ -455,7 +457,7 @@ func (o CreateAgentUpdatePolicyRequestData) ToMap() (map[string]interface{}, err
 	if !IsNil(o.SbomUrl) {
 		toSerialize["sbom_url"] = o.SbomUrl
 	}
-	if !IsNil(o.StagedRollout) {
+	if o.StagedRollout != nil {
 		toSerialize["staged_rollout"] = o.StagedRollout
 	}
 	if !IsNil(o.CurrentRing) {

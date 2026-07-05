@@ -27,7 +27,8 @@ type PlatformEvent struct {
 	SourceService string `json:"source_service"`
 	CorrelationId *string `json:"correlation_id,omitempty"`
 	IdempotencyKey *string `json:"idempotency_key,omitempty"`
-	Payload map[string]interface{} `json:"payload"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Payload interface{} `json:"payload"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	ActorUserId *string `json:"actor_user_id,omitempty"`
 	RiskLevel *string `json:"risk_level,omitempty"`
@@ -41,7 +42,7 @@ type _PlatformEvent PlatformEvent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPlatformEvent(eventType string, sourceService string, payload map[string]interface{}) *PlatformEvent {
+func NewPlatformEvent(eventType string, sourceService string, payload interface{}) *PlatformEvent {
 	this := PlatformEvent{}
 	this.EventType = eventType
 	this.SourceService = sourceService
@@ -170,9 +171,10 @@ func (o *PlatformEvent) SetIdempotencyKey(v string) {
 }
 
 // GetPayload returns the Payload field value
-func (o *PlatformEvent) GetPayload() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *PlatformEvent) GetPayload() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -181,15 +183,16 @@ func (o *PlatformEvent) GetPayload() map[string]interface{} {
 
 // GetPayloadOk returns a tuple with the Payload field value
 // and a boolean to check if the value has been set.
-func (o *PlatformEvent) GetPayloadOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PlatformEvent) GetPayloadOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Payload) {
+		return nil, false
 	}
-	return o.Payload, true
+	return &o.Payload, true
 }
 
 // SetPayload sets field value
-func (o *PlatformEvent) SetPayload(v map[string]interface{}) {
+func (o *PlatformEvent) SetPayload(v interface{}) {
 	o.Payload = v
 }
 
@@ -371,7 +374,9 @@ func (o PlatformEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IdempotencyKey) {
 		toSerialize["idempotency_key"] = o.IdempotencyKey
 	}
-	toSerialize["payload"] = o.Payload
+	if o.Payload != nil {
+		toSerialize["payload"] = o.Payload
+	}
 	if !IsNil(o.Organisation) {
 		toSerialize["organisation"] = o.Organisation
 	}

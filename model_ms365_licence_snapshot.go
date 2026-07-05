@@ -24,8 +24,10 @@ var _ MappedNullable = &Ms365LicenceSnapshot{}
 // Ms365LicenceSnapshot struct for Ms365LicenceSnapshot
 type Ms365LicenceSnapshot struct {
 	FetchedAt time.Time `json:"fetched_at"`
-	Licences map[string]interface{} `json:"licences,omitempty"`
-	UserSummary map[string]interface{} `json:"user_summary,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Licences interface{} `json:"licences,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	UserSummary interface{} `json:"user_summary,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
 
@@ -73,10 +75,10 @@ func (o *Ms365LicenceSnapshot) SetFetchedAt(v time.Time) {
 	o.FetchedAt = v
 }
 
-// GetLicences returns the Licences field value if set, zero value otherwise.
-func (o *Ms365LicenceSnapshot) GetLicences() map[string]interface{} {
-	if o == nil || IsNil(o.Licences) {
-		var ret map[string]interface{}
+// GetLicences returns the Licences field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Ms365LicenceSnapshot) GetLicences() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Licences
@@ -84,11 +86,12 @@ func (o *Ms365LicenceSnapshot) GetLicences() map[string]interface{} {
 
 // GetLicencesOk returns a tuple with the Licences field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Ms365LicenceSnapshot) GetLicencesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Ms365LicenceSnapshot) GetLicencesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Licences) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Licences, true
+	return &o.Licences, true
 }
 
 // HasLicences returns a boolean if a field has been set.
@@ -100,15 +103,15 @@ func (o *Ms365LicenceSnapshot) HasLicences() bool {
 	return false
 }
 
-// SetLicences gets a reference to the given map[string]interface{} and assigns it to the Licences field.
-func (o *Ms365LicenceSnapshot) SetLicences(v map[string]interface{}) {
+// SetLicences gets a reference to the given interface{} and assigns it to the Licences field.
+func (o *Ms365LicenceSnapshot) SetLicences(v interface{}) {
 	o.Licences = v
 }
 
-// GetUserSummary returns the UserSummary field value if set, zero value otherwise.
-func (o *Ms365LicenceSnapshot) GetUserSummary() map[string]interface{} {
-	if o == nil || IsNil(o.UserSummary) {
-		var ret map[string]interface{}
+// GetUserSummary returns the UserSummary field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Ms365LicenceSnapshot) GetUserSummary() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.UserSummary
@@ -116,11 +119,12 @@ func (o *Ms365LicenceSnapshot) GetUserSummary() map[string]interface{} {
 
 // GetUserSummaryOk returns a tuple with the UserSummary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Ms365LicenceSnapshot) GetUserSummaryOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Ms365LicenceSnapshot) GetUserSummaryOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.UserSummary) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.UserSummary, true
+	return &o.UserSummary, true
 }
 
 // HasUserSummary returns a boolean if a field has been set.
@@ -132,8 +136,8 @@ func (o *Ms365LicenceSnapshot) HasUserSummary() bool {
 	return false
 }
 
-// SetUserSummary gets a reference to the given map[string]interface{} and assigns it to the UserSummary field.
-func (o *Ms365LicenceSnapshot) SetUserSummary(v map[string]interface{}) {
+// SetUserSummary gets a reference to the given interface{} and assigns it to the UserSummary field.
+func (o *Ms365LicenceSnapshot) SetUserSummary(v interface{}) {
 	o.UserSummary = v
 }
 
@@ -180,10 +184,10 @@ func (o Ms365LicenceSnapshot) MarshalJSON() ([]byte, error) {
 func (o Ms365LicenceSnapshot) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["fetched_at"] = o.FetchedAt
-	if !IsNil(o.Licences) {
+	if o.Licences != nil {
 		toSerialize["licences"] = o.Licences
 	}
-	if !IsNil(o.UserSummary) {
+	if o.UserSummary != nil {
 		toSerialize["user_summary"] = o.UserSummary
 	}
 	if !IsNil(o.Organisation) {

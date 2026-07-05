@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindDnsRecord200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,38 @@ var _ MappedNullable = &FindDnsRecord200ResponseDataInner{}
 
 // FindDnsRecord200ResponseDataInner struct for FindDnsRecord200ResponseDataInner
 type FindDnsRecord200ResponseDataInner struct {
+	Zone *CreateAccessReviewRequestDataReviewer `json:"zone,omitempty"`
+	Type string `json:"type"`
+	// Relative record name (@, www, mail, ...). @ denotes the zone apex.
+	Name string `json:"name"`
+	// Record target value (IP address, domain, TXT content, etc.).
+	Value string `json:"value"`
+	Ttl *int32 `json:"ttl,omitempty"`
+	Weight *int32 `json:"weight,omitempty"`
+	// Priority for MX and SRV records.
+	Priority *int32 `json:"priority,omitempty"`
+	GeoLocation *string `json:"geo_location,omitempty"`
+	// Provider-side record identifier (for update/delete operations).
+	ProviderRecordId *string `json:"provider_record_id,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *DnsRecord `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindDnsRecord200ResponseDataInner FindDnsRecord200ResponseDataInner
+
 // NewFindDnsRecord200ResponseDataInner instantiates a new FindDnsRecord200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindDnsRecord200ResponseDataInner() *FindDnsRecord200ResponseDataInner {
+func NewFindDnsRecord200ResponseDataInner(type_ string, name string, value string) *FindDnsRecord200ResponseDataInner {
 	this := FindDnsRecord200ResponseDataInner{}
+	this.Type = type_
+	this.Name = name
+	this.Value = value
 	return &this
 }
 
@@ -44,6 +64,302 @@ func NewFindDnsRecord200ResponseDataInner() *FindDnsRecord200ResponseDataInner {
 func NewFindDnsRecord200ResponseDataInnerWithDefaults() *FindDnsRecord200ResponseDataInner {
 	this := FindDnsRecord200ResponseDataInner{}
 	return &this
+}
+
+// GetZone returns the Zone field value if set, zero value otherwise.
+func (o *FindDnsRecord200ResponseDataInner) GetZone() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Zone) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Zone
+}
+
+// GetZoneOk returns a tuple with the Zone field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDnsRecord200ResponseDataInner) GetZoneOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Zone) {
+		return nil, false
+	}
+	return o.Zone, true
+}
+
+// HasZone returns a boolean if a field has been set.
+func (o *FindDnsRecord200ResponseDataInner) HasZone() bool {
+	if o != nil && !IsNil(o.Zone) {
+		return true
+	}
+
+	return false
+}
+
+// SetZone gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Zone field.
+func (o *FindDnsRecord200ResponseDataInner) SetZone(v CreateAccessReviewRequestDataReviewer) {
+	o.Zone = &v
+}
+
+// GetType returns the Type field value
+func (o *FindDnsRecord200ResponseDataInner) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *FindDnsRecord200ResponseDataInner) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *FindDnsRecord200ResponseDataInner) SetType(v string) {
+	o.Type = v
+}
+
+// GetName returns the Name field value
+func (o *FindDnsRecord200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindDnsRecord200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindDnsRecord200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetValue returns the Value field value
+func (o *FindDnsRecord200ResponseDataInner) GetValue() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value
+// and a boolean to check if the value has been set.
+func (o *FindDnsRecord200ResponseDataInner) GetValueOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Value, true
+}
+
+// SetValue sets field value
+func (o *FindDnsRecord200ResponseDataInner) SetValue(v string) {
+	o.Value = v
+}
+
+// GetTtl returns the Ttl field value if set, zero value otherwise.
+func (o *FindDnsRecord200ResponseDataInner) GetTtl() int32 {
+	if o == nil || IsNil(o.Ttl) {
+		var ret int32
+		return ret
+	}
+	return *o.Ttl
+}
+
+// GetTtlOk returns a tuple with the Ttl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDnsRecord200ResponseDataInner) GetTtlOk() (*int32, bool) {
+	if o == nil || IsNil(o.Ttl) {
+		return nil, false
+	}
+	return o.Ttl, true
+}
+
+// HasTtl returns a boolean if a field has been set.
+func (o *FindDnsRecord200ResponseDataInner) HasTtl() bool {
+	if o != nil && !IsNil(o.Ttl) {
+		return true
+	}
+
+	return false
+}
+
+// SetTtl gets a reference to the given int32 and assigns it to the Ttl field.
+func (o *FindDnsRecord200ResponseDataInner) SetTtl(v int32) {
+	o.Ttl = &v
+}
+
+// GetWeight returns the Weight field value if set, zero value otherwise.
+func (o *FindDnsRecord200ResponseDataInner) GetWeight() int32 {
+	if o == nil || IsNil(o.Weight) {
+		var ret int32
+		return ret
+	}
+	return *o.Weight
+}
+
+// GetWeightOk returns a tuple with the Weight field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDnsRecord200ResponseDataInner) GetWeightOk() (*int32, bool) {
+	if o == nil || IsNil(o.Weight) {
+		return nil, false
+	}
+	return o.Weight, true
+}
+
+// HasWeight returns a boolean if a field has been set.
+func (o *FindDnsRecord200ResponseDataInner) HasWeight() bool {
+	if o != nil && !IsNil(o.Weight) {
+		return true
+	}
+
+	return false
+}
+
+// SetWeight gets a reference to the given int32 and assigns it to the Weight field.
+func (o *FindDnsRecord200ResponseDataInner) SetWeight(v int32) {
+	o.Weight = &v
+}
+
+// GetPriority returns the Priority field value if set, zero value otherwise.
+func (o *FindDnsRecord200ResponseDataInner) GetPriority() int32 {
+	if o == nil || IsNil(o.Priority) {
+		var ret int32
+		return ret
+	}
+	return *o.Priority
+}
+
+// GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDnsRecord200ResponseDataInner) GetPriorityOk() (*int32, bool) {
+	if o == nil || IsNil(o.Priority) {
+		return nil, false
+	}
+	return o.Priority, true
+}
+
+// HasPriority returns a boolean if a field has been set.
+func (o *FindDnsRecord200ResponseDataInner) HasPriority() bool {
+	if o != nil && !IsNil(o.Priority) {
+		return true
+	}
+
+	return false
+}
+
+// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
+func (o *FindDnsRecord200ResponseDataInner) SetPriority(v int32) {
+	o.Priority = &v
+}
+
+// GetGeoLocation returns the GeoLocation field value if set, zero value otherwise.
+func (o *FindDnsRecord200ResponseDataInner) GetGeoLocation() string {
+	if o == nil || IsNil(o.GeoLocation) {
+		var ret string
+		return ret
+	}
+	return *o.GeoLocation
+}
+
+// GetGeoLocationOk returns a tuple with the GeoLocation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDnsRecord200ResponseDataInner) GetGeoLocationOk() (*string, bool) {
+	if o == nil || IsNil(o.GeoLocation) {
+		return nil, false
+	}
+	return o.GeoLocation, true
+}
+
+// HasGeoLocation returns a boolean if a field has been set.
+func (o *FindDnsRecord200ResponseDataInner) HasGeoLocation() bool {
+	if o != nil && !IsNil(o.GeoLocation) {
+		return true
+	}
+
+	return false
+}
+
+// SetGeoLocation gets a reference to the given string and assigns it to the GeoLocation field.
+func (o *FindDnsRecord200ResponseDataInner) SetGeoLocation(v string) {
+	o.GeoLocation = &v
+}
+
+// GetProviderRecordId returns the ProviderRecordId field value if set, zero value otherwise.
+func (o *FindDnsRecord200ResponseDataInner) GetProviderRecordId() string {
+	if o == nil || IsNil(o.ProviderRecordId) {
+		var ret string
+		return ret
+	}
+	return *o.ProviderRecordId
+}
+
+// GetProviderRecordIdOk returns a tuple with the ProviderRecordId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDnsRecord200ResponseDataInner) GetProviderRecordIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ProviderRecordId) {
+		return nil, false
+	}
+	return o.ProviderRecordId, true
+}
+
+// HasProviderRecordId returns a boolean if a field has been set.
+func (o *FindDnsRecord200ResponseDataInner) HasProviderRecordId() bool {
+	if o != nil && !IsNil(o.ProviderRecordId) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderRecordId gets a reference to the given string and assigns it to the ProviderRecordId field.
+func (o *FindDnsRecord200ResponseDataInner) SetProviderRecordId(v string) {
+	o.ProviderRecordId = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindDnsRecord200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDnsRecord200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindDnsRecord200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindDnsRecord200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +424,6 @@ func (o *FindDnsRecord200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindDnsRecord200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindDnsRecord200ResponseDataInner) GetAttributes() DnsRecord {
-	if o == nil || IsNil(o.Attributes) {
-		var ret DnsRecord
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindDnsRecord200ResponseDataInner) GetAttributesOk() (*DnsRecord, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindDnsRecord200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given DnsRecord and assigns it to the Attributes field.
-func (o *FindDnsRecord200ResponseDataInner) SetAttributes(v DnsRecord) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +542,35 @@ func (o FindDnsRecord200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindDnsRecord200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Zone) {
+		toSerialize["zone"] = o.Zone
+	}
+	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
+	toSerialize["value"] = o.Value
+	if !IsNil(o.Ttl) {
+		toSerialize["ttl"] = o.Ttl
+	}
+	if !IsNil(o.Weight) {
+		toSerialize["weight"] = o.Weight
+	}
+	if !IsNil(o.Priority) {
+		toSerialize["priority"] = o.Priority
+	}
+	if !IsNil(o.GeoLocation) {
+		toSerialize["geo_location"] = o.GeoLocation
+	}
+	if !IsNil(o.ProviderRecordId) {
+		toSerialize["provider_record_id"] = o.ProviderRecordId
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +582,45 @@ func (o FindDnsRecord200ResponseDataInner) ToMap() (map[string]interface{}, erro
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindDnsRecord200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"name",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindDnsRecord200ResponseDataInner := _FindDnsRecord200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindDnsRecord200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindDnsRecord200ResponseDataInner(varFindDnsRecord200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindDnsRecord200ResponseDataInner struct {

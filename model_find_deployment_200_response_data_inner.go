@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindDeployment200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,42 @@ var _ MappedNullable = &FindDeployment200ResponseDataInner{}
 
 // FindDeployment200ResponseDataInner struct for FindDeployment200ResponseDataInner
 type FindDeployment200ResponseDataInner struct {
+	Name string `json:"name"`
+	Environment string `json:"environment"`
+	ServiceName string `json:"service_name"`
+	Version *string `json:"version,omitempty"`
+	Strategy *string `json:"strategy,omitempty"`
+	TrafficSplitPct *int32 `json:"traffic_split_pct,omitempty"`
+	RollbackOnError *bool `json:"rollback_on_error,omitempty"`
+	Status *string `json:"status,omitempty"`
+	DeployedBy *string `json:"deployed_by,omitempty"`
+	StartedAt *time.Time `json:"started_at,omitempty"`
+	FinishedAt *time.Time `json:"finished_at,omitempty"`
+	CompletedAt *time.Time `json:"completed_at,omitempty"`
+	DurationSeconds *int32 `json:"duration_seconds,omitempty"`
+	ChangeRequestId *string `json:"change_request_id,omitempty"`
+	DeploymentUrl *string `json:"deployment_url,omitempty"`
+	ErrorLog *string `json:"error_log,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	CloudInstance *CreateAccessReviewRequestDataReviewer `json:"cloud_instance,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *Deployment `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindDeployment200ResponseDataInner FindDeployment200ResponseDataInner
+
 // NewFindDeployment200ResponseDataInner instantiates a new FindDeployment200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindDeployment200ResponseDataInner() *FindDeployment200ResponseDataInner {
+func NewFindDeployment200ResponseDataInner(name string, environment string, serviceName string) *FindDeployment200ResponseDataInner {
 	this := FindDeployment200ResponseDataInner{}
+	this.Name = name
+	this.Environment = environment
+	this.ServiceName = serviceName
 	return &this
 }
 
@@ -44,6 +68,558 @@ func NewFindDeployment200ResponseDataInner() *FindDeployment200ResponseDataInner
 func NewFindDeployment200ResponseDataInnerWithDefaults() *FindDeployment200ResponseDataInner {
 	this := FindDeployment200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindDeployment200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindDeployment200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetEnvironment returns the Environment field value
+func (o *FindDeployment200ResponseDataInner) GetEnvironment() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Environment
+}
+
+// GetEnvironmentOk returns a tuple with the Environment field value
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetEnvironmentOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Environment, true
+}
+
+// SetEnvironment sets field value
+func (o *FindDeployment200ResponseDataInner) SetEnvironment(v string) {
+	o.Environment = v
+}
+
+// GetServiceName returns the ServiceName field value
+func (o *FindDeployment200ResponseDataInner) GetServiceName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ServiceName
+}
+
+// GetServiceNameOk returns a tuple with the ServiceName field value
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetServiceNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ServiceName, true
+}
+
+// SetServiceName sets field value
+func (o *FindDeployment200ResponseDataInner) SetServiceName(v string) {
+	o.ServiceName = v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *FindDeployment200ResponseDataInner) SetVersion(v string) {
+	o.Version = &v
+}
+
+// GetStrategy returns the Strategy field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetStrategy() string {
+	if o == nil || IsNil(o.Strategy) {
+		var ret string
+		return ret
+	}
+	return *o.Strategy
+}
+
+// GetStrategyOk returns a tuple with the Strategy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetStrategyOk() (*string, bool) {
+	if o == nil || IsNil(o.Strategy) {
+		return nil, false
+	}
+	return o.Strategy, true
+}
+
+// HasStrategy returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasStrategy() bool {
+	if o != nil && !IsNil(o.Strategy) {
+		return true
+	}
+
+	return false
+}
+
+// SetStrategy gets a reference to the given string and assigns it to the Strategy field.
+func (o *FindDeployment200ResponseDataInner) SetStrategy(v string) {
+	o.Strategy = &v
+}
+
+// GetTrafficSplitPct returns the TrafficSplitPct field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetTrafficSplitPct() int32 {
+	if o == nil || IsNil(o.TrafficSplitPct) {
+		var ret int32
+		return ret
+	}
+	return *o.TrafficSplitPct
+}
+
+// GetTrafficSplitPctOk returns a tuple with the TrafficSplitPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetTrafficSplitPctOk() (*int32, bool) {
+	if o == nil || IsNil(o.TrafficSplitPct) {
+		return nil, false
+	}
+	return o.TrafficSplitPct, true
+}
+
+// HasTrafficSplitPct returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasTrafficSplitPct() bool {
+	if o != nil && !IsNil(o.TrafficSplitPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrafficSplitPct gets a reference to the given int32 and assigns it to the TrafficSplitPct field.
+func (o *FindDeployment200ResponseDataInner) SetTrafficSplitPct(v int32) {
+	o.TrafficSplitPct = &v
+}
+
+// GetRollbackOnError returns the RollbackOnError field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetRollbackOnError() bool {
+	if o == nil || IsNil(o.RollbackOnError) {
+		var ret bool
+		return ret
+	}
+	return *o.RollbackOnError
+}
+
+// GetRollbackOnErrorOk returns a tuple with the RollbackOnError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetRollbackOnErrorOk() (*bool, bool) {
+	if o == nil || IsNil(o.RollbackOnError) {
+		return nil, false
+	}
+	return o.RollbackOnError, true
+}
+
+// HasRollbackOnError returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasRollbackOnError() bool {
+	if o != nil && !IsNil(o.RollbackOnError) {
+		return true
+	}
+
+	return false
+}
+
+// SetRollbackOnError gets a reference to the given bool and assigns it to the RollbackOnError field.
+func (o *FindDeployment200ResponseDataInner) SetRollbackOnError(v bool) {
+	o.RollbackOnError = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindDeployment200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetDeployedBy returns the DeployedBy field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetDeployedBy() string {
+	if o == nil || IsNil(o.DeployedBy) {
+		var ret string
+		return ret
+	}
+	return *o.DeployedBy
+}
+
+// GetDeployedByOk returns a tuple with the DeployedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetDeployedByOk() (*string, bool) {
+	if o == nil || IsNil(o.DeployedBy) {
+		return nil, false
+	}
+	return o.DeployedBy, true
+}
+
+// HasDeployedBy returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasDeployedBy() bool {
+	if o != nil && !IsNil(o.DeployedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeployedBy gets a reference to the given string and assigns it to the DeployedBy field.
+func (o *FindDeployment200ResponseDataInner) SetDeployedBy(v string) {
+	o.DeployedBy = &v
+}
+
+// GetStartedAt returns the StartedAt field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetStartedAt() time.Time {
+	if o == nil || IsNil(o.StartedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartedAt
+}
+
+// GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetStartedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartedAt) {
+		return nil, false
+	}
+	return o.StartedAt, true
+}
+
+// HasStartedAt returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasStartedAt() bool {
+	if o != nil && !IsNil(o.StartedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartedAt gets a reference to the given time.Time and assigns it to the StartedAt field.
+func (o *FindDeployment200ResponseDataInner) SetStartedAt(v time.Time) {
+	o.StartedAt = &v
+}
+
+// GetFinishedAt returns the FinishedAt field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetFinishedAt() time.Time {
+	if o == nil || IsNil(o.FinishedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.FinishedAt
+}
+
+// GetFinishedAtOk returns a tuple with the FinishedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetFinishedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.FinishedAt) {
+		return nil, false
+	}
+	return o.FinishedAt, true
+}
+
+// HasFinishedAt returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasFinishedAt() bool {
+	if o != nil && !IsNil(o.FinishedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetFinishedAt gets a reference to the given time.Time and assigns it to the FinishedAt field.
+func (o *FindDeployment200ResponseDataInner) SetFinishedAt(v time.Time) {
+	o.FinishedAt = &v
+}
+
+// GetCompletedAt returns the CompletedAt field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetCompletedAt() time.Time {
+	if o == nil || IsNil(o.CompletedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CompletedAt
+}
+
+// GetCompletedAtOk returns a tuple with the CompletedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetCompletedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CompletedAt) {
+		return nil, false
+	}
+	return o.CompletedAt, true
+}
+
+// HasCompletedAt returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasCompletedAt() bool {
+	if o != nil && !IsNil(o.CompletedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCompletedAt gets a reference to the given time.Time and assigns it to the CompletedAt field.
+func (o *FindDeployment200ResponseDataInner) SetCompletedAt(v time.Time) {
+	o.CompletedAt = &v
+}
+
+// GetDurationSeconds returns the DurationSeconds field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetDurationSeconds() int32 {
+	if o == nil || IsNil(o.DurationSeconds) {
+		var ret int32
+		return ret
+	}
+	return *o.DurationSeconds
+}
+
+// GetDurationSecondsOk returns a tuple with the DurationSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetDurationSecondsOk() (*int32, bool) {
+	if o == nil || IsNil(o.DurationSeconds) {
+		return nil, false
+	}
+	return o.DurationSeconds, true
+}
+
+// HasDurationSeconds returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasDurationSeconds() bool {
+	if o != nil && !IsNil(o.DurationSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetDurationSeconds gets a reference to the given int32 and assigns it to the DurationSeconds field.
+func (o *FindDeployment200ResponseDataInner) SetDurationSeconds(v int32) {
+	o.DurationSeconds = &v
+}
+
+// GetChangeRequestId returns the ChangeRequestId field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetChangeRequestId() string {
+	if o == nil || IsNil(o.ChangeRequestId) {
+		var ret string
+		return ret
+	}
+	return *o.ChangeRequestId
+}
+
+// GetChangeRequestIdOk returns a tuple with the ChangeRequestId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetChangeRequestIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ChangeRequestId) {
+		return nil, false
+	}
+	return o.ChangeRequestId, true
+}
+
+// HasChangeRequestId returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasChangeRequestId() bool {
+	if o != nil && !IsNil(o.ChangeRequestId) {
+		return true
+	}
+
+	return false
+}
+
+// SetChangeRequestId gets a reference to the given string and assigns it to the ChangeRequestId field.
+func (o *FindDeployment200ResponseDataInner) SetChangeRequestId(v string) {
+	o.ChangeRequestId = &v
+}
+
+// GetDeploymentUrl returns the DeploymentUrl field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetDeploymentUrl() string {
+	if o == nil || IsNil(o.DeploymentUrl) {
+		var ret string
+		return ret
+	}
+	return *o.DeploymentUrl
+}
+
+// GetDeploymentUrlOk returns a tuple with the DeploymentUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetDeploymentUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.DeploymentUrl) {
+		return nil, false
+	}
+	return o.DeploymentUrl, true
+}
+
+// HasDeploymentUrl returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasDeploymentUrl() bool {
+	if o != nil && !IsNil(o.DeploymentUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeploymentUrl gets a reference to the given string and assigns it to the DeploymentUrl field.
+func (o *FindDeployment200ResponseDataInner) SetDeploymentUrl(v string) {
+	o.DeploymentUrl = &v
+}
+
+// GetErrorLog returns the ErrorLog field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetErrorLog() string {
+	if o == nil || IsNil(o.ErrorLog) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorLog
+}
+
+// GetErrorLogOk returns a tuple with the ErrorLog field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetErrorLogOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorLog) {
+		return nil, false
+	}
+	return o.ErrorLog, true
+}
+
+// HasErrorLog returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasErrorLog() bool {
+	if o != nil && !IsNil(o.ErrorLog) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorLog gets a reference to the given string and assigns it to the ErrorLog field.
+func (o *FindDeployment200ResponseDataInner) SetErrorLog(v string) {
+	o.ErrorLog = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindDeployment200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetCloudInstance returns the CloudInstance field value if set, zero value otherwise.
+func (o *FindDeployment200ResponseDataInner) GetCloudInstance() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CloudInstance) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CloudInstance
+}
+
+// GetCloudInstanceOk returns a tuple with the CloudInstance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDeployment200ResponseDataInner) GetCloudInstanceOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CloudInstance) {
+		return nil, false
+	}
+	return o.CloudInstance, true
+}
+
+// HasCloudInstance returns a boolean if a field has been set.
+func (o *FindDeployment200ResponseDataInner) HasCloudInstance() bool {
+	if o != nil && !IsNil(o.CloudInstance) {
+		return true
+	}
+
+	return false
+}
+
+// SetCloudInstance gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CloudInstance field.
+func (o *FindDeployment200ResponseDataInner) SetCloudInstance(v CreateAccessReviewRequestDataReviewer) {
+	o.CloudInstance = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +684,6 @@ func (o *FindDeployment200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindDeployment200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindDeployment200ResponseDataInner) GetAttributes() Deployment {
-	if o == nil || IsNil(o.Attributes) {
-		var ret Deployment
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindDeployment200ResponseDataInner) GetAttributesOk() (*Deployment, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindDeployment200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given Deployment and assigns it to the Attributes field.
-func (o *FindDeployment200ResponseDataInner) SetAttributes(v Deployment) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +802,59 @@ func (o FindDeployment200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindDeployment200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["environment"] = o.Environment
+	toSerialize["service_name"] = o.ServiceName
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Strategy) {
+		toSerialize["strategy"] = o.Strategy
+	}
+	if !IsNil(o.TrafficSplitPct) {
+		toSerialize["traffic_split_pct"] = o.TrafficSplitPct
+	}
+	if !IsNil(o.RollbackOnError) {
+		toSerialize["rollback_on_error"] = o.RollbackOnError
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.DeployedBy) {
+		toSerialize["deployed_by"] = o.DeployedBy
+	}
+	if !IsNil(o.StartedAt) {
+		toSerialize["started_at"] = o.StartedAt
+	}
+	if !IsNil(o.FinishedAt) {
+		toSerialize["finished_at"] = o.FinishedAt
+	}
+	if !IsNil(o.CompletedAt) {
+		toSerialize["completed_at"] = o.CompletedAt
+	}
+	if !IsNil(o.DurationSeconds) {
+		toSerialize["duration_seconds"] = o.DurationSeconds
+	}
+	if !IsNil(o.ChangeRequestId) {
+		toSerialize["change_request_id"] = o.ChangeRequestId
+	}
+	if !IsNil(o.DeploymentUrl) {
+		toSerialize["deployment_url"] = o.DeploymentUrl
+	}
+	if !IsNil(o.ErrorLog) {
+		toSerialize["error_log"] = o.ErrorLog
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.CloudInstance) {
+		toSerialize["cloud_instance"] = o.CloudInstance
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +866,45 @@ func (o FindDeployment200ResponseDataInner) ToMap() (map[string]interface{}, err
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindDeployment200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"environment",
+		"service_name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindDeployment200ResponseDataInner := _FindDeployment200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindDeployment200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindDeployment200ResponseDataInner(varFindDeployment200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindDeployment200ResponseDataInner struct {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindRegistration200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,31 @@ var _ MappedNullable = &FindRegistration200ResponseDataInner{}
 
 // FindRegistration200ResponseDataInner struct for FindRegistration200ResponseDataInner
 type FindRegistration200ResponseDataInner struct {
+	Username string `json:"username"`
+	Email string `json:"email"`
+	Password *string `json:"password,omitempty"`
+	FirstName *string `json:"firstName,omitempty"`
+	LastName *string `json:"lastName,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	EmailVerified *bool `json:"emailVerified,omitempty"`
+	RegistrationStatus *string `json:"registration_status,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *Registration `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindRegistration200ResponseDataInner FindRegistration200ResponseDataInner
+
 // NewFindRegistration200ResponseDataInner instantiates a new FindRegistration200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindRegistration200ResponseDataInner() *FindRegistration200ResponseDataInner {
+func NewFindRegistration200ResponseDataInner(username string, email string) *FindRegistration200ResponseDataInner {
 	this := FindRegistration200ResponseDataInner{}
+	this.Username = username
+	this.Email = email
 	return &this
 }
 
@@ -44,6 +57,246 @@ func NewFindRegistration200ResponseDataInner() *FindRegistration200ResponseDataI
 func NewFindRegistration200ResponseDataInnerWithDefaults() *FindRegistration200ResponseDataInner {
 	this := FindRegistration200ResponseDataInner{}
 	return &this
+}
+
+// GetUsername returns the Username field value
+func (o *FindRegistration200ResponseDataInner) GetUsername() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Username
+}
+
+// GetUsernameOk returns a tuple with the Username field value
+// and a boolean to check if the value has been set.
+func (o *FindRegistration200ResponseDataInner) GetUsernameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Username, true
+}
+
+// SetUsername sets field value
+func (o *FindRegistration200ResponseDataInner) SetUsername(v string) {
+	o.Username = v
+}
+
+// GetEmail returns the Email field value
+func (o *FindRegistration200ResponseDataInner) GetEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value
+// and a boolean to check if the value has been set.
+func (o *FindRegistration200ResponseDataInner) GetEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Email, true
+}
+
+// SetEmail sets field value
+func (o *FindRegistration200ResponseDataInner) SetEmail(v string) {
+	o.Email = v
+}
+
+// GetPassword returns the Password field value if set, zero value otherwise.
+func (o *FindRegistration200ResponseDataInner) GetPassword() string {
+	if o == nil || IsNil(o.Password) {
+		var ret string
+		return ret
+	}
+	return *o.Password
+}
+
+// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegistration200ResponseDataInner) GetPasswordOk() (*string, bool) {
+	if o == nil || IsNil(o.Password) {
+		return nil, false
+	}
+	return o.Password, true
+}
+
+// HasPassword returns a boolean if a field has been set.
+func (o *FindRegistration200ResponseDataInner) HasPassword() bool {
+	if o != nil && !IsNil(o.Password) {
+		return true
+	}
+
+	return false
+}
+
+// SetPassword gets a reference to the given string and assigns it to the Password field.
+func (o *FindRegistration200ResponseDataInner) SetPassword(v string) {
+	o.Password = &v
+}
+
+// GetFirstName returns the FirstName field value if set, zero value otherwise.
+func (o *FindRegistration200ResponseDataInner) GetFirstName() string {
+	if o == nil || IsNil(o.FirstName) {
+		var ret string
+		return ret
+	}
+	return *o.FirstName
+}
+
+// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegistration200ResponseDataInner) GetFirstNameOk() (*string, bool) {
+	if o == nil || IsNil(o.FirstName) {
+		return nil, false
+	}
+	return o.FirstName, true
+}
+
+// HasFirstName returns a boolean if a field has been set.
+func (o *FindRegistration200ResponseDataInner) HasFirstName() bool {
+	if o != nil && !IsNil(o.FirstName) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
+func (o *FindRegistration200ResponseDataInner) SetFirstName(v string) {
+	o.FirstName = &v
+}
+
+// GetLastName returns the LastName field value if set, zero value otherwise.
+func (o *FindRegistration200ResponseDataInner) GetLastName() string {
+	if o == nil || IsNil(o.LastName) {
+		var ret string
+		return ret
+	}
+	return *o.LastName
+}
+
+// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegistration200ResponseDataInner) GetLastNameOk() (*string, bool) {
+	if o == nil || IsNil(o.LastName) {
+		return nil, false
+	}
+	return o.LastName, true
+}
+
+// HasLastName returns a boolean if a field has been set.
+func (o *FindRegistration200ResponseDataInner) HasLastName() bool {
+	if o != nil && !IsNil(o.LastName) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastName gets a reference to the given string and assigns it to the LastName field.
+func (o *FindRegistration200ResponseDataInner) SetLastName(v string) {
+	o.LastName = &v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindRegistration200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegistration200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindRegistration200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindRegistration200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetEmailVerified returns the EmailVerified field value if set, zero value otherwise.
+func (o *FindRegistration200ResponseDataInner) GetEmailVerified() bool {
+	if o == nil || IsNil(o.EmailVerified) {
+		var ret bool
+		return ret
+	}
+	return *o.EmailVerified
+}
+
+// GetEmailVerifiedOk returns a tuple with the EmailVerified field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegistration200ResponseDataInner) GetEmailVerifiedOk() (*bool, bool) {
+	if o == nil || IsNil(o.EmailVerified) {
+		return nil, false
+	}
+	return o.EmailVerified, true
+}
+
+// HasEmailVerified returns a boolean if a field has been set.
+func (o *FindRegistration200ResponseDataInner) HasEmailVerified() bool {
+	if o != nil && !IsNil(o.EmailVerified) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmailVerified gets a reference to the given bool and assigns it to the EmailVerified field.
+func (o *FindRegistration200ResponseDataInner) SetEmailVerified(v bool) {
+	o.EmailVerified = &v
+}
+
+// GetRegistrationStatus returns the RegistrationStatus field value if set, zero value otherwise.
+func (o *FindRegistration200ResponseDataInner) GetRegistrationStatus() string {
+	if o == nil || IsNil(o.RegistrationStatus) {
+		var ret string
+		return ret
+	}
+	return *o.RegistrationStatus
+}
+
+// GetRegistrationStatusOk returns a tuple with the RegistrationStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegistration200ResponseDataInner) GetRegistrationStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.RegistrationStatus) {
+		return nil, false
+	}
+	return o.RegistrationStatus, true
+}
+
+// HasRegistrationStatus returns a boolean if a field has been set.
+func (o *FindRegistration200ResponseDataInner) HasRegistrationStatus() bool {
+	if o != nil && !IsNil(o.RegistrationStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegistrationStatus gets a reference to the given string and assigns it to the RegistrationStatus field.
+func (o *FindRegistration200ResponseDataInner) SetRegistrationStatus(v string) {
+	o.RegistrationStatus = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +361,6 @@ func (o *FindRegistration200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindRegistration200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindRegistration200ResponseDataInner) GetAttributes() Registration {
-	if o == nil || IsNil(o.Attributes) {
-		var ret Registration
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindRegistration200ResponseDataInner) GetAttributesOk() (*Registration, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindRegistration200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given Registration and assigns it to the Attributes field.
-func (o *FindRegistration200ResponseDataInner) SetAttributes(v Registration) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +479,31 @@ func (o FindRegistration200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindRegistration200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["username"] = o.Username
+	toSerialize["email"] = o.Email
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	if !IsNil(o.FirstName) {
+		toSerialize["firstName"] = o.FirstName
+	}
+	if !IsNil(o.LastName) {
+		toSerialize["lastName"] = o.LastName
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.EmailVerified) {
+		toSerialize["emailVerified"] = o.EmailVerified
+	}
+	if !IsNil(o.RegistrationStatus) {
+		toSerialize["registration_status"] = o.RegistrationStatus
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +515,44 @@ func (o FindRegistration200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindRegistration200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"username",
+		"email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindRegistration200ResponseDataInner := _FindRegistration200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindRegistration200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindRegistration200ResponseDataInner(varFindRegistration200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindRegistration200ResponseDataInner struct {

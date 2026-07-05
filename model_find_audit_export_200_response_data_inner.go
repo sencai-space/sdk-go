@@ -21,9 +21,20 @@ var _ MappedNullable = &FindAuditExport200ResponseDataInner{}
 
 // FindAuditExport200ResponseDataInner struct for FindAuditExport200ResponseDataInner
 type FindAuditExport200ResponseDataInner struct {
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	RequestedBy *string `json:"requested_by,omitempty"`
+	Format *string `json:"format,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Filters interface{} `json:"filters,omitempty"`
+	Status *string `json:"status,omitempty"`
+	FileUrl *string `json:"file_url,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	RecordCount *int32 `json:"record_count,omitempty"`
+	ErrorMessage *string `json:"error_message,omitempty"`
+	StartedAt *time.Time `json:"started_at,omitempty"`
+	CompletedAt *time.Time `json:"completed_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AuditExport `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +55,359 @@ func NewFindAuditExport200ResponseDataInner() *FindAuditExport200ResponseDataInn
 func NewFindAuditExport200ResponseDataInnerWithDefaults() *FindAuditExport200ResponseDataInner {
 	this := FindAuditExport200ResponseDataInner{}
 	return &this
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindAuditExport200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditExport200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindAuditExport200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetRequestedBy returns the RequestedBy field value if set, zero value otherwise.
+func (o *FindAuditExport200ResponseDataInner) GetRequestedBy() string {
+	if o == nil || IsNil(o.RequestedBy) {
+		var ret string
+		return ret
+	}
+	return *o.RequestedBy
+}
+
+// GetRequestedByOk returns a tuple with the RequestedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditExport200ResponseDataInner) GetRequestedByOk() (*string, bool) {
+	if o == nil || IsNil(o.RequestedBy) {
+		return nil, false
+	}
+	return o.RequestedBy, true
+}
+
+// HasRequestedBy returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasRequestedBy() bool {
+	if o != nil && !IsNil(o.RequestedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestedBy gets a reference to the given string and assigns it to the RequestedBy field.
+func (o *FindAuditExport200ResponseDataInner) SetRequestedBy(v string) {
+	o.RequestedBy = &v
+}
+
+// GetFormat returns the Format field value if set, zero value otherwise.
+func (o *FindAuditExport200ResponseDataInner) GetFormat() string {
+	if o == nil || IsNil(o.Format) {
+		var ret string
+		return ret
+	}
+	return *o.Format
+}
+
+// GetFormatOk returns a tuple with the Format field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditExport200ResponseDataInner) GetFormatOk() (*string, bool) {
+	if o == nil || IsNil(o.Format) {
+		return nil, false
+	}
+	return o.Format, true
+}
+
+// HasFormat returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasFormat() bool {
+	if o != nil && !IsNil(o.Format) {
+		return true
+	}
+
+	return false
+}
+
+// SetFormat gets a reference to the given string and assigns it to the Format field.
+func (o *FindAuditExport200ResponseDataInner) SetFormat(v string) {
+	o.Format = &v
+}
+
+// GetFilters returns the Filters field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAuditExport200ResponseDataInner) GetFilters() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Filters
+}
+
+// GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAuditExport200ResponseDataInner) GetFiltersOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Filters) {
+		return nil, false
+	}
+	return &o.Filters, true
+}
+
+// HasFilters returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasFilters() bool {
+	if o != nil && !IsNil(o.Filters) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilters gets a reference to the given interface{} and assigns it to the Filters field.
+func (o *FindAuditExport200ResponseDataInner) SetFilters(v interface{}) {
+	o.Filters = v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindAuditExport200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditExport200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindAuditExport200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetFileUrl returns the FileUrl field value if set, zero value otherwise.
+func (o *FindAuditExport200ResponseDataInner) GetFileUrl() string {
+	if o == nil || IsNil(o.FileUrl) {
+		var ret string
+		return ret
+	}
+	return *o.FileUrl
+}
+
+// GetFileUrlOk returns a tuple with the FileUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditExport200ResponseDataInner) GetFileUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.FileUrl) {
+		return nil, false
+	}
+	return o.FileUrl, true
+}
+
+// HasFileUrl returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasFileUrl() bool {
+	if o != nil && !IsNil(o.FileUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetFileUrl gets a reference to the given string and assigns it to the FileUrl field.
+func (o *FindAuditExport200ResponseDataInner) SetFileUrl(v string) {
+	o.FileUrl = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *FindAuditExport200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditExport200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *FindAuditExport200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
+}
+
+// GetRecordCount returns the RecordCount field value if set, zero value otherwise.
+func (o *FindAuditExport200ResponseDataInner) GetRecordCount() int32 {
+	if o == nil || IsNil(o.RecordCount) {
+		var ret int32
+		return ret
+	}
+	return *o.RecordCount
+}
+
+// GetRecordCountOk returns a tuple with the RecordCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditExport200ResponseDataInner) GetRecordCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.RecordCount) {
+		return nil, false
+	}
+	return o.RecordCount, true
+}
+
+// HasRecordCount returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasRecordCount() bool {
+	if o != nil && !IsNil(o.RecordCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecordCount gets a reference to the given int32 and assigns it to the RecordCount field.
+func (o *FindAuditExport200ResponseDataInner) SetRecordCount(v int32) {
+	o.RecordCount = &v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindAuditExport200ResponseDataInner) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditExport200ResponseDataInner) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindAuditExport200ResponseDataInner) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
+// GetStartedAt returns the StartedAt field value if set, zero value otherwise.
+func (o *FindAuditExport200ResponseDataInner) GetStartedAt() time.Time {
+	if o == nil || IsNil(o.StartedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartedAt
+}
+
+// GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditExport200ResponseDataInner) GetStartedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartedAt) {
+		return nil, false
+	}
+	return o.StartedAt, true
+}
+
+// HasStartedAt returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasStartedAt() bool {
+	if o != nil && !IsNil(o.StartedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartedAt gets a reference to the given time.Time and assigns it to the StartedAt field.
+func (o *FindAuditExport200ResponseDataInner) SetStartedAt(v time.Time) {
+	o.StartedAt = &v
+}
+
+// GetCompletedAt returns the CompletedAt field value if set, zero value otherwise.
+func (o *FindAuditExport200ResponseDataInner) GetCompletedAt() time.Time {
+	if o == nil || IsNil(o.CompletedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CompletedAt
+}
+
+// GetCompletedAtOk returns a tuple with the CompletedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditExport200ResponseDataInner) GetCompletedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CompletedAt) {
+		return nil, false
+	}
+	return o.CompletedAt, true
+}
+
+// HasCompletedAt returns a boolean if a field has been set.
+func (o *FindAuditExport200ResponseDataInner) HasCompletedAt() bool {
+	if o != nil && !IsNil(o.CompletedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCompletedAt gets a reference to the given time.Time and assigns it to the CompletedAt field.
+func (o *FindAuditExport200ResponseDataInner) SetCompletedAt(v time.Time) {
+	o.CompletedAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +472,6 @@ func (o *FindAuditExport200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAuditExport200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAuditExport200ResponseDataInner) GetAttributes() AuditExport {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AuditExport
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAuditExport200ResponseDataInner) GetAttributesOk() (*AuditExport, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAuditExport200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AuditExport and assigns it to the Attributes field.
-func (o *FindAuditExport200ResponseDataInner) SetAttributes(v AuditExport) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +590,44 @@ func (o FindAuditExport200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAuditExport200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.RequestedBy) {
+		toSerialize["requested_by"] = o.RequestedBy
+	}
+	if !IsNil(o.Format) {
+		toSerialize["format"] = o.Format
+	}
+	if o.Filters != nil {
+		toSerialize["filters"] = o.Filters
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.FileUrl) {
+		toSerialize["file_url"] = o.FileUrl
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.RecordCount) {
+		toSerialize["record_count"] = o.RecordCount
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
+	if !IsNil(o.StartedAt) {
+		toSerialize["started_at"] = o.StartedAt
+	}
+	if !IsNil(o.CompletedAt) {
+		toSerialize["completed_at"] = o.CompletedAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

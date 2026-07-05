@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindChaosScenario200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,38 @@ var _ MappedNullable = &FindChaosScenario200ResponseDataInner{}
 
 // FindChaosScenario200ResponseDataInner struct for FindChaosScenario200ResponseDataInner
 type FindChaosScenario200ResponseDataInner struct {
+	Name string `json:"name"`
+	Description *string `json:"description,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	TargetService string `json:"target_service"`
+	ChaosType string `json:"chaos_type"`
+	DurationSeconds *int32 `json:"duration_seconds,omitempty"`
+	Intensity *string `json:"intensity,omitempty"`
+	Status *string `json:"status,omitempty"`
+	ResultSummary *string `json:"result_summary,omitempty"`
+	StartedAt *time.Time `json:"started_at,omitempty"`
+	CompletedAt *time.Time `json:"completed_at,omitempty"`
+	ExpectedBehavior *string `json:"expected_behavior,omitempty"`
+	ActualBehavior *string `json:"actual_behavior,omitempty"`
+	Passed *bool `json:"passed,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ChaosScenario `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindChaosScenario200ResponseDataInner FindChaosScenario200ResponseDataInner
+
 // NewFindChaosScenario200ResponseDataInner instantiates a new FindChaosScenario200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindChaosScenario200ResponseDataInner() *FindChaosScenario200ResponseDataInner {
+func NewFindChaosScenario200ResponseDataInner(name string, targetService string, chaosType string) *FindChaosScenario200ResponseDataInner {
 	this := FindChaosScenario200ResponseDataInner{}
+	this.Name = name
+	this.TargetService = targetService
+	this.ChaosType = chaosType
 	return &this
 }
 
@@ -44,6 +64,430 @@ func NewFindChaosScenario200ResponseDataInner() *FindChaosScenario200ResponseDat
 func NewFindChaosScenario200ResponseDataInnerWithDefaults() *FindChaosScenario200ResponseDataInner {
 	this := FindChaosScenario200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindChaosScenario200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindChaosScenario200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindChaosScenario200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindChaosScenario200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetTargetService returns the TargetService field value
+func (o *FindChaosScenario200ResponseDataInner) GetTargetService() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TargetService
+}
+
+// GetTargetServiceOk returns a tuple with the TargetService field value
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetTargetServiceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TargetService, true
+}
+
+// SetTargetService sets field value
+func (o *FindChaosScenario200ResponseDataInner) SetTargetService(v string) {
+	o.TargetService = v
+}
+
+// GetChaosType returns the ChaosType field value
+func (o *FindChaosScenario200ResponseDataInner) GetChaosType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ChaosType
+}
+
+// GetChaosTypeOk returns a tuple with the ChaosType field value
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetChaosTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ChaosType, true
+}
+
+// SetChaosType sets field value
+func (o *FindChaosScenario200ResponseDataInner) SetChaosType(v string) {
+	o.ChaosType = v
+}
+
+// GetDurationSeconds returns the DurationSeconds field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetDurationSeconds() int32 {
+	if o == nil || IsNil(o.DurationSeconds) {
+		var ret int32
+		return ret
+	}
+	return *o.DurationSeconds
+}
+
+// GetDurationSecondsOk returns a tuple with the DurationSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetDurationSecondsOk() (*int32, bool) {
+	if o == nil || IsNil(o.DurationSeconds) {
+		return nil, false
+	}
+	return o.DurationSeconds, true
+}
+
+// HasDurationSeconds returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasDurationSeconds() bool {
+	if o != nil && !IsNil(o.DurationSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetDurationSeconds gets a reference to the given int32 and assigns it to the DurationSeconds field.
+func (o *FindChaosScenario200ResponseDataInner) SetDurationSeconds(v int32) {
+	o.DurationSeconds = &v
+}
+
+// GetIntensity returns the Intensity field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetIntensity() string {
+	if o == nil || IsNil(o.Intensity) {
+		var ret string
+		return ret
+	}
+	return *o.Intensity
+}
+
+// GetIntensityOk returns a tuple with the Intensity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetIntensityOk() (*string, bool) {
+	if o == nil || IsNil(o.Intensity) {
+		return nil, false
+	}
+	return o.Intensity, true
+}
+
+// HasIntensity returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasIntensity() bool {
+	if o != nil && !IsNil(o.Intensity) {
+		return true
+	}
+
+	return false
+}
+
+// SetIntensity gets a reference to the given string and assigns it to the Intensity field.
+func (o *FindChaosScenario200ResponseDataInner) SetIntensity(v string) {
+	o.Intensity = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindChaosScenario200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetResultSummary returns the ResultSummary field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetResultSummary() string {
+	if o == nil || IsNil(o.ResultSummary) {
+		var ret string
+		return ret
+	}
+	return *o.ResultSummary
+}
+
+// GetResultSummaryOk returns a tuple with the ResultSummary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetResultSummaryOk() (*string, bool) {
+	if o == nil || IsNil(o.ResultSummary) {
+		return nil, false
+	}
+	return o.ResultSummary, true
+}
+
+// HasResultSummary returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasResultSummary() bool {
+	if o != nil && !IsNil(o.ResultSummary) {
+		return true
+	}
+
+	return false
+}
+
+// SetResultSummary gets a reference to the given string and assigns it to the ResultSummary field.
+func (o *FindChaosScenario200ResponseDataInner) SetResultSummary(v string) {
+	o.ResultSummary = &v
+}
+
+// GetStartedAt returns the StartedAt field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetStartedAt() time.Time {
+	if o == nil || IsNil(o.StartedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartedAt
+}
+
+// GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetStartedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartedAt) {
+		return nil, false
+	}
+	return o.StartedAt, true
+}
+
+// HasStartedAt returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasStartedAt() bool {
+	if o != nil && !IsNil(o.StartedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartedAt gets a reference to the given time.Time and assigns it to the StartedAt field.
+func (o *FindChaosScenario200ResponseDataInner) SetStartedAt(v time.Time) {
+	o.StartedAt = &v
+}
+
+// GetCompletedAt returns the CompletedAt field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetCompletedAt() time.Time {
+	if o == nil || IsNil(o.CompletedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CompletedAt
+}
+
+// GetCompletedAtOk returns a tuple with the CompletedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetCompletedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CompletedAt) {
+		return nil, false
+	}
+	return o.CompletedAt, true
+}
+
+// HasCompletedAt returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasCompletedAt() bool {
+	if o != nil && !IsNil(o.CompletedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCompletedAt gets a reference to the given time.Time and assigns it to the CompletedAt field.
+func (o *FindChaosScenario200ResponseDataInner) SetCompletedAt(v time.Time) {
+	o.CompletedAt = &v
+}
+
+// GetExpectedBehavior returns the ExpectedBehavior field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetExpectedBehavior() string {
+	if o == nil || IsNil(o.ExpectedBehavior) {
+		var ret string
+		return ret
+	}
+	return *o.ExpectedBehavior
+}
+
+// GetExpectedBehaviorOk returns a tuple with the ExpectedBehavior field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetExpectedBehaviorOk() (*string, bool) {
+	if o == nil || IsNil(o.ExpectedBehavior) {
+		return nil, false
+	}
+	return o.ExpectedBehavior, true
+}
+
+// HasExpectedBehavior returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasExpectedBehavior() bool {
+	if o != nil && !IsNil(o.ExpectedBehavior) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpectedBehavior gets a reference to the given string and assigns it to the ExpectedBehavior field.
+func (o *FindChaosScenario200ResponseDataInner) SetExpectedBehavior(v string) {
+	o.ExpectedBehavior = &v
+}
+
+// GetActualBehavior returns the ActualBehavior field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetActualBehavior() string {
+	if o == nil || IsNil(o.ActualBehavior) {
+		var ret string
+		return ret
+	}
+	return *o.ActualBehavior
+}
+
+// GetActualBehaviorOk returns a tuple with the ActualBehavior field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetActualBehaviorOk() (*string, bool) {
+	if o == nil || IsNil(o.ActualBehavior) {
+		return nil, false
+	}
+	return o.ActualBehavior, true
+}
+
+// HasActualBehavior returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasActualBehavior() bool {
+	if o != nil && !IsNil(o.ActualBehavior) {
+		return true
+	}
+
+	return false
+}
+
+// SetActualBehavior gets a reference to the given string and assigns it to the ActualBehavior field.
+func (o *FindChaosScenario200ResponseDataInner) SetActualBehavior(v string) {
+	o.ActualBehavior = &v
+}
+
+// GetPassed returns the Passed field value if set, zero value otherwise.
+func (o *FindChaosScenario200ResponseDataInner) GetPassed() bool {
+	if o == nil || IsNil(o.Passed) {
+		var ret bool
+		return ret
+	}
+	return *o.Passed
+}
+
+// GetPassedOk returns a tuple with the Passed field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindChaosScenario200ResponseDataInner) GetPassedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Passed) {
+		return nil, false
+	}
+	return o.Passed, true
+}
+
+// HasPassed returns a boolean if a field has been set.
+func (o *FindChaosScenario200ResponseDataInner) HasPassed() bool {
+	if o != nil && !IsNil(o.Passed) {
+		return true
+	}
+
+	return false
+}
+
+// SetPassed gets a reference to the given bool and assigns it to the Passed field.
+func (o *FindChaosScenario200ResponseDataInner) SetPassed(v bool) {
+	o.Passed = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +552,6 @@ func (o *FindChaosScenario200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindChaosScenario200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindChaosScenario200ResponseDataInner) GetAttributes() ChaosScenario {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ChaosScenario
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindChaosScenario200ResponseDataInner) GetAttributesOk() (*ChaosScenario, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindChaosScenario200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ChaosScenario and assigns it to the Attributes field.
-func (o *FindChaosScenario200ResponseDataInner) SetAttributes(v ChaosScenario) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +670,47 @@ func (o FindChaosScenario200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindChaosScenario200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	toSerialize["target_service"] = o.TargetService
+	toSerialize["chaos_type"] = o.ChaosType
+	if !IsNil(o.DurationSeconds) {
+		toSerialize["duration_seconds"] = o.DurationSeconds
+	}
+	if !IsNil(o.Intensity) {
+		toSerialize["intensity"] = o.Intensity
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.ResultSummary) {
+		toSerialize["result_summary"] = o.ResultSummary
+	}
+	if !IsNil(o.StartedAt) {
+		toSerialize["started_at"] = o.StartedAt
+	}
+	if !IsNil(o.CompletedAt) {
+		toSerialize["completed_at"] = o.CompletedAt
+	}
+	if !IsNil(o.ExpectedBehavior) {
+		toSerialize["expected_behavior"] = o.ExpectedBehavior
+	}
+	if !IsNil(o.ActualBehavior) {
+		toSerialize["actual_behavior"] = o.ActualBehavior
+	}
+	if !IsNil(o.Passed) {
+		toSerialize["passed"] = o.Passed
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +722,45 @@ func (o FindChaosScenario200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindChaosScenario200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"target_service",
+		"chaos_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindChaosScenario200ResponseDataInner := _FindChaosScenario200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindChaosScenario200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindChaosScenario200ResponseDataInner(varFindChaosScenario200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindChaosScenario200ResponseDataInner struct {

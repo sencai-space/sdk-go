@@ -27,7 +27,7 @@ type AgencyBillingSummary struct {
 	Period string `json:"period"`
 	OperatorOrg CreateAccessReviewRequestDataReviewer `json:"operator_org"`
 	// Array of {managed_org_id, org_name, billing_model, resource_count, mrr_usd, tier_name}
-	LineItems map[string]interface{} `json:"line_items"`
+	LineItems interface{} `json:"line_items"`
 	TotalMrrUsd *float32 `json:"total_mrr_usd,omitempty"`
 	ManagedTenantCount *int32 `json:"managed_tenant_count,omitempty"`
 	AgencyBilledCount *int32 `json:"agency_billed_count,omitempty"`
@@ -42,7 +42,7 @@ type _AgencyBillingSummary AgencyBillingSummary
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAgencyBillingSummary(period string, operatorOrg CreateAccessReviewRequestDataReviewer, lineItems map[string]interface{}) *AgencyBillingSummary {
+func NewAgencyBillingSummary(period string, operatorOrg CreateAccessReviewRequestDataReviewer, lineItems interface{}) *AgencyBillingSummary {
 	this := AgencyBillingSummary{}
 	this.Period = period
 	this.OperatorOrg = operatorOrg
@@ -107,9 +107,10 @@ func (o *AgencyBillingSummary) SetOperatorOrg(v CreateAccessReviewRequestDataRev
 }
 
 // GetLineItems returns the LineItems field value
-func (o *AgencyBillingSummary) GetLineItems() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *AgencyBillingSummary) GetLineItems() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -118,15 +119,16 @@ func (o *AgencyBillingSummary) GetLineItems() map[string]interface{} {
 
 // GetLineItemsOk returns a tuple with the LineItems field value
 // and a boolean to check if the value has been set.
-func (o *AgencyBillingSummary) GetLineItemsOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AgencyBillingSummary) GetLineItemsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.LineItems) {
+		return nil, false
 	}
-	return o.LineItems, true
+	return &o.LineItems, true
 }
 
 // SetLineItems sets field value
-func (o *AgencyBillingSummary) SetLineItems(v map[string]interface{}) {
+func (o *AgencyBillingSummary) SetLineItems(v interface{}) {
 	o.LineItems = v
 }
 
@@ -334,7 +336,9 @@ func (o AgencyBillingSummary) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["period"] = o.Period
 	toSerialize["operator_org"] = o.OperatorOrg
-	toSerialize["line_items"] = o.LineItems
+	if o.LineItems != nil {
+		toSerialize["line_items"] = o.LineItems
+	}
 	if !IsNil(o.TotalMrrUsd) {
 		toSerialize["total_mrr_usd"] = o.TotalMrrUsd
 	}

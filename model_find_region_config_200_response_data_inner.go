@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindRegionConfig200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,37 @@ var _ MappedNullable = &FindRegionConfig200ResponseDataInner{}
 
 // FindRegionConfig200ResponseDataInner struct for FindRegionConfig200ResponseDataInner
 type FindRegionConfig200ResponseDataInner struct {
+	// Provider region identifier (e.g. us-east-1, eu-west-1, ap-southeast-1)
+	Region string `json:"region"`
+	Provider string `json:"provider"`
+	// Human-readable region label (e.g. US East (N. Virginia))
+	DisplayName *string `json:"display_name,omitempty"`
+	// Designates this as the primary region for the provider within the organisation. Only one region per provider per organisation may be primary.
+	IsPrimary *bool `json:"is_primary,omitempty"`
+	IsEnabled *bool `json:"is_enabled,omitempty"`
+	// documentId of the target region-config that receives replicated data from this region
+	ReplicationTarget *string `json:"replication_target,omitempty"`
+	// Last measured round-trip latency from primary in milliseconds
+	LatencyMs *int32 `json:"latency_ms,omitempty"`
+	Status *string `json:"status,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *RegionConfig `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindRegionConfig200ResponseDataInner FindRegionConfig200ResponseDataInner
+
 // NewFindRegionConfig200ResponseDataInner instantiates a new FindRegionConfig200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindRegionConfig200ResponseDataInner() *FindRegionConfig200ResponseDataInner {
+func NewFindRegionConfig200ResponseDataInner(region string, provider string) *FindRegionConfig200ResponseDataInner {
 	this := FindRegionConfig200ResponseDataInner{}
+	this.Region = region
+	this.Provider = provider
 	return &this
 }
 
@@ -44,6 +63,278 @@ func NewFindRegionConfig200ResponseDataInner() *FindRegionConfig200ResponseDataI
 func NewFindRegionConfig200ResponseDataInnerWithDefaults() *FindRegionConfig200ResponseDataInner {
 	this := FindRegionConfig200ResponseDataInner{}
 	return &this
+}
+
+// GetRegion returns the Region field value
+func (o *FindRegionConfig200ResponseDataInner) GetRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *FindRegionConfig200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *FindRegionConfig200ResponseDataInner) SetRegion(v string) {
+	o.Region = v
+}
+
+// GetProvider returns the Provider field value
+func (o *FindRegionConfig200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindRegionConfig200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindRegionConfig200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+func (o *FindRegionConfig200ResponseDataInner) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegionConfig200ResponseDataInner) GetDisplayNameOk() (*string, bool) {
+	if o == nil || IsNil(o.DisplayName) {
+		return nil, false
+	}
+	return o.DisplayName, true
+}
+
+// HasDisplayName returns a boolean if a field has been set.
+func (o *FindRegionConfig200ResponseDataInner) HasDisplayName() bool {
+	if o != nil && !IsNil(o.DisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+func (o *FindRegionConfig200ResponseDataInner) SetDisplayName(v string) {
+	o.DisplayName = &v
+}
+
+// GetIsPrimary returns the IsPrimary field value if set, zero value otherwise.
+func (o *FindRegionConfig200ResponseDataInner) GetIsPrimary() bool {
+	if o == nil || IsNil(o.IsPrimary) {
+		var ret bool
+		return ret
+	}
+	return *o.IsPrimary
+}
+
+// GetIsPrimaryOk returns a tuple with the IsPrimary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegionConfig200ResponseDataInner) GetIsPrimaryOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsPrimary) {
+		return nil, false
+	}
+	return o.IsPrimary, true
+}
+
+// HasIsPrimary returns a boolean if a field has been set.
+func (o *FindRegionConfig200ResponseDataInner) HasIsPrimary() bool {
+	if o != nil && !IsNil(o.IsPrimary) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsPrimary gets a reference to the given bool and assigns it to the IsPrimary field.
+func (o *FindRegionConfig200ResponseDataInner) SetIsPrimary(v bool) {
+	o.IsPrimary = &v
+}
+
+// GetIsEnabled returns the IsEnabled field value if set, zero value otherwise.
+func (o *FindRegionConfig200ResponseDataInner) GetIsEnabled() bool {
+	if o == nil || IsNil(o.IsEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsEnabled
+}
+
+// GetIsEnabledOk returns a tuple with the IsEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegionConfig200ResponseDataInner) GetIsEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsEnabled) {
+		return nil, false
+	}
+	return o.IsEnabled, true
+}
+
+// HasIsEnabled returns a boolean if a field has been set.
+func (o *FindRegionConfig200ResponseDataInner) HasIsEnabled() bool {
+	if o != nil && !IsNil(o.IsEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsEnabled gets a reference to the given bool and assigns it to the IsEnabled field.
+func (o *FindRegionConfig200ResponseDataInner) SetIsEnabled(v bool) {
+	o.IsEnabled = &v
+}
+
+// GetReplicationTarget returns the ReplicationTarget field value if set, zero value otherwise.
+func (o *FindRegionConfig200ResponseDataInner) GetReplicationTarget() string {
+	if o == nil || IsNil(o.ReplicationTarget) {
+		var ret string
+		return ret
+	}
+	return *o.ReplicationTarget
+}
+
+// GetReplicationTargetOk returns a tuple with the ReplicationTarget field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegionConfig200ResponseDataInner) GetReplicationTargetOk() (*string, bool) {
+	if o == nil || IsNil(o.ReplicationTarget) {
+		return nil, false
+	}
+	return o.ReplicationTarget, true
+}
+
+// HasReplicationTarget returns a boolean if a field has been set.
+func (o *FindRegionConfig200ResponseDataInner) HasReplicationTarget() bool {
+	if o != nil && !IsNil(o.ReplicationTarget) {
+		return true
+	}
+
+	return false
+}
+
+// SetReplicationTarget gets a reference to the given string and assigns it to the ReplicationTarget field.
+func (o *FindRegionConfig200ResponseDataInner) SetReplicationTarget(v string) {
+	o.ReplicationTarget = &v
+}
+
+// GetLatencyMs returns the LatencyMs field value if set, zero value otherwise.
+func (o *FindRegionConfig200ResponseDataInner) GetLatencyMs() int32 {
+	if o == nil || IsNil(o.LatencyMs) {
+		var ret int32
+		return ret
+	}
+	return *o.LatencyMs
+}
+
+// GetLatencyMsOk returns a tuple with the LatencyMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegionConfig200ResponseDataInner) GetLatencyMsOk() (*int32, bool) {
+	if o == nil || IsNil(o.LatencyMs) {
+		return nil, false
+	}
+	return o.LatencyMs, true
+}
+
+// HasLatencyMs returns a boolean if a field has been set.
+func (o *FindRegionConfig200ResponseDataInner) HasLatencyMs() bool {
+	if o != nil && !IsNil(o.LatencyMs) {
+		return true
+	}
+
+	return false
+}
+
+// SetLatencyMs gets a reference to the given int32 and assigns it to the LatencyMs field.
+func (o *FindRegionConfig200ResponseDataInner) SetLatencyMs(v int32) {
+	o.LatencyMs = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindRegionConfig200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegionConfig200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindRegionConfig200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindRegionConfig200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindRegionConfig200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRegionConfig200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindRegionConfig200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindRegionConfig200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +399,6 @@ func (o *FindRegionConfig200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindRegionConfig200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindRegionConfig200ResponseDataInner) GetAttributes() RegionConfig {
-	if o == nil || IsNil(o.Attributes) {
-		var ret RegionConfig
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindRegionConfig200ResponseDataInner) GetAttributesOk() (*RegionConfig, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindRegionConfig200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given RegionConfig and assigns it to the Attributes field.
-func (o *FindRegionConfig200ResponseDataInner) SetAttributes(v RegionConfig) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +517,34 @@ func (o FindRegionConfig200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindRegionConfig200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["region"] = o.Region
+	toSerialize["provider"] = o.Provider
+	if !IsNil(o.DisplayName) {
+		toSerialize["display_name"] = o.DisplayName
+	}
+	if !IsNil(o.IsPrimary) {
+		toSerialize["is_primary"] = o.IsPrimary
+	}
+	if !IsNil(o.IsEnabled) {
+		toSerialize["is_enabled"] = o.IsEnabled
+	}
+	if !IsNil(o.ReplicationTarget) {
+		toSerialize["replication_target"] = o.ReplicationTarget
+	}
+	if !IsNil(o.LatencyMs) {
+		toSerialize["latency_ms"] = o.LatencyMs
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +556,44 @@ func (o FindRegionConfig200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindRegionConfig200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"region",
+		"provider",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindRegionConfig200ResponseDataInner := _FindRegionConfig200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindRegionConfig200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindRegionConfig200ResponseDataInner(varFindRegionConfig200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindRegionConfig200ResponseDataInner struct {

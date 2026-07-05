@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindPaymentGateway200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,39 @@ var _ MappedNullable = &FindPaymentGateway200ResponseDataInner{}
 
 // FindPaymentGateway200ResponseDataInner struct for FindPaymentGateway200ResponseDataInner
 type FindPaymentGateway200ResponseDataInner struct {
+	UsersPermissionsUser *CreateAccessReviewRequestDataReviewer `json:"users_permissions_user,omitempty"`
+	Amount float32 `json:"amount"`
+	Currency string `json:"currency"`
+	State string `json:"state"`
+	PaymentMethod string `json:"payment_method"`
+	StripeSessionId *string `json:"stripe_session_id,omitempty"`
+	StripePaymentIntentId *string `json:"stripe_payment_intent_id,omitempty"`
+	TransactionId *string `json:"transaction_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	GatewayResponse interface{} `json:"gateway_response,omitempty"`
+	ErrorMessage *string `json:"error_message,omitempty"`
+	ProcessedAt *time.Time `json:"processed_at,omitempty"`
+	RefundedAt *time.Time `json:"refunded_at,omitempty"`
+	RefundAmount *float32 `json:"refund_amount,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *PaymentGateway `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindPaymentGateway200ResponseDataInner FindPaymentGateway200ResponseDataInner
+
 // NewFindPaymentGateway200ResponseDataInner instantiates a new FindPaymentGateway200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindPaymentGateway200ResponseDataInner() *FindPaymentGateway200ResponseDataInner {
+func NewFindPaymentGateway200ResponseDataInner(amount float32, currency string, state string, paymentMethod string) *FindPaymentGateway200ResponseDataInner {
 	this := FindPaymentGateway200ResponseDataInner{}
+	this.Amount = amount
+	this.Currency = currency
+	this.State = state
+	this.PaymentMethod = paymentMethod
 	return &this
 }
 
@@ -44,6 +65,391 @@ func NewFindPaymentGateway200ResponseDataInner() *FindPaymentGateway200ResponseD
 func NewFindPaymentGateway200ResponseDataInnerWithDefaults() *FindPaymentGateway200ResponseDataInner {
 	this := FindPaymentGateway200ResponseDataInner{}
 	return &this
+}
+
+// GetUsersPermissionsUser returns the UsersPermissionsUser field value if set, zero value otherwise.
+func (o *FindPaymentGateway200ResponseDataInner) GetUsersPermissionsUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.UsersPermissionsUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.UsersPermissionsUser
+}
+
+// GetUsersPermissionsUserOk returns a tuple with the UsersPermissionsUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetUsersPermissionsUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.UsersPermissionsUser) {
+		return nil, false
+	}
+	return o.UsersPermissionsUser, true
+}
+
+// HasUsersPermissionsUser returns a boolean if a field has been set.
+func (o *FindPaymentGateway200ResponseDataInner) HasUsersPermissionsUser() bool {
+	if o != nil && !IsNil(o.UsersPermissionsUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsersPermissionsUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the UsersPermissionsUser field.
+func (o *FindPaymentGateway200ResponseDataInner) SetUsersPermissionsUser(v CreateAccessReviewRequestDataReviewer) {
+	o.UsersPermissionsUser = &v
+}
+
+// GetAmount returns the Amount field value
+func (o *FindPaymentGateway200ResponseDataInner) GetAmount() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Amount
+}
+
+// GetAmountOk returns a tuple with the Amount field value
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetAmountOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Amount, true
+}
+
+// SetAmount sets field value
+func (o *FindPaymentGateway200ResponseDataInner) SetAmount(v float32) {
+	o.Amount = v
+}
+
+// GetCurrency returns the Currency field value
+func (o *FindPaymentGateway200ResponseDataInner) GetCurrency() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetCurrencyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Currency, true
+}
+
+// SetCurrency sets field value
+func (o *FindPaymentGateway200ResponseDataInner) SetCurrency(v string) {
+	o.Currency = v
+}
+
+// GetState returns the State field value
+func (o *FindPaymentGateway200ResponseDataInner) GetState() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetStateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *FindPaymentGateway200ResponseDataInner) SetState(v string) {
+	o.State = v
+}
+
+// GetPaymentMethod returns the PaymentMethod field value
+func (o *FindPaymentGateway200ResponseDataInner) GetPaymentMethod() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PaymentMethod
+}
+
+// GetPaymentMethodOk returns a tuple with the PaymentMethod field value
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetPaymentMethodOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PaymentMethod, true
+}
+
+// SetPaymentMethod sets field value
+func (o *FindPaymentGateway200ResponseDataInner) SetPaymentMethod(v string) {
+	o.PaymentMethod = v
+}
+
+// GetStripeSessionId returns the StripeSessionId field value if set, zero value otherwise.
+func (o *FindPaymentGateway200ResponseDataInner) GetStripeSessionId() string {
+	if o == nil || IsNil(o.StripeSessionId) {
+		var ret string
+		return ret
+	}
+	return *o.StripeSessionId
+}
+
+// GetStripeSessionIdOk returns a tuple with the StripeSessionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetStripeSessionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.StripeSessionId) {
+		return nil, false
+	}
+	return o.StripeSessionId, true
+}
+
+// HasStripeSessionId returns a boolean if a field has been set.
+func (o *FindPaymentGateway200ResponseDataInner) HasStripeSessionId() bool {
+	if o != nil && !IsNil(o.StripeSessionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetStripeSessionId gets a reference to the given string and assigns it to the StripeSessionId field.
+func (o *FindPaymentGateway200ResponseDataInner) SetStripeSessionId(v string) {
+	o.StripeSessionId = &v
+}
+
+// GetStripePaymentIntentId returns the StripePaymentIntentId field value if set, zero value otherwise.
+func (o *FindPaymentGateway200ResponseDataInner) GetStripePaymentIntentId() string {
+	if o == nil || IsNil(o.StripePaymentIntentId) {
+		var ret string
+		return ret
+	}
+	return *o.StripePaymentIntentId
+}
+
+// GetStripePaymentIntentIdOk returns a tuple with the StripePaymentIntentId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetStripePaymentIntentIdOk() (*string, bool) {
+	if o == nil || IsNil(o.StripePaymentIntentId) {
+		return nil, false
+	}
+	return o.StripePaymentIntentId, true
+}
+
+// HasStripePaymentIntentId returns a boolean if a field has been set.
+func (o *FindPaymentGateway200ResponseDataInner) HasStripePaymentIntentId() bool {
+	if o != nil && !IsNil(o.StripePaymentIntentId) {
+		return true
+	}
+
+	return false
+}
+
+// SetStripePaymentIntentId gets a reference to the given string and assigns it to the StripePaymentIntentId field.
+func (o *FindPaymentGateway200ResponseDataInner) SetStripePaymentIntentId(v string) {
+	o.StripePaymentIntentId = &v
+}
+
+// GetTransactionId returns the TransactionId field value if set, zero value otherwise.
+func (o *FindPaymentGateway200ResponseDataInner) GetTransactionId() string {
+	if o == nil || IsNil(o.TransactionId) {
+		var ret string
+		return ret
+	}
+	return *o.TransactionId
+}
+
+// GetTransactionIdOk returns a tuple with the TransactionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetTransactionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.TransactionId) {
+		return nil, false
+	}
+	return o.TransactionId, true
+}
+
+// HasTransactionId returns a boolean if a field has been set.
+func (o *FindPaymentGateway200ResponseDataInner) HasTransactionId() bool {
+	if o != nil && !IsNil(o.TransactionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionId gets a reference to the given string and assigns it to the TransactionId field.
+func (o *FindPaymentGateway200ResponseDataInner) SetTransactionId(v string) {
+	o.TransactionId = &v
+}
+
+// GetGatewayResponse returns the GatewayResponse field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindPaymentGateway200ResponseDataInner) GetGatewayResponse() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.GatewayResponse
+}
+
+// GetGatewayResponseOk returns a tuple with the GatewayResponse field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindPaymentGateway200ResponseDataInner) GetGatewayResponseOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.GatewayResponse) {
+		return nil, false
+	}
+	return &o.GatewayResponse, true
+}
+
+// HasGatewayResponse returns a boolean if a field has been set.
+func (o *FindPaymentGateway200ResponseDataInner) HasGatewayResponse() bool {
+	if o != nil && !IsNil(o.GatewayResponse) {
+		return true
+	}
+
+	return false
+}
+
+// SetGatewayResponse gets a reference to the given interface{} and assigns it to the GatewayResponse field.
+func (o *FindPaymentGateway200ResponseDataInner) SetGatewayResponse(v interface{}) {
+	o.GatewayResponse = v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindPaymentGateway200ResponseDataInner) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindPaymentGateway200ResponseDataInner) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindPaymentGateway200ResponseDataInner) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
+// GetProcessedAt returns the ProcessedAt field value if set, zero value otherwise.
+func (o *FindPaymentGateway200ResponseDataInner) GetProcessedAt() time.Time {
+	if o == nil || IsNil(o.ProcessedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ProcessedAt
+}
+
+// GetProcessedAtOk returns a tuple with the ProcessedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetProcessedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ProcessedAt) {
+		return nil, false
+	}
+	return o.ProcessedAt, true
+}
+
+// HasProcessedAt returns a boolean if a field has been set.
+func (o *FindPaymentGateway200ResponseDataInner) HasProcessedAt() bool {
+	if o != nil && !IsNil(o.ProcessedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessedAt gets a reference to the given time.Time and assigns it to the ProcessedAt field.
+func (o *FindPaymentGateway200ResponseDataInner) SetProcessedAt(v time.Time) {
+	o.ProcessedAt = &v
+}
+
+// GetRefundedAt returns the RefundedAt field value if set, zero value otherwise.
+func (o *FindPaymentGateway200ResponseDataInner) GetRefundedAt() time.Time {
+	if o == nil || IsNil(o.RefundedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.RefundedAt
+}
+
+// GetRefundedAtOk returns a tuple with the RefundedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetRefundedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.RefundedAt) {
+		return nil, false
+	}
+	return o.RefundedAt, true
+}
+
+// HasRefundedAt returns a boolean if a field has been set.
+func (o *FindPaymentGateway200ResponseDataInner) HasRefundedAt() bool {
+	if o != nil && !IsNil(o.RefundedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetRefundedAt gets a reference to the given time.Time and assigns it to the RefundedAt field.
+func (o *FindPaymentGateway200ResponseDataInner) SetRefundedAt(v time.Time) {
+	o.RefundedAt = &v
+}
+
+// GetRefundAmount returns the RefundAmount field value if set, zero value otherwise.
+func (o *FindPaymentGateway200ResponseDataInner) GetRefundAmount() float32 {
+	if o == nil || IsNil(o.RefundAmount) {
+		var ret float32
+		return ret
+	}
+	return *o.RefundAmount
+}
+
+// GetRefundAmountOk returns a tuple with the RefundAmount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindPaymentGateway200ResponseDataInner) GetRefundAmountOk() (*float32, bool) {
+	if o == nil || IsNil(o.RefundAmount) {
+		return nil, false
+	}
+	return o.RefundAmount, true
+}
+
+// HasRefundAmount returns a boolean if a field has been set.
+func (o *FindPaymentGateway200ResponseDataInner) HasRefundAmount() bool {
+	if o != nil && !IsNil(o.RefundAmount) {
+		return true
+	}
+
+	return false
+}
+
+// SetRefundAmount gets a reference to the given float32 and assigns it to the RefundAmount field.
+func (o *FindPaymentGateway200ResponseDataInner) SetRefundAmount(v float32) {
+	o.RefundAmount = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +514,6 @@ func (o *FindPaymentGateway200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindPaymentGateway200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindPaymentGateway200ResponseDataInner) GetAttributes() PaymentGateway {
-	if o == nil || IsNil(o.Attributes) {
-		var ret PaymentGateway
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindPaymentGateway200ResponseDataInner) GetAttributesOk() (*PaymentGateway, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindPaymentGateway200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given PaymentGateway and assigns it to the Attributes field.
-func (o *FindPaymentGateway200ResponseDataInner) SetAttributes(v PaymentGateway) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +632,42 @@ func (o FindPaymentGateway200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindPaymentGateway200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.UsersPermissionsUser) {
+		toSerialize["users_permissions_user"] = o.UsersPermissionsUser
+	}
+	toSerialize["amount"] = o.Amount
+	toSerialize["currency"] = o.Currency
+	toSerialize["state"] = o.State
+	toSerialize["payment_method"] = o.PaymentMethod
+	if !IsNil(o.StripeSessionId) {
+		toSerialize["stripe_session_id"] = o.StripeSessionId
+	}
+	if !IsNil(o.StripePaymentIntentId) {
+		toSerialize["stripe_payment_intent_id"] = o.StripePaymentIntentId
+	}
+	if !IsNil(o.TransactionId) {
+		toSerialize["transaction_id"] = o.TransactionId
+	}
+	if o.GatewayResponse != nil {
+		toSerialize["gateway_response"] = o.GatewayResponse
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
+	if !IsNil(o.ProcessedAt) {
+		toSerialize["processed_at"] = o.ProcessedAt
+	}
+	if !IsNil(o.RefundedAt) {
+		toSerialize["refunded_at"] = o.RefundedAt
+	}
+	if !IsNil(o.RefundAmount) {
+		toSerialize["refund_amount"] = o.RefundAmount
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +679,46 @@ func (o FindPaymentGateway200ResponseDataInner) ToMap() (map[string]interface{},
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindPaymentGateway200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"amount",
+		"currency",
+		"state",
+		"payment_method",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindPaymentGateway200ResponseDataInner := _FindPaymentGateway200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindPaymentGateway200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindPaymentGateway200ResponseDataInner(varFindPaymentGateway200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindPaymentGateway200ResponseDataInner struct {

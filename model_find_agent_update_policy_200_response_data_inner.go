@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAgentUpdatePolicy200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindAgentUpdatePolicy200ResponseDataInner{}
 
 // FindAgentUpdatePolicy200ResponseDataInner struct for FindAgentUpdatePolicy200ResponseDataInner
 type FindAgentUpdatePolicy200ResponseDataInner struct {
+	Version string `json:"version"`
+	BinaryUrl *string `json:"binary_url,omitempty"`
+	BinarySha256 *string `json:"binary_sha256,omitempty"`
+	CosignSignature *string `json:"cosign_signature,omitempty"`
+	SbomUrl *string `json:"sbom_url,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	StagedRollout interface{} `json:"staged_rollout,omitempty"`
+	CurrentRing *string `json:"current_ring,omitempty"`
+	HealthcheckFailures *int32 `json:"healthcheck_failures,omitempty"`
+	AutoPauseThreshold *int32 `json:"auto_pause_threshold,omitempty"`
+	Status *string `json:"status,omitempty"`
+	ReleaseNotes *string `json:"release_notes,omitempty"`
+	IsSecurityPatch *bool `json:"is_security_patch,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AgentUpdatePolicy `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAgentUpdatePolicy200ResponseDataInner FindAgentUpdatePolicy200ResponseDataInner
+
 // NewFindAgentUpdatePolicy200ResponseDataInner instantiates a new FindAgentUpdatePolicy200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAgentUpdatePolicy200ResponseDataInner() *FindAgentUpdatePolicy200ResponseDataInner {
+func NewFindAgentUpdatePolicy200ResponseDataInner(version string) *FindAgentUpdatePolicy200ResponseDataInner {
 	this := FindAgentUpdatePolicy200ResponseDataInner{}
+	this.Version = version
 	return &this
 }
 
@@ -44,6 +61,383 @@ func NewFindAgentUpdatePolicy200ResponseDataInner() *FindAgentUpdatePolicy200Res
 func NewFindAgentUpdatePolicy200ResponseDataInnerWithDefaults() *FindAgentUpdatePolicy200ResponseDataInner {
 	this := FindAgentUpdatePolicy200ResponseDataInner{}
 	return &this
+}
+
+// GetVersion returns the Version field value
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetVersion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetVersionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Version, true
+}
+
+// SetVersion sets field value
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetVersion(v string) {
+	o.Version = v
+}
+
+// GetBinaryUrl returns the BinaryUrl field value if set, zero value otherwise.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetBinaryUrl() string {
+	if o == nil || IsNil(o.BinaryUrl) {
+		var ret string
+		return ret
+	}
+	return *o.BinaryUrl
+}
+
+// GetBinaryUrlOk returns a tuple with the BinaryUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetBinaryUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.BinaryUrl) {
+		return nil, false
+	}
+	return o.BinaryUrl, true
+}
+
+// HasBinaryUrl returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasBinaryUrl() bool {
+	if o != nil && !IsNil(o.BinaryUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetBinaryUrl gets a reference to the given string and assigns it to the BinaryUrl field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetBinaryUrl(v string) {
+	o.BinaryUrl = &v
+}
+
+// GetBinarySha256 returns the BinarySha256 field value if set, zero value otherwise.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetBinarySha256() string {
+	if o == nil || IsNil(o.BinarySha256) {
+		var ret string
+		return ret
+	}
+	return *o.BinarySha256
+}
+
+// GetBinarySha256Ok returns a tuple with the BinarySha256 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetBinarySha256Ok() (*string, bool) {
+	if o == nil || IsNil(o.BinarySha256) {
+		return nil, false
+	}
+	return o.BinarySha256, true
+}
+
+// HasBinarySha256 returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasBinarySha256() bool {
+	if o != nil && !IsNil(o.BinarySha256) {
+		return true
+	}
+
+	return false
+}
+
+// SetBinarySha256 gets a reference to the given string and assigns it to the BinarySha256 field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetBinarySha256(v string) {
+	o.BinarySha256 = &v
+}
+
+// GetCosignSignature returns the CosignSignature field value if set, zero value otherwise.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetCosignSignature() string {
+	if o == nil || IsNil(o.CosignSignature) {
+		var ret string
+		return ret
+	}
+	return *o.CosignSignature
+}
+
+// GetCosignSignatureOk returns a tuple with the CosignSignature field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetCosignSignatureOk() (*string, bool) {
+	if o == nil || IsNil(o.CosignSignature) {
+		return nil, false
+	}
+	return o.CosignSignature, true
+}
+
+// HasCosignSignature returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasCosignSignature() bool {
+	if o != nil && !IsNil(o.CosignSignature) {
+		return true
+	}
+
+	return false
+}
+
+// SetCosignSignature gets a reference to the given string and assigns it to the CosignSignature field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetCosignSignature(v string) {
+	o.CosignSignature = &v
+}
+
+// GetSbomUrl returns the SbomUrl field value if set, zero value otherwise.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetSbomUrl() string {
+	if o == nil || IsNil(o.SbomUrl) {
+		var ret string
+		return ret
+	}
+	return *o.SbomUrl
+}
+
+// GetSbomUrlOk returns a tuple with the SbomUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetSbomUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.SbomUrl) {
+		return nil, false
+	}
+	return o.SbomUrl, true
+}
+
+// HasSbomUrl returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasSbomUrl() bool {
+	if o != nil && !IsNil(o.SbomUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetSbomUrl gets a reference to the given string and assigns it to the SbomUrl field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetSbomUrl(v string) {
+	o.SbomUrl = &v
+}
+
+// GetStagedRollout returns the StagedRollout field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetStagedRollout() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.StagedRollout
+}
+
+// GetStagedRolloutOk returns a tuple with the StagedRollout field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetStagedRolloutOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.StagedRollout) {
+		return nil, false
+	}
+	return &o.StagedRollout, true
+}
+
+// HasStagedRollout returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasStagedRollout() bool {
+	if o != nil && !IsNil(o.StagedRollout) {
+		return true
+	}
+
+	return false
+}
+
+// SetStagedRollout gets a reference to the given interface{} and assigns it to the StagedRollout field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetStagedRollout(v interface{}) {
+	o.StagedRollout = v
+}
+
+// GetCurrentRing returns the CurrentRing field value if set, zero value otherwise.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetCurrentRing() string {
+	if o == nil || IsNil(o.CurrentRing) {
+		var ret string
+		return ret
+	}
+	return *o.CurrentRing
+}
+
+// GetCurrentRingOk returns a tuple with the CurrentRing field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetCurrentRingOk() (*string, bool) {
+	if o == nil || IsNil(o.CurrentRing) {
+		return nil, false
+	}
+	return o.CurrentRing, true
+}
+
+// HasCurrentRing returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasCurrentRing() bool {
+	if o != nil && !IsNil(o.CurrentRing) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentRing gets a reference to the given string and assigns it to the CurrentRing field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetCurrentRing(v string) {
+	o.CurrentRing = &v
+}
+
+// GetHealthcheckFailures returns the HealthcheckFailures field value if set, zero value otherwise.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetHealthcheckFailures() int32 {
+	if o == nil || IsNil(o.HealthcheckFailures) {
+		var ret int32
+		return ret
+	}
+	return *o.HealthcheckFailures
+}
+
+// GetHealthcheckFailuresOk returns a tuple with the HealthcheckFailures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetHealthcheckFailuresOk() (*int32, bool) {
+	if o == nil || IsNil(o.HealthcheckFailures) {
+		return nil, false
+	}
+	return o.HealthcheckFailures, true
+}
+
+// HasHealthcheckFailures returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasHealthcheckFailures() bool {
+	if o != nil && !IsNil(o.HealthcheckFailures) {
+		return true
+	}
+
+	return false
+}
+
+// SetHealthcheckFailures gets a reference to the given int32 and assigns it to the HealthcheckFailures field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetHealthcheckFailures(v int32) {
+	o.HealthcheckFailures = &v
+}
+
+// GetAutoPauseThreshold returns the AutoPauseThreshold field value if set, zero value otherwise.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetAutoPauseThreshold() int32 {
+	if o == nil || IsNil(o.AutoPauseThreshold) {
+		var ret int32
+		return ret
+	}
+	return *o.AutoPauseThreshold
+}
+
+// GetAutoPauseThresholdOk returns a tuple with the AutoPauseThreshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetAutoPauseThresholdOk() (*int32, bool) {
+	if o == nil || IsNil(o.AutoPauseThreshold) {
+		return nil, false
+	}
+	return o.AutoPauseThreshold, true
+}
+
+// HasAutoPauseThreshold returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasAutoPauseThreshold() bool {
+	if o != nil && !IsNil(o.AutoPauseThreshold) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoPauseThreshold gets a reference to the given int32 and assigns it to the AutoPauseThreshold field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetAutoPauseThreshold(v int32) {
+	o.AutoPauseThreshold = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetReleaseNotes returns the ReleaseNotes field value if set, zero value otherwise.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetReleaseNotes() string {
+	if o == nil || IsNil(o.ReleaseNotes) {
+		var ret string
+		return ret
+	}
+	return *o.ReleaseNotes
+}
+
+// GetReleaseNotesOk returns a tuple with the ReleaseNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetReleaseNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.ReleaseNotes) {
+		return nil, false
+	}
+	return o.ReleaseNotes, true
+}
+
+// HasReleaseNotes returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasReleaseNotes() bool {
+	if o != nil && !IsNil(o.ReleaseNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetReleaseNotes gets a reference to the given string and assigns it to the ReleaseNotes field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetReleaseNotes(v string) {
+	o.ReleaseNotes = &v
+}
+
+// GetIsSecurityPatch returns the IsSecurityPatch field value if set, zero value otherwise.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetIsSecurityPatch() bool {
+	if o == nil || IsNil(o.IsSecurityPatch) {
+		var ret bool
+		return ret
+	}
+	return *o.IsSecurityPatch
+}
+
+// GetIsSecurityPatchOk returns a tuple with the IsSecurityPatch field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) GetIsSecurityPatchOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsSecurityPatch) {
+		return nil, false
+	}
+	return o.IsSecurityPatch, true
+}
+
+// HasIsSecurityPatch returns a boolean if a field has been set.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) HasIsSecurityPatch() bool {
+	if o != nil && !IsNil(o.IsSecurityPatch) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSecurityPatch gets a reference to the given bool and assigns it to the IsSecurityPatch field.
+func (o *FindAgentUpdatePolicy200ResponseDataInner) SetIsSecurityPatch(v bool) {
+	o.IsSecurityPatch = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +502,6 @@ func (o *FindAgentUpdatePolicy200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAgentUpdatePolicy200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAgentUpdatePolicy200ResponseDataInner) GetAttributes() AgentUpdatePolicy {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AgentUpdatePolicy
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAgentUpdatePolicy200ResponseDataInner) GetAttributesOk() (*AgentUpdatePolicy, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAgentUpdatePolicy200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AgentUpdatePolicy and assigns it to the Attributes field.
-func (o *FindAgentUpdatePolicy200ResponseDataInner) SetAttributes(v AgentUpdatePolicy) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +620,45 @@ func (o FindAgentUpdatePolicy200ResponseDataInner) MarshalJSON() ([]byte, error)
 
 func (o FindAgentUpdatePolicy200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["version"] = o.Version
+	if !IsNil(o.BinaryUrl) {
+		toSerialize["binary_url"] = o.BinaryUrl
+	}
+	if !IsNil(o.BinarySha256) {
+		toSerialize["binary_sha256"] = o.BinarySha256
+	}
+	if !IsNil(o.CosignSignature) {
+		toSerialize["cosign_signature"] = o.CosignSignature
+	}
+	if !IsNil(o.SbomUrl) {
+		toSerialize["sbom_url"] = o.SbomUrl
+	}
+	if o.StagedRollout != nil {
+		toSerialize["staged_rollout"] = o.StagedRollout
+	}
+	if !IsNil(o.CurrentRing) {
+		toSerialize["current_ring"] = o.CurrentRing
+	}
+	if !IsNil(o.HealthcheckFailures) {
+		toSerialize["healthcheck_failures"] = o.HealthcheckFailures
+	}
+	if !IsNil(o.AutoPauseThreshold) {
+		toSerialize["auto_pause_threshold"] = o.AutoPauseThreshold
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.ReleaseNotes) {
+		toSerialize["release_notes"] = o.ReleaseNotes
+	}
+	if !IsNil(o.IsSecurityPatch) {
+		toSerialize["is_security_patch"] = o.IsSecurityPatch
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +670,43 @@ func (o FindAgentUpdatePolicy200ResponseDataInner) ToMap() (map[string]interface
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAgentUpdatePolicy200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"version",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAgentUpdatePolicy200ResponseDataInner := _FindAgentUpdatePolicy200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAgentUpdatePolicy200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAgentUpdatePolicy200ResponseDataInner(varFindAgentUpdatePolicy200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAgentUpdatePolicy200ResponseDataInner struct {

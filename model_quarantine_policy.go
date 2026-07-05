@@ -24,7 +24,8 @@ var _ MappedNullable = &QuarantinePolicy{}
 type QuarantinePolicy struct {
 	Name string `json:"name"`
 	TriggerType string `json:"trigger_type"`
-	Conditions map[string]interface{} `json:"conditions,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Conditions interface{} `json:"conditions,omitempty"`
 	AutoReleaseHours *int32 `json:"auto_release_hours,omitempty"`
 	NotifyOnTrigger *bool `json:"notify_on_trigger,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
@@ -99,10 +100,10 @@ func (o *QuarantinePolicy) SetTriggerType(v string) {
 	o.TriggerType = v
 }
 
-// GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *QuarantinePolicy) GetConditions() map[string]interface{} {
-	if o == nil || IsNil(o.Conditions) {
-		var ret map[string]interface{}
+// GetConditions returns the Conditions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *QuarantinePolicy) GetConditions() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Conditions
@@ -110,11 +111,12 @@ func (o *QuarantinePolicy) GetConditions() map[string]interface{} {
 
 // GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QuarantinePolicy) GetConditionsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *QuarantinePolicy) GetConditionsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Conditions) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Conditions, true
+	return &o.Conditions, true
 }
 
 // HasConditions returns a boolean if a field has been set.
@@ -126,8 +128,8 @@ func (o *QuarantinePolicy) HasConditions() bool {
 	return false
 }
 
-// SetConditions gets a reference to the given map[string]interface{} and assigns it to the Conditions field.
-func (o *QuarantinePolicy) SetConditions(v map[string]interface{}) {
+// SetConditions gets a reference to the given interface{} and assigns it to the Conditions field.
+func (o *QuarantinePolicy) SetConditions(v interface{}) {
 	o.Conditions = v
 }
 
@@ -239,7 +241,7 @@ func (o QuarantinePolicy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
 	toSerialize["trigger_type"] = o.TriggerType
-	if !IsNil(o.Conditions) {
+	if o.Conditions != nil {
 		toSerialize["conditions"] = o.Conditions
 	}
 	if !IsNil(o.AutoReleaseHours) {

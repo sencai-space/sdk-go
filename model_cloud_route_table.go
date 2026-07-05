@@ -23,9 +23,11 @@ var _ MappedNullable = &CloudRouteTable{}
 // CloudRouteTable struct for CloudRouteTable
 type CloudRouteTable struct {
 	Name string `json:"name"`
-	Routes map[string]interface{} `json:"routes,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Routes interface{} `json:"routes,omitempty"`
 	ExternalId *string `json:"external_id,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	Network *CreateAccessReviewRequestDataReviewer `json:"network,omitempty"`
 	Subnets *CreateAccessReviewRequestDataReviewer `json:"subnets,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
@@ -75,10 +77,10 @@ func (o *CloudRouteTable) SetName(v string) {
 	o.Name = v
 }
 
-// GetRoutes returns the Routes field value if set, zero value otherwise.
-func (o *CloudRouteTable) GetRoutes() map[string]interface{} {
-	if o == nil || IsNil(o.Routes) {
-		var ret map[string]interface{}
+// GetRoutes returns the Routes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CloudRouteTable) GetRoutes() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Routes
@@ -86,11 +88,12 @@ func (o *CloudRouteTable) GetRoutes() map[string]interface{} {
 
 // GetRoutesOk returns a tuple with the Routes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CloudRouteTable) GetRoutesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CloudRouteTable) GetRoutesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Routes) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Routes, true
+	return &o.Routes, true
 }
 
 // HasRoutes returns a boolean if a field has been set.
@@ -102,8 +105,8 @@ func (o *CloudRouteTable) HasRoutes() bool {
 	return false
 }
 
-// SetRoutes gets a reference to the given map[string]interface{} and assigns it to the Routes field.
-func (o *CloudRouteTable) SetRoutes(v map[string]interface{}) {
+// SetRoutes gets a reference to the given interface{} and assigns it to the Routes field.
+func (o *CloudRouteTable) SetRoutes(v interface{}) {
 	o.Routes = v
 }
 
@@ -139,10 +142,10 @@ func (o *CloudRouteTable) SetExternalId(v string) {
 	o.ExternalId = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CloudRouteTable) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CloudRouteTable) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -150,11 +153,12 @@ func (o *CloudRouteTable) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CloudRouteTable) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CloudRouteTable) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -166,8 +170,8 @@ func (o *CloudRouteTable) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CloudRouteTable) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CloudRouteTable) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -278,13 +282,13 @@ func (o CloudRouteTable) MarshalJSON() ([]byte, error) {
 func (o CloudRouteTable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Routes) {
+	if o.Routes != nil {
 		toSerialize["routes"] = o.Routes
 	}
 	if !IsNil(o.ExternalId) {
 		toSerialize["external_id"] = o.ExternalId
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.Network) {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindWorkspaceTenant200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,30 @@ var _ MappedNullable = &FindWorkspaceTenant200ResponseDataInner{}
 
 // FindWorkspaceTenant200ResponseDataInner struct for FindWorkspaceTenant200ResponseDataInner
 type FindWorkspaceTenant200ResponseDataInner struct {
+	Domain string `json:"domain"`
+	CustomerId *string `json:"customer_id,omitempty"`
+	ServiceAccountEmail *string `json:"service_account_email,omitempty"`
+	ServiceAccountKeyEncrypted *string `json:"service_account_key_encrypted,omitempty"`
+	AdminEmail *string `json:"admin_email,omitempty"`
+	LastSyncedAt *time.Time `json:"last_synced_at,omitempty"`
+	SyncStatus *string `json:"sync_status,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *WorkspaceTenant `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindWorkspaceTenant200ResponseDataInner FindWorkspaceTenant200ResponseDataInner
+
 // NewFindWorkspaceTenant200ResponseDataInner instantiates a new FindWorkspaceTenant200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindWorkspaceTenant200ResponseDataInner() *FindWorkspaceTenant200ResponseDataInner {
+func NewFindWorkspaceTenant200ResponseDataInner(domain string) *FindWorkspaceTenant200ResponseDataInner {
 	this := FindWorkspaceTenant200ResponseDataInner{}
+	this.Domain = domain
 	return &this
 }
 
@@ -44,6 +56,254 @@ func NewFindWorkspaceTenant200ResponseDataInner() *FindWorkspaceTenant200Respons
 func NewFindWorkspaceTenant200ResponseDataInnerWithDefaults() *FindWorkspaceTenant200ResponseDataInner {
 	this := FindWorkspaceTenant200ResponseDataInner{}
 	return &this
+}
+
+// GetDomain returns the Domain field value
+func (o *FindWorkspaceTenant200ResponseDataInner) GetDomain() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetDomainOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Domain, true
+}
+
+// SetDomain sets field value
+func (o *FindWorkspaceTenant200ResponseDataInner) SetDomain(v string) {
+	o.Domain = v
+}
+
+// GetCustomerId returns the CustomerId field value if set, zero value otherwise.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetCustomerId() string {
+	if o == nil || IsNil(o.CustomerId) {
+		var ret string
+		return ret
+	}
+	return *o.CustomerId
+}
+
+// GetCustomerIdOk returns a tuple with the CustomerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetCustomerIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomerId) {
+		return nil, false
+	}
+	return o.CustomerId, true
+}
+
+// HasCustomerId returns a boolean if a field has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) HasCustomerId() bool {
+	if o != nil && !IsNil(o.CustomerId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerId gets a reference to the given string and assigns it to the CustomerId field.
+func (o *FindWorkspaceTenant200ResponseDataInner) SetCustomerId(v string) {
+	o.CustomerId = &v
+}
+
+// GetServiceAccountEmail returns the ServiceAccountEmail field value if set, zero value otherwise.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetServiceAccountEmail() string {
+	if o == nil || IsNil(o.ServiceAccountEmail) {
+		var ret string
+		return ret
+	}
+	return *o.ServiceAccountEmail
+}
+
+// GetServiceAccountEmailOk returns a tuple with the ServiceAccountEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetServiceAccountEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.ServiceAccountEmail) {
+		return nil, false
+	}
+	return o.ServiceAccountEmail, true
+}
+
+// HasServiceAccountEmail returns a boolean if a field has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) HasServiceAccountEmail() bool {
+	if o != nil && !IsNil(o.ServiceAccountEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceAccountEmail gets a reference to the given string and assigns it to the ServiceAccountEmail field.
+func (o *FindWorkspaceTenant200ResponseDataInner) SetServiceAccountEmail(v string) {
+	o.ServiceAccountEmail = &v
+}
+
+// GetServiceAccountKeyEncrypted returns the ServiceAccountKeyEncrypted field value if set, zero value otherwise.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetServiceAccountKeyEncrypted() string {
+	if o == nil || IsNil(o.ServiceAccountKeyEncrypted) {
+		var ret string
+		return ret
+	}
+	return *o.ServiceAccountKeyEncrypted
+}
+
+// GetServiceAccountKeyEncryptedOk returns a tuple with the ServiceAccountKeyEncrypted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetServiceAccountKeyEncryptedOk() (*string, bool) {
+	if o == nil || IsNil(o.ServiceAccountKeyEncrypted) {
+		return nil, false
+	}
+	return o.ServiceAccountKeyEncrypted, true
+}
+
+// HasServiceAccountKeyEncrypted returns a boolean if a field has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) HasServiceAccountKeyEncrypted() bool {
+	if o != nil && !IsNil(o.ServiceAccountKeyEncrypted) {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceAccountKeyEncrypted gets a reference to the given string and assigns it to the ServiceAccountKeyEncrypted field.
+func (o *FindWorkspaceTenant200ResponseDataInner) SetServiceAccountKeyEncrypted(v string) {
+	o.ServiceAccountKeyEncrypted = &v
+}
+
+// GetAdminEmail returns the AdminEmail field value if set, zero value otherwise.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetAdminEmail() string {
+	if o == nil || IsNil(o.AdminEmail) {
+		var ret string
+		return ret
+	}
+	return *o.AdminEmail
+}
+
+// GetAdminEmailOk returns a tuple with the AdminEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetAdminEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.AdminEmail) {
+		return nil, false
+	}
+	return o.AdminEmail, true
+}
+
+// HasAdminEmail returns a boolean if a field has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) HasAdminEmail() bool {
+	if o != nil && !IsNil(o.AdminEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdminEmail gets a reference to the given string and assigns it to the AdminEmail field.
+func (o *FindWorkspaceTenant200ResponseDataInner) SetAdminEmail(v string) {
+	o.AdminEmail = &v
+}
+
+// GetLastSyncedAt returns the LastSyncedAt field value if set, zero value otherwise.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetLastSyncedAt() time.Time {
+	if o == nil || IsNil(o.LastSyncedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSyncedAt
+}
+
+// GetLastSyncedAtOk returns a tuple with the LastSyncedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetLastSyncedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSyncedAt) {
+		return nil, false
+	}
+	return o.LastSyncedAt, true
+}
+
+// HasLastSyncedAt returns a boolean if a field has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) HasLastSyncedAt() bool {
+	if o != nil && !IsNil(o.LastSyncedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSyncedAt gets a reference to the given time.Time and assigns it to the LastSyncedAt field.
+func (o *FindWorkspaceTenant200ResponseDataInner) SetLastSyncedAt(v time.Time) {
+	o.LastSyncedAt = &v
+}
+
+// GetSyncStatus returns the SyncStatus field value if set, zero value otherwise.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetSyncStatus() string {
+	if o == nil || IsNil(o.SyncStatus) {
+		var ret string
+		return ret
+	}
+	return *o.SyncStatus
+}
+
+// GetSyncStatusOk returns a tuple with the SyncStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetSyncStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.SyncStatus) {
+		return nil, false
+	}
+	return o.SyncStatus, true
+}
+
+// HasSyncStatus returns a boolean if a field has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) HasSyncStatus() bool {
+	if o != nil && !IsNil(o.SyncStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetSyncStatus gets a reference to the given string and assigns it to the SyncStatus field.
+func (o *FindWorkspaceTenant200ResponseDataInner) SetSyncStatus(v string) {
+	o.SyncStatus = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindWorkspaceTenant200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindWorkspaceTenant200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +368,6 @@ func (o *FindWorkspaceTenant200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindWorkspaceTenant200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindWorkspaceTenant200ResponseDataInner) GetAttributes() WorkspaceTenant {
-	if o == nil || IsNil(o.Attributes) {
-		var ret WorkspaceTenant
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindWorkspaceTenant200ResponseDataInner) GetAttributesOk() (*WorkspaceTenant, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindWorkspaceTenant200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given WorkspaceTenant and assigns it to the Attributes field.
-func (o *FindWorkspaceTenant200ResponseDataInner) SetAttributes(v WorkspaceTenant) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +486,33 @@ func (o FindWorkspaceTenant200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindWorkspaceTenant200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["domain"] = o.Domain
+	if !IsNil(o.CustomerId) {
+		toSerialize["customer_id"] = o.CustomerId
+	}
+	if !IsNil(o.ServiceAccountEmail) {
+		toSerialize["service_account_email"] = o.ServiceAccountEmail
+	}
+	if !IsNil(o.ServiceAccountKeyEncrypted) {
+		toSerialize["service_account_key_encrypted"] = o.ServiceAccountKeyEncrypted
+	}
+	if !IsNil(o.AdminEmail) {
+		toSerialize["admin_email"] = o.AdminEmail
+	}
+	if !IsNil(o.LastSyncedAt) {
+		toSerialize["last_synced_at"] = o.LastSyncedAt
+	}
+	if !IsNil(o.SyncStatus) {
+		toSerialize["sync_status"] = o.SyncStatus
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +524,43 @@ func (o FindWorkspaceTenant200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindWorkspaceTenant200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"domain",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindWorkspaceTenant200ResponseDataInner := _FindWorkspaceTenant200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindWorkspaceTenant200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindWorkspaceTenant200ResponseDataInner(varFindWorkspaceTenant200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindWorkspaceTenant200ResponseDataInner struct {

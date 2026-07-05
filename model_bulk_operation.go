@@ -29,11 +29,11 @@ type BulkOperation struct {
 	// e.g. cloud-instance, fleet-agent
 	TargetResourceType *string `json:"target_resource_type,omitempty"`
 	// Filter criteria for targeting resources, e.g. {tags: ['web-tier'], providers: ['hetzner']}
-	TargetFilters map[string]interface{} `json:"target_filters,omitempty"`
+	TargetFilters interface{} `json:"target_filters,omitempty"`
 	// Preview result: {affected_count, affected_tenants: [{org_name, resource_count}], skipped_tenants: [{org_name, reason}]}
-	DryRunResult map[string]interface{} `json:"dry_run_result,omitempty"`
+	DryRunResult interface{} `json:"dry_run_result,omitempty"`
 	// Per-tenant results after execution
-	ExecutionResult map[string]interface{} `json:"execution_result,omitempty"`
+	ExecutionResult interface{} `json:"execution_result,omitempty"`
 	Status string `json:"status"`
 	// Number of targeted managed tenants
 	TenantCount *int32 `json:"tenant_count,omitempty"`
@@ -45,7 +45,7 @@ type BulkOperation struct {
 	ExecutedBy *CreateAccessReviewRequestDataReviewer `json:"executed_by,omitempty"`
 	ExecutedAt *time.Time `json:"executed_at,omitempty"`
 	// Operation-specific parameters (patch version, tag key/value, etc.)
-	Payload map[string]interface{} `json:"payload,omitempty"`
+	Payload interface{} `json:"payload,omitempty"`
 }
 
 type _BulkOperation BulkOperation
@@ -150,10 +150,10 @@ func (o *BulkOperation) SetTargetResourceType(v string) {
 	o.TargetResourceType = &v
 }
 
-// GetTargetFilters returns the TargetFilters field value if set, zero value otherwise.
-func (o *BulkOperation) GetTargetFilters() map[string]interface{} {
-	if o == nil || IsNil(o.TargetFilters) {
-		var ret map[string]interface{}
+// GetTargetFilters returns the TargetFilters field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BulkOperation) GetTargetFilters() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.TargetFilters
@@ -161,11 +161,12 @@ func (o *BulkOperation) GetTargetFilters() map[string]interface{} {
 
 // GetTargetFiltersOk returns a tuple with the TargetFilters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BulkOperation) GetTargetFiltersOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BulkOperation) GetTargetFiltersOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.TargetFilters) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.TargetFilters, true
+	return &o.TargetFilters, true
 }
 
 // HasTargetFilters returns a boolean if a field has been set.
@@ -177,15 +178,15 @@ func (o *BulkOperation) HasTargetFilters() bool {
 	return false
 }
 
-// SetTargetFilters gets a reference to the given map[string]interface{} and assigns it to the TargetFilters field.
-func (o *BulkOperation) SetTargetFilters(v map[string]interface{}) {
+// SetTargetFilters gets a reference to the given interface{} and assigns it to the TargetFilters field.
+func (o *BulkOperation) SetTargetFilters(v interface{}) {
 	o.TargetFilters = v
 }
 
-// GetDryRunResult returns the DryRunResult field value if set, zero value otherwise.
-func (o *BulkOperation) GetDryRunResult() map[string]interface{} {
-	if o == nil || IsNil(o.DryRunResult) {
-		var ret map[string]interface{}
+// GetDryRunResult returns the DryRunResult field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BulkOperation) GetDryRunResult() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.DryRunResult
@@ -193,11 +194,12 @@ func (o *BulkOperation) GetDryRunResult() map[string]interface{} {
 
 // GetDryRunResultOk returns a tuple with the DryRunResult field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BulkOperation) GetDryRunResultOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BulkOperation) GetDryRunResultOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.DryRunResult) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.DryRunResult, true
+	return &o.DryRunResult, true
 }
 
 // HasDryRunResult returns a boolean if a field has been set.
@@ -209,15 +211,15 @@ func (o *BulkOperation) HasDryRunResult() bool {
 	return false
 }
 
-// SetDryRunResult gets a reference to the given map[string]interface{} and assigns it to the DryRunResult field.
-func (o *BulkOperation) SetDryRunResult(v map[string]interface{}) {
+// SetDryRunResult gets a reference to the given interface{} and assigns it to the DryRunResult field.
+func (o *BulkOperation) SetDryRunResult(v interface{}) {
 	o.DryRunResult = v
 }
 
-// GetExecutionResult returns the ExecutionResult field value if set, zero value otherwise.
-func (o *BulkOperation) GetExecutionResult() map[string]interface{} {
-	if o == nil || IsNil(o.ExecutionResult) {
-		var ret map[string]interface{}
+// GetExecutionResult returns the ExecutionResult field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BulkOperation) GetExecutionResult() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ExecutionResult
@@ -225,11 +227,12 @@ func (o *BulkOperation) GetExecutionResult() map[string]interface{} {
 
 // GetExecutionResultOk returns a tuple with the ExecutionResult field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BulkOperation) GetExecutionResultOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BulkOperation) GetExecutionResultOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ExecutionResult) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ExecutionResult, true
+	return &o.ExecutionResult, true
 }
 
 // HasExecutionResult returns a boolean if a field has been set.
@@ -241,8 +244,8 @@ func (o *BulkOperation) HasExecutionResult() bool {
 	return false
 }
 
-// SetExecutionResult gets a reference to the given map[string]interface{} and assigns it to the ExecutionResult field.
-func (o *BulkOperation) SetExecutionResult(v map[string]interface{}) {
+// SetExecutionResult gets a reference to the given interface{} and assigns it to the ExecutionResult field.
+func (o *BulkOperation) SetExecutionResult(v interface{}) {
 	o.ExecutionResult = v
 }
 
@@ -462,10 +465,10 @@ func (o *BulkOperation) SetExecutedAt(v time.Time) {
 	o.ExecutedAt = &v
 }
 
-// GetPayload returns the Payload field value if set, zero value otherwise.
-func (o *BulkOperation) GetPayload() map[string]interface{} {
-	if o == nil || IsNil(o.Payload) {
-		var ret map[string]interface{}
+// GetPayload returns the Payload field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BulkOperation) GetPayload() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Payload
@@ -473,11 +476,12 @@ func (o *BulkOperation) GetPayload() map[string]interface{} {
 
 // GetPayloadOk returns a tuple with the Payload field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BulkOperation) GetPayloadOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BulkOperation) GetPayloadOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Payload) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Payload, true
+	return &o.Payload, true
 }
 
 // HasPayload returns a boolean if a field has been set.
@@ -489,8 +493,8 @@ func (o *BulkOperation) HasPayload() bool {
 	return false
 }
 
-// SetPayload gets a reference to the given map[string]interface{} and assigns it to the Payload field.
-func (o *BulkOperation) SetPayload(v map[string]interface{}) {
+// SetPayload gets a reference to the given interface{} and assigns it to the Payload field.
+func (o *BulkOperation) SetPayload(v interface{}) {
 	o.Payload = v
 }
 
@@ -509,13 +513,13 @@ func (o BulkOperation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TargetResourceType) {
 		toSerialize["target_resource_type"] = o.TargetResourceType
 	}
-	if !IsNil(o.TargetFilters) {
+	if o.TargetFilters != nil {
 		toSerialize["target_filters"] = o.TargetFilters
 	}
-	if !IsNil(o.DryRunResult) {
+	if o.DryRunResult != nil {
 		toSerialize["dry_run_result"] = o.DryRunResult
 	}
-	if !IsNil(o.ExecutionResult) {
+	if o.ExecutionResult != nil {
 		toSerialize["execution_result"] = o.ExecutionResult
 	}
 	toSerialize["status"] = o.Status
@@ -537,7 +541,7 @@ func (o BulkOperation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExecutedAt) {
 		toSerialize["executed_at"] = o.ExecutedAt
 	}
-	if !IsNil(o.Payload) {
+	if o.Payload != nil {
 		toSerialize["payload"] = o.Payload
 	}
 	return toSerialize, nil

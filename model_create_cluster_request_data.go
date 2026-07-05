@@ -31,7 +31,8 @@ type CreateClusterRequestData struct {
 	MaxServices *int32 `json:"max_services,omitempty"`
 	CurrentServicesCount *int32 `json:"current_services_count,omitempty"`
 	MonthlyCost *float32 `json:"monthly_cost,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 }
 
 type _CreateClusterRequestData CreateClusterRequestData
@@ -327,10 +328,10 @@ func (o *CreateClusterRequestData) SetMonthlyCost(v float32) {
 	o.MonthlyCost = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CreateClusterRequestData) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateClusterRequestData) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -338,11 +339,12 @@ func (o *CreateClusterRequestData) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateClusterRequestData) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateClusterRequestData) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -354,8 +356,8 @@ func (o *CreateClusterRequestData) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CreateClusterRequestData) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CreateClusterRequestData) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -392,7 +394,7 @@ func (o CreateClusterRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MonthlyCost) {
 		toSerialize["monthly_cost"] = o.MonthlyCost
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil

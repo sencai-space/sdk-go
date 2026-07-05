@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAgentRelease200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindAgentRelease200ResponseDataInner{}
 
 // FindAgentRelease200ResponseDataInner struct for FindAgentRelease200ResponseDataInner
 type FindAgentRelease200ResponseDataInner struct {
+	Version string `json:"version"`
+	BinaryUrl *string `json:"binary_url,omitempty"`
+	ChecksumSha256 *string `json:"checksum_sha256,omitempty"`
+	ReleaseNotes *string `json:"release_notes,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	RolloutPolicy interface{} `json:"rollout_policy,omitempty"`
+	RolloutPercentage *int32 `json:"rollout_percentage,omitempty"`
+	IsStable *bool `json:"is_stable,omitempty"`
+	Channel *string `json:"channel,omitempty"`
+	MinAgentVersion *string `json:"min_agent_version,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	BinaryUrls interface{} `json:"binary_urls,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Architectures interface{} `json:"architectures,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AgentRelease `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAgentRelease200ResponseDataInner FindAgentRelease200ResponseDataInner
+
 // NewFindAgentRelease200ResponseDataInner instantiates a new FindAgentRelease200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAgentRelease200ResponseDataInner() *FindAgentRelease200ResponseDataInner {
+func NewFindAgentRelease200ResponseDataInner(version string) *FindAgentRelease200ResponseDataInner {
 	this := FindAgentRelease200ResponseDataInner{}
+	this.Version = version
 	return &this
 }
 
@@ -44,6 +62,353 @@ func NewFindAgentRelease200ResponseDataInner() *FindAgentRelease200ResponseDataI
 func NewFindAgentRelease200ResponseDataInnerWithDefaults() *FindAgentRelease200ResponseDataInner {
 	this := FindAgentRelease200ResponseDataInner{}
 	return &this
+}
+
+// GetVersion returns the Version field value
+func (o *FindAgentRelease200ResponseDataInner) GetVersion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value
+// and a boolean to check if the value has been set.
+func (o *FindAgentRelease200ResponseDataInner) GetVersionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Version, true
+}
+
+// SetVersion sets field value
+func (o *FindAgentRelease200ResponseDataInner) SetVersion(v string) {
+	o.Version = v
+}
+
+// GetBinaryUrl returns the BinaryUrl field value if set, zero value otherwise.
+func (o *FindAgentRelease200ResponseDataInner) GetBinaryUrl() string {
+	if o == nil || IsNil(o.BinaryUrl) {
+		var ret string
+		return ret
+	}
+	return *o.BinaryUrl
+}
+
+// GetBinaryUrlOk returns a tuple with the BinaryUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentRelease200ResponseDataInner) GetBinaryUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.BinaryUrl) {
+		return nil, false
+	}
+	return o.BinaryUrl, true
+}
+
+// HasBinaryUrl returns a boolean if a field has been set.
+func (o *FindAgentRelease200ResponseDataInner) HasBinaryUrl() bool {
+	if o != nil && !IsNil(o.BinaryUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetBinaryUrl gets a reference to the given string and assigns it to the BinaryUrl field.
+func (o *FindAgentRelease200ResponseDataInner) SetBinaryUrl(v string) {
+	o.BinaryUrl = &v
+}
+
+// GetChecksumSha256 returns the ChecksumSha256 field value if set, zero value otherwise.
+func (o *FindAgentRelease200ResponseDataInner) GetChecksumSha256() string {
+	if o == nil || IsNil(o.ChecksumSha256) {
+		var ret string
+		return ret
+	}
+	return *o.ChecksumSha256
+}
+
+// GetChecksumSha256Ok returns a tuple with the ChecksumSha256 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentRelease200ResponseDataInner) GetChecksumSha256Ok() (*string, bool) {
+	if o == nil || IsNil(o.ChecksumSha256) {
+		return nil, false
+	}
+	return o.ChecksumSha256, true
+}
+
+// HasChecksumSha256 returns a boolean if a field has been set.
+func (o *FindAgentRelease200ResponseDataInner) HasChecksumSha256() bool {
+	if o != nil && !IsNil(o.ChecksumSha256) {
+		return true
+	}
+
+	return false
+}
+
+// SetChecksumSha256 gets a reference to the given string and assigns it to the ChecksumSha256 field.
+func (o *FindAgentRelease200ResponseDataInner) SetChecksumSha256(v string) {
+	o.ChecksumSha256 = &v
+}
+
+// GetReleaseNotes returns the ReleaseNotes field value if set, zero value otherwise.
+func (o *FindAgentRelease200ResponseDataInner) GetReleaseNotes() string {
+	if o == nil || IsNil(o.ReleaseNotes) {
+		var ret string
+		return ret
+	}
+	return *o.ReleaseNotes
+}
+
+// GetReleaseNotesOk returns a tuple with the ReleaseNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentRelease200ResponseDataInner) GetReleaseNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.ReleaseNotes) {
+		return nil, false
+	}
+	return o.ReleaseNotes, true
+}
+
+// HasReleaseNotes returns a boolean if a field has been set.
+func (o *FindAgentRelease200ResponseDataInner) HasReleaseNotes() bool {
+	if o != nil && !IsNil(o.ReleaseNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetReleaseNotes gets a reference to the given string and assigns it to the ReleaseNotes field.
+func (o *FindAgentRelease200ResponseDataInner) SetReleaseNotes(v string) {
+	o.ReleaseNotes = &v
+}
+
+// GetRolloutPolicy returns the RolloutPolicy field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAgentRelease200ResponseDataInner) GetRolloutPolicy() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.RolloutPolicy
+}
+
+// GetRolloutPolicyOk returns a tuple with the RolloutPolicy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAgentRelease200ResponseDataInner) GetRolloutPolicyOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.RolloutPolicy) {
+		return nil, false
+	}
+	return &o.RolloutPolicy, true
+}
+
+// HasRolloutPolicy returns a boolean if a field has been set.
+func (o *FindAgentRelease200ResponseDataInner) HasRolloutPolicy() bool {
+	if o != nil && !IsNil(o.RolloutPolicy) {
+		return true
+	}
+
+	return false
+}
+
+// SetRolloutPolicy gets a reference to the given interface{} and assigns it to the RolloutPolicy field.
+func (o *FindAgentRelease200ResponseDataInner) SetRolloutPolicy(v interface{}) {
+	o.RolloutPolicy = v
+}
+
+// GetRolloutPercentage returns the RolloutPercentage field value if set, zero value otherwise.
+func (o *FindAgentRelease200ResponseDataInner) GetRolloutPercentage() int32 {
+	if o == nil || IsNil(o.RolloutPercentage) {
+		var ret int32
+		return ret
+	}
+	return *o.RolloutPercentage
+}
+
+// GetRolloutPercentageOk returns a tuple with the RolloutPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentRelease200ResponseDataInner) GetRolloutPercentageOk() (*int32, bool) {
+	if o == nil || IsNil(o.RolloutPercentage) {
+		return nil, false
+	}
+	return o.RolloutPercentage, true
+}
+
+// HasRolloutPercentage returns a boolean if a field has been set.
+func (o *FindAgentRelease200ResponseDataInner) HasRolloutPercentage() bool {
+	if o != nil && !IsNil(o.RolloutPercentage) {
+		return true
+	}
+
+	return false
+}
+
+// SetRolloutPercentage gets a reference to the given int32 and assigns it to the RolloutPercentage field.
+func (o *FindAgentRelease200ResponseDataInner) SetRolloutPercentage(v int32) {
+	o.RolloutPercentage = &v
+}
+
+// GetIsStable returns the IsStable field value if set, zero value otherwise.
+func (o *FindAgentRelease200ResponseDataInner) GetIsStable() bool {
+	if o == nil || IsNil(o.IsStable) {
+		var ret bool
+		return ret
+	}
+	return *o.IsStable
+}
+
+// GetIsStableOk returns a tuple with the IsStable field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentRelease200ResponseDataInner) GetIsStableOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsStable) {
+		return nil, false
+	}
+	return o.IsStable, true
+}
+
+// HasIsStable returns a boolean if a field has been set.
+func (o *FindAgentRelease200ResponseDataInner) HasIsStable() bool {
+	if o != nil && !IsNil(o.IsStable) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsStable gets a reference to the given bool and assigns it to the IsStable field.
+func (o *FindAgentRelease200ResponseDataInner) SetIsStable(v bool) {
+	o.IsStable = &v
+}
+
+// GetChannel returns the Channel field value if set, zero value otherwise.
+func (o *FindAgentRelease200ResponseDataInner) GetChannel() string {
+	if o == nil || IsNil(o.Channel) {
+		var ret string
+		return ret
+	}
+	return *o.Channel
+}
+
+// GetChannelOk returns a tuple with the Channel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentRelease200ResponseDataInner) GetChannelOk() (*string, bool) {
+	if o == nil || IsNil(o.Channel) {
+		return nil, false
+	}
+	return o.Channel, true
+}
+
+// HasChannel returns a boolean if a field has been set.
+func (o *FindAgentRelease200ResponseDataInner) HasChannel() bool {
+	if o != nil && !IsNil(o.Channel) {
+		return true
+	}
+
+	return false
+}
+
+// SetChannel gets a reference to the given string and assigns it to the Channel field.
+func (o *FindAgentRelease200ResponseDataInner) SetChannel(v string) {
+	o.Channel = &v
+}
+
+// GetMinAgentVersion returns the MinAgentVersion field value if set, zero value otherwise.
+func (o *FindAgentRelease200ResponseDataInner) GetMinAgentVersion() string {
+	if o == nil || IsNil(o.MinAgentVersion) {
+		var ret string
+		return ret
+	}
+	return *o.MinAgentVersion
+}
+
+// GetMinAgentVersionOk returns a tuple with the MinAgentVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgentRelease200ResponseDataInner) GetMinAgentVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.MinAgentVersion) {
+		return nil, false
+	}
+	return o.MinAgentVersion, true
+}
+
+// HasMinAgentVersion returns a boolean if a field has been set.
+func (o *FindAgentRelease200ResponseDataInner) HasMinAgentVersion() bool {
+	if o != nil && !IsNil(o.MinAgentVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetMinAgentVersion gets a reference to the given string and assigns it to the MinAgentVersion field.
+func (o *FindAgentRelease200ResponseDataInner) SetMinAgentVersion(v string) {
+	o.MinAgentVersion = &v
+}
+
+// GetBinaryUrls returns the BinaryUrls field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAgentRelease200ResponseDataInner) GetBinaryUrls() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.BinaryUrls
+}
+
+// GetBinaryUrlsOk returns a tuple with the BinaryUrls field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAgentRelease200ResponseDataInner) GetBinaryUrlsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.BinaryUrls) {
+		return nil, false
+	}
+	return &o.BinaryUrls, true
+}
+
+// HasBinaryUrls returns a boolean if a field has been set.
+func (o *FindAgentRelease200ResponseDataInner) HasBinaryUrls() bool {
+	if o != nil && !IsNil(o.BinaryUrls) {
+		return true
+	}
+
+	return false
+}
+
+// SetBinaryUrls gets a reference to the given interface{} and assigns it to the BinaryUrls field.
+func (o *FindAgentRelease200ResponseDataInner) SetBinaryUrls(v interface{}) {
+	o.BinaryUrls = v
+}
+
+// GetArchitectures returns the Architectures field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAgentRelease200ResponseDataInner) GetArchitectures() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Architectures
+}
+
+// GetArchitecturesOk returns a tuple with the Architectures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAgentRelease200ResponseDataInner) GetArchitecturesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Architectures) {
+		return nil, false
+	}
+	return &o.Architectures, true
+}
+
+// HasArchitectures returns a boolean if a field has been set.
+func (o *FindAgentRelease200ResponseDataInner) HasArchitectures() bool {
+	if o != nil && !IsNil(o.Architectures) {
+		return true
+	}
+
+	return false
+}
+
+// SetArchitectures gets a reference to the given interface{} and assigns it to the Architectures field.
+func (o *FindAgentRelease200ResponseDataInner) SetArchitectures(v interface{}) {
+	o.Architectures = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +473,6 @@ func (o *FindAgentRelease200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAgentRelease200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAgentRelease200ResponseDataInner) GetAttributes() AgentRelease {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AgentRelease
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAgentRelease200ResponseDataInner) GetAttributesOk() (*AgentRelease, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAgentRelease200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AgentRelease and assigns it to the Attributes field.
-func (o *FindAgentRelease200ResponseDataInner) SetAttributes(v AgentRelease) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +591,42 @@ func (o FindAgentRelease200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAgentRelease200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["version"] = o.Version
+	if !IsNil(o.BinaryUrl) {
+		toSerialize["binary_url"] = o.BinaryUrl
+	}
+	if !IsNil(o.ChecksumSha256) {
+		toSerialize["checksum_sha256"] = o.ChecksumSha256
+	}
+	if !IsNil(o.ReleaseNotes) {
+		toSerialize["release_notes"] = o.ReleaseNotes
+	}
+	if o.RolloutPolicy != nil {
+		toSerialize["rollout_policy"] = o.RolloutPolicy
+	}
+	if !IsNil(o.RolloutPercentage) {
+		toSerialize["rollout_percentage"] = o.RolloutPercentage
+	}
+	if !IsNil(o.IsStable) {
+		toSerialize["is_stable"] = o.IsStable
+	}
+	if !IsNil(o.Channel) {
+		toSerialize["channel"] = o.Channel
+	}
+	if !IsNil(o.MinAgentVersion) {
+		toSerialize["min_agent_version"] = o.MinAgentVersion
+	}
+	if o.BinaryUrls != nil {
+		toSerialize["binary_urls"] = o.BinaryUrls
+	}
+	if o.Architectures != nil {
+		toSerialize["architectures"] = o.Architectures
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +638,43 @@ func (o FindAgentRelease200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAgentRelease200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"version",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAgentRelease200ResponseDataInner := _FindAgentRelease200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAgentRelease200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAgentRelease200ResponseDataInner(varFindAgentRelease200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAgentRelease200ResponseDataInner struct {

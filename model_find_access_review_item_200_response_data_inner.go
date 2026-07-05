@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAccessReviewItem200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,32 @@ var _ MappedNullable = &FindAccessReviewItem200ResponseDataInner{}
 
 // FindAccessReviewItem200ResponseDataInner struct for FindAccessReviewItem200ResponseDataInner
 type FindAccessReviewItem200ResponseDataInner struct {
+	AccessReview CreateAccessReviewRequestDataReviewer `json:"access_review"`
+	Member *CreateAccessReviewRequestDataReviewer `json:"member,omitempty"`
+	UserEmail *string `json:"user_email,omitempty"`
+	UserName *string `json:"user_name,omitempty"`
+	// Snapshot of member role at review creation time
+	CurrentRole *string `json:"current_role,omitempty"`
+	Recommendation *string `json:"recommendation,omitempty"`
+	ReviewedBy *CreateAccessReviewRequestDataReviewer `json:"reviewed_by,omitempty"`
+	ReviewedAt *time.Time `json:"reviewed_at,omitempty"`
+	Notes *string `json:"notes,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AccessReviewItem `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAccessReviewItem200ResponseDataInner FindAccessReviewItem200ResponseDataInner
+
 // NewFindAccessReviewItem200ResponseDataInner instantiates a new FindAccessReviewItem200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAccessReviewItem200ResponseDataInner() *FindAccessReviewItem200ResponseDataInner {
+func NewFindAccessReviewItem200ResponseDataInner(accessReview CreateAccessReviewRequestDataReviewer) *FindAccessReviewItem200ResponseDataInner {
 	this := FindAccessReviewItem200ResponseDataInner{}
+	this.AccessReview = accessReview
 	return &this
 }
 
@@ -44,6 +58,286 @@ func NewFindAccessReviewItem200ResponseDataInner() *FindAccessReviewItem200Respo
 func NewFindAccessReviewItem200ResponseDataInnerWithDefaults() *FindAccessReviewItem200ResponseDataInner {
 	this := FindAccessReviewItem200ResponseDataInner{}
 	return &this
+}
+
+// GetAccessReview returns the AccessReview field value
+func (o *FindAccessReviewItem200ResponseDataInner) GetAccessReview() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.AccessReview
+}
+
+// GetAccessReviewOk returns a tuple with the AccessReview field value
+// and a boolean to check if the value has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) GetAccessReviewOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AccessReview, true
+}
+
+// SetAccessReview sets field value
+func (o *FindAccessReviewItem200ResponseDataInner) SetAccessReview(v CreateAccessReviewRequestDataReviewer) {
+	o.AccessReview = v
+}
+
+// GetMember returns the Member field value if set, zero value otherwise.
+func (o *FindAccessReviewItem200ResponseDataInner) GetMember() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Member) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Member
+}
+
+// GetMemberOk returns a tuple with the Member field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) GetMemberOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Member) {
+		return nil, false
+	}
+	return o.Member, true
+}
+
+// HasMember returns a boolean if a field has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) HasMember() bool {
+	if o != nil && !IsNil(o.Member) {
+		return true
+	}
+
+	return false
+}
+
+// SetMember gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Member field.
+func (o *FindAccessReviewItem200ResponseDataInner) SetMember(v CreateAccessReviewRequestDataReviewer) {
+	o.Member = &v
+}
+
+// GetUserEmail returns the UserEmail field value if set, zero value otherwise.
+func (o *FindAccessReviewItem200ResponseDataInner) GetUserEmail() string {
+	if o == nil || IsNil(o.UserEmail) {
+		var ret string
+		return ret
+	}
+	return *o.UserEmail
+}
+
+// GetUserEmailOk returns a tuple with the UserEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) GetUserEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.UserEmail) {
+		return nil, false
+	}
+	return o.UserEmail, true
+}
+
+// HasUserEmail returns a boolean if a field has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) HasUserEmail() bool {
+	if o != nil && !IsNil(o.UserEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserEmail gets a reference to the given string and assigns it to the UserEmail field.
+func (o *FindAccessReviewItem200ResponseDataInner) SetUserEmail(v string) {
+	o.UserEmail = &v
+}
+
+// GetUserName returns the UserName field value if set, zero value otherwise.
+func (o *FindAccessReviewItem200ResponseDataInner) GetUserName() string {
+	if o == nil || IsNil(o.UserName) {
+		var ret string
+		return ret
+	}
+	return *o.UserName
+}
+
+// GetUserNameOk returns a tuple with the UserName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) GetUserNameOk() (*string, bool) {
+	if o == nil || IsNil(o.UserName) {
+		return nil, false
+	}
+	return o.UserName, true
+}
+
+// HasUserName returns a boolean if a field has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) HasUserName() bool {
+	if o != nil && !IsNil(o.UserName) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserName gets a reference to the given string and assigns it to the UserName field.
+func (o *FindAccessReviewItem200ResponseDataInner) SetUserName(v string) {
+	o.UserName = &v
+}
+
+// GetCurrentRole returns the CurrentRole field value if set, zero value otherwise.
+func (o *FindAccessReviewItem200ResponseDataInner) GetCurrentRole() string {
+	if o == nil || IsNil(o.CurrentRole) {
+		var ret string
+		return ret
+	}
+	return *o.CurrentRole
+}
+
+// GetCurrentRoleOk returns a tuple with the CurrentRole field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) GetCurrentRoleOk() (*string, bool) {
+	if o == nil || IsNil(o.CurrentRole) {
+		return nil, false
+	}
+	return o.CurrentRole, true
+}
+
+// HasCurrentRole returns a boolean if a field has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) HasCurrentRole() bool {
+	if o != nil && !IsNil(o.CurrentRole) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentRole gets a reference to the given string and assigns it to the CurrentRole field.
+func (o *FindAccessReviewItem200ResponseDataInner) SetCurrentRole(v string) {
+	o.CurrentRole = &v
+}
+
+// GetRecommendation returns the Recommendation field value if set, zero value otherwise.
+func (o *FindAccessReviewItem200ResponseDataInner) GetRecommendation() string {
+	if o == nil || IsNil(o.Recommendation) {
+		var ret string
+		return ret
+	}
+	return *o.Recommendation
+}
+
+// GetRecommendationOk returns a tuple with the Recommendation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) GetRecommendationOk() (*string, bool) {
+	if o == nil || IsNil(o.Recommendation) {
+		return nil, false
+	}
+	return o.Recommendation, true
+}
+
+// HasRecommendation returns a boolean if a field has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) HasRecommendation() bool {
+	if o != nil && !IsNil(o.Recommendation) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecommendation gets a reference to the given string and assigns it to the Recommendation field.
+func (o *FindAccessReviewItem200ResponseDataInner) SetRecommendation(v string) {
+	o.Recommendation = &v
+}
+
+// GetReviewedBy returns the ReviewedBy field value if set, zero value otherwise.
+func (o *FindAccessReviewItem200ResponseDataInner) GetReviewedBy() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.ReviewedBy) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.ReviewedBy
+}
+
+// GetReviewedByOk returns a tuple with the ReviewedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) GetReviewedByOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.ReviewedBy) {
+		return nil, false
+	}
+	return o.ReviewedBy, true
+}
+
+// HasReviewedBy returns a boolean if a field has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) HasReviewedBy() bool {
+	if o != nil && !IsNil(o.ReviewedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetReviewedBy gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the ReviewedBy field.
+func (o *FindAccessReviewItem200ResponseDataInner) SetReviewedBy(v CreateAccessReviewRequestDataReviewer) {
+	o.ReviewedBy = &v
+}
+
+// GetReviewedAt returns the ReviewedAt field value if set, zero value otherwise.
+func (o *FindAccessReviewItem200ResponseDataInner) GetReviewedAt() time.Time {
+	if o == nil || IsNil(o.ReviewedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ReviewedAt
+}
+
+// GetReviewedAtOk returns a tuple with the ReviewedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) GetReviewedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ReviewedAt) {
+		return nil, false
+	}
+	return o.ReviewedAt, true
+}
+
+// HasReviewedAt returns a boolean if a field has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) HasReviewedAt() bool {
+	if o != nil && !IsNil(o.ReviewedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetReviewedAt gets a reference to the given time.Time and assigns it to the ReviewedAt field.
+func (o *FindAccessReviewItem200ResponseDataInner) SetReviewedAt(v time.Time) {
+	o.ReviewedAt = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindAccessReviewItem200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindAccessReviewItem200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindAccessReviewItem200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +402,6 @@ func (o *FindAccessReviewItem200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAccessReviewItem200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAccessReviewItem200ResponseDataInner) GetAttributes() AccessReviewItem {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AccessReviewItem
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAccessReviewItem200ResponseDataInner) GetAttributesOk() (*AccessReviewItem, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAccessReviewItem200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AccessReviewItem and assigns it to the Attributes field.
-func (o *FindAccessReviewItem200ResponseDataInner) SetAttributes(v AccessReviewItem) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +520,36 @@ func (o FindAccessReviewItem200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindAccessReviewItem200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["access_review"] = o.AccessReview
+	if !IsNil(o.Member) {
+		toSerialize["member"] = o.Member
+	}
+	if !IsNil(o.UserEmail) {
+		toSerialize["user_email"] = o.UserEmail
+	}
+	if !IsNil(o.UserName) {
+		toSerialize["user_name"] = o.UserName
+	}
+	if !IsNil(o.CurrentRole) {
+		toSerialize["current_role"] = o.CurrentRole
+	}
+	if !IsNil(o.Recommendation) {
+		toSerialize["recommendation"] = o.Recommendation
+	}
+	if !IsNil(o.ReviewedBy) {
+		toSerialize["reviewed_by"] = o.ReviewedBy
+	}
+	if !IsNil(o.ReviewedAt) {
+		toSerialize["reviewed_at"] = o.ReviewedAt
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +561,43 @@ func (o FindAccessReviewItem200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAccessReviewItem200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_review",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAccessReviewItem200ResponseDataInner := _FindAccessReviewItem200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAccessReviewItem200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAccessReviewItem200ResponseDataInner(varFindAccessReviewItem200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAccessReviewItem200ResponseDataInner struct {

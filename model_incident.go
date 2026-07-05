@@ -30,8 +30,10 @@ type Incident struct {
 	Source *string `json:"source,omitempty"`
 	DedupKey string `json:"dedup_key"`
 	CorrelationId *string `json:"correlation_id,omitempty"`
-	ContextBundle map[string]interface{} `json:"context_bundle,omitempty"`
-	RcaCandidates map[string]interface{} `json:"rca_candidates,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ContextBundle interface{} `json:"context_bundle,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	RcaCandidates interface{} `json:"rca_candidates,omitempty"`
 	AlertCount *int32 `json:"alert_count,omitempty"`
 	FirstSeenAt *time.Time `json:"first_seen_at,omitempty"`
 	LastSeenAt *time.Time `json:"last_seen_at,omitempty"`
@@ -268,10 +270,10 @@ func (o *Incident) SetCorrelationId(v string) {
 	o.CorrelationId = &v
 }
 
-// GetContextBundle returns the ContextBundle field value if set, zero value otherwise.
-func (o *Incident) GetContextBundle() map[string]interface{} {
-	if o == nil || IsNil(o.ContextBundle) {
-		var ret map[string]interface{}
+// GetContextBundle returns the ContextBundle field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Incident) GetContextBundle() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ContextBundle
@@ -279,11 +281,12 @@ func (o *Incident) GetContextBundle() map[string]interface{} {
 
 // GetContextBundleOk returns a tuple with the ContextBundle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Incident) GetContextBundleOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Incident) GetContextBundleOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ContextBundle) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ContextBundle, true
+	return &o.ContextBundle, true
 }
 
 // HasContextBundle returns a boolean if a field has been set.
@@ -295,15 +298,15 @@ func (o *Incident) HasContextBundle() bool {
 	return false
 }
 
-// SetContextBundle gets a reference to the given map[string]interface{} and assigns it to the ContextBundle field.
-func (o *Incident) SetContextBundle(v map[string]interface{}) {
+// SetContextBundle gets a reference to the given interface{} and assigns it to the ContextBundle field.
+func (o *Incident) SetContextBundle(v interface{}) {
 	o.ContextBundle = v
 }
 
-// GetRcaCandidates returns the RcaCandidates field value if set, zero value otherwise.
-func (o *Incident) GetRcaCandidates() map[string]interface{} {
-	if o == nil || IsNil(o.RcaCandidates) {
-		var ret map[string]interface{}
+// GetRcaCandidates returns the RcaCandidates field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Incident) GetRcaCandidates() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.RcaCandidates
@@ -311,11 +314,12 @@ func (o *Incident) GetRcaCandidates() map[string]interface{} {
 
 // GetRcaCandidatesOk returns a tuple with the RcaCandidates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Incident) GetRcaCandidatesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Incident) GetRcaCandidatesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.RcaCandidates) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.RcaCandidates, true
+	return &o.RcaCandidates, true
 }
 
 // HasRcaCandidates returns a boolean if a field has been set.
@@ -327,8 +331,8 @@ func (o *Incident) HasRcaCandidates() bool {
 	return false
 }
 
-// SetRcaCandidates gets a reference to the given map[string]interface{} and assigns it to the RcaCandidates field.
-func (o *Incident) SetRcaCandidates(v map[string]interface{}) {
+// SetRcaCandidates gets a reference to the given interface{} and assigns it to the RcaCandidates field.
+func (o *Incident) SetRcaCandidates(v interface{}) {
 	o.RcaCandidates = v
 }
 
@@ -709,10 +713,10 @@ func (o Incident) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CorrelationId) {
 		toSerialize["correlation_id"] = o.CorrelationId
 	}
-	if !IsNil(o.ContextBundle) {
+	if o.ContextBundle != nil {
 		toSerialize["context_bundle"] = o.ContextBundle
 	}
-	if !IsNil(o.RcaCandidates) {
+	if o.RcaCandidates != nil {
 		toSerialize["rca_candidates"] = o.RcaCandidates
 	}
 	if !IsNil(o.AlertCount) {

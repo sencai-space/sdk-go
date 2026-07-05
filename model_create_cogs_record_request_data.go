@@ -37,7 +37,8 @@ type CreateCogsRecordRequestData struct {
 	LlmTokensTotal *int32 `json:"llm_tokens_total,omitempty"`
 	CloudComputeCostUsd *float32 `json:"cloud_compute_cost_usd,omitempty"`
 	FocusVersion *string `json:"focus_version,omitempty"`
-	Tags map[string]interface{} `json:"tags,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
 	IdempotencyKey *string `json:"idempotency_key,omitempty"`
 	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
 }
@@ -489,10 +490,10 @@ func (o *CreateCogsRecordRequestData) SetFocusVersion(v string) {
 	o.FocusVersion = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateCogsRecordRequestData) GetTags() map[string]interface{} {
-	if o == nil || IsNil(o.Tags) {
-		var ret map[string]interface{}
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCogsRecordRequestData) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Tags
@@ -500,11 +501,12 @@ func (o *CreateCogsRecordRequestData) GetTags() map[string]interface{} {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCogsRecordRequestData) GetTagsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCogsRecordRequestData) GetTagsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Tags) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -516,8 +518,8 @@ func (o *CreateCogsRecordRequestData) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given map[string]interface{} and assigns it to the Tags field.
-func (o *CreateCogsRecordRequestData) SetTags(v map[string]interface{}) {
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *CreateCogsRecordRequestData) SetTags(v interface{}) {
 	o.Tags = v
 }
 
@@ -623,7 +625,7 @@ func (o CreateCogsRecordRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FocusVersion) {
 		toSerialize["focus_version"] = o.FocusVersion
 	}
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
 	if !IsNil(o.IdempotencyKey) {

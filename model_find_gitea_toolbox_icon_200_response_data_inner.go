@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindGiteaToolboxIcon200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindGiteaToolboxIcon200ResponseDataInner{}
 
 // FindGiteaToolboxIcon200ResponseDataInner struct for FindGiteaToolboxIcon200ResponseDataInner
 type FindGiteaToolboxIcon200ResponseDataInner struct {
+	RepositoryName string `json:"repositoryName"`
+	// Strapi media object (upload plugin)
+	RepositoryIcon map[string]interface{} `json:"repositoryIcon,omitempty"`
+	HasAi bool `json:"hasAi"`
+	Description string `json:"description"`
+	ShortDescription *string `json:"shortDescription,omitempty"`
+	LicencePrice float32 `json:"licencePrice"`
+	OperationPriceLowest float32 `json:"operationPriceLowest"`
+	OperationPriceHighest float32 `json:"operationPriceHighest"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *GiteaToolboxIcon `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindGiteaToolboxIcon200ResponseDataInner FindGiteaToolboxIcon200ResponseDataInner
+
 // NewFindGiteaToolboxIcon200ResponseDataInner instantiates a new FindGiteaToolboxIcon200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindGiteaToolboxIcon200ResponseDataInner() *FindGiteaToolboxIcon200ResponseDataInner {
+func NewFindGiteaToolboxIcon200ResponseDataInner(repositoryName string, hasAi bool, description string, licencePrice float32, operationPriceLowest float32, operationPriceHighest float32) *FindGiteaToolboxIcon200ResponseDataInner {
 	this := FindGiteaToolboxIcon200ResponseDataInner{}
+	this.RepositoryName = repositoryName
+	this.HasAi = hasAi
+	this.Description = description
+	this.LicencePrice = licencePrice
+	this.OperationPriceLowest = operationPriceLowest
+	this.OperationPriceHighest = operationPriceHighest
 	return &this
 }
 
@@ -44,6 +62,214 @@ func NewFindGiteaToolboxIcon200ResponseDataInner() *FindGiteaToolboxIcon200Respo
 func NewFindGiteaToolboxIcon200ResponseDataInnerWithDefaults() *FindGiteaToolboxIcon200ResponseDataInner {
 	this := FindGiteaToolboxIcon200ResponseDataInner{}
 	return &this
+}
+
+// GetRepositoryName returns the RepositoryName field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetRepositoryName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RepositoryName
+}
+
+// GetRepositoryNameOk returns a tuple with the RepositoryName field value
+// and a boolean to check if the value has been set.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetRepositoryNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RepositoryName, true
+}
+
+// SetRepositoryName sets field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) SetRepositoryName(v string) {
+	o.RepositoryName = v
+}
+
+// GetRepositoryIcon returns the RepositoryIcon field value if set, zero value otherwise.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetRepositoryIcon() map[string]interface{} {
+	if o == nil || IsNil(o.RepositoryIcon) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.RepositoryIcon
+}
+
+// GetRepositoryIconOk returns a tuple with the RepositoryIcon field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetRepositoryIconOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.RepositoryIcon) {
+		return map[string]interface{}{}, false
+	}
+	return o.RepositoryIcon, true
+}
+
+// HasRepositoryIcon returns a boolean if a field has been set.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) HasRepositoryIcon() bool {
+	if o != nil && !IsNil(o.RepositoryIcon) {
+		return true
+	}
+
+	return false
+}
+
+// SetRepositoryIcon gets a reference to the given map[string]interface{} and assigns it to the RepositoryIcon field.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) SetRepositoryIcon(v map[string]interface{}) {
+	o.RepositoryIcon = v
+}
+
+// GetHasAi returns the HasAi field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetHasAi() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.HasAi
+}
+
+// GetHasAiOk returns a tuple with the HasAi field value
+// and a boolean to check if the value has been set.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetHasAiOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HasAi, true
+}
+
+// SetHasAi sets field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) SetHasAi(v bool) {
+	o.HasAi = v
+}
+
+// GetDescription returns the Description field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetDescription() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value
+// and a boolean to check if the value has been set.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Description, true
+}
+
+// SetDescription sets field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) SetDescription(v string) {
+	o.Description = v
+}
+
+// GetShortDescription returns the ShortDescription field value if set, zero value otherwise.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetShortDescription() string {
+	if o == nil || IsNil(o.ShortDescription) {
+		var ret string
+		return ret
+	}
+	return *o.ShortDescription
+}
+
+// GetShortDescriptionOk returns a tuple with the ShortDescription field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetShortDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.ShortDescription) {
+		return nil, false
+	}
+	return o.ShortDescription, true
+}
+
+// HasShortDescription returns a boolean if a field has been set.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) HasShortDescription() bool {
+	if o != nil && !IsNil(o.ShortDescription) {
+		return true
+	}
+
+	return false
+}
+
+// SetShortDescription gets a reference to the given string and assigns it to the ShortDescription field.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) SetShortDescription(v string) {
+	o.ShortDescription = &v
+}
+
+// GetLicencePrice returns the LicencePrice field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetLicencePrice() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.LicencePrice
+}
+
+// GetLicencePriceOk returns a tuple with the LicencePrice field value
+// and a boolean to check if the value has been set.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetLicencePriceOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LicencePrice, true
+}
+
+// SetLicencePrice sets field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) SetLicencePrice(v float32) {
+	o.LicencePrice = v
+}
+
+// GetOperationPriceLowest returns the OperationPriceLowest field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetOperationPriceLowest() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.OperationPriceLowest
+}
+
+// GetOperationPriceLowestOk returns a tuple with the OperationPriceLowest field value
+// and a boolean to check if the value has been set.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetOperationPriceLowestOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OperationPriceLowest, true
+}
+
+// SetOperationPriceLowest sets field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) SetOperationPriceLowest(v float32) {
+	o.OperationPriceLowest = v
+}
+
+// GetOperationPriceHighest returns the OperationPriceHighest field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetOperationPriceHighest() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.OperationPriceHighest
+}
+
+// GetOperationPriceHighestOk returns a tuple with the OperationPriceHighest field value
+// and a boolean to check if the value has been set.
+func (o *FindGiteaToolboxIcon200ResponseDataInner) GetOperationPriceHighestOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OperationPriceHighest, true
+}
+
+// SetOperationPriceHighest sets field value
+func (o *FindGiteaToolboxIcon200ResponseDataInner) SetOperationPriceHighest(v float32) {
+	o.OperationPriceHighest = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +334,6 @@ func (o *FindGiteaToolboxIcon200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindGiteaToolboxIcon200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindGiteaToolboxIcon200ResponseDataInner) GetAttributes() GiteaToolboxIcon {
-	if o == nil || IsNil(o.Attributes) {
-		var ret GiteaToolboxIcon
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindGiteaToolboxIcon200ResponseDataInner) GetAttributesOk() (*GiteaToolboxIcon, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindGiteaToolboxIcon200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given GiteaToolboxIcon and assigns it to the Attributes field.
-func (o *FindGiteaToolboxIcon200ResponseDataInner) SetAttributes(v GiteaToolboxIcon) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +452,23 @@ func (o FindGiteaToolboxIcon200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindGiteaToolboxIcon200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["repositoryName"] = o.RepositoryName
+	if !IsNil(o.RepositoryIcon) {
+		toSerialize["repositoryIcon"] = o.RepositoryIcon
+	}
+	toSerialize["hasAi"] = o.HasAi
+	toSerialize["description"] = o.Description
+	if !IsNil(o.ShortDescription) {
+		toSerialize["shortDescription"] = o.ShortDescription
+	}
+	toSerialize["licencePrice"] = o.LicencePrice
+	toSerialize["operationPriceLowest"] = o.OperationPriceLowest
+	toSerialize["operationPriceHighest"] = o.OperationPriceHighest
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +480,48 @@ func (o FindGiteaToolboxIcon200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindGiteaToolboxIcon200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"repositoryName",
+		"hasAi",
+		"description",
+		"licencePrice",
+		"operationPriceLowest",
+		"operationPriceHighest",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindGiteaToolboxIcon200ResponseDataInner := _FindGiteaToolboxIcon200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindGiteaToolboxIcon200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindGiteaToolboxIcon200ResponseDataInner(varFindGiteaToolboxIcon200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindGiteaToolboxIcon200ResponseDataInner struct {

@@ -29,7 +29,7 @@ type CreateCostRecommendationRequestData struct {
 	Confidence string `json:"confidence"`
 	Status string `json:"status"`
 	// Provider-specific metadata: current/recommended resource specs, utilization data, break-even calc.
-	Detail map[string]interface{} `json:"detail,omitempty"`
+	Detail interface{} `json:"detail,omitempty"`
 	DetectedAt time.Time `json:"detected_at"`
 	// Set when status=snoozed. Recommendation surfaced again after this date.
 	SnoozedUntil *time.Time `json:"snoozed_until,omitempty"`
@@ -194,10 +194,10 @@ func (o *CreateCostRecommendationRequestData) SetStatus(v string) {
 	o.Status = v
 }
 
-// GetDetail returns the Detail field value if set, zero value otherwise.
-func (o *CreateCostRecommendationRequestData) GetDetail() map[string]interface{} {
-	if o == nil || IsNil(o.Detail) {
-		var ret map[string]interface{}
+// GetDetail returns the Detail field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCostRecommendationRequestData) GetDetail() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Detail
@@ -205,11 +205,12 @@ func (o *CreateCostRecommendationRequestData) GetDetail() map[string]interface{}
 
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCostRecommendationRequestData) GetDetailOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCostRecommendationRequestData) GetDetailOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Detail) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Detail, true
+	return &o.Detail, true
 }
 
 // HasDetail returns a boolean if a field has been set.
@@ -221,8 +222,8 @@ func (o *CreateCostRecommendationRequestData) HasDetail() bool {
 	return false
 }
 
-// SetDetail gets a reference to the given map[string]interface{} and assigns it to the Detail field.
-func (o *CreateCostRecommendationRequestData) SetDetail(v map[string]interface{}) {
+// SetDetail gets a reference to the given interface{} and assigns it to the Detail field.
+func (o *CreateCostRecommendationRequestData) SetDetail(v interface{}) {
 	o.Detail = v
 }
 
@@ -459,7 +460,7 @@ func (o CreateCostRecommendationRequestData) ToMap() (map[string]interface{}, er
 	}
 	toSerialize["confidence"] = o.Confidence
 	toSerialize["status"] = o.Status
-	if !IsNil(o.Detail) {
+	if o.Detail != nil {
 		toSerialize["detail"] = o.Detail
 	}
 	toSerialize["detected_at"] = o.DetectedAt

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudIdentityScan200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,31 @@ var _ MappedNullable = &FindCloudIdentityScan200ResponseDataInner{}
 
 // FindCloudIdentityScan200ResponseDataInner struct for FindCloudIdentityScan200ResponseDataInner
 type FindCloudIdentityScan200ResponseDataInner struct {
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	HasCloudIdentityPremium *bool `json:"has_cloud_identity_premium,omitempty"`
+	ContextAwareAccessEnabled *bool `json:"context_aware_access_enabled,omitempty"`
+	AdvancedProtectionUsers *int32 `json:"advanced_protection_users,omitempty"`
+	SccIntegrationEnabled *bool `json:"scc_integration_enabled,omitempty"`
+	ContextAwarePoliciesCount *int32 `json:"context_aware_policies_count,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Findings interface{} `json:"findings,omitempty"`
+	LastScannedAt *time.Time `json:"last_scanned_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudIdentityScan `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudIdentityScan200ResponseDataInner FindCloudIdentityScan200ResponseDataInner
+
 // NewFindCloudIdentityScan200ResponseDataInner instantiates a new FindCloudIdentityScan200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudIdentityScan200ResponseDataInner() *FindCloudIdentityScan200ResponseDataInner {
+func NewFindCloudIdentityScan200ResponseDataInner(organisation CreateAccessReviewRequestDataReviewer) *FindCloudIdentityScan200ResponseDataInner {
 	this := FindCloudIdentityScan200ResponseDataInner{}
+	this.Organisation = organisation
 	return &this
 }
 
@@ -44,6 +57,255 @@ func NewFindCloudIdentityScan200ResponseDataInner() *FindCloudIdentityScan200Res
 func NewFindCloudIdentityScan200ResponseDataInnerWithDefaults() *FindCloudIdentityScan200ResponseDataInner {
 	this := FindCloudIdentityScan200ResponseDataInner{}
 	return &this
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindCloudIdentityScan200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindCloudIdentityScan200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetHasCloudIdentityPremium returns the HasCloudIdentityPremium field value if set, zero value otherwise.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetHasCloudIdentityPremium() bool {
+	if o == nil || IsNil(o.HasCloudIdentityPremium) {
+		var ret bool
+		return ret
+	}
+	return *o.HasCloudIdentityPremium
+}
+
+// GetHasCloudIdentityPremiumOk returns a tuple with the HasCloudIdentityPremium field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetHasCloudIdentityPremiumOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasCloudIdentityPremium) {
+		return nil, false
+	}
+	return o.HasCloudIdentityPremium, true
+}
+
+// HasHasCloudIdentityPremium returns a boolean if a field has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) HasHasCloudIdentityPremium() bool {
+	if o != nil && !IsNil(o.HasCloudIdentityPremium) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasCloudIdentityPremium gets a reference to the given bool and assigns it to the HasCloudIdentityPremium field.
+func (o *FindCloudIdentityScan200ResponseDataInner) SetHasCloudIdentityPremium(v bool) {
+	o.HasCloudIdentityPremium = &v
+}
+
+// GetContextAwareAccessEnabled returns the ContextAwareAccessEnabled field value if set, zero value otherwise.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetContextAwareAccessEnabled() bool {
+	if o == nil || IsNil(o.ContextAwareAccessEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.ContextAwareAccessEnabled
+}
+
+// GetContextAwareAccessEnabledOk returns a tuple with the ContextAwareAccessEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetContextAwareAccessEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.ContextAwareAccessEnabled) {
+		return nil, false
+	}
+	return o.ContextAwareAccessEnabled, true
+}
+
+// HasContextAwareAccessEnabled returns a boolean if a field has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) HasContextAwareAccessEnabled() bool {
+	if o != nil && !IsNil(o.ContextAwareAccessEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetContextAwareAccessEnabled gets a reference to the given bool and assigns it to the ContextAwareAccessEnabled field.
+func (o *FindCloudIdentityScan200ResponseDataInner) SetContextAwareAccessEnabled(v bool) {
+	o.ContextAwareAccessEnabled = &v
+}
+
+// GetAdvancedProtectionUsers returns the AdvancedProtectionUsers field value if set, zero value otherwise.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetAdvancedProtectionUsers() int32 {
+	if o == nil || IsNil(o.AdvancedProtectionUsers) {
+		var ret int32
+		return ret
+	}
+	return *o.AdvancedProtectionUsers
+}
+
+// GetAdvancedProtectionUsersOk returns a tuple with the AdvancedProtectionUsers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetAdvancedProtectionUsersOk() (*int32, bool) {
+	if o == nil || IsNil(o.AdvancedProtectionUsers) {
+		return nil, false
+	}
+	return o.AdvancedProtectionUsers, true
+}
+
+// HasAdvancedProtectionUsers returns a boolean if a field has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) HasAdvancedProtectionUsers() bool {
+	if o != nil && !IsNil(o.AdvancedProtectionUsers) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdvancedProtectionUsers gets a reference to the given int32 and assigns it to the AdvancedProtectionUsers field.
+func (o *FindCloudIdentityScan200ResponseDataInner) SetAdvancedProtectionUsers(v int32) {
+	o.AdvancedProtectionUsers = &v
+}
+
+// GetSccIntegrationEnabled returns the SccIntegrationEnabled field value if set, zero value otherwise.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetSccIntegrationEnabled() bool {
+	if o == nil || IsNil(o.SccIntegrationEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.SccIntegrationEnabled
+}
+
+// GetSccIntegrationEnabledOk returns a tuple with the SccIntegrationEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetSccIntegrationEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.SccIntegrationEnabled) {
+		return nil, false
+	}
+	return o.SccIntegrationEnabled, true
+}
+
+// HasSccIntegrationEnabled returns a boolean if a field has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) HasSccIntegrationEnabled() bool {
+	if o != nil && !IsNil(o.SccIntegrationEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetSccIntegrationEnabled gets a reference to the given bool and assigns it to the SccIntegrationEnabled field.
+func (o *FindCloudIdentityScan200ResponseDataInner) SetSccIntegrationEnabled(v bool) {
+	o.SccIntegrationEnabled = &v
+}
+
+// GetContextAwarePoliciesCount returns the ContextAwarePoliciesCount field value if set, zero value otherwise.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetContextAwarePoliciesCount() int32 {
+	if o == nil || IsNil(o.ContextAwarePoliciesCount) {
+		var ret int32
+		return ret
+	}
+	return *o.ContextAwarePoliciesCount
+}
+
+// GetContextAwarePoliciesCountOk returns a tuple with the ContextAwarePoliciesCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetContextAwarePoliciesCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.ContextAwarePoliciesCount) {
+		return nil, false
+	}
+	return o.ContextAwarePoliciesCount, true
+}
+
+// HasContextAwarePoliciesCount returns a boolean if a field has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) HasContextAwarePoliciesCount() bool {
+	if o != nil && !IsNil(o.ContextAwarePoliciesCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetContextAwarePoliciesCount gets a reference to the given int32 and assigns it to the ContextAwarePoliciesCount field.
+func (o *FindCloudIdentityScan200ResponseDataInner) SetContextAwarePoliciesCount(v int32) {
+	o.ContextAwarePoliciesCount = &v
+}
+
+// GetFindings returns the Findings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudIdentityScan200ResponseDataInner) GetFindings() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Findings
+}
+
+// GetFindingsOk returns a tuple with the Findings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudIdentityScan200ResponseDataInner) GetFindingsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Findings) {
+		return nil, false
+	}
+	return &o.Findings, true
+}
+
+// HasFindings returns a boolean if a field has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) HasFindings() bool {
+	if o != nil && !IsNil(o.Findings) {
+		return true
+	}
+
+	return false
+}
+
+// SetFindings gets a reference to the given interface{} and assigns it to the Findings field.
+func (o *FindCloudIdentityScan200ResponseDataInner) SetFindings(v interface{}) {
+	o.Findings = v
+}
+
+// GetLastScannedAt returns the LastScannedAt field value if set, zero value otherwise.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetLastScannedAt() time.Time {
+	if o == nil || IsNil(o.LastScannedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastScannedAt
+}
+
+// GetLastScannedAtOk returns a tuple with the LastScannedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) GetLastScannedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastScannedAt) {
+		return nil, false
+	}
+	return o.LastScannedAt, true
+}
+
+// HasLastScannedAt returns a boolean if a field has been set.
+func (o *FindCloudIdentityScan200ResponseDataInner) HasLastScannedAt() bool {
+	if o != nil && !IsNil(o.LastScannedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastScannedAt gets a reference to the given time.Time and assigns it to the LastScannedAt field.
+func (o *FindCloudIdentityScan200ResponseDataInner) SetLastScannedAt(v time.Time) {
+	o.LastScannedAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +370,6 @@ func (o *FindCloudIdentityScan200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudIdentityScan200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudIdentityScan200ResponseDataInner) GetAttributes() CloudIdentityScan {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudIdentityScan
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudIdentityScan200ResponseDataInner) GetAttributesOk() (*CloudIdentityScan, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudIdentityScan200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudIdentityScan and assigns it to the Attributes field.
-func (o *FindCloudIdentityScan200ResponseDataInner) SetAttributes(v CloudIdentityScan) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +488,33 @@ func (o FindCloudIdentityScan200ResponseDataInner) MarshalJSON() ([]byte, error)
 
 func (o FindCloudIdentityScan200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["organisation"] = o.Organisation
+	if !IsNil(o.HasCloudIdentityPremium) {
+		toSerialize["has_cloud_identity_premium"] = o.HasCloudIdentityPremium
+	}
+	if !IsNil(o.ContextAwareAccessEnabled) {
+		toSerialize["context_aware_access_enabled"] = o.ContextAwareAccessEnabled
+	}
+	if !IsNil(o.AdvancedProtectionUsers) {
+		toSerialize["advanced_protection_users"] = o.AdvancedProtectionUsers
+	}
+	if !IsNil(o.SccIntegrationEnabled) {
+		toSerialize["scc_integration_enabled"] = o.SccIntegrationEnabled
+	}
+	if !IsNil(o.ContextAwarePoliciesCount) {
+		toSerialize["context_aware_policies_count"] = o.ContextAwarePoliciesCount
+	}
+	if o.Findings != nil {
+		toSerialize["findings"] = o.Findings
+	}
+	if !IsNil(o.LastScannedAt) {
+		toSerialize["last_scanned_at"] = o.LastScannedAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +526,43 @@ func (o FindCloudIdentityScan200ResponseDataInner) ToMap() (map[string]interface
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudIdentityScan200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organisation",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudIdentityScan200ResponseDataInner := _FindCloudIdentityScan200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudIdentityScan200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudIdentityScan200ResponseDataInner(varFindCloudIdentityScan200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudIdentityScan200ResponseDataInner struct {

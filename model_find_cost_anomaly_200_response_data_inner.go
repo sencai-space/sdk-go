@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCostAnomaly200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,39 @@ var _ MappedNullable = &FindCostAnomaly200ResponseDataInner{}
 
 // FindCostAnomaly200ResponseDataInner struct for FindCostAnomaly200ResponseDataInner
 type FindCostAnomaly200ResponseDataInner struct {
+	// Organisation documentId the anomaly belongs to.
+	OrgId string `json:"org_id"`
+	// cloud-instance documentId or service name. Null = org-total anomaly.
+	ResourceId *string `json:"resource_id,omitempty"`
+	ResourceType *string `json:"resource_type,omitempty"`
+	// Expected cost derived from historical baseline (IQR median or mean).
+	ExpectedUsd *float32 `json:"expected_usd,omitempty"`
+	// Observed cost that triggered the anomaly.
+	ActualUsd float32 `json:"actual_usd"`
+	// Signed percentage deviation: (actual - expected) / expected * 100.
+	DeviationPct *float32 `json:"deviation_pct,omitempty"`
+	DetectionMethod *string `json:"detection_method,omitempty"`
+	Status *string `json:"status,omitempty"`
+	AcknowledgedAt *time.Time `json:"acknowledged_at,omitempty"`
+	// User ID (Strapi numeric id or email) who acknowledged the anomaly.
+	AcknowledgedBy *string `json:"acknowledged_by,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CostAnomaly `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCostAnomaly200ResponseDataInner FindCostAnomaly200ResponseDataInner
+
 // NewFindCostAnomaly200ResponseDataInner instantiates a new FindCostAnomaly200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCostAnomaly200ResponseDataInner() *FindCostAnomaly200ResponseDataInner {
+func NewFindCostAnomaly200ResponseDataInner(orgId string, actualUsd float32) *FindCostAnomaly200ResponseDataInner {
 	this := FindCostAnomaly200ResponseDataInner{}
+	this.OrgId = orgId
+	this.ActualUsd = actualUsd
 	return &this
 }
 
@@ -44,6 +65,310 @@ func NewFindCostAnomaly200ResponseDataInner() *FindCostAnomaly200ResponseDataInn
 func NewFindCostAnomaly200ResponseDataInnerWithDefaults() *FindCostAnomaly200ResponseDataInner {
 	this := FindCostAnomaly200ResponseDataInner{}
 	return &this
+}
+
+// GetOrgId returns the OrgId field value
+func (o *FindCostAnomaly200ResponseDataInner) GetOrgId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OrgId
+}
+
+// GetOrgIdOk returns a tuple with the OrgId field value
+// and a boolean to check if the value has been set.
+func (o *FindCostAnomaly200ResponseDataInner) GetOrgIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OrgId, true
+}
+
+// SetOrgId sets field value
+func (o *FindCostAnomaly200ResponseDataInner) SetOrgId(v string) {
+	o.OrgId = v
+}
+
+// GetResourceId returns the ResourceId field value if set, zero value otherwise.
+func (o *FindCostAnomaly200ResponseDataInner) GetResourceId() string {
+	if o == nil || IsNil(o.ResourceId) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceId
+}
+
+// GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAnomaly200ResponseDataInner) GetResourceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ResourceId) {
+		return nil, false
+	}
+	return o.ResourceId, true
+}
+
+// HasResourceId returns a boolean if a field has been set.
+func (o *FindCostAnomaly200ResponseDataInner) HasResourceId() bool {
+	if o != nil && !IsNil(o.ResourceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceId gets a reference to the given string and assigns it to the ResourceId field.
+func (o *FindCostAnomaly200ResponseDataInner) SetResourceId(v string) {
+	o.ResourceId = &v
+}
+
+// GetResourceType returns the ResourceType field value if set, zero value otherwise.
+func (o *FindCostAnomaly200ResponseDataInner) GetResourceType() string {
+	if o == nil || IsNil(o.ResourceType) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceType
+}
+
+// GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAnomaly200ResponseDataInner) GetResourceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ResourceType) {
+		return nil, false
+	}
+	return o.ResourceType, true
+}
+
+// HasResourceType returns a boolean if a field has been set.
+func (o *FindCostAnomaly200ResponseDataInner) HasResourceType() bool {
+	if o != nil && !IsNil(o.ResourceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceType gets a reference to the given string and assigns it to the ResourceType field.
+func (o *FindCostAnomaly200ResponseDataInner) SetResourceType(v string) {
+	o.ResourceType = &v
+}
+
+// GetExpectedUsd returns the ExpectedUsd field value if set, zero value otherwise.
+func (o *FindCostAnomaly200ResponseDataInner) GetExpectedUsd() float32 {
+	if o == nil || IsNil(o.ExpectedUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.ExpectedUsd
+}
+
+// GetExpectedUsdOk returns a tuple with the ExpectedUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAnomaly200ResponseDataInner) GetExpectedUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.ExpectedUsd) {
+		return nil, false
+	}
+	return o.ExpectedUsd, true
+}
+
+// HasExpectedUsd returns a boolean if a field has been set.
+func (o *FindCostAnomaly200ResponseDataInner) HasExpectedUsd() bool {
+	if o != nil && !IsNil(o.ExpectedUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpectedUsd gets a reference to the given float32 and assigns it to the ExpectedUsd field.
+func (o *FindCostAnomaly200ResponseDataInner) SetExpectedUsd(v float32) {
+	o.ExpectedUsd = &v
+}
+
+// GetActualUsd returns the ActualUsd field value
+func (o *FindCostAnomaly200ResponseDataInner) GetActualUsd() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.ActualUsd
+}
+
+// GetActualUsdOk returns a tuple with the ActualUsd field value
+// and a boolean to check if the value has been set.
+func (o *FindCostAnomaly200ResponseDataInner) GetActualUsdOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ActualUsd, true
+}
+
+// SetActualUsd sets field value
+func (o *FindCostAnomaly200ResponseDataInner) SetActualUsd(v float32) {
+	o.ActualUsd = v
+}
+
+// GetDeviationPct returns the DeviationPct field value if set, zero value otherwise.
+func (o *FindCostAnomaly200ResponseDataInner) GetDeviationPct() float32 {
+	if o == nil || IsNil(o.DeviationPct) {
+		var ret float32
+		return ret
+	}
+	return *o.DeviationPct
+}
+
+// GetDeviationPctOk returns a tuple with the DeviationPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAnomaly200ResponseDataInner) GetDeviationPctOk() (*float32, bool) {
+	if o == nil || IsNil(o.DeviationPct) {
+		return nil, false
+	}
+	return o.DeviationPct, true
+}
+
+// HasDeviationPct returns a boolean if a field has been set.
+func (o *FindCostAnomaly200ResponseDataInner) HasDeviationPct() bool {
+	if o != nil && !IsNil(o.DeviationPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeviationPct gets a reference to the given float32 and assigns it to the DeviationPct field.
+func (o *FindCostAnomaly200ResponseDataInner) SetDeviationPct(v float32) {
+	o.DeviationPct = &v
+}
+
+// GetDetectionMethod returns the DetectionMethod field value if set, zero value otherwise.
+func (o *FindCostAnomaly200ResponseDataInner) GetDetectionMethod() string {
+	if o == nil || IsNil(o.DetectionMethod) {
+		var ret string
+		return ret
+	}
+	return *o.DetectionMethod
+}
+
+// GetDetectionMethodOk returns a tuple with the DetectionMethod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAnomaly200ResponseDataInner) GetDetectionMethodOk() (*string, bool) {
+	if o == nil || IsNil(o.DetectionMethod) {
+		return nil, false
+	}
+	return o.DetectionMethod, true
+}
+
+// HasDetectionMethod returns a boolean if a field has been set.
+func (o *FindCostAnomaly200ResponseDataInner) HasDetectionMethod() bool {
+	if o != nil && !IsNil(o.DetectionMethod) {
+		return true
+	}
+
+	return false
+}
+
+// SetDetectionMethod gets a reference to the given string and assigns it to the DetectionMethod field.
+func (o *FindCostAnomaly200ResponseDataInner) SetDetectionMethod(v string) {
+	o.DetectionMethod = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindCostAnomaly200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAnomaly200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindCostAnomaly200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindCostAnomaly200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetAcknowledgedAt returns the AcknowledgedAt field value if set, zero value otherwise.
+func (o *FindCostAnomaly200ResponseDataInner) GetAcknowledgedAt() time.Time {
+	if o == nil || IsNil(o.AcknowledgedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AcknowledgedAt
+}
+
+// GetAcknowledgedAtOk returns a tuple with the AcknowledgedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAnomaly200ResponseDataInner) GetAcknowledgedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AcknowledgedAt) {
+		return nil, false
+	}
+	return o.AcknowledgedAt, true
+}
+
+// HasAcknowledgedAt returns a boolean if a field has been set.
+func (o *FindCostAnomaly200ResponseDataInner) HasAcknowledgedAt() bool {
+	if o != nil && !IsNil(o.AcknowledgedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcknowledgedAt gets a reference to the given time.Time and assigns it to the AcknowledgedAt field.
+func (o *FindCostAnomaly200ResponseDataInner) SetAcknowledgedAt(v time.Time) {
+	o.AcknowledgedAt = &v
+}
+
+// GetAcknowledgedBy returns the AcknowledgedBy field value if set, zero value otherwise.
+func (o *FindCostAnomaly200ResponseDataInner) GetAcknowledgedBy() string {
+	if o == nil || IsNil(o.AcknowledgedBy) {
+		var ret string
+		return ret
+	}
+	return *o.AcknowledgedBy
+}
+
+// GetAcknowledgedByOk returns a tuple with the AcknowledgedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAnomaly200ResponseDataInner) GetAcknowledgedByOk() (*string, bool) {
+	if o == nil || IsNil(o.AcknowledgedBy) {
+		return nil, false
+	}
+	return o.AcknowledgedBy, true
+}
+
+// HasAcknowledgedBy returns a boolean if a field has been set.
+func (o *FindCostAnomaly200ResponseDataInner) HasAcknowledgedBy() bool {
+	if o != nil && !IsNil(o.AcknowledgedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcknowledgedBy gets a reference to the given string and assigns it to the AcknowledgedBy field.
+func (o *FindCostAnomaly200ResponseDataInner) SetAcknowledgedBy(v string) {
+	o.AcknowledgedBy = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +433,6 @@ func (o *FindCostAnomaly200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCostAnomaly200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCostAnomaly200ResponseDataInner) GetAttributes() CostAnomaly {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CostAnomaly
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCostAnomaly200ResponseDataInner) GetAttributesOk() (*CostAnomaly, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCostAnomaly200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CostAnomaly and assigns it to the Attributes field.
-func (o *FindCostAnomaly200ResponseDataInner) SetAttributes(v CostAnomaly) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +551,37 @@ func (o FindCostAnomaly200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCostAnomaly200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["org_id"] = o.OrgId
+	if !IsNil(o.ResourceId) {
+		toSerialize["resource_id"] = o.ResourceId
+	}
+	if !IsNil(o.ResourceType) {
+		toSerialize["resource_type"] = o.ResourceType
+	}
+	if !IsNil(o.ExpectedUsd) {
+		toSerialize["expected_usd"] = o.ExpectedUsd
+	}
+	toSerialize["actual_usd"] = o.ActualUsd
+	if !IsNil(o.DeviationPct) {
+		toSerialize["deviation_pct"] = o.DeviationPct
+	}
+	if !IsNil(o.DetectionMethod) {
+		toSerialize["detection_method"] = o.DetectionMethod
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.AcknowledgedAt) {
+		toSerialize["acknowledged_at"] = o.AcknowledgedAt
+	}
+	if !IsNil(o.AcknowledgedBy) {
+		toSerialize["acknowledged_by"] = o.AcknowledgedBy
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +593,44 @@ func (o FindCostAnomaly200ResponseDataInner) ToMap() (map[string]interface{}, er
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCostAnomaly200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"org_id",
+		"actual_usd",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCostAnomaly200ResponseDataInner := _FindCostAnomaly200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCostAnomaly200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCostAnomaly200ResponseDataInner(varFindCostAnomaly200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCostAnomaly200ResponseDataInner struct {

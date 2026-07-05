@@ -25,7 +25,8 @@ var _ MappedNullable = &CreateCorrelationFindingRequestData{}
 type CreateCorrelationFindingRequestData struct {
 	Pattern string `json:"pattern"`
 	Confidence *string `json:"confidence,omitempty"`
-	AffectedServices map[string]interface{} `json:"affected_services,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AffectedServices interface{} `json:"affected_services,omitempty"`
 	EvidenceCount *int32 `json:"evidence_count,omitempty"`
 	EvidenceSummary *string `json:"evidence_summary,omitempty"`
 	FindingType *string `json:"finding_type,omitempty"`
@@ -111,10 +112,10 @@ func (o *CreateCorrelationFindingRequestData) SetConfidence(v string) {
 	o.Confidence = &v
 }
 
-// GetAffectedServices returns the AffectedServices field value if set, zero value otherwise.
-func (o *CreateCorrelationFindingRequestData) GetAffectedServices() map[string]interface{} {
-	if o == nil || IsNil(o.AffectedServices) {
-		var ret map[string]interface{}
+// GetAffectedServices returns the AffectedServices field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCorrelationFindingRequestData) GetAffectedServices() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.AffectedServices
@@ -122,11 +123,12 @@ func (o *CreateCorrelationFindingRequestData) GetAffectedServices() map[string]i
 
 // GetAffectedServicesOk returns a tuple with the AffectedServices field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCorrelationFindingRequestData) GetAffectedServicesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCorrelationFindingRequestData) GetAffectedServicesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AffectedServices) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.AffectedServices, true
+	return &o.AffectedServices, true
 }
 
 // HasAffectedServices returns a boolean if a field has been set.
@@ -138,8 +140,8 @@ func (o *CreateCorrelationFindingRequestData) HasAffectedServices() bool {
 	return false
 }
 
-// SetAffectedServices gets a reference to the given map[string]interface{} and assigns it to the AffectedServices field.
-func (o *CreateCorrelationFindingRequestData) SetAffectedServices(v map[string]interface{}) {
+// SetAffectedServices gets a reference to the given interface{} and assigns it to the AffectedServices field.
+func (o *CreateCorrelationFindingRequestData) SetAffectedServices(v interface{}) {
 	o.AffectedServices = v
 }
 
@@ -381,7 +383,7 @@ func (o CreateCorrelationFindingRequestData) ToMap() (map[string]interface{}, er
 	if !IsNil(o.Confidence) {
 		toSerialize["confidence"] = o.Confidence
 	}
-	if !IsNil(o.AffectedServices) {
+	if o.AffectedServices != nil {
 		toSerialize["affected_services"] = o.AffectedServices
 	}
 	if !IsNil(o.EvidenceCount) {

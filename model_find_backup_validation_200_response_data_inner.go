@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindBackupValidation200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,31 @@ var _ MappedNullable = &FindBackupValidation200ResponseDataInner{}
 
 // FindBackupValidation200ResponseDataInner struct for FindBackupValidation200ResponseDataInner
 type FindBackupValidation200ResponseDataInner struct {
+	BackupType string `json:"backup_type"`
+	Source *string `json:"source,omitempty"`
+	SizeBytes *int32 `json:"size_bytes,omitempty"`
+	Checksum *string `json:"checksum,omitempty"`
+	ValidatedAt *time.Time `json:"validated_at,omitempty"`
+	RestoreTestResult *string `json:"restore_test_result,omitempty"`
+	RtoSeconds *int32 `json:"rto_seconds,omitempty"`
+	ErrorMessage *string `json:"error_message,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *BackupValidation `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindBackupValidation200ResponseDataInner FindBackupValidation200ResponseDataInner
+
 // NewFindBackupValidation200ResponseDataInner instantiates a new FindBackupValidation200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindBackupValidation200ResponseDataInner() *FindBackupValidation200ResponseDataInner {
+func NewFindBackupValidation200ResponseDataInner(backupType string) *FindBackupValidation200ResponseDataInner {
 	this := FindBackupValidation200ResponseDataInner{}
+	this.BackupType = backupType
 	return &this
 }
 
@@ -44,6 +57,286 @@ func NewFindBackupValidation200ResponseDataInner() *FindBackupValidation200Respo
 func NewFindBackupValidation200ResponseDataInnerWithDefaults() *FindBackupValidation200ResponseDataInner {
 	this := FindBackupValidation200ResponseDataInner{}
 	return &this
+}
+
+// GetBackupType returns the BackupType field value
+func (o *FindBackupValidation200ResponseDataInner) GetBackupType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.BackupType
+}
+
+// GetBackupTypeOk returns a tuple with the BackupType field value
+// and a boolean to check if the value has been set.
+func (o *FindBackupValidation200ResponseDataInner) GetBackupTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.BackupType, true
+}
+
+// SetBackupType sets field value
+func (o *FindBackupValidation200ResponseDataInner) SetBackupType(v string) {
+	o.BackupType = v
+}
+
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *FindBackupValidation200ResponseDataInner) GetSource() string {
+	if o == nil || IsNil(o.Source) {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupValidation200ResponseDataInner) GetSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.Source) {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *FindBackupValidation200ResponseDataInner) HasSource() bool {
+	if o != nil && !IsNil(o.Source) {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *FindBackupValidation200ResponseDataInner) SetSource(v string) {
+	o.Source = &v
+}
+
+// GetSizeBytes returns the SizeBytes field value if set, zero value otherwise.
+func (o *FindBackupValidation200ResponseDataInner) GetSizeBytes() int32 {
+	if o == nil || IsNil(o.SizeBytes) {
+		var ret int32
+		return ret
+	}
+	return *o.SizeBytes
+}
+
+// GetSizeBytesOk returns a tuple with the SizeBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupValidation200ResponseDataInner) GetSizeBytesOk() (*int32, bool) {
+	if o == nil || IsNil(o.SizeBytes) {
+		return nil, false
+	}
+	return o.SizeBytes, true
+}
+
+// HasSizeBytes returns a boolean if a field has been set.
+func (o *FindBackupValidation200ResponseDataInner) HasSizeBytes() bool {
+	if o != nil && !IsNil(o.SizeBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetSizeBytes gets a reference to the given int32 and assigns it to the SizeBytes field.
+func (o *FindBackupValidation200ResponseDataInner) SetSizeBytes(v int32) {
+	o.SizeBytes = &v
+}
+
+// GetChecksum returns the Checksum field value if set, zero value otherwise.
+func (o *FindBackupValidation200ResponseDataInner) GetChecksum() string {
+	if o == nil || IsNil(o.Checksum) {
+		var ret string
+		return ret
+	}
+	return *o.Checksum
+}
+
+// GetChecksumOk returns a tuple with the Checksum field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupValidation200ResponseDataInner) GetChecksumOk() (*string, bool) {
+	if o == nil || IsNil(o.Checksum) {
+		return nil, false
+	}
+	return o.Checksum, true
+}
+
+// HasChecksum returns a boolean if a field has been set.
+func (o *FindBackupValidation200ResponseDataInner) HasChecksum() bool {
+	if o != nil && !IsNil(o.Checksum) {
+		return true
+	}
+
+	return false
+}
+
+// SetChecksum gets a reference to the given string and assigns it to the Checksum field.
+func (o *FindBackupValidation200ResponseDataInner) SetChecksum(v string) {
+	o.Checksum = &v
+}
+
+// GetValidatedAt returns the ValidatedAt field value if set, zero value otherwise.
+func (o *FindBackupValidation200ResponseDataInner) GetValidatedAt() time.Time {
+	if o == nil || IsNil(o.ValidatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ValidatedAt
+}
+
+// GetValidatedAtOk returns a tuple with the ValidatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupValidation200ResponseDataInner) GetValidatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ValidatedAt) {
+		return nil, false
+	}
+	return o.ValidatedAt, true
+}
+
+// HasValidatedAt returns a boolean if a field has been set.
+func (o *FindBackupValidation200ResponseDataInner) HasValidatedAt() bool {
+	if o != nil && !IsNil(o.ValidatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetValidatedAt gets a reference to the given time.Time and assigns it to the ValidatedAt field.
+func (o *FindBackupValidation200ResponseDataInner) SetValidatedAt(v time.Time) {
+	o.ValidatedAt = &v
+}
+
+// GetRestoreTestResult returns the RestoreTestResult field value if set, zero value otherwise.
+func (o *FindBackupValidation200ResponseDataInner) GetRestoreTestResult() string {
+	if o == nil || IsNil(o.RestoreTestResult) {
+		var ret string
+		return ret
+	}
+	return *o.RestoreTestResult
+}
+
+// GetRestoreTestResultOk returns a tuple with the RestoreTestResult field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupValidation200ResponseDataInner) GetRestoreTestResultOk() (*string, bool) {
+	if o == nil || IsNil(o.RestoreTestResult) {
+		return nil, false
+	}
+	return o.RestoreTestResult, true
+}
+
+// HasRestoreTestResult returns a boolean if a field has been set.
+func (o *FindBackupValidation200ResponseDataInner) HasRestoreTestResult() bool {
+	if o != nil && !IsNil(o.RestoreTestResult) {
+		return true
+	}
+
+	return false
+}
+
+// SetRestoreTestResult gets a reference to the given string and assigns it to the RestoreTestResult field.
+func (o *FindBackupValidation200ResponseDataInner) SetRestoreTestResult(v string) {
+	o.RestoreTestResult = &v
+}
+
+// GetRtoSeconds returns the RtoSeconds field value if set, zero value otherwise.
+func (o *FindBackupValidation200ResponseDataInner) GetRtoSeconds() int32 {
+	if o == nil || IsNil(o.RtoSeconds) {
+		var ret int32
+		return ret
+	}
+	return *o.RtoSeconds
+}
+
+// GetRtoSecondsOk returns a tuple with the RtoSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupValidation200ResponseDataInner) GetRtoSecondsOk() (*int32, bool) {
+	if o == nil || IsNil(o.RtoSeconds) {
+		return nil, false
+	}
+	return o.RtoSeconds, true
+}
+
+// HasRtoSeconds returns a boolean if a field has been set.
+func (o *FindBackupValidation200ResponseDataInner) HasRtoSeconds() bool {
+	if o != nil && !IsNil(o.RtoSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetRtoSeconds gets a reference to the given int32 and assigns it to the RtoSeconds field.
+func (o *FindBackupValidation200ResponseDataInner) SetRtoSeconds(v int32) {
+	o.RtoSeconds = &v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindBackupValidation200ResponseDataInner) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupValidation200ResponseDataInner) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindBackupValidation200ResponseDataInner) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindBackupValidation200ResponseDataInner) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindBackupValidation200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBackupValidation200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindBackupValidation200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindBackupValidation200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +401,6 @@ func (o *FindBackupValidation200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindBackupValidation200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindBackupValidation200ResponseDataInner) GetAttributes() BackupValidation {
-	if o == nil || IsNil(o.Attributes) {
-		var ret BackupValidation
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindBackupValidation200ResponseDataInner) GetAttributesOk() (*BackupValidation, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindBackupValidation200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given BackupValidation and assigns it to the Attributes field.
-func (o *FindBackupValidation200ResponseDataInner) SetAttributes(v BackupValidation) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +519,36 @@ func (o FindBackupValidation200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindBackupValidation200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["backup_type"] = o.BackupType
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.SizeBytes) {
+		toSerialize["size_bytes"] = o.SizeBytes
+	}
+	if !IsNil(o.Checksum) {
+		toSerialize["checksum"] = o.Checksum
+	}
+	if !IsNil(o.ValidatedAt) {
+		toSerialize["validated_at"] = o.ValidatedAt
+	}
+	if !IsNil(o.RestoreTestResult) {
+		toSerialize["restore_test_result"] = o.RestoreTestResult
+	}
+	if !IsNil(o.RtoSeconds) {
+		toSerialize["rto_seconds"] = o.RtoSeconds
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +560,43 @@ func (o FindBackupValidation200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindBackupValidation200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"backup_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindBackupValidation200ResponseDataInner := _FindBackupValidation200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindBackupValidation200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindBackupValidation200ResponseDataInner(varFindBackupValidation200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindBackupValidation200ResponseDataInner struct {

@@ -24,7 +24,8 @@ var _ MappedNullable = &NetworkPolicy{}
 type NetworkPolicy struct {
 	Name string `json:"name"`
 	Description *string `json:"description,omitempty"`
-	Rules map[string]interface{} `json:"rules"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Rules interface{} `json:"rules"`
 	Scope *string `json:"scope,omitempty"`
 	Enabled *bool `json:"enabled,omitempty"`
 	Priority *int32 `json:"priority,omitempty"`
@@ -37,7 +38,7 @@ type _NetworkPolicy NetworkPolicy
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNetworkPolicy(name string, rules map[string]interface{}) *NetworkPolicy {
+func NewNetworkPolicy(name string, rules interface{}) *NetworkPolicy {
 	this := NetworkPolicy{}
 	this.Name = name
 	this.Rules = rules
@@ -109,9 +110,10 @@ func (o *NetworkPolicy) SetDescription(v string) {
 }
 
 // GetRules returns the Rules field value
-func (o *NetworkPolicy) GetRules() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *NetworkPolicy) GetRules() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -120,15 +122,16 @@ func (o *NetworkPolicy) GetRules() map[string]interface{} {
 
 // GetRulesOk returns a tuple with the Rules field value
 // and a boolean to check if the value has been set.
-func (o *NetworkPolicy) GetRulesOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *NetworkPolicy) GetRulesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Rules) {
+		return nil, false
 	}
-	return o.Rules, true
+	return &o.Rules, true
 }
 
 // SetRules sets field value
-func (o *NetworkPolicy) SetRules(v map[string]interface{}) {
+func (o *NetworkPolicy) SetRules(v interface{}) {
 	o.Rules = v
 }
 
@@ -274,7 +277,9 @@ func (o NetworkPolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	toSerialize["rules"] = o.Rules
+	if o.Rules != nil {
+		toSerialize["rules"] = o.Rules
+	}
 	if !IsNil(o.Scope) {
 		toSerialize["scope"] = o.Scope
 	}

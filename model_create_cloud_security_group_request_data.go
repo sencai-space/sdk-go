@@ -24,10 +24,12 @@ var _ MappedNullable = &CreateCloudSecurityGroupRequestData{}
 type CreateCloudSecurityGroupRequestData struct {
 	Name string `json:"name"`
 	Description *string `json:"description,omitempty"`
-	Rules map[string]interface{} `json:"rules,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Rules interface{} `json:"rules,omitempty"`
 	ExternalId *string `json:"external_id,omitempty"`
 	State *string `json:"state,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	Network *CreateAccessReviewRequestDataReviewer `json:"network,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
@@ -108,10 +110,10 @@ func (o *CreateCloudSecurityGroupRequestData) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetRules returns the Rules field value if set, zero value otherwise.
-func (o *CreateCloudSecurityGroupRequestData) GetRules() map[string]interface{} {
-	if o == nil || IsNil(o.Rules) {
-		var ret map[string]interface{}
+// GetRules returns the Rules field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudSecurityGroupRequestData) GetRules() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Rules
@@ -119,11 +121,12 @@ func (o *CreateCloudSecurityGroupRequestData) GetRules() map[string]interface{} 
 
 // GetRulesOk returns a tuple with the Rules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudSecurityGroupRequestData) GetRulesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudSecurityGroupRequestData) GetRulesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Rules) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Rules, true
+	return &o.Rules, true
 }
 
 // HasRules returns a boolean if a field has been set.
@@ -135,8 +138,8 @@ func (o *CreateCloudSecurityGroupRequestData) HasRules() bool {
 	return false
 }
 
-// SetRules gets a reference to the given map[string]interface{} and assigns it to the Rules field.
-func (o *CreateCloudSecurityGroupRequestData) SetRules(v map[string]interface{}) {
+// SetRules gets a reference to the given interface{} and assigns it to the Rules field.
+func (o *CreateCloudSecurityGroupRequestData) SetRules(v interface{}) {
 	o.Rules = v
 }
 
@@ -204,10 +207,10 @@ func (o *CreateCloudSecurityGroupRequestData) SetState(v string) {
 	o.State = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CreateCloudSecurityGroupRequestData) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudSecurityGroupRequestData) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -215,11 +218,12 @@ func (o *CreateCloudSecurityGroupRequestData) GetMetadata() map[string]interface
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudSecurityGroupRequestData) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudSecurityGroupRequestData) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -231,8 +235,8 @@ func (o *CreateCloudSecurityGroupRequestData) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CreateCloudSecurityGroupRequestData) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CreateCloudSecurityGroupRequestData) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -314,7 +318,7 @@ func (o CreateCloudSecurityGroupRequestData) ToMap() (map[string]interface{}, er
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.Rules) {
+	if o.Rules != nil {
 		toSerialize["rules"] = o.Rules
 	}
 	if !IsNil(o.ExternalId) {
@@ -323,7 +327,7 @@ func (o CreateCloudSecurityGroupRequestData) ToMap() (map[string]interface{}, er
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.Network) {

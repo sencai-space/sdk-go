@@ -32,8 +32,10 @@ type WorkspaceWatchdogEvent struct {
 	Resource *string `json:"resource,omitempty"`
 	IpAddress *string `json:"ip_address,omitempty"`
 	UserAgent *string `json:"user_agent,omitempty"`
-	RawEvent map[string]interface{} `json:"raw_event,omitempty"`
-	EventData map[string]interface{} `json:"event_data,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	RawEvent interface{} `json:"raw_event,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	EventData interface{} `json:"event_data,omitempty"`
 	Status string `json:"status"`
 	Notes *string `json:"notes,omitempty"`
 	OccurredAt time.Time `json:"occurred_at"`
@@ -328,10 +330,10 @@ func (o *WorkspaceWatchdogEvent) SetUserAgent(v string) {
 	o.UserAgent = &v
 }
 
-// GetRawEvent returns the RawEvent field value if set, zero value otherwise.
-func (o *WorkspaceWatchdogEvent) GetRawEvent() map[string]interface{} {
-	if o == nil || IsNil(o.RawEvent) {
-		var ret map[string]interface{}
+// GetRawEvent returns the RawEvent field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkspaceWatchdogEvent) GetRawEvent() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.RawEvent
@@ -339,11 +341,12 @@ func (o *WorkspaceWatchdogEvent) GetRawEvent() map[string]interface{} {
 
 // GetRawEventOk returns a tuple with the RawEvent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkspaceWatchdogEvent) GetRawEventOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkspaceWatchdogEvent) GetRawEventOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.RawEvent) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.RawEvent, true
+	return &o.RawEvent, true
 }
 
 // HasRawEvent returns a boolean if a field has been set.
@@ -355,15 +358,15 @@ func (o *WorkspaceWatchdogEvent) HasRawEvent() bool {
 	return false
 }
 
-// SetRawEvent gets a reference to the given map[string]interface{} and assigns it to the RawEvent field.
-func (o *WorkspaceWatchdogEvent) SetRawEvent(v map[string]interface{}) {
+// SetRawEvent gets a reference to the given interface{} and assigns it to the RawEvent field.
+func (o *WorkspaceWatchdogEvent) SetRawEvent(v interface{}) {
 	o.RawEvent = v
 }
 
-// GetEventData returns the EventData field value if set, zero value otherwise.
-func (o *WorkspaceWatchdogEvent) GetEventData() map[string]interface{} {
-	if o == nil || IsNil(o.EventData) {
-		var ret map[string]interface{}
+// GetEventData returns the EventData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkspaceWatchdogEvent) GetEventData() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.EventData
@@ -371,11 +374,12 @@ func (o *WorkspaceWatchdogEvent) GetEventData() map[string]interface{} {
 
 // GetEventDataOk returns a tuple with the EventData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkspaceWatchdogEvent) GetEventDataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkspaceWatchdogEvent) GetEventDataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.EventData) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.EventData, true
+	return &o.EventData, true
 }
 
 // HasEventData returns a boolean if a field has been set.
@@ -387,8 +391,8 @@ func (o *WorkspaceWatchdogEvent) HasEventData() bool {
 	return false
 }
 
-// SetEventData gets a reference to the given map[string]interface{} and assigns it to the EventData field.
-func (o *WorkspaceWatchdogEvent) SetEventData(v map[string]interface{}) {
+// SetEventData gets a reference to the given interface{} and assigns it to the EventData field.
+func (o *WorkspaceWatchdogEvent) SetEventData(v interface{}) {
 	o.EventData = v
 }
 
@@ -535,10 +539,10 @@ func (o WorkspaceWatchdogEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserAgent) {
 		toSerialize["user_agent"] = o.UserAgent
 	}
-	if !IsNil(o.RawEvent) {
+	if o.RawEvent != nil {
 		toSerialize["raw_event"] = o.RawEvent
 	}
-	if !IsNil(o.EventData) {
+	if o.EventData != nil {
 		toSerialize["event_data"] = o.EventData
 	}
 	toSerialize["status"] = o.Status

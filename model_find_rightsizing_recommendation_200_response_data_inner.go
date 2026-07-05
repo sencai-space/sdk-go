@@ -21,9 +21,23 @@ var _ MappedNullable = &FindRightsizingRecommendation200ResponseDataInner{}
 
 // FindRightsizingRecommendation200ResponseDataInner struct for FindRightsizingRecommendation200ResponseDataInner
 type FindRightsizingRecommendation200ResponseDataInner struct {
+	// documentId of the source cloud-instance record
+	CloudInstanceId *string `json:"cloud_instance_id,omitempty"`
+	CurrentInstanceType *string `json:"current_instance_type,omitempty"`
+	RecommendedInstanceType *string `json:"recommended_instance_type,omitempty"`
+	Provider *string `json:"provider,omitempty"`
+	Region *string `json:"region,omitempty"`
+	MonthlyCostCurrentUsd *float32 `json:"monthly_cost_current_usd,omitempty"`
+	MonthlyCostRecommendedUsd *float32 `json:"monthly_cost_recommended_usd,omitempty"`
+	MonthlySavingsUsd *float32 `json:"monthly_savings_usd,omitempty"`
+	Reason *string `json:"reason,omitempty"`
+	Confidence *string `json:"confidence,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AnalysisData interface{} `json:"analysis_data,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *RightsizingRecommendation `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +58,423 @@ func NewFindRightsizingRecommendation200ResponseDataInner() *FindRightsizingReco
 func NewFindRightsizingRecommendation200ResponseDataInnerWithDefaults() *FindRightsizingRecommendation200ResponseDataInner {
 	this := FindRightsizingRecommendation200ResponseDataInner{}
 	return &this
+}
+
+// GetCloudInstanceId returns the CloudInstanceId field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetCloudInstanceId() string {
+	if o == nil || IsNil(o.CloudInstanceId) {
+		var ret string
+		return ret
+	}
+	return *o.CloudInstanceId
+}
+
+// GetCloudInstanceIdOk returns a tuple with the CloudInstanceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetCloudInstanceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CloudInstanceId) {
+		return nil, false
+	}
+	return o.CloudInstanceId, true
+}
+
+// HasCloudInstanceId returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasCloudInstanceId() bool {
+	if o != nil && !IsNil(o.CloudInstanceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCloudInstanceId gets a reference to the given string and assigns it to the CloudInstanceId field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetCloudInstanceId(v string) {
+	o.CloudInstanceId = &v
+}
+
+// GetCurrentInstanceType returns the CurrentInstanceType field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetCurrentInstanceType() string {
+	if o == nil || IsNil(o.CurrentInstanceType) {
+		var ret string
+		return ret
+	}
+	return *o.CurrentInstanceType
+}
+
+// GetCurrentInstanceTypeOk returns a tuple with the CurrentInstanceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetCurrentInstanceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.CurrentInstanceType) {
+		return nil, false
+	}
+	return o.CurrentInstanceType, true
+}
+
+// HasCurrentInstanceType returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasCurrentInstanceType() bool {
+	if o != nil && !IsNil(o.CurrentInstanceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentInstanceType gets a reference to the given string and assigns it to the CurrentInstanceType field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetCurrentInstanceType(v string) {
+	o.CurrentInstanceType = &v
+}
+
+// GetRecommendedInstanceType returns the RecommendedInstanceType field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetRecommendedInstanceType() string {
+	if o == nil || IsNil(o.RecommendedInstanceType) {
+		var ret string
+		return ret
+	}
+	return *o.RecommendedInstanceType
+}
+
+// GetRecommendedInstanceTypeOk returns a tuple with the RecommendedInstanceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetRecommendedInstanceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.RecommendedInstanceType) {
+		return nil, false
+	}
+	return o.RecommendedInstanceType, true
+}
+
+// HasRecommendedInstanceType returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasRecommendedInstanceType() bool {
+	if o != nil && !IsNil(o.RecommendedInstanceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecommendedInstanceType gets a reference to the given string and assigns it to the RecommendedInstanceType field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetRecommendedInstanceType(v string) {
+	o.RecommendedInstanceType = &v
+}
+
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetProvider(v string) {
+	o.Provider = &v
+}
+
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetRegion() string {
+	if o == nil || IsNil(o.Region) {
+		var ret string
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.Region) {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasRegion() bool {
+	if o != nil && !IsNil(o.Region) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegion gets a reference to the given string and assigns it to the Region field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetRegion(v string) {
+	o.Region = &v
+}
+
+// GetMonthlyCostCurrentUsd returns the MonthlyCostCurrentUsd field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetMonthlyCostCurrentUsd() float32 {
+	if o == nil || IsNil(o.MonthlyCostCurrentUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.MonthlyCostCurrentUsd
+}
+
+// GetMonthlyCostCurrentUsdOk returns a tuple with the MonthlyCostCurrentUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetMonthlyCostCurrentUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.MonthlyCostCurrentUsd) {
+		return nil, false
+	}
+	return o.MonthlyCostCurrentUsd, true
+}
+
+// HasMonthlyCostCurrentUsd returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasMonthlyCostCurrentUsd() bool {
+	if o != nil && !IsNil(o.MonthlyCostCurrentUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonthlyCostCurrentUsd gets a reference to the given float32 and assigns it to the MonthlyCostCurrentUsd field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetMonthlyCostCurrentUsd(v float32) {
+	o.MonthlyCostCurrentUsd = &v
+}
+
+// GetMonthlyCostRecommendedUsd returns the MonthlyCostRecommendedUsd field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetMonthlyCostRecommendedUsd() float32 {
+	if o == nil || IsNil(o.MonthlyCostRecommendedUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.MonthlyCostRecommendedUsd
+}
+
+// GetMonthlyCostRecommendedUsdOk returns a tuple with the MonthlyCostRecommendedUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetMonthlyCostRecommendedUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.MonthlyCostRecommendedUsd) {
+		return nil, false
+	}
+	return o.MonthlyCostRecommendedUsd, true
+}
+
+// HasMonthlyCostRecommendedUsd returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasMonthlyCostRecommendedUsd() bool {
+	if o != nil && !IsNil(o.MonthlyCostRecommendedUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonthlyCostRecommendedUsd gets a reference to the given float32 and assigns it to the MonthlyCostRecommendedUsd field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetMonthlyCostRecommendedUsd(v float32) {
+	o.MonthlyCostRecommendedUsd = &v
+}
+
+// GetMonthlySavingsUsd returns the MonthlySavingsUsd field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetMonthlySavingsUsd() float32 {
+	if o == nil || IsNil(o.MonthlySavingsUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.MonthlySavingsUsd
+}
+
+// GetMonthlySavingsUsdOk returns a tuple with the MonthlySavingsUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetMonthlySavingsUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.MonthlySavingsUsd) {
+		return nil, false
+	}
+	return o.MonthlySavingsUsd, true
+}
+
+// HasMonthlySavingsUsd returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasMonthlySavingsUsd() bool {
+	if o != nil && !IsNil(o.MonthlySavingsUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonthlySavingsUsd gets a reference to the given float32 and assigns it to the MonthlySavingsUsd field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetMonthlySavingsUsd(v float32) {
+	o.MonthlySavingsUsd = &v
+}
+
+// GetReason returns the Reason field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetReason() string {
+	if o == nil || IsNil(o.Reason) {
+		var ret string
+		return ret
+	}
+	return *o.Reason
+}
+
+// GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.Reason) {
+		return nil, false
+	}
+	return o.Reason, true
+}
+
+// HasReason returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasReason() bool {
+	if o != nil && !IsNil(o.Reason) {
+		return true
+	}
+
+	return false
+}
+
+// SetReason gets a reference to the given string and assigns it to the Reason field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetReason(v string) {
+	o.Reason = &v
+}
+
+// GetConfidence returns the Confidence field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetConfidence() string {
+	if o == nil || IsNil(o.Confidence) {
+		var ret string
+		return ret
+	}
+	return *o.Confidence
+}
+
+// GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetConfidenceOk() (*string, bool) {
+	if o == nil || IsNil(o.Confidence) {
+		return nil, false
+	}
+	return o.Confidence, true
+}
+
+// HasConfidence returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasConfidence() bool {
+	if o != nil && !IsNil(o.Confidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfidence gets a reference to the given string and assigns it to the Confidence field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetConfidence(v string) {
+	o.Confidence = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetAnalysisData returns the AnalysisData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetAnalysisData() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.AnalysisData
+}
+
+// GetAnalysisDataOk returns a tuple with the AnalysisData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetAnalysisDataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.AnalysisData) {
+		return nil, false
+	}
+	return &o.AnalysisData, true
+}
+
+// HasAnalysisData returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasAnalysisData() bool {
+	if o != nil && !IsNil(o.AnalysisData) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnalysisData gets a reference to the given interface{} and assigns it to the AnalysisData field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetAnalysisData(v interface{}) {
+	o.AnalysisData = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindRightsizingRecommendation200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindRightsizingRecommendation200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +539,6 @@ func (o *FindRightsizingRecommendation200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindRightsizingRecommendation200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindRightsizingRecommendation200ResponseDataInner) GetAttributes() RightsizingRecommendation {
-	if o == nil || IsNil(o.Attributes) {
-		var ret RightsizingRecommendation
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindRightsizingRecommendation200ResponseDataInner) GetAttributesOk() (*RightsizingRecommendation, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindRightsizingRecommendation200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given RightsizingRecommendation and assigns it to the Attributes field.
-func (o *FindRightsizingRecommendation200ResponseDataInner) SetAttributes(v RightsizingRecommendation) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +657,50 @@ func (o FindRightsizingRecommendation200ResponseDataInner) MarshalJSON() ([]byte
 
 func (o FindRightsizingRecommendation200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CloudInstanceId) {
+		toSerialize["cloud_instance_id"] = o.CloudInstanceId
+	}
+	if !IsNil(o.CurrentInstanceType) {
+		toSerialize["current_instance_type"] = o.CurrentInstanceType
+	}
+	if !IsNil(o.RecommendedInstanceType) {
+		toSerialize["recommended_instance_type"] = o.RecommendedInstanceType
+	}
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
+	if !IsNil(o.Region) {
+		toSerialize["region"] = o.Region
+	}
+	if !IsNil(o.MonthlyCostCurrentUsd) {
+		toSerialize["monthly_cost_current_usd"] = o.MonthlyCostCurrentUsd
+	}
+	if !IsNil(o.MonthlyCostRecommendedUsd) {
+		toSerialize["monthly_cost_recommended_usd"] = o.MonthlyCostRecommendedUsd
+	}
+	if !IsNil(o.MonthlySavingsUsd) {
+		toSerialize["monthly_savings_usd"] = o.MonthlySavingsUsd
+	}
+	if !IsNil(o.Reason) {
+		toSerialize["reason"] = o.Reason
+	}
+	if !IsNil(o.Confidence) {
+		toSerialize["confidence"] = o.Confidence
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if o.AnalysisData != nil {
+		toSerialize["analysis_data"] = o.AnalysisData
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindDdosPosture200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindDdosPosture200ResponseDataInner{}
 
 // FindDdosPosture200ResponseDataInner struct for FindDdosPosture200ResponseDataInner
 type FindDdosPosture200ResponseDataInner struct {
+	Provider string `json:"provider"`
+	ResourceId string `json:"resource_id"`
+	ResourceName *string `json:"resource_name,omitempty"`
+	ProtectionLevel *string `json:"protection_level,omitempty"`
+	Status *string `json:"status,omitempty"`
+	MonthlyCostUsd *float32 `json:"monthly_cost_usd,omitempty"`
+	LastCheckedAt *time.Time `json:"last_checked_at,omitempty"`
+	Recommendation *string `json:"recommendation,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ProviderMetadata interface{} `json:"provider_metadata,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *DdosPosture `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindDdosPosture200ResponseDataInner FindDdosPosture200ResponseDataInner
+
 // NewFindDdosPosture200ResponseDataInner instantiates a new FindDdosPosture200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindDdosPosture200ResponseDataInner() *FindDdosPosture200ResponseDataInner {
+func NewFindDdosPosture200ResponseDataInner(provider string, resourceId string) *FindDdosPosture200ResponseDataInner {
 	this := FindDdosPosture200ResponseDataInner{}
+	this.Provider = provider
+	this.ResourceId = resourceId
 	return &this
 }
 
@@ -44,6 +61,343 @@ func NewFindDdosPosture200ResponseDataInner() *FindDdosPosture200ResponseDataInn
 func NewFindDdosPosture200ResponseDataInnerWithDefaults() *FindDdosPosture200ResponseDataInner {
 	this := FindDdosPosture200ResponseDataInner{}
 	return &this
+}
+
+// GetProvider returns the Provider field value
+func (o *FindDdosPosture200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindDdosPosture200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindDdosPosture200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetResourceId returns the ResourceId field value
+func (o *FindDdosPosture200ResponseDataInner) GetResourceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ResourceId
+}
+
+// GetResourceIdOk returns a tuple with the ResourceId field value
+// and a boolean to check if the value has been set.
+func (o *FindDdosPosture200ResponseDataInner) GetResourceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ResourceId, true
+}
+
+// SetResourceId sets field value
+func (o *FindDdosPosture200ResponseDataInner) SetResourceId(v string) {
+	o.ResourceId = v
+}
+
+// GetResourceName returns the ResourceName field value if set, zero value otherwise.
+func (o *FindDdosPosture200ResponseDataInner) GetResourceName() string {
+	if o == nil || IsNil(o.ResourceName) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceName
+}
+
+// GetResourceNameOk returns a tuple with the ResourceName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDdosPosture200ResponseDataInner) GetResourceNameOk() (*string, bool) {
+	if o == nil || IsNil(o.ResourceName) {
+		return nil, false
+	}
+	return o.ResourceName, true
+}
+
+// HasResourceName returns a boolean if a field has been set.
+func (o *FindDdosPosture200ResponseDataInner) HasResourceName() bool {
+	if o != nil && !IsNil(o.ResourceName) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceName gets a reference to the given string and assigns it to the ResourceName field.
+func (o *FindDdosPosture200ResponseDataInner) SetResourceName(v string) {
+	o.ResourceName = &v
+}
+
+// GetProtectionLevel returns the ProtectionLevel field value if set, zero value otherwise.
+func (o *FindDdosPosture200ResponseDataInner) GetProtectionLevel() string {
+	if o == nil || IsNil(o.ProtectionLevel) {
+		var ret string
+		return ret
+	}
+	return *o.ProtectionLevel
+}
+
+// GetProtectionLevelOk returns a tuple with the ProtectionLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDdosPosture200ResponseDataInner) GetProtectionLevelOk() (*string, bool) {
+	if o == nil || IsNil(o.ProtectionLevel) {
+		return nil, false
+	}
+	return o.ProtectionLevel, true
+}
+
+// HasProtectionLevel returns a boolean if a field has been set.
+func (o *FindDdosPosture200ResponseDataInner) HasProtectionLevel() bool {
+	if o != nil && !IsNil(o.ProtectionLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetProtectionLevel gets a reference to the given string and assigns it to the ProtectionLevel field.
+func (o *FindDdosPosture200ResponseDataInner) SetProtectionLevel(v string) {
+	o.ProtectionLevel = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindDdosPosture200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDdosPosture200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindDdosPosture200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindDdosPosture200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetMonthlyCostUsd returns the MonthlyCostUsd field value if set, zero value otherwise.
+func (o *FindDdosPosture200ResponseDataInner) GetMonthlyCostUsd() float32 {
+	if o == nil || IsNil(o.MonthlyCostUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.MonthlyCostUsd
+}
+
+// GetMonthlyCostUsdOk returns a tuple with the MonthlyCostUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDdosPosture200ResponseDataInner) GetMonthlyCostUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.MonthlyCostUsd) {
+		return nil, false
+	}
+	return o.MonthlyCostUsd, true
+}
+
+// HasMonthlyCostUsd returns a boolean if a field has been set.
+func (o *FindDdosPosture200ResponseDataInner) HasMonthlyCostUsd() bool {
+	if o != nil && !IsNil(o.MonthlyCostUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonthlyCostUsd gets a reference to the given float32 and assigns it to the MonthlyCostUsd field.
+func (o *FindDdosPosture200ResponseDataInner) SetMonthlyCostUsd(v float32) {
+	o.MonthlyCostUsd = &v
+}
+
+// GetLastCheckedAt returns the LastCheckedAt field value if set, zero value otherwise.
+func (o *FindDdosPosture200ResponseDataInner) GetLastCheckedAt() time.Time {
+	if o == nil || IsNil(o.LastCheckedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastCheckedAt
+}
+
+// GetLastCheckedAtOk returns a tuple with the LastCheckedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDdosPosture200ResponseDataInner) GetLastCheckedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastCheckedAt) {
+		return nil, false
+	}
+	return o.LastCheckedAt, true
+}
+
+// HasLastCheckedAt returns a boolean if a field has been set.
+func (o *FindDdosPosture200ResponseDataInner) HasLastCheckedAt() bool {
+	if o != nil && !IsNil(o.LastCheckedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastCheckedAt gets a reference to the given time.Time and assigns it to the LastCheckedAt field.
+func (o *FindDdosPosture200ResponseDataInner) SetLastCheckedAt(v time.Time) {
+	o.LastCheckedAt = &v
+}
+
+// GetRecommendation returns the Recommendation field value if set, zero value otherwise.
+func (o *FindDdosPosture200ResponseDataInner) GetRecommendation() string {
+	if o == nil || IsNil(o.Recommendation) {
+		var ret string
+		return ret
+	}
+	return *o.Recommendation
+}
+
+// GetRecommendationOk returns a tuple with the Recommendation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDdosPosture200ResponseDataInner) GetRecommendationOk() (*string, bool) {
+	if o == nil || IsNil(o.Recommendation) {
+		return nil, false
+	}
+	return o.Recommendation, true
+}
+
+// HasRecommendation returns a boolean if a field has been set.
+func (o *FindDdosPosture200ResponseDataInner) HasRecommendation() bool {
+	if o != nil && !IsNil(o.Recommendation) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecommendation gets a reference to the given string and assigns it to the Recommendation field.
+func (o *FindDdosPosture200ResponseDataInner) SetRecommendation(v string) {
+	o.Recommendation = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindDdosPosture200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDdosPosture200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindDdosPosture200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindDdosPosture200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetCredential returns the Credential field value if set, zero value otherwise.
+func (o *FindDdosPosture200ResponseDataInner) GetCredential() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Credential) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Credential
+}
+
+// GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindDdosPosture200ResponseDataInner) GetCredentialOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Credential) {
+		return nil, false
+	}
+	return o.Credential, true
+}
+
+// HasCredential returns a boolean if a field has been set.
+func (o *FindDdosPosture200ResponseDataInner) HasCredential() bool {
+	if o != nil && !IsNil(o.Credential) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredential gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Credential field.
+func (o *FindDdosPosture200ResponseDataInner) SetCredential(v CreateAccessReviewRequestDataReviewer) {
+	o.Credential = &v
+}
+
+// GetProviderMetadata returns the ProviderMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindDdosPosture200ResponseDataInner) GetProviderMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.ProviderMetadata
+}
+
+// GetProviderMetadataOk returns a tuple with the ProviderMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindDdosPosture200ResponseDataInner) GetProviderMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ProviderMetadata) {
+		return nil, false
+	}
+	return &o.ProviderMetadata, true
+}
+
+// HasProviderMetadata returns a boolean if a field has been set.
+func (o *FindDdosPosture200ResponseDataInner) HasProviderMetadata() bool {
+	if o != nil && !IsNil(o.ProviderMetadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderMetadata gets a reference to the given interface{} and assigns it to the ProviderMetadata field.
+func (o *FindDdosPosture200ResponseDataInner) SetProviderMetadata(v interface{}) {
+	o.ProviderMetadata = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +462,6 @@ func (o *FindDdosPosture200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindDdosPosture200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindDdosPosture200ResponseDataInner) GetAttributes() DdosPosture {
-	if o == nil || IsNil(o.Attributes) {
-		var ret DdosPosture
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindDdosPosture200ResponseDataInner) GetAttributesOk() (*DdosPosture, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindDdosPosture200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given DdosPosture and assigns it to the Attributes field.
-func (o *FindDdosPosture200ResponseDataInner) SetAttributes(v DdosPosture) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +580,40 @@ func (o FindDdosPosture200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindDdosPosture200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["provider"] = o.Provider
+	toSerialize["resource_id"] = o.ResourceId
+	if !IsNil(o.ResourceName) {
+		toSerialize["resource_name"] = o.ResourceName
+	}
+	if !IsNil(o.ProtectionLevel) {
+		toSerialize["protection_level"] = o.ProtectionLevel
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.MonthlyCostUsd) {
+		toSerialize["monthly_cost_usd"] = o.MonthlyCostUsd
+	}
+	if !IsNil(o.LastCheckedAt) {
+		toSerialize["last_checked_at"] = o.LastCheckedAt
+	}
+	if !IsNil(o.Recommendation) {
+		toSerialize["recommendation"] = o.Recommendation
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.Credential) {
+		toSerialize["credential"] = o.Credential
+	}
+	if o.ProviderMetadata != nil {
+		toSerialize["provider_metadata"] = o.ProviderMetadata
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +625,44 @@ func (o FindDdosPosture200ResponseDataInner) ToMap() (map[string]interface{}, er
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindDdosPosture200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"provider",
+		"resource_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindDdosPosture200ResponseDataInner := _FindDdosPosture200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindDdosPosture200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindDdosPosture200ResponseDataInner(varFindDdosPosture200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindDdosPosture200ResponseDataInner struct {

@@ -26,12 +26,14 @@ type BillingSyncLog struct {
 	Adapter string `json:"adapter"`
 	SyncType string `json:"sync_type"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
-	UsageEventIds map[string]interface{} `json:"usage_event_ids,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	UsageEventIds interface{} `json:"usage_event_ids,omitempty"`
 	ExternalId *string `json:"external_id,omitempty"`
 	Status *string `json:"status,omitempty"`
 	SyncedAt time.Time `json:"synced_at"`
 	ErrorMessage *string `json:"error_message,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 }
 
 type _BillingSyncLog BillingSyncLog
@@ -136,10 +138,10 @@ func (o *BillingSyncLog) SetOrganisation(v CreateAccessReviewRequestDataReviewer
 	o.Organisation = &v
 }
 
-// GetUsageEventIds returns the UsageEventIds field value if set, zero value otherwise.
-func (o *BillingSyncLog) GetUsageEventIds() map[string]interface{} {
-	if o == nil || IsNil(o.UsageEventIds) {
-		var ret map[string]interface{}
+// GetUsageEventIds returns the UsageEventIds field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BillingSyncLog) GetUsageEventIds() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.UsageEventIds
@@ -147,11 +149,12 @@ func (o *BillingSyncLog) GetUsageEventIds() map[string]interface{} {
 
 // GetUsageEventIdsOk returns a tuple with the UsageEventIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingSyncLog) GetUsageEventIdsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BillingSyncLog) GetUsageEventIdsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.UsageEventIds) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.UsageEventIds, true
+	return &o.UsageEventIds, true
 }
 
 // HasUsageEventIds returns a boolean if a field has been set.
@@ -163,8 +166,8 @@ func (o *BillingSyncLog) HasUsageEventIds() bool {
 	return false
 }
 
-// SetUsageEventIds gets a reference to the given map[string]interface{} and assigns it to the UsageEventIds field.
-func (o *BillingSyncLog) SetUsageEventIds(v map[string]interface{}) {
+// SetUsageEventIds gets a reference to the given interface{} and assigns it to the UsageEventIds field.
+func (o *BillingSyncLog) SetUsageEventIds(v interface{}) {
 	o.UsageEventIds = v
 }
 
@@ -288,10 +291,10 @@ func (o *BillingSyncLog) SetErrorMessage(v string) {
 	o.ErrorMessage = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *BillingSyncLog) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *BillingSyncLog) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -299,11 +302,12 @@ func (o *BillingSyncLog) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BillingSyncLog) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *BillingSyncLog) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -315,8 +319,8 @@ func (o *BillingSyncLog) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *BillingSyncLog) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *BillingSyncLog) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -335,7 +339,7 @@ func (o BillingSyncLog) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Organisation) {
 		toSerialize["organisation"] = o.Organisation
 	}
-	if !IsNil(o.UsageEventIds) {
+	if o.UsageEventIds != nil {
 		toSerialize["usage_event_ids"] = o.UsageEventIds
 	}
 	if !IsNil(o.ExternalId) {
@@ -348,7 +352,7 @@ func (o BillingSyncLog) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ErrorMessage) {
 		toSerialize["error_message"] = o.ErrorMessage
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil

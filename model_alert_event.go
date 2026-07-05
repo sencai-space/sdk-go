@@ -35,7 +35,8 @@ type AlertEvent struct {
 	NotifiedAt *time.Time `json:"notifiedAt,omitempty"`
 	ResolvedAt *time.Time `json:"resolvedAt,omitempty"`
 	Status *string `json:"status,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 }
 
 type _AlertEvent AlertEvent
@@ -406,10 +407,10 @@ func (o *AlertEvent) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *AlertEvent) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AlertEvent) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -417,11 +418,12 @@ func (o *AlertEvent) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AlertEvent) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AlertEvent) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -433,8 +435,8 @@ func (o *AlertEvent) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *AlertEvent) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *AlertEvent) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -474,7 +476,7 @@ func (o AlertEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	return toSerialize, nil

@@ -29,7 +29,8 @@ type CreateSencaiAgentRequestData struct {
 	Arch *string `json:"arch,omitempty"`
 	EnrolledAt *time.Time `json:"enrolled_at,omitempty"`
 	LastHeartbeatAt *time.Time `json:"last_heartbeat_at,omitempty"`
-	Capabilities map[string]interface{} `json:"capabilities,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Capabilities interface{} `json:"capabilities,omitempty"`
 	CertFingerprint *string `json:"cert_fingerprint,omitempty"`
 	EnrollmentToken *string `json:"enrollment_token,omitempty"`
 	Status *string `json:"status,omitempty"`
@@ -308,10 +309,10 @@ func (o *CreateSencaiAgentRequestData) SetLastHeartbeatAt(v time.Time) {
 	o.LastHeartbeatAt = &v
 }
 
-// GetCapabilities returns the Capabilities field value if set, zero value otherwise.
-func (o *CreateSencaiAgentRequestData) GetCapabilities() map[string]interface{} {
-	if o == nil || IsNil(o.Capabilities) {
-		var ret map[string]interface{}
+// GetCapabilities returns the Capabilities field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateSencaiAgentRequestData) GetCapabilities() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Capabilities
@@ -319,11 +320,12 @@ func (o *CreateSencaiAgentRequestData) GetCapabilities() map[string]interface{} 
 
 // GetCapabilitiesOk returns a tuple with the Capabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateSencaiAgentRequestData) GetCapabilitiesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateSencaiAgentRequestData) GetCapabilitiesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Capabilities) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Capabilities, true
+	return &o.Capabilities, true
 }
 
 // HasCapabilities returns a boolean if a field has been set.
@@ -335,8 +337,8 @@ func (o *CreateSencaiAgentRequestData) HasCapabilities() bool {
 	return false
 }
 
-// SetCapabilities gets a reference to the given map[string]interface{} and assigns it to the Capabilities field.
-func (o *CreateSencaiAgentRequestData) SetCapabilities(v map[string]interface{}) {
+// SetCapabilities gets a reference to the given interface{} and assigns it to the Capabilities field.
+func (o *CreateSencaiAgentRequestData) SetCapabilities(v interface{}) {
 	o.Capabilities = v
 }
 
@@ -470,7 +472,7 @@ func (o CreateSencaiAgentRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastHeartbeatAt) {
 		toSerialize["last_heartbeat_at"] = o.LastHeartbeatAt
 	}
-	if !IsNil(o.Capabilities) {
+	if o.Capabilities != nil {
 		toSerialize["capabilities"] = o.Capabilities
 	}
 	if !IsNil(o.CertFingerprint) {

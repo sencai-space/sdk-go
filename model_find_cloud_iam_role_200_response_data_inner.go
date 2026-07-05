@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudIamRole200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindCloudIamRole200ResponseDataInner{}
 
 // FindCloudIamRole200ResponseDataInner struct for FindCloudIamRole200ResponseDataInner
 type FindCloudIamRole200ResponseDataInner struct {
+	Name string `json:"name"`
+	Provider string `json:"provider"`
+	ArnOrRoleId *string `json:"arn_or_role_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	TrustRelationship interface{} `json:"trust_relationship,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AttachedPolicies interface{} `json:"attached_policies,omitempty"`
+	IsManaged *bool `json:"is_managed,omitempty"`
+	ExternalId *string `json:"external_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudIamRole `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudIamRole200ResponseDataInner FindCloudIamRole200ResponseDataInner
+
 // NewFindCloudIamRole200ResponseDataInner instantiates a new FindCloudIamRole200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudIamRole200ResponseDataInner() *FindCloudIamRole200ResponseDataInner {
+func NewFindCloudIamRole200ResponseDataInner(name string, provider string) *FindCloudIamRole200ResponseDataInner {
 	this := FindCloudIamRole200ResponseDataInner{}
+	this.Name = name
+	this.Provider = provider
 	return &this
 }
 
@@ -44,6 +62,313 @@ func NewFindCloudIamRole200ResponseDataInner() *FindCloudIamRole200ResponseDataI
 func NewFindCloudIamRole200ResponseDataInnerWithDefaults() *FindCloudIamRole200ResponseDataInner {
 	this := FindCloudIamRole200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCloudIamRole200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudIamRole200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCloudIamRole200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetProvider returns the Provider field value
+func (o *FindCloudIamRole200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudIamRole200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindCloudIamRole200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetArnOrRoleId returns the ArnOrRoleId field value if set, zero value otherwise.
+func (o *FindCloudIamRole200ResponseDataInner) GetArnOrRoleId() string {
+	if o == nil || IsNil(o.ArnOrRoleId) {
+		var ret string
+		return ret
+	}
+	return *o.ArnOrRoleId
+}
+
+// GetArnOrRoleIdOk returns a tuple with the ArnOrRoleId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIamRole200ResponseDataInner) GetArnOrRoleIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ArnOrRoleId) {
+		return nil, false
+	}
+	return o.ArnOrRoleId, true
+}
+
+// HasArnOrRoleId returns a boolean if a field has been set.
+func (o *FindCloudIamRole200ResponseDataInner) HasArnOrRoleId() bool {
+	if o != nil && !IsNil(o.ArnOrRoleId) {
+		return true
+	}
+
+	return false
+}
+
+// SetArnOrRoleId gets a reference to the given string and assigns it to the ArnOrRoleId field.
+func (o *FindCloudIamRole200ResponseDataInner) SetArnOrRoleId(v string) {
+	o.ArnOrRoleId = &v
+}
+
+// GetTrustRelationship returns the TrustRelationship field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudIamRole200ResponseDataInner) GetTrustRelationship() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.TrustRelationship
+}
+
+// GetTrustRelationshipOk returns a tuple with the TrustRelationship field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudIamRole200ResponseDataInner) GetTrustRelationshipOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.TrustRelationship) {
+		return nil, false
+	}
+	return &o.TrustRelationship, true
+}
+
+// HasTrustRelationship returns a boolean if a field has been set.
+func (o *FindCloudIamRole200ResponseDataInner) HasTrustRelationship() bool {
+	if o != nil && !IsNil(o.TrustRelationship) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrustRelationship gets a reference to the given interface{} and assigns it to the TrustRelationship field.
+func (o *FindCloudIamRole200ResponseDataInner) SetTrustRelationship(v interface{}) {
+	o.TrustRelationship = v
+}
+
+// GetAttachedPolicies returns the AttachedPolicies field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudIamRole200ResponseDataInner) GetAttachedPolicies() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.AttachedPolicies
+}
+
+// GetAttachedPoliciesOk returns a tuple with the AttachedPolicies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudIamRole200ResponseDataInner) GetAttachedPoliciesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.AttachedPolicies) {
+		return nil, false
+	}
+	return &o.AttachedPolicies, true
+}
+
+// HasAttachedPolicies returns a boolean if a field has been set.
+func (o *FindCloudIamRole200ResponseDataInner) HasAttachedPolicies() bool {
+	if o != nil && !IsNil(o.AttachedPolicies) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttachedPolicies gets a reference to the given interface{} and assigns it to the AttachedPolicies field.
+func (o *FindCloudIamRole200ResponseDataInner) SetAttachedPolicies(v interface{}) {
+	o.AttachedPolicies = v
+}
+
+// GetIsManaged returns the IsManaged field value if set, zero value otherwise.
+func (o *FindCloudIamRole200ResponseDataInner) GetIsManaged() bool {
+	if o == nil || IsNil(o.IsManaged) {
+		var ret bool
+		return ret
+	}
+	return *o.IsManaged
+}
+
+// GetIsManagedOk returns a tuple with the IsManaged field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIamRole200ResponseDataInner) GetIsManagedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsManaged) {
+		return nil, false
+	}
+	return o.IsManaged, true
+}
+
+// HasIsManaged returns a boolean if a field has been set.
+func (o *FindCloudIamRole200ResponseDataInner) HasIsManaged() bool {
+	if o != nil && !IsNil(o.IsManaged) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsManaged gets a reference to the given bool and assigns it to the IsManaged field.
+func (o *FindCloudIamRole200ResponseDataInner) SetIsManaged(v bool) {
+	o.IsManaged = &v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *FindCloudIamRole200ResponseDataInner) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIamRole200ResponseDataInner) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *FindCloudIamRole200ResponseDataInner) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *FindCloudIamRole200ResponseDataInner) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudIamRole200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudIamRole200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindCloudIamRole200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindCloudIamRole200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetCredential returns the Credential field value if set, zero value otherwise.
+func (o *FindCloudIamRole200ResponseDataInner) GetCredential() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Credential) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Credential
+}
+
+// GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIamRole200ResponseDataInner) GetCredentialOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Credential) {
+		return nil, false
+	}
+	return o.Credential, true
+}
+
+// HasCredential returns a boolean if a field has been set.
+func (o *FindCloudIamRole200ResponseDataInner) HasCredential() bool {
+	if o != nil && !IsNil(o.Credential) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredential gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Credential field.
+func (o *FindCloudIamRole200ResponseDataInner) SetCredential(v CreateAccessReviewRequestDataReviewer) {
+	o.Credential = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCloudIamRole200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudIamRole200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCloudIamRole200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCloudIamRole200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +433,6 @@ func (o *FindCloudIamRole200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudIamRole200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudIamRole200ResponseDataInner) GetAttributes() CloudIamRole {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudIamRole
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudIamRole200ResponseDataInner) GetAttributesOk() (*CloudIamRole, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudIamRole200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudIamRole and assigns it to the Attributes field.
-func (o *FindCloudIamRole200ResponseDataInner) SetAttributes(v CloudIamRole) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +551,37 @@ func (o FindCloudIamRole200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCloudIamRole200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["provider"] = o.Provider
+	if !IsNil(o.ArnOrRoleId) {
+		toSerialize["arn_or_role_id"] = o.ArnOrRoleId
+	}
+	if o.TrustRelationship != nil {
+		toSerialize["trust_relationship"] = o.TrustRelationship
+	}
+	if o.AttachedPolicies != nil {
+		toSerialize["attached_policies"] = o.AttachedPolicies
+	}
+	if !IsNil(o.IsManaged) {
+		toSerialize["is_managed"] = o.IsManaged
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["external_id"] = o.ExternalId
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.Credential) {
+		toSerialize["credential"] = o.Credential
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +593,44 @@ func (o FindCloudIamRole200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudIamRole200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"provider",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudIamRole200ResponseDataInner := _FindCloudIamRole200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudIamRole200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudIamRole200ResponseDataInner(varFindCloudIamRole200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudIamRole200ResponseDataInner struct {

@@ -25,7 +25,8 @@ var _ MappedNullable = &CreateSslCertificateRequestData{}
 type CreateSslCertificateRequestData struct {
 	Domain string `json:"domain"`
 	Issuer *string `json:"issuer,omitempty"`
-	SubjectAltNames map[string]interface{} `json:"subject_alt_names,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	SubjectAltNames interface{} `json:"subject_alt_names,omitempty"`
 	IssuedAt *time.Time `json:"issued_at,omitempty"`
 	ExpiresAt time.Time `json:"expires_at"`
 	IsWildcard *bool `json:"is_wildcard,omitempty"`
@@ -114,10 +115,10 @@ func (o *CreateSslCertificateRequestData) SetIssuer(v string) {
 	o.Issuer = &v
 }
 
-// GetSubjectAltNames returns the SubjectAltNames field value if set, zero value otherwise.
-func (o *CreateSslCertificateRequestData) GetSubjectAltNames() map[string]interface{} {
-	if o == nil || IsNil(o.SubjectAltNames) {
-		var ret map[string]interface{}
+// GetSubjectAltNames returns the SubjectAltNames field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateSslCertificateRequestData) GetSubjectAltNames() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.SubjectAltNames
@@ -125,11 +126,12 @@ func (o *CreateSslCertificateRequestData) GetSubjectAltNames() map[string]interf
 
 // GetSubjectAltNamesOk returns a tuple with the SubjectAltNames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateSslCertificateRequestData) GetSubjectAltNamesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateSslCertificateRequestData) GetSubjectAltNamesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.SubjectAltNames) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.SubjectAltNames, true
+	return &o.SubjectAltNames, true
 }
 
 // HasSubjectAltNames returns a boolean if a field has been set.
@@ -141,8 +143,8 @@ func (o *CreateSslCertificateRequestData) HasSubjectAltNames() bool {
 	return false
 }
 
-// SetSubjectAltNames gets a reference to the given map[string]interface{} and assigns it to the SubjectAltNames field.
-func (o *CreateSslCertificateRequestData) SetSubjectAltNames(v map[string]interface{}) {
+// SetSubjectAltNames gets a reference to the given interface{} and assigns it to the SubjectAltNames field.
+func (o *CreateSslCertificateRequestData) SetSubjectAltNames(v interface{}) {
 	o.SubjectAltNames = v
 }
 
@@ -440,7 +442,7 @@ func (o CreateSslCertificateRequestData) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.Issuer) {
 		toSerialize["issuer"] = o.Issuer
 	}
-	if !IsNil(o.SubjectAltNames) {
+	if o.SubjectAltNames != nil {
 		toSerialize["subject_alt_names"] = o.SubjectAltNames
 	}
 	if !IsNil(o.IssuedAt) {

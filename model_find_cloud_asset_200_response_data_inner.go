@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudAsset200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,61 @@ var _ MappedNullable = &FindCloudAsset200ResponseDataInner{}
 
 // FindCloudAsset200ResponseDataInner struct for FindCloudAsset200ResponseDataInner
 type FindCloudAsset200ResponseDataInner struct {
+	// Provider-native resource identifier (e.g. i-abc123, /subscriptions/.../resourceGroups/..., projects/.../instances/...). Unique together with `credential`.
+	ExternalId string `json:"external_id"`
+	// Denormalizovaný unique guard '<credentialId|null>:<external_id>' pro DB-level vynucení invariantu (credential, external_id). Strapi v5 ukládá relace v link tabulkách, takže composite unique přes (credential, external_id) nelze vyjádřit jediným indexem; tento skalární sloupec ano. Udržuje ho service upsertAsset(); UNIQUE index nasazuje bootstrap ensureCloudAssetUniqueIndex(). NIKDY se nevrací v API (private).
+	CredentialExternalIdKey *string `json:"credential_external_id_key,omitempty"`
+	// Provider resource type as a FREE STRING (ec2 | rds | s3 | lambda | vpc | iam-user | sg | azure-vm | storage-account | gce | gcs | ...). Intentionally not an enum — too many provider-specific types to maintain.
+	ResourceType string `json:"resource_type"`
+	Provider string `json:"provider"`
+	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	// Provider region/location where the asset lives.
+	Region *string `json:"region,omitempty"`
+	// Human-readable name/label of the resource (provider Name tag, display name, ...).
+	Name *string `json:"name,omitempty"`
+	// Provider tags as a {k:v} map.
+	Tags interface{} `json:"tags,omitempty"`
+	// Raw resource descriptor (instance type, IPs, SG ids, ...). LONGTEXT — do not store binary blobs.
+	Metadata interface{} `json:"metadata,omitempty"`
+	// Adoption state of the asset relative to Sencai management.
+	Ownership *string `json:"ownership,omitempty"`
+	// True once Sencai actively manages this asset (adopted-for-management).
+	IsManagedBySencai *bool `json:"is_managed_by_sencai,omitempty"`
+	// documentId of the cloud-resource/cloud-instance this asset is adopted as, if Sencai actively manages it (nullable).
+	ManagedAs *string `json:"managed_as,omitempty"`
+	// Timestamp when this asset was first discovered by a scan.
+	DiscoveredAt *time.Time `json:"discovered_at,omitempty"`
+	// Timestamp of the most recent scan that observed this asset (refreshed on every upsert).
+	LastSeenAt *time.Time `json:"last_seen_at,omitempty"`
+	// True když asset nebyl viděn posledním dokončeným scanem (last_seen_at < scan_started). Soft-flag (W3-03 scan-callback) — adopted/managed assety se NIKDY nemažou, jen flagují stale; unmanaged taky jen flagujeme (záznam zůstává pro audit/historii). Stale se zruší (false) jakmile ho další scan zase uvidí.
+	Stale *bool `json:"stale,omitempty"`
+	// Timestamp when the asset was first adopted for Sencai management (nullable).
+	FirstAdoptedAt *time.Time `json:"first_adopted_at,omitempty"`
+	// Stav adopt tag-injection (W3-05). pending = tag job zařazen; tagged = Sencai adopt tagy zapsány do cloudu; noop = provider/typ tagging nepodporuje (DB-only adopce); failed = tagging API selhalo. Plní worker přes tag-callback. Nullable (zdroj nebyl nikdy adoptován pro management).
+	TagStatus *string `json:"tag_status,omitempty"`
+	// Logical data-residency region of the tenant (CELL invariant, F2.CELL.01).
+	HomeRegion *string `json:"home_region,omitempty"`
+	// Deployment cell within home_region for blast-radius isolation (CELL invariant, F2.CELL.01).
+	CellId *string `json:"cell_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudAsset `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudAsset200ResponseDataInner FindCloudAsset200ResponseDataInner
+
 // NewFindCloudAsset200ResponseDataInner instantiates a new FindCloudAsset200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudAsset200ResponseDataInner() *FindCloudAsset200ResponseDataInner {
+func NewFindCloudAsset200ResponseDataInner(externalId string, resourceType string, provider string) *FindCloudAsset200ResponseDataInner {
 	this := FindCloudAsset200ResponseDataInner{}
+	this.ExternalId = externalId
+	this.ResourceType = resourceType
+	this.Provider = provider
 	return &this
 }
 
@@ -44,6 +87,624 @@ func NewFindCloudAsset200ResponseDataInner() *FindCloudAsset200ResponseDataInner
 func NewFindCloudAsset200ResponseDataInnerWithDefaults() *FindCloudAsset200ResponseDataInner {
 	this := FindCloudAsset200ResponseDataInner{}
 	return &this
+}
+
+// GetExternalId returns the ExternalId field value
+func (o *FindCloudAsset200ResponseDataInner) GetExternalId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetExternalIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ExternalId, true
+}
+
+// SetExternalId sets field value
+func (o *FindCloudAsset200ResponseDataInner) SetExternalId(v string) {
+	o.ExternalId = v
+}
+
+// GetCredentialExternalIdKey returns the CredentialExternalIdKey field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetCredentialExternalIdKey() string {
+	if o == nil || IsNil(o.CredentialExternalIdKey) {
+		var ret string
+		return ret
+	}
+	return *o.CredentialExternalIdKey
+}
+
+// GetCredentialExternalIdKeyOk returns a tuple with the CredentialExternalIdKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetCredentialExternalIdKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.CredentialExternalIdKey) {
+		return nil, false
+	}
+	return o.CredentialExternalIdKey, true
+}
+
+// HasCredentialExternalIdKey returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasCredentialExternalIdKey() bool {
+	if o != nil && !IsNil(o.CredentialExternalIdKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredentialExternalIdKey gets a reference to the given string and assigns it to the CredentialExternalIdKey field.
+func (o *FindCloudAsset200ResponseDataInner) SetCredentialExternalIdKey(v string) {
+	o.CredentialExternalIdKey = &v
+}
+
+// GetResourceType returns the ResourceType field value
+func (o *FindCloudAsset200ResponseDataInner) GetResourceType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ResourceType
+}
+
+// GetResourceTypeOk returns a tuple with the ResourceType field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetResourceTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ResourceType, true
+}
+
+// SetResourceType sets field value
+func (o *FindCloudAsset200ResponseDataInner) SetResourceType(v string) {
+	o.ResourceType = v
+}
+
+// GetProvider returns the Provider field value
+func (o *FindCloudAsset200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindCloudAsset200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetCredential returns the Credential field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetCredential() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Credential) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Credential
+}
+
+// GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetCredentialOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Credential) {
+		return nil, false
+	}
+	return o.Credential, true
+}
+
+// HasCredential returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasCredential() bool {
+	if o != nil && !IsNil(o.Credential) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredential gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Credential field.
+func (o *FindCloudAsset200ResponseDataInner) SetCredential(v CreateAccessReviewRequestDataReviewer) {
+	o.Credential = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCloudAsset200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetRegion() string {
+	if o == nil || IsNil(o.Region) {
+		var ret string
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.Region) {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasRegion() bool {
+	if o != nil && !IsNil(o.Region) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegion gets a reference to the given string and assigns it to the Region field.
+func (o *FindCloudAsset200ResponseDataInner) SetRegion(v string) {
+	o.Region = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *FindCloudAsset200ResponseDataInner) SetName(v string) {
+	o.Name = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudAsset200ResponseDataInner) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudAsset200ResponseDataInner) GetTagsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return &o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *FindCloudAsset200ResponseDataInner) SetTags(v interface{}) {
+	o.Tags = v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudAsset200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudAsset200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindCloudAsset200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetOwnership returns the Ownership field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetOwnership() string {
+	if o == nil || IsNil(o.Ownership) {
+		var ret string
+		return ret
+	}
+	return *o.Ownership
+}
+
+// GetOwnershipOk returns a tuple with the Ownership field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetOwnershipOk() (*string, bool) {
+	if o == nil || IsNil(o.Ownership) {
+		return nil, false
+	}
+	return o.Ownership, true
+}
+
+// HasOwnership returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasOwnership() bool {
+	if o != nil && !IsNil(o.Ownership) {
+		return true
+	}
+
+	return false
+}
+
+// SetOwnership gets a reference to the given string and assigns it to the Ownership field.
+func (o *FindCloudAsset200ResponseDataInner) SetOwnership(v string) {
+	o.Ownership = &v
+}
+
+// GetIsManagedBySencai returns the IsManagedBySencai field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetIsManagedBySencai() bool {
+	if o == nil || IsNil(o.IsManagedBySencai) {
+		var ret bool
+		return ret
+	}
+	return *o.IsManagedBySencai
+}
+
+// GetIsManagedBySencaiOk returns a tuple with the IsManagedBySencai field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetIsManagedBySencaiOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsManagedBySencai) {
+		return nil, false
+	}
+	return o.IsManagedBySencai, true
+}
+
+// HasIsManagedBySencai returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasIsManagedBySencai() bool {
+	if o != nil && !IsNil(o.IsManagedBySencai) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsManagedBySencai gets a reference to the given bool and assigns it to the IsManagedBySencai field.
+func (o *FindCloudAsset200ResponseDataInner) SetIsManagedBySencai(v bool) {
+	o.IsManagedBySencai = &v
+}
+
+// GetManagedAs returns the ManagedAs field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetManagedAs() string {
+	if o == nil || IsNil(o.ManagedAs) {
+		var ret string
+		return ret
+	}
+	return *o.ManagedAs
+}
+
+// GetManagedAsOk returns a tuple with the ManagedAs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetManagedAsOk() (*string, bool) {
+	if o == nil || IsNil(o.ManagedAs) {
+		return nil, false
+	}
+	return o.ManagedAs, true
+}
+
+// HasManagedAs returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasManagedAs() bool {
+	if o != nil && !IsNil(o.ManagedAs) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedAs gets a reference to the given string and assigns it to the ManagedAs field.
+func (o *FindCloudAsset200ResponseDataInner) SetManagedAs(v string) {
+	o.ManagedAs = &v
+}
+
+// GetDiscoveredAt returns the DiscoveredAt field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetDiscoveredAt() time.Time {
+	if o == nil || IsNil(o.DiscoveredAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DiscoveredAt
+}
+
+// GetDiscoveredAtOk returns a tuple with the DiscoveredAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetDiscoveredAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DiscoveredAt) {
+		return nil, false
+	}
+	return o.DiscoveredAt, true
+}
+
+// HasDiscoveredAt returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasDiscoveredAt() bool {
+	if o != nil && !IsNil(o.DiscoveredAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDiscoveredAt gets a reference to the given time.Time and assigns it to the DiscoveredAt field.
+func (o *FindCloudAsset200ResponseDataInner) SetDiscoveredAt(v time.Time) {
+	o.DiscoveredAt = &v
+}
+
+// GetLastSeenAt returns the LastSeenAt field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetLastSeenAt() time.Time {
+	if o == nil || IsNil(o.LastSeenAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSeenAt
+}
+
+// GetLastSeenAtOk returns a tuple with the LastSeenAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetLastSeenAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSeenAt) {
+		return nil, false
+	}
+	return o.LastSeenAt, true
+}
+
+// HasLastSeenAt returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasLastSeenAt() bool {
+	if o != nil && !IsNil(o.LastSeenAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSeenAt gets a reference to the given time.Time and assigns it to the LastSeenAt field.
+func (o *FindCloudAsset200ResponseDataInner) SetLastSeenAt(v time.Time) {
+	o.LastSeenAt = &v
+}
+
+// GetStale returns the Stale field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetStale() bool {
+	if o == nil || IsNil(o.Stale) {
+		var ret bool
+		return ret
+	}
+	return *o.Stale
+}
+
+// GetStaleOk returns a tuple with the Stale field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetStaleOk() (*bool, bool) {
+	if o == nil || IsNil(o.Stale) {
+		return nil, false
+	}
+	return o.Stale, true
+}
+
+// HasStale returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasStale() bool {
+	if o != nil && !IsNil(o.Stale) {
+		return true
+	}
+
+	return false
+}
+
+// SetStale gets a reference to the given bool and assigns it to the Stale field.
+func (o *FindCloudAsset200ResponseDataInner) SetStale(v bool) {
+	o.Stale = &v
+}
+
+// GetFirstAdoptedAt returns the FirstAdoptedAt field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetFirstAdoptedAt() time.Time {
+	if o == nil || IsNil(o.FirstAdoptedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.FirstAdoptedAt
+}
+
+// GetFirstAdoptedAtOk returns a tuple with the FirstAdoptedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetFirstAdoptedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.FirstAdoptedAt) {
+		return nil, false
+	}
+	return o.FirstAdoptedAt, true
+}
+
+// HasFirstAdoptedAt returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasFirstAdoptedAt() bool {
+	if o != nil && !IsNil(o.FirstAdoptedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstAdoptedAt gets a reference to the given time.Time and assigns it to the FirstAdoptedAt field.
+func (o *FindCloudAsset200ResponseDataInner) SetFirstAdoptedAt(v time.Time) {
+	o.FirstAdoptedAt = &v
+}
+
+// GetTagStatus returns the TagStatus field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetTagStatus() string {
+	if o == nil || IsNil(o.TagStatus) {
+		var ret string
+		return ret
+	}
+	return *o.TagStatus
+}
+
+// GetTagStatusOk returns a tuple with the TagStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetTagStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.TagStatus) {
+		return nil, false
+	}
+	return o.TagStatus, true
+}
+
+// HasTagStatus returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasTagStatus() bool {
+	if o != nil && !IsNil(o.TagStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetTagStatus gets a reference to the given string and assigns it to the TagStatus field.
+func (o *FindCloudAsset200ResponseDataInner) SetTagStatus(v string) {
+	o.TagStatus = &v
+}
+
+// GetHomeRegion returns the HomeRegion field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetHomeRegion() string {
+	if o == nil || IsNil(o.HomeRegion) {
+		var ret string
+		return ret
+	}
+	return *o.HomeRegion
+}
+
+// GetHomeRegionOk returns a tuple with the HomeRegion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetHomeRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.HomeRegion) {
+		return nil, false
+	}
+	return o.HomeRegion, true
+}
+
+// HasHomeRegion returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasHomeRegion() bool {
+	if o != nil && !IsNil(o.HomeRegion) {
+		return true
+	}
+
+	return false
+}
+
+// SetHomeRegion gets a reference to the given string and assigns it to the HomeRegion field.
+func (o *FindCloudAsset200ResponseDataInner) SetHomeRegion(v string) {
+	o.HomeRegion = &v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindCloudAsset200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudAsset200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindCloudAsset200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindCloudAsset200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +769,6 @@ func (o *FindCloudAsset200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudAsset200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudAsset200ResponseDataInner) GetAttributes() CloudAsset {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudAsset
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudAsset200ResponseDataInner) GetAttributesOk() (*CloudAsset, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudAsset200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudAsset and assigns it to the Attributes field.
-func (o *FindCloudAsset200ResponseDataInner) SetAttributes(v CloudAsset) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +887,65 @@ func (o FindCloudAsset200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCloudAsset200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["external_id"] = o.ExternalId
+	if !IsNil(o.CredentialExternalIdKey) {
+		toSerialize["credential_external_id_key"] = o.CredentialExternalIdKey
+	}
+	toSerialize["resource_type"] = o.ResourceType
+	toSerialize["provider"] = o.Provider
+	if !IsNil(o.Credential) {
+		toSerialize["credential"] = o.Credential
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.Region) {
+		toSerialize["region"] = o.Region
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.Ownership) {
+		toSerialize["ownership"] = o.Ownership
+	}
+	if !IsNil(o.IsManagedBySencai) {
+		toSerialize["is_managed_by_sencai"] = o.IsManagedBySencai
+	}
+	if !IsNil(o.ManagedAs) {
+		toSerialize["managed_as"] = o.ManagedAs
+	}
+	if !IsNil(o.DiscoveredAt) {
+		toSerialize["discovered_at"] = o.DiscoveredAt
+	}
+	if !IsNil(o.LastSeenAt) {
+		toSerialize["last_seen_at"] = o.LastSeenAt
+	}
+	if !IsNil(o.Stale) {
+		toSerialize["stale"] = o.Stale
+	}
+	if !IsNil(o.FirstAdoptedAt) {
+		toSerialize["first_adopted_at"] = o.FirstAdoptedAt
+	}
+	if !IsNil(o.TagStatus) {
+		toSerialize["tag_status"] = o.TagStatus
+	}
+	if !IsNil(o.HomeRegion) {
+		toSerialize["home_region"] = o.HomeRegion
+	}
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +957,45 @@ func (o FindCloudAsset200ResponseDataInner) ToMap() (map[string]interface{}, err
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudAsset200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"external_id",
+		"resource_type",
+		"provider",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudAsset200ResponseDataInner := _FindCloudAsset200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudAsset200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudAsset200ResponseDataInner(varFindCloudAsset200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudAsset200ResponseDataInner struct {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCostAllocationRule200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,46 @@ var _ MappedNullable = &FindCostAllocationRule200ResponseDataInner{}
 
 // FindCostAllocationRule200ResponseDataInner struct for FindCostAllocationRule200ResponseDataInner
 type FindCostAllocationRule200ResponseDataInner struct {
+	// Human-friendly rule name (e.g. 'NAT Gateway allocation - EU West').
+	Name string `json:"name"`
+	// Cloud provider this rule applies to. 'all' matches any provider.
+	Provider string `json:"provider"`
+	// Matches cost-record service field (e.g. 'NatGateway', 'LoadBalancer', 'all'). Empty or 'all' = matches any.
+	ResourceType *string `json:"resource_type,omitempty"`
+	// Split algorithm. 'even' = equal split; 'custom' = use weights JSON; 'usage-weighted' = usage metric split (v1: treated as even).
+	Algorithm string `json:"algorithm"`
+	// For custom algorithm: { \"team-a\": 40, \"team-b\": 35, \"team-c\": 25 } — percentages summing to 100.
+	Weights interface{} `json:"weights,omitempty"`
+	// Which tag key to group cost recipients by (default: 'cost-center').
+	AllocationTagKey *string `json:"allocation_tag_key,omitempty"`
+	// Date from which this rule is effective.
+	EffectiveFrom string `json:"effective_from"`
+	// When false the rule is soft-disabled without deleting it.
+	IsActive *bool `json:"is_active,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	// Logical data-residency region of the tenant (CELL invariant, F2.CELL.01).
+	HomeRegion *string `json:"home_region,omitempty"`
+	// Deployment cell within home_region for blast-radius isolation (CELL invariant, F2.CELL.01).
+	CellId *string `json:"cell_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CostAllocationRule `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCostAllocationRule200ResponseDataInner FindCostAllocationRule200ResponseDataInner
+
 // NewFindCostAllocationRule200ResponseDataInner instantiates a new FindCostAllocationRule200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCostAllocationRule200ResponseDataInner() *FindCostAllocationRule200ResponseDataInner {
+func NewFindCostAllocationRule200ResponseDataInner(name string, provider string, algorithm string, effectiveFrom string) *FindCostAllocationRule200ResponseDataInner {
 	this := FindCostAllocationRule200ResponseDataInner{}
+	this.Name = name
+	this.Provider = provider
+	this.Algorithm = algorithm
+	this.EffectiveFrom = effectiveFrom
 	return &this
 }
 
@@ -44,6 +72,327 @@ func NewFindCostAllocationRule200ResponseDataInner() *FindCostAllocationRule200R
 func NewFindCostAllocationRule200ResponseDataInnerWithDefaults() *FindCostAllocationRule200ResponseDataInner {
 	this := FindCostAllocationRule200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCostAllocationRule200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCostAllocationRule200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetProvider returns the Provider field value
+func (o *FindCostAllocationRule200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindCostAllocationRule200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetResourceType returns the ResourceType field value if set, zero value otherwise.
+func (o *FindCostAllocationRule200ResponseDataInner) GetResourceType() string {
+	if o == nil || IsNil(o.ResourceType) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceType
+}
+
+// GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) GetResourceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ResourceType) {
+		return nil, false
+	}
+	return o.ResourceType, true
+}
+
+// HasResourceType returns a boolean if a field has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) HasResourceType() bool {
+	if o != nil && !IsNil(o.ResourceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceType gets a reference to the given string and assigns it to the ResourceType field.
+func (o *FindCostAllocationRule200ResponseDataInner) SetResourceType(v string) {
+	o.ResourceType = &v
+}
+
+// GetAlgorithm returns the Algorithm field value
+func (o *FindCostAllocationRule200ResponseDataInner) GetAlgorithm() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Algorithm
+}
+
+// GetAlgorithmOk returns a tuple with the Algorithm field value
+// and a boolean to check if the value has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) GetAlgorithmOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Algorithm, true
+}
+
+// SetAlgorithm sets field value
+func (o *FindCostAllocationRule200ResponseDataInner) SetAlgorithm(v string) {
+	o.Algorithm = v
+}
+
+// GetWeights returns the Weights field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCostAllocationRule200ResponseDataInner) GetWeights() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Weights
+}
+
+// GetWeightsOk returns a tuple with the Weights field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCostAllocationRule200ResponseDataInner) GetWeightsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Weights) {
+		return nil, false
+	}
+	return &o.Weights, true
+}
+
+// HasWeights returns a boolean if a field has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) HasWeights() bool {
+	if o != nil && !IsNil(o.Weights) {
+		return true
+	}
+
+	return false
+}
+
+// SetWeights gets a reference to the given interface{} and assigns it to the Weights field.
+func (o *FindCostAllocationRule200ResponseDataInner) SetWeights(v interface{}) {
+	o.Weights = v
+}
+
+// GetAllocationTagKey returns the AllocationTagKey field value if set, zero value otherwise.
+func (o *FindCostAllocationRule200ResponseDataInner) GetAllocationTagKey() string {
+	if o == nil || IsNil(o.AllocationTagKey) {
+		var ret string
+		return ret
+	}
+	return *o.AllocationTagKey
+}
+
+// GetAllocationTagKeyOk returns a tuple with the AllocationTagKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) GetAllocationTagKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.AllocationTagKey) {
+		return nil, false
+	}
+	return o.AllocationTagKey, true
+}
+
+// HasAllocationTagKey returns a boolean if a field has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) HasAllocationTagKey() bool {
+	if o != nil && !IsNil(o.AllocationTagKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllocationTagKey gets a reference to the given string and assigns it to the AllocationTagKey field.
+func (o *FindCostAllocationRule200ResponseDataInner) SetAllocationTagKey(v string) {
+	o.AllocationTagKey = &v
+}
+
+// GetEffectiveFrom returns the EffectiveFrom field value
+func (o *FindCostAllocationRule200ResponseDataInner) GetEffectiveFrom() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EffectiveFrom
+}
+
+// GetEffectiveFromOk returns a tuple with the EffectiveFrom field value
+// and a boolean to check if the value has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) GetEffectiveFromOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EffectiveFrom, true
+}
+
+// SetEffectiveFrom sets field value
+func (o *FindCostAllocationRule200ResponseDataInner) SetEffectiveFrom(v string) {
+	o.EffectiveFrom = v
+}
+
+// GetIsActive returns the IsActive field value if set, zero value otherwise.
+func (o *FindCostAllocationRule200ResponseDataInner) GetIsActive() bool {
+	if o == nil || IsNil(o.IsActive) {
+		var ret bool
+		return ret
+	}
+	return *o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) GetIsActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsActive) {
+		return nil, false
+	}
+	return o.IsActive, true
+}
+
+// HasIsActive returns a boolean if a field has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) HasIsActive() bool {
+	if o != nil && !IsNil(o.IsActive) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsActive gets a reference to the given bool and assigns it to the IsActive field.
+func (o *FindCostAllocationRule200ResponseDataInner) SetIsActive(v bool) {
+	o.IsActive = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCostAllocationRule200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCostAllocationRule200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetHomeRegion returns the HomeRegion field value if set, zero value otherwise.
+func (o *FindCostAllocationRule200ResponseDataInner) GetHomeRegion() string {
+	if o == nil || IsNil(o.HomeRegion) {
+		var ret string
+		return ret
+	}
+	return *o.HomeRegion
+}
+
+// GetHomeRegionOk returns a tuple with the HomeRegion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) GetHomeRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.HomeRegion) {
+		return nil, false
+	}
+	return o.HomeRegion, true
+}
+
+// HasHomeRegion returns a boolean if a field has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) HasHomeRegion() bool {
+	if o != nil && !IsNil(o.HomeRegion) {
+		return true
+	}
+
+	return false
+}
+
+// SetHomeRegion gets a reference to the given string and assigns it to the HomeRegion field.
+func (o *FindCostAllocationRule200ResponseDataInner) SetHomeRegion(v string) {
+	o.HomeRegion = &v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindCostAllocationRule200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindCostAllocationRule200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindCostAllocationRule200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +457,6 @@ func (o *FindCostAllocationRule200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCostAllocationRule200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCostAllocationRule200ResponseDataInner) GetAttributes() CostAllocationRule {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CostAllocationRule
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCostAllocationRule200ResponseDataInner) GetAttributesOk() (*CostAllocationRule, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCostAllocationRule200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CostAllocationRule and assigns it to the Attributes field.
-func (o *FindCostAllocationRule200ResponseDataInner) SetAttributes(v CostAllocationRule) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +575,36 @@ func (o FindCostAllocationRule200ResponseDataInner) MarshalJSON() ([]byte, error
 
 func (o FindCostAllocationRule200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["provider"] = o.Provider
+	if !IsNil(o.ResourceType) {
+		toSerialize["resource_type"] = o.ResourceType
+	}
+	toSerialize["algorithm"] = o.Algorithm
+	if o.Weights != nil {
+		toSerialize["weights"] = o.Weights
+	}
+	if !IsNil(o.AllocationTagKey) {
+		toSerialize["allocation_tag_key"] = o.AllocationTagKey
+	}
+	toSerialize["effective_from"] = o.EffectiveFrom
+	if !IsNil(o.IsActive) {
+		toSerialize["is_active"] = o.IsActive
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.HomeRegion) {
+		toSerialize["home_region"] = o.HomeRegion
+	}
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +616,46 @@ func (o FindCostAllocationRule200ResponseDataInner) ToMap() (map[string]interfac
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCostAllocationRule200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"provider",
+		"algorithm",
+		"effective_from",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCostAllocationRule200ResponseDataInner := _FindCostAllocationRule200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCostAllocationRule200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCostAllocationRule200ResponseDataInner(varFindCostAllocationRule200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCostAllocationRule200ResponseDataInner struct {

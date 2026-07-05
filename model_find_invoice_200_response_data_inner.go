@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindInvoice200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,43 @@ var _ MappedNullable = &FindInvoice200ResponseDataInner{}
 
 // FindInvoice200ResponseDataInner struct for FindInvoice200ResponseDataInner
 type FindInvoice200ResponseDataInner struct {
+	InvoiceNumber string `json:"invoice_number"`
+	UsersPermissionsUser *CreateAccessReviewRequestDataReviewer `json:"users_permissions_user,omitempty"`
+	TotalAmount float32 `json:"total_amount"`
+	Currency string `json:"currency"`
+	State string `json:"state"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	InvoiceItems interface{} `json:"invoice_items"`
+	IssueDate time.Time `json:"issue_date"`
+	DueDate *time.Time `json:"due_date,omitempty"`
+	PaidDate *time.Time `json:"paid_date,omitempty"`
+	PaymentMethod *string `json:"payment_method,omitempty"`
+	Notes *string `json:"notes,omitempty"`
+	TaxAmount *float32 `json:"tax_amount,omitempty"`
+	Subtotal float32 `json:"subtotal"`
+	PdfUrl *string `json:"pdf_url,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *Invoice `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindInvoice200ResponseDataInner FindInvoice200ResponseDataInner
+
 // NewFindInvoice200ResponseDataInner instantiates a new FindInvoice200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindInvoice200ResponseDataInner() *FindInvoice200ResponseDataInner {
+func NewFindInvoice200ResponseDataInner(invoiceNumber string, totalAmount float32, currency string, state string, invoiceItems interface{}, issueDate time.Time, subtotal float32) *FindInvoice200ResponseDataInner {
 	this := FindInvoice200ResponseDataInner{}
+	this.InvoiceNumber = invoiceNumber
+	this.TotalAmount = totalAmount
+	this.Currency = currency
+	this.State = state
+	this.InvoiceItems = invoiceItems
+	this.IssueDate = issueDate
+	this.Subtotal = subtotal
 	return &this
 }
 
@@ -44,6 +69,400 @@ func NewFindInvoice200ResponseDataInner() *FindInvoice200ResponseDataInner {
 func NewFindInvoice200ResponseDataInnerWithDefaults() *FindInvoice200ResponseDataInner {
 	this := FindInvoice200ResponseDataInner{}
 	return &this
+}
+
+// GetInvoiceNumber returns the InvoiceNumber field value
+func (o *FindInvoice200ResponseDataInner) GetInvoiceNumber() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.InvoiceNumber
+}
+
+// GetInvoiceNumberOk returns a tuple with the InvoiceNumber field value
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetInvoiceNumberOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.InvoiceNumber, true
+}
+
+// SetInvoiceNumber sets field value
+func (o *FindInvoice200ResponseDataInner) SetInvoiceNumber(v string) {
+	o.InvoiceNumber = v
+}
+
+// GetUsersPermissionsUser returns the UsersPermissionsUser field value if set, zero value otherwise.
+func (o *FindInvoice200ResponseDataInner) GetUsersPermissionsUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.UsersPermissionsUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.UsersPermissionsUser
+}
+
+// GetUsersPermissionsUserOk returns a tuple with the UsersPermissionsUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetUsersPermissionsUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.UsersPermissionsUser) {
+		return nil, false
+	}
+	return o.UsersPermissionsUser, true
+}
+
+// HasUsersPermissionsUser returns a boolean if a field has been set.
+func (o *FindInvoice200ResponseDataInner) HasUsersPermissionsUser() bool {
+	if o != nil && !IsNil(o.UsersPermissionsUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsersPermissionsUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the UsersPermissionsUser field.
+func (o *FindInvoice200ResponseDataInner) SetUsersPermissionsUser(v CreateAccessReviewRequestDataReviewer) {
+	o.UsersPermissionsUser = &v
+}
+
+// GetTotalAmount returns the TotalAmount field value
+func (o *FindInvoice200ResponseDataInner) GetTotalAmount() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.TotalAmount
+}
+
+// GetTotalAmountOk returns a tuple with the TotalAmount field value
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetTotalAmountOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TotalAmount, true
+}
+
+// SetTotalAmount sets field value
+func (o *FindInvoice200ResponseDataInner) SetTotalAmount(v float32) {
+	o.TotalAmount = v
+}
+
+// GetCurrency returns the Currency field value
+func (o *FindInvoice200ResponseDataInner) GetCurrency() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetCurrencyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Currency, true
+}
+
+// SetCurrency sets field value
+func (o *FindInvoice200ResponseDataInner) SetCurrency(v string) {
+	o.Currency = v
+}
+
+// GetState returns the State field value
+func (o *FindInvoice200ResponseDataInner) GetState() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetStateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *FindInvoice200ResponseDataInner) SetState(v string) {
+	o.State = v
+}
+
+// GetInvoiceItems returns the InvoiceItems field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *FindInvoice200ResponseDataInner) GetInvoiceItems() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+
+	return o.InvoiceItems
+}
+
+// GetInvoiceItemsOk returns a tuple with the InvoiceItems field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindInvoice200ResponseDataInner) GetInvoiceItemsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.InvoiceItems) {
+		return nil, false
+	}
+	return &o.InvoiceItems, true
+}
+
+// SetInvoiceItems sets field value
+func (o *FindInvoice200ResponseDataInner) SetInvoiceItems(v interface{}) {
+	o.InvoiceItems = v
+}
+
+// GetIssueDate returns the IssueDate field value
+func (o *FindInvoice200ResponseDataInner) GetIssueDate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.IssueDate
+}
+
+// GetIssueDateOk returns a tuple with the IssueDate field value
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetIssueDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IssueDate, true
+}
+
+// SetIssueDate sets field value
+func (o *FindInvoice200ResponseDataInner) SetIssueDate(v time.Time) {
+	o.IssueDate = v
+}
+
+// GetDueDate returns the DueDate field value if set, zero value otherwise.
+func (o *FindInvoice200ResponseDataInner) GetDueDate() time.Time {
+	if o == nil || IsNil(o.DueDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DueDate
+}
+
+// GetDueDateOk returns a tuple with the DueDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetDueDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DueDate) {
+		return nil, false
+	}
+	return o.DueDate, true
+}
+
+// HasDueDate returns a boolean if a field has been set.
+func (o *FindInvoice200ResponseDataInner) HasDueDate() bool {
+	if o != nil && !IsNil(o.DueDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetDueDate gets a reference to the given time.Time and assigns it to the DueDate field.
+func (o *FindInvoice200ResponseDataInner) SetDueDate(v time.Time) {
+	o.DueDate = &v
+}
+
+// GetPaidDate returns the PaidDate field value if set, zero value otherwise.
+func (o *FindInvoice200ResponseDataInner) GetPaidDate() time.Time {
+	if o == nil || IsNil(o.PaidDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PaidDate
+}
+
+// GetPaidDateOk returns a tuple with the PaidDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetPaidDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PaidDate) {
+		return nil, false
+	}
+	return o.PaidDate, true
+}
+
+// HasPaidDate returns a boolean if a field has been set.
+func (o *FindInvoice200ResponseDataInner) HasPaidDate() bool {
+	if o != nil && !IsNil(o.PaidDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaidDate gets a reference to the given time.Time and assigns it to the PaidDate field.
+func (o *FindInvoice200ResponseDataInner) SetPaidDate(v time.Time) {
+	o.PaidDate = &v
+}
+
+// GetPaymentMethod returns the PaymentMethod field value if set, zero value otherwise.
+func (o *FindInvoice200ResponseDataInner) GetPaymentMethod() string {
+	if o == nil || IsNil(o.PaymentMethod) {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethod
+}
+
+// GetPaymentMethodOk returns a tuple with the PaymentMethod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetPaymentMethodOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentMethod) {
+		return nil, false
+	}
+	return o.PaymentMethod, true
+}
+
+// HasPaymentMethod returns a boolean if a field has been set.
+func (o *FindInvoice200ResponseDataInner) HasPaymentMethod() bool {
+	if o != nil && !IsNil(o.PaymentMethod) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethod gets a reference to the given string and assigns it to the PaymentMethod field.
+func (o *FindInvoice200ResponseDataInner) SetPaymentMethod(v string) {
+	o.PaymentMethod = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindInvoice200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindInvoice200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindInvoice200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
+}
+
+// GetTaxAmount returns the TaxAmount field value if set, zero value otherwise.
+func (o *FindInvoice200ResponseDataInner) GetTaxAmount() float32 {
+	if o == nil || IsNil(o.TaxAmount) {
+		var ret float32
+		return ret
+	}
+	return *o.TaxAmount
+}
+
+// GetTaxAmountOk returns a tuple with the TaxAmount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetTaxAmountOk() (*float32, bool) {
+	if o == nil || IsNil(o.TaxAmount) {
+		return nil, false
+	}
+	return o.TaxAmount, true
+}
+
+// HasTaxAmount returns a boolean if a field has been set.
+func (o *FindInvoice200ResponseDataInner) HasTaxAmount() bool {
+	if o != nil && !IsNil(o.TaxAmount) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaxAmount gets a reference to the given float32 and assigns it to the TaxAmount field.
+func (o *FindInvoice200ResponseDataInner) SetTaxAmount(v float32) {
+	o.TaxAmount = &v
+}
+
+// GetSubtotal returns the Subtotal field value
+func (o *FindInvoice200ResponseDataInner) GetSubtotal() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Subtotal
+}
+
+// GetSubtotalOk returns a tuple with the Subtotal field value
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetSubtotalOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Subtotal, true
+}
+
+// SetSubtotal sets field value
+func (o *FindInvoice200ResponseDataInner) SetSubtotal(v float32) {
+	o.Subtotal = v
+}
+
+// GetPdfUrl returns the PdfUrl field value if set, zero value otherwise.
+func (o *FindInvoice200ResponseDataInner) GetPdfUrl() string {
+	if o == nil || IsNil(o.PdfUrl) {
+		var ret string
+		return ret
+	}
+	return *o.PdfUrl
+}
+
+// GetPdfUrlOk returns a tuple with the PdfUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindInvoice200ResponseDataInner) GetPdfUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.PdfUrl) {
+		return nil, false
+	}
+	return o.PdfUrl, true
+}
+
+// HasPdfUrl returns a boolean if a field has been set.
+func (o *FindInvoice200ResponseDataInner) HasPdfUrl() bool {
+	if o != nil && !IsNil(o.PdfUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetPdfUrl gets a reference to the given string and assigns it to the PdfUrl field.
+func (o *FindInvoice200ResponseDataInner) SetPdfUrl(v string) {
+	o.PdfUrl = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +527,6 @@ func (o *FindInvoice200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindInvoice200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindInvoice200ResponseDataInner) GetAttributes() Invoice {
-	if o == nil || IsNil(o.Attributes) {
-		var ret Invoice
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindInvoice200ResponseDataInner) GetAttributesOk() (*Invoice, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindInvoice200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given Invoice and assigns it to the Attributes field.
-func (o *FindInvoice200ResponseDataInner) SetAttributes(v Invoice) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +645,41 @@ func (o FindInvoice200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindInvoice200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["invoice_number"] = o.InvoiceNumber
+	if !IsNil(o.UsersPermissionsUser) {
+		toSerialize["users_permissions_user"] = o.UsersPermissionsUser
+	}
+	toSerialize["total_amount"] = o.TotalAmount
+	toSerialize["currency"] = o.Currency
+	toSerialize["state"] = o.State
+	if o.InvoiceItems != nil {
+		toSerialize["invoice_items"] = o.InvoiceItems
+	}
+	toSerialize["issue_date"] = o.IssueDate
+	if !IsNil(o.DueDate) {
+		toSerialize["due_date"] = o.DueDate
+	}
+	if !IsNil(o.PaidDate) {
+		toSerialize["paid_date"] = o.PaidDate
+	}
+	if !IsNil(o.PaymentMethod) {
+		toSerialize["payment_method"] = o.PaymentMethod
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
+	if !IsNil(o.TaxAmount) {
+		toSerialize["tax_amount"] = o.TaxAmount
+	}
+	toSerialize["subtotal"] = o.Subtotal
+	if !IsNil(o.PdfUrl) {
+		toSerialize["pdf_url"] = o.PdfUrl
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +691,49 @@ func (o FindInvoice200ResponseDataInner) ToMap() (map[string]interface{}, error)
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindInvoice200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"invoice_number",
+		"total_amount",
+		"currency",
+		"state",
+		"invoice_items",
+		"issue_date",
+		"subtotal",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindInvoice200ResponseDataInner := _FindInvoice200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindInvoice200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindInvoice200ResponseDataInner(varFindInvoice200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindInvoice200ResponseDataInner struct {

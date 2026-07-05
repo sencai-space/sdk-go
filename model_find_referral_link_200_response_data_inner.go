@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindReferralLink200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,31 @@ var _ MappedNullable = &FindReferralLink200ResponseDataInner{}
 
 // FindReferralLink200ResponseDataInner struct for FindReferralLink200ResponseDataInner
 type FindReferralLink200ResponseDataInner struct {
+	Code string `json:"code"`
+	RewardType *string `json:"reward_type,omitempty"`
+	RewardValue *float32 `json:"reward_value,omitempty"`
+	RewardCurrency *string `json:"reward_currency,omitempty"`
+	UsesCount *int32 `json:"uses_count,omitempty"`
+	MaxUses *int32 `json:"max_uses,omitempty"`
+	Active *bool `json:"active,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	CreatorOrg *CreateAccessReviewRequestDataReviewer `json:"creator_org,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ReferralLink `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindReferralLink200ResponseDataInner FindReferralLink200ResponseDataInner
+
 // NewFindReferralLink200ResponseDataInner instantiates a new FindReferralLink200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindReferralLink200ResponseDataInner() *FindReferralLink200ResponseDataInner {
+func NewFindReferralLink200ResponseDataInner(code string) *FindReferralLink200ResponseDataInner {
 	this := FindReferralLink200ResponseDataInner{}
+	this.Code = code
 	return &this
 }
 
@@ -44,6 +57,286 @@ func NewFindReferralLink200ResponseDataInner() *FindReferralLink200ResponseDataI
 func NewFindReferralLink200ResponseDataInnerWithDefaults() *FindReferralLink200ResponseDataInner {
 	this := FindReferralLink200ResponseDataInner{}
 	return &this
+}
+
+// GetCode returns the Code field value
+func (o *FindReferralLink200ResponseDataInner) GetCode() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Code
+}
+
+// GetCodeOk returns a tuple with the Code field value
+// and a boolean to check if the value has been set.
+func (o *FindReferralLink200ResponseDataInner) GetCodeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Code, true
+}
+
+// SetCode sets field value
+func (o *FindReferralLink200ResponseDataInner) SetCode(v string) {
+	o.Code = v
+}
+
+// GetRewardType returns the RewardType field value if set, zero value otherwise.
+func (o *FindReferralLink200ResponseDataInner) GetRewardType() string {
+	if o == nil || IsNil(o.RewardType) {
+		var ret string
+		return ret
+	}
+	return *o.RewardType
+}
+
+// GetRewardTypeOk returns a tuple with the RewardType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralLink200ResponseDataInner) GetRewardTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.RewardType) {
+		return nil, false
+	}
+	return o.RewardType, true
+}
+
+// HasRewardType returns a boolean if a field has been set.
+func (o *FindReferralLink200ResponseDataInner) HasRewardType() bool {
+	if o != nil && !IsNil(o.RewardType) {
+		return true
+	}
+
+	return false
+}
+
+// SetRewardType gets a reference to the given string and assigns it to the RewardType field.
+func (o *FindReferralLink200ResponseDataInner) SetRewardType(v string) {
+	o.RewardType = &v
+}
+
+// GetRewardValue returns the RewardValue field value if set, zero value otherwise.
+func (o *FindReferralLink200ResponseDataInner) GetRewardValue() float32 {
+	if o == nil || IsNil(o.RewardValue) {
+		var ret float32
+		return ret
+	}
+	return *o.RewardValue
+}
+
+// GetRewardValueOk returns a tuple with the RewardValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralLink200ResponseDataInner) GetRewardValueOk() (*float32, bool) {
+	if o == nil || IsNil(o.RewardValue) {
+		return nil, false
+	}
+	return o.RewardValue, true
+}
+
+// HasRewardValue returns a boolean if a field has been set.
+func (o *FindReferralLink200ResponseDataInner) HasRewardValue() bool {
+	if o != nil && !IsNil(o.RewardValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetRewardValue gets a reference to the given float32 and assigns it to the RewardValue field.
+func (o *FindReferralLink200ResponseDataInner) SetRewardValue(v float32) {
+	o.RewardValue = &v
+}
+
+// GetRewardCurrency returns the RewardCurrency field value if set, zero value otherwise.
+func (o *FindReferralLink200ResponseDataInner) GetRewardCurrency() string {
+	if o == nil || IsNil(o.RewardCurrency) {
+		var ret string
+		return ret
+	}
+	return *o.RewardCurrency
+}
+
+// GetRewardCurrencyOk returns a tuple with the RewardCurrency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralLink200ResponseDataInner) GetRewardCurrencyOk() (*string, bool) {
+	if o == nil || IsNil(o.RewardCurrency) {
+		return nil, false
+	}
+	return o.RewardCurrency, true
+}
+
+// HasRewardCurrency returns a boolean if a field has been set.
+func (o *FindReferralLink200ResponseDataInner) HasRewardCurrency() bool {
+	if o != nil && !IsNil(o.RewardCurrency) {
+		return true
+	}
+
+	return false
+}
+
+// SetRewardCurrency gets a reference to the given string and assigns it to the RewardCurrency field.
+func (o *FindReferralLink200ResponseDataInner) SetRewardCurrency(v string) {
+	o.RewardCurrency = &v
+}
+
+// GetUsesCount returns the UsesCount field value if set, zero value otherwise.
+func (o *FindReferralLink200ResponseDataInner) GetUsesCount() int32 {
+	if o == nil || IsNil(o.UsesCount) {
+		var ret int32
+		return ret
+	}
+	return *o.UsesCount
+}
+
+// GetUsesCountOk returns a tuple with the UsesCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralLink200ResponseDataInner) GetUsesCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.UsesCount) {
+		return nil, false
+	}
+	return o.UsesCount, true
+}
+
+// HasUsesCount returns a boolean if a field has been set.
+func (o *FindReferralLink200ResponseDataInner) HasUsesCount() bool {
+	if o != nil && !IsNil(o.UsesCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsesCount gets a reference to the given int32 and assigns it to the UsesCount field.
+func (o *FindReferralLink200ResponseDataInner) SetUsesCount(v int32) {
+	o.UsesCount = &v
+}
+
+// GetMaxUses returns the MaxUses field value if set, zero value otherwise.
+func (o *FindReferralLink200ResponseDataInner) GetMaxUses() int32 {
+	if o == nil || IsNil(o.MaxUses) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxUses
+}
+
+// GetMaxUsesOk returns a tuple with the MaxUses field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralLink200ResponseDataInner) GetMaxUsesOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxUses) {
+		return nil, false
+	}
+	return o.MaxUses, true
+}
+
+// HasMaxUses returns a boolean if a field has been set.
+func (o *FindReferralLink200ResponseDataInner) HasMaxUses() bool {
+	if o != nil && !IsNil(o.MaxUses) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxUses gets a reference to the given int32 and assigns it to the MaxUses field.
+func (o *FindReferralLink200ResponseDataInner) SetMaxUses(v int32) {
+	o.MaxUses = &v
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *FindReferralLink200ResponseDataInner) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralLink200ResponseDataInner) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *FindReferralLink200ResponseDataInner) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *FindReferralLink200ResponseDataInner) SetActive(v bool) {
+	o.Active = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *FindReferralLink200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralLink200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *FindReferralLink200ResponseDataInner) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *FindReferralLink200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
+}
+
+// GetCreatorOrg returns the CreatorOrg field value if set, zero value otherwise.
+func (o *FindReferralLink200ResponseDataInner) GetCreatorOrg() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CreatorOrg) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CreatorOrg
+}
+
+// GetCreatorOrgOk returns a tuple with the CreatorOrg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralLink200ResponseDataInner) GetCreatorOrgOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CreatorOrg) {
+		return nil, false
+	}
+	return o.CreatorOrg, true
+}
+
+// HasCreatorOrg returns a boolean if a field has been set.
+func (o *FindReferralLink200ResponseDataInner) HasCreatorOrg() bool {
+	if o != nil && !IsNil(o.CreatorOrg) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatorOrg gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CreatorOrg field.
+func (o *FindReferralLink200ResponseDataInner) SetCreatorOrg(v CreateAccessReviewRequestDataReviewer) {
+	o.CreatorOrg = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +401,6 @@ func (o *FindReferralLink200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindReferralLink200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindReferralLink200ResponseDataInner) GetAttributes() ReferralLink {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ReferralLink
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindReferralLink200ResponseDataInner) GetAttributesOk() (*ReferralLink, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindReferralLink200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ReferralLink and assigns it to the Attributes field.
-func (o *FindReferralLink200ResponseDataInner) SetAttributes(v ReferralLink) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +519,36 @@ func (o FindReferralLink200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindReferralLink200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["code"] = o.Code
+	if !IsNil(o.RewardType) {
+		toSerialize["reward_type"] = o.RewardType
+	}
+	if !IsNil(o.RewardValue) {
+		toSerialize["reward_value"] = o.RewardValue
+	}
+	if !IsNil(o.RewardCurrency) {
+		toSerialize["reward_currency"] = o.RewardCurrency
+	}
+	if !IsNil(o.UsesCount) {
+		toSerialize["uses_count"] = o.UsesCount
+	}
+	if !IsNil(o.MaxUses) {
+		toSerialize["max_uses"] = o.MaxUses
+	}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.CreatorOrg) {
+		toSerialize["creator_org"] = o.CreatorOrg
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +560,43 @@ func (o FindReferralLink200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindReferralLink200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"code",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindReferralLink200ResponseDataInner := _FindReferralLink200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindReferralLink200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindReferralLink200ResponseDataInner(varFindReferralLink200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindReferralLink200ResponseDataInner struct {

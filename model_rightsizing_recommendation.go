@@ -32,7 +32,8 @@ type RightsizingRecommendation struct {
 	Reason *string `json:"reason,omitempty"`
 	Confidence *string `json:"confidence,omitempty"`
 	Status *string `json:"status,omitempty"`
-	AnalysisData map[string]interface{} `json:"analysis_data,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AnalysisData interface{} `json:"analysis_data,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
 
@@ -405,10 +406,10 @@ func (o *RightsizingRecommendation) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetAnalysisData returns the AnalysisData field value if set, zero value otherwise.
-func (o *RightsizingRecommendation) GetAnalysisData() map[string]interface{} {
-	if o == nil || IsNil(o.AnalysisData) {
-		var ret map[string]interface{}
+// GetAnalysisData returns the AnalysisData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RightsizingRecommendation) GetAnalysisData() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.AnalysisData
@@ -416,11 +417,12 @@ func (o *RightsizingRecommendation) GetAnalysisData() map[string]interface{} {
 
 // GetAnalysisDataOk returns a tuple with the AnalysisData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RightsizingRecommendation) GetAnalysisDataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RightsizingRecommendation) GetAnalysisDataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AnalysisData) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.AnalysisData, true
+	return &o.AnalysisData, true
 }
 
 // HasAnalysisData returns a boolean if a field has been set.
@@ -432,8 +434,8 @@ func (o *RightsizingRecommendation) HasAnalysisData() bool {
 	return false
 }
 
-// SetAnalysisData gets a reference to the given map[string]interface{} and assigns it to the AnalysisData field.
-func (o *RightsizingRecommendation) SetAnalysisData(v map[string]interface{}) {
+// SetAnalysisData gets a reference to the given interface{} and assigns it to the AnalysisData field.
+func (o *RightsizingRecommendation) SetAnalysisData(v interface{}) {
 	o.AnalysisData = v
 }
 
@@ -512,7 +514,7 @@ func (o RightsizingRecommendation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !IsNil(o.AnalysisData) {
+	if o.AnalysisData != nil {
 		toSerialize["analysis_data"] = o.AnalysisData
 	}
 	if !IsNil(o.Organisation) {

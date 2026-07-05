@@ -21,9 +21,17 @@ var _ MappedNullable = &UpdateEmailPreference200ResponseData{}
 
 // UpdateEmailPreference200ResponseData struct for UpdateEmailPreference200ResponseData
 type UpdateEmailPreference200ResponseData struct {
+	User *CreateAccessReviewRequestDataReviewer `json:"user,omitempty"`
+	// Feature announcements, changelog digests. Opt-out allowed.
+	ProductUpdates *bool `json:"product_updates,omitempty"`
+	// Promotional content, upsell nudges, trial/usage-limit nudge emails. Opt-out allowed.
+	Marketing *bool `json:"marketing,omitempty"`
+	// Periodic summary emails (weekly/monthly usage digest). Opt-out allowed.
+	Digest *bool `json:"digest,omitempty"`
+	// Last channel that changed this record — settings UI, one-click unsubscribe link, or auto-created default.
+	UpdatedVia *string `json:"updated_via,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *EmailPreference `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +52,166 @@ func NewUpdateEmailPreference200ResponseData() *UpdateEmailPreference200Response
 func NewUpdateEmailPreference200ResponseDataWithDefaults() *UpdateEmailPreference200ResponseData {
 	this := UpdateEmailPreference200ResponseData{}
 	return &this
+}
+
+// GetUser returns the User field value if set, zero value otherwise.
+func (o *UpdateEmailPreference200ResponseData) GetUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.User) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.User
+}
+
+// GetUserOk returns a tuple with the User field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateEmailPreference200ResponseData) GetUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.User) {
+		return nil, false
+	}
+	return o.User, true
+}
+
+// HasUser returns a boolean if a field has been set.
+func (o *UpdateEmailPreference200ResponseData) HasUser() bool {
+	if o != nil && !IsNil(o.User) {
+		return true
+	}
+
+	return false
+}
+
+// SetUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the User field.
+func (o *UpdateEmailPreference200ResponseData) SetUser(v CreateAccessReviewRequestDataReviewer) {
+	o.User = &v
+}
+
+// GetProductUpdates returns the ProductUpdates field value if set, zero value otherwise.
+func (o *UpdateEmailPreference200ResponseData) GetProductUpdates() bool {
+	if o == nil || IsNil(o.ProductUpdates) {
+		var ret bool
+		return ret
+	}
+	return *o.ProductUpdates
+}
+
+// GetProductUpdatesOk returns a tuple with the ProductUpdates field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateEmailPreference200ResponseData) GetProductUpdatesOk() (*bool, bool) {
+	if o == nil || IsNil(o.ProductUpdates) {
+		return nil, false
+	}
+	return o.ProductUpdates, true
+}
+
+// HasProductUpdates returns a boolean if a field has been set.
+func (o *UpdateEmailPreference200ResponseData) HasProductUpdates() bool {
+	if o != nil && !IsNil(o.ProductUpdates) {
+		return true
+	}
+
+	return false
+}
+
+// SetProductUpdates gets a reference to the given bool and assigns it to the ProductUpdates field.
+func (o *UpdateEmailPreference200ResponseData) SetProductUpdates(v bool) {
+	o.ProductUpdates = &v
+}
+
+// GetMarketing returns the Marketing field value if set, zero value otherwise.
+func (o *UpdateEmailPreference200ResponseData) GetMarketing() bool {
+	if o == nil || IsNil(o.Marketing) {
+		var ret bool
+		return ret
+	}
+	return *o.Marketing
+}
+
+// GetMarketingOk returns a tuple with the Marketing field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateEmailPreference200ResponseData) GetMarketingOk() (*bool, bool) {
+	if o == nil || IsNil(o.Marketing) {
+		return nil, false
+	}
+	return o.Marketing, true
+}
+
+// HasMarketing returns a boolean if a field has been set.
+func (o *UpdateEmailPreference200ResponseData) HasMarketing() bool {
+	if o != nil && !IsNil(o.Marketing) {
+		return true
+	}
+
+	return false
+}
+
+// SetMarketing gets a reference to the given bool and assigns it to the Marketing field.
+func (o *UpdateEmailPreference200ResponseData) SetMarketing(v bool) {
+	o.Marketing = &v
+}
+
+// GetDigest returns the Digest field value if set, zero value otherwise.
+func (o *UpdateEmailPreference200ResponseData) GetDigest() bool {
+	if o == nil || IsNil(o.Digest) {
+		var ret bool
+		return ret
+	}
+	return *o.Digest
+}
+
+// GetDigestOk returns a tuple with the Digest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateEmailPreference200ResponseData) GetDigestOk() (*bool, bool) {
+	if o == nil || IsNil(o.Digest) {
+		return nil, false
+	}
+	return o.Digest, true
+}
+
+// HasDigest returns a boolean if a field has been set.
+func (o *UpdateEmailPreference200ResponseData) HasDigest() bool {
+	if o != nil && !IsNil(o.Digest) {
+		return true
+	}
+
+	return false
+}
+
+// SetDigest gets a reference to the given bool and assigns it to the Digest field.
+func (o *UpdateEmailPreference200ResponseData) SetDigest(v bool) {
+	o.Digest = &v
+}
+
+// GetUpdatedVia returns the UpdatedVia field value if set, zero value otherwise.
+func (o *UpdateEmailPreference200ResponseData) GetUpdatedVia() string {
+	if o == nil || IsNil(o.UpdatedVia) {
+		var ret string
+		return ret
+	}
+	return *o.UpdatedVia
+}
+
+// GetUpdatedViaOk returns a tuple with the UpdatedVia field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateEmailPreference200ResponseData) GetUpdatedViaOk() (*string, bool) {
+	if o == nil || IsNil(o.UpdatedVia) {
+		return nil, false
+	}
+	return o.UpdatedVia, true
+}
+
+// HasUpdatedVia returns a boolean if a field has been set.
+func (o *UpdateEmailPreference200ResponseData) HasUpdatedVia() bool {
+	if o != nil && !IsNil(o.UpdatedVia) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedVia gets a reference to the given string and assigns it to the UpdatedVia field.
+func (o *UpdateEmailPreference200ResponseData) SetUpdatedVia(v string) {
+	o.UpdatedVia = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +276,6 @@ func (o *UpdateEmailPreference200ResponseData) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *UpdateEmailPreference200ResponseData) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *UpdateEmailPreference200ResponseData) GetAttributes() EmailPreference {
-	if o == nil || IsNil(o.Attributes) {
-		var ret EmailPreference
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateEmailPreference200ResponseData) GetAttributesOk() (*EmailPreference, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *UpdateEmailPreference200ResponseData) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given EmailPreference and assigns it to the Attributes field.
-func (o *UpdateEmailPreference200ResponseData) SetAttributes(v EmailPreference) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +394,26 @@ func (o UpdateEmailPreference200ResponseData) MarshalJSON() ([]byte, error) {
 
 func (o UpdateEmailPreference200ResponseData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.User) {
+		toSerialize["user"] = o.User
+	}
+	if !IsNil(o.ProductUpdates) {
+		toSerialize["product_updates"] = o.ProductUpdates
+	}
+	if !IsNil(o.Marketing) {
+		toSerialize["marketing"] = o.Marketing
+	}
+	if !IsNil(o.Digest) {
+		toSerialize["digest"] = o.Digest
+	}
+	if !IsNil(o.UpdatedVia) {
+		toSerialize["updated_via"] = o.UpdatedVia
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

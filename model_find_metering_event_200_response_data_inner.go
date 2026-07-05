@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindMeteringEvent200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,38 @@ var _ MappedNullable = &FindMeteringEvent200ResponseDataInner{}
 
 // FindMeteringEvent200ResponseDataInner struct for FindMeteringEvent200ResponseDataInner
 type FindMeteringEvent200ResponseDataInner struct {
+	EventType string `json:"event_type"`
+	Quantity int32 `json:"quantity"`
+	PeriodStart time.Time `json:"period_start"`
+	PeriodEnd time.Time `json:"period_end"`
+	IdempotencyKey string `json:"idempotency_key"`
+	Unit *string `json:"unit,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	LagoSynced *bool `json:"lago_synced,omitempty"`
+	SyncedAt *time.Time `json:"synced_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *MeteringEvent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindMeteringEvent200ResponseDataInner FindMeteringEvent200ResponseDataInner
+
 // NewFindMeteringEvent200ResponseDataInner instantiates a new FindMeteringEvent200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindMeteringEvent200ResponseDataInner() *FindMeteringEvent200ResponseDataInner {
+func NewFindMeteringEvent200ResponseDataInner(eventType string, quantity int32, periodStart time.Time, periodEnd time.Time, idempotencyKey string, organisation CreateAccessReviewRequestDataReviewer) *FindMeteringEvent200ResponseDataInner {
 	this := FindMeteringEvent200ResponseDataInner{}
+	this.EventType = eventType
+	this.Quantity = quantity
+	this.PeriodStart = periodStart
+	this.PeriodEnd = periodEnd
+	this.IdempotencyKey = idempotencyKey
+	this.Organisation = organisation
 	return &this
 }
 
@@ -44,6 +64,279 @@ func NewFindMeteringEvent200ResponseDataInner() *FindMeteringEvent200ResponseDat
 func NewFindMeteringEvent200ResponseDataInnerWithDefaults() *FindMeteringEvent200ResponseDataInner {
 	this := FindMeteringEvent200ResponseDataInner{}
 	return &this
+}
+
+// GetEventType returns the EventType field value
+func (o *FindMeteringEvent200ResponseDataInner) GetEventType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EventType
+}
+
+// GetEventTypeOk returns a tuple with the EventType field value
+// and a boolean to check if the value has been set.
+func (o *FindMeteringEvent200ResponseDataInner) GetEventTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EventType, true
+}
+
+// SetEventType sets field value
+func (o *FindMeteringEvent200ResponseDataInner) SetEventType(v string) {
+	o.EventType = v
+}
+
+// GetQuantity returns the Quantity field value
+func (o *FindMeteringEvent200ResponseDataInner) GetQuantity() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Quantity
+}
+
+// GetQuantityOk returns a tuple with the Quantity field value
+// and a boolean to check if the value has been set.
+func (o *FindMeteringEvent200ResponseDataInner) GetQuantityOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Quantity, true
+}
+
+// SetQuantity sets field value
+func (o *FindMeteringEvent200ResponseDataInner) SetQuantity(v int32) {
+	o.Quantity = v
+}
+
+// GetPeriodStart returns the PeriodStart field value
+func (o *FindMeteringEvent200ResponseDataInner) GetPeriodStart() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.PeriodStart
+}
+
+// GetPeriodStartOk returns a tuple with the PeriodStart field value
+// and a boolean to check if the value has been set.
+func (o *FindMeteringEvent200ResponseDataInner) GetPeriodStartOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PeriodStart, true
+}
+
+// SetPeriodStart sets field value
+func (o *FindMeteringEvent200ResponseDataInner) SetPeriodStart(v time.Time) {
+	o.PeriodStart = v
+}
+
+// GetPeriodEnd returns the PeriodEnd field value
+func (o *FindMeteringEvent200ResponseDataInner) GetPeriodEnd() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.PeriodEnd
+}
+
+// GetPeriodEndOk returns a tuple with the PeriodEnd field value
+// and a boolean to check if the value has been set.
+func (o *FindMeteringEvent200ResponseDataInner) GetPeriodEndOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PeriodEnd, true
+}
+
+// SetPeriodEnd sets field value
+func (o *FindMeteringEvent200ResponseDataInner) SetPeriodEnd(v time.Time) {
+	o.PeriodEnd = v
+}
+
+// GetIdempotencyKey returns the IdempotencyKey field value
+func (o *FindMeteringEvent200ResponseDataInner) GetIdempotencyKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.IdempotencyKey
+}
+
+// GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value
+// and a boolean to check if the value has been set.
+func (o *FindMeteringEvent200ResponseDataInner) GetIdempotencyKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IdempotencyKey, true
+}
+
+// SetIdempotencyKey sets field value
+func (o *FindMeteringEvent200ResponseDataInner) SetIdempotencyKey(v string) {
+	o.IdempotencyKey = v
+}
+
+// GetUnit returns the Unit field value if set, zero value otherwise.
+func (o *FindMeteringEvent200ResponseDataInner) GetUnit() string {
+	if o == nil || IsNil(o.Unit) {
+		var ret string
+		return ret
+	}
+	return *o.Unit
+}
+
+// GetUnitOk returns a tuple with the Unit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindMeteringEvent200ResponseDataInner) GetUnitOk() (*string, bool) {
+	if o == nil || IsNil(o.Unit) {
+		return nil, false
+	}
+	return o.Unit, true
+}
+
+// HasUnit returns a boolean if a field has been set.
+func (o *FindMeteringEvent200ResponseDataInner) HasUnit() bool {
+	if o != nil && !IsNil(o.Unit) {
+		return true
+	}
+
+	return false
+}
+
+// SetUnit gets a reference to the given string and assigns it to the Unit field.
+func (o *FindMeteringEvent200ResponseDataInner) SetUnit(v string) {
+	o.Unit = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindMeteringEvent200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindMeteringEvent200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindMeteringEvent200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindMeteringEvent200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindMeteringEvent200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindMeteringEvent200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindMeteringEvent200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetLagoSynced returns the LagoSynced field value if set, zero value otherwise.
+func (o *FindMeteringEvent200ResponseDataInner) GetLagoSynced() bool {
+	if o == nil || IsNil(o.LagoSynced) {
+		var ret bool
+		return ret
+	}
+	return *o.LagoSynced
+}
+
+// GetLagoSyncedOk returns a tuple with the LagoSynced field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindMeteringEvent200ResponseDataInner) GetLagoSyncedOk() (*bool, bool) {
+	if o == nil || IsNil(o.LagoSynced) {
+		return nil, false
+	}
+	return o.LagoSynced, true
+}
+
+// HasLagoSynced returns a boolean if a field has been set.
+func (o *FindMeteringEvent200ResponseDataInner) HasLagoSynced() bool {
+	if o != nil && !IsNil(o.LagoSynced) {
+		return true
+	}
+
+	return false
+}
+
+// SetLagoSynced gets a reference to the given bool and assigns it to the LagoSynced field.
+func (o *FindMeteringEvent200ResponseDataInner) SetLagoSynced(v bool) {
+	o.LagoSynced = &v
+}
+
+// GetSyncedAt returns the SyncedAt field value if set, zero value otherwise.
+func (o *FindMeteringEvent200ResponseDataInner) GetSyncedAt() time.Time {
+	if o == nil || IsNil(o.SyncedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.SyncedAt
+}
+
+// GetSyncedAtOk returns a tuple with the SyncedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindMeteringEvent200ResponseDataInner) GetSyncedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.SyncedAt) {
+		return nil, false
+	}
+	return o.SyncedAt, true
+}
+
+// HasSyncedAt returns a boolean if a field has been set.
+func (o *FindMeteringEvent200ResponseDataInner) HasSyncedAt() bool {
+	if o != nil && !IsNil(o.SyncedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetSyncedAt gets a reference to the given time.Time and assigns it to the SyncedAt field.
+func (o *FindMeteringEvent200ResponseDataInner) SetSyncedAt(v time.Time) {
+	o.SyncedAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +401,6 @@ func (o *FindMeteringEvent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindMeteringEvent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindMeteringEvent200ResponseDataInner) GetAttributes() MeteringEvent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret MeteringEvent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindMeteringEvent200ResponseDataInner) GetAttributesOk() (*MeteringEvent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindMeteringEvent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given MeteringEvent and assigns it to the Attributes field.
-func (o *FindMeteringEvent200ResponseDataInner) SetAttributes(v MeteringEvent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +519,29 @@ func (o FindMeteringEvent200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindMeteringEvent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["event_type"] = o.EventType
+	toSerialize["quantity"] = o.Quantity
+	toSerialize["period_start"] = o.PeriodStart
+	toSerialize["period_end"] = o.PeriodEnd
+	toSerialize["idempotency_key"] = o.IdempotencyKey
+	if !IsNil(o.Unit) {
+		toSerialize["unit"] = o.Unit
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	toSerialize["organisation"] = o.Organisation
+	if !IsNil(o.LagoSynced) {
+		toSerialize["lago_synced"] = o.LagoSynced
+	}
+	if !IsNil(o.SyncedAt) {
+		toSerialize["synced_at"] = o.SyncedAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +553,48 @@ func (o FindMeteringEvent200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindMeteringEvent200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"event_type",
+		"quantity",
+		"period_start",
+		"period_end",
+		"idempotency_key",
+		"organisation",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindMeteringEvent200ResponseDataInner := _FindMeteringEvent200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindMeteringEvent200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindMeteringEvent200ResponseDataInner(varFindMeteringEvent200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindMeteringEvent200ResponseDataInner struct {

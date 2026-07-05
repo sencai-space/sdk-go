@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAuditArtifact200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,38 @@ var _ MappedNullable = &FindAuditArtifact200ResponseDataInner{}
 
 // FindAuditArtifact200ResponseDataInner struct for FindAuditArtifact200ResponseDataInner
 type FindAuditArtifact200ResponseDataInner struct {
+	Title string `json:"title"`
+	Category string `json:"category"`
+	Description *string `json:"description,omitempty"`
+	Version *string `json:"version,omitempty"`
+	EffectiveFrom *string `json:"effective_from,omitempty"`
+	EffectiveTo *string `json:"effective_to,omitempty"`
+	FileUrl *string `json:"file_url,omitempty"`
+	FileSizeBytes *int32 `json:"file_size_bytes,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	LinkedControls interface{} `json:"linked_controls,omitempty"`
+	IsPublic *bool `json:"is_public,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	UploadedBy *string `json:"uploaded_by,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AuditArtifact `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAuditArtifact200ResponseDataInner FindAuditArtifact200ResponseDataInner
+
 // NewFindAuditArtifact200ResponseDataInner instantiates a new FindAuditArtifact200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAuditArtifact200ResponseDataInner() *FindAuditArtifact200ResponseDataInner {
+func NewFindAuditArtifact200ResponseDataInner(title string, category string) *FindAuditArtifact200ResponseDataInner {
 	this := FindAuditArtifact200ResponseDataInner{}
+	this.Title = title
+	this.Category = category
 	return &this
 }
 
@@ -44,6 +64,408 @@ func NewFindAuditArtifact200ResponseDataInner() *FindAuditArtifact200ResponseDat
 func NewFindAuditArtifact200ResponseDataInnerWithDefaults() *FindAuditArtifact200ResponseDataInner {
 	this := FindAuditArtifact200ResponseDataInner{}
 	return &this
+}
+
+// GetTitle returns the Title field value
+func (o *FindAuditArtifact200ResponseDataInner) GetTitle() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Title, true
+}
+
+// SetTitle sets field value
+func (o *FindAuditArtifact200ResponseDataInner) SetTitle(v string) {
+	o.Title = v
+}
+
+// GetCategory returns the Category field value
+func (o *FindAuditArtifact200ResponseDataInner) GetCategory() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Category
+}
+
+// GetCategoryOk returns a tuple with the Category field value
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetCategoryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Category, true
+}
+
+// SetCategory sets field value
+func (o *FindAuditArtifact200ResponseDataInner) SetCategory(v string) {
+	o.Category = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindAuditArtifact200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindAuditArtifact200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *FindAuditArtifact200ResponseDataInner) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *FindAuditArtifact200ResponseDataInner) SetVersion(v string) {
+	o.Version = &v
+}
+
+// GetEffectiveFrom returns the EffectiveFrom field value if set, zero value otherwise.
+func (o *FindAuditArtifact200ResponseDataInner) GetEffectiveFrom() string {
+	if o == nil || IsNil(o.EffectiveFrom) {
+		var ret string
+		return ret
+	}
+	return *o.EffectiveFrom
+}
+
+// GetEffectiveFromOk returns a tuple with the EffectiveFrom field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetEffectiveFromOk() (*string, bool) {
+	if o == nil || IsNil(o.EffectiveFrom) {
+		return nil, false
+	}
+	return o.EffectiveFrom, true
+}
+
+// HasEffectiveFrom returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasEffectiveFrom() bool {
+	if o != nil && !IsNil(o.EffectiveFrom) {
+		return true
+	}
+
+	return false
+}
+
+// SetEffectiveFrom gets a reference to the given string and assigns it to the EffectiveFrom field.
+func (o *FindAuditArtifact200ResponseDataInner) SetEffectiveFrom(v string) {
+	o.EffectiveFrom = &v
+}
+
+// GetEffectiveTo returns the EffectiveTo field value if set, zero value otherwise.
+func (o *FindAuditArtifact200ResponseDataInner) GetEffectiveTo() string {
+	if o == nil || IsNil(o.EffectiveTo) {
+		var ret string
+		return ret
+	}
+	return *o.EffectiveTo
+}
+
+// GetEffectiveToOk returns a tuple with the EffectiveTo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetEffectiveToOk() (*string, bool) {
+	if o == nil || IsNil(o.EffectiveTo) {
+		return nil, false
+	}
+	return o.EffectiveTo, true
+}
+
+// HasEffectiveTo returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasEffectiveTo() bool {
+	if o != nil && !IsNil(o.EffectiveTo) {
+		return true
+	}
+
+	return false
+}
+
+// SetEffectiveTo gets a reference to the given string and assigns it to the EffectiveTo field.
+func (o *FindAuditArtifact200ResponseDataInner) SetEffectiveTo(v string) {
+	o.EffectiveTo = &v
+}
+
+// GetFileUrl returns the FileUrl field value if set, zero value otherwise.
+func (o *FindAuditArtifact200ResponseDataInner) GetFileUrl() string {
+	if o == nil || IsNil(o.FileUrl) {
+		var ret string
+		return ret
+	}
+	return *o.FileUrl
+}
+
+// GetFileUrlOk returns a tuple with the FileUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetFileUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.FileUrl) {
+		return nil, false
+	}
+	return o.FileUrl, true
+}
+
+// HasFileUrl returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasFileUrl() bool {
+	if o != nil && !IsNil(o.FileUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetFileUrl gets a reference to the given string and assigns it to the FileUrl field.
+func (o *FindAuditArtifact200ResponseDataInner) SetFileUrl(v string) {
+	o.FileUrl = &v
+}
+
+// GetFileSizeBytes returns the FileSizeBytes field value if set, zero value otherwise.
+func (o *FindAuditArtifact200ResponseDataInner) GetFileSizeBytes() int32 {
+	if o == nil || IsNil(o.FileSizeBytes) {
+		var ret int32
+		return ret
+	}
+	return *o.FileSizeBytes
+}
+
+// GetFileSizeBytesOk returns a tuple with the FileSizeBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetFileSizeBytesOk() (*int32, bool) {
+	if o == nil || IsNil(o.FileSizeBytes) {
+		return nil, false
+	}
+	return o.FileSizeBytes, true
+}
+
+// HasFileSizeBytes returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasFileSizeBytes() bool {
+	if o != nil && !IsNil(o.FileSizeBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetFileSizeBytes gets a reference to the given int32 and assigns it to the FileSizeBytes field.
+func (o *FindAuditArtifact200ResponseDataInner) SetFileSizeBytes(v int32) {
+	o.FileSizeBytes = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAuditArtifact200ResponseDataInner) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAuditArtifact200ResponseDataInner) GetTagsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return &o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *FindAuditArtifact200ResponseDataInner) SetTags(v interface{}) {
+	o.Tags = v
+}
+
+// GetLinkedControls returns the LinkedControls field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAuditArtifact200ResponseDataInner) GetLinkedControls() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.LinkedControls
+}
+
+// GetLinkedControlsOk returns a tuple with the LinkedControls field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAuditArtifact200ResponseDataInner) GetLinkedControlsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.LinkedControls) {
+		return nil, false
+	}
+	return &o.LinkedControls, true
+}
+
+// HasLinkedControls returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasLinkedControls() bool {
+	if o != nil && !IsNil(o.LinkedControls) {
+		return true
+	}
+
+	return false
+}
+
+// SetLinkedControls gets a reference to the given interface{} and assigns it to the LinkedControls field.
+func (o *FindAuditArtifact200ResponseDataInner) SetLinkedControls(v interface{}) {
+	o.LinkedControls = v
+}
+
+// GetIsPublic returns the IsPublic field value if set, zero value otherwise.
+func (o *FindAuditArtifact200ResponseDataInner) GetIsPublic() bool {
+	if o == nil || IsNil(o.IsPublic) {
+		var ret bool
+		return ret
+	}
+	return *o.IsPublic
+}
+
+// GetIsPublicOk returns a tuple with the IsPublic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetIsPublicOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsPublic) {
+		return nil, false
+	}
+	return o.IsPublic, true
+}
+
+// HasIsPublic returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasIsPublic() bool {
+	if o != nil && !IsNil(o.IsPublic) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsPublic gets a reference to the given bool and assigns it to the IsPublic field.
+func (o *FindAuditArtifact200ResponseDataInner) SetIsPublic(v bool) {
+	o.IsPublic = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindAuditArtifact200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindAuditArtifact200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetUploadedBy returns the UploadedBy field value if set, zero value otherwise.
+func (o *FindAuditArtifact200ResponseDataInner) GetUploadedBy() string {
+	if o == nil || IsNil(o.UploadedBy) {
+		var ret string
+		return ret
+	}
+	return *o.UploadedBy
+}
+
+// GetUploadedByOk returns a tuple with the UploadedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAuditArtifact200ResponseDataInner) GetUploadedByOk() (*string, bool) {
+	if o == nil || IsNil(o.UploadedBy) {
+		return nil, false
+	}
+	return o.UploadedBy, true
+}
+
+// HasUploadedBy returns a boolean if a field has been set.
+func (o *FindAuditArtifact200ResponseDataInner) HasUploadedBy() bool {
+	if o != nil && !IsNil(o.UploadedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetUploadedBy gets a reference to the given string and assigns it to the UploadedBy field.
+func (o *FindAuditArtifact200ResponseDataInner) SetUploadedBy(v string) {
+	o.UploadedBy = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +530,6 @@ func (o *FindAuditArtifact200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAuditArtifact200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAuditArtifact200ResponseDataInner) GetAttributes() AuditArtifact {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AuditArtifact
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAuditArtifact200ResponseDataInner) GetAttributesOk() (*AuditArtifact, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAuditArtifact200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AuditArtifact and assigns it to the Attributes field.
-func (o *FindAuditArtifact200ResponseDataInner) SetAttributes(v AuditArtifact) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +648,46 @@ func (o FindAuditArtifact200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAuditArtifact200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["title"] = o.Title
+	toSerialize["category"] = o.Category
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.EffectiveFrom) {
+		toSerialize["effective_from"] = o.EffectiveFrom
+	}
+	if !IsNil(o.EffectiveTo) {
+		toSerialize["effective_to"] = o.EffectiveTo
+	}
+	if !IsNil(o.FileUrl) {
+		toSerialize["file_url"] = o.FileUrl
+	}
+	if !IsNil(o.FileSizeBytes) {
+		toSerialize["file_size_bytes"] = o.FileSizeBytes
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if o.LinkedControls != nil {
+		toSerialize["linked_controls"] = o.LinkedControls
+	}
+	if !IsNil(o.IsPublic) {
+		toSerialize["is_public"] = o.IsPublic
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.UploadedBy) {
+		toSerialize["uploaded_by"] = o.UploadedBy
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +699,44 @@ func (o FindAuditArtifact200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAuditArtifact200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"title",
+		"category",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAuditArtifact200ResponseDataInner := _FindAuditArtifact200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAuditArtifact200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAuditArtifact200ResponseDataInner(varFindAuditArtifact200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAuditArtifact200ResponseDataInner struct {

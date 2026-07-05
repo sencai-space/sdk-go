@@ -26,18 +26,18 @@ type CreateCdnDistributionRequestData struct {
 	// Human-readable distribution name or domain.
 	Name string `json:"name"`
 	// Custom/alternate domain names served by this distribution (string[]).
-	Domains map[string]interface{} `json:"domains,omitempty"`
+	Domains interface{} `json:"domains,omitempty"`
 	// CDN origins (CdnOrigin[]) — { id, domain, protocol }.
-	Origins map[string]interface{} `json:"origins,omitempty"`
+	Origins interface{} `json:"origins,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// Provider-side distribution identifier (CloudFront distribution ID, Azure Front Door endpoint ARM path, GCP backend service selfLink, Cloudflare zone ID).
 	ProviderDistributionId string `json:"provider_distribution_id"`
 	// Provider-specific cache behaviors and TTL config.
-	CacheBehaviors map[string]interface{} `json:"cache_behaviors,omitempty"`
+	CacheBehaviors interface{} `json:"cache_behaviors,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
 	// Provider-specific metadata (ARN, fingerprint, profile name, etc.).
-	ProviderMetadata map[string]interface{} `json:"provider_metadata,omitempty"`
+	ProviderMetadata interface{} `json:"provider_metadata,omitempty"`
 }
 
 type _CreateCdnDistributionRequestData CreateCdnDistributionRequestData
@@ -110,10 +110,10 @@ func (o *CreateCdnDistributionRequestData) SetName(v string) {
 	o.Name = v
 }
 
-// GetDomains returns the Domains field value if set, zero value otherwise.
-func (o *CreateCdnDistributionRequestData) GetDomains() map[string]interface{} {
-	if o == nil || IsNil(o.Domains) {
-		var ret map[string]interface{}
+// GetDomains returns the Domains field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCdnDistributionRequestData) GetDomains() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Domains
@@ -121,11 +121,12 @@ func (o *CreateCdnDistributionRequestData) GetDomains() map[string]interface{} {
 
 // GetDomainsOk returns a tuple with the Domains field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCdnDistributionRequestData) GetDomainsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCdnDistributionRequestData) GetDomainsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Domains) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Domains, true
+	return &o.Domains, true
 }
 
 // HasDomains returns a boolean if a field has been set.
@@ -137,15 +138,15 @@ func (o *CreateCdnDistributionRequestData) HasDomains() bool {
 	return false
 }
 
-// SetDomains gets a reference to the given map[string]interface{} and assigns it to the Domains field.
-func (o *CreateCdnDistributionRequestData) SetDomains(v map[string]interface{}) {
+// SetDomains gets a reference to the given interface{} and assigns it to the Domains field.
+func (o *CreateCdnDistributionRequestData) SetDomains(v interface{}) {
 	o.Domains = v
 }
 
-// GetOrigins returns the Origins field value if set, zero value otherwise.
-func (o *CreateCdnDistributionRequestData) GetOrigins() map[string]interface{} {
-	if o == nil || IsNil(o.Origins) {
-		var ret map[string]interface{}
+// GetOrigins returns the Origins field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCdnDistributionRequestData) GetOrigins() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Origins
@@ -153,11 +154,12 @@ func (o *CreateCdnDistributionRequestData) GetOrigins() map[string]interface{} {
 
 // GetOriginsOk returns a tuple with the Origins field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCdnDistributionRequestData) GetOriginsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCdnDistributionRequestData) GetOriginsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Origins) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Origins, true
+	return &o.Origins, true
 }
 
 // HasOrigins returns a boolean if a field has been set.
@@ -169,8 +171,8 @@ func (o *CreateCdnDistributionRequestData) HasOrigins() bool {
 	return false
 }
 
-// SetOrigins gets a reference to the given map[string]interface{} and assigns it to the Origins field.
-func (o *CreateCdnDistributionRequestData) SetOrigins(v map[string]interface{}) {
+// SetOrigins gets a reference to the given interface{} and assigns it to the Origins field.
+func (o *CreateCdnDistributionRequestData) SetOrigins(v interface{}) {
 	o.Origins = v
 }
 
@@ -230,10 +232,10 @@ func (o *CreateCdnDistributionRequestData) SetProviderDistributionId(v string) {
 	o.ProviderDistributionId = v
 }
 
-// GetCacheBehaviors returns the CacheBehaviors field value if set, zero value otherwise.
-func (o *CreateCdnDistributionRequestData) GetCacheBehaviors() map[string]interface{} {
-	if o == nil || IsNil(o.CacheBehaviors) {
-		var ret map[string]interface{}
+// GetCacheBehaviors returns the CacheBehaviors field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCdnDistributionRequestData) GetCacheBehaviors() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.CacheBehaviors
@@ -241,11 +243,12 @@ func (o *CreateCdnDistributionRequestData) GetCacheBehaviors() map[string]interf
 
 // GetCacheBehaviorsOk returns a tuple with the CacheBehaviors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCdnDistributionRequestData) GetCacheBehaviorsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCdnDistributionRequestData) GetCacheBehaviorsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.CacheBehaviors) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.CacheBehaviors, true
+	return &o.CacheBehaviors, true
 }
 
 // HasCacheBehaviors returns a boolean if a field has been set.
@@ -257,8 +260,8 @@ func (o *CreateCdnDistributionRequestData) HasCacheBehaviors() bool {
 	return false
 }
 
-// SetCacheBehaviors gets a reference to the given map[string]interface{} and assigns it to the CacheBehaviors field.
-func (o *CreateCdnDistributionRequestData) SetCacheBehaviors(v map[string]interface{}) {
+// SetCacheBehaviors gets a reference to the given interface{} and assigns it to the CacheBehaviors field.
+func (o *CreateCdnDistributionRequestData) SetCacheBehaviors(v interface{}) {
 	o.CacheBehaviors = v
 }
 
@@ -326,10 +329,10 @@ func (o *CreateCdnDistributionRequestData) SetCredential(v CreateAccessReviewReq
 	o.Credential = &v
 }
 
-// GetProviderMetadata returns the ProviderMetadata field value if set, zero value otherwise.
-func (o *CreateCdnDistributionRequestData) GetProviderMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.ProviderMetadata) {
-		var ret map[string]interface{}
+// GetProviderMetadata returns the ProviderMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCdnDistributionRequestData) GetProviderMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ProviderMetadata
@@ -337,11 +340,12 @@ func (o *CreateCdnDistributionRequestData) GetProviderMetadata() map[string]inte
 
 // GetProviderMetadataOk returns a tuple with the ProviderMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCdnDistributionRequestData) GetProviderMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCdnDistributionRequestData) GetProviderMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ProviderMetadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ProviderMetadata, true
+	return &o.ProviderMetadata, true
 }
 
 // HasProviderMetadata returns a boolean if a field has been set.
@@ -353,8 +357,8 @@ func (o *CreateCdnDistributionRequestData) HasProviderMetadata() bool {
 	return false
 }
 
-// SetProviderMetadata gets a reference to the given map[string]interface{} and assigns it to the ProviderMetadata field.
-func (o *CreateCdnDistributionRequestData) SetProviderMetadata(v map[string]interface{}) {
+// SetProviderMetadata gets a reference to the given interface{} and assigns it to the ProviderMetadata field.
+func (o *CreateCdnDistributionRequestData) SetProviderMetadata(v interface{}) {
 	o.ProviderMetadata = v
 }
 
@@ -370,17 +374,17 @@ func (o CreateCdnDistributionRequestData) ToMap() (map[string]interface{}, error
 	toSerialize := map[string]interface{}{}
 	toSerialize["provider"] = o.Provider
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Domains) {
+	if o.Domains != nil {
 		toSerialize["domains"] = o.Domains
 	}
-	if !IsNil(o.Origins) {
+	if o.Origins != nil {
 		toSerialize["origins"] = o.Origins
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
 	toSerialize["provider_distribution_id"] = o.ProviderDistributionId
-	if !IsNil(o.CacheBehaviors) {
+	if o.CacheBehaviors != nil {
 		toSerialize["cache_behaviors"] = o.CacheBehaviors
 	}
 	if !IsNil(o.Organisation) {
@@ -389,7 +393,7 @@ func (o CreateCdnDistributionRequestData) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Credential) {
 		toSerialize["credential"] = o.Credential
 	}
-	if !IsNil(o.ProviderMetadata) {
+	if o.ProviderMetadata != nil {
 		toSerialize["provider_metadata"] = o.ProviderMetadata
 	}
 	return toSerialize, nil

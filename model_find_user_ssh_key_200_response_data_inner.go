@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindUserSshKey200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,29 @@ var _ MappedNullable = &FindUserSshKey200ResponseDataInner{}
 
 // FindUserSshKey200ResponseDataInner struct for FindUserSshKey200ResponseDataInner
 type FindUserSshKey200ResponseDataInner struct {
+	Name string `json:"name"`
+	PublicKey string `json:"public_key"`
+	PrivateKeyEncrypted *string `json:"private_key_encrypted,omitempty"`
+	Fingerprint *string `json:"fingerprint,omitempty"`
+	User *CreateAccessReviewRequestDataReviewer `json:"user,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *UserSshKey `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindUserSshKey200ResponseDataInner FindUserSshKey200ResponseDataInner
+
 // NewFindUserSshKey200ResponseDataInner instantiates a new FindUserSshKey200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindUserSshKey200ResponseDataInner() *FindUserSshKey200ResponseDataInner {
+func NewFindUserSshKey200ResponseDataInner(name string, publicKey string) *FindUserSshKey200ResponseDataInner {
 	this := FindUserSshKey200ResponseDataInner{}
+	this.Name = name
+	this.PublicKey = publicKey
 	return &this
 }
 
@@ -44,6 +55,182 @@ func NewFindUserSshKey200ResponseDataInner() *FindUserSshKey200ResponseDataInner
 func NewFindUserSshKey200ResponseDataInnerWithDefaults() *FindUserSshKey200ResponseDataInner {
 	this := FindUserSshKey200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindUserSshKey200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindUserSshKey200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindUserSshKey200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetPublicKey returns the PublicKey field value
+func (o *FindUserSshKey200ResponseDataInner) GetPublicKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PublicKey
+}
+
+// GetPublicKeyOk returns a tuple with the PublicKey field value
+// and a boolean to check if the value has been set.
+func (o *FindUserSshKey200ResponseDataInner) GetPublicKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PublicKey, true
+}
+
+// SetPublicKey sets field value
+func (o *FindUserSshKey200ResponseDataInner) SetPublicKey(v string) {
+	o.PublicKey = v
+}
+
+// GetPrivateKeyEncrypted returns the PrivateKeyEncrypted field value if set, zero value otherwise.
+func (o *FindUserSshKey200ResponseDataInner) GetPrivateKeyEncrypted() string {
+	if o == nil || IsNil(o.PrivateKeyEncrypted) {
+		var ret string
+		return ret
+	}
+	return *o.PrivateKeyEncrypted
+}
+
+// GetPrivateKeyEncryptedOk returns a tuple with the PrivateKeyEncrypted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSshKey200ResponseDataInner) GetPrivateKeyEncryptedOk() (*string, bool) {
+	if o == nil || IsNil(o.PrivateKeyEncrypted) {
+		return nil, false
+	}
+	return o.PrivateKeyEncrypted, true
+}
+
+// HasPrivateKeyEncrypted returns a boolean if a field has been set.
+func (o *FindUserSshKey200ResponseDataInner) HasPrivateKeyEncrypted() bool {
+	if o != nil && !IsNil(o.PrivateKeyEncrypted) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrivateKeyEncrypted gets a reference to the given string and assigns it to the PrivateKeyEncrypted field.
+func (o *FindUserSshKey200ResponseDataInner) SetPrivateKeyEncrypted(v string) {
+	o.PrivateKeyEncrypted = &v
+}
+
+// GetFingerprint returns the Fingerprint field value if set, zero value otherwise.
+func (o *FindUserSshKey200ResponseDataInner) GetFingerprint() string {
+	if o == nil || IsNil(o.Fingerprint) {
+		var ret string
+		return ret
+	}
+	return *o.Fingerprint
+}
+
+// GetFingerprintOk returns a tuple with the Fingerprint field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSshKey200ResponseDataInner) GetFingerprintOk() (*string, bool) {
+	if o == nil || IsNil(o.Fingerprint) {
+		return nil, false
+	}
+	return o.Fingerprint, true
+}
+
+// HasFingerprint returns a boolean if a field has been set.
+func (o *FindUserSshKey200ResponseDataInner) HasFingerprint() bool {
+	if o != nil && !IsNil(o.Fingerprint) {
+		return true
+	}
+
+	return false
+}
+
+// SetFingerprint gets a reference to the given string and assigns it to the Fingerprint field.
+func (o *FindUserSshKey200ResponseDataInner) SetFingerprint(v string) {
+	o.Fingerprint = &v
+}
+
+// GetUser returns the User field value if set, zero value otherwise.
+func (o *FindUserSshKey200ResponseDataInner) GetUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.User) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.User
+}
+
+// GetUserOk returns a tuple with the User field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSshKey200ResponseDataInner) GetUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.User) {
+		return nil, false
+	}
+	return o.User, true
+}
+
+// HasUser returns a boolean if a field has been set.
+func (o *FindUserSshKey200ResponseDataInner) HasUser() bool {
+	if o != nil && !IsNil(o.User) {
+		return true
+	}
+
+	return false
+}
+
+// SetUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the User field.
+func (o *FindUserSshKey200ResponseDataInner) SetUser(v CreateAccessReviewRequestDataReviewer) {
+	o.User = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindUserSshKey200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSshKey200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindUserSshKey200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindUserSshKey200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +295,6 @@ func (o *FindUserSshKey200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindUserSshKey200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindUserSshKey200ResponseDataInner) GetAttributes() UserSshKey {
-	if o == nil || IsNil(o.Attributes) {
-		var ret UserSshKey
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindUserSshKey200ResponseDataInner) GetAttributesOk() (*UserSshKey, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindUserSshKey200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given UserSshKey and assigns it to the Attributes field.
-func (o *FindUserSshKey200ResponseDataInner) SetAttributes(v UserSshKey) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +413,25 @@ func (o FindUserSshKey200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindUserSshKey200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["public_key"] = o.PublicKey
+	if !IsNil(o.PrivateKeyEncrypted) {
+		toSerialize["private_key_encrypted"] = o.PrivateKeyEncrypted
+	}
+	if !IsNil(o.Fingerprint) {
+		toSerialize["fingerprint"] = o.Fingerprint
+	}
+	if !IsNil(o.User) {
+		toSerialize["user"] = o.User
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +443,44 @@ func (o FindUserSshKey200ResponseDataInner) ToMap() (map[string]interface{}, err
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindUserSshKey200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"public_key",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindUserSshKey200ResponseDataInner := _FindUserSshKey200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindUserSshKey200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindUserSshKey200ResponseDataInner(varFindUserSshKey200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindUserSshKey200ResponseDataInner struct {

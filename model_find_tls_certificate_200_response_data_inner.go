@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindTlsCertificate200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,38 @@ var _ MappedNullable = &FindTlsCertificate200ResponseDataInner{}
 
 // FindTlsCertificate200ResponseDataInner struct for FindTlsCertificate200ResponseDataInner
 type FindTlsCertificate200ResponseDataInner struct {
+	Domain string `json:"domain"`
+	Provider string `json:"provider"`
+	Status *string `json:"status,omitempty"`
+	IssuedAt *time.Time `json:"issued_at,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	AutoRenew *bool `json:"auto_renew,omitempty"`
+	LastRenewedAt *time.Time `json:"last_renewed_at,omitempty"`
+	ProviderCertId *string `json:"provider_cert_id,omitempty"`
+	DnsZone *CreateAccessReviewRequestDataReviewer `json:"dns_zone,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	SanDomains interface{} `json:"san_domains,omitempty"`
+	Issuer *string `json:"issuer,omitempty"`
+	LastCheckedAt *time.Time `json:"last_checked_at,omitempty"`
+	RenewalError *string `json:"renewal_error,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *TlsCertificate `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindTlsCertificate200ResponseDataInner FindTlsCertificate200ResponseDataInner
+
 // NewFindTlsCertificate200ResponseDataInner instantiates a new FindTlsCertificate200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindTlsCertificate200ResponseDataInner() *FindTlsCertificate200ResponseDataInner {
+func NewFindTlsCertificate200ResponseDataInner(domain string, provider string) *FindTlsCertificate200ResponseDataInner {
 	this := FindTlsCertificate200ResponseDataInner{}
+	this.Domain = domain
+	this.Provider = provider
 	return &this
 }
 
@@ -44,6 +64,439 @@ func NewFindTlsCertificate200ResponseDataInner() *FindTlsCertificate200ResponseD
 func NewFindTlsCertificate200ResponseDataInnerWithDefaults() *FindTlsCertificate200ResponseDataInner {
 	this := FindTlsCertificate200ResponseDataInner{}
 	return &this
+}
+
+// GetDomain returns the Domain field value
+func (o *FindTlsCertificate200ResponseDataInner) GetDomain() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetDomainOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Domain, true
+}
+
+// SetDomain sets field value
+func (o *FindTlsCertificate200ResponseDataInner) SetDomain(v string) {
+	o.Domain = v
+}
+
+// GetProvider returns the Provider field value
+func (o *FindTlsCertificate200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindTlsCertificate200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindTlsCertificate200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetIssuedAt returns the IssuedAt field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetIssuedAt() time.Time {
+	if o == nil || IsNil(o.IssuedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.IssuedAt
+}
+
+// GetIssuedAtOk returns a tuple with the IssuedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetIssuedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.IssuedAt) {
+		return nil, false
+	}
+	return o.IssuedAt, true
+}
+
+// HasIssuedAt returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasIssuedAt() bool {
+	if o != nil && !IsNil(o.IssuedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetIssuedAt gets a reference to the given time.Time and assigns it to the IssuedAt field.
+func (o *FindTlsCertificate200ResponseDataInner) SetIssuedAt(v time.Time) {
+	o.IssuedAt = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *FindTlsCertificate200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
+}
+
+// GetAutoRenew returns the AutoRenew field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetAutoRenew() bool {
+	if o == nil || IsNil(o.AutoRenew) {
+		var ret bool
+		return ret
+	}
+	return *o.AutoRenew
+}
+
+// GetAutoRenewOk returns a tuple with the AutoRenew field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetAutoRenewOk() (*bool, bool) {
+	if o == nil || IsNil(o.AutoRenew) {
+		return nil, false
+	}
+	return o.AutoRenew, true
+}
+
+// HasAutoRenew returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasAutoRenew() bool {
+	if o != nil && !IsNil(o.AutoRenew) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoRenew gets a reference to the given bool and assigns it to the AutoRenew field.
+func (o *FindTlsCertificate200ResponseDataInner) SetAutoRenew(v bool) {
+	o.AutoRenew = &v
+}
+
+// GetLastRenewedAt returns the LastRenewedAt field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetLastRenewedAt() time.Time {
+	if o == nil || IsNil(o.LastRenewedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastRenewedAt
+}
+
+// GetLastRenewedAtOk returns a tuple with the LastRenewedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetLastRenewedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastRenewedAt) {
+		return nil, false
+	}
+	return o.LastRenewedAt, true
+}
+
+// HasLastRenewedAt returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasLastRenewedAt() bool {
+	if o != nil && !IsNil(o.LastRenewedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastRenewedAt gets a reference to the given time.Time and assigns it to the LastRenewedAt field.
+func (o *FindTlsCertificate200ResponseDataInner) SetLastRenewedAt(v time.Time) {
+	o.LastRenewedAt = &v
+}
+
+// GetProviderCertId returns the ProviderCertId field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetProviderCertId() string {
+	if o == nil || IsNil(o.ProviderCertId) {
+		var ret string
+		return ret
+	}
+	return *o.ProviderCertId
+}
+
+// GetProviderCertIdOk returns a tuple with the ProviderCertId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetProviderCertIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ProviderCertId) {
+		return nil, false
+	}
+	return o.ProviderCertId, true
+}
+
+// HasProviderCertId returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasProviderCertId() bool {
+	if o != nil && !IsNil(o.ProviderCertId) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderCertId gets a reference to the given string and assigns it to the ProviderCertId field.
+func (o *FindTlsCertificate200ResponseDataInner) SetProviderCertId(v string) {
+	o.ProviderCertId = &v
+}
+
+// GetDnsZone returns the DnsZone field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetDnsZone() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.DnsZone) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.DnsZone
+}
+
+// GetDnsZoneOk returns a tuple with the DnsZone field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetDnsZoneOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.DnsZone) {
+		return nil, false
+	}
+	return o.DnsZone, true
+}
+
+// HasDnsZone returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasDnsZone() bool {
+	if o != nil && !IsNil(o.DnsZone) {
+		return true
+	}
+
+	return false
+}
+
+// SetDnsZone gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the DnsZone field.
+func (o *FindTlsCertificate200ResponseDataInner) SetDnsZone(v CreateAccessReviewRequestDataReviewer) {
+	o.DnsZone = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindTlsCertificate200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetSanDomains returns the SanDomains field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindTlsCertificate200ResponseDataInner) GetSanDomains() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.SanDomains
+}
+
+// GetSanDomainsOk returns a tuple with the SanDomains field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindTlsCertificate200ResponseDataInner) GetSanDomainsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.SanDomains) {
+		return nil, false
+	}
+	return &o.SanDomains, true
+}
+
+// HasSanDomains returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasSanDomains() bool {
+	if o != nil && !IsNil(o.SanDomains) {
+		return true
+	}
+
+	return false
+}
+
+// SetSanDomains gets a reference to the given interface{} and assigns it to the SanDomains field.
+func (o *FindTlsCertificate200ResponseDataInner) SetSanDomains(v interface{}) {
+	o.SanDomains = v
+}
+
+// GetIssuer returns the Issuer field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetIssuer() string {
+	if o == nil || IsNil(o.Issuer) {
+		var ret string
+		return ret
+	}
+	return *o.Issuer
+}
+
+// GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetIssuerOk() (*string, bool) {
+	if o == nil || IsNil(o.Issuer) {
+		return nil, false
+	}
+	return o.Issuer, true
+}
+
+// HasIssuer returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasIssuer() bool {
+	if o != nil && !IsNil(o.Issuer) {
+		return true
+	}
+
+	return false
+}
+
+// SetIssuer gets a reference to the given string and assigns it to the Issuer field.
+func (o *FindTlsCertificate200ResponseDataInner) SetIssuer(v string) {
+	o.Issuer = &v
+}
+
+// GetLastCheckedAt returns the LastCheckedAt field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetLastCheckedAt() time.Time {
+	if o == nil || IsNil(o.LastCheckedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastCheckedAt
+}
+
+// GetLastCheckedAtOk returns a tuple with the LastCheckedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetLastCheckedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastCheckedAt) {
+		return nil, false
+	}
+	return o.LastCheckedAt, true
+}
+
+// HasLastCheckedAt returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasLastCheckedAt() bool {
+	if o != nil && !IsNil(o.LastCheckedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastCheckedAt gets a reference to the given time.Time and assigns it to the LastCheckedAt field.
+func (o *FindTlsCertificate200ResponseDataInner) SetLastCheckedAt(v time.Time) {
+	o.LastCheckedAt = &v
+}
+
+// GetRenewalError returns the RenewalError field value if set, zero value otherwise.
+func (o *FindTlsCertificate200ResponseDataInner) GetRenewalError() string {
+	if o == nil || IsNil(o.RenewalError) {
+		var ret string
+		return ret
+	}
+	return *o.RenewalError
+}
+
+// GetRenewalErrorOk returns a tuple with the RenewalError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTlsCertificate200ResponseDataInner) GetRenewalErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.RenewalError) {
+		return nil, false
+	}
+	return o.RenewalError, true
+}
+
+// HasRenewalError returns a boolean if a field has been set.
+func (o *FindTlsCertificate200ResponseDataInner) HasRenewalError() bool {
+	if o != nil && !IsNil(o.RenewalError) {
+		return true
+	}
+
+	return false
+}
+
+// SetRenewalError gets a reference to the given string and assigns it to the RenewalError field.
+func (o *FindTlsCertificate200ResponseDataInner) SetRenewalError(v string) {
+	o.RenewalError = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +561,6 @@ func (o *FindTlsCertificate200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindTlsCertificate200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindTlsCertificate200ResponseDataInner) GetAttributes() TlsCertificate {
-	if o == nil || IsNil(o.Attributes) {
-		var ret TlsCertificate
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindTlsCertificate200ResponseDataInner) GetAttributesOk() (*TlsCertificate, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindTlsCertificate200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given TlsCertificate and assigns it to the Attributes field.
-func (o *FindTlsCertificate200ResponseDataInner) SetAttributes(v TlsCertificate) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +679,49 @@ func (o FindTlsCertificate200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindTlsCertificate200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["domain"] = o.Domain
+	toSerialize["provider"] = o.Provider
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.IssuedAt) {
+		toSerialize["issued_at"] = o.IssuedAt
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.AutoRenew) {
+		toSerialize["auto_renew"] = o.AutoRenew
+	}
+	if !IsNil(o.LastRenewedAt) {
+		toSerialize["last_renewed_at"] = o.LastRenewedAt
+	}
+	if !IsNil(o.ProviderCertId) {
+		toSerialize["provider_cert_id"] = o.ProviderCertId
+	}
+	if !IsNil(o.DnsZone) {
+		toSerialize["dns_zone"] = o.DnsZone
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if o.SanDomains != nil {
+		toSerialize["san_domains"] = o.SanDomains
+	}
+	if !IsNil(o.Issuer) {
+		toSerialize["issuer"] = o.Issuer
+	}
+	if !IsNil(o.LastCheckedAt) {
+		toSerialize["last_checked_at"] = o.LastCheckedAt
+	}
+	if !IsNil(o.RenewalError) {
+		toSerialize["renewal_error"] = o.RenewalError
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +733,44 @@ func (o FindTlsCertificate200ResponseDataInner) ToMap() (map[string]interface{},
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindTlsCertificate200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"domain",
+		"provider",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindTlsCertificate200ResponseDataInner := _FindTlsCertificate200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindTlsCertificate200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindTlsCertificate200ResponseDataInner(varFindTlsCertificate200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindTlsCertificate200ResponseDataInner struct {

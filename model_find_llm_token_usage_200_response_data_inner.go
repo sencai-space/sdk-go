@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindLlmTokenUsage200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindLlmTokenUsage200ResponseDataInner{}
 
 // FindLlmTokenUsage200ResponseDataInner struct for FindLlmTokenUsage200ResponseDataInner
 type FindLlmTokenUsage200ResponseDataInner struct {
+	Model string `json:"model"`
+	Provider string `json:"provider"`
+	InputTokens *int32 `json:"input_tokens,omitempty"`
+	OutputTokens *int32 `json:"output_tokens,omitempty"`
+	TotalTokens *int32 `json:"total_tokens,omitempty"`
+	CostUsd *float32 `json:"cost_usd,omitempty"`
+	RequestId *string `json:"request_id,omitempty"`
+	Feature *string `json:"feature,omitempty"`
+	BudgetExceeded *bool `json:"budget_exceeded,omitempty"`
+	HallucinationRisk *bool `json:"hallucination_risk,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *LlmTokenUsage `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindLlmTokenUsage200ResponseDataInner FindLlmTokenUsage200ResponseDataInner
+
 // NewFindLlmTokenUsage200ResponseDataInner instantiates a new FindLlmTokenUsage200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindLlmTokenUsage200ResponseDataInner() *FindLlmTokenUsage200ResponseDataInner {
+func NewFindLlmTokenUsage200ResponseDataInner(model string, provider string) *FindLlmTokenUsage200ResponseDataInner {
 	this := FindLlmTokenUsage200ResponseDataInner{}
+	this.Model = model
+	this.Provider = provider
 	return &this
 }
 
@@ -44,6 +60,342 @@ func NewFindLlmTokenUsage200ResponseDataInner() *FindLlmTokenUsage200ResponseDat
 func NewFindLlmTokenUsage200ResponseDataInnerWithDefaults() *FindLlmTokenUsage200ResponseDataInner {
 	this := FindLlmTokenUsage200ResponseDataInner{}
 	return &this
+}
+
+// GetModel returns the Model field value
+func (o *FindLlmTokenUsage200ResponseDataInner) GetModel() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Model
+}
+
+// GetModelOk returns a tuple with the Model field value
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetModelOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Model, true
+}
+
+// SetModel sets field value
+func (o *FindLlmTokenUsage200ResponseDataInner) SetModel(v string) {
+	o.Model = v
+}
+
+// GetProvider returns the Provider field value
+func (o *FindLlmTokenUsage200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindLlmTokenUsage200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetInputTokens returns the InputTokens field value if set, zero value otherwise.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetInputTokens() int32 {
+	if o == nil || IsNil(o.InputTokens) {
+		var ret int32
+		return ret
+	}
+	return *o.InputTokens
+}
+
+// GetInputTokensOk returns a tuple with the InputTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetInputTokensOk() (*int32, bool) {
+	if o == nil || IsNil(o.InputTokens) {
+		return nil, false
+	}
+	return o.InputTokens, true
+}
+
+// HasInputTokens returns a boolean if a field has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) HasInputTokens() bool {
+	if o != nil && !IsNil(o.InputTokens) {
+		return true
+	}
+
+	return false
+}
+
+// SetInputTokens gets a reference to the given int32 and assigns it to the InputTokens field.
+func (o *FindLlmTokenUsage200ResponseDataInner) SetInputTokens(v int32) {
+	o.InputTokens = &v
+}
+
+// GetOutputTokens returns the OutputTokens field value if set, zero value otherwise.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetOutputTokens() int32 {
+	if o == nil || IsNil(o.OutputTokens) {
+		var ret int32
+		return ret
+	}
+	return *o.OutputTokens
+}
+
+// GetOutputTokensOk returns a tuple with the OutputTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetOutputTokensOk() (*int32, bool) {
+	if o == nil || IsNil(o.OutputTokens) {
+		return nil, false
+	}
+	return o.OutputTokens, true
+}
+
+// HasOutputTokens returns a boolean if a field has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) HasOutputTokens() bool {
+	if o != nil && !IsNil(o.OutputTokens) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputTokens gets a reference to the given int32 and assigns it to the OutputTokens field.
+func (o *FindLlmTokenUsage200ResponseDataInner) SetOutputTokens(v int32) {
+	o.OutputTokens = &v
+}
+
+// GetTotalTokens returns the TotalTokens field value if set, zero value otherwise.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetTotalTokens() int32 {
+	if o == nil || IsNil(o.TotalTokens) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalTokens
+}
+
+// GetTotalTokensOk returns a tuple with the TotalTokens field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetTotalTokensOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalTokens) {
+		return nil, false
+	}
+	return o.TotalTokens, true
+}
+
+// HasTotalTokens returns a boolean if a field has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) HasTotalTokens() bool {
+	if o != nil && !IsNil(o.TotalTokens) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalTokens gets a reference to the given int32 and assigns it to the TotalTokens field.
+func (o *FindLlmTokenUsage200ResponseDataInner) SetTotalTokens(v int32) {
+	o.TotalTokens = &v
+}
+
+// GetCostUsd returns the CostUsd field value if set, zero value otherwise.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetCostUsd() float32 {
+	if o == nil || IsNil(o.CostUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.CostUsd
+}
+
+// GetCostUsdOk returns a tuple with the CostUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetCostUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.CostUsd) {
+		return nil, false
+	}
+	return o.CostUsd, true
+}
+
+// HasCostUsd returns a boolean if a field has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) HasCostUsd() bool {
+	if o != nil && !IsNil(o.CostUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetCostUsd gets a reference to the given float32 and assigns it to the CostUsd field.
+func (o *FindLlmTokenUsage200ResponseDataInner) SetCostUsd(v float32) {
+	o.CostUsd = &v
+}
+
+// GetRequestId returns the RequestId field value if set, zero value otherwise.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetRequestId() string {
+	if o == nil || IsNil(o.RequestId) {
+		var ret string
+		return ret
+	}
+	return *o.RequestId
+}
+
+// GetRequestIdOk returns a tuple with the RequestId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetRequestIdOk() (*string, bool) {
+	if o == nil || IsNil(o.RequestId) {
+		return nil, false
+	}
+	return o.RequestId, true
+}
+
+// HasRequestId returns a boolean if a field has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) HasRequestId() bool {
+	if o != nil && !IsNil(o.RequestId) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestId gets a reference to the given string and assigns it to the RequestId field.
+func (o *FindLlmTokenUsage200ResponseDataInner) SetRequestId(v string) {
+	o.RequestId = &v
+}
+
+// GetFeature returns the Feature field value if set, zero value otherwise.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetFeature() string {
+	if o == nil || IsNil(o.Feature) {
+		var ret string
+		return ret
+	}
+	return *o.Feature
+}
+
+// GetFeatureOk returns a tuple with the Feature field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetFeatureOk() (*string, bool) {
+	if o == nil || IsNil(o.Feature) {
+		return nil, false
+	}
+	return o.Feature, true
+}
+
+// HasFeature returns a boolean if a field has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) HasFeature() bool {
+	if o != nil && !IsNil(o.Feature) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeature gets a reference to the given string and assigns it to the Feature field.
+func (o *FindLlmTokenUsage200ResponseDataInner) SetFeature(v string) {
+	o.Feature = &v
+}
+
+// GetBudgetExceeded returns the BudgetExceeded field value if set, zero value otherwise.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetBudgetExceeded() bool {
+	if o == nil || IsNil(o.BudgetExceeded) {
+		var ret bool
+		return ret
+	}
+	return *o.BudgetExceeded
+}
+
+// GetBudgetExceededOk returns a tuple with the BudgetExceeded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetBudgetExceededOk() (*bool, bool) {
+	if o == nil || IsNil(o.BudgetExceeded) {
+		return nil, false
+	}
+	return o.BudgetExceeded, true
+}
+
+// HasBudgetExceeded returns a boolean if a field has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) HasBudgetExceeded() bool {
+	if o != nil && !IsNil(o.BudgetExceeded) {
+		return true
+	}
+
+	return false
+}
+
+// SetBudgetExceeded gets a reference to the given bool and assigns it to the BudgetExceeded field.
+func (o *FindLlmTokenUsage200ResponseDataInner) SetBudgetExceeded(v bool) {
+	o.BudgetExceeded = &v
+}
+
+// GetHallucinationRisk returns the HallucinationRisk field value if set, zero value otherwise.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetHallucinationRisk() bool {
+	if o == nil || IsNil(o.HallucinationRisk) {
+		var ret bool
+		return ret
+	}
+	return *o.HallucinationRisk
+}
+
+// GetHallucinationRiskOk returns a tuple with the HallucinationRisk field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetHallucinationRiskOk() (*bool, bool) {
+	if o == nil || IsNil(o.HallucinationRisk) {
+		return nil, false
+	}
+	return o.HallucinationRisk, true
+}
+
+// HasHallucinationRisk returns a boolean if a field has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) HasHallucinationRisk() bool {
+	if o != nil && !IsNil(o.HallucinationRisk) {
+		return true
+	}
+
+	return false
+}
+
+// SetHallucinationRisk gets a reference to the given bool and assigns it to the HallucinationRisk field.
+func (o *FindLlmTokenUsage200ResponseDataInner) SetHallucinationRisk(v bool) {
+	o.HallucinationRisk = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindLlmTokenUsage200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindLlmTokenUsage200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +460,6 @@ func (o *FindLlmTokenUsage200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindLlmTokenUsage200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindLlmTokenUsage200ResponseDataInner) GetAttributes() LlmTokenUsage {
-	if o == nil || IsNil(o.Attributes) {
-		var ret LlmTokenUsage
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindLlmTokenUsage200ResponseDataInner) GetAttributesOk() (*LlmTokenUsage, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindLlmTokenUsage200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given LlmTokenUsage and assigns it to the Attributes field.
-func (o *FindLlmTokenUsage200ResponseDataInner) SetAttributes(v LlmTokenUsage) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +578,40 @@ func (o FindLlmTokenUsage200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindLlmTokenUsage200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["model"] = o.Model
+	toSerialize["provider"] = o.Provider
+	if !IsNil(o.InputTokens) {
+		toSerialize["input_tokens"] = o.InputTokens
+	}
+	if !IsNil(o.OutputTokens) {
+		toSerialize["output_tokens"] = o.OutputTokens
+	}
+	if !IsNil(o.TotalTokens) {
+		toSerialize["total_tokens"] = o.TotalTokens
+	}
+	if !IsNil(o.CostUsd) {
+		toSerialize["cost_usd"] = o.CostUsd
+	}
+	if !IsNil(o.RequestId) {
+		toSerialize["request_id"] = o.RequestId
+	}
+	if !IsNil(o.Feature) {
+		toSerialize["feature"] = o.Feature
+	}
+	if !IsNil(o.BudgetExceeded) {
+		toSerialize["budget_exceeded"] = o.BudgetExceeded
+	}
+	if !IsNil(o.HallucinationRisk) {
+		toSerialize["hallucination_risk"] = o.HallucinationRisk
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +623,44 @@ func (o FindLlmTokenUsage200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindLlmTokenUsage200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"model",
+		"provider",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindLlmTokenUsage200ResponseDataInner := _FindLlmTokenUsage200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindLlmTokenUsage200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindLlmTokenUsage200ResponseDataInner(varFindLlmTokenUsage200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindLlmTokenUsage200ResponseDataInner struct {

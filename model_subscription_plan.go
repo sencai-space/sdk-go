@@ -30,7 +30,8 @@ type SubscriptionPlan struct {
 	MaxMembers *int32 `json:"max_members,omitempty"`
 	MaxMonthlyBudget *float32 `json:"max_monthly_budget,omitempty"`
 	MaxAgents *int32 `json:"max_agents,omitempty"`
-	Features map[string]interface{} `json:"features,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Features interface{} `json:"features,omitempty"`
 	IsPublic *bool `json:"is_public,omitempty"`
 	StripePriceId *string `json:"stripe_price_id,omitempty"`
 }
@@ -296,10 +297,10 @@ func (o *SubscriptionPlan) SetMaxAgents(v int32) {
 	o.MaxAgents = &v
 }
 
-// GetFeatures returns the Features field value if set, zero value otherwise.
-func (o *SubscriptionPlan) GetFeatures() map[string]interface{} {
-	if o == nil || IsNil(o.Features) {
-		var ret map[string]interface{}
+// GetFeatures returns the Features field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SubscriptionPlan) GetFeatures() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Features
@@ -307,11 +308,12 @@ func (o *SubscriptionPlan) GetFeatures() map[string]interface{} {
 
 // GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubscriptionPlan) GetFeaturesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SubscriptionPlan) GetFeaturesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Features) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Features, true
+	return &o.Features, true
 }
 
 // HasFeatures returns a boolean if a field has been set.
@@ -323,8 +325,8 @@ func (o *SubscriptionPlan) HasFeatures() bool {
 	return false
 }
 
-// SetFeatures gets a reference to the given map[string]interface{} and assigns it to the Features field.
-func (o *SubscriptionPlan) SetFeatures(v map[string]interface{}) {
+// SetFeatures gets a reference to the given interface{} and assigns it to the Features field.
+func (o *SubscriptionPlan) SetFeatures(v interface{}) {
 	o.Features = v
 }
 
@@ -422,7 +424,7 @@ func (o SubscriptionPlan) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MaxAgents) {
 		toSerialize["max_agents"] = o.MaxAgents
 	}
-	if !IsNil(o.Features) {
+	if o.Features != nil {
 		toSerialize["features"] = o.Features
 	}
 	if !IsNil(o.IsPublic) {

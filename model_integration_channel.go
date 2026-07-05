@@ -27,8 +27,10 @@ type IntegrationChannel struct {
 	Description *string `json:"description,omitempty"`
 	Type string `json:"type"`
 	EndpointUrl string `json:"endpoint_url"`
-	TriggerEvents map[string]interface{} `json:"trigger_events,omitempty"`
-	PayloadTemplate map[string]interface{} `json:"payload_template,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	TriggerEvents interface{} `json:"trigger_events,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	PayloadTemplate interface{} `json:"payload_template,omitempty"`
 	AuthHeaderName *string `json:"auth_header_name,omitempty"`
 	AuthHeaderValue *string `json:"auth_header_value,omitempty"`
 	IsEnabled *bool `json:"is_enabled,omitempty"`
@@ -169,10 +171,10 @@ func (o *IntegrationChannel) SetEndpointUrl(v string) {
 	o.EndpointUrl = v
 }
 
-// GetTriggerEvents returns the TriggerEvents field value if set, zero value otherwise.
-func (o *IntegrationChannel) GetTriggerEvents() map[string]interface{} {
-	if o == nil || IsNil(o.TriggerEvents) {
-		var ret map[string]interface{}
+// GetTriggerEvents returns the TriggerEvents field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *IntegrationChannel) GetTriggerEvents() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.TriggerEvents
@@ -180,11 +182,12 @@ func (o *IntegrationChannel) GetTriggerEvents() map[string]interface{} {
 
 // GetTriggerEventsOk returns a tuple with the TriggerEvents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IntegrationChannel) GetTriggerEventsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *IntegrationChannel) GetTriggerEventsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.TriggerEvents) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.TriggerEvents, true
+	return &o.TriggerEvents, true
 }
 
 // HasTriggerEvents returns a boolean if a field has been set.
@@ -196,15 +199,15 @@ func (o *IntegrationChannel) HasTriggerEvents() bool {
 	return false
 }
 
-// SetTriggerEvents gets a reference to the given map[string]interface{} and assigns it to the TriggerEvents field.
-func (o *IntegrationChannel) SetTriggerEvents(v map[string]interface{}) {
+// SetTriggerEvents gets a reference to the given interface{} and assigns it to the TriggerEvents field.
+func (o *IntegrationChannel) SetTriggerEvents(v interface{}) {
 	o.TriggerEvents = v
 }
 
-// GetPayloadTemplate returns the PayloadTemplate field value if set, zero value otherwise.
-func (o *IntegrationChannel) GetPayloadTemplate() map[string]interface{} {
-	if o == nil || IsNil(o.PayloadTemplate) {
-		var ret map[string]interface{}
+// GetPayloadTemplate returns the PayloadTemplate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *IntegrationChannel) GetPayloadTemplate() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.PayloadTemplate
@@ -212,11 +215,12 @@ func (o *IntegrationChannel) GetPayloadTemplate() map[string]interface{} {
 
 // GetPayloadTemplateOk returns a tuple with the PayloadTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IntegrationChannel) GetPayloadTemplateOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *IntegrationChannel) GetPayloadTemplateOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.PayloadTemplate) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.PayloadTemplate, true
+	return &o.PayloadTemplate, true
 }
 
 // HasPayloadTemplate returns a boolean if a field has been set.
@@ -228,8 +232,8 @@ func (o *IntegrationChannel) HasPayloadTemplate() bool {
 	return false
 }
 
-// SetPayloadTemplate gets a reference to the given map[string]interface{} and assigns it to the PayloadTemplate field.
-func (o *IntegrationChannel) SetPayloadTemplate(v map[string]interface{}) {
+// SetPayloadTemplate gets a reference to the given interface{} and assigns it to the PayloadTemplate field.
+func (o *IntegrationChannel) SetPayloadTemplate(v interface{}) {
 	o.PayloadTemplate = v
 }
 
@@ -633,10 +637,10 @@ func (o IntegrationChannel) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["type"] = o.Type
 	toSerialize["endpoint_url"] = o.EndpointUrl
-	if !IsNil(o.TriggerEvents) {
+	if o.TriggerEvents != nil {
 		toSerialize["trigger_events"] = o.TriggerEvents
 	}
-	if !IsNil(o.PayloadTemplate) {
+	if o.PayloadTemplate != nil {
 		toSerialize["payload_template"] = o.PayloadTemplate
 	}
 	if !IsNil(o.AuthHeaderName) {

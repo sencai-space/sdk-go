@@ -30,7 +30,8 @@ type CreateFleetCohortRequestData struct {
 	FleetdmPolicyId *string `json:"fleetdm_policy_id,omitempty"`
 	Status *string `json:"status,omitempty"`
 	HostCount *int32 `json:"host_count,omitempty"`
-	LastResult map[string]interface{} `json:"last_result,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	LastResult interface{} `json:"last_result,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
 
@@ -302,10 +303,10 @@ func (o *CreateFleetCohortRequestData) SetHostCount(v int32) {
 	o.HostCount = &v
 }
 
-// GetLastResult returns the LastResult field value if set, zero value otherwise.
-func (o *CreateFleetCohortRequestData) GetLastResult() map[string]interface{} {
-	if o == nil || IsNil(o.LastResult) {
-		var ret map[string]interface{}
+// GetLastResult returns the LastResult field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateFleetCohortRequestData) GetLastResult() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.LastResult
@@ -313,11 +314,12 @@ func (o *CreateFleetCohortRequestData) GetLastResult() map[string]interface{} {
 
 // GetLastResultOk returns a tuple with the LastResult field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateFleetCohortRequestData) GetLastResultOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateFleetCohortRequestData) GetLastResultOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.LastResult) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.LastResult, true
+	return &o.LastResult, true
 }
 
 // HasLastResult returns a boolean if a field has been set.
@@ -329,8 +331,8 @@ func (o *CreateFleetCohortRequestData) HasLastResult() bool {
 	return false
 }
 
-// SetLastResult gets a reference to the given map[string]interface{} and assigns it to the LastResult field.
-func (o *CreateFleetCohortRequestData) SetLastResult(v map[string]interface{}) {
+// SetLastResult gets a reference to the given interface{} and assigns it to the LastResult field.
+func (o *CreateFleetCohortRequestData) SetLastResult(v interface{}) {
 	o.LastResult = v
 }
 
@@ -398,7 +400,7 @@ func (o CreateFleetCohortRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.HostCount) {
 		toSerialize["host_count"] = o.HostCount
 	}
-	if !IsNil(o.LastResult) {
+	if o.LastResult != nil {
 		toSerialize["last_result"] = o.LastResult
 	}
 	if !IsNil(o.Organisation) {

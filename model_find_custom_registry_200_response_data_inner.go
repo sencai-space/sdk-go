@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCustomRegistry200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,42 @@ var _ MappedNullable = &FindCustomRegistry200ResponseDataInner{}
 
 // FindCustomRegistry200ResponseDataInner struct for FindCustomRegistry200ResponseDataInner
 type FindCustomRegistry200ResponseDataInner struct {
+	Name string `json:"name"`
+	Url string `json:"url"`
+	// Username for Basic auth (e.g. 'oauth2' for GitLab PAT). Leave empty to use token as Bearer.
+	Username *string `json:"username,omitempty"`
+	// Encrypted authentication token (PAT or password). Never returned in API responses.
+	Token *string `json:"token,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	Status *string `json:"status,omitempty"`
+	LastChecked *time.Time `json:"last_checked,omitempty"`
+	ErrorMessage *string `json:"error_message,omitempty"`
+	// Optional: GitLab/Harbor API base URL for registry discovery (e.g. https://gitlab.example.com). Required for full repository auto-discovery.
+	ApiUrl *string `json:"api_url,omitempty"`
+	// Soft-delete flag. Set to false instead of deleting the record.
+	IsActive *bool `json:"is_active,omitempty"`
+	// Logical data-residency region of the tenant (CELL invariant, F2.CELL.01)
+	HomeRegion string `json:"home_region"`
+	// Deployment cell within home_region for blast-radius isolation (CELL invariant, F2.CELL.01)
+	CellId *string `json:"cell_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CustomRegistry `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCustomRegistry200ResponseDataInner FindCustomRegistry200ResponseDataInner
+
 // NewFindCustomRegistry200ResponseDataInner instantiates a new FindCustomRegistry200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCustomRegistry200ResponseDataInner() *FindCustomRegistry200ResponseDataInner {
+func NewFindCustomRegistry200ResponseDataInner(name string, url string, homeRegion string) *FindCustomRegistry200ResponseDataInner {
 	this := FindCustomRegistry200ResponseDataInner{}
+	this.Name = name
+	this.Url = url
+	this.HomeRegion = homeRegion
 	return &this
 }
 
@@ -44,6 +68,366 @@ func NewFindCustomRegistry200ResponseDataInner() *FindCustomRegistry200ResponseD
 func NewFindCustomRegistry200ResponseDataInnerWithDefaults() *FindCustomRegistry200ResponseDataInner {
 	this := FindCustomRegistry200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCustomRegistry200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCustomRegistry200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetUrl returns the Url field value
+func (o *FindCustomRegistry200ResponseDataInner) GetUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Url, true
+}
+
+// SetUrl sets field value
+func (o *FindCustomRegistry200ResponseDataInner) SetUrl(v string) {
+	o.Url = v
+}
+
+// GetUsername returns the Username field value if set, zero value otherwise.
+func (o *FindCustomRegistry200ResponseDataInner) GetUsername() string {
+	if o == nil || IsNil(o.Username) {
+		var ret string
+		return ret
+	}
+	return *o.Username
+}
+
+// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetUsernameOk() (*string, bool) {
+	if o == nil || IsNil(o.Username) {
+		return nil, false
+	}
+	return o.Username, true
+}
+
+// HasUsername returns a boolean if a field has been set.
+func (o *FindCustomRegistry200ResponseDataInner) HasUsername() bool {
+	if o != nil && !IsNil(o.Username) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsername gets a reference to the given string and assigns it to the Username field.
+func (o *FindCustomRegistry200ResponseDataInner) SetUsername(v string) {
+	o.Username = &v
+}
+
+// GetToken returns the Token field value if set, zero value otherwise.
+func (o *FindCustomRegistry200ResponseDataInner) GetToken() string {
+	if o == nil || IsNil(o.Token) {
+		var ret string
+		return ret
+	}
+	return *o.Token
+}
+
+// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.Token) {
+		return nil, false
+	}
+	return o.Token, true
+}
+
+// HasToken returns a boolean if a field has been set.
+func (o *FindCustomRegistry200ResponseDataInner) HasToken() bool {
+	if o != nil && !IsNil(o.Token) {
+		return true
+	}
+
+	return false
+}
+
+// SetToken gets a reference to the given string and assigns it to the Token field.
+func (o *FindCustomRegistry200ResponseDataInner) SetToken(v string) {
+	o.Token = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCustomRegistry200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCustomRegistry200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCustomRegistry200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindCustomRegistry200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindCustomRegistry200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindCustomRegistry200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetLastChecked returns the LastChecked field value if set, zero value otherwise.
+func (o *FindCustomRegistry200ResponseDataInner) GetLastChecked() time.Time {
+	if o == nil || IsNil(o.LastChecked) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastChecked
+}
+
+// GetLastCheckedOk returns a tuple with the LastChecked field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetLastCheckedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastChecked) {
+		return nil, false
+	}
+	return o.LastChecked, true
+}
+
+// HasLastChecked returns a boolean if a field has been set.
+func (o *FindCustomRegistry200ResponseDataInner) HasLastChecked() bool {
+	if o != nil && !IsNil(o.LastChecked) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastChecked gets a reference to the given time.Time and assigns it to the LastChecked field.
+func (o *FindCustomRegistry200ResponseDataInner) SetLastChecked(v time.Time) {
+	o.LastChecked = &v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindCustomRegistry200ResponseDataInner) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindCustomRegistry200ResponseDataInner) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindCustomRegistry200ResponseDataInner) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
+// GetApiUrl returns the ApiUrl field value if set, zero value otherwise.
+func (o *FindCustomRegistry200ResponseDataInner) GetApiUrl() string {
+	if o == nil || IsNil(o.ApiUrl) {
+		var ret string
+		return ret
+	}
+	return *o.ApiUrl
+}
+
+// GetApiUrlOk returns a tuple with the ApiUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetApiUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.ApiUrl) {
+		return nil, false
+	}
+	return o.ApiUrl, true
+}
+
+// HasApiUrl returns a boolean if a field has been set.
+func (o *FindCustomRegistry200ResponseDataInner) HasApiUrl() bool {
+	if o != nil && !IsNil(o.ApiUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetApiUrl gets a reference to the given string and assigns it to the ApiUrl field.
+func (o *FindCustomRegistry200ResponseDataInner) SetApiUrl(v string) {
+	o.ApiUrl = &v
+}
+
+// GetIsActive returns the IsActive field value if set, zero value otherwise.
+func (o *FindCustomRegistry200ResponseDataInner) GetIsActive() bool {
+	if o == nil || IsNil(o.IsActive) {
+		var ret bool
+		return ret
+	}
+	return *o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetIsActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsActive) {
+		return nil, false
+	}
+	return o.IsActive, true
+}
+
+// HasIsActive returns a boolean if a field has been set.
+func (o *FindCustomRegistry200ResponseDataInner) HasIsActive() bool {
+	if o != nil && !IsNil(o.IsActive) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsActive gets a reference to the given bool and assigns it to the IsActive field.
+func (o *FindCustomRegistry200ResponseDataInner) SetIsActive(v bool) {
+	o.IsActive = &v
+}
+
+// GetHomeRegion returns the HomeRegion field value
+func (o *FindCustomRegistry200ResponseDataInner) GetHomeRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.HomeRegion
+}
+
+// GetHomeRegionOk returns a tuple with the HomeRegion field value
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetHomeRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HomeRegion, true
+}
+
+// SetHomeRegion sets field value
+func (o *FindCustomRegistry200ResponseDataInner) SetHomeRegion(v string) {
+	o.HomeRegion = v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindCustomRegistry200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCustomRegistry200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindCustomRegistry200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindCustomRegistry200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +492,6 @@ func (o *FindCustomRegistry200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCustomRegistry200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCustomRegistry200ResponseDataInner) GetAttributes() CustomRegistry {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CustomRegistry
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCustomRegistry200ResponseDataInner) GetAttributesOk() (*CustomRegistry, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCustomRegistry200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CustomRegistry and assigns it to the Attributes field.
-func (o *FindCustomRegistry200ResponseDataInner) SetAttributes(v CustomRegistry) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +610,41 @@ func (o FindCustomRegistry200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCustomRegistry200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["url"] = o.Url
+	if !IsNil(o.Username) {
+		toSerialize["username"] = o.Username
+	}
+	if !IsNil(o.Token) {
+		toSerialize["token"] = o.Token
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.LastChecked) {
+		toSerialize["last_checked"] = o.LastChecked
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
+	if !IsNil(o.ApiUrl) {
+		toSerialize["api_url"] = o.ApiUrl
+	}
+	if !IsNil(o.IsActive) {
+		toSerialize["is_active"] = o.IsActive
+	}
+	toSerialize["home_region"] = o.HomeRegion
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +656,45 @@ func (o FindCustomRegistry200ResponseDataInner) ToMap() (map[string]interface{},
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCustomRegistry200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"url",
+		"home_region",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCustomRegistry200ResponseDataInner := _FindCustomRegistry200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCustomRegistry200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCustomRegistry200ResponseDataInner(varFindCustomRegistry200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCustomRegistry200ResponseDataInner struct {

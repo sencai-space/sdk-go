@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCodeReviewRequest200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindCodeReviewRequest200ResponseDataInner{}
 
 // FindCodeReviewRequest200ResponseDataInner struct for FindCodeReviewRequest200ResponseDataInner
 type FindCodeReviewRequest200ResponseDataInner struct {
+	RepoUrl string `json:"repo_url"`
+	PrNumber int32 `json:"pr_number"`
+	PrTitle *string `json:"pr_title,omitempty"`
+	DiffPatch *string `json:"diff_patch,omitempty"`
+	Status string `json:"status"`
+	ReviewSummary *string `json:"review_summary,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Issues interface{} `json:"issues,omitempty"`
+	Score *int32 `json:"score,omitempty"`
+	ModelUsed *string `json:"model_used,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CodeReviewRequest `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCodeReviewRequest200ResponseDataInner FindCodeReviewRequest200ResponseDataInner
+
 // NewFindCodeReviewRequest200ResponseDataInner instantiates a new FindCodeReviewRequest200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCodeReviewRequest200ResponseDataInner() *FindCodeReviewRequest200ResponseDataInner {
+func NewFindCodeReviewRequest200ResponseDataInner(repoUrl string, prNumber int32, status string) *FindCodeReviewRequest200ResponseDataInner {
 	this := FindCodeReviewRequest200ResponseDataInner{}
+	this.RepoUrl = repoUrl
+	this.PrNumber = prNumber
+	this.Status = status
 	return &this
 }
 
@@ -44,6 +61,303 @@ func NewFindCodeReviewRequest200ResponseDataInner() *FindCodeReviewRequest200Res
 func NewFindCodeReviewRequest200ResponseDataInnerWithDefaults() *FindCodeReviewRequest200ResponseDataInner {
 	this := FindCodeReviewRequest200ResponseDataInner{}
 	return &this
+}
+
+// GetRepoUrl returns the RepoUrl field value
+func (o *FindCodeReviewRequest200ResponseDataInner) GetRepoUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RepoUrl
+}
+
+// GetRepoUrlOk returns a tuple with the RepoUrl field value
+// and a boolean to check if the value has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetRepoUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RepoUrl, true
+}
+
+// SetRepoUrl sets field value
+func (o *FindCodeReviewRequest200ResponseDataInner) SetRepoUrl(v string) {
+	o.RepoUrl = v
+}
+
+// GetPrNumber returns the PrNumber field value
+func (o *FindCodeReviewRequest200ResponseDataInner) GetPrNumber() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.PrNumber
+}
+
+// GetPrNumberOk returns a tuple with the PrNumber field value
+// and a boolean to check if the value has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetPrNumberOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PrNumber, true
+}
+
+// SetPrNumber sets field value
+func (o *FindCodeReviewRequest200ResponseDataInner) SetPrNumber(v int32) {
+	o.PrNumber = v
+}
+
+// GetPrTitle returns the PrTitle field value if set, zero value otherwise.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetPrTitle() string {
+	if o == nil || IsNil(o.PrTitle) {
+		var ret string
+		return ret
+	}
+	return *o.PrTitle
+}
+
+// GetPrTitleOk returns a tuple with the PrTitle field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetPrTitleOk() (*string, bool) {
+	if o == nil || IsNil(o.PrTitle) {
+		return nil, false
+	}
+	return o.PrTitle, true
+}
+
+// HasPrTitle returns a boolean if a field has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) HasPrTitle() bool {
+	if o != nil && !IsNil(o.PrTitle) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrTitle gets a reference to the given string and assigns it to the PrTitle field.
+func (o *FindCodeReviewRequest200ResponseDataInner) SetPrTitle(v string) {
+	o.PrTitle = &v
+}
+
+// GetDiffPatch returns the DiffPatch field value if set, zero value otherwise.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetDiffPatch() string {
+	if o == nil || IsNil(o.DiffPatch) {
+		var ret string
+		return ret
+	}
+	return *o.DiffPatch
+}
+
+// GetDiffPatchOk returns a tuple with the DiffPatch field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetDiffPatchOk() (*string, bool) {
+	if o == nil || IsNil(o.DiffPatch) {
+		return nil, false
+	}
+	return o.DiffPatch, true
+}
+
+// HasDiffPatch returns a boolean if a field has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) HasDiffPatch() bool {
+	if o != nil && !IsNil(o.DiffPatch) {
+		return true
+	}
+
+	return false
+}
+
+// SetDiffPatch gets a reference to the given string and assigns it to the DiffPatch field.
+func (o *FindCodeReviewRequest200ResponseDataInner) SetDiffPatch(v string) {
+	o.DiffPatch = &v
+}
+
+// GetStatus returns the Status field value
+func (o *FindCodeReviewRequest200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindCodeReviewRequest200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetReviewSummary returns the ReviewSummary field value if set, zero value otherwise.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetReviewSummary() string {
+	if o == nil || IsNil(o.ReviewSummary) {
+		var ret string
+		return ret
+	}
+	return *o.ReviewSummary
+}
+
+// GetReviewSummaryOk returns a tuple with the ReviewSummary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetReviewSummaryOk() (*string, bool) {
+	if o == nil || IsNil(o.ReviewSummary) {
+		return nil, false
+	}
+	return o.ReviewSummary, true
+}
+
+// HasReviewSummary returns a boolean if a field has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) HasReviewSummary() bool {
+	if o != nil && !IsNil(o.ReviewSummary) {
+		return true
+	}
+
+	return false
+}
+
+// SetReviewSummary gets a reference to the given string and assigns it to the ReviewSummary field.
+func (o *FindCodeReviewRequest200ResponseDataInner) SetReviewSummary(v string) {
+	o.ReviewSummary = &v
+}
+
+// GetIssues returns the Issues field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCodeReviewRequest200ResponseDataInner) GetIssues() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Issues
+}
+
+// GetIssuesOk returns a tuple with the Issues field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCodeReviewRequest200ResponseDataInner) GetIssuesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Issues) {
+		return nil, false
+	}
+	return &o.Issues, true
+}
+
+// HasIssues returns a boolean if a field has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) HasIssues() bool {
+	if o != nil && !IsNil(o.Issues) {
+		return true
+	}
+
+	return false
+}
+
+// SetIssues gets a reference to the given interface{} and assigns it to the Issues field.
+func (o *FindCodeReviewRequest200ResponseDataInner) SetIssues(v interface{}) {
+	o.Issues = v
+}
+
+// GetScore returns the Score field value if set, zero value otherwise.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetScore() int32 {
+	if o == nil || IsNil(o.Score) {
+		var ret int32
+		return ret
+	}
+	return *o.Score
+}
+
+// GetScoreOk returns a tuple with the Score field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetScoreOk() (*int32, bool) {
+	if o == nil || IsNil(o.Score) {
+		return nil, false
+	}
+	return o.Score, true
+}
+
+// HasScore returns a boolean if a field has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) HasScore() bool {
+	if o != nil && !IsNil(o.Score) {
+		return true
+	}
+
+	return false
+}
+
+// SetScore gets a reference to the given int32 and assigns it to the Score field.
+func (o *FindCodeReviewRequest200ResponseDataInner) SetScore(v int32) {
+	o.Score = &v
+}
+
+// GetModelUsed returns the ModelUsed field value if set, zero value otherwise.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetModelUsed() string {
+	if o == nil || IsNil(o.ModelUsed) {
+		var ret string
+		return ret
+	}
+	return *o.ModelUsed
+}
+
+// GetModelUsedOk returns a tuple with the ModelUsed field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetModelUsedOk() (*string, bool) {
+	if o == nil || IsNil(o.ModelUsed) {
+		return nil, false
+	}
+	return o.ModelUsed, true
+}
+
+// HasModelUsed returns a boolean if a field has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) HasModelUsed() bool {
+	if o != nil && !IsNil(o.ModelUsed) {
+		return true
+	}
+
+	return false
+}
+
+// SetModelUsed gets a reference to the given string and assigns it to the ModelUsed field.
+func (o *FindCodeReviewRequest200ResponseDataInner) SetModelUsed(v string) {
+	o.ModelUsed = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCodeReviewRequest200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCodeReviewRequest200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +422,6 @@ func (o *FindCodeReviewRequest200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCodeReviewRequest200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCodeReviewRequest200ResponseDataInner) GetAttributes() CodeReviewRequest {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CodeReviewRequest
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCodeReviewRequest200ResponseDataInner) GetAttributesOk() (*CodeReviewRequest, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCodeReviewRequest200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CodeReviewRequest and assigns it to the Attributes field.
-func (o *FindCodeReviewRequest200ResponseDataInner) SetAttributes(v CodeReviewRequest) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +540,35 @@ func (o FindCodeReviewRequest200ResponseDataInner) MarshalJSON() ([]byte, error)
 
 func (o FindCodeReviewRequest200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["repo_url"] = o.RepoUrl
+	toSerialize["pr_number"] = o.PrNumber
+	if !IsNil(o.PrTitle) {
+		toSerialize["pr_title"] = o.PrTitle
+	}
+	if !IsNil(o.DiffPatch) {
+		toSerialize["diff_patch"] = o.DiffPatch
+	}
+	toSerialize["status"] = o.Status
+	if !IsNil(o.ReviewSummary) {
+		toSerialize["review_summary"] = o.ReviewSummary
+	}
+	if o.Issues != nil {
+		toSerialize["issues"] = o.Issues
+	}
+	if !IsNil(o.Score) {
+		toSerialize["score"] = o.Score
+	}
+	if !IsNil(o.ModelUsed) {
+		toSerialize["model_used"] = o.ModelUsed
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +580,45 @@ func (o FindCodeReviewRequest200ResponseDataInner) ToMap() (map[string]interface
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCodeReviewRequest200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"repo_url",
+		"pr_number",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCodeReviewRequest200ResponseDataInner := _FindCodeReviewRequest200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCodeReviewRequest200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCodeReviewRequest200ResponseDataInner(varFindCodeReviewRequest200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCodeReviewRequest200ResponseDataInner struct {

@@ -28,7 +28,8 @@ type Invoice struct {
 	TotalAmount float32 `json:"total_amount"`
 	Currency string `json:"currency"`
 	State string `json:"state"`
-	InvoiceItems map[string]interface{} `json:"invoice_items"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	InvoiceItems interface{} `json:"invoice_items"`
 	IssueDate time.Time `json:"issue_date"`
 	DueDate *time.Time `json:"due_date,omitempty"`
 	PaidDate *time.Time `json:"paid_date,omitempty"`
@@ -45,7 +46,7 @@ type _Invoice Invoice
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInvoice(invoiceNumber string, totalAmount float32, currency string, state string, invoiceItems map[string]interface{}, issueDate time.Time, subtotal float32) *Invoice {
+func NewInvoice(invoiceNumber string, totalAmount float32, currency string, state string, invoiceItems interface{}, issueDate time.Time, subtotal float32) *Invoice {
 	this := Invoice{}
 	this.InvoiceNumber = invoiceNumber
 	this.TotalAmount = totalAmount
@@ -194,9 +195,10 @@ func (o *Invoice) SetState(v string) {
 }
 
 // GetInvoiceItems returns the InvoiceItems field value
-func (o *Invoice) GetInvoiceItems() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *Invoice) GetInvoiceItems() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -205,15 +207,16 @@ func (o *Invoice) GetInvoiceItems() map[string]interface{} {
 
 // GetInvoiceItemsOk returns a tuple with the InvoiceItems field value
 // and a boolean to check if the value has been set.
-func (o *Invoice) GetInvoiceItemsOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Invoice) GetInvoiceItemsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.InvoiceItems) {
+		return nil, false
 	}
-	return o.InvoiceItems, true
+	return &o.InvoiceItems, true
 }
 
 // SetInvoiceItems sets field value
-func (o *Invoice) SetInvoiceItems(v map[string]interface{}) {
+func (o *Invoice) SetInvoiceItems(v interface{}) {
 	o.InvoiceItems = v
 }
 
@@ -474,7 +477,9 @@ func (o Invoice) ToMap() (map[string]interface{}, error) {
 	toSerialize["total_amount"] = o.TotalAmount
 	toSerialize["currency"] = o.Currency
 	toSerialize["state"] = o.State
-	toSerialize["invoice_items"] = o.InvoiceItems
+	if o.InvoiceItems != nil {
+		toSerialize["invoice_items"] = o.InvoiceItems
+	}
 	toSerialize["issue_date"] = o.IssueDate
 	if !IsNil(o.DueDate) {
 		toSerialize["due_date"] = o.DueDate

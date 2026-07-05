@@ -33,12 +33,12 @@ type CloudExportJob struct {
 	SkippedCount *int32 `json:"skipped_count,omitempty"`
 	// Number of records that failed to serialize for reasons other than unsupported provider (malformed record, worker-side error).
 	FailedCount *int32 `json:"failed_count,omitempty"`
-	// Set when status='failed' at the job level (e.g. worker crash, no instance_ids resolved).
+	// Set when status='failed' at the job level (e.g. worker crash, no instance_ids resolved). Also set on a 'completed' job when skipped_count > 0, carrying the skipped record name/id/reason (F4.IAC.03 worker) so a partial export is never indistinguishable from a full one.
 	ErrorMessage *string `json:"error_message,omitempty"`
 	// Generated .tf HCL text, stored directly on the record (MVP — no media/upload plugin, job records are short-lived and .tf output is typically well under a media-worthy size). TTL/retention cleanup of old jobs is a follow-up, out of v0 scope.
 	Output *string `json:"output,omitempty"`
 	// Informative array of provider names (aws/gcp/azure/hetzner) that appeared in this export's resource selection.
-	ProvidersIncluded map[string]interface{} `json:"providers_included,omitempty"`
+	ProvidersIncluded interface{} `json:"providers_included,omitempty"`
 }
 
 type _CloudExportJob CloudExportJob
@@ -334,10 +334,10 @@ func (o *CloudExportJob) SetOutput(v string) {
 	o.Output = &v
 }
 
-// GetProvidersIncluded returns the ProvidersIncluded field value if set, zero value otherwise.
-func (o *CloudExportJob) GetProvidersIncluded() map[string]interface{} {
-	if o == nil || IsNil(o.ProvidersIncluded) {
-		var ret map[string]interface{}
+// GetProvidersIncluded returns the ProvidersIncluded field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CloudExportJob) GetProvidersIncluded() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ProvidersIncluded
@@ -345,11 +345,12 @@ func (o *CloudExportJob) GetProvidersIncluded() map[string]interface{} {
 
 // GetProvidersIncludedOk returns a tuple with the ProvidersIncluded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CloudExportJob) GetProvidersIncludedOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CloudExportJob) GetProvidersIncludedOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ProvidersIncluded) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ProvidersIncluded, true
+	return &o.ProvidersIncluded, true
 }
 
 // HasProvidersIncluded returns a boolean if a field has been set.
@@ -361,8 +362,8 @@ func (o *CloudExportJob) HasProvidersIncluded() bool {
 	return false
 }
 
-// SetProvidersIncluded gets a reference to the given map[string]interface{} and assigns it to the ProvidersIncluded field.
-func (o *CloudExportJob) SetProvidersIncluded(v map[string]interface{}) {
+// SetProvidersIncluded gets a reference to the given interface{} and assigns it to the ProvidersIncluded field.
+func (o *CloudExportJob) SetProvidersIncluded(v interface{}) {
 	o.ProvidersIncluded = v
 }
 
@@ -399,7 +400,7 @@ func (o CloudExportJob) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Output) {
 		toSerialize["output"] = o.Output
 	}
-	if !IsNil(o.ProvidersIncluded) {
+	if o.ProvidersIncluded != nil {
 		toSerialize["providers_included"] = o.ProvidersIncluded
 	}
 	return toSerialize, nil

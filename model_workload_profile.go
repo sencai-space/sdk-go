@@ -28,9 +28,9 @@ type WorkloadProfile struct {
 	InstanceName *string `json:"instance_name,omitempty"`
 	ProfileType string `json:"profile_type"`
 	// Array of hour integers (0-23) when CPU/memory is high
-	PeakHours map[string]interface{} `json:"peak_hours,omitempty"`
+	PeakHours interface{} `json:"peak_hours,omitempty"`
 	// Array of hour integers (0-23) when instance is underutilised
-	IdleHours map[string]interface{} `json:"idle_hours,omitempty"`
+	IdleHours interface{} `json:"idle_hours,omitempty"`
 	AvgCpuPct *float32 `json:"avg_cpu_pct,omitempty"`
 	AvgMemoryPct *float32 `json:"avg_memory_pct,omitempty"`
 	// Current instance type e.g. m5.2xlarge
@@ -154,10 +154,10 @@ func (o *WorkloadProfile) SetProfileType(v string) {
 	o.ProfileType = v
 }
 
-// GetPeakHours returns the PeakHours field value if set, zero value otherwise.
-func (o *WorkloadProfile) GetPeakHours() map[string]interface{} {
-	if o == nil || IsNil(o.PeakHours) {
-		var ret map[string]interface{}
+// GetPeakHours returns the PeakHours field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkloadProfile) GetPeakHours() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.PeakHours
@@ -165,11 +165,12 @@ func (o *WorkloadProfile) GetPeakHours() map[string]interface{} {
 
 // GetPeakHoursOk returns a tuple with the PeakHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkloadProfile) GetPeakHoursOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkloadProfile) GetPeakHoursOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.PeakHours) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.PeakHours, true
+	return &o.PeakHours, true
 }
 
 // HasPeakHours returns a boolean if a field has been set.
@@ -181,15 +182,15 @@ func (o *WorkloadProfile) HasPeakHours() bool {
 	return false
 }
 
-// SetPeakHours gets a reference to the given map[string]interface{} and assigns it to the PeakHours field.
-func (o *WorkloadProfile) SetPeakHours(v map[string]interface{}) {
+// SetPeakHours gets a reference to the given interface{} and assigns it to the PeakHours field.
+func (o *WorkloadProfile) SetPeakHours(v interface{}) {
 	o.PeakHours = v
 }
 
-// GetIdleHours returns the IdleHours field value if set, zero value otherwise.
-func (o *WorkloadProfile) GetIdleHours() map[string]interface{} {
-	if o == nil || IsNil(o.IdleHours) {
-		var ret map[string]interface{}
+// GetIdleHours returns the IdleHours field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WorkloadProfile) GetIdleHours() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.IdleHours
@@ -197,11 +198,12 @@ func (o *WorkloadProfile) GetIdleHours() map[string]interface{} {
 
 // GetIdleHoursOk returns a tuple with the IdleHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkloadProfile) GetIdleHoursOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WorkloadProfile) GetIdleHoursOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.IdleHours) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.IdleHours, true
+	return &o.IdleHours, true
 }
 
 // HasIdleHours returns a boolean if a field has been set.
@@ -213,8 +215,8 @@ func (o *WorkloadProfile) HasIdleHours() bool {
 	return false
 }
 
-// SetIdleHours gets a reference to the given map[string]interface{} and assigns it to the IdleHours field.
-func (o *WorkloadProfile) SetIdleHours(v map[string]interface{}) {
+// SetIdleHours gets a reference to the given interface{} and assigns it to the IdleHours field.
+func (o *WorkloadProfile) SetIdleHours(v interface{}) {
 	o.IdleHours = v
 }
 
@@ -587,10 +589,10 @@ func (o WorkloadProfile) ToMap() (map[string]interface{}, error) {
 		toSerialize["instance_name"] = o.InstanceName
 	}
 	toSerialize["profile_type"] = o.ProfileType
-	if !IsNil(o.PeakHours) {
+	if o.PeakHours != nil {
 		toSerialize["peak_hours"] = o.PeakHours
 	}
-	if !IsNil(o.IdleHours) {
+	if o.IdleHours != nil {
 		toSerialize["idle_hours"] = o.IdleHours
 	}
 	if !IsNil(o.AvgCpuPct) {

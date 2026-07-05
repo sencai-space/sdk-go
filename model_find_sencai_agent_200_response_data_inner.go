@@ -21,9 +21,21 @@ var _ MappedNullable = &FindSencaiAgent200ResponseDataInner{}
 
 // FindSencaiAgent200ResponseDataInner struct for FindSencaiAgent200ResponseDataInner
 type FindSencaiAgent200ResponseDataInner struct {
+	Hostname *string `json:"hostname,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	CloudInstance *CreateAccessReviewRequestDataReviewer `json:"cloud_instance,omitempty"`
+	Version *string `json:"version,omitempty"`
+	Os *string `json:"os,omitempty"`
+	Arch *string `json:"arch,omitempty"`
+	EnrolledAt *time.Time `json:"enrolled_at,omitempty"`
+	LastHeartbeatAt *time.Time `json:"last_heartbeat_at,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Capabilities interface{} `json:"capabilities,omitempty"`
+	CertFingerprint *string `json:"cert_fingerprint,omitempty"`
+	EnrollmentToken *string `json:"enrollment_token,omitempty"`
+	Status *string `json:"status,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SencaiAgent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +56,391 @@ func NewFindSencaiAgent200ResponseDataInner() *FindSencaiAgent200ResponseDataInn
 func NewFindSencaiAgent200ResponseDataInnerWithDefaults() *FindSencaiAgent200ResponseDataInner {
 	this := FindSencaiAgent200ResponseDataInner{}
 	return &this
+}
+
+// GetHostname returns the Hostname field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetHostname() string {
+	if o == nil || IsNil(o.Hostname) {
+		var ret string
+		return ret
+	}
+	return *o.Hostname
+}
+
+// GetHostnameOk returns a tuple with the Hostname field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetHostnameOk() (*string, bool) {
+	if o == nil || IsNil(o.Hostname) {
+		return nil, false
+	}
+	return o.Hostname, true
+}
+
+// HasHostname returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasHostname() bool {
+	if o != nil && !IsNil(o.Hostname) {
+		return true
+	}
+
+	return false
+}
+
+// SetHostname gets a reference to the given string and assigns it to the Hostname field.
+func (o *FindSencaiAgent200ResponseDataInner) SetHostname(v string) {
+	o.Hostname = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSencaiAgent200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetCloudInstance returns the CloudInstance field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetCloudInstance() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CloudInstance) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CloudInstance
+}
+
+// GetCloudInstanceOk returns a tuple with the CloudInstance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetCloudInstanceOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CloudInstance) {
+		return nil, false
+	}
+	return o.CloudInstance, true
+}
+
+// HasCloudInstance returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasCloudInstance() bool {
+	if o != nil && !IsNil(o.CloudInstance) {
+		return true
+	}
+
+	return false
+}
+
+// SetCloudInstance gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CloudInstance field.
+func (o *FindSencaiAgent200ResponseDataInner) SetCloudInstance(v CreateAccessReviewRequestDataReviewer) {
+	o.CloudInstance = &v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *FindSencaiAgent200ResponseDataInner) SetVersion(v string) {
+	o.Version = &v
+}
+
+// GetOs returns the Os field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetOs() string {
+	if o == nil || IsNil(o.Os) {
+		var ret string
+		return ret
+	}
+	return *o.Os
+}
+
+// GetOsOk returns a tuple with the Os field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetOsOk() (*string, bool) {
+	if o == nil || IsNil(o.Os) {
+		return nil, false
+	}
+	return o.Os, true
+}
+
+// HasOs returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasOs() bool {
+	if o != nil && !IsNil(o.Os) {
+		return true
+	}
+
+	return false
+}
+
+// SetOs gets a reference to the given string and assigns it to the Os field.
+func (o *FindSencaiAgent200ResponseDataInner) SetOs(v string) {
+	o.Os = &v
+}
+
+// GetArch returns the Arch field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetArch() string {
+	if o == nil || IsNil(o.Arch) {
+		var ret string
+		return ret
+	}
+	return *o.Arch
+}
+
+// GetArchOk returns a tuple with the Arch field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetArchOk() (*string, bool) {
+	if o == nil || IsNil(o.Arch) {
+		return nil, false
+	}
+	return o.Arch, true
+}
+
+// HasArch returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasArch() bool {
+	if o != nil && !IsNil(o.Arch) {
+		return true
+	}
+
+	return false
+}
+
+// SetArch gets a reference to the given string and assigns it to the Arch field.
+func (o *FindSencaiAgent200ResponseDataInner) SetArch(v string) {
+	o.Arch = &v
+}
+
+// GetEnrolledAt returns the EnrolledAt field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetEnrolledAt() time.Time {
+	if o == nil || IsNil(o.EnrolledAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.EnrolledAt
+}
+
+// GetEnrolledAtOk returns a tuple with the EnrolledAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetEnrolledAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EnrolledAt) {
+		return nil, false
+	}
+	return o.EnrolledAt, true
+}
+
+// HasEnrolledAt returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasEnrolledAt() bool {
+	if o != nil && !IsNil(o.EnrolledAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnrolledAt gets a reference to the given time.Time and assigns it to the EnrolledAt field.
+func (o *FindSencaiAgent200ResponseDataInner) SetEnrolledAt(v time.Time) {
+	o.EnrolledAt = &v
+}
+
+// GetLastHeartbeatAt returns the LastHeartbeatAt field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetLastHeartbeatAt() time.Time {
+	if o == nil || IsNil(o.LastHeartbeatAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastHeartbeatAt
+}
+
+// GetLastHeartbeatAtOk returns a tuple with the LastHeartbeatAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetLastHeartbeatAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastHeartbeatAt) {
+		return nil, false
+	}
+	return o.LastHeartbeatAt, true
+}
+
+// HasLastHeartbeatAt returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasLastHeartbeatAt() bool {
+	if o != nil && !IsNil(o.LastHeartbeatAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastHeartbeatAt gets a reference to the given time.Time and assigns it to the LastHeartbeatAt field.
+func (o *FindSencaiAgent200ResponseDataInner) SetLastHeartbeatAt(v time.Time) {
+	o.LastHeartbeatAt = &v
+}
+
+// GetCapabilities returns the Capabilities field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindSencaiAgent200ResponseDataInner) GetCapabilities() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Capabilities
+}
+
+// GetCapabilitiesOk returns a tuple with the Capabilities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindSencaiAgent200ResponseDataInner) GetCapabilitiesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Capabilities) {
+		return nil, false
+	}
+	return &o.Capabilities, true
+}
+
+// HasCapabilities returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasCapabilities() bool {
+	if o != nil && !IsNil(o.Capabilities) {
+		return true
+	}
+
+	return false
+}
+
+// SetCapabilities gets a reference to the given interface{} and assigns it to the Capabilities field.
+func (o *FindSencaiAgent200ResponseDataInner) SetCapabilities(v interface{}) {
+	o.Capabilities = v
+}
+
+// GetCertFingerprint returns the CertFingerprint field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetCertFingerprint() string {
+	if o == nil || IsNil(o.CertFingerprint) {
+		var ret string
+		return ret
+	}
+	return *o.CertFingerprint
+}
+
+// GetCertFingerprintOk returns a tuple with the CertFingerprint field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetCertFingerprintOk() (*string, bool) {
+	if o == nil || IsNil(o.CertFingerprint) {
+		return nil, false
+	}
+	return o.CertFingerprint, true
+}
+
+// HasCertFingerprint returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasCertFingerprint() bool {
+	if o != nil && !IsNil(o.CertFingerprint) {
+		return true
+	}
+
+	return false
+}
+
+// SetCertFingerprint gets a reference to the given string and assigns it to the CertFingerprint field.
+func (o *FindSencaiAgent200ResponseDataInner) SetCertFingerprint(v string) {
+	o.CertFingerprint = &v
+}
+
+// GetEnrollmentToken returns the EnrollmentToken field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetEnrollmentToken() string {
+	if o == nil || IsNil(o.EnrollmentToken) {
+		var ret string
+		return ret
+	}
+	return *o.EnrollmentToken
+}
+
+// GetEnrollmentTokenOk returns a tuple with the EnrollmentToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetEnrollmentTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.EnrollmentToken) {
+		return nil, false
+	}
+	return o.EnrollmentToken, true
+}
+
+// HasEnrollmentToken returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasEnrollmentToken() bool {
+	if o != nil && !IsNil(o.EnrollmentToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnrollmentToken gets a reference to the given string and assigns it to the EnrollmentToken field.
+func (o *FindSencaiAgent200ResponseDataInner) SetEnrollmentToken(v string) {
+	o.EnrollmentToken = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindSencaiAgent200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSencaiAgent200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindSencaiAgent200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindSencaiAgent200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +505,6 @@ func (o *FindSencaiAgent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSencaiAgent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSencaiAgent200ResponseDataInner) GetAttributes() SencaiAgent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SencaiAgent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSencaiAgent200ResponseDataInner) GetAttributesOk() (*SencaiAgent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSencaiAgent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SencaiAgent and assigns it to the Attributes field.
-func (o *FindSencaiAgent200ResponseDataInner) SetAttributes(v SencaiAgent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +623,47 @@ func (o FindSencaiAgent200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindSencaiAgent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Hostname) {
+		toSerialize["hostname"] = o.Hostname
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.CloudInstance) {
+		toSerialize["cloud_instance"] = o.CloudInstance
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Os) {
+		toSerialize["os"] = o.Os
+	}
+	if !IsNil(o.Arch) {
+		toSerialize["arch"] = o.Arch
+	}
+	if !IsNil(o.EnrolledAt) {
+		toSerialize["enrolled_at"] = o.EnrolledAt
+	}
+	if !IsNil(o.LastHeartbeatAt) {
+		toSerialize["last_heartbeat_at"] = o.LastHeartbeatAt
+	}
+	if o.Capabilities != nil {
+		toSerialize["capabilities"] = o.Capabilities
+	}
+	if !IsNil(o.CertFingerprint) {
+		toSerialize["cert_fingerprint"] = o.CertFingerprint
+	}
+	if !IsNil(o.EnrollmentToken) {
+		toSerialize["enrollment_token"] = o.EnrollmentToken
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

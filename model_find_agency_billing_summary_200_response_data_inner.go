@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAgencyBillingSummary200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindAgencyBillingSummary200ResponseDataInner{}
 
 // FindAgencyBillingSummary200ResponseDataInner struct for FindAgencyBillingSummary200ResponseDataInner
 type FindAgencyBillingSummary200ResponseDataInner struct {
+	// Billing period in YYYY-MM format (e.g. '2026-06')
+	Period string `json:"period"`
+	OperatorOrg CreateAccessReviewRequestDataReviewer `json:"operator_org"`
+	// Array of {managed_org_id, org_name, billing_model, resource_count, mrr_usd, tier_name}
+	LineItems interface{} `json:"line_items"`
+	TotalMrrUsd *float32 `json:"total_mrr_usd,omitempty"`
+	ManagedTenantCount *int32 `json:"managed_tenant_count,omitempty"`
+	AgencyBilledCount *int32 `json:"agency_billed_count,omitempty"`
+	ManagedBilledCount *int32 `json:"managed_billed_count,omitempty"`
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
+	Status *string `json:"status,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AgencyBillingSummary `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAgencyBillingSummary200ResponseDataInner FindAgencyBillingSummary200ResponseDataInner
+
 // NewFindAgencyBillingSummary200ResponseDataInner instantiates a new FindAgencyBillingSummary200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAgencyBillingSummary200ResponseDataInner() *FindAgencyBillingSummary200ResponseDataInner {
+func NewFindAgencyBillingSummary200ResponseDataInner(period string, operatorOrg CreateAccessReviewRequestDataReviewer, lineItems interface{}) *FindAgencyBillingSummary200ResponseDataInner {
 	this := FindAgencyBillingSummary200ResponseDataInner{}
+	this.Period = period
+	this.OperatorOrg = operatorOrg
+	this.LineItems = lineItems
 	return &this
 }
 
@@ -44,6 +61,272 @@ func NewFindAgencyBillingSummary200ResponseDataInner() *FindAgencyBillingSummary
 func NewFindAgencyBillingSummary200ResponseDataInnerWithDefaults() *FindAgencyBillingSummary200ResponseDataInner {
 	this := FindAgencyBillingSummary200ResponseDataInner{}
 	return &this
+}
+
+// GetPeriod returns the Period field value
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetPeriod() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Period
+}
+
+// GetPeriodOk returns a tuple with the Period field value
+// and a boolean to check if the value has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetPeriodOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Period, true
+}
+
+// SetPeriod sets field value
+func (o *FindAgencyBillingSummary200ResponseDataInner) SetPeriod(v string) {
+	o.Period = v
+}
+
+// GetOperatorOrg returns the OperatorOrg field value
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetOperatorOrg() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.OperatorOrg
+}
+
+// GetOperatorOrgOk returns a tuple with the OperatorOrg field value
+// and a boolean to check if the value has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetOperatorOrgOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OperatorOrg, true
+}
+
+// SetOperatorOrg sets field value
+func (o *FindAgencyBillingSummary200ResponseDataInner) SetOperatorOrg(v CreateAccessReviewRequestDataReviewer) {
+	o.OperatorOrg = v
+}
+
+// GetLineItems returns the LineItems field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetLineItems() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+
+	return o.LineItems
+}
+
+// GetLineItemsOk returns a tuple with the LineItems field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetLineItemsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.LineItems) {
+		return nil, false
+	}
+	return &o.LineItems, true
+}
+
+// SetLineItems sets field value
+func (o *FindAgencyBillingSummary200ResponseDataInner) SetLineItems(v interface{}) {
+	o.LineItems = v
+}
+
+// GetTotalMrrUsd returns the TotalMrrUsd field value if set, zero value otherwise.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetTotalMrrUsd() float32 {
+	if o == nil || IsNil(o.TotalMrrUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.TotalMrrUsd
+}
+
+// GetTotalMrrUsdOk returns a tuple with the TotalMrrUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetTotalMrrUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.TotalMrrUsd) {
+		return nil, false
+	}
+	return o.TotalMrrUsd, true
+}
+
+// HasTotalMrrUsd returns a boolean if a field has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) HasTotalMrrUsd() bool {
+	if o != nil && !IsNil(o.TotalMrrUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalMrrUsd gets a reference to the given float32 and assigns it to the TotalMrrUsd field.
+func (o *FindAgencyBillingSummary200ResponseDataInner) SetTotalMrrUsd(v float32) {
+	o.TotalMrrUsd = &v
+}
+
+// GetManagedTenantCount returns the ManagedTenantCount field value if set, zero value otherwise.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetManagedTenantCount() int32 {
+	if o == nil || IsNil(o.ManagedTenantCount) {
+		var ret int32
+		return ret
+	}
+	return *o.ManagedTenantCount
+}
+
+// GetManagedTenantCountOk returns a tuple with the ManagedTenantCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetManagedTenantCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.ManagedTenantCount) {
+		return nil, false
+	}
+	return o.ManagedTenantCount, true
+}
+
+// HasManagedTenantCount returns a boolean if a field has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) HasManagedTenantCount() bool {
+	if o != nil && !IsNil(o.ManagedTenantCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedTenantCount gets a reference to the given int32 and assigns it to the ManagedTenantCount field.
+func (o *FindAgencyBillingSummary200ResponseDataInner) SetManagedTenantCount(v int32) {
+	o.ManagedTenantCount = &v
+}
+
+// GetAgencyBilledCount returns the AgencyBilledCount field value if set, zero value otherwise.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetAgencyBilledCount() int32 {
+	if o == nil || IsNil(o.AgencyBilledCount) {
+		var ret int32
+		return ret
+	}
+	return *o.AgencyBilledCount
+}
+
+// GetAgencyBilledCountOk returns a tuple with the AgencyBilledCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetAgencyBilledCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.AgencyBilledCount) {
+		return nil, false
+	}
+	return o.AgencyBilledCount, true
+}
+
+// HasAgencyBilledCount returns a boolean if a field has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) HasAgencyBilledCount() bool {
+	if o != nil && !IsNil(o.AgencyBilledCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgencyBilledCount gets a reference to the given int32 and assigns it to the AgencyBilledCount field.
+func (o *FindAgencyBillingSummary200ResponseDataInner) SetAgencyBilledCount(v int32) {
+	o.AgencyBilledCount = &v
+}
+
+// GetManagedBilledCount returns the ManagedBilledCount field value if set, zero value otherwise.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetManagedBilledCount() int32 {
+	if o == nil || IsNil(o.ManagedBilledCount) {
+		var ret int32
+		return ret
+	}
+	return *o.ManagedBilledCount
+}
+
+// GetManagedBilledCountOk returns a tuple with the ManagedBilledCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetManagedBilledCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.ManagedBilledCount) {
+		return nil, false
+	}
+	return o.ManagedBilledCount, true
+}
+
+// HasManagedBilledCount returns a boolean if a field has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) HasManagedBilledCount() bool {
+	if o != nil && !IsNil(o.ManagedBilledCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagedBilledCount gets a reference to the given int32 and assigns it to the ManagedBilledCount field.
+func (o *FindAgencyBillingSummary200ResponseDataInner) SetManagedBilledCount(v int32) {
+	o.ManagedBilledCount = &v
+}
+
+// GetGeneratedAt returns the GeneratedAt field value if set, zero value otherwise.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetGeneratedAt() time.Time {
+	if o == nil || IsNil(o.GeneratedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.GeneratedAt
+}
+
+// GetGeneratedAtOk returns a tuple with the GeneratedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetGeneratedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.GeneratedAt) {
+		return nil, false
+	}
+	return o.GeneratedAt, true
+}
+
+// HasGeneratedAt returns a boolean if a field has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) HasGeneratedAt() bool {
+	if o != nil && !IsNil(o.GeneratedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetGeneratedAt gets a reference to the given time.Time and assigns it to the GeneratedAt field.
+func (o *FindAgencyBillingSummary200ResponseDataInner) SetGeneratedAt(v time.Time) {
+	o.GeneratedAt = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindAgencyBillingSummary200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindAgencyBillingSummary200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +391,6 @@ func (o *FindAgencyBillingSummary200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAgencyBillingSummary200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAgencyBillingSummary200ResponseDataInner) GetAttributes() AgencyBillingSummary {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AgencyBillingSummary
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAgencyBillingSummary200ResponseDataInner) GetAttributesOk() (*AgencyBillingSummary, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAgencyBillingSummary200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AgencyBillingSummary and assigns it to the Attributes field.
-func (o *FindAgencyBillingSummary200ResponseDataInner) SetAttributes(v AgencyBillingSummary) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +509,34 @@ func (o FindAgencyBillingSummary200ResponseDataInner) MarshalJSON() ([]byte, err
 
 func (o FindAgencyBillingSummary200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["period"] = o.Period
+	toSerialize["operator_org"] = o.OperatorOrg
+	if o.LineItems != nil {
+		toSerialize["line_items"] = o.LineItems
+	}
+	if !IsNil(o.TotalMrrUsd) {
+		toSerialize["total_mrr_usd"] = o.TotalMrrUsd
+	}
+	if !IsNil(o.ManagedTenantCount) {
+		toSerialize["managed_tenant_count"] = o.ManagedTenantCount
+	}
+	if !IsNil(o.AgencyBilledCount) {
+		toSerialize["agency_billed_count"] = o.AgencyBilledCount
+	}
+	if !IsNil(o.ManagedBilledCount) {
+		toSerialize["managed_billed_count"] = o.ManagedBilledCount
+	}
+	if !IsNil(o.GeneratedAt) {
+		toSerialize["generated_at"] = o.GeneratedAt
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +548,45 @@ func (o FindAgencyBillingSummary200ResponseDataInner) ToMap() (map[string]interf
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAgencyBillingSummary200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"period",
+		"operator_org",
+		"line_items",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAgencyBillingSummary200ResponseDataInner := _FindAgencyBillingSummary200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAgencyBillingSummary200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAgencyBillingSummary200ResponseDataInner(varFindAgencyBillingSummary200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAgencyBillingSummary200ResponseDataInner struct {

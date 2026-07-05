@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCisScan200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,33 @@ var _ MappedNullable = &FindCisScan200ResponseDataInner{}
 
 // FindCisScan200ResponseDataInner struct for FindCisScan200ResponseDataInner
 type FindCisScan200ResponseDataInner struct {
+	SencaiAgent *CreateAccessReviewRequestDataReviewer `json:"sencai_agent,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	HardeningScore *int32 `json:"hardening_score,omitempty"`
+	TotalTests *int32 `json:"total_tests,omitempty"`
+	WarningCount *int32 `json:"warning_count,omitempty"`
+	SuggestionCount *int32 `json:"suggestion_count,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Warnings interface{} `json:"warnings,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Suggestions interface{} `json:"suggestions,omitempty"`
+	ScannedAt time.Time `json:"scanned_at"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CisScan `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCisScan200ResponseDataInner FindCisScan200ResponseDataInner
+
 // NewFindCisScan200ResponseDataInner instantiates a new FindCisScan200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCisScan200ResponseDataInner() *FindCisScan200ResponseDataInner {
+func NewFindCisScan200ResponseDataInner(scannedAt time.Time) *FindCisScan200ResponseDataInner {
 	this := FindCisScan200ResponseDataInner{}
+	this.ScannedAt = scannedAt
 	return &this
 }
 
@@ -44,6 +59,288 @@ func NewFindCisScan200ResponseDataInner() *FindCisScan200ResponseDataInner {
 func NewFindCisScan200ResponseDataInnerWithDefaults() *FindCisScan200ResponseDataInner {
 	this := FindCisScan200ResponseDataInner{}
 	return &this
+}
+
+// GetSencaiAgent returns the SencaiAgent field value if set, zero value otherwise.
+func (o *FindCisScan200ResponseDataInner) GetSencaiAgent() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.SencaiAgent) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.SencaiAgent
+}
+
+// GetSencaiAgentOk returns a tuple with the SencaiAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCisScan200ResponseDataInner) GetSencaiAgentOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.SencaiAgent) {
+		return nil, false
+	}
+	return o.SencaiAgent, true
+}
+
+// HasSencaiAgent returns a boolean if a field has been set.
+func (o *FindCisScan200ResponseDataInner) HasSencaiAgent() bool {
+	if o != nil && !IsNil(o.SencaiAgent) {
+		return true
+	}
+
+	return false
+}
+
+// SetSencaiAgent gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the SencaiAgent field.
+func (o *FindCisScan200ResponseDataInner) SetSencaiAgent(v CreateAccessReviewRequestDataReviewer) {
+	o.SencaiAgent = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCisScan200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCisScan200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCisScan200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCisScan200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetHardeningScore returns the HardeningScore field value if set, zero value otherwise.
+func (o *FindCisScan200ResponseDataInner) GetHardeningScore() int32 {
+	if o == nil || IsNil(o.HardeningScore) {
+		var ret int32
+		return ret
+	}
+	return *o.HardeningScore
+}
+
+// GetHardeningScoreOk returns a tuple with the HardeningScore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCisScan200ResponseDataInner) GetHardeningScoreOk() (*int32, bool) {
+	if o == nil || IsNil(o.HardeningScore) {
+		return nil, false
+	}
+	return o.HardeningScore, true
+}
+
+// HasHardeningScore returns a boolean if a field has been set.
+func (o *FindCisScan200ResponseDataInner) HasHardeningScore() bool {
+	if o != nil && !IsNil(o.HardeningScore) {
+		return true
+	}
+
+	return false
+}
+
+// SetHardeningScore gets a reference to the given int32 and assigns it to the HardeningScore field.
+func (o *FindCisScan200ResponseDataInner) SetHardeningScore(v int32) {
+	o.HardeningScore = &v
+}
+
+// GetTotalTests returns the TotalTests field value if set, zero value otherwise.
+func (o *FindCisScan200ResponseDataInner) GetTotalTests() int32 {
+	if o == nil || IsNil(o.TotalTests) {
+		var ret int32
+		return ret
+	}
+	return *o.TotalTests
+}
+
+// GetTotalTestsOk returns a tuple with the TotalTests field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCisScan200ResponseDataInner) GetTotalTestsOk() (*int32, bool) {
+	if o == nil || IsNil(o.TotalTests) {
+		return nil, false
+	}
+	return o.TotalTests, true
+}
+
+// HasTotalTests returns a boolean if a field has been set.
+func (o *FindCisScan200ResponseDataInner) HasTotalTests() bool {
+	if o != nil && !IsNil(o.TotalTests) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalTests gets a reference to the given int32 and assigns it to the TotalTests field.
+func (o *FindCisScan200ResponseDataInner) SetTotalTests(v int32) {
+	o.TotalTests = &v
+}
+
+// GetWarningCount returns the WarningCount field value if set, zero value otherwise.
+func (o *FindCisScan200ResponseDataInner) GetWarningCount() int32 {
+	if o == nil || IsNil(o.WarningCount) {
+		var ret int32
+		return ret
+	}
+	return *o.WarningCount
+}
+
+// GetWarningCountOk returns a tuple with the WarningCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCisScan200ResponseDataInner) GetWarningCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.WarningCount) {
+		return nil, false
+	}
+	return o.WarningCount, true
+}
+
+// HasWarningCount returns a boolean if a field has been set.
+func (o *FindCisScan200ResponseDataInner) HasWarningCount() bool {
+	if o != nil && !IsNil(o.WarningCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetWarningCount gets a reference to the given int32 and assigns it to the WarningCount field.
+func (o *FindCisScan200ResponseDataInner) SetWarningCount(v int32) {
+	o.WarningCount = &v
+}
+
+// GetSuggestionCount returns the SuggestionCount field value if set, zero value otherwise.
+func (o *FindCisScan200ResponseDataInner) GetSuggestionCount() int32 {
+	if o == nil || IsNil(o.SuggestionCount) {
+		var ret int32
+		return ret
+	}
+	return *o.SuggestionCount
+}
+
+// GetSuggestionCountOk returns a tuple with the SuggestionCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCisScan200ResponseDataInner) GetSuggestionCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.SuggestionCount) {
+		return nil, false
+	}
+	return o.SuggestionCount, true
+}
+
+// HasSuggestionCount returns a boolean if a field has been set.
+func (o *FindCisScan200ResponseDataInner) HasSuggestionCount() bool {
+	if o != nil && !IsNil(o.SuggestionCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuggestionCount gets a reference to the given int32 and assigns it to the SuggestionCount field.
+func (o *FindCisScan200ResponseDataInner) SetSuggestionCount(v int32) {
+	o.SuggestionCount = &v
+}
+
+// GetWarnings returns the Warnings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCisScan200ResponseDataInner) GetWarnings() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Warnings
+}
+
+// GetWarningsOk returns a tuple with the Warnings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCisScan200ResponseDataInner) GetWarningsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Warnings) {
+		return nil, false
+	}
+	return &o.Warnings, true
+}
+
+// HasWarnings returns a boolean if a field has been set.
+func (o *FindCisScan200ResponseDataInner) HasWarnings() bool {
+	if o != nil && !IsNil(o.Warnings) {
+		return true
+	}
+
+	return false
+}
+
+// SetWarnings gets a reference to the given interface{} and assigns it to the Warnings field.
+func (o *FindCisScan200ResponseDataInner) SetWarnings(v interface{}) {
+	o.Warnings = v
+}
+
+// GetSuggestions returns the Suggestions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCisScan200ResponseDataInner) GetSuggestions() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Suggestions
+}
+
+// GetSuggestionsOk returns a tuple with the Suggestions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCisScan200ResponseDataInner) GetSuggestionsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Suggestions) {
+		return nil, false
+	}
+	return &o.Suggestions, true
+}
+
+// HasSuggestions returns a boolean if a field has been set.
+func (o *FindCisScan200ResponseDataInner) HasSuggestions() bool {
+	if o != nil && !IsNil(o.Suggestions) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuggestions gets a reference to the given interface{} and assigns it to the Suggestions field.
+func (o *FindCisScan200ResponseDataInner) SetSuggestions(v interface{}) {
+	o.Suggestions = v
+}
+
+// GetScannedAt returns the ScannedAt field value
+func (o *FindCisScan200ResponseDataInner) GetScannedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.ScannedAt
+}
+
+// GetScannedAtOk returns a tuple with the ScannedAt field value
+// and a boolean to check if the value has been set.
+func (o *FindCisScan200ResponseDataInner) GetScannedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ScannedAt, true
+}
+
+// SetScannedAt sets field value
+func (o *FindCisScan200ResponseDataInner) SetScannedAt(v time.Time) {
+	o.ScannedAt = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +405,6 @@ func (o *FindCisScan200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCisScan200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCisScan200ResponseDataInner) GetAttributes() CisScan {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CisScan
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCisScan200ResponseDataInner) GetAttributesOk() (*CisScan, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCisScan200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CisScan and assigns it to the Attributes field.
-func (o *FindCisScan200ResponseDataInner) SetAttributes(v CisScan) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +523,36 @@ func (o FindCisScan200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCisScan200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SencaiAgent) {
+		toSerialize["sencai_agent"] = o.SencaiAgent
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.HardeningScore) {
+		toSerialize["hardening_score"] = o.HardeningScore
+	}
+	if !IsNil(o.TotalTests) {
+		toSerialize["total_tests"] = o.TotalTests
+	}
+	if !IsNil(o.WarningCount) {
+		toSerialize["warning_count"] = o.WarningCount
+	}
+	if !IsNil(o.SuggestionCount) {
+		toSerialize["suggestion_count"] = o.SuggestionCount
+	}
+	if o.Warnings != nil {
+		toSerialize["warnings"] = o.Warnings
+	}
+	if o.Suggestions != nil {
+		toSerialize["suggestions"] = o.Suggestions
+	}
+	toSerialize["scanned_at"] = o.ScannedAt
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +564,43 @@ func (o FindCisScan200ResponseDataInner) ToMap() (map[string]interface{}, error)
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCisScan200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"scanned_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCisScan200ResponseDataInner := _FindCisScan200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCisScan200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCisScan200ResponseDataInner(varFindCisScan200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCisScan200ResponseDataInner struct {

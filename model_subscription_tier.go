@@ -30,7 +30,8 @@ type SubscriptionTier struct {
 	MaxCloudInstances *int32 `json:"max_cloud_instances,omitempty"`
 	PriceMonthlyUsd *float32 `json:"price_monthly_usd,omitempty"`
 	PriceYearlyUsd *float32 `json:"price_yearly_usd,omitempty"`
-	Features map[string]interface{} `json:"features,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Features interface{} `json:"features,omitempty"`
 	IsFreeTier *bool `json:"is_free_tier,omitempty"`
 	IsActive *bool `json:"is_active,omitempty"`
 	TrialDays *int32 `json:"trial_days,omitempty"`
@@ -269,10 +270,10 @@ func (o *SubscriptionTier) SetPriceYearlyUsd(v float32) {
 	o.PriceYearlyUsd = &v
 }
 
-// GetFeatures returns the Features field value if set, zero value otherwise.
-func (o *SubscriptionTier) GetFeatures() map[string]interface{} {
-	if o == nil || IsNil(o.Features) {
-		var ret map[string]interface{}
+// GetFeatures returns the Features field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SubscriptionTier) GetFeatures() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Features
@@ -280,11 +281,12 @@ func (o *SubscriptionTier) GetFeatures() map[string]interface{} {
 
 // GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubscriptionTier) GetFeaturesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SubscriptionTier) GetFeaturesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Features) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Features, true
+	return &o.Features, true
 }
 
 // HasFeatures returns a boolean if a field has been set.
@@ -296,8 +298,8 @@ func (o *SubscriptionTier) HasFeatures() bool {
 	return false
 }
 
-// SetFeatures gets a reference to the given map[string]interface{} and assigns it to the Features field.
-func (o *SubscriptionTier) SetFeatures(v map[string]interface{}) {
+// SetFeatures gets a reference to the given interface{} and assigns it to the Features field.
+func (o *SubscriptionTier) SetFeatures(v interface{}) {
 	o.Features = v
 }
 
@@ -552,7 +554,7 @@ func (o SubscriptionTier) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PriceYearlyUsd) {
 		toSerialize["price_yearly_usd"] = o.PriceYearlyUsd
 	}
-	if !IsNil(o.Features) {
+	if o.Features != nil {
 		toSerialize["features"] = o.Features
 	}
 	if !IsNil(o.IsFreeTier) {

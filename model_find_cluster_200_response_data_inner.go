@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCluster200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindCluster200ResponseDataInner{}
 
 // FindCluster200ResponseDataInner struct for FindCluster200ResponseDataInner
 type FindCluster200ResponseDataInner struct {
+	Name string `json:"name"`
+	Description *string `json:"description,omitempty"`
+	UsersPermissionsUser *CreateAccessReviewRequestDataReviewer `json:"users_permissions_user,omitempty"`
+	State string `json:"state"`
+	ClusterType *string `json:"cluster_type,omitempty"`
+	Region *string `json:"region,omitempty"`
+	MaxServices *int32 `json:"max_services,omitempty"`
+	CurrentServicesCount *int32 `json:"current_services_count,omitempty"`
+	MonthlyCost *float32 `json:"monthly_cost,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *Cluster `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCluster200ResponseDataInner FindCluster200ResponseDataInner
+
 // NewFindCluster200ResponseDataInner instantiates a new FindCluster200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCluster200ResponseDataInner() *FindCluster200ResponseDataInner {
+func NewFindCluster200ResponseDataInner(name string, state string) *FindCluster200ResponseDataInner {
 	this := FindCluster200ResponseDataInner{}
+	this.Name = name
+	this.State = state
 	return &this
 }
 
@@ -44,6 +60,311 @@ func NewFindCluster200ResponseDataInner() *FindCluster200ResponseDataInner {
 func NewFindCluster200ResponseDataInnerWithDefaults() *FindCluster200ResponseDataInner {
 	this := FindCluster200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCluster200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCluster200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCluster200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindCluster200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCluster200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindCluster200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindCluster200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetUsersPermissionsUser returns the UsersPermissionsUser field value if set, zero value otherwise.
+func (o *FindCluster200ResponseDataInner) GetUsersPermissionsUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.UsersPermissionsUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.UsersPermissionsUser
+}
+
+// GetUsersPermissionsUserOk returns a tuple with the UsersPermissionsUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCluster200ResponseDataInner) GetUsersPermissionsUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.UsersPermissionsUser) {
+		return nil, false
+	}
+	return o.UsersPermissionsUser, true
+}
+
+// HasUsersPermissionsUser returns a boolean if a field has been set.
+func (o *FindCluster200ResponseDataInner) HasUsersPermissionsUser() bool {
+	if o != nil && !IsNil(o.UsersPermissionsUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsersPermissionsUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the UsersPermissionsUser field.
+func (o *FindCluster200ResponseDataInner) SetUsersPermissionsUser(v CreateAccessReviewRequestDataReviewer) {
+	o.UsersPermissionsUser = &v
+}
+
+// GetState returns the State field value
+func (o *FindCluster200ResponseDataInner) GetState() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.State
+}
+
+// GetStateOk returns a tuple with the State field value
+// and a boolean to check if the value has been set.
+func (o *FindCluster200ResponseDataInner) GetStateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.State, true
+}
+
+// SetState sets field value
+func (o *FindCluster200ResponseDataInner) SetState(v string) {
+	o.State = v
+}
+
+// GetClusterType returns the ClusterType field value if set, zero value otherwise.
+func (o *FindCluster200ResponseDataInner) GetClusterType() string {
+	if o == nil || IsNil(o.ClusterType) {
+		var ret string
+		return ret
+	}
+	return *o.ClusterType
+}
+
+// GetClusterTypeOk returns a tuple with the ClusterType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCluster200ResponseDataInner) GetClusterTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ClusterType) {
+		return nil, false
+	}
+	return o.ClusterType, true
+}
+
+// HasClusterType returns a boolean if a field has been set.
+func (o *FindCluster200ResponseDataInner) HasClusterType() bool {
+	if o != nil && !IsNil(o.ClusterType) {
+		return true
+	}
+
+	return false
+}
+
+// SetClusterType gets a reference to the given string and assigns it to the ClusterType field.
+func (o *FindCluster200ResponseDataInner) SetClusterType(v string) {
+	o.ClusterType = &v
+}
+
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *FindCluster200ResponseDataInner) GetRegion() string {
+	if o == nil || IsNil(o.Region) {
+		var ret string
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCluster200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.Region) {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *FindCluster200ResponseDataInner) HasRegion() bool {
+	if o != nil && !IsNil(o.Region) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegion gets a reference to the given string and assigns it to the Region field.
+func (o *FindCluster200ResponseDataInner) SetRegion(v string) {
+	o.Region = &v
+}
+
+// GetMaxServices returns the MaxServices field value if set, zero value otherwise.
+func (o *FindCluster200ResponseDataInner) GetMaxServices() int32 {
+	if o == nil || IsNil(o.MaxServices) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxServices
+}
+
+// GetMaxServicesOk returns a tuple with the MaxServices field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCluster200ResponseDataInner) GetMaxServicesOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxServices) {
+		return nil, false
+	}
+	return o.MaxServices, true
+}
+
+// HasMaxServices returns a boolean if a field has been set.
+func (o *FindCluster200ResponseDataInner) HasMaxServices() bool {
+	if o != nil && !IsNil(o.MaxServices) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxServices gets a reference to the given int32 and assigns it to the MaxServices field.
+func (o *FindCluster200ResponseDataInner) SetMaxServices(v int32) {
+	o.MaxServices = &v
+}
+
+// GetCurrentServicesCount returns the CurrentServicesCount field value if set, zero value otherwise.
+func (o *FindCluster200ResponseDataInner) GetCurrentServicesCount() int32 {
+	if o == nil || IsNil(o.CurrentServicesCount) {
+		var ret int32
+		return ret
+	}
+	return *o.CurrentServicesCount
+}
+
+// GetCurrentServicesCountOk returns a tuple with the CurrentServicesCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCluster200ResponseDataInner) GetCurrentServicesCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.CurrentServicesCount) {
+		return nil, false
+	}
+	return o.CurrentServicesCount, true
+}
+
+// HasCurrentServicesCount returns a boolean if a field has been set.
+func (o *FindCluster200ResponseDataInner) HasCurrentServicesCount() bool {
+	if o != nil && !IsNil(o.CurrentServicesCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentServicesCount gets a reference to the given int32 and assigns it to the CurrentServicesCount field.
+func (o *FindCluster200ResponseDataInner) SetCurrentServicesCount(v int32) {
+	o.CurrentServicesCount = &v
+}
+
+// GetMonthlyCost returns the MonthlyCost field value if set, zero value otherwise.
+func (o *FindCluster200ResponseDataInner) GetMonthlyCost() float32 {
+	if o == nil || IsNil(o.MonthlyCost) {
+		var ret float32
+		return ret
+	}
+	return *o.MonthlyCost
+}
+
+// GetMonthlyCostOk returns a tuple with the MonthlyCost field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCluster200ResponseDataInner) GetMonthlyCostOk() (*float32, bool) {
+	if o == nil || IsNil(o.MonthlyCost) {
+		return nil, false
+	}
+	return o.MonthlyCost, true
+}
+
+// HasMonthlyCost returns a boolean if a field has been set.
+func (o *FindCluster200ResponseDataInner) HasMonthlyCost() bool {
+	if o != nil && !IsNil(o.MonthlyCost) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonthlyCost gets a reference to the given float32 and assigns it to the MonthlyCost field.
+func (o *FindCluster200ResponseDataInner) SetMonthlyCost(v float32) {
+	o.MonthlyCost = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCluster200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCluster200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindCluster200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindCluster200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +429,6 @@ func (o *FindCluster200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCluster200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCluster200ResponseDataInner) GetAttributes() Cluster {
-	if o == nil || IsNil(o.Attributes) {
-		var ret Cluster
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCluster200ResponseDataInner) GetAttributesOk() (*Cluster, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCluster200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given Cluster and assigns it to the Attributes field.
-func (o *FindCluster200ResponseDataInner) SetAttributes(v Cluster) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +547,37 @@ func (o FindCluster200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCluster200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.UsersPermissionsUser) {
+		toSerialize["users_permissions_user"] = o.UsersPermissionsUser
+	}
+	toSerialize["state"] = o.State
+	if !IsNil(o.ClusterType) {
+		toSerialize["cluster_type"] = o.ClusterType
+	}
+	if !IsNil(o.Region) {
+		toSerialize["region"] = o.Region
+	}
+	if !IsNil(o.MaxServices) {
+		toSerialize["max_services"] = o.MaxServices
+	}
+	if !IsNil(o.CurrentServicesCount) {
+		toSerialize["current_services_count"] = o.CurrentServicesCount
+	}
+	if !IsNil(o.MonthlyCost) {
+		toSerialize["monthly_cost"] = o.MonthlyCost
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +589,44 @@ func (o FindCluster200ResponseDataInner) ToMap() (map[string]interface{}, error)
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCluster200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"state",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCluster200ResponseDataInner := _FindCluster200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCluster200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCluster200ResponseDataInner(varFindCluster200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCluster200ResponseDataInner struct {

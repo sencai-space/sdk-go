@@ -27,7 +27,7 @@ type WafRule struct {
 	Description *string `json:"description,omitempty"`
 	RuleType *string `json:"rule_type,omitempty"`
 	// Provider-agnostic rule configuration. Shape depends on rule_type: rate_limit={requests_per_minute,action}, ip_block={ip_addresses[]}, geo_block={countries[],action}, header_check={header,required,pattern}.
-	RuleConfig map[string]interface{} `json:"rule_config"`
+	RuleConfig interface{} `json:"rule_config"`
 	Provider *string `json:"provider,omitempty"`
 	// Provider-side rule/resource identifier returned after sync.
 	ProviderRuleId *string `json:"provider_rule_id,omitempty"`
@@ -44,7 +44,7 @@ type _WafRule WafRule
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWafRule(name string, ruleConfig map[string]interface{}) *WafRule {
+func NewWafRule(name string, ruleConfig interface{}) *WafRule {
 	this := WafRule{}
 	this.Name = name
 	this.RuleConfig = ruleConfig
@@ -148,9 +148,10 @@ func (o *WafRule) SetRuleType(v string) {
 }
 
 // GetRuleConfig returns the RuleConfig field value
-func (o *WafRule) GetRuleConfig() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *WafRule) GetRuleConfig() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -159,15 +160,16 @@ func (o *WafRule) GetRuleConfig() map[string]interface{} {
 
 // GetRuleConfigOk returns a tuple with the RuleConfig field value
 // and a boolean to check if the value has been set.
-func (o *WafRule) GetRuleConfigOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WafRule) GetRuleConfigOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.RuleConfig) {
+		return nil, false
 	}
-	return o.RuleConfig, true
+	return &o.RuleConfig, true
 }
 
 // SetRuleConfig sets field value
-func (o *WafRule) SetRuleConfig(v map[string]interface{}) {
+func (o *WafRule) SetRuleConfig(v interface{}) {
 	o.RuleConfig = v
 }
 
@@ -412,7 +414,9 @@ func (o WafRule) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RuleType) {
 		toSerialize["rule_type"] = o.RuleType
 	}
-	toSerialize["rule_config"] = o.RuleConfig
+	if o.RuleConfig != nil {
+		toSerialize["rule_config"] = o.RuleConfig
+	}
 	if !IsNil(o.Provider) {
 		toSerialize["provider"] = o.Provider
 	}

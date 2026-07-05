@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudRouteTable200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,31 @@ var _ MappedNullable = &FindCloudRouteTable200ResponseDataInner{}
 
 // FindCloudRouteTable200ResponseDataInner struct for FindCloudRouteTable200ResponseDataInner
 type FindCloudRouteTable200ResponseDataInner struct {
+	Name string `json:"name"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Routes interface{} `json:"routes,omitempty"`
+	ExternalId *string `json:"external_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	Network *CreateAccessReviewRequestDataReviewer `json:"network,omitempty"`
+	Subnets *CreateAccessReviewRequestDataReviewer `json:"subnets,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudRouteTable `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudRouteTable200ResponseDataInner FindCloudRouteTable200ResponseDataInner
+
 // NewFindCloudRouteTable200ResponseDataInner instantiates a new FindCloudRouteTable200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudRouteTable200ResponseDataInner() *FindCloudRouteTable200ResponseDataInner {
+func NewFindCloudRouteTable200ResponseDataInner(name string) *FindCloudRouteTable200ResponseDataInner {
 	this := FindCloudRouteTable200ResponseDataInner{}
+	this.Name = name
 	return &this
 }
 
@@ -44,6 +57,224 @@ func NewFindCloudRouteTable200ResponseDataInner() *FindCloudRouteTable200Respons
 func NewFindCloudRouteTable200ResponseDataInnerWithDefaults() *FindCloudRouteTable200ResponseDataInner {
 	this := FindCloudRouteTable200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCloudRouteTable200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCloudRouteTable200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetRoutes returns the Routes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudRouteTable200ResponseDataInner) GetRoutes() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Routes
+}
+
+// GetRoutesOk returns a tuple with the Routes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudRouteTable200ResponseDataInner) GetRoutesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Routes) {
+		return nil, false
+	}
+	return &o.Routes, true
+}
+
+// HasRoutes returns a boolean if a field has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) HasRoutes() bool {
+	if o != nil && !IsNil(o.Routes) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoutes gets a reference to the given interface{} and assigns it to the Routes field.
+func (o *FindCloudRouteTable200ResponseDataInner) SetRoutes(v interface{}) {
+	o.Routes = v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *FindCloudRouteTable200ResponseDataInner) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *FindCloudRouteTable200ResponseDataInner) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudRouteTable200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudRouteTable200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindCloudRouteTable200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetNetwork returns the Network field value if set, zero value otherwise.
+func (o *FindCloudRouteTable200ResponseDataInner) GetNetwork() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Network) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Network
+}
+
+// GetNetworkOk returns a tuple with the Network field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) GetNetworkOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Network) {
+		return nil, false
+	}
+	return o.Network, true
+}
+
+// HasNetwork returns a boolean if a field has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) HasNetwork() bool {
+	if o != nil && !IsNil(o.Network) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetwork gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Network field.
+func (o *FindCloudRouteTable200ResponseDataInner) SetNetwork(v CreateAccessReviewRequestDataReviewer) {
+	o.Network = &v
+}
+
+// GetSubnets returns the Subnets field value if set, zero value otherwise.
+func (o *FindCloudRouteTable200ResponseDataInner) GetSubnets() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Subnets) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Subnets
+}
+
+// GetSubnetsOk returns a tuple with the Subnets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) GetSubnetsOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Subnets) {
+		return nil, false
+	}
+	return o.Subnets, true
+}
+
+// HasSubnets returns a boolean if a field has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) HasSubnets() bool {
+	if o != nil && !IsNil(o.Subnets) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubnets gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Subnets field.
+func (o *FindCloudRouteTable200ResponseDataInner) SetSubnets(v CreateAccessReviewRequestDataReviewer) {
+	o.Subnets = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCloudRouteTable200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCloudRouteTable200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCloudRouteTable200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +339,6 @@ func (o *FindCloudRouteTable200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudRouteTable200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudRouteTable200ResponseDataInner) GetAttributes() CloudRouteTable {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudRouteTable
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudRouteTable200ResponseDataInner) GetAttributesOk() (*CloudRouteTable, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudRouteTable200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudRouteTable and assigns it to the Attributes field.
-func (o *FindCloudRouteTable200ResponseDataInner) SetAttributes(v CloudRouteTable) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +457,30 @@ func (o FindCloudRouteTable200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCloudRouteTable200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if o.Routes != nil {
+		toSerialize["routes"] = o.Routes
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["external_id"] = o.ExternalId
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.Network) {
+		toSerialize["network"] = o.Network
+	}
+	if !IsNil(o.Subnets) {
+		toSerialize["subnets"] = o.Subnets
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +492,43 @@ func (o FindCloudRouteTable200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudRouteTable200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudRouteTable200ResponseDataInner := _FindCloudRouteTable200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudRouteTable200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudRouteTable200ResponseDataInner(varFindCloudRouteTable200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudRouteTable200ResponseDataInner struct {

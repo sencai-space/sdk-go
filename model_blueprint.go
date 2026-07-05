@@ -29,7 +29,7 @@ type Blueprint struct {
 	// MDI icon name, e.g. mdi-server
 	Icon *string `json:"icon,omitempty"`
 	// Parameterized config: { params: [{key, label, type, options?, default?, required?}], cloud_instance: {...} }. Supports {{key}} placeholder substitution.
-	Template map[string]interface{} `json:"template"`
+	Template interface{} `json:"template"`
 	Version *string `json:"version,omitempty"`
 	// When true, visible in the global catalog for all users.
 	IsPublic *bool `json:"is_public,omitempty"`
@@ -37,9 +37,9 @@ type Blueprint struct {
 	// Usage counter incremented on each successful deploy.
 	DeployCount *int32 `json:"deploy_count,omitempty"`
 	// Array of string tags for search and filtering.
-	Tags map[string]interface{} `json:"tags,omitempty"`
+	Tags interface{} `json:"tags,omitempty"`
 	// Cost estimate for this blueprint: {resources: [{type, provider, region, monthly_usd}], total_monthly_usd}.
-	CostEstimate map[string]interface{} `json:"cost_estimate,omitempty"`
+	CostEstimate interface{} `json:"cost_estimate,omitempty"`
 }
 
 type _Blueprint Blueprint
@@ -48,7 +48,7 @@ type _Blueprint Blueprint
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBlueprint(name string, category string, template map[string]interface{}) *Blueprint {
+func NewBlueprint(name string, category string, template interface{}) *Blueprint {
 	this := Blueprint{}
 	this.Name = name
 	this.Category = category
@@ -209,9 +209,10 @@ func (o *Blueprint) SetIcon(v string) {
 }
 
 // GetTemplate returns the Template field value
-func (o *Blueprint) GetTemplate() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *Blueprint) GetTemplate() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -220,15 +221,16 @@ func (o *Blueprint) GetTemplate() map[string]interface{} {
 
 // GetTemplateOk returns a tuple with the Template field value
 // and a boolean to check if the value has been set.
-func (o *Blueprint) GetTemplateOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Blueprint) GetTemplateOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Template) {
+		return nil, false
 	}
-	return o.Template, true
+	return &o.Template, true
 }
 
 // SetTemplate sets field value
-func (o *Blueprint) SetTemplate(v map[string]interface{}) {
+func (o *Blueprint) SetTemplate(v interface{}) {
 	o.Template = v
 }
 
@@ -360,10 +362,10 @@ func (o *Blueprint) SetDeployCount(v int32) {
 	o.DeployCount = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *Blueprint) GetTags() map[string]interface{} {
-	if o == nil || IsNil(o.Tags) {
-		var ret map[string]interface{}
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Blueprint) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Tags
@@ -371,11 +373,12 @@ func (o *Blueprint) GetTags() map[string]interface{} {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Blueprint) GetTagsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Blueprint) GetTagsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Tags) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -387,15 +390,15 @@ func (o *Blueprint) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given map[string]interface{} and assigns it to the Tags field.
-func (o *Blueprint) SetTags(v map[string]interface{}) {
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *Blueprint) SetTags(v interface{}) {
 	o.Tags = v
 }
 
-// GetCostEstimate returns the CostEstimate field value if set, zero value otherwise.
-func (o *Blueprint) GetCostEstimate() map[string]interface{} {
-	if o == nil || IsNil(o.CostEstimate) {
-		var ret map[string]interface{}
+// GetCostEstimate returns the CostEstimate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Blueprint) GetCostEstimate() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.CostEstimate
@@ -403,11 +406,12 @@ func (o *Blueprint) GetCostEstimate() map[string]interface{} {
 
 // GetCostEstimateOk returns a tuple with the CostEstimate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Blueprint) GetCostEstimateOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Blueprint) GetCostEstimateOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.CostEstimate) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.CostEstimate, true
+	return &o.CostEstimate, true
 }
 
 // HasCostEstimate returns a boolean if a field has been set.
@@ -419,8 +423,8 @@ func (o *Blueprint) HasCostEstimate() bool {
 	return false
 }
 
-// SetCostEstimate gets a reference to the given map[string]interface{} and assigns it to the CostEstimate field.
-func (o *Blueprint) SetCostEstimate(v map[string]interface{}) {
+// SetCostEstimate gets a reference to the given interface{} and assigns it to the CostEstimate field.
+func (o *Blueprint) SetCostEstimate(v interface{}) {
 	o.CostEstimate = v
 }
 
@@ -445,7 +449,9 @@ func (o Blueprint) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Icon) {
 		toSerialize["icon"] = o.Icon
 	}
-	toSerialize["template"] = o.Template
+	if o.Template != nil {
+		toSerialize["template"] = o.Template
+	}
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
@@ -458,10 +464,10 @@ func (o Blueprint) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DeployCount) {
 		toSerialize["deploy_count"] = o.DeployCount
 	}
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
-	if !IsNil(o.CostEstimate) {
+	if o.CostEstimate != nil {
 		toSerialize["cost_estimate"] = o.CostEstimate
 	}
 	return toSerialize, nil

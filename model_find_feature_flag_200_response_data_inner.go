@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindFeatureFlag200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindFeatureFlag200ResponseDataInner{}
 
 // FindFeatureFlag200ResponseDataInner struct for FindFeatureFlag200ResponseDataInner
 type FindFeatureFlag200ResponseDataInner struct {
+	// Unique identifier used in code, e.g. 'new-billing-ui' or 'graphql-enabled'.
+	Key string `json:"key"`
+	Description *string `json:"description,omitempty"`
+	// Percentage of organisations that see this flag (0–100). Assigned deterministically via DJB2 hash of org documentId.
+	RolloutPct *int32 `json:"rollout_pct,omitempty"`
+	// Array of plan names that always see this flag, e.g. [\"enterprise\", \"pro\"].
+	EnabledPlans interface{} `json:"enabled_plans,omitempty"`
+	// Array of organisation documentIds that are explicitly whitelisted.
+	EnabledOrgs interface{} `json:"enabled_orgs,omitempty"`
+	// Master switch. When false the flag evaluates to false for all orgs regardless of other settings.
+	IsEnabled *bool `json:"is_enabled,omitempty"`
+	// Optional expiry. After this timestamp the flag evaluates to false automatically.
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *FeatureFlag `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindFeatureFlag200ResponseDataInner FindFeatureFlag200ResponseDataInner
+
 // NewFindFeatureFlag200ResponseDataInner instantiates a new FindFeatureFlag200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindFeatureFlag200ResponseDataInner() *FindFeatureFlag200ResponseDataInner {
+func NewFindFeatureFlag200ResponseDataInner(key string) *FindFeatureFlag200ResponseDataInner {
 	this := FindFeatureFlag200ResponseDataInner{}
+	this.Key = key
 	return &this
 }
 
@@ -44,6 +61,224 @@ func NewFindFeatureFlag200ResponseDataInner() *FindFeatureFlag200ResponseDataInn
 func NewFindFeatureFlag200ResponseDataInnerWithDefaults() *FindFeatureFlag200ResponseDataInner {
 	this := FindFeatureFlag200ResponseDataInner{}
 	return &this
+}
+
+// GetKey returns the Key field value
+func (o *FindFeatureFlag200ResponseDataInner) GetKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Key
+}
+
+// GetKeyOk returns a tuple with the Key field value
+// and a boolean to check if the value has been set.
+func (o *FindFeatureFlag200ResponseDataInner) GetKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Key, true
+}
+
+// SetKey sets field value
+func (o *FindFeatureFlag200ResponseDataInner) SetKey(v string) {
+	o.Key = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindFeatureFlag200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFeatureFlag200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindFeatureFlag200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindFeatureFlag200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetRolloutPct returns the RolloutPct field value if set, zero value otherwise.
+func (o *FindFeatureFlag200ResponseDataInner) GetRolloutPct() int32 {
+	if o == nil || IsNil(o.RolloutPct) {
+		var ret int32
+		return ret
+	}
+	return *o.RolloutPct
+}
+
+// GetRolloutPctOk returns a tuple with the RolloutPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFeatureFlag200ResponseDataInner) GetRolloutPctOk() (*int32, bool) {
+	if o == nil || IsNil(o.RolloutPct) {
+		return nil, false
+	}
+	return o.RolloutPct, true
+}
+
+// HasRolloutPct returns a boolean if a field has been set.
+func (o *FindFeatureFlag200ResponseDataInner) HasRolloutPct() bool {
+	if o != nil && !IsNil(o.RolloutPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetRolloutPct gets a reference to the given int32 and assigns it to the RolloutPct field.
+func (o *FindFeatureFlag200ResponseDataInner) SetRolloutPct(v int32) {
+	o.RolloutPct = &v
+}
+
+// GetEnabledPlans returns the EnabledPlans field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindFeatureFlag200ResponseDataInner) GetEnabledPlans() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.EnabledPlans
+}
+
+// GetEnabledPlansOk returns a tuple with the EnabledPlans field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindFeatureFlag200ResponseDataInner) GetEnabledPlansOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.EnabledPlans) {
+		return nil, false
+	}
+	return &o.EnabledPlans, true
+}
+
+// HasEnabledPlans returns a boolean if a field has been set.
+func (o *FindFeatureFlag200ResponseDataInner) HasEnabledPlans() bool {
+	if o != nil && !IsNil(o.EnabledPlans) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabledPlans gets a reference to the given interface{} and assigns it to the EnabledPlans field.
+func (o *FindFeatureFlag200ResponseDataInner) SetEnabledPlans(v interface{}) {
+	o.EnabledPlans = v
+}
+
+// GetEnabledOrgs returns the EnabledOrgs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindFeatureFlag200ResponseDataInner) GetEnabledOrgs() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.EnabledOrgs
+}
+
+// GetEnabledOrgsOk returns a tuple with the EnabledOrgs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindFeatureFlag200ResponseDataInner) GetEnabledOrgsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.EnabledOrgs) {
+		return nil, false
+	}
+	return &o.EnabledOrgs, true
+}
+
+// HasEnabledOrgs returns a boolean if a field has been set.
+func (o *FindFeatureFlag200ResponseDataInner) HasEnabledOrgs() bool {
+	if o != nil && !IsNil(o.EnabledOrgs) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabledOrgs gets a reference to the given interface{} and assigns it to the EnabledOrgs field.
+func (o *FindFeatureFlag200ResponseDataInner) SetEnabledOrgs(v interface{}) {
+	o.EnabledOrgs = v
+}
+
+// GetIsEnabled returns the IsEnabled field value if set, zero value otherwise.
+func (o *FindFeatureFlag200ResponseDataInner) GetIsEnabled() bool {
+	if o == nil || IsNil(o.IsEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsEnabled
+}
+
+// GetIsEnabledOk returns a tuple with the IsEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFeatureFlag200ResponseDataInner) GetIsEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsEnabled) {
+		return nil, false
+	}
+	return o.IsEnabled, true
+}
+
+// HasIsEnabled returns a boolean if a field has been set.
+func (o *FindFeatureFlag200ResponseDataInner) HasIsEnabled() bool {
+	if o != nil && !IsNil(o.IsEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsEnabled gets a reference to the given bool and assigns it to the IsEnabled field.
+func (o *FindFeatureFlag200ResponseDataInner) SetIsEnabled(v bool) {
+	o.IsEnabled = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *FindFeatureFlag200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindFeatureFlag200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *FindFeatureFlag200ResponseDataInner) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *FindFeatureFlag200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +343,6 @@ func (o *FindFeatureFlag200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindFeatureFlag200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindFeatureFlag200ResponseDataInner) GetAttributes() FeatureFlag {
-	if o == nil || IsNil(o.Attributes) {
-		var ret FeatureFlag
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindFeatureFlag200ResponseDataInner) GetAttributesOk() (*FeatureFlag, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindFeatureFlag200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given FeatureFlag and assigns it to the Attributes field.
-func (o *FindFeatureFlag200ResponseDataInner) SetAttributes(v FeatureFlag) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +461,30 @@ func (o FindFeatureFlag200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindFeatureFlag200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["key"] = o.Key
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.RolloutPct) {
+		toSerialize["rollout_pct"] = o.RolloutPct
+	}
+	if o.EnabledPlans != nil {
+		toSerialize["enabled_plans"] = o.EnabledPlans
+	}
+	if o.EnabledOrgs != nil {
+		toSerialize["enabled_orgs"] = o.EnabledOrgs
+	}
+	if !IsNil(o.IsEnabled) {
+		toSerialize["is_enabled"] = o.IsEnabled
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +496,43 @@ func (o FindFeatureFlag200ResponseDataInner) ToMap() (map[string]interface{}, er
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindFeatureFlag200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"key",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindFeatureFlag200ResponseDataInner := _FindFeatureFlag200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindFeatureFlag200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindFeatureFlag200ResponseDataInner(varFindFeatureFlag200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindFeatureFlag200ResponseDataInner struct {

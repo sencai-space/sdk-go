@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCostForecast200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,39 @@ var _ MappedNullable = &FindCostForecast200ResponseDataInner{}
 
 // FindCostForecast200ResponseDataInner struct for FindCostForecast200ResponseDataInner
 type FindCostForecast200ResponseDataInner struct {
+	// ISO year-month string (YYYY-MM) pro který je forecast platný.
+	ForecastMonth string `json:"forecast_month"`
+	// Predikovaný měsíční výdaj v USD.
+	PredictedUsd *float32 `json:"predicted_usd,omitempty"`
+	// Skutečný výdaj v USD (vyplní se retrospektivně po uzavření měsíce).
+	ActualUsd *float32 `json:"actual_usd,omitempty"`
+	// Spolehlivost forecastu — low < 4 měsíce dat, medium 4–6, high 6+ měsíců.
+	Confidence *string `json:"confidence,omitempty"`
+	// Identifikátor verze algoritmu (např. rule-based-v1).
+	ModelVersion *string `json:"model_version,omitempty"`
+	// Lidsky čitelné vysvětlení forecastu vygenerované algoritmem.
+	AiReasoning *string `json:"ai_reasoning,omitempty"`
+	// Směr trendu výdajů detekovaný z historických dat.
+	Trend *string `json:"trend,omitempty"`
+	// Volitelný breakdown forecastu per provider/kategorie.
+	Breakdown interface{} `json:"breakdown,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CostForecast `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCostForecast200ResponseDataInner FindCostForecast200ResponseDataInner
+
 // NewFindCostForecast200ResponseDataInner instantiates a new FindCostForecast200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCostForecast200ResponseDataInner() *FindCostForecast200ResponseDataInner {
+func NewFindCostForecast200ResponseDataInner(forecastMonth string) *FindCostForecast200ResponseDataInner {
 	this := FindCostForecast200ResponseDataInner{}
+	this.ForecastMonth = forecastMonth
 	return &this
 }
 
@@ -44,6 +65,287 @@ func NewFindCostForecast200ResponseDataInner() *FindCostForecast200ResponseDataI
 func NewFindCostForecast200ResponseDataInnerWithDefaults() *FindCostForecast200ResponseDataInner {
 	this := FindCostForecast200ResponseDataInner{}
 	return &this
+}
+
+// GetForecastMonth returns the ForecastMonth field value
+func (o *FindCostForecast200ResponseDataInner) GetForecastMonth() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ForecastMonth
+}
+
+// GetForecastMonthOk returns a tuple with the ForecastMonth field value
+// and a boolean to check if the value has been set.
+func (o *FindCostForecast200ResponseDataInner) GetForecastMonthOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ForecastMonth, true
+}
+
+// SetForecastMonth sets field value
+func (o *FindCostForecast200ResponseDataInner) SetForecastMonth(v string) {
+	o.ForecastMonth = v
+}
+
+// GetPredictedUsd returns the PredictedUsd field value if set, zero value otherwise.
+func (o *FindCostForecast200ResponseDataInner) GetPredictedUsd() float32 {
+	if o == nil || IsNil(o.PredictedUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.PredictedUsd
+}
+
+// GetPredictedUsdOk returns a tuple with the PredictedUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostForecast200ResponseDataInner) GetPredictedUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.PredictedUsd) {
+		return nil, false
+	}
+	return o.PredictedUsd, true
+}
+
+// HasPredictedUsd returns a boolean if a field has been set.
+func (o *FindCostForecast200ResponseDataInner) HasPredictedUsd() bool {
+	if o != nil && !IsNil(o.PredictedUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetPredictedUsd gets a reference to the given float32 and assigns it to the PredictedUsd field.
+func (o *FindCostForecast200ResponseDataInner) SetPredictedUsd(v float32) {
+	o.PredictedUsd = &v
+}
+
+// GetActualUsd returns the ActualUsd field value if set, zero value otherwise.
+func (o *FindCostForecast200ResponseDataInner) GetActualUsd() float32 {
+	if o == nil || IsNil(o.ActualUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.ActualUsd
+}
+
+// GetActualUsdOk returns a tuple with the ActualUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostForecast200ResponseDataInner) GetActualUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.ActualUsd) {
+		return nil, false
+	}
+	return o.ActualUsd, true
+}
+
+// HasActualUsd returns a boolean if a field has been set.
+func (o *FindCostForecast200ResponseDataInner) HasActualUsd() bool {
+	if o != nil && !IsNil(o.ActualUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetActualUsd gets a reference to the given float32 and assigns it to the ActualUsd field.
+func (o *FindCostForecast200ResponseDataInner) SetActualUsd(v float32) {
+	o.ActualUsd = &v
+}
+
+// GetConfidence returns the Confidence field value if set, zero value otherwise.
+func (o *FindCostForecast200ResponseDataInner) GetConfidence() string {
+	if o == nil || IsNil(o.Confidence) {
+		var ret string
+		return ret
+	}
+	return *o.Confidence
+}
+
+// GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostForecast200ResponseDataInner) GetConfidenceOk() (*string, bool) {
+	if o == nil || IsNil(o.Confidence) {
+		return nil, false
+	}
+	return o.Confidence, true
+}
+
+// HasConfidence returns a boolean if a field has been set.
+func (o *FindCostForecast200ResponseDataInner) HasConfidence() bool {
+	if o != nil && !IsNil(o.Confidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfidence gets a reference to the given string and assigns it to the Confidence field.
+func (o *FindCostForecast200ResponseDataInner) SetConfidence(v string) {
+	o.Confidence = &v
+}
+
+// GetModelVersion returns the ModelVersion field value if set, zero value otherwise.
+func (o *FindCostForecast200ResponseDataInner) GetModelVersion() string {
+	if o == nil || IsNil(o.ModelVersion) {
+		var ret string
+		return ret
+	}
+	return *o.ModelVersion
+}
+
+// GetModelVersionOk returns a tuple with the ModelVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostForecast200ResponseDataInner) GetModelVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.ModelVersion) {
+		return nil, false
+	}
+	return o.ModelVersion, true
+}
+
+// HasModelVersion returns a boolean if a field has been set.
+func (o *FindCostForecast200ResponseDataInner) HasModelVersion() bool {
+	if o != nil && !IsNil(o.ModelVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetModelVersion gets a reference to the given string and assigns it to the ModelVersion field.
+func (o *FindCostForecast200ResponseDataInner) SetModelVersion(v string) {
+	o.ModelVersion = &v
+}
+
+// GetAiReasoning returns the AiReasoning field value if set, zero value otherwise.
+func (o *FindCostForecast200ResponseDataInner) GetAiReasoning() string {
+	if o == nil || IsNil(o.AiReasoning) {
+		var ret string
+		return ret
+	}
+	return *o.AiReasoning
+}
+
+// GetAiReasoningOk returns a tuple with the AiReasoning field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostForecast200ResponseDataInner) GetAiReasoningOk() (*string, bool) {
+	if o == nil || IsNil(o.AiReasoning) {
+		return nil, false
+	}
+	return o.AiReasoning, true
+}
+
+// HasAiReasoning returns a boolean if a field has been set.
+func (o *FindCostForecast200ResponseDataInner) HasAiReasoning() bool {
+	if o != nil && !IsNil(o.AiReasoning) {
+		return true
+	}
+
+	return false
+}
+
+// SetAiReasoning gets a reference to the given string and assigns it to the AiReasoning field.
+func (o *FindCostForecast200ResponseDataInner) SetAiReasoning(v string) {
+	o.AiReasoning = &v
+}
+
+// GetTrend returns the Trend field value if set, zero value otherwise.
+func (o *FindCostForecast200ResponseDataInner) GetTrend() string {
+	if o == nil || IsNil(o.Trend) {
+		var ret string
+		return ret
+	}
+	return *o.Trend
+}
+
+// GetTrendOk returns a tuple with the Trend field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostForecast200ResponseDataInner) GetTrendOk() (*string, bool) {
+	if o == nil || IsNil(o.Trend) {
+		return nil, false
+	}
+	return o.Trend, true
+}
+
+// HasTrend returns a boolean if a field has been set.
+func (o *FindCostForecast200ResponseDataInner) HasTrend() bool {
+	if o != nil && !IsNil(o.Trend) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrend gets a reference to the given string and assigns it to the Trend field.
+func (o *FindCostForecast200ResponseDataInner) SetTrend(v string) {
+	o.Trend = &v
+}
+
+// GetBreakdown returns the Breakdown field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCostForecast200ResponseDataInner) GetBreakdown() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Breakdown
+}
+
+// GetBreakdownOk returns a tuple with the Breakdown field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCostForecast200ResponseDataInner) GetBreakdownOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Breakdown) {
+		return nil, false
+	}
+	return &o.Breakdown, true
+}
+
+// HasBreakdown returns a boolean if a field has been set.
+func (o *FindCostForecast200ResponseDataInner) HasBreakdown() bool {
+	if o != nil && !IsNil(o.Breakdown) {
+		return true
+	}
+
+	return false
+}
+
+// SetBreakdown gets a reference to the given interface{} and assigns it to the Breakdown field.
+func (o *FindCostForecast200ResponseDataInner) SetBreakdown(v interface{}) {
+	o.Breakdown = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCostForecast200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCostForecast200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCostForecast200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCostForecast200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +410,6 @@ func (o *FindCostForecast200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCostForecast200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCostForecast200ResponseDataInner) GetAttributes() CostForecast {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CostForecast
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCostForecast200ResponseDataInner) GetAttributesOk() (*CostForecast, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCostForecast200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CostForecast and assigns it to the Attributes field.
-func (o *FindCostForecast200ResponseDataInner) SetAttributes(v CostForecast) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +528,36 @@ func (o FindCostForecast200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCostForecast200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["forecast_month"] = o.ForecastMonth
+	if !IsNil(o.PredictedUsd) {
+		toSerialize["predicted_usd"] = o.PredictedUsd
+	}
+	if !IsNil(o.ActualUsd) {
+		toSerialize["actual_usd"] = o.ActualUsd
+	}
+	if !IsNil(o.Confidence) {
+		toSerialize["confidence"] = o.Confidence
+	}
+	if !IsNil(o.ModelVersion) {
+		toSerialize["model_version"] = o.ModelVersion
+	}
+	if !IsNil(o.AiReasoning) {
+		toSerialize["ai_reasoning"] = o.AiReasoning
+	}
+	if !IsNil(o.Trend) {
+		toSerialize["trend"] = o.Trend
+	}
+	if o.Breakdown != nil {
+		toSerialize["breakdown"] = o.Breakdown
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +569,43 @@ func (o FindCostForecast200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCostForecast200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"forecast_month",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCostForecast200ResponseDataInner := _FindCostForecast200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCostForecast200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCostForecast200ResponseDataInner(varFindCostForecast200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCostForecast200ResponseDataInner struct {

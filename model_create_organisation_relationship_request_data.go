@@ -27,7 +27,7 @@ type CreateOrganisationRelationshipRequestData struct {
 	ChildOrg *CreateAccessReviewRequestDataReviewer `json:"child_org,omitempty"`
 	Type string `json:"type"`
 	// List of capability names parent org has over child org
-	Scope map[string]interface{} `json:"scope,omitempty"`
+	Scope interface{} `json:"scope,omitempty"`
 	Status string `json:"status"`
 	GrantedBy *CreateAccessReviewRequestDataReviewer `json:"granted_by,omitempty"`
 	// Child org owner must explicitly accept the relationship
@@ -152,10 +152,10 @@ func (o *CreateOrganisationRelationshipRequestData) SetType(v string) {
 	o.Type = v
 }
 
-// GetScope returns the Scope field value if set, zero value otherwise.
-func (o *CreateOrganisationRelationshipRequestData) GetScope() map[string]interface{} {
-	if o == nil || IsNil(o.Scope) {
-		var ret map[string]interface{}
+// GetScope returns the Scope field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateOrganisationRelationshipRequestData) GetScope() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Scope
@@ -163,11 +163,12 @@ func (o *CreateOrganisationRelationshipRequestData) GetScope() map[string]interf
 
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateOrganisationRelationshipRequestData) GetScopeOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateOrganisationRelationshipRequestData) GetScopeOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Scope) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Scope, true
+	return &o.Scope, true
 }
 
 // HasScope returns a boolean if a field has been set.
@@ -179,8 +180,8 @@ func (o *CreateOrganisationRelationshipRequestData) HasScope() bool {
 	return false
 }
 
-// SetScope gets a reference to the given map[string]interface{} and assigns it to the Scope field.
-func (o *CreateOrganisationRelationshipRequestData) SetScope(v map[string]interface{}) {
+// SetScope gets a reference to the given interface{} and assigns it to the Scope field.
+func (o *CreateOrganisationRelationshipRequestData) SetScope(v interface{}) {
 	o.Scope = v
 }
 
@@ -441,7 +442,7 @@ func (o CreateOrganisationRelationshipRequestData) ToMap() (map[string]interface
 		toSerialize["child_org"] = o.ChildOrg
 	}
 	toSerialize["type"] = o.Type
-	if !IsNil(o.Scope) {
+	if o.Scope != nil {
 		toSerialize["scope"] = o.Scope
 	}
 	toSerialize["status"] = o.Status

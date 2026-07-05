@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindOrganisationMember200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindOrganisationMember200ResponseDataInner{}
 
 // FindOrganisationMember200ResponseDataInner struct for FindOrganisationMember200ResponseDataInner
 type FindOrganisationMember200ResponseDataInner struct {
+	User *CreateAccessReviewRequestDataReviewer `json:"user,omitempty"`
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	Role string `json:"role"`
+	Email *string `json:"email,omitempty"`
+	InvitationToken *string `json:"invitation_token,omitempty"`
+	InvitedAt *time.Time `json:"invited_at,omitempty"`
+	AcceptedAt *time.Time `json:"accepted_at,omitempty"`
+	InvitedBy *CreateAccessReviewRequestDataReviewer `json:"invited_by,omitempty"`
+	// Logical data-residency region of the tenant (CELL invariant, F2.CELL.01)
+	HomeRegion string `json:"home_region"`
+	// Deployment cell within home_region for blast-radius isolation (CELL invariant, F2.CELL.01)
+	CellId *string `json:"cell_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *OrganisationMember `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindOrganisationMember200ResponseDataInner FindOrganisationMember200ResponseDataInner
+
 // NewFindOrganisationMember200ResponseDataInner instantiates a new FindOrganisationMember200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindOrganisationMember200ResponseDataInner() *FindOrganisationMember200ResponseDataInner {
+func NewFindOrganisationMember200ResponseDataInner(organisation CreateAccessReviewRequestDataReviewer, role string, homeRegion string) *FindOrganisationMember200ResponseDataInner {
 	this := FindOrganisationMember200ResponseDataInner{}
+	this.Organisation = organisation
+	this.Role = role
+	this.HomeRegion = homeRegion
 	return &this
 }
 
@@ -44,6 +62,302 @@ func NewFindOrganisationMember200ResponseDataInner() *FindOrganisationMember200R
 func NewFindOrganisationMember200ResponseDataInnerWithDefaults() *FindOrganisationMember200ResponseDataInner {
 	this := FindOrganisationMember200ResponseDataInner{}
 	return &this
+}
+
+// GetUser returns the User field value if set, zero value otherwise.
+func (o *FindOrganisationMember200ResponseDataInner) GetUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.User) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.User
+}
+
+// GetUserOk returns a tuple with the User field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationMember200ResponseDataInner) GetUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.User) {
+		return nil, false
+	}
+	return o.User, true
+}
+
+// HasUser returns a boolean if a field has been set.
+func (o *FindOrganisationMember200ResponseDataInner) HasUser() bool {
+	if o != nil && !IsNil(o.User) {
+		return true
+	}
+
+	return false
+}
+
+// SetUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the User field.
+func (o *FindOrganisationMember200ResponseDataInner) SetUser(v CreateAccessReviewRequestDataReviewer) {
+	o.User = &v
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindOrganisationMember200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationMember200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindOrganisationMember200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetRole returns the Role field value
+func (o *FindOrganisationMember200ResponseDataInner) GetRole() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Role
+}
+
+// GetRoleOk returns a tuple with the Role field value
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationMember200ResponseDataInner) GetRoleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Role, true
+}
+
+// SetRole sets field value
+func (o *FindOrganisationMember200ResponseDataInner) SetRole(v string) {
+	o.Role = v
+}
+
+// GetEmail returns the Email field value if set, zero value otherwise.
+func (o *FindOrganisationMember200ResponseDataInner) GetEmail() string {
+	if o == nil || IsNil(o.Email) {
+		var ret string
+		return ret
+	}
+	return *o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationMember200ResponseDataInner) GetEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.Email) {
+		return nil, false
+	}
+	return o.Email, true
+}
+
+// HasEmail returns a boolean if a field has been set.
+func (o *FindOrganisationMember200ResponseDataInner) HasEmail() bool {
+	if o != nil && !IsNil(o.Email) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmail gets a reference to the given string and assigns it to the Email field.
+func (o *FindOrganisationMember200ResponseDataInner) SetEmail(v string) {
+	o.Email = &v
+}
+
+// GetInvitationToken returns the InvitationToken field value if set, zero value otherwise.
+func (o *FindOrganisationMember200ResponseDataInner) GetInvitationToken() string {
+	if o == nil || IsNil(o.InvitationToken) {
+		var ret string
+		return ret
+	}
+	return *o.InvitationToken
+}
+
+// GetInvitationTokenOk returns a tuple with the InvitationToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationMember200ResponseDataInner) GetInvitationTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.InvitationToken) {
+		return nil, false
+	}
+	return o.InvitationToken, true
+}
+
+// HasInvitationToken returns a boolean if a field has been set.
+func (o *FindOrganisationMember200ResponseDataInner) HasInvitationToken() bool {
+	if o != nil && !IsNil(o.InvitationToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetInvitationToken gets a reference to the given string and assigns it to the InvitationToken field.
+func (o *FindOrganisationMember200ResponseDataInner) SetInvitationToken(v string) {
+	o.InvitationToken = &v
+}
+
+// GetInvitedAt returns the InvitedAt field value if set, zero value otherwise.
+func (o *FindOrganisationMember200ResponseDataInner) GetInvitedAt() time.Time {
+	if o == nil || IsNil(o.InvitedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.InvitedAt
+}
+
+// GetInvitedAtOk returns a tuple with the InvitedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationMember200ResponseDataInner) GetInvitedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.InvitedAt) {
+		return nil, false
+	}
+	return o.InvitedAt, true
+}
+
+// HasInvitedAt returns a boolean if a field has been set.
+func (o *FindOrganisationMember200ResponseDataInner) HasInvitedAt() bool {
+	if o != nil && !IsNil(o.InvitedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetInvitedAt gets a reference to the given time.Time and assigns it to the InvitedAt field.
+func (o *FindOrganisationMember200ResponseDataInner) SetInvitedAt(v time.Time) {
+	o.InvitedAt = &v
+}
+
+// GetAcceptedAt returns the AcceptedAt field value if set, zero value otherwise.
+func (o *FindOrganisationMember200ResponseDataInner) GetAcceptedAt() time.Time {
+	if o == nil || IsNil(o.AcceptedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AcceptedAt
+}
+
+// GetAcceptedAtOk returns a tuple with the AcceptedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationMember200ResponseDataInner) GetAcceptedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AcceptedAt) {
+		return nil, false
+	}
+	return o.AcceptedAt, true
+}
+
+// HasAcceptedAt returns a boolean if a field has been set.
+func (o *FindOrganisationMember200ResponseDataInner) HasAcceptedAt() bool {
+	if o != nil && !IsNil(o.AcceptedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcceptedAt gets a reference to the given time.Time and assigns it to the AcceptedAt field.
+func (o *FindOrganisationMember200ResponseDataInner) SetAcceptedAt(v time.Time) {
+	o.AcceptedAt = &v
+}
+
+// GetInvitedBy returns the InvitedBy field value if set, zero value otherwise.
+func (o *FindOrganisationMember200ResponseDataInner) GetInvitedBy() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.InvitedBy) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.InvitedBy
+}
+
+// GetInvitedByOk returns a tuple with the InvitedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationMember200ResponseDataInner) GetInvitedByOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.InvitedBy) {
+		return nil, false
+	}
+	return o.InvitedBy, true
+}
+
+// HasInvitedBy returns a boolean if a field has been set.
+func (o *FindOrganisationMember200ResponseDataInner) HasInvitedBy() bool {
+	if o != nil && !IsNil(o.InvitedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetInvitedBy gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the InvitedBy field.
+func (o *FindOrganisationMember200ResponseDataInner) SetInvitedBy(v CreateAccessReviewRequestDataReviewer) {
+	o.InvitedBy = &v
+}
+
+// GetHomeRegion returns the HomeRegion field value
+func (o *FindOrganisationMember200ResponseDataInner) GetHomeRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.HomeRegion
+}
+
+// GetHomeRegionOk returns a tuple with the HomeRegion field value
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationMember200ResponseDataInner) GetHomeRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HomeRegion, true
+}
+
+// SetHomeRegion sets field value
+func (o *FindOrganisationMember200ResponseDataInner) SetHomeRegion(v string) {
+	o.HomeRegion = v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindOrganisationMember200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationMember200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindOrganisationMember200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindOrganisationMember200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +422,6 @@ func (o *FindOrganisationMember200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindOrganisationMember200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindOrganisationMember200ResponseDataInner) GetAttributes() OrganisationMember {
-	if o == nil || IsNil(o.Attributes) {
-		var ret OrganisationMember
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindOrganisationMember200ResponseDataInner) GetAttributesOk() (*OrganisationMember, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindOrganisationMember200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given OrganisationMember and assigns it to the Attributes field.
-func (o *FindOrganisationMember200ResponseDataInner) SetAttributes(v OrganisationMember) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +540,35 @@ func (o FindOrganisationMember200ResponseDataInner) MarshalJSON() ([]byte, error
 
 func (o FindOrganisationMember200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.User) {
+		toSerialize["user"] = o.User
+	}
+	toSerialize["organisation"] = o.Organisation
+	toSerialize["role"] = o.Role
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	if !IsNil(o.InvitationToken) {
+		toSerialize["invitation_token"] = o.InvitationToken
+	}
+	if !IsNil(o.InvitedAt) {
+		toSerialize["invited_at"] = o.InvitedAt
+	}
+	if !IsNil(o.AcceptedAt) {
+		toSerialize["accepted_at"] = o.AcceptedAt
+	}
+	if !IsNil(o.InvitedBy) {
+		toSerialize["invited_by"] = o.InvitedBy
+	}
+	toSerialize["home_region"] = o.HomeRegion
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +580,45 @@ func (o FindOrganisationMember200ResponseDataInner) ToMap() (map[string]interfac
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindOrganisationMember200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organisation",
+		"role",
+		"home_region",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindOrganisationMember200ResponseDataInner := _FindOrganisationMember200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindOrganisationMember200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindOrganisationMember200ResponseDataInner(varFindOrganisationMember200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindOrganisationMember200ResponseDataInner struct {

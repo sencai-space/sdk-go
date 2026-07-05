@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindRopaEntry200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindRopaEntry200ResponseDataInner{}
 
 // FindRopaEntry200ResponseDataInner struct for FindRopaEntry200ResponseDataInner
 type FindRopaEntry200ResponseDataInner struct {
+	DataCategory string `json:"data_category"`
+	LegalBasis string `json:"legal_basis"`
+	Purpose string `json:"purpose"`
+	Processor *string `json:"processor,omitempty"`
+	RetentionDays *int32 `json:"retention_days,omitempty"`
+	CrossBorder *bool `json:"cross_border,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	RecipientCountries interface{} `json:"recipient_countries,omitempty"`
+	Safeguards *string `json:"safeguards,omitempty"`
+	Notes *string `json:"notes,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	XSencaiClassification *string `json:"x_sencai_classification,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *RopaEntry `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindRopaEntry200ResponseDataInner FindRopaEntry200ResponseDataInner
+
 // NewFindRopaEntry200ResponseDataInner instantiates a new FindRopaEntry200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindRopaEntry200ResponseDataInner() *FindRopaEntry200ResponseDataInner {
+func NewFindRopaEntry200ResponseDataInner(dataCategory string, legalBasis string, purpose string) *FindRopaEntry200ResponseDataInner {
 	this := FindRopaEntry200ResponseDataInner{}
+	this.DataCategory = dataCategory
+	this.LegalBasis = legalBasis
+	this.Purpose = purpose
 	return &this
 }
 
@@ -44,6 +62,335 @@ func NewFindRopaEntry200ResponseDataInner() *FindRopaEntry200ResponseDataInner {
 func NewFindRopaEntry200ResponseDataInnerWithDefaults() *FindRopaEntry200ResponseDataInner {
 	this := FindRopaEntry200ResponseDataInner{}
 	return &this
+}
+
+// GetDataCategory returns the DataCategory field value
+func (o *FindRopaEntry200ResponseDataInner) GetDataCategory() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.DataCategory
+}
+
+// GetDataCategoryOk returns a tuple with the DataCategory field value
+// and a boolean to check if the value has been set.
+func (o *FindRopaEntry200ResponseDataInner) GetDataCategoryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DataCategory, true
+}
+
+// SetDataCategory sets field value
+func (o *FindRopaEntry200ResponseDataInner) SetDataCategory(v string) {
+	o.DataCategory = v
+}
+
+// GetLegalBasis returns the LegalBasis field value
+func (o *FindRopaEntry200ResponseDataInner) GetLegalBasis() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.LegalBasis
+}
+
+// GetLegalBasisOk returns a tuple with the LegalBasis field value
+// and a boolean to check if the value has been set.
+func (o *FindRopaEntry200ResponseDataInner) GetLegalBasisOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LegalBasis, true
+}
+
+// SetLegalBasis sets field value
+func (o *FindRopaEntry200ResponseDataInner) SetLegalBasis(v string) {
+	o.LegalBasis = v
+}
+
+// GetPurpose returns the Purpose field value
+func (o *FindRopaEntry200ResponseDataInner) GetPurpose() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Purpose
+}
+
+// GetPurposeOk returns a tuple with the Purpose field value
+// and a boolean to check if the value has been set.
+func (o *FindRopaEntry200ResponseDataInner) GetPurposeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Purpose, true
+}
+
+// SetPurpose sets field value
+func (o *FindRopaEntry200ResponseDataInner) SetPurpose(v string) {
+	o.Purpose = v
+}
+
+// GetProcessor returns the Processor field value if set, zero value otherwise.
+func (o *FindRopaEntry200ResponseDataInner) GetProcessor() string {
+	if o == nil || IsNil(o.Processor) {
+		var ret string
+		return ret
+	}
+	return *o.Processor
+}
+
+// GetProcessorOk returns a tuple with the Processor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRopaEntry200ResponseDataInner) GetProcessorOk() (*string, bool) {
+	if o == nil || IsNil(o.Processor) {
+		return nil, false
+	}
+	return o.Processor, true
+}
+
+// HasProcessor returns a boolean if a field has been set.
+func (o *FindRopaEntry200ResponseDataInner) HasProcessor() bool {
+	if o != nil && !IsNil(o.Processor) {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessor gets a reference to the given string and assigns it to the Processor field.
+func (o *FindRopaEntry200ResponseDataInner) SetProcessor(v string) {
+	o.Processor = &v
+}
+
+// GetRetentionDays returns the RetentionDays field value if set, zero value otherwise.
+func (o *FindRopaEntry200ResponseDataInner) GetRetentionDays() int32 {
+	if o == nil || IsNil(o.RetentionDays) {
+		var ret int32
+		return ret
+	}
+	return *o.RetentionDays
+}
+
+// GetRetentionDaysOk returns a tuple with the RetentionDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRopaEntry200ResponseDataInner) GetRetentionDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.RetentionDays) {
+		return nil, false
+	}
+	return o.RetentionDays, true
+}
+
+// HasRetentionDays returns a boolean if a field has been set.
+func (o *FindRopaEntry200ResponseDataInner) HasRetentionDays() bool {
+	if o != nil && !IsNil(o.RetentionDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetRetentionDays gets a reference to the given int32 and assigns it to the RetentionDays field.
+func (o *FindRopaEntry200ResponseDataInner) SetRetentionDays(v int32) {
+	o.RetentionDays = &v
+}
+
+// GetCrossBorder returns the CrossBorder field value if set, zero value otherwise.
+func (o *FindRopaEntry200ResponseDataInner) GetCrossBorder() bool {
+	if o == nil || IsNil(o.CrossBorder) {
+		var ret bool
+		return ret
+	}
+	return *o.CrossBorder
+}
+
+// GetCrossBorderOk returns a tuple with the CrossBorder field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRopaEntry200ResponseDataInner) GetCrossBorderOk() (*bool, bool) {
+	if o == nil || IsNil(o.CrossBorder) {
+		return nil, false
+	}
+	return o.CrossBorder, true
+}
+
+// HasCrossBorder returns a boolean if a field has been set.
+func (o *FindRopaEntry200ResponseDataInner) HasCrossBorder() bool {
+	if o != nil && !IsNil(o.CrossBorder) {
+		return true
+	}
+
+	return false
+}
+
+// SetCrossBorder gets a reference to the given bool and assigns it to the CrossBorder field.
+func (o *FindRopaEntry200ResponseDataInner) SetCrossBorder(v bool) {
+	o.CrossBorder = &v
+}
+
+// GetRecipientCountries returns the RecipientCountries field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindRopaEntry200ResponseDataInner) GetRecipientCountries() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.RecipientCountries
+}
+
+// GetRecipientCountriesOk returns a tuple with the RecipientCountries field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindRopaEntry200ResponseDataInner) GetRecipientCountriesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.RecipientCountries) {
+		return nil, false
+	}
+	return &o.RecipientCountries, true
+}
+
+// HasRecipientCountries returns a boolean if a field has been set.
+func (o *FindRopaEntry200ResponseDataInner) HasRecipientCountries() bool {
+	if o != nil && !IsNil(o.RecipientCountries) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipientCountries gets a reference to the given interface{} and assigns it to the RecipientCountries field.
+func (o *FindRopaEntry200ResponseDataInner) SetRecipientCountries(v interface{}) {
+	o.RecipientCountries = v
+}
+
+// GetSafeguards returns the Safeguards field value if set, zero value otherwise.
+func (o *FindRopaEntry200ResponseDataInner) GetSafeguards() string {
+	if o == nil || IsNil(o.Safeguards) {
+		var ret string
+		return ret
+	}
+	return *o.Safeguards
+}
+
+// GetSafeguardsOk returns a tuple with the Safeguards field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRopaEntry200ResponseDataInner) GetSafeguardsOk() (*string, bool) {
+	if o == nil || IsNil(o.Safeguards) {
+		return nil, false
+	}
+	return o.Safeguards, true
+}
+
+// HasSafeguards returns a boolean if a field has been set.
+func (o *FindRopaEntry200ResponseDataInner) HasSafeguards() bool {
+	if o != nil && !IsNil(o.Safeguards) {
+		return true
+	}
+
+	return false
+}
+
+// SetSafeguards gets a reference to the given string and assigns it to the Safeguards field.
+func (o *FindRopaEntry200ResponseDataInner) SetSafeguards(v string) {
+	o.Safeguards = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindRopaEntry200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRopaEntry200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindRopaEntry200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindRopaEntry200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindRopaEntry200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRopaEntry200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindRopaEntry200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindRopaEntry200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetXSencaiClassification returns the XSencaiClassification field value if set, zero value otherwise.
+func (o *FindRopaEntry200ResponseDataInner) GetXSencaiClassification() string {
+	if o == nil || IsNil(o.XSencaiClassification) {
+		var ret string
+		return ret
+	}
+	return *o.XSencaiClassification
+}
+
+// GetXSencaiClassificationOk returns a tuple with the XSencaiClassification field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRopaEntry200ResponseDataInner) GetXSencaiClassificationOk() (*string, bool) {
+	if o == nil || IsNil(o.XSencaiClassification) {
+		return nil, false
+	}
+	return o.XSencaiClassification, true
+}
+
+// HasXSencaiClassification returns a boolean if a field has been set.
+func (o *FindRopaEntry200ResponseDataInner) HasXSencaiClassification() bool {
+	if o != nil && !IsNil(o.XSencaiClassification) {
+		return true
+	}
+
+	return false
+}
+
+// SetXSencaiClassification gets a reference to the given string and assigns it to the XSencaiClassification field.
+func (o *FindRopaEntry200ResponseDataInner) SetXSencaiClassification(v string) {
+	o.XSencaiClassification = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +455,6 @@ func (o *FindRopaEntry200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindRopaEntry200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindRopaEntry200ResponseDataInner) GetAttributes() RopaEntry {
-	if o == nil || IsNil(o.Attributes) {
-		var ret RopaEntry
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindRopaEntry200ResponseDataInner) GetAttributesOk() (*RopaEntry, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindRopaEntry200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given RopaEntry and assigns it to the Attributes field.
-func (o *FindRopaEntry200ResponseDataInner) SetAttributes(v RopaEntry) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +573,38 @@ func (o FindRopaEntry200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindRopaEntry200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["data_category"] = o.DataCategory
+	toSerialize["legal_basis"] = o.LegalBasis
+	toSerialize["purpose"] = o.Purpose
+	if !IsNil(o.Processor) {
+		toSerialize["processor"] = o.Processor
+	}
+	if !IsNil(o.RetentionDays) {
+		toSerialize["retention_days"] = o.RetentionDays
+	}
+	if !IsNil(o.CrossBorder) {
+		toSerialize["cross_border"] = o.CrossBorder
+	}
+	if o.RecipientCountries != nil {
+		toSerialize["recipient_countries"] = o.RecipientCountries
+	}
+	if !IsNil(o.Safeguards) {
+		toSerialize["safeguards"] = o.Safeguards
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.XSencaiClassification) {
+		toSerialize["x_sencai_classification"] = o.XSencaiClassification
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +616,45 @@ func (o FindRopaEntry200ResponseDataInner) ToMap() (map[string]interface{}, erro
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindRopaEntry200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"data_category",
+		"legal_basis",
+		"purpose",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindRopaEntry200ResponseDataInner := _FindRopaEntry200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindRopaEntry200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindRopaEntry200ResponseDataInner(varFindRopaEntry200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindRopaEntry200ResponseDataInner struct {

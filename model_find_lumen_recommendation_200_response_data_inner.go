@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindLumenRecommendation200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,30 @@ var _ MappedNullable = &FindLumenRecommendation200ResponseDataInner{}
 
 // FindLumenRecommendation200ResponseDataInner struct for FindLumenRecommendation200ResponseDataInner
 type FindLumenRecommendation200ResponseDataInner struct {
+	Type string `json:"type"`
+	Headline string `json:"headline"`
+	Body *string `json:"body,omitempty"`
+	Priority *string `json:"priority,omitempty"`
+	DismissedAt *time.Time `json:"dismissed_at,omitempty"`
+	Status *string `json:"status,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *LumenRecommendation `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindLumenRecommendation200ResponseDataInner FindLumenRecommendation200ResponseDataInner
+
 // NewFindLumenRecommendation200ResponseDataInner instantiates a new FindLumenRecommendation200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindLumenRecommendation200ResponseDataInner() *FindLumenRecommendation200ResponseDataInner {
+func NewFindLumenRecommendation200ResponseDataInner(type_ string, headline string) *FindLumenRecommendation200ResponseDataInner {
 	this := FindLumenRecommendation200ResponseDataInner{}
+	this.Type = type_
+	this.Headline = headline
 	return &this
 }
 
@@ -44,6 +56,214 @@ func NewFindLumenRecommendation200ResponseDataInner() *FindLumenRecommendation20
 func NewFindLumenRecommendation200ResponseDataInnerWithDefaults() *FindLumenRecommendation200ResponseDataInner {
 	this := FindLumenRecommendation200ResponseDataInner{}
 	return &this
+}
+
+// GetType returns the Type field value
+func (o *FindLumenRecommendation200ResponseDataInner) GetType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) GetTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *FindLumenRecommendation200ResponseDataInner) SetType(v string) {
+	o.Type = v
+}
+
+// GetHeadline returns the Headline field value
+func (o *FindLumenRecommendation200ResponseDataInner) GetHeadline() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Headline
+}
+
+// GetHeadlineOk returns a tuple with the Headline field value
+// and a boolean to check if the value has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) GetHeadlineOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Headline, true
+}
+
+// SetHeadline sets field value
+func (o *FindLumenRecommendation200ResponseDataInner) SetHeadline(v string) {
+	o.Headline = v
+}
+
+// GetBody returns the Body field value if set, zero value otherwise.
+func (o *FindLumenRecommendation200ResponseDataInner) GetBody() string {
+	if o == nil || IsNil(o.Body) {
+		var ret string
+		return ret
+	}
+	return *o.Body
+}
+
+// GetBodyOk returns a tuple with the Body field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) GetBodyOk() (*string, bool) {
+	if o == nil || IsNil(o.Body) {
+		return nil, false
+	}
+	return o.Body, true
+}
+
+// HasBody returns a boolean if a field has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) HasBody() bool {
+	if o != nil && !IsNil(o.Body) {
+		return true
+	}
+
+	return false
+}
+
+// SetBody gets a reference to the given string and assigns it to the Body field.
+func (o *FindLumenRecommendation200ResponseDataInner) SetBody(v string) {
+	o.Body = &v
+}
+
+// GetPriority returns the Priority field value if set, zero value otherwise.
+func (o *FindLumenRecommendation200ResponseDataInner) GetPriority() string {
+	if o == nil || IsNil(o.Priority) {
+		var ret string
+		return ret
+	}
+	return *o.Priority
+}
+
+// GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) GetPriorityOk() (*string, bool) {
+	if o == nil || IsNil(o.Priority) {
+		return nil, false
+	}
+	return o.Priority, true
+}
+
+// HasPriority returns a boolean if a field has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) HasPriority() bool {
+	if o != nil && !IsNil(o.Priority) {
+		return true
+	}
+
+	return false
+}
+
+// SetPriority gets a reference to the given string and assigns it to the Priority field.
+func (o *FindLumenRecommendation200ResponseDataInner) SetPriority(v string) {
+	o.Priority = &v
+}
+
+// GetDismissedAt returns the DismissedAt field value if set, zero value otherwise.
+func (o *FindLumenRecommendation200ResponseDataInner) GetDismissedAt() time.Time {
+	if o == nil || IsNil(o.DismissedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DismissedAt
+}
+
+// GetDismissedAtOk returns a tuple with the DismissedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) GetDismissedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DismissedAt) {
+		return nil, false
+	}
+	return o.DismissedAt, true
+}
+
+// HasDismissedAt returns a boolean if a field has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) HasDismissedAt() bool {
+	if o != nil && !IsNil(o.DismissedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDismissedAt gets a reference to the given time.Time and assigns it to the DismissedAt field.
+func (o *FindLumenRecommendation200ResponseDataInner) SetDismissedAt(v time.Time) {
+	o.DismissedAt = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindLumenRecommendation200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindLumenRecommendation200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindLumenRecommendation200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindLumenRecommendation200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindLumenRecommendation200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +328,6 @@ func (o *FindLumenRecommendation200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindLumenRecommendation200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindLumenRecommendation200ResponseDataInner) GetAttributes() LumenRecommendation {
-	if o == nil || IsNil(o.Attributes) {
-		var ret LumenRecommendation
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindLumenRecommendation200ResponseDataInner) GetAttributesOk() (*LumenRecommendation, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindLumenRecommendation200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given LumenRecommendation and assigns it to the Attributes field.
-func (o *FindLumenRecommendation200ResponseDataInner) SetAttributes(v LumenRecommendation) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +446,28 @@ func (o FindLumenRecommendation200ResponseDataInner) MarshalJSON() ([]byte, erro
 
 func (o FindLumenRecommendation200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["headline"] = o.Headline
+	if !IsNil(o.Body) {
+		toSerialize["body"] = o.Body
+	}
+	if !IsNil(o.Priority) {
+		toSerialize["priority"] = o.Priority
+	}
+	if !IsNil(o.DismissedAt) {
+		toSerialize["dismissed_at"] = o.DismissedAt
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +479,44 @@ func (o FindLumenRecommendation200ResponseDataInner) ToMap() (map[string]interfa
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindLumenRecommendation200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"headline",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindLumenRecommendation200ResponseDataInner := _FindLumenRecommendation200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindLumenRecommendation200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindLumenRecommendation200ResponseDataInner(varFindLumenRecommendation200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindLumenRecommendation200ResponseDataInner struct {

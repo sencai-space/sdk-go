@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindLicenceAssignment200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindLicenceAssignment200ResponseDataInner{}
 
 // FindLicenceAssignment200ResponseDataInner struct for FindLicenceAssignment200ResponseDataInner
 type FindLicenceAssignment200ResponseDataInner struct {
+	UserEmail string `json:"user_email"`
+	UserName *string `json:"user_name,omitempty"`
+	LicenceSku string `json:"licence_sku"`
+	ProductId *string `json:"product_id,omitempty"`
+	Status string `json:"status"`
+	AssignedAt *time.Time `json:"assigned_at,omitempty"`
+	RevokedAt *time.Time `json:"revoked_at,omitempty"`
+	AssignedBy *CreateAccessReviewRequestDataReviewer `json:"assigned_by,omitempty"`
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	WorkspaceCustomerId *string `json:"workspace_customer_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *LicenceAssignment `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindLicenceAssignment200ResponseDataInner FindLicenceAssignment200ResponseDataInner
+
 // NewFindLicenceAssignment200ResponseDataInner instantiates a new FindLicenceAssignment200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindLicenceAssignment200ResponseDataInner() *FindLicenceAssignment200ResponseDataInner {
+func NewFindLicenceAssignment200ResponseDataInner(userEmail string, licenceSku string, status string, organisation CreateAccessReviewRequestDataReviewer) *FindLicenceAssignment200ResponseDataInner {
 	this := FindLicenceAssignment200ResponseDataInner{}
+	this.UserEmail = userEmail
+	this.LicenceSku = licenceSku
+	this.Status = status
+	this.Organisation = organisation
 	return &this
 }
 
@@ -44,6 +61,294 @@ func NewFindLicenceAssignment200ResponseDataInner() *FindLicenceAssignment200Res
 func NewFindLicenceAssignment200ResponseDataInnerWithDefaults() *FindLicenceAssignment200ResponseDataInner {
 	this := FindLicenceAssignment200ResponseDataInner{}
 	return &this
+}
+
+// GetUserEmail returns the UserEmail field value
+func (o *FindLicenceAssignment200ResponseDataInner) GetUserEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.UserEmail
+}
+
+// GetUserEmailOk returns a tuple with the UserEmail field value
+// and a boolean to check if the value has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) GetUserEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UserEmail, true
+}
+
+// SetUserEmail sets field value
+func (o *FindLicenceAssignment200ResponseDataInner) SetUserEmail(v string) {
+	o.UserEmail = v
+}
+
+// GetUserName returns the UserName field value if set, zero value otherwise.
+func (o *FindLicenceAssignment200ResponseDataInner) GetUserName() string {
+	if o == nil || IsNil(o.UserName) {
+		var ret string
+		return ret
+	}
+	return *o.UserName
+}
+
+// GetUserNameOk returns a tuple with the UserName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) GetUserNameOk() (*string, bool) {
+	if o == nil || IsNil(o.UserName) {
+		return nil, false
+	}
+	return o.UserName, true
+}
+
+// HasUserName returns a boolean if a field has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) HasUserName() bool {
+	if o != nil && !IsNil(o.UserName) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserName gets a reference to the given string and assigns it to the UserName field.
+func (o *FindLicenceAssignment200ResponseDataInner) SetUserName(v string) {
+	o.UserName = &v
+}
+
+// GetLicenceSku returns the LicenceSku field value
+func (o *FindLicenceAssignment200ResponseDataInner) GetLicenceSku() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.LicenceSku
+}
+
+// GetLicenceSkuOk returns a tuple with the LicenceSku field value
+// and a boolean to check if the value has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) GetLicenceSkuOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LicenceSku, true
+}
+
+// SetLicenceSku sets field value
+func (o *FindLicenceAssignment200ResponseDataInner) SetLicenceSku(v string) {
+	o.LicenceSku = v
+}
+
+// GetProductId returns the ProductId field value if set, zero value otherwise.
+func (o *FindLicenceAssignment200ResponseDataInner) GetProductId() string {
+	if o == nil || IsNil(o.ProductId) {
+		var ret string
+		return ret
+	}
+	return *o.ProductId
+}
+
+// GetProductIdOk returns a tuple with the ProductId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) GetProductIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ProductId) {
+		return nil, false
+	}
+	return o.ProductId, true
+}
+
+// HasProductId returns a boolean if a field has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) HasProductId() bool {
+	if o != nil && !IsNil(o.ProductId) {
+		return true
+	}
+
+	return false
+}
+
+// SetProductId gets a reference to the given string and assigns it to the ProductId field.
+func (o *FindLicenceAssignment200ResponseDataInner) SetProductId(v string) {
+	o.ProductId = &v
+}
+
+// GetStatus returns the Status field value
+func (o *FindLicenceAssignment200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindLicenceAssignment200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetAssignedAt returns the AssignedAt field value if set, zero value otherwise.
+func (o *FindLicenceAssignment200ResponseDataInner) GetAssignedAt() time.Time {
+	if o == nil || IsNil(o.AssignedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AssignedAt
+}
+
+// GetAssignedAtOk returns a tuple with the AssignedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) GetAssignedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AssignedAt) {
+		return nil, false
+	}
+	return o.AssignedAt, true
+}
+
+// HasAssignedAt returns a boolean if a field has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) HasAssignedAt() bool {
+	if o != nil && !IsNil(o.AssignedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssignedAt gets a reference to the given time.Time and assigns it to the AssignedAt field.
+func (o *FindLicenceAssignment200ResponseDataInner) SetAssignedAt(v time.Time) {
+	o.AssignedAt = &v
+}
+
+// GetRevokedAt returns the RevokedAt field value if set, zero value otherwise.
+func (o *FindLicenceAssignment200ResponseDataInner) GetRevokedAt() time.Time {
+	if o == nil || IsNil(o.RevokedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.RevokedAt
+}
+
+// GetRevokedAtOk returns a tuple with the RevokedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) GetRevokedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.RevokedAt) {
+		return nil, false
+	}
+	return o.RevokedAt, true
+}
+
+// HasRevokedAt returns a boolean if a field has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) HasRevokedAt() bool {
+	if o != nil && !IsNil(o.RevokedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevokedAt gets a reference to the given time.Time and assigns it to the RevokedAt field.
+func (o *FindLicenceAssignment200ResponseDataInner) SetRevokedAt(v time.Time) {
+	o.RevokedAt = &v
+}
+
+// GetAssignedBy returns the AssignedBy field value if set, zero value otherwise.
+func (o *FindLicenceAssignment200ResponseDataInner) GetAssignedBy() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.AssignedBy) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.AssignedBy
+}
+
+// GetAssignedByOk returns a tuple with the AssignedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) GetAssignedByOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.AssignedBy) {
+		return nil, false
+	}
+	return o.AssignedBy, true
+}
+
+// HasAssignedBy returns a boolean if a field has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) HasAssignedBy() bool {
+	if o != nil && !IsNil(o.AssignedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssignedBy gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the AssignedBy field.
+func (o *FindLicenceAssignment200ResponseDataInner) SetAssignedBy(v CreateAccessReviewRequestDataReviewer) {
+	o.AssignedBy = &v
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindLicenceAssignment200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindLicenceAssignment200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetWorkspaceCustomerId returns the WorkspaceCustomerId field value if set, zero value otherwise.
+func (o *FindLicenceAssignment200ResponseDataInner) GetWorkspaceCustomerId() string {
+	if o == nil || IsNil(o.WorkspaceCustomerId) {
+		var ret string
+		return ret
+	}
+	return *o.WorkspaceCustomerId
+}
+
+// GetWorkspaceCustomerIdOk returns a tuple with the WorkspaceCustomerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) GetWorkspaceCustomerIdOk() (*string, bool) {
+	if o == nil || IsNil(o.WorkspaceCustomerId) {
+		return nil, false
+	}
+	return o.WorkspaceCustomerId, true
+}
+
+// HasWorkspaceCustomerId returns a boolean if a field has been set.
+func (o *FindLicenceAssignment200ResponseDataInner) HasWorkspaceCustomerId() bool {
+	if o != nil && !IsNil(o.WorkspaceCustomerId) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspaceCustomerId gets a reference to the given string and assigns it to the WorkspaceCustomerId field.
+func (o *FindLicenceAssignment200ResponseDataInner) SetWorkspaceCustomerId(v string) {
+	o.WorkspaceCustomerId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +413,6 @@ func (o *FindLicenceAssignment200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindLicenceAssignment200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindLicenceAssignment200ResponseDataInner) GetAttributes() LicenceAssignment {
-	if o == nil || IsNil(o.Attributes) {
-		var ret LicenceAssignment
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindLicenceAssignment200ResponseDataInner) GetAttributesOk() (*LicenceAssignment, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindLicenceAssignment200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given LicenceAssignment and assigns it to the Attributes field.
-func (o *FindLicenceAssignment200ResponseDataInner) SetAttributes(v LicenceAssignment) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +531,33 @@ func (o FindLicenceAssignment200ResponseDataInner) MarshalJSON() ([]byte, error)
 
 func (o FindLicenceAssignment200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["user_email"] = o.UserEmail
+	if !IsNil(o.UserName) {
+		toSerialize["user_name"] = o.UserName
+	}
+	toSerialize["licence_sku"] = o.LicenceSku
+	if !IsNil(o.ProductId) {
+		toSerialize["product_id"] = o.ProductId
+	}
+	toSerialize["status"] = o.Status
+	if !IsNil(o.AssignedAt) {
+		toSerialize["assigned_at"] = o.AssignedAt
+	}
+	if !IsNil(o.RevokedAt) {
+		toSerialize["revoked_at"] = o.RevokedAt
+	}
+	if !IsNil(o.AssignedBy) {
+		toSerialize["assigned_by"] = o.AssignedBy
+	}
+	toSerialize["organisation"] = o.Organisation
+	if !IsNil(o.WorkspaceCustomerId) {
+		toSerialize["workspace_customer_id"] = o.WorkspaceCustomerId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +569,46 @@ func (o FindLicenceAssignment200ResponseDataInner) ToMap() (map[string]interface
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindLicenceAssignment200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"user_email",
+		"licence_sku",
+		"status",
+		"organisation",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindLicenceAssignment200ResponseDataInner := _FindLicenceAssignment200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindLicenceAssignment200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindLicenceAssignment200ResponseDataInner(varFindLicenceAssignment200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindLicenceAssignment200ResponseDataInner struct {

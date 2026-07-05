@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindWorkloadProfile200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,43 @@ var _ MappedNullable = &FindWorkloadProfile200ResponseDataInner{}
 
 // FindWorkloadProfile200ResponseDataInner struct for FindWorkloadProfile200ResponseDataInner
 type FindWorkloadProfile200ResponseDataInner struct {
+	// documentId of the source cloud-instance record
+	InstanceId *string `json:"instance_id,omitempty"`
+	InstanceName *string `json:"instance_name,omitempty"`
+	ProfileType string `json:"profile_type"`
+	// Array of hour integers (0-23) when CPU/memory is high
+	PeakHours interface{} `json:"peak_hours,omitempty"`
+	// Array of hour integers (0-23) when instance is underutilised
+	IdleHours interface{} `json:"idle_hours,omitempty"`
+	AvgCpuPct *float32 `json:"avg_cpu_pct,omitempty"`
+	AvgMemoryPct *float32 `json:"avg_memory_pct,omitempty"`
+	// Current instance type e.g. m5.2xlarge
+	CurrentInstanceType *string `json:"current_instance_type,omitempty"`
+	// Recommended target instance type e.g. m5.xlarge
+	MigrationTarget *string `json:"migration_target,omitempty"`
+	EstimatedMonthlySavingsUsd *float32 `json:"estimated_monthly_savings_usd,omitempty"`
+	Confidence *float32 `json:"confidence,omitempty"`
+	AnalysisModel *string `json:"analysis_model,omitempty"`
+	RecommendationSummary *string `json:"recommendation_summary,omitempty"`
+	Status *string `json:"status,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	ProfiledAt *time.Time `json:"profiled_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *WorkloadProfile `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindWorkloadProfile200ResponseDataInner FindWorkloadProfile200ResponseDataInner
+
 // NewFindWorkloadProfile200ResponseDataInner instantiates a new FindWorkloadProfile200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindWorkloadProfile200ResponseDataInner() *FindWorkloadProfile200ResponseDataInner {
+func NewFindWorkloadProfile200ResponseDataInner(profileType string) *FindWorkloadProfile200ResponseDataInner {
 	this := FindWorkloadProfile200ResponseDataInner{}
+	this.ProfileType = profileType
 	return &this
 }
 
@@ -44,6 +69,512 @@ func NewFindWorkloadProfile200ResponseDataInner() *FindWorkloadProfile200Respons
 func NewFindWorkloadProfile200ResponseDataInnerWithDefaults() *FindWorkloadProfile200ResponseDataInner {
 	this := FindWorkloadProfile200ResponseDataInner{}
 	return &this
+}
+
+// GetInstanceId returns the InstanceId field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetInstanceId() string {
+	if o == nil || IsNil(o.InstanceId) {
+		var ret string
+		return ret
+	}
+	return *o.InstanceId
+}
+
+// GetInstanceIdOk returns a tuple with the InstanceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetInstanceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.InstanceId) {
+		return nil, false
+	}
+	return o.InstanceId, true
+}
+
+// HasInstanceId returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasInstanceId() bool {
+	if o != nil && !IsNil(o.InstanceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstanceId gets a reference to the given string and assigns it to the InstanceId field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetInstanceId(v string) {
+	o.InstanceId = &v
+}
+
+// GetInstanceName returns the InstanceName field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetInstanceName() string {
+	if o == nil || IsNil(o.InstanceName) {
+		var ret string
+		return ret
+	}
+	return *o.InstanceName
+}
+
+// GetInstanceNameOk returns a tuple with the InstanceName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetInstanceNameOk() (*string, bool) {
+	if o == nil || IsNil(o.InstanceName) {
+		return nil, false
+	}
+	return o.InstanceName, true
+}
+
+// HasInstanceName returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasInstanceName() bool {
+	if o != nil && !IsNil(o.InstanceName) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstanceName gets a reference to the given string and assigns it to the InstanceName field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetInstanceName(v string) {
+	o.InstanceName = &v
+}
+
+// GetProfileType returns the ProfileType field value
+func (o *FindWorkloadProfile200ResponseDataInner) GetProfileType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ProfileType
+}
+
+// GetProfileTypeOk returns a tuple with the ProfileType field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetProfileTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ProfileType, true
+}
+
+// SetProfileType sets field value
+func (o *FindWorkloadProfile200ResponseDataInner) SetProfileType(v string) {
+	o.ProfileType = v
+}
+
+// GetPeakHours returns the PeakHours field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindWorkloadProfile200ResponseDataInner) GetPeakHours() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.PeakHours
+}
+
+// GetPeakHoursOk returns a tuple with the PeakHours field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindWorkloadProfile200ResponseDataInner) GetPeakHoursOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.PeakHours) {
+		return nil, false
+	}
+	return &o.PeakHours, true
+}
+
+// HasPeakHours returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasPeakHours() bool {
+	if o != nil && !IsNil(o.PeakHours) {
+		return true
+	}
+
+	return false
+}
+
+// SetPeakHours gets a reference to the given interface{} and assigns it to the PeakHours field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetPeakHours(v interface{}) {
+	o.PeakHours = v
+}
+
+// GetIdleHours returns the IdleHours field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindWorkloadProfile200ResponseDataInner) GetIdleHours() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.IdleHours
+}
+
+// GetIdleHoursOk returns a tuple with the IdleHours field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindWorkloadProfile200ResponseDataInner) GetIdleHoursOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.IdleHours) {
+		return nil, false
+	}
+	return &o.IdleHours, true
+}
+
+// HasIdleHours returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasIdleHours() bool {
+	if o != nil && !IsNil(o.IdleHours) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdleHours gets a reference to the given interface{} and assigns it to the IdleHours field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetIdleHours(v interface{}) {
+	o.IdleHours = v
+}
+
+// GetAvgCpuPct returns the AvgCpuPct field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetAvgCpuPct() float32 {
+	if o == nil || IsNil(o.AvgCpuPct) {
+		var ret float32
+		return ret
+	}
+	return *o.AvgCpuPct
+}
+
+// GetAvgCpuPctOk returns a tuple with the AvgCpuPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetAvgCpuPctOk() (*float32, bool) {
+	if o == nil || IsNil(o.AvgCpuPct) {
+		return nil, false
+	}
+	return o.AvgCpuPct, true
+}
+
+// HasAvgCpuPct returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasAvgCpuPct() bool {
+	if o != nil && !IsNil(o.AvgCpuPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvgCpuPct gets a reference to the given float32 and assigns it to the AvgCpuPct field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetAvgCpuPct(v float32) {
+	o.AvgCpuPct = &v
+}
+
+// GetAvgMemoryPct returns the AvgMemoryPct field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetAvgMemoryPct() float32 {
+	if o == nil || IsNil(o.AvgMemoryPct) {
+		var ret float32
+		return ret
+	}
+	return *o.AvgMemoryPct
+}
+
+// GetAvgMemoryPctOk returns a tuple with the AvgMemoryPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetAvgMemoryPctOk() (*float32, bool) {
+	if o == nil || IsNil(o.AvgMemoryPct) {
+		return nil, false
+	}
+	return o.AvgMemoryPct, true
+}
+
+// HasAvgMemoryPct returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasAvgMemoryPct() bool {
+	if o != nil && !IsNil(o.AvgMemoryPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetAvgMemoryPct gets a reference to the given float32 and assigns it to the AvgMemoryPct field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetAvgMemoryPct(v float32) {
+	o.AvgMemoryPct = &v
+}
+
+// GetCurrentInstanceType returns the CurrentInstanceType field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetCurrentInstanceType() string {
+	if o == nil || IsNil(o.CurrentInstanceType) {
+		var ret string
+		return ret
+	}
+	return *o.CurrentInstanceType
+}
+
+// GetCurrentInstanceTypeOk returns a tuple with the CurrentInstanceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetCurrentInstanceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.CurrentInstanceType) {
+		return nil, false
+	}
+	return o.CurrentInstanceType, true
+}
+
+// HasCurrentInstanceType returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasCurrentInstanceType() bool {
+	if o != nil && !IsNil(o.CurrentInstanceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentInstanceType gets a reference to the given string and assigns it to the CurrentInstanceType field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetCurrentInstanceType(v string) {
+	o.CurrentInstanceType = &v
+}
+
+// GetMigrationTarget returns the MigrationTarget field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetMigrationTarget() string {
+	if o == nil || IsNil(o.MigrationTarget) {
+		var ret string
+		return ret
+	}
+	return *o.MigrationTarget
+}
+
+// GetMigrationTargetOk returns a tuple with the MigrationTarget field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetMigrationTargetOk() (*string, bool) {
+	if o == nil || IsNil(o.MigrationTarget) {
+		return nil, false
+	}
+	return o.MigrationTarget, true
+}
+
+// HasMigrationTarget returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasMigrationTarget() bool {
+	if o != nil && !IsNil(o.MigrationTarget) {
+		return true
+	}
+
+	return false
+}
+
+// SetMigrationTarget gets a reference to the given string and assigns it to the MigrationTarget field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetMigrationTarget(v string) {
+	o.MigrationTarget = &v
+}
+
+// GetEstimatedMonthlySavingsUsd returns the EstimatedMonthlySavingsUsd field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetEstimatedMonthlySavingsUsd() float32 {
+	if o == nil || IsNil(o.EstimatedMonthlySavingsUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.EstimatedMonthlySavingsUsd
+}
+
+// GetEstimatedMonthlySavingsUsdOk returns a tuple with the EstimatedMonthlySavingsUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetEstimatedMonthlySavingsUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.EstimatedMonthlySavingsUsd) {
+		return nil, false
+	}
+	return o.EstimatedMonthlySavingsUsd, true
+}
+
+// HasEstimatedMonthlySavingsUsd returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasEstimatedMonthlySavingsUsd() bool {
+	if o != nil && !IsNil(o.EstimatedMonthlySavingsUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetEstimatedMonthlySavingsUsd gets a reference to the given float32 and assigns it to the EstimatedMonthlySavingsUsd field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetEstimatedMonthlySavingsUsd(v float32) {
+	o.EstimatedMonthlySavingsUsd = &v
+}
+
+// GetConfidence returns the Confidence field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetConfidence() float32 {
+	if o == nil || IsNil(o.Confidence) {
+		var ret float32
+		return ret
+	}
+	return *o.Confidence
+}
+
+// GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetConfidenceOk() (*float32, bool) {
+	if o == nil || IsNil(o.Confidence) {
+		return nil, false
+	}
+	return o.Confidence, true
+}
+
+// HasConfidence returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasConfidence() bool {
+	if o != nil && !IsNil(o.Confidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfidence gets a reference to the given float32 and assigns it to the Confidence field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetConfidence(v float32) {
+	o.Confidence = &v
+}
+
+// GetAnalysisModel returns the AnalysisModel field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetAnalysisModel() string {
+	if o == nil || IsNil(o.AnalysisModel) {
+		var ret string
+		return ret
+	}
+	return *o.AnalysisModel
+}
+
+// GetAnalysisModelOk returns a tuple with the AnalysisModel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetAnalysisModelOk() (*string, bool) {
+	if o == nil || IsNil(o.AnalysisModel) {
+		return nil, false
+	}
+	return o.AnalysisModel, true
+}
+
+// HasAnalysisModel returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasAnalysisModel() bool {
+	if o != nil && !IsNil(o.AnalysisModel) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnalysisModel gets a reference to the given string and assigns it to the AnalysisModel field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetAnalysisModel(v string) {
+	o.AnalysisModel = &v
+}
+
+// GetRecommendationSummary returns the RecommendationSummary field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetRecommendationSummary() string {
+	if o == nil || IsNil(o.RecommendationSummary) {
+		var ret string
+		return ret
+	}
+	return *o.RecommendationSummary
+}
+
+// GetRecommendationSummaryOk returns a tuple with the RecommendationSummary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetRecommendationSummaryOk() (*string, bool) {
+	if o == nil || IsNil(o.RecommendationSummary) {
+		return nil, false
+	}
+	return o.RecommendationSummary, true
+}
+
+// HasRecommendationSummary returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasRecommendationSummary() bool {
+	if o != nil && !IsNil(o.RecommendationSummary) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecommendationSummary gets a reference to the given string and assigns it to the RecommendationSummary field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetRecommendationSummary(v string) {
+	o.RecommendationSummary = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetProfiledAt returns the ProfiledAt field value if set, zero value otherwise.
+func (o *FindWorkloadProfile200ResponseDataInner) GetProfiledAt() time.Time {
+	if o == nil || IsNil(o.ProfiledAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ProfiledAt
+}
+
+// GetProfiledAtOk returns a tuple with the ProfiledAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) GetProfiledAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ProfiledAt) {
+		return nil, false
+	}
+	return o.ProfiledAt, true
+}
+
+// HasProfiledAt returns a boolean if a field has been set.
+func (o *FindWorkloadProfile200ResponseDataInner) HasProfiledAt() bool {
+	if o != nil && !IsNil(o.ProfiledAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetProfiledAt gets a reference to the given time.Time and assigns it to the ProfiledAt field.
+func (o *FindWorkloadProfile200ResponseDataInner) SetProfiledAt(v time.Time) {
+	o.ProfiledAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +639,6 @@ func (o *FindWorkloadProfile200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindWorkloadProfile200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindWorkloadProfile200ResponseDataInner) GetAttributes() WorkloadProfile {
-	if o == nil || IsNil(o.Attributes) {
-		var ret WorkloadProfile
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindWorkloadProfile200ResponseDataInner) GetAttributesOk() (*WorkloadProfile, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindWorkloadProfile200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given WorkloadProfile and assigns it to the Attributes field.
-func (o *FindWorkloadProfile200ResponseDataInner) SetAttributes(v WorkloadProfile) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +757,57 @@ func (o FindWorkloadProfile200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindWorkloadProfile200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.InstanceId) {
+		toSerialize["instance_id"] = o.InstanceId
+	}
+	if !IsNil(o.InstanceName) {
+		toSerialize["instance_name"] = o.InstanceName
+	}
+	toSerialize["profile_type"] = o.ProfileType
+	if o.PeakHours != nil {
+		toSerialize["peak_hours"] = o.PeakHours
+	}
+	if o.IdleHours != nil {
+		toSerialize["idle_hours"] = o.IdleHours
+	}
+	if !IsNil(o.AvgCpuPct) {
+		toSerialize["avg_cpu_pct"] = o.AvgCpuPct
+	}
+	if !IsNil(o.AvgMemoryPct) {
+		toSerialize["avg_memory_pct"] = o.AvgMemoryPct
+	}
+	if !IsNil(o.CurrentInstanceType) {
+		toSerialize["current_instance_type"] = o.CurrentInstanceType
+	}
+	if !IsNil(o.MigrationTarget) {
+		toSerialize["migration_target"] = o.MigrationTarget
+	}
+	if !IsNil(o.EstimatedMonthlySavingsUsd) {
+		toSerialize["estimated_monthly_savings_usd"] = o.EstimatedMonthlySavingsUsd
+	}
+	if !IsNil(o.Confidence) {
+		toSerialize["confidence"] = o.Confidence
+	}
+	if !IsNil(o.AnalysisModel) {
+		toSerialize["analysis_model"] = o.AnalysisModel
+	}
+	if !IsNil(o.RecommendationSummary) {
+		toSerialize["recommendation_summary"] = o.RecommendationSummary
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.ProfiledAt) {
+		toSerialize["profiled_at"] = o.ProfiledAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +819,43 @@ func (o FindWorkloadProfile200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindWorkloadProfile200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"profile_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindWorkloadProfile200ResponseDataInner := _FindWorkloadProfile200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindWorkloadProfile200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindWorkloadProfile200ResponseDataInner(varFindWorkloadProfile200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindWorkloadProfile200ResponseDataInner struct {

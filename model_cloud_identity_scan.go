@@ -29,7 +29,8 @@ type CloudIdentityScan struct {
 	AdvancedProtectionUsers *int32 `json:"advanced_protection_users,omitempty"`
 	SccIntegrationEnabled *bool `json:"scc_integration_enabled,omitempty"`
 	ContextAwarePoliciesCount *int32 `json:"context_aware_policies_count,omitempty"`
-	Findings map[string]interface{} `json:"findings,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Findings interface{} `json:"findings,omitempty"`
 	LastScannedAt *time.Time `json:"last_scanned_at,omitempty"`
 }
 
@@ -237,10 +238,10 @@ func (o *CloudIdentityScan) SetContextAwarePoliciesCount(v int32) {
 	o.ContextAwarePoliciesCount = &v
 }
 
-// GetFindings returns the Findings field value if set, zero value otherwise.
-func (o *CloudIdentityScan) GetFindings() map[string]interface{} {
-	if o == nil || IsNil(o.Findings) {
-		var ret map[string]interface{}
+// GetFindings returns the Findings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CloudIdentityScan) GetFindings() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Findings
@@ -248,11 +249,12 @@ func (o *CloudIdentityScan) GetFindings() map[string]interface{} {
 
 // GetFindingsOk returns a tuple with the Findings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CloudIdentityScan) GetFindingsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CloudIdentityScan) GetFindingsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Findings) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Findings, true
+	return &o.Findings, true
 }
 
 // HasFindings returns a boolean if a field has been set.
@@ -264,8 +266,8 @@ func (o *CloudIdentityScan) HasFindings() bool {
 	return false
 }
 
-// SetFindings gets a reference to the given map[string]interface{} and assigns it to the Findings field.
-func (o *CloudIdentityScan) SetFindings(v map[string]interface{}) {
+// SetFindings gets a reference to the given interface{} and assigns it to the Findings field.
+func (o *CloudIdentityScan) SetFindings(v interface{}) {
 	o.Findings = v
 }
 
@@ -327,7 +329,7 @@ func (o CloudIdentityScan) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ContextAwarePoliciesCount) {
 		toSerialize["context_aware_policies_count"] = o.ContextAwarePoliciesCount
 	}
-	if !IsNil(o.Findings) {
+	if o.Findings != nil {
 		toSerialize["findings"] = o.Findings
 	}
 	if !IsNil(o.LastScannedAt) {

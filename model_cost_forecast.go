@@ -37,7 +37,7 @@ type CostForecast struct {
 	// Směr trendu výdajů detekovaný z historických dat.
 	Trend *string `json:"trend,omitempty"`
 	// Volitelný breakdown forecastu per provider/kategorie.
-	Breakdown map[string]interface{} `json:"breakdown,omitempty"`
+	Breakdown interface{} `json:"breakdown,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
 
@@ -277,10 +277,10 @@ func (o *CostForecast) SetTrend(v string) {
 	o.Trend = &v
 }
 
-// GetBreakdown returns the Breakdown field value if set, zero value otherwise.
-func (o *CostForecast) GetBreakdown() map[string]interface{} {
-	if o == nil || IsNil(o.Breakdown) {
-		var ret map[string]interface{}
+// GetBreakdown returns the Breakdown field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CostForecast) GetBreakdown() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Breakdown
@@ -288,11 +288,12 @@ func (o *CostForecast) GetBreakdown() map[string]interface{} {
 
 // GetBreakdownOk returns a tuple with the Breakdown field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CostForecast) GetBreakdownOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CostForecast) GetBreakdownOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Breakdown) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Breakdown, true
+	return &o.Breakdown, true
 }
 
 // HasBreakdown returns a boolean if a field has been set.
@@ -304,8 +305,8 @@ func (o *CostForecast) HasBreakdown() bool {
 	return false
 }
 
-// SetBreakdown gets a reference to the given map[string]interface{} and assigns it to the Breakdown field.
-func (o *CostForecast) SetBreakdown(v map[string]interface{}) {
+// SetBreakdown gets a reference to the given interface{} and assigns it to the Breakdown field.
+func (o *CostForecast) SetBreakdown(v interface{}) {
 	o.Breakdown = v
 }
 
@@ -370,7 +371,7 @@ func (o CostForecast) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Trend) {
 		toSerialize["trend"] = o.Trend
 	}
-	if !IsNil(o.Breakdown) {
+	if o.Breakdown != nil {
 		toSerialize["breakdown"] = o.Breakdown
 	}
 	if !IsNil(o.Organisation) {

@@ -27,7 +27,8 @@ type ApiVersionPolicy struct {
 	Description *string `json:"description,omitempty"`
 	DeprecatedAt *time.Time `json:"deprecated_at,omitempty"`
 	SunsetAt *time.Time `json:"sunset_at,omitempty"`
-	BreakingChanges map[string]interface{} `json:"breaking_changes,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	BreakingChanges interface{} `json:"breaking_changes,omitempty"`
 	IsCurrent *bool `json:"is_current,omitempty"`
 	MigrationGuideUrl *string `json:"migration_guide_url,omitempty"`
 }
@@ -172,10 +173,10 @@ func (o *ApiVersionPolicy) SetSunsetAt(v time.Time) {
 	o.SunsetAt = &v
 }
 
-// GetBreakingChanges returns the BreakingChanges field value if set, zero value otherwise.
-func (o *ApiVersionPolicy) GetBreakingChanges() map[string]interface{} {
-	if o == nil || IsNil(o.BreakingChanges) {
-		var ret map[string]interface{}
+// GetBreakingChanges returns the BreakingChanges field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ApiVersionPolicy) GetBreakingChanges() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.BreakingChanges
@@ -183,11 +184,12 @@ func (o *ApiVersionPolicy) GetBreakingChanges() map[string]interface{} {
 
 // GetBreakingChangesOk returns a tuple with the BreakingChanges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiVersionPolicy) GetBreakingChangesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ApiVersionPolicy) GetBreakingChangesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.BreakingChanges) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.BreakingChanges, true
+	return &o.BreakingChanges, true
 }
 
 // HasBreakingChanges returns a boolean if a field has been set.
@@ -199,8 +201,8 @@ func (o *ApiVersionPolicy) HasBreakingChanges() bool {
 	return false
 }
 
-// SetBreakingChanges gets a reference to the given map[string]interface{} and assigns it to the BreakingChanges field.
-func (o *ApiVersionPolicy) SetBreakingChanges(v map[string]interface{}) {
+// SetBreakingChanges gets a reference to the given interface{} and assigns it to the BreakingChanges field.
+func (o *ApiVersionPolicy) SetBreakingChanges(v interface{}) {
 	o.BreakingChanges = v
 }
 
@@ -288,7 +290,7 @@ func (o ApiVersionPolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SunsetAt) {
 		toSerialize["sunset_at"] = o.SunsetAt
 	}
-	if !IsNil(o.BreakingChanges) {
+	if o.BreakingChanges != nil {
 		toSerialize["breaking_changes"] = o.BreakingChanges
 	}
 	if !IsNil(o.IsCurrent) {

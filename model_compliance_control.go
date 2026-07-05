@@ -27,7 +27,8 @@ type ComplianceControl struct {
 	Framework string `json:"framework"`
 	Title string `json:"title"`
 	Description *string `json:"description,omitempty"`
-	AuditActions map[string]interface{} `json:"audit_actions,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AuditActions interface{} `json:"audit_actions,omitempty"`
 	CoverageScore *float32 `json:"coverage_score,omitempty"`
 	LastEvidenceAt *time.Time `json:"last_evidence_at,omitempty"`
 	Notes *string `json:"notes,omitempty"`
@@ -159,10 +160,10 @@ func (o *ComplianceControl) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetAuditActions returns the AuditActions field value if set, zero value otherwise.
-func (o *ComplianceControl) GetAuditActions() map[string]interface{} {
-	if o == nil || IsNil(o.AuditActions) {
-		var ret map[string]interface{}
+// GetAuditActions returns the AuditActions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ComplianceControl) GetAuditActions() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.AuditActions
@@ -170,11 +171,12 @@ func (o *ComplianceControl) GetAuditActions() map[string]interface{} {
 
 // GetAuditActionsOk returns a tuple with the AuditActions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ComplianceControl) GetAuditActionsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ComplianceControl) GetAuditActionsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AuditActions) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.AuditActions, true
+	return &o.AuditActions, true
 }
 
 // HasAuditActions returns a boolean if a field has been set.
@@ -186,8 +188,8 @@ func (o *ComplianceControl) HasAuditActions() bool {
 	return false
 }
 
-// SetAuditActions gets a reference to the given map[string]interface{} and assigns it to the AuditActions field.
-func (o *ComplianceControl) SetAuditActions(v map[string]interface{}) {
+// SetAuditActions gets a reference to the given interface{} and assigns it to the AuditActions field.
+func (o *ComplianceControl) SetAuditActions(v interface{}) {
 	o.AuditActions = v
 }
 
@@ -303,7 +305,7 @@ func (o ComplianceControl) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.AuditActions) {
+	if o.AuditActions != nil {
 		toSerialize["audit_actions"] = o.AuditActions
 	}
 	if !IsNil(o.CoverageScore) {

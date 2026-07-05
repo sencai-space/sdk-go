@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindLegalDocument200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,38 @@ var _ MappedNullable = &FindLegalDocument200ResponseDataInner{}
 
 // FindLegalDocument200ResponseDataInner struct for FindLegalDocument200ResponseDataInner
 type FindLegalDocument200ResponseDataInner struct {
+	DocumentType string `json:"document_type"`
+	Version string `json:"version"`
+	Title string `json:"title"`
+	EffectiveFrom time.Time `json:"effective_from"`
+	SummaryText *string `json:"summary_text,omitempty"`
+	FullTextUrl *string `json:"full_text_url,omitempty"`
+	IsCurrent *bool `json:"is_current,omitempty"`
+	ChangeSummary *string `json:"change_summary,omitempty"`
+	RequiresReacceptance *bool `json:"requires_reacceptance,omitempty"`
+	// Full document body (Markdown). F3.LEGAL.01: seeded with a PLACEHOLDER pending lawyer review — see src/bootstrap.ts ensureLegalDocumentPlaceholders().
+	Body *string `json:"body,omitempty"`
+	// F3.LEGAL.01: document language (cs/en). NOT the Strapi i18n plugin locale field (i18n is not enabled on this CT) — a plain string so cs/en variants of the same document_type+version can coexist as separate rows.
+	LocaleCode *string `json:"locale_code,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *LegalDocument `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindLegalDocument200ResponseDataInner FindLegalDocument200ResponseDataInner
+
 // NewFindLegalDocument200ResponseDataInner instantiates a new FindLegalDocument200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindLegalDocument200ResponseDataInner() *FindLegalDocument200ResponseDataInner {
+func NewFindLegalDocument200ResponseDataInner(documentType string, version string, title string, effectiveFrom time.Time) *FindLegalDocument200ResponseDataInner {
 	this := FindLegalDocument200ResponseDataInner{}
+	this.DocumentType = documentType
+	this.Version = version
+	this.Title = title
+	this.EffectiveFrom = effectiveFrom
 	return &this
 }
 
@@ -44,6 +64,326 @@ func NewFindLegalDocument200ResponseDataInner() *FindLegalDocument200ResponseDat
 func NewFindLegalDocument200ResponseDataInnerWithDefaults() *FindLegalDocument200ResponseDataInner {
 	this := FindLegalDocument200ResponseDataInner{}
 	return &this
+}
+
+// GetDocumentType returns the DocumentType field value
+func (o *FindLegalDocument200ResponseDataInner) GetDocumentType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.DocumentType
+}
+
+// GetDocumentTypeOk returns a tuple with the DocumentType field value
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetDocumentTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DocumentType, true
+}
+
+// SetDocumentType sets field value
+func (o *FindLegalDocument200ResponseDataInner) SetDocumentType(v string) {
+	o.DocumentType = v
+}
+
+// GetVersion returns the Version field value
+func (o *FindLegalDocument200ResponseDataInner) GetVersion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetVersionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Version, true
+}
+
+// SetVersion sets field value
+func (o *FindLegalDocument200ResponseDataInner) SetVersion(v string) {
+	o.Version = v
+}
+
+// GetTitle returns the Title field value
+func (o *FindLegalDocument200ResponseDataInner) GetTitle() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Title, true
+}
+
+// SetTitle sets field value
+func (o *FindLegalDocument200ResponseDataInner) SetTitle(v string) {
+	o.Title = v
+}
+
+// GetEffectiveFrom returns the EffectiveFrom field value
+func (o *FindLegalDocument200ResponseDataInner) GetEffectiveFrom() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.EffectiveFrom
+}
+
+// GetEffectiveFromOk returns a tuple with the EffectiveFrom field value
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetEffectiveFromOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EffectiveFrom, true
+}
+
+// SetEffectiveFrom sets field value
+func (o *FindLegalDocument200ResponseDataInner) SetEffectiveFrom(v time.Time) {
+	o.EffectiveFrom = v
+}
+
+// GetSummaryText returns the SummaryText field value if set, zero value otherwise.
+func (o *FindLegalDocument200ResponseDataInner) GetSummaryText() string {
+	if o == nil || IsNil(o.SummaryText) {
+		var ret string
+		return ret
+	}
+	return *o.SummaryText
+}
+
+// GetSummaryTextOk returns a tuple with the SummaryText field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetSummaryTextOk() (*string, bool) {
+	if o == nil || IsNil(o.SummaryText) {
+		return nil, false
+	}
+	return o.SummaryText, true
+}
+
+// HasSummaryText returns a boolean if a field has been set.
+func (o *FindLegalDocument200ResponseDataInner) HasSummaryText() bool {
+	if o != nil && !IsNil(o.SummaryText) {
+		return true
+	}
+
+	return false
+}
+
+// SetSummaryText gets a reference to the given string and assigns it to the SummaryText field.
+func (o *FindLegalDocument200ResponseDataInner) SetSummaryText(v string) {
+	o.SummaryText = &v
+}
+
+// GetFullTextUrl returns the FullTextUrl field value if set, zero value otherwise.
+func (o *FindLegalDocument200ResponseDataInner) GetFullTextUrl() string {
+	if o == nil || IsNil(o.FullTextUrl) {
+		var ret string
+		return ret
+	}
+	return *o.FullTextUrl
+}
+
+// GetFullTextUrlOk returns a tuple with the FullTextUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetFullTextUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.FullTextUrl) {
+		return nil, false
+	}
+	return o.FullTextUrl, true
+}
+
+// HasFullTextUrl returns a boolean if a field has been set.
+func (o *FindLegalDocument200ResponseDataInner) HasFullTextUrl() bool {
+	if o != nil && !IsNil(o.FullTextUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetFullTextUrl gets a reference to the given string and assigns it to the FullTextUrl field.
+func (o *FindLegalDocument200ResponseDataInner) SetFullTextUrl(v string) {
+	o.FullTextUrl = &v
+}
+
+// GetIsCurrent returns the IsCurrent field value if set, zero value otherwise.
+func (o *FindLegalDocument200ResponseDataInner) GetIsCurrent() bool {
+	if o == nil || IsNil(o.IsCurrent) {
+		var ret bool
+		return ret
+	}
+	return *o.IsCurrent
+}
+
+// GetIsCurrentOk returns a tuple with the IsCurrent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetIsCurrentOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsCurrent) {
+		return nil, false
+	}
+	return o.IsCurrent, true
+}
+
+// HasIsCurrent returns a boolean if a field has been set.
+func (o *FindLegalDocument200ResponseDataInner) HasIsCurrent() bool {
+	if o != nil && !IsNil(o.IsCurrent) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsCurrent gets a reference to the given bool and assigns it to the IsCurrent field.
+func (o *FindLegalDocument200ResponseDataInner) SetIsCurrent(v bool) {
+	o.IsCurrent = &v
+}
+
+// GetChangeSummary returns the ChangeSummary field value if set, zero value otherwise.
+func (o *FindLegalDocument200ResponseDataInner) GetChangeSummary() string {
+	if o == nil || IsNil(o.ChangeSummary) {
+		var ret string
+		return ret
+	}
+	return *o.ChangeSummary
+}
+
+// GetChangeSummaryOk returns a tuple with the ChangeSummary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetChangeSummaryOk() (*string, bool) {
+	if o == nil || IsNil(o.ChangeSummary) {
+		return nil, false
+	}
+	return o.ChangeSummary, true
+}
+
+// HasChangeSummary returns a boolean if a field has been set.
+func (o *FindLegalDocument200ResponseDataInner) HasChangeSummary() bool {
+	if o != nil && !IsNil(o.ChangeSummary) {
+		return true
+	}
+
+	return false
+}
+
+// SetChangeSummary gets a reference to the given string and assigns it to the ChangeSummary field.
+func (o *FindLegalDocument200ResponseDataInner) SetChangeSummary(v string) {
+	o.ChangeSummary = &v
+}
+
+// GetRequiresReacceptance returns the RequiresReacceptance field value if set, zero value otherwise.
+func (o *FindLegalDocument200ResponseDataInner) GetRequiresReacceptance() bool {
+	if o == nil || IsNil(o.RequiresReacceptance) {
+		var ret bool
+		return ret
+	}
+	return *o.RequiresReacceptance
+}
+
+// GetRequiresReacceptanceOk returns a tuple with the RequiresReacceptance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetRequiresReacceptanceOk() (*bool, bool) {
+	if o == nil || IsNil(o.RequiresReacceptance) {
+		return nil, false
+	}
+	return o.RequiresReacceptance, true
+}
+
+// HasRequiresReacceptance returns a boolean if a field has been set.
+func (o *FindLegalDocument200ResponseDataInner) HasRequiresReacceptance() bool {
+	if o != nil && !IsNil(o.RequiresReacceptance) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequiresReacceptance gets a reference to the given bool and assigns it to the RequiresReacceptance field.
+func (o *FindLegalDocument200ResponseDataInner) SetRequiresReacceptance(v bool) {
+	o.RequiresReacceptance = &v
+}
+
+// GetBody returns the Body field value if set, zero value otherwise.
+func (o *FindLegalDocument200ResponseDataInner) GetBody() string {
+	if o == nil || IsNil(o.Body) {
+		var ret string
+		return ret
+	}
+	return *o.Body
+}
+
+// GetBodyOk returns a tuple with the Body field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetBodyOk() (*string, bool) {
+	if o == nil || IsNil(o.Body) {
+		return nil, false
+	}
+	return o.Body, true
+}
+
+// HasBody returns a boolean if a field has been set.
+func (o *FindLegalDocument200ResponseDataInner) HasBody() bool {
+	if o != nil && !IsNil(o.Body) {
+		return true
+	}
+
+	return false
+}
+
+// SetBody gets a reference to the given string and assigns it to the Body field.
+func (o *FindLegalDocument200ResponseDataInner) SetBody(v string) {
+	o.Body = &v
+}
+
+// GetLocaleCode returns the LocaleCode field value if set, zero value otherwise.
+func (o *FindLegalDocument200ResponseDataInner) GetLocaleCode() string {
+	if o == nil || IsNil(o.LocaleCode) {
+		var ret string
+		return ret
+	}
+	return *o.LocaleCode
+}
+
+// GetLocaleCodeOk returns a tuple with the LocaleCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLegalDocument200ResponseDataInner) GetLocaleCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.LocaleCode) {
+		return nil, false
+	}
+	return o.LocaleCode, true
+}
+
+// HasLocaleCode returns a boolean if a field has been set.
+func (o *FindLegalDocument200ResponseDataInner) HasLocaleCode() bool {
+	if o != nil && !IsNil(o.LocaleCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetLocaleCode gets a reference to the given string and assigns it to the LocaleCode field.
+func (o *FindLegalDocument200ResponseDataInner) SetLocaleCode(v string) {
+	o.LocaleCode = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +448,6 @@ func (o *FindLegalDocument200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindLegalDocument200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindLegalDocument200ResponseDataInner) GetAttributes() LegalDocument {
-	if o == nil || IsNil(o.Attributes) {
-		var ret LegalDocument
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindLegalDocument200ResponseDataInner) GetAttributesOk() (*LegalDocument, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindLegalDocument200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given LegalDocument and assigns it to the Attributes field.
-func (o *FindLegalDocument200ResponseDataInner) SetAttributes(v LegalDocument) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +566,36 @@ func (o FindLegalDocument200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindLegalDocument200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["document_type"] = o.DocumentType
+	toSerialize["version"] = o.Version
+	toSerialize["title"] = o.Title
+	toSerialize["effective_from"] = o.EffectiveFrom
+	if !IsNil(o.SummaryText) {
+		toSerialize["summary_text"] = o.SummaryText
+	}
+	if !IsNil(o.FullTextUrl) {
+		toSerialize["full_text_url"] = o.FullTextUrl
+	}
+	if !IsNil(o.IsCurrent) {
+		toSerialize["is_current"] = o.IsCurrent
+	}
+	if !IsNil(o.ChangeSummary) {
+		toSerialize["change_summary"] = o.ChangeSummary
+	}
+	if !IsNil(o.RequiresReacceptance) {
+		toSerialize["requires_reacceptance"] = o.RequiresReacceptance
+	}
+	if !IsNil(o.Body) {
+		toSerialize["body"] = o.Body
+	}
+	if !IsNil(o.LocaleCode) {
+		toSerialize["locale_code"] = o.LocaleCode
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +607,46 @@ func (o FindLegalDocument200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindLegalDocument200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"document_type",
+		"version",
+		"title",
+		"effective_from",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindLegalDocument200ResponseDataInner := _FindLegalDocument200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindLegalDocument200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindLegalDocument200ResponseDataInner(varFindLegalDocument200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindLegalDocument200ResponseDataInner struct {

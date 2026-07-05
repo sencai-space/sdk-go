@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindBadgeDefinition200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindBadgeDefinition200ResponseDataInner{}
 
 // FindBadgeDefinition200ResponseDataInner struct for FindBadgeDefinition200ResponseDataInner
 type FindBadgeDefinition200ResponseDataInner struct {
+	// Stable machine-readable identifier referenced by user-rank.badges[].badge_code and gamification-consumer trigger evaluation
+	Code string `json:"code"`
+	Title string `json:"title"`
+	Description *string `json:"description,omitempty"`
+	// Icon name or emoji — no file upload, rendered client-side
+	Icon *string `json:"icon,omitempty"`
+	XpReward int32 `json:"xp_reward"`
+	TriggerType string `json:"trigger_type"`
+	TriggerThreshold *int32 `json:"trigger_threshold,omitempty"`
+	Active bool `json:"active"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *BadgeDefinition `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindBadgeDefinition200ResponseDataInner FindBadgeDefinition200ResponseDataInner
+
 // NewFindBadgeDefinition200ResponseDataInner instantiates a new FindBadgeDefinition200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindBadgeDefinition200ResponseDataInner() *FindBadgeDefinition200ResponseDataInner {
+func NewFindBadgeDefinition200ResponseDataInner(code string, title string, xpReward int32, triggerType string, active bool) *FindBadgeDefinition200ResponseDataInner {
 	this := FindBadgeDefinition200ResponseDataInner{}
+	this.Code = code
+	this.Title = title
+	this.XpReward = xpReward
+	this.TriggerType = triggerType
+	this.Active = active
 	return &this
 }
 
@@ -44,6 +62,222 @@ func NewFindBadgeDefinition200ResponseDataInner() *FindBadgeDefinition200Respons
 func NewFindBadgeDefinition200ResponseDataInnerWithDefaults() *FindBadgeDefinition200ResponseDataInner {
 	this := FindBadgeDefinition200ResponseDataInner{}
 	return &this
+}
+
+// GetCode returns the Code field value
+func (o *FindBadgeDefinition200ResponseDataInner) GetCode() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Code
+}
+
+// GetCodeOk returns a tuple with the Code field value
+// and a boolean to check if the value has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) GetCodeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Code, true
+}
+
+// SetCode sets field value
+func (o *FindBadgeDefinition200ResponseDataInner) SetCode(v string) {
+	o.Code = v
+}
+
+// GetTitle returns the Title field value
+func (o *FindBadgeDefinition200ResponseDataInner) GetTitle() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value
+// and a boolean to check if the value has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) GetTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Title, true
+}
+
+// SetTitle sets field value
+func (o *FindBadgeDefinition200ResponseDataInner) SetTitle(v string) {
+	o.Title = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindBadgeDefinition200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindBadgeDefinition200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetIcon returns the Icon field value if set, zero value otherwise.
+func (o *FindBadgeDefinition200ResponseDataInner) GetIcon() string {
+	if o == nil || IsNil(o.Icon) {
+		var ret string
+		return ret
+	}
+	return *o.Icon
+}
+
+// GetIconOk returns a tuple with the Icon field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) GetIconOk() (*string, bool) {
+	if o == nil || IsNil(o.Icon) {
+		return nil, false
+	}
+	return o.Icon, true
+}
+
+// HasIcon returns a boolean if a field has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) HasIcon() bool {
+	if o != nil && !IsNil(o.Icon) {
+		return true
+	}
+
+	return false
+}
+
+// SetIcon gets a reference to the given string and assigns it to the Icon field.
+func (o *FindBadgeDefinition200ResponseDataInner) SetIcon(v string) {
+	o.Icon = &v
+}
+
+// GetXpReward returns the XpReward field value
+func (o *FindBadgeDefinition200ResponseDataInner) GetXpReward() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.XpReward
+}
+
+// GetXpRewardOk returns a tuple with the XpReward field value
+// and a boolean to check if the value has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) GetXpRewardOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.XpReward, true
+}
+
+// SetXpReward sets field value
+func (o *FindBadgeDefinition200ResponseDataInner) SetXpReward(v int32) {
+	o.XpReward = v
+}
+
+// GetTriggerType returns the TriggerType field value
+func (o *FindBadgeDefinition200ResponseDataInner) GetTriggerType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TriggerType
+}
+
+// GetTriggerTypeOk returns a tuple with the TriggerType field value
+// and a boolean to check if the value has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) GetTriggerTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TriggerType, true
+}
+
+// SetTriggerType sets field value
+func (o *FindBadgeDefinition200ResponseDataInner) SetTriggerType(v string) {
+	o.TriggerType = v
+}
+
+// GetTriggerThreshold returns the TriggerThreshold field value if set, zero value otherwise.
+func (o *FindBadgeDefinition200ResponseDataInner) GetTriggerThreshold() int32 {
+	if o == nil || IsNil(o.TriggerThreshold) {
+		var ret int32
+		return ret
+	}
+	return *o.TriggerThreshold
+}
+
+// GetTriggerThresholdOk returns a tuple with the TriggerThreshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) GetTriggerThresholdOk() (*int32, bool) {
+	if o == nil || IsNil(o.TriggerThreshold) {
+		return nil, false
+	}
+	return o.TriggerThreshold, true
+}
+
+// HasTriggerThreshold returns a boolean if a field has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) HasTriggerThreshold() bool {
+	if o != nil && !IsNil(o.TriggerThreshold) {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggerThreshold gets a reference to the given int32 and assigns it to the TriggerThreshold field.
+func (o *FindBadgeDefinition200ResponseDataInner) SetTriggerThreshold(v int32) {
+	o.TriggerThreshold = &v
+}
+
+// GetActive returns the Active field value
+func (o *FindBadgeDefinition200ResponseDataInner) GetActive() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value
+// and a boolean to check if the value has been set.
+func (o *FindBadgeDefinition200ResponseDataInner) GetActiveOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Active, true
+}
+
+// SetActive sets field value
+func (o *FindBadgeDefinition200ResponseDataInner) SetActive(v bool) {
+	o.Active = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +342,6 @@ func (o *FindBadgeDefinition200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindBadgeDefinition200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindBadgeDefinition200ResponseDataInner) GetAttributes() BadgeDefinition {
-	if o == nil || IsNil(o.Attributes) {
-		var ret BadgeDefinition
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindBadgeDefinition200ResponseDataInner) GetAttributesOk() (*BadgeDefinition, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindBadgeDefinition200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given BadgeDefinition and assigns it to the Attributes field.
-func (o *FindBadgeDefinition200ResponseDataInner) SetAttributes(v BadgeDefinition) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +460,25 @@ func (o FindBadgeDefinition200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindBadgeDefinition200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["code"] = o.Code
+	toSerialize["title"] = o.Title
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Icon) {
+		toSerialize["icon"] = o.Icon
+	}
+	toSerialize["xp_reward"] = o.XpReward
+	toSerialize["trigger_type"] = o.TriggerType
+	if !IsNil(o.TriggerThreshold) {
+		toSerialize["trigger_threshold"] = o.TriggerThreshold
+	}
+	toSerialize["active"] = o.Active
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +490,47 @@ func (o FindBadgeDefinition200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindBadgeDefinition200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"code",
+		"title",
+		"xp_reward",
+		"trigger_type",
+		"active",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindBadgeDefinition200ResponseDataInner := _FindBadgeDefinition200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindBadgeDefinition200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindBadgeDefinition200ResponseDataInner(varFindBadgeDefinition200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindBadgeDefinition200ResponseDataInner struct {

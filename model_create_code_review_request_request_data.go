@@ -28,7 +28,8 @@ type CreateCodeReviewRequestRequestData struct {
 	DiffPatch *string `json:"diff_patch,omitempty"`
 	Status string `json:"status"`
 	ReviewSummary *string `json:"review_summary,omitempty"`
-	Issues map[string]interface{} `json:"issues,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Issues interface{} `json:"issues,omitempty"`
 	Score *int32 `json:"score,omitempty"`
 	ModelUsed *string `json:"model_used,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
@@ -224,10 +225,10 @@ func (o *CreateCodeReviewRequestRequestData) SetReviewSummary(v string) {
 	o.ReviewSummary = &v
 }
 
-// GetIssues returns the Issues field value if set, zero value otherwise.
-func (o *CreateCodeReviewRequestRequestData) GetIssues() map[string]interface{} {
-	if o == nil || IsNil(o.Issues) {
-		var ret map[string]interface{}
+// GetIssues returns the Issues field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCodeReviewRequestRequestData) GetIssues() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Issues
@@ -235,11 +236,12 @@ func (o *CreateCodeReviewRequestRequestData) GetIssues() map[string]interface{} 
 
 // GetIssuesOk returns a tuple with the Issues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCodeReviewRequestRequestData) GetIssuesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCodeReviewRequestRequestData) GetIssuesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Issues) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Issues, true
+	return &o.Issues, true
 }
 
 // HasIssues returns a boolean if a field has been set.
@@ -251,8 +253,8 @@ func (o *CreateCodeReviewRequestRequestData) HasIssues() bool {
 	return false
 }
 
-// SetIssues gets a reference to the given map[string]interface{} and assigns it to the Issues field.
-func (o *CreateCodeReviewRequestRequestData) SetIssues(v map[string]interface{}) {
+// SetIssues gets a reference to the given interface{} and assigns it to the Issues field.
+func (o *CreateCodeReviewRequestRequestData) SetIssues(v interface{}) {
 	o.Issues = v
 }
 
@@ -374,7 +376,7 @@ func (o CreateCodeReviewRequestRequestData) ToMap() (map[string]interface{}, err
 	if !IsNil(o.ReviewSummary) {
 		toSerialize["review_summary"] = o.ReviewSummary
 	}
-	if !IsNil(o.Issues) {
+	if o.Issues != nil {
 		toSerialize["issues"] = o.Issues
 	}
 	if !IsNil(o.Score) {

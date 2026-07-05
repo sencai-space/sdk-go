@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindOrganisationCrossTenantRole200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,32 @@ var _ MappedNullable = &FindOrganisationCrossTenantRole200ResponseDataInner{}
 
 // FindOrganisationCrossTenantRole200ResponseDataInner struct for FindOrganisationCrossTenantRole200ResponseDataInner
 type FindOrganisationCrossTenantRole200ResponseDataInner struct {
+	Name string `json:"name"`
+	Description *string `json:"description,omitempty"`
+	// Array of capability strings like ['compute:read', 'network:*', '*:*']
+	Capabilities interface{} `json:"capabilities,omitempty"`
+	// If true, applies to all managed tenants. If false, only tenant_subset.
+	ScopeAllTenants *bool `json:"scope_all_tenants,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	TenantSubset *CreateAccessReviewRequestDataReviewer `json:"tenant_subset,omitempty"`
+	// System roles are seeded and cannot be deleted via API
+	IsSystemRole *bool `json:"is_system_role,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *OrganisationCrossTenantRole `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindOrganisationCrossTenantRole200ResponseDataInner FindOrganisationCrossTenantRole200ResponseDataInner
+
 // NewFindOrganisationCrossTenantRole200ResponseDataInner instantiates a new FindOrganisationCrossTenantRole200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindOrganisationCrossTenantRole200ResponseDataInner() *FindOrganisationCrossTenantRole200ResponseDataInner {
+func NewFindOrganisationCrossTenantRole200ResponseDataInner(name string) *FindOrganisationCrossTenantRole200ResponseDataInner {
 	this := FindOrganisationCrossTenantRole200ResponseDataInner{}
+	this.Name = name
 	return &this
 }
 
@@ -44,6 +58,223 @@ func NewFindOrganisationCrossTenantRole200ResponseDataInner() *FindOrganisationC
 func NewFindOrganisationCrossTenantRole200ResponseDataInnerWithDefaults() *FindOrganisationCrossTenantRole200ResponseDataInner {
 	this := FindOrganisationCrossTenantRole200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetCapabilities returns the Capabilities field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetCapabilities() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Capabilities
+}
+
+// GetCapabilitiesOk returns a tuple with the Capabilities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetCapabilitiesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Capabilities) {
+		return nil, false
+	}
+	return &o.Capabilities, true
+}
+
+// HasCapabilities returns a boolean if a field has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) HasCapabilities() bool {
+	if o != nil && !IsNil(o.Capabilities) {
+		return true
+	}
+
+	return false
+}
+
+// SetCapabilities gets a reference to the given interface{} and assigns it to the Capabilities field.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) SetCapabilities(v interface{}) {
+	o.Capabilities = v
+}
+
+// GetScopeAllTenants returns the ScopeAllTenants field value if set, zero value otherwise.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetScopeAllTenants() bool {
+	if o == nil || IsNil(o.ScopeAllTenants) {
+		var ret bool
+		return ret
+	}
+	return *o.ScopeAllTenants
+}
+
+// GetScopeAllTenantsOk returns a tuple with the ScopeAllTenants field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetScopeAllTenantsOk() (*bool, bool) {
+	if o == nil || IsNil(o.ScopeAllTenants) {
+		return nil, false
+	}
+	return o.ScopeAllTenants, true
+}
+
+// HasScopeAllTenants returns a boolean if a field has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) HasScopeAllTenants() bool {
+	if o != nil && !IsNil(o.ScopeAllTenants) {
+		return true
+	}
+
+	return false
+}
+
+// SetScopeAllTenants gets a reference to the given bool and assigns it to the ScopeAllTenants field.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) SetScopeAllTenants(v bool) {
+	o.ScopeAllTenants = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetTenantSubset returns the TenantSubset field value if set, zero value otherwise.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetTenantSubset() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.TenantSubset) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.TenantSubset
+}
+
+// GetTenantSubsetOk returns a tuple with the TenantSubset field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetTenantSubsetOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.TenantSubset) {
+		return nil, false
+	}
+	return o.TenantSubset, true
+}
+
+// HasTenantSubset returns a boolean if a field has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) HasTenantSubset() bool {
+	if o != nil && !IsNil(o.TenantSubset) {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantSubset gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the TenantSubset field.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) SetTenantSubset(v CreateAccessReviewRequestDataReviewer) {
+	o.TenantSubset = &v
+}
+
+// GetIsSystemRole returns the IsSystemRole field value if set, zero value otherwise.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetIsSystemRole() bool {
+	if o == nil || IsNil(o.IsSystemRole) {
+		var ret bool
+		return ret
+	}
+	return *o.IsSystemRole
+}
+
+// GetIsSystemRoleOk returns a tuple with the IsSystemRole field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetIsSystemRoleOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsSystemRole) {
+		return nil, false
+	}
+	return o.IsSystemRole, true
+}
+
+// HasIsSystemRole returns a boolean if a field has been set.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) HasIsSystemRole() bool {
+	if o != nil && !IsNil(o.IsSystemRole) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSystemRole gets a reference to the given bool and assigns it to the IsSystemRole field.
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) SetIsSystemRole(v bool) {
+	o.IsSystemRole = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +339,6 @@ func (o *FindOrganisationCrossTenantRole200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindOrganisationCrossTenantRole200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetAttributes() OrganisationCrossTenantRole {
-	if o == nil || IsNil(o.Attributes) {
-		var ret OrganisationCrossTenantRole
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindOrganisationCrossTenantRole200ResponseDataInner) GetAttributesOk() (*OrganisationCrossTenantRole, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindOrganisationCrossTenantRole200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given OrganisationCrossTenantRole and assigns it to the Attributes field.
-func (o *FindOrganisationCrossTenantRole200ResponseDataInner) SetAttributes(v OrganisationCrossTenantRole) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +457,30 @@ func (o FindOrganisationCrossTenantRole200ResponseDataInner) MarshalJSON() ([]by
 
 func (o FindOrganisationCrossTenantRole200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if o.Capabilities != nil {
+		toSerialize["capabilities"] = o.Capabilities
+	}
+	if !IsNil(o.ScopeAllTenants) {
+		toSerialize["scope_all_tenants"] = o.ScopeAllTenants
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.TenantSubset) {
+		toSerialize["tenant_subset"] = o.TenantSubset
+	}
+	if !IsNil(o.IsSystemRole) {
+		toSerialize["is_system_role"] = o.IsSystemRole
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +492,43 @@ func (o FindOrganisationCrossTenantRole200ResponseDataInner) ToMap() (map[string
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindOrganisationCrossTenantRole200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindOrganisationCrossTenantRole200ResponseDataInner := _FindOrganisationCrossTenantRole200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindOrganisationCrossTenantRole200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindOrganisationCrossTenantRole200ResponseDataInner(varFindOrganisationCrossTenantRole200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindOrganisationCrossTenantRole200ResponseDataInner struct {

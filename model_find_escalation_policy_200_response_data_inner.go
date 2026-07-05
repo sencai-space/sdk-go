@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindEscalationPolicy200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,30 @@ var _ MappedNullable = &FindEscalationPolicy200ResponseDataInner{}
 
 // FindEscalationPolicy200ResponseDataInner struct for FindEscalationPolicy200ResponseDataInner
 type FindEscalationPolicy200ResponseDataInner struct {
+	Name string `json:"name"`
+	Provider *string `json:"provider,omitempty"`
+	RoutingKey *string `json:"routing_key,omitempty"`
+	ApiKeyEncrypted *string `json:"api_key_encrypted,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	SeverityMap interface{} `json:"severity_map,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *EscalationPolicy `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindEscalationPolicy200ResponseDataInner FindEscalationPolicy200ResponseDataInner
+
 // NewFindEscalationPolicy200ResponseDataInner instantiates a new FindEscalationPolicy200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindEscalationPolicy200ResponseDataInner() *FindEscalationPolicy200ResponseDataInner {
+func NewFindEscalationPolicy200ResponseDataInner(name string) *FindEscalationPolicy200ResponseDataInner {
 	this := FindEscalationPolicy200ResponseDataInner{}
+	this.Name = name
 	return &this
 }
 
@@ -44,6 +56,223 @@ func NewFindEscalationPolicy200ResponseDataInner() *FindEscalationPolicy200Respo
 func NewFindEscalationPolicy200ResponseDataInnerWithDefaults() *FindEscalationPolicy200ResponseDataInner {
 	this := FindEscalationPolicy200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindEscalationPolicy200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindEscalationPolicy200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *FindEscalationPolicy200ResponseDataInner) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *FindEscalationPolicy200ResponseDataInner) SetProvider(v string) {
+	o.Provider = &v
+}
+
+// GetRoutingKey returns the RoutingKey field value if set, zero value otherwise.
+func (o *FindEscalationPolicy200ResponseDataInner) GetRoutingKey() string {
+	if o == nil || IsNil(o.RoutingKey) {
+		var ret string
+		return ret
+	}
+	return *o.RoutingKey
+}
+
+// GetRoutingKeyOk returns a tuple with the RoutingKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) GetRoutingKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.RoutingKey) {
+		return nil, false
+	}
+	return o.RoutingKey, true
+}
+
+// HasRoutingKey returns a boolean if a field has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) HasRoutingKey() bool {
+	if o != nil && !IsNil(o.RoutingKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoutingKey gets a reference to the given string and assigns it to the RoutingKey field.
+func (o *FindEscalationPolicy200ResponseDataInner) SetRoutingKey(v string) {
+	o.RoutingKey = &v
+}
+
+// GetApiKeyEncrypted returns the ApiKeyEncrypted field value if set, zero value otherwise.
+func (o *FindEscalationPolicy200ResponseDataInner) GetApiKeyEncrypted() string {
+	if o == nil || IsNil(o.ApiKeyEncrypted) {
+		var ret string
+		return ret
+	}
+	return *o.ApiKeyEncrypted
+}
+
+// GetApiKeyEncryptedOk returns a tuple with the ApiKeyEncrypted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) GetApiKeyEncryptedOk() (*string, bool) {
+	if o == nil || IsNil(o.ApiKeyEncrypted) {
+		return nil, false
+	}
+	return o.ApiKeyEncrypted, true
+}
+
+// HasApiKeyEncrypted returns a boolean if a field has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) HasApiKeyEncrypted() bool {
+	if o != nil && !IsNil(o.ApiKeyEncrypted) {
+		return true
+	}
+
+	return false
+}
+
+// SetApiKeyEncrypted gets a reference to the given string and assigns it to the ApiKeyEncrypted field.
+func (o *FindEscalationPolicy200ResponseDataInner) SetApiKeyEncrypted(v string) {
+	o.ApiKeyEncrypted = &v
+}
+
+// GetSeverityMap returns the SeverityMap field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindEscalationPolicy200ResponseDataInner) GetSeverityMap() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.SeverityMap
+}
+
+// GetSeverityMapOk returns a tuple with the SeverityMap field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindEscalationPolicy200ResponseDataInner) GetSeverityMapOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.SeverityMap) {
+		return nil, false
+	}
+	return &o.SeverityMap, true
+}
+
+// HasSeverityMap returns a boolean if a field has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) HasSeverityMap() bool {
+	if o != nil && !IsNil(o.SeverityMap) {
+		return true
+	}
+
+	return false
+}
+
+// SetSeverityMap gets a reference to the given interface{} and assigns it to the SeverityMap field.
+func (o *FindEscalationPolicy200ResponseDataInner) SetSeverityMap(v interface{}) {
+	o.SeverityMap = v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindEscalationPolicy200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindEscalationPolicy200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindEscalationPolicy200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindEscalationPolicy200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindEscalationPolicy200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +337,6 @@ func (o *FindEscalationPolicy200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindEscalationPolicy200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindEscalationPolicy200ResponseDataInner) GetAttributes() EscalationPolicy {
-	if o == nil || IsNil(o.Attributes) {
-		var ret EscalationPolicy
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindEscalationPolicy200ResponseDataInner) GetAttributesOk() (*EscalationPolicy, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindEscalationPolicy200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given EscalationPolicy and assigns it to the Attributes field.
-func (o *FindEscalationPolicy200ResponseDataInner) SetAttributes(v EscalationPolicy) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +455,30 @@ func (o FindEscalationPolicy200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindEscalationPolicy200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
+	if !IsNil(o.RoutingKey) {
+		toSerialize["routing_key"] = o.RoutingKey
+	}
+	if !IsNil(o.ApiKeyEncrypted) {
+		toSerialize["api_key_encrypted"] = o.ApiKeyEncrypted
+	}
+	if o.SeverityMap != nil {
+		toSerialize["severity_map"] = o.SeverityMap
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +490,43 @@ func (o FindEscalationPolicy200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindEscalationPolicy200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindEscalationPolicy200ResponseDataInner := _FindEscalationPolicy200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindEscalationPolicy200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindEscalationPolicy200ResponseDataInner(varFindEscalationPolicy200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindEscalationPolicy200ResponseDataInner struct {

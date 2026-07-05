@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudNetwork200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindCloudNetwork200ResponseDataInner{}
 
 // FindCloudNetwork200ResponseDataInner struct for FindCloudNetwork200ResponseDataInner
 type FindCloudNetwork200ResponseDataInner struct {
+	Name string `json:"name"`
+	Provider string `json:"provider"`
+	Region string `json:"region"`
+	CidrBlock *string `json:"cidr_block,omitempty"`
+	State *string `json:"state,omitempty"`
+	ExternalId *string `json:"external_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
+	Subnets *CreateAccessReviewRequestDataReviewer `json:"subnets,omitempty"`
+	SecurityGroups *CreateAccessReviewRequestDataReviewer `json:"security_groups,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudNetwork `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudNetwork200ResponseDataInner FindCloudNetwork200ResponseDataInner
+
 // NewFindCloudNetwork200ResponseDataInner instantiates a new FindCloudNetwork200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudNetwork200ResponseDataInner() *FindCloudNetwork200ResponseDataInner {
+func NewFindCloudNetwork200ResponseDataInner(name string, provider string, region string) *FindCloudNetwork200ResponseDataInner {
 	this := FindCloudNetwork200ResponseDataInner{}
+	this.Name = name
+	this.Provider = provider
+	this.Region = region
 	return &this
 }
 
@@ -44,6 +62,335 @@ func NewFindCloudNetwork200ResponseDataInner() *FindCloudNetwork200ResponseDataI
 func NewFindCloudNetwork200ResponseDataInnerWithDefaults() *FindCloudNetwork200ResponseDataInner {
 	this := FindCloudNetwork200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCloudNetwork200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudNetwork200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCloudNetwork200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetProvider returns the Provider field value
+func (o *FindCloudNetwork200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudNetwork200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindCloudNetwork200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetRegion returns the Region field value
+func (o *FindCloudNetwork200ResponseDataInner) GetRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudNetwork200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *FindCloudNetwork200ResponseDataInner) SetRegion(v string) {
+	o.Region = v
+}
+
+// GetCidrBlock returns the CidrBlock field value if set, zero value otherwise.
+func (o *FindCloudNetwork200ResponseDataInner) GetCidrBlock() string {
+	if o == nil || IsNil(o.CidrBlock) {
+		var ret string
+		return ret
+	}
+	return *o.CidrBlock
+}
+
+// GetCidrBlockOk returns a tuple with the CidrBlock field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNetwork200ResponseDataInner) GetCidrBlockOk() (*string, bool) {
+	if o == nil || IsNil(o.CidrBlock) {
+		return nil, false
+	}
+	return o.CidrBlock, true
+}
+
+// HasCidrBlock returns a boolean if a field has been set.
+func (o *FindCloudNetwork200ResponseDataInner) HasCidrBlock() bool {
+	if o != nil && !IsNil(o.CidrBlock) {
+		return true
+	}
+
+	return false
+}
+
+// SetCidrBlock gets a reference to the given string and assigns it to the CidrBlock field.
+func (o *FindCloudNetwork200ResponseDataInner) SetCidrBlock(v string) {
+	o.CidrBlock = &v
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *FindCloudNetwork200ResponseDataInner) GetState() string {
+	if o == nil || IsNil(o.State) {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNetwork200ResponseDataInner) GetStateOk() (*string, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *FindCloudNetwork200ResponseDataInner) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *FindCloudNetwork200ResponseDataInner) SetState(v string) {
+	o.State = &v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *FindCloudNetwork200ResponseDataInner) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNetwork200ResponseDataInner) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *FindCloudNetwork200ResponseDataInner) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *FindCloudNetwork200ResponseDataInner) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudNetwork200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudNetwork200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindCloudNetwork200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindCloudNetwork200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCloudNetwork200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNetwork200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCloudNetwork200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCloudNetwork200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetCredential returns the Credential field value if set, zero value otherwise.
+func (o *FindCloudNetwork200ResponseDataInner) GetCredential() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Credential) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Credential
+}
+
+// GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNetwork200ResponseDataInner) GetCredentialOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Credential) {
+		return nil, false
+	}
+	return o.Credential, true
+}
+
+// HasCredential returns a boolean if a field has been set.
+func (o *FindCloudNetwork200ResponseDataInner) HasCredential() bool {
+	if o != nil && !IsNil(o.Credential) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredential gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Credential field.
+func (o *FindCloudNetwork200ResponseDataInner) SetCredential(v CreateAccessReviewRequestDataReviewer) {
+	o.Credential = &v
+}
+
+// GetSubnets returns the Subnets field value if set, zero value otherwise.
+func (o *FindCloudNetwork200ResponseDataInner) GetSubnets() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Subnets) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Subnets
+}
+
+// GetSubnetsOk returns a tuple with the Subnets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNetwork200ResponseDataInner) GetSubnetsOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Subnets) {
+		return nil, false
+	}
+	return o.Subnets, true
+}
+
+// HasSubnets returns a boolean if a field has been set.
+func (o *FindCloudNetwork200ResponseDataInner) HasSubnets() bool {
+	if o != nil && !IsNil(o.Subnets) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubnets gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Subnets field.
+func (o *FindCloudNetwork200ResponseDataInner) SetSubnets(v CreateAccessReviewRequestDataReviewer) {
+	o.Subnets = &v
+}
+
+// GetSecurityGroups returns the SecurityGroups field value if set, zero value otherwise.
+func (o *FindCloudNetwork200ResponseDataInner) GetSecurityGroups() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.SecurityGroups) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.SecurityGroups
+}
+
+// GetSecurityGroupsOk returns a tuple with the SecurityGroups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudNetwork200ResponseDataInner) GetSecurityGroupsOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.SecurityGroups) {
+		return nil, false
+	}
+	return o.SecurityGroups, true
+}
+
+// HasSecurityGroups returns a boolean if a field has been set.
+func (o *FindCloudNetwork200ResponseDataInner) HasSecurityGroups() bool {
+	if o != nil && !IsNil(o.SecurityGroups) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecurityGroups gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the SecurityGroups field.
+func (o *FindCloudNetwork200ResponseDataInner) SetSecurityGroups(v CreateAccessReviewRequestDataReviewer) {
+	o.SecurityGroups = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +455,6 @@ func (o *FindCloudNetwork200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudNetwork200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudNetwork200ResponseDataInner) GetAttributes() CloudNetwork {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudNetwork
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudNetwork200ResponseDataInner) GetAttributesOk() (*CloudNetwork, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudNetwork200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudNetwork and assigns it to the Attributes field.
-func (o *FindCloudNetwork200ResponseDataInner) SetAttributes(v CloudNetwork) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +573,38 @@ func (o FindCloudNetwork200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCloudNetwork200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["provider"] = o.Provider
+	toSerialize["region"] = o.Region
+	if !IsNil(o.CidrBlock) {
+		toSerialize["cidr_block"] = o.CidrBlock
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["external_id"] = o.ExternalId
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.Credential) {
+		toSerialize["credential"] = o.Credential
+	}
+	if !IsNil(o.Subnets) {
+		toSerialize["subnets"] = o.Subnets
+	}
+	if !IsNil(o.SecurityGroups) {
+		toSerialize["security_groups"] = o.SecurityGroups
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +616,45 @@ func (o FindCloudNetwork200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudNetwork200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"provider",
+		"region",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudNetwork200ResponseDataInner := _FindCloudNetwork200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudNetwork200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudNetwork200ResponseDataInner(varFindCloudNetwork200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudNetwork200ResponseDataInner struct {

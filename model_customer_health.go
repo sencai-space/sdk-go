@@ -28,7 +28,8 @@ type CustomerHealth struct {
 	FeatureScore *float32 `json:"feature_score,omitempty"`
 	SupportScore *float32 `json:"support_score,omitempty"`
 	ChurnRisk *string `json:"churn_risk,omitempty"`
-	ChurnSignals map[string]interface{} `json:"churn_signals,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ChurnSignals interface{} `json:"churn_signals,omitempty"`
 	LastLoginAt *time.Time `json:"last_login_at,omitempty"`
 	DaysSinceLogin *int32 `json:"days_since_login,omitempty"`
 	ActiveInstances *int32 `json:"active_instances,omitempty"`
@@ -279,10 +280,10 @@ func (o *CustomerHealth) SetChurnRisk(v string) {
 	o.ChurnRisk = &v
 }
 
-// GetChurnSignals returns the ChurnSignals field value if set, zero value otherwise.
-func (o *CustomerHealth) GetChurnSignals() map[string]interface{} {
-	if o == nil || IsNil(o.ChurnSignals) {
-		var ret map[string]interface{}
+// GetChurnSignals returns the ChurnSignals field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CustomerHealth) GetChurnSignals() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ChurnSignals
@@ -290,11 +291,12 @@ func (o *CustomerHealth) GetChurnSignals() map[string]interface{} {
 
 // GetChurnSignalsOk returns a tuple with the ChurnSignals field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CustomerHealth) GetChurnSignalsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CustomerHealth) GetChurnSignalsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ChurnSignals) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ChurnSignals, true
+	return &o.ChurnSignals, true
 }
 
 // HasChurnSignals returns a boolean if a field has been set.
@@ -306,8 +308,8 @@ func (o *CustomerHealth) HasChurnSignals() bool {
 	return false
 }
 
-// SetChurnSignals gets a reference to the given map[string]interface{} and assigns it to the ChurnSignals field.
-func (o *CustomerHealth) SetChurnSignals(v map[string]interface{}) {
+// SetChurnSignals gets a reference to the given interface{} and assigns it to the ChurnSignals field.
+func (o *CustomerHealth) SetChurnSignals(v interface{}) {
 	o.ChurnSignals = v
 }
 
@@ -566,7 +568,7 @@ func (o CustomerHealth) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ChurnRisk) {
 		toSerialize["churn_risk"] = o.ChurnRisk
 	}
-	if !IsNil(o.ChurnSignals) {
+	if o.ChurnSignals != nil {
 		toSerialize["churn_signals"] = o.ChurnSignals
 	}
 	if !IsNil(o.LastLoginAt) {

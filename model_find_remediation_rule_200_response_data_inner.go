@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindRemediationRule200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,47 @@ var _ MappedNullable = &FindRemediationRule200ResponseDataInner{}
 
 // FindRemediationRule200ResponseDataInner struct for FindRemediationRule200ResponseDataInner
 type FindRemediationRule200ResponseDataInner struct {
+	Name string `json:"name"`
+	// Regex or keyword to match against incident.title or incident.dedup_key. Regex must be a valid JS regex string (no surrounding slashes).
+	IncidentPattern string `json:"incident_pattern"`
+	// Alias for incident_pattern used by the SRE auto-trigger system (F2.OPS.09). Regex matched against incident title + description.
+	AlertPattern *string `json:"alert_pattern,omitempty"`
+	// Only fire this trigger for incidents at or above this severity level (info < warning < error < critical).
+	SeverityThreshold *string `json:"severity_threshold,omitempty"`
+	Runbook *CreateAccessReviewRequestDataReviewer `json:"runbook,omitempty"`
+	// Legacy: documentId of the runbook to execute. Use the runbook relation instead when possible.
+	RunbookId *string `json:"runbook_id,omitempty"`
+	// When true, matching incidents trigger the runbook immediately without human approval.
+	AutoApprove *bool `json:"auto_approve,omitempty"`
+	// Minimum confidence score (0.0–1.0) required to trigger this rule.
+	ConfidenceThreshold *float32 `json:"confidence_threshold,omitempty"`
+	// Rule is disabled by default — must be explicitly enabled after testing.
+	Enabled *bool `json:"enabled,omitempty"`
+	// Minimum minutes between executions for the same incident pattern.
+	CooldownMinutes *int32 `json:"cooldown_minutes,omitempty"`
+	LastTriggeredAt *time.Time `json:"last_triggered_at,omitempty"`
+	// Alias for last_triggered_at used by the SRE auto-trigger system (F2.OPS.09).
+	LastFiredAt *time.Time `json:"last_fired_at,omitempty"`
+	// Cumulative count of successful trigger firings.
+	FireCount *int32 `json:"fire_count,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *RemediationRule `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindRemediationRule200ResponseDataInner FindRemediationRule200ResponseDataInner
+
 // NewFindRemediationRule200ResponseDataInner instantiates a new FindRemediationRule200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindRemediationRule200ResponseDataInner() *FindRemediationRule200ResponseDataInner {
+func NewFindRemediationRule200ResponseDataInner(name string, incidentPattern string) *FindRemediationRule200ResponseDataInner {
 	this := FindRemediationRule200ResponseDataInner{}
+	this.Name = name
+	this.IncidentPattern = incidentPattern
 	return &this
 }
 
@@ -44,6 +73,438 @@ func NewFindRemediationRule200ResponseDataInner() *FindRemediationRule200Respons
 func NewFindRemediationRule200ResponseDataInnerWithDefaults() *FindRemediationRule200ResponseDataInner {
 	this := FindRemediationRule200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindRemediationRule200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindRemediationRule200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetIncidentPattern returns the IncidentPattern field value
+func (o *FindRemediationRule200ResponseDataInner) GetIncidentPattern() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.IncidentPattern
+}
+
+// GetIncidentPatternOk returns a tuple with the IncidentPattern field value
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetIncidentPatternOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IncidentPattern, true
+}
+
+// SetIncidentPattern sets field value
+func (o *FindRemediationRule200ResponseDataInner) SetIncidentPattern(v string) {
+	o.IncidentPattern = v
+}
+
+// GetAlertPattern returns the AlertPattern field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetAlertPattern() string {
+	if o == nil || IsNil(o.AlertPattern) {
+		var ret string
+		return ret
+	}
+	return *o.AlertPattern
+}
+
+// GetAlertPatternOk returns a tuple with the AlertPattern field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetAlertPatternOk() (*string, bool) {
+	if o == nil || IsNil(o.AlertPattern) {
+		return nil, false
+	}
+	return o.AlertPattern, true
+}
+
+// HasAlertPattern returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasAlertPattern() bool {
+	if o != nil && !IsNil(o.AlertPattern) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlertPattern gets a reference to the given string and assigns it to the AlertPattern field.
+func (o *FindRemediationRule200ResponseDataInner) SetAlertPattern(v string) {
+	o.AlertPattern = &v
+}
+
+// GetSeverityThreshold returns the SeverityThreshold field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetSeverityThreshold() string {
+	if o == nil || IsNil(o.SeverityThreshold) {
+		var ret string
+		return ret
+	}
+	return *o.SeverityThreshold
+}
+
+// GetSeverityThresholdOk returns a tuple with the SeverityThreshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetSeverityThresholdOk() (*string, bool) {
+	if o == nil || IsNil(o.SeverityThreshold) {
+		return nil, false
+	}
+	return o.SeverityThreshold, true
+}
+
+// HasSeverityThreshold returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasSeverityThreshold() bool {
+	if o != nil && !IsNil(o.SeverityThreshold) {
+		return true
+	}
+
+	return false
+}
+
+// SetSeverityThreshold gets a reference to the given string and assigns it to the SeverityThreshold field.
+func (o *FindRemediationRule200ResponseDataInner) SetSeverityThreshold(v string) {
+	o.SeverityThreshold = &v
+}
+
+// GetRunbook returns the Runbook field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetRunbook() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Runbook) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Runbook
+}
+
+// GetRunbookOk returns a tuple with the Runbook field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetRunbookOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Runbook) {
+		return nil, false
+	}
+	return o.Runbook, true
+}
+
+// HasRunbook returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasRunbook() bool {
+	if o != nil && !IsNil(o.Runbook) {
+		return true
+	}
+
+	return false
+}
+
+// SetRunbook gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Runbook field.
+func (o *FindRemediationRule200ResponseDataInner) SetRunbook(v CreateAccessReviewRequestDataReviewer) {
+	o.Runbook = &v
+}
+
+// GetRunbookId returns the RunbookId field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetRunbookId() string {
+	if o == nil || IsNil(o.RunbookId) {
+		var ret string
+		return ret
+	}
+	return *o.RunbookId
+}
+
+// GetRunbookIdOk returns a tuple with the RunbookId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetRunbookIdOk() (*string, bool) {
+	if o == nil || IsNil(o.RunbookId) {
+		return nil, false
+	}
+	return o.RunbookId, true
+}
+
+// HasRunbookId returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasRunbookId() bool {
+	if o != nil && !IsNil(o.RunbookId) {
+		return true
+	}
+
+	return false
+}
+
+// SetRunbookId gets a reference to the given string and assigns it to the RunbookId field.
+func (o *FindRemediationRule200ResponseDataInner) SetRunbookId(v string) {
+	o.RunbookId = &v
+}
+
+// GetAutoApprove returns the AutoApprove field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetAutoApprove() bool {
+	if o == nil || IsNil(o.AutoApprove) {
+		var ret bool
+		return ret
+	}
+	return *o.AutoApprove
+}
+
+// GetAutoApproveOk returns a tuple with the AutoApprove field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetAutoApproveOk() (*bool, bool) {
+	if o == nil || IsNil(o.AutoApprove) {
+		return nil, false
+	}
+	return o.AutoApprove, true
+}
+
+// HasAutoApprove returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasAutoApprove() bool {
+	if o != nil && !IsNil(o.AutoApprove) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoApprove gets a reference to the given bool and assigns it to the AutoApprove field.
+func (o *FindRemediationRule200ResponseDataInner) SetAutoApprove(v bool) {
+	o.AutoApprove = &v
+}
+
+// GetConfidenceThreshold returns the ConfidenceThreshold field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetConfidenceThreshold() float32 {
+	if o == nil || IsNil(o.ConfidenceThreshold) {
+		var ret float32
+		return ret
+	}
+	return *o.ConfidenceThreshold
+}
+
+// GetConfidenceThresholdOk returns a tuple with the ConfidenceThreshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetConfidenceThresholdOk() (*float32, bool) {
+	if o == nil || IsNil(o.ConfidenceThreshold) {
+		return nil, false
+	}
+	return o.ConfidenceThreshold, true
+}
+
+// HasConfidenceThreshold returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasConfidenceThreshold() bool {
+	if o != nil && !IsNil(o.ConfidenceThreshold) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfidenceThreshold gets a reference to the given float32 and assigns it to the ConfidenceThreshold field.
+func (o *FindRemediationRule200ResponseDataInner) SetConfidenceThreshold(v float32) {
+	o.ConfidenceThreshold = &v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindRemediationRule200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetCooldownMinutes returns the CooldownMinutes field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetCooldownMinutes() int32 {
+	if o == nil || IsNil(o.CooldownMinutes) {
+		var ret int32
+		return ret
+	}
+	return *o.CooldownMinutes
+}
+
+// GetCooldownMinutesOk returns a tuple with the CooldownMinutes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetCooldownMinutesOk() (*int32, bool) {
+	if o == nil || IsNil(o.CooldownMinutes) {
+		return nil, false
+	}
+	return o.CooldownMinutes, true
+}
+
+// HasCooldownMinutes returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasCooldownMinutes() bool {
+	if o != nil && !IsNil(o.CooldownMinutes) {
+		return true
+	}
+
+	return false
+}
+
+// SetCooldownMinutes gets a reference to the given int32 and assigns it to the CooldownMinutes field.
+func (o *FindRemediationRule200ResponseDataInner) SetCooldownMinutes(v int32) {
+	o.CooldownMinutes = &v
+}
+
+// GetLastTriggeredAt returns the LastTriggeredAt field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetLastTriggeredAt() time.Time {
+	if o == nil || IsNil(o.LastTriggeredAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastTriggeredAt
+}
+
+// GetLastTriggeredAtOk returns a tuple with the LastTriggeredAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetLastTriggeredAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastTriggeredAt) {
+		return nil, false
+	}
+	return o.LastTriggeredAt, true
+}
+
+// HasLastTriggeredAt returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasLastTriggeredAt() bool {
+	if o != nil && !IsNil(o.LastTriggeredAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastTriggeredAt gets a reference to the given time.Time and assigns it to the LastTriggeredAt field.
+func (o *FindRemediationRule200ResponseDataInner) SetLastTriggeredAt(v time.Time) {
+	o.LastTriggeredAt = &v
+}
+
+// GetLastFiredAt returns the LastFiredAt field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetLastFiredAt() time.Time {
+	if o == nil || IsNil(o.LastFiredAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastFiredAt
+}
+
+// GetLastFiredAtOk returns a tuple with the LastFiredAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetLastFiredAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastFiredAt) {
+		return nil, false
+	}
+	return o.LastFiredAt, true
+}
+
+// HasLastFiredAt returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasLastFiredAt() bool {
+	if o != nil && !IsNil(o.LastFiredAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastFiredAt gets a reference to the given time.Time and assigns it to the LastFiredAt field.
+func (o *FindRemediationRule200ResponseDataInner) SetLastFiredAt(v time.Time) {
+	o.LastFiredAt = &v
+}
+
+// GetFireCount returns the FireCount field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetFireCount() int32 {
+	if o == nil || IsNil(o.FireCount) {
+		var ret int32
+		return ret
+	}
+	return *o.FireCount
+}
+
+// GetFireCountOk returns a tuple with the FireCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetFireCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.FireCount) {
+		return nil, false
+	}
+	return o.FireCount, true
+}
+
+// HasFireCount returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasFireCount() bool {
+	if o != nil && !IsNil(o.FireCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetFireCount gets a reference to the given int32 and assigns it to the FireCount field.
+func (o *FindRemediationRule200ResponseDataInner) SetFireCount(v int32) {
+	o.FireCount = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindRemediationRule200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRemediationRule200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindRemediationRule200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindRemediationRule200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +569,6 @@ func (o *FindRemediationRule200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindRemediationRule200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindRemediationRule200ResponseDataInner) GetAttributes() RemediationRule {
-	if o == nil || IsNil(o.Attributes) {
-		var ret RemediationRule
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindRemediationRule200ResponseDataInner) GetAttributesOk() (*RemediationRule, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindRemediationRule200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given RemediationRule and assigns it to the Attributes field.
-func (o *FindRemediationRule200ResponseDataInner) SetAttributes(v RemediationRule) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +687,49 @@ func (o FindRemediationRule200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindRemediationRule200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["incident_pattern"] = o.IncidentPattern
+	if !IsNil(o.AlertPattern) {
+		toSerialize["alert_pattern"] = o.AlertPattern
+	}
+	if !IsNil(o.SeverityThreshold) {
+		toSerialize["severity_threshold"] = o.SeverityThreshold
+	}
+	if !IsNil(o.Runbook) {
+		toSerialize["runbook"] = o.Runbook
+	}
+	if !IsNil(o.RunbookId) {
+		toSerialize["runbook_id"] = o.RunbookId
+	}
+	if !IsNil(o.AutoApprove) {
+		toSerialize["auto_approve"] = o.AutoApprove
+	}
+	if !IsNil(o.ConfidenceThreshold) {
+		toSerialize["confidence_threshold"] = o.ConfidenceThreshold
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.CooldownMinutes) {
+		toSerialize["cooldown_minutes"] = o.CooldownMinutes
+	}
+	if !IsNil(o.LastTriggeredAt) {
+		toSerialize["last_triggered_at"] = o.LastTriggeredAt
+	}
+	if !IsNil(o.LastFiredAt) {
+		toSerialize["last_fired_at"] = o.LastFiredAt
+	}
+	if !IsNil(o.FireCount) {
+		toSerialize["fire_count"] = o.FireCount
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +741,44 @@ func (o FindRemediationRule200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindRemediationRule200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"incident_pattern",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindRemediationRule200ResponseDataInner := _FindRemediationRule200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindRemediationRule200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindRemediationRule200ResponseDataInner(varFindRemediationRule200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindRemediationRule200ResponseDataInner struct {

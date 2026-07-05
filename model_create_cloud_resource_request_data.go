@@ -34,9 +34,9 @@ type CreateCloudResourceRequestData struct {
 	// Provider-side identifikátor zdroje (ARN / resource id / bucket name).
 	ExternalId *string `json:"external_id,omitempty"`
 	// Požadovaná kind-specifická konfigurace (ManagedDatabaseSpec / ObjectStorageSpec / CloudConfig).
-	Spec map[string]interface{} `json:"spec,omitempty"`
+	Spec interface{} `json:"spec,omitempty"`
 	// Provider výstupy (ip, endpoint, bucket url, …) — bez secretů.
-	Outputs map[string]interface{} `json:"outputs,omitempty"`
+	Outputs interface{} `json:"outputs,omitempty"`
 	// DB host:port nebo URL bucketu (bez credentials).
 	Endpoint *string `json:"endpoint,omitempty"`
 	// AES-256-GCM šifrovaný connection string / přístupový secret. NIKDY se nevrací v API plaintext.
@@ -46,7 +46,8 @@ type CreateCloudResourceRequestData struct {
 	ErrorMessage *string `json:"error_message,omitempty"`
 	ProvisionedAt *time.Time `json:"provisioned_at,omitempty"`
 	TerminatedAt *time.Time `json:"terminated_at,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	CreatedByUser *CreateAccessReviewRequestDataReviewer `json:"created_by_user,omitempty"`
 	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
@@ -267,10 +268,10 @@ func (o *CreateCloudResourceRequestData) SetExternalId(v string) {
 	o.ExternalId = &v
 }
 
-// GetSpec returns the Spec field value if set, zero value otherwise.
-func (o *CreateCloudResourceRequestData) GetSpec() map[string]interface{} {
-	if o == nil || IsNil(o.Spec) {
-		var ret map[string]interface{}
+// GetSpec returns the Spec field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudResourceRequestData) GetSpec() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Spec
@@ -278,11 +279,12 @@ func (o *CreateCloudResourceRequestData) GetSpec() map[string]interface{} {
 
 // GetSpecOk returns a tuple with the Spec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudResourceRequestData) GetSpecOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudResourceRequestData) GetSpecOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Spec) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Spec, true
+	return &o.Spec, true
 }
 
 // HasSpec returns a boolean if a field has been set.
@@ -294,15 +296,15 @@ func (o *CreateCloudResourceRequestData) HasSpec() bool {
 	return false
 }
 
-// SetSpec gets a reference to the given map[string]interface{} and assigns it to the Spec field.
-func (o *CreateCloudResourceRequestData) SetSpec(v map[string]interface{}) {
+// SetSpec gets a reference to the given interface{} and assigns it to the Spec field.
+func (o *CreateCloudResourceRequestData) SetSpec(v interface{}) {
 	o.Spec = v
 }
 
-// GetOutputs returns the Outputs field value if set, zero value otherwise.
-func (o *CreateCloudResourceRequestData) GetOutputs() map[string]interface{} {
-	if o == nil || IsNil(o.Outputs) {
-		var ret map[string]interface{}
+// GetOutputs returns the Outputs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudResourceRequestData) GetOutputs() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Outputs
@@ -310,11 +312,12 @@ func (o *CreateCloudResourceRequestData) GetOutputs() map[string]interface{} {
 
 // GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudResourceRequestData) GetOutputsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudResourceRequestData) GetOutputsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Outputs) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Outputs, true
+	return &o.Outputs, true
 }
 
 // HasOutputs returns a boolean if a field has been set.
@@ -326,8 +329,8 @@ func (o *CreateCloudResourceRequestData) HasOutputs() bool {
 	return false
 }
 
-// SetOutputs gets a reference to the given map[string]interface{} and assigns it to the Outputs field.
-func (o *CreateCloudResourceRequestData) SetOutputs(v map[string]interface{}) {
+// SetOutputs gets a reference to the given interface{} and assigns it to the Outputs field.
+func (o *CreateCloudResourceRequestData) SetOutputs(v interface{}) {
 	o.Outputs = v
 }
 
@@ -547,10 +550,10 @@ func (o *CreateCloudResourceRequestData) SetTerminatedAt(v time.Time) {
 	o.TerminatedAt = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CreateCloudResourceRequestData) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateCloudResourceRequestData) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -558,11 +561,12 @@ func (o *CreateCloudResourceRequestData) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCloudResourceRequestData) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateCloudResourceRequestData) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -574,8 +578,8 @@ func (o *CreateCloudResourceRequestData) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CreateCloudResourceRequestData) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CreateCloudResourceRequestData) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -784,10 +788,10 @@ func (o CreateCloudResourceRequestData) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.ExternalId) {
 		toSerialize["external_id"] = o.ExternalId
 	}
-	if !IsNil(o.Spec) {
+	if o.Spec != nil {
 		toSerialize["spec"] = o.Spec
 	}
-	if !IsNil(o.Outputs) {
+	if o.Outputs != nil {
 		toSerialize["outputs"] = o.Outputs
 	}
 	if !IsNil(o.Endpoint) {
@@ -809,7 +813,7 @@ func (o CreateCloudResourceRequestData) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.TerminatedAt) {
 		toSerialize["terminated_at"] = o.TerminatedAt
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.Organisation) {

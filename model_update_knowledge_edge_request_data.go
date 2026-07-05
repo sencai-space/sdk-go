@@ -32,7 +32,7 @@ type UpdateKnowledgeEdgeRequestData struct {
 	// platform-event correlation_id that triggered this edge, or 'manual'.
 	ChangeSource *string `json:"change_source,omitempty"`
 	// Arbitrary metadata for this edge.
-	Properties map[string]interface{} `json:"properties,omitempty"`
+	Properties interface{} `json:"properties,omitempty"`
 	IsActive *bool `json:"is_active,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 }
@@ -241,10 +241,10 @@ func (o *UpdateKnowledgeEdgeRequestData) SetChangeSource(v string) {
 	o.ChangeSource = &v
 }
 
-// GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *UpdateKnowledgeEdgeRequestData) GetProperties() map[string]interface{} {
-	if o == nil || IsNil(o.Properties) {
-		var ret map[string]interface{}
+// GetProperties returns the Properties field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateKnowledgeEdgeRequestData) GetProperties() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Properties
@@ -252,11 +252,12 @@ func (o *UpdateKnowledgeEdgeRequestData) GetProperties() map[string]interface{} 
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateKnowledgeEdgeRequestData) GetPropertiesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateKnowledgeEdgeRequestData) GetPropertiesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Properties) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // HasProperties returns a boolean if a field has been set.
@@ -268,8 +269,8 @@ func (o *UpdateKnowledgeEdgeRequestData) HasProperties() bool {
 	return false
 }
 
-// SetProperties gets a reference to the given map[string]interface{} and assigns it to the Properties field.
-func (o *UpdateKnowledgeEdgeRequestData) SetProperties(v map[string]interface{}) {
+// SetProperties gets a reference to the given interface{} and assigns it to the Properties field.
+func (o *UpdateKnowledgeEdgeRequestData) SetProperties(v interface{}) {
 	o.Properties = v
 }
 
@@ -363,7 +364,7 @@ func (o UpdateKnowledgeEdgeRequestData) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.ChangeSource) {
 		toSerialize["change_source"] = o.ChangeSource
 	}
-	if !IsNil(o.Properties) {
+	if o.Properties != nil {
 		toSerialize["properties"] = o.Properties
 	}
 	if !IsNil(o.IsActive) {

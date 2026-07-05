@@ -27,7 +27,8 @@ type CreateSlaTierRequestData struct {
 	ResolutionMinutes *int32 `json:"resolution_minutes,omitempty"`
 	UptimeSlo *float32 `json:"uptime_slo,omitempty"`
 	SubscriptionPlan string `json:"subscription_plan"`
-	EscalationContacts map[string]interface{} `json:"escalation_contacts,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	EscalationContacts interface{} `json:"escalation_contacts,omitempty"`
 }
 
 type _CreateSlaTierRequestData CreateSlaTierRequestData
@@ -195,10 +196,10 @@ func (o *CreateSlaTierRequestData) SetSubscriptionPlan(v string) {
 	o.SubscriptionPlan = v
 }
 
-// GetEscalationContacts returns the EscalationContacts field value if set, zero value otherwise.
-func (o *CreateSlaTierRequestData) GetEscalationContacts() map[string]interface{} {
-	if o == nil || IsNil(o.EscalationContacts) {
-		var ret map[string]interface{}
+// GetEscalationContacts returns the EscalationContacts field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateSlaTierRequestData) GetEscalationContacts() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.EscalationContacts
@@ -206,11 +207,12 @@ func (o *CreateSlaTierRequestData) GetEscalationContacts() map[string]interface{
 
 // GetEscalationContactsOk returns a tuple with the EscalationContacts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateSlaTierRequestData) GetEscalationContactsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateSlaTierRequestData) GetEscalationContactsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.EscalationContacts) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.EscalationContacts, true
+	return &o.EscalationContacts, true
 }
 
 // HasEscalationContacts returns a boolean if a field has been set.
@@ -222,8 +224,8 @@ func (o *CreateSlaTierRequestData) HasEscalationContacts() bool {
 	return false
 }
 
-// SetEscalationContacts gets a reference to the given map[string]interface{} and assigns it to the EscalationContacts field.
-func (o *CreateSlaTierRequestData) SetEscalationContacts(v map[string]interface{}) {
+// SetEscalationContacts gets a reference to the given interface{} and assigns it to the EscalationContacts field.
+func (o *CreateSlaTierRequestData) SetEscalationContacts(v interface{}) {
 	o.EscalationContacts = v
 }
 
@@ -248,7 +250,7 @@ func (o CreateSlaTierRequestData) ToMap() (map[string]interface{}, error) {
 		toSerialize["uptime_slo"] = o.UptimeSlo
 	}
 	toSerialize["subscription_plan"] = o.SubscriptionPlan
-	if !IsNil(o.EscalationContacts) {
+	if o.EscalationContacts != nil {
 		toSerialize["escalation_contacts"] = o.EscalationContacts
 	}
 	return toSerialize, nil

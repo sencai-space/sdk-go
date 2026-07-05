@@ -33,7 +33,7 @@ type CloudPolicy struct {
 	// Free-text resource type filter (e.g. 'ec2', 's3', 'all'). 'all' or empty = matches any resource type.
 	ResourceType *string `json:"resource_type,omitempty"`
 	// Simple JSON DSL: { \"and\": [...] } or { \"or\": [...] } with leaf nodes { \"field\": string, \"op\": \"eq\"|\"neq\"|\"contains\"|\"exists\"|\"not-exists\"|\"gt\"|\"lt\", \"value\": any }. Field is a dot-path into the job payload (e.g. 'config.public_access').
-	Expression map[string]interface{} `json:"expression,omitempty"`
+	Expression interface{} `json:"expression,omitempty"`
 	// When false the policy is soft-disabled (skipped by the evaluator) without deleting it.
 	IsActive *bool `json:"is_active,omitempty"`
 	// Built-in CIS-aligned policies seeded by bootstrap. True = platform-wide, read-only default (organisation=null). False = custom per-org.
@@ -203,10 +203,10 @@ func (o *CloudPolicy) SetResourceType(v string) {
 	o.ResourceType = &v
 }
 
-// GetExpression returns the Expression field value if set, zero value otherwise.
-func (o *CloudPolicy) GetExpression() map[string]interface{} {
-	if o == nil || IsNil(o.Expression) {
-		var ret map[string]interface{}
+// GetExpression returns the Expression field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CloudPolicy) GetExpression() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Expression
@@ -214,11 +214,12 @@ func (o *CloudPolicy) GetExpression() map[string]interface{} {
 
 // GetExpressionOk returns a tuple with the Expression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CloudPolicy) GetExpressionOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CloudPolicy) GetExpressionOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Expression) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Expression, true
+	return &o.Expression, true
 }
 
 // HasExpression returns a boolean if a field has been set.
@@ -230,8 +231,8 @@ func (o *CloudPolicy) HasExpression() bool {
 	return false
 }
 
-// SetExpression gets a reference to the given map[string]interface{} and assigns it to the Expression field.
-func (o *CloudPolicy) SetExpression(v map[string]interface{}) {
+// SetExpression gets a reference to the given interface{} and assigns it to the Expression field.
+func (o *CloudPolicy) SetExpression(v interface{}) {
 	o.Expression = v
 }
 
@@ -414,7 +415,7 @@ func (o CloudPolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ResourceType) {
 		toSerialize["resource_type"] = o.ResourceType
 	}
-	if !IsNil(o.Expression) {
+	if o.Expression != nil {
 		toSerialize["expression"] = o.Expression
 	}
 	if !IsNil(o.IsActive) {

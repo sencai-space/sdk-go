@@ -27,7 +27,8 @@ type KnowledgeArticle struct {
 	Content *string `json:"content,omitempty"`
 	Summary *string `json:"summary,omitempty"`
 	Category *string `json:"category,omitempty"`
-	Tags map[string]interface{} `json:"tags,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
 	Scope *string `json:"scope,omitempty"`
 	ViewCount *int32 `json:"view_count,omitempty"`
 	HelpfulCount *int32 `json:"helpful_count,omitempty"`
@@ -206,10 +207,10 @@ func (o *KnowledgeArticle) SetCategory(v string) {
 	o.Category = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *KnowledgeArticle) GetTags() map[string]interface{} {
-	if o == nil || IsNil(o.Tags) {
-		var ret map[string]interface{}
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *KnowledgeArticle) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Tags
@@ -217,11 +218,12 @@ func (o *KnowledgeArticle) GetTags() map[string]interface{} {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KnowledgeArticle) GetTagsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *KnowledgeArticle) GetTagsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Tags) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -233,8 +235,8 @@ func (o *KnowledgeArticle) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given map[string]interface{} and assigns it to the Tags field.
-func (o *KnowledgeArticle) SetTags(v map[string]interface{}) {
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *KnowledgeArticle) SetTags(v interface{}) {
 	o.Tags = v
 }
 
@@ -389,7 +391,7 @@ func (o KnowledgeArticle) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Category) {
 		toSerialize["category"] = o.Category
 	}
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
 	if !IsNil(o.Scope) {

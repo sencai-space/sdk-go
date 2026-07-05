@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindWebhookDelivery200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindWebhookDelivery200ResponseDataInner{}
 
 // FindWebhookDelivery200ResponseDataInner struct for FindWebhookDelivery200ResponseDataInner
 type FindWebhookDelivery200ResponseDataInner struct {
+	EndpointUrl string `json:"endpoint_url"`
+	EventType string `json:"event_type"`
+	PayloadHash *string `json:"payload_hash,omitempty"`
+	Status *string `json:"status,omitempty"`
+	ResponseCode *int32 `json:"response_code,omitempty"`
+	ResponseBody *string `json:"response_body,omitempty"`
+	AttemptCount *int32 `json:"attempt_count,omitempty"`
+	LastAttemptAt *time.Time `json:"last_attempt_at,omitempty"`
+	NextRetryAt *time.Time `json:"next_retry_at,omitempty"`
+	ErrorMessage *string `json:"error_message,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *WebhookDelivery `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindWebhookDelivery200ResponseDataInner FindWebhookDelivery200ResponseDataInner
+
 // NewFindWebhookDelivery200ResponseDataInner instantiates a new FindWebhookDelivery200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindWebhookDelivery200ResponseDataInner() *FindWebhookDelivery200ResponseDataInner {
+func NewFindWebhookDelivery200ResponseDataInner(endpointUrl string, eventType string) *FindWebhookDelivery200ResponseDataInner {
 	this := FindWebhookDelivery200ResponseDataInner{}
+	this.EndpointUrl = endpointUrl
+	this.EventType = eventType
 	return &this
 }
 
@@ -44,6 +60,342 @@ func NewFindWebhookDelivery200ResponseDataInner() *FindWebhookDelivery200Respons
 func NewFindWebhookDelivery200ResponseDataInnerWithDefaults() *FindWebhookDelivery200ResponseDataInner {
 	this := FindWebhookDelivery200ResponseDataInner{}
 	return &this
+}
+
+// GetEndpointUrl returns the EndpointUrl field value
+func (o *FindWebhookDelivery200ResponseDataInner) GetEndpointUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EndpointUrl
+}
+
+// GetEndpointUrlOk returns a tuple with the EndpointUrl field value
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetEndpointUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EndpointUrl, true
+}
+
+// SetEndpointUrl sets field value
+func (o *FindWebhookDelivery200ResponseDataInner) SetEndpointUrl(v string) {
+	o.EndpointUrl = v
+}
+
+// GetEventType returns the EventType field value
+func (o *FindWebhookDelivery200ResponseDataInner) GetEventType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EventType
+}
+
+// GetEventTypeOk returns a tuple with the EventType field value
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetEventTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EventType, true
+}
+
+// SetEventType sets field value
+func (o *FindWebhookDelivery200ResponseDataInner) SetEventType(v string) {
+	o.EventType = v
+}
+
+// GetPayloadHash returns the PayloadHash field value if set, zero value otherwise.
+func (o *FindWebhookDelivery200ResponseDataInner) GetPayloadHash() string {
+	if o == nil || IsNil(o.PayloadHash) {
+		var ret string
+		return ret
+	}
+	return *o.PayloadHash
+}
+
+// GetPayloadHashOk returns a tuple with the PayloadHash field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetPayloadHashOk() (*string, bool) {
+	if o == nil || IsNil(o.PayloadHash) {
+		return nil, false
+	}
+	return o.PayloadHash, true
+}
+
+// HasPayloadHash returns a boolean if a field has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) HasPayloadHash() bool {
+	if o != nil && !IsNil(o.PayloadHash) {
+		return true
+	}
+
+	return false
+}
+
+// SetPayloadHash gets a reference to the given string and assigns it to the PayloadHash field.
+func (o *FindWebhookDelivery200ResponseDataInner) SetPayloadHash(v string) {
+	o.PayloadHash = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindWebhookDelivery200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindWebhookDelivery200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetResponseCode returns the ResponseCode field value if set, zero value otherwise.
+func (o *FindWebhookDelivery200ResponseDataInner) GetResponseCode() int32 {
+	if o == nil || IsNil(o.ResponseCode) {
+		var ret int32
+		return ret
+	}
+	return *o.ResponseCode
+}
+
+// GetResponseCodeOk returns a tuple with the ResponseCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetResponseCodeOk() (*int32, bool) {
+	if o == nil || IsNil(o.ResponseCode) {
+		return nil, false
+	}
+	return o.ResponseCode, true
+}
+
+// HasResponseCode returns a boolean if a field has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) HasResponseCode() bool {
+	if o != nil && !IsNil(o.ResponseCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetResponseCode gets a reference to the given int32 and assigns it to the ResponseCode field.
+func (o *FindWebhookDelivery200ResponseDataInner) SetResponseCode(v int32) {
+	o.ResponseCode = &v
+}
+
+// GetResponseBody returns the ResponseBody field value if set, zero value otherwise.
+func (o *FindWebhookDelivery200ResponseDataInner) GetResponseBody() string {
+	if o == nil || IsNil(o.ResponseBody) {
+		var ret string
+		return ret
+	}
+	return *o.ResponseBody
+}
+
+// GetResponseBodyOk returns a tuple with the ResponseBody field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetResponseBodyOk() (*string, bool) {
+	if o == nil || IsNil(o.ResponseBody) {
+		return nil, false
+	}
+	return o.ResponseBody, true
+}
+
+// HasResponseBody returns a boolean if a field has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) HasResponseBody() bool {
+	if o != nil && !IsNil(o.ResponseBody) {
+		return true
+	}
+
+	return false
+}
+
+// SetResponseBody gets a reference to the given string and assigns it to the ResponseBody field.
+func (o *FindWebhookDelivery200ResponseDataInner) SetResponseBody(v string) {
+	o.ResponseBody = &v
+}
+
+// GetAttemptCount returns the AttemptCount field value if set, zero value otherwise.
+func (o *FindWebhookDelivery200ResponseDataInner) GetAttemptCount() int32 {
+	if o == nil || IsNil(o.AttemptCount) {
+		var ret int32
+		return ret
+	}
+	return *o.AttemptCount
+}
+
+// GetAttemptCountOk returns a tuple with the AttemptCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetAttemptCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.AttemptCount) {
+		return nil, false
+	}
+	return o.AttemptCount, true
+}
+
+// HasAttemptCount returns a boolean if a field has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) HasAttemptCount() bool {
+	if o != nil && !IsNil(o.AttemptCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttemptCount gets a reference to the given int32 and assigns it to the AttemptCount field.
+func (o *FindWebhookDelivery200ResponseDataInner) SetAttemptCount(v int32) {
+	o.AttemptCount = &v
+}
+
+// GetLastAttemptAt returns the LastAttemptAt field value if set, zero value otherwise.
+func (o *FindWebhookDelivery200ResponseDataInner) GetLastAttemptAt() time.Time {
+	if o == nil || IsNil(o.LastAttemptAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastAttemptAt
+}
+
+// GetLastAttemptAtOk returns a tuple with the LastAttemptAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetLastAttemptAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastAttemptAt) {
+		return nil, false
+	}
+	return o.LastAttemptAt, true
+}
+
+// HasLastAttemptAt returns a boolean if a field has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) HasLastAttemptAt() bool {
+	if o != nil && !IsNil(o.LastAttemptAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastAttemptAt gets a reference to the given time.Time and assigns it to the LastAttemptAt field.
+func (o *FindWebhookDelivery200ResponseDataInner) SetLastAttemptAt(v time.Time) {
+	o.LastAttemptAt = &v
+}
+
+// GetNextRetryAt returns the NextRetryAt field value if set, zero value otherwise.
+func (o *FindWebhookDelivery200ResponseDataInner) GetNextRetryAt() time.Time {
+	if o == nil || IsNil(o.NextRetryAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.NextRetryAt
+}
+
+// GetNextRetryAtOk returns a tuple with the NextRetryAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetNextRetryAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.NextRetryAt) {
+		return nil, false
+	}
+	return o.NextRetryAt, true
+}
+
+// HasNextRetryAt returns a boolean if a field has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) HasNextRetryAt() bool {
+	if o != nil && !IsNil(o.NextRetryAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetNextRetryAt gets a reference to the given time.Time and assigns it to the NextRetryAt field.
+func (o *FindWebhookDelivery200ResponseDataInner) SetNextRetryAt(v time.Time) {
+	o.NextRetryAt = &v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindWebhookDelivery200ResponseDataInner) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindWebhookDelivery200ResponseDataInner) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindWebhookDelivery200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindWebhookDelivery200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindWebhookDelivery200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +460,6 @@ func (o *FindWebhookDelivery200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindWebhookDelivery200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindWebhookDelivery200ResponseDataInner) GetAttributes() WebhookDelivery {
-	if o == nil || IsNil(o.Attributes) {
-		var ret WebhookDelivery
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindWebhookDelivery200ResponseDataInner) GetAttributesOk() (*WebhookDelivery, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindWebhookDelivery200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given WebhookDelivery and assigns it to the Attributes field.
-func (o *FindWebhookDelivery200ResponseDataInner) SetAttributes(v WebhookDelivery) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +578,40 @@ func (o FindWebhookDelivery200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindWebhookDelivery200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["endpoint_url"] = o.EndpointUrl
+	toSerialize["event_type"] = o.EventType
+	if !IsNil(o.PayloadHash) {
+		toSerialize["payload_hash"] = o.PayloadHash
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.ResponseCode) {
+		toSerialize["response_code"] = o.ResponseCode
+	}
+	if !IsNil(o.ResponseBody) {
+		toSerialize["response_body"] = o.ResponseBody
+	}
+	if !IsNil(o.AttemptCount) {
+		toSerialize["attempt_count"] = o.AttemptCount
+	}
+	if !IsNil(o.LastAttemptAt) {
+		toSerialize["last_attempt_at"] = o.LastAttemptAt
+	}
+	if !IsNil(o.NextRetryAt) {
+		toSerialize["next_retry_at"] = o.NextRetryAt
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +623,44 @@ func (o FindWebhookDelivery200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindWebhookDelivery200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"endpoint_url",
+		"event_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindWebhookDelivery200ResponseDataInner := _FindWebhookDelivery200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindWebhookDelivery200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindWebhookDelivery200ResponseDataInner(varFindWebhookDelivery200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindWebhookDelivery200ResponseDataInner struct {

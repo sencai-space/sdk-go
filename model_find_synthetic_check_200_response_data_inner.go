@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSyntheticCheck200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindSyntheticCheck200ResponseDataInner{}
 
 // FindSyntheticCheck200ResponseDataInner struct for FindSyntheticCheck200ResponseDataInner
 type FindSyntheticCheck200ResponseDataInner struct {
+	Name string `json:"name"`
+	Url string `json:"url"`
+	Method *string `json:"method,omitempty"`
+	IntervalSeconds *int32 `json:"interval_seconds,omitempty"`
+	TimeoutMs *int32 `json:"timeout_ms,omitempty"`
+	ExpectedStatus *int32 `json:"expected_status,omitempty"`
+	ExpectedBodyContains *string `json:"expected_body_contains,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	LastCheckAt *time.Time `json:"last_check_at,omitempty"`
+	LastStatus *string `json:"last_status,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SyntheticCheck `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSyntheticCheck200ResponseDataInner FindSyntheticCheck200ResponseDataInner
+
 // NewFindSyntheticCheck200ResponseDataInner instantiates a new FindSyntheticCheck200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSyntheticCheck200ResponseDataInner() *FindSyntheticCheck200ResponseDataInner {
+func NewFindSyntheticCheck200ResponseDataInner(name string, url string) *FindSyntheticCheck200ResponseDataInner {
 	this := FindSyntheticCheck200ResponseDataInner{}
+	this.Name = name
+	this.Url = url
 	return &this
 }
 
@@ -44,6 +60,342 @@ func NewFindSyntheticCheck200ResponseDataInner() *FindSyntheticCheck200ResponseD
 func NewFindSyntheticCheck200ResponseDataInnerWithDefaults() *FindSyntheticCheck200ResponseDataInner {
 	this := FindSyntheticCheck200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindSyntheticCheck200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindSyntheticCheck200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetUrl returns the Url field value
+func (o *FindSyntheticCheck200ResponseDataInner) GetUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Url, true
+}
+
+// SetUrl sets field value
+func (o *FindSyntheticCheck200ResponseDataInner) SetUrl(v string) {
+	o.Url = v
+}
+
+// GetMethod returns the Method field value if set, zero value otherwise.
+func (o *FindSyntheticCheck200ResponseDataInner) GetMethod() string {
+	if o == nil || IsNil(o.Method) {
+		var ret string
+		return ret
+	}
+	return *o.Method
+}
+
+// GetMethodOk returns a tuple with the Method field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetMethodOk() (*string, bool) {
+	if o == nil || IsNil(o.Method) {
+		return nil, false
+	}
+	return o.Method, true
+}
+
+// HasMethod returns a boolean if a field has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) HasMethod() bool {
+	if o != nil && !IsNil(o.Method) {
+		return true
+	}
+
+	return false
+}
+
+// SetMethod gets a reference to the given string and assigns it to the Method field.
+func (o *FindSyntheticCheck200ResponseDataInner) SetMethod(v string) {
+	o.Method = &v
+}
+
+// GetIntervalSeconds returns the IntervalSeconds field value if set, zero value otherwise.
+func (o *FindSyntheticCheck200ResponseDataInner) GetIntervalSeconds() int32 {
+	if o == nil || IsNil(o.IntervalSeconds) {
+		var ret int32
+		return ret
+	}
+	return *o.IntervalSeconds
+}
+
+// GetIntervalSecondsOk returns a tuple with the IntervalSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetIntervalSecondsOk() (*int32, bool) {
+	if o == nil || IsNil(o.IntervalSeconds) {
+		return nil, false
+	}
+	return o.IntervalSeconds, true
+}
+
+// HasIntervalSeconds returns a boolean if a field has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) HasIntervalSeconds() bool {
+	if o != nil && !IsNil(o.IntervalSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetIntervalSeconds gets a reference to the given int32 and assigns it to the IntervalSeconds field.
+func (o *FindSyntheticCheck200ResponseDataInner) SetIntervalSeconds(v int32) {
+	o.IntervalSeconds = &v
+}
+
+// GetTimeoutMs returns the TimeoutMs field value if set, zero value otherwise.
+func (o *FindSyntheticCheck200ResponseDataInner) GetTimeoutMs() int32 {
+	if o == nil || IsNil(o.TimeoutMs) {
+		var ret int32
+		return ret
+	}
+	return *o.TimeoutMs
+}
+
+// GetTimeoutMsOk returns a tuple with the TimeoutMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetTimeoutMsOk() (*int32, bool) {
+	if o == nil || IsNil(o.TimeoutMs) {
+		return nil, false
+	}
+	return o.TimeoutMs, true
+}
+
+// HasTimeoutMs returns a boolean if a field has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) HasTimeoutMs() bool {
+	if o != nil && !IsNil(o.TimeoutMs) {
+		return true
+	}
+
+	return false
+}
+
+// SetTimeoutMs gets a reference to the given int32 and assigns it to the TimeoutMs field.
+func (o *FindSyntheticCheck200ResponseDataInner) SetTimeoutMs(v int32) {
+	o.TimeoutMs = &v
+}
+
+// GetExpectedStatus returns the ExpectedStatus field value if set, zero value otherwise.
+func (o *FindSyntheticCheck200ResponseDataInner) GetExpectedStatus() int32 {
+	if o == nil || IsNil(o.ExpectedStatus) {
+		var ret int32
+		return ret
+	}
+	return *o.ExpectedStatus
+}
+
+// GetExpectedStatusOk returns a tuple with the ExpectedStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetExpectedStatusOk() (*int32, bool) {
+	if o == nil || IsNil(o.ExpectedStatus) {
+		return nil, false
+	}
+	return o.ExpectedStatus, true
+}
+
+// HasExpectedStatus returns a boolean if a field has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) HasExpectedStatus() bool {
+	if o != nil && !IsNil(o.ExpectedStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpectedStatus gets a reference to the given int32 and assigns it to the ExpectedStatus field.
+func (o *FindSyntheticCheck200ResponseDataInner) SetExpectedStatus(v int32) {
+	o.ExpectedStatus = &v
+}
+
+// GetExpectedBodyContains returns the ExpectedBodyContains field value if set, zero value otherwise.
+func (o *FindSyntheticCheck200ResponseDataInner) GetExpectedBodyContains() string {
+	if o == nil || IsNil(o.ExpectedBodyContains) {
+		var ret string
+		return ret
+	}
+	return *o.ExpectedBodyContains
+}
+
+// GetExpectedBodyContainsOk returns a tuple with the ExpectedBodyContains field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetExpectedBodyContainsOk() (*string, bool) {
+	if o == nil || IsNil(o.ExpectedBodyContains) {
+		return nil, false
+	}
+	return o.ExpectedBodyContains, true
+}
+
+// HasExpectedBodyContains returns a boolean if a field has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) HasExpectedBodyContains() bool {
+	if o != nil && !IsNil(o.ExpectedBodyContains) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpectedBodyContains gets a reference to the given string and assigns it to the ExpectedBodyContains field.
+func (o *FindSyntheticCheck200ResponseDataInner) SetExpectedBodyContains(v string) {
+	o.ExpectedBodyContains = &v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindSyntheticCheck200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindSyntheticCheck200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetLastCheckAt returns the LastCheckAt field value if set, zero value otherwise.
+func (o *FindSyntheticCheck200ResponseDataInner) GetLastCheckAt() time.Time {
+	if o == nil || IsNil(o.LastCheckAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastCheckAt
+}
+
+// GetLastCheckAtOk returns a tuple with the LastCheckAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetLastCheckAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastCheckAt) {
+		return nil, false
+	}
+	return o.LastCheckAt, true
+}
+
+// HasLastCheckAt returns a boolean if a field has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) HasLastCheckAt() bool {
+	if o != nil && !IsNil(o.LastCheckAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastCheckAt gets a reference to the given time.Time and assigns it to the LastCheckAt field.
+func (o *FindSyntheticCheck200ResponseDataInner) SetLastCheckAt(v time.Time) {
+	o.LastCheckAt = &v
+}
+
+// GetLastStatus returns the LastStatus field value if set, zero value otherwise.
+func (o *FindSyntheticCheck200ResponseDataInner) GetLastStatus() string {
+	if o == nil || IsNil(o.LastStatus) {
+		var ret string
+		return ret
+	}
+	return *o.LastStatus
+}
+
+// GetLastStatusOk returns a tuple with the LastStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetLastStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.LastStatus) {
+		return nil, false
+	}
+	return o.LastStatus, true
+}
+
+// HasLastStatus returns a boolean if a field has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) HasLastStatus() bool {
+	if o != nil && !IsNil(o.LastStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastStatus gets a reference to the given string and assigns it to the LastStatus field.
+func (o *FindSyntheticCheck200ResponseDataInner) SetLastStatus(v string) {
+	o.LastStatus = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSyntheticCheck200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSyntheticCheck200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSyntheticCheck200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +460,6 @@ func (o *FindSyntheticCheck200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSyntheticCheck200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSyntheticCheck200ResponseDataInner) GetAttributes() SyntheticCheck {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SyntheticCheck
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSyntheticCheck200ResponseDataInner) GetAttributesOk() (*SyntheticCheck, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSyntheticCheck200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SyntheticCheck and assigns it to the Attributes field.
-func (o *FindSyntheticCheck200ResponseDataInner) SetAttributes(v SyntheticCheck) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +578,40 @@ func (o FindSyntheticCheck200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindSyntheticCheck200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["url"] = o.Url
+	if !IsNil(o.Method) {
+		toSerialize["method"] = o.Method
+	}
+	if !IsNil(o.IntervalSeconds) {
+		toSerialize["interval_seconds"] = o.IntervalSeconds
+	}
+	if !IsNil(o.TimeoutMs) {
+		toSerialize["timeout_ms"] = o.TimeoutMs
+	}
+	if !IsNil(o.ExpectedStatus) {
+		toSerialize["expected_status"] = o.ExpectedStatus
+	}
+	if !IsNil(o.ExpectedBodyContains) {
+		toSerialize["expected_body_contains"] = o.ExpectedBodyContains
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.LastCheckAt) {
+		toSerialize["last_check_at"] = o.LastCheckAt
+	}
+	if !IsNil(o.LastStatus) {
+		toSerialize["last_status"] = o.LastStatus
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +623,44 @@ func (o FindSyntheticCheck200ResponseDataInner) ToMap() (map[string]interface{},
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSyntheticCheck200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSyntheticCheck200ResponseDataInner := _FindSyntheticCheck200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSyntheticCheck200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSyntheticCheck200ResponseDataInner(varFindSyntheticCheck200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSyntheticCheck200ResponseDataInner struct {

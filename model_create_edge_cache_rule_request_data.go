@@ -33,7 +33,7 @@ type CreateEdgeCacheRuleRequestData struct {
 	// Whether the CDN should compress eligible responses (gzip/Brotli).
 	Compress *bool `json:"compress,omitempty"`
 	// HTTP methods allowed through this behavior (string[]), e.g. [\"GET\",\"HEAD\"].
-	AllowedMethods map[string]interface{} `json:"allowed_methods,omitempty"`
+	AllowedMethods interface{} `json:"allowed_methods,omitempty"`
 	// Whether this rule is currently applied to the distribution.
 	IsActive *bool `json:"is_active,omitempty"`
 	CdnDistribution *CreateAccessReviewRequestDataReviewer `json:"cdn_distribution,omitempty"`
@@ -212,10 +212,10 @@ func (o *CreateEdgeCacheRuleRequestData) SetCompress(v bool) {
 	o.Compress = &v
 }
 
-// GetAllowedMethods returns the AllowedMethods field value if set, zero value otherwise.
-func (o *CreateEdgeCacheRuleRequestData) GetAllowedMethods() map[string]interface{} {
-	if o == nil || IsNil(o.AllowedMethods) {
-		var ret map[string]interface{}
+// GetAllowedMethods returns the AllowedMethods field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateEdgeCacheRuleRequestData) GetAllowedMethods() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.AllowedMethods
@@ -223,11 +223,12 @@ func (o *CreateEdgeCacheRuleRequestData) GetAllowedMethods() map[string]interfac
 
 // GetAllowedMethodsOk returns a tuple with the AllowedMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateEdgeCacheRuleRequestData) GetAllowedMethodsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateEdgeCacheRuleRequestData) GetAllowedMethodsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.AllowedMethods) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.AllowedMethods, true
+	return &o.AllowedMethods, true
 }
 
 // HasAllowedMethods returns a boolean if a field has been set.
@@ -239,8 +240,8 @@ func (o *CreateEdgeCacheRuleRequestData) HasAllowedMethods() bool {
 	return false
 }
 
-// SetAllowedMethods gets a reference to the given map[string]interface{} and assigns it to the AllowedMethods field.
-func (o *CreateEdgeCacheRuleRequestData) SetAllowedMethods(v map[string]interface{}) {
+// SetAllowedMethods gets a reference to the given interface{} and assigns it to the AllowedMethods field.
+func (o *CreateEdgeCacheRuleRequestData) SetAllowedMethods(v interface{}) {
 	o.AllowedMethods = v
 }
 
@@ -363,7 +364,7 @@ func (o CreateEdgeCacheRuleRequestData) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Compress) {
 		toSerialize["compress"] = o.Compress
 	}
-	if !IsNil(o.AllowedMethods) {
+	if o.AllowedMethods != nil {
 		toSerialize["allowed_methods"] = o.AllowedMethods
 	}
 	if !IsNil(o.IsActive) {

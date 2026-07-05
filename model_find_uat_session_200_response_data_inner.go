@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindUatSession200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindUatSession200ResponseDataInner{}
 
 // FindUatSession200ResponseDataInner struct for FindUatSession200ResponseDataInner
 type FindUatSession200ResponseDataInner struct {
+	TesterEmail string `json:"tester_email"`
+	TesterName *string `json:"tester_name,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	FeatureArea *string `json:"feature_area,omitempty"`
+	SessionDate string `json:"session_date"`
+	Rating *int32 `json:"rating,omitempty"`
+	UsabilityScore *int32 `json:"usability_score,omitempty"`
+	PerformanceScore *int32 `json:"performance_score,omitempty"`
+	Notes *string `json:"notes,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	BugsFound interface{} `json:"bugs_found,omitempty"`
+	Suggestions *string `json:"suggestions,omitempty"`
+	WouldRecommend *bool `json:"would_recommend,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *UatSession `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindUatSession200ResponseDataInner FindUatSession200ResponseDataInner
+
 // NewFindUatSession200ResponseDataInner instantiates a new FindUatSession200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindUatSession200ResponseDataInner() *FindUatSession200ResponseDataInner {
+func NewFindUatSession200ResponseDataInner(testerEmail string, sessionDate string) *FindUatSession200ResponseDataInner {
 	this := FindUatSession200ResponseDataInner{}
+	this.TesterEmail = testerEmail
+	this.SessionDate = sessionDate
 	return &this
 }
 
@@ -44,6 +62,375 @@ func NewFindUatSession200ResponseDataInner() *FindUatSession200ResponseDataInner
 func NewFindUatSession200ResponseDataInnerWithDefaults() *FindUatSession200ResponseDataInner {
 	this := FindUatSession200ResponseDataInner{}
 	return &this
+}
+
+// GetTesterEmail returns the TesterEmail field value
+func (o *FindUatSession200ResponseDataInner) GetTesterEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TesterEmail
+}
+
+// GetTesterEmailOk returns a tuple with the TesterEmail field value
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetTesterEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TesterEmail, true
+}
+
+// SetTesterEmail sets field value
+func (o *FindUatSession200ResponseDataInner) SetTesterEmail(v string) {
+	o.TesterEmail = v
+}
+
+// GetTesterName returns the TesterName field value if set, zero value otherwise.
+func (o *FindUatSession200ResponseDataInner) GetTesterName() string {
+	if o == nil || IsNil(o.TesterName) {
+		var ret string
+		return ret
+	}
+	return *o.TesterName
+}
+
+// GetTesterNameOk returns a tuple with the TesterName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetTesterNameOk() (*string, bool) {
+	if o == nil || IsNil(o.TesterName) {
+		return nil, false
+	}
+	return o.TesterName, true
+}
+
+// HasTesterName returns a boolean if a field has been set.
+func (o *FindUatSession200ResponseDataInner) HasTesterName() bool {
+	if o != nil && !IsNil(o.TesterName) {
+		return true
+	}
+
+	return false
+}
+
+// SetTesterName gets a reference to the given string and assigns it to the TesterName field.
+func (o *FindUatSession200ResponseDataInner) SetTesterName(v string) {
+	o.TesterName = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindUatSession200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindUatSession200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindUatSession200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetFeatureArea returns the FeatureArea field value if set, zero value otherwise.
+func (o *FindUatSession200ResponseDataInner) GetFeatureArea() string {
+	if o == nil || IsNil(o.FeatureArea) {
+		var ret string
+		return ret
+	}
+	return *o.FeatureArea
+}
+
+// GetFeatureAreaOk returns a tuple with the FeatureArea field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetFeatureAreaOk() (*string, bool) {
+	if o == nil || IsNil(o.FeatureArea) {
+		return nil, false
+	}
+	return o.FeatureArea, true
+}
+
+// HasFeatureArea returns a boolean if a field has been set.
+func (o *FindUatSession200ResponseDataInner) HasFeatureArea() bool {
+	if o != nil && !IsNil(o.FeatureArea) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeatureArea gets a reference to the given string and assigns it to the FeatureArea field.
+func (o *FindUatSession200ResponseDataInner) SetFeatureArea(v string) {
+	o.FeatureArea = &v
+}
+
+// GetSessionDate returns the SessionDate field value
+func (o *FindUatSession200ResponseDataInner) GetSessionDate() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SessionDate
+}
+
+// GetSessionDateOk returns a tuple with the SessionDate field value
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetSessionDateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SessionDate, true
+}
+
+// SetSessionDate sets field value
+func (o *FindUatSession200ResponseDataInner) SetSessionDate(v string) {
+	o.SessionDate = v
+}
+
+// GetRating returns the Rating field value if set, zero value otherwise.
+func (o *FindUatSession200ResponseDataInner) GetRating() int32 {
+	if o == nil || IsNil(o.Rating) {
+		var ret int32
+		return ret
+	}
+	return *o.Rating
+}
+
+// GetRatingOk returns a tuple with the Rating field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetRatingOk() (*int32, bool) {
+	if o == nil || IsNil(o.Rating) {
+		return nil, false
+	}
+	return o.Rating, true
+}
+
+// HasRating returns a boolean if a field has been set.
+func (o *FindUatSession200ResponseDataInner) HasRating() bool {
+	if o != nil && !IsNil(o.Rating) {
+		return true
+	}
+
+	return false
+}
+
+// SetRating gets a reference to the given int32 and assigns it to the Rating field.
+func (o *FindUatSession200ResponseDataInner) SetRating(v int32) {
+	o.Rating = &v
+}
+
+// GetUsabilityScore returns the UsabilityScore field value if set, zero value otherwise.
+func (o *FindUatSession200ResponseDataInner) GetUsabilityScore() int32 {
+	if o == nil || IsNil(o.UsabilityScore) {
+		var ret int32
+		return ret
+	}
+	return *o.UsabilityScore
+}
+
+// GetUsabilityScoreOk returns a tuple with the UsabilityScore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetUsabilityScoreOk() (*int32, bool) {
+	if o == nil || IsNil(o.UsabilityScore) {
+		return nil, false
+	}
+	return o.UsabilityScore, true
+}
+
+// HasUsabilityScore returns a boolean if a field has been set.
+func (o *FindUatSession200ResponseDataInner) HasUsabilityScore() bool {
+	if o != nil && !IsNil(o.UsabilityScore) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsabilityScore gets a reference to the given int32 and assigns it to the UsabilityScore field.
+func (o *FindUatSession200ResponseDataInner) SetUsabilityScore(v int32) {
+	o.UsabilityScore = &v
+}
+
+// GetPerformanceScore returns the PerformanceScore field value if set, zero value otherwise.
+func (o *FindUatSession200ResponseDataInner) GetPerformanceScore() int32 {
+	if o == nil || IsNil(o.PerformanceScore) {
+		var ret int32
+		return ret
+	}
+	return *o.PerformanceScore
+}
+
+// GetPerformanceScoreOk returns a tuple with the PerformanceScore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetPerformanceScoreOk() (*int32, bool) {
+	if o == nil || IsNil(o.PerformanceScore) {
+		return nil, false
+	}
+	return o.PerformanceScore, true
+}
+
+// HasPerformanceScore returns a boolean if a field has been set.
+func (o *FindUatSession200ResponseDataInner) HasPerformanceScore() bool {
+	if o != nil && !IsNil(o.PerformanceScore) {
+		return true
+	}
+
+	return false
+}
+
+// SetPerformanceScore gets a reference to the given int32 and assigns it to the PerformanceScore field.
+func (o *FindUatSession200ResponseDataInner) SetPerformanceScore(v int32) {
+	o.PerformanceScore = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindUatSession200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindUatSession200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindUatSession200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
+}
+
+// GetBugsFound returns the BugsFound field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindUatSession200ResponseDataInner) GetBugsFound() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.BugsFound
+}
+
+// GetBugsFoundOk returns a tuple with the BugsFound field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindUatSession200ResponseDataInner) GetBugsFoundOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.BugsFound) {
+		return nil, false
+	}
+	return &o.BugsFound, true
+}
+
+// HasBugsFound returns a boolean if a field has been set.
+func (o *FindUatSession200ResponseDataInner) HasBugsFound() bool {
+	if o != nil && !IsNil(o.BugsFound) {
+		return true
+	}
+
+	return false
+}
+
+// SetBugsFound gets a reference to the given interface{} and assigns it to the BugsFound field.
+func (o *FindUatSession200ResponseDataInner) SetBugsFound(v interface{}) {
+	o.BugsFound = v
+}
+
+// GetSuggestions returns the Suggestions field value if set, zero value otherwise.
+func (o *FindUatSession200ResponseDataInner) GetSuggestions() string {
+	if o == nil || IsNil(o.Suggestions) {
+		var ret string
+		return ret
+	}
+	return *o.Suggestions
+}
+
+// GetSuggestionsOk returns a tuple with the Suggestions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetSuggestionsOk() (*string, bool) {
+	if o == nil || IsNil(o.Suggestions) {
+		return nil, false
+	}
+	return o.Suggestions, true
+}
+
+// HasSuggestions returns a boolean if a field has been set.
+func (o *FindUatSession200ResponseDataInner) HasSuggestions() bool {
+	if o != nil && !IsNil(o.Suggestions) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuggestions gets a reference to the given string and assigns it to the Suggestions field.
+func (o *FindUatSession200ResponseDataInner) SetSuggestions(v string) {
+	o.Suggestions = &v
+}
+
+// GetWouldRecommend returns the WouldRecommend field value if set, zero value otherwise.
+func (o *FindUatSession200ResponseDataInner) GetWouldRecommend() bool {
+	if o == nil || IsNil(o.WouldRecommend) {
+		var ret bool
+		return ret
+	}
+	return *o.WouldRecommend
+}
+
+// GetWouldRecommendOk returns a tuple with the WouldRecommend field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUatSession200ResponseDataInner) GetWouldRecommendOk() (*bool, bool) {
+	if o == nil || IsNil(o.WouldRecommend) {
+		return nil, false
+	}
+	return o.WouldRecommend, true
+}
+
+// HasWouldRecommend returns a boolean if a field has been set.
+func (o *FindUatSession200ResponseDataInner) HasWouldRecommend() bool {
+	if o != nil && !IsNil(o.WouldRecommend) {
+		return true
+	}
+
+	return false
+}
+
+// SetWouldRecommend gets a reference to the given bool and assigns it to the WouldRecommend field.
+func (o *FindUatSession200ResponseDataInner) SetWouldRecommend(v bool) {
+	o.WouldRecommend = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +495,6 @@ func (o *FindUatSession200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindUatSession200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindUatSession200ResponseDataInner) GetAttributes() UatSession {
-	if o == nil || IsNil(o.Attributes) {
-		var ret UatSession
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindUatSession200ResponseDataInner) GetAttributesOk() (*UatSession, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindUatSession200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given UatSession and assigns it to the Attributes field.
-func (o *FindUatSession200ResponseDataInner) SetAttributes(v UatSession) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +613,43 @@ func (o FindUatSession200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindUatSession200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["tester_email"] = o.TesterEmail
+	if !IsNil(o.TesterName) {
+		toSerialize["tester_name"] = o.TesterName
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.FeatureArea) {
+		toSerialize["feature_area"] = o.FeatureArea
+	}
+	toSerialize["session_date"] = o.SessionDate
+	if !IsNil(o.Rating) {
+		toSerialize["rating"] = o.Rating
+	}
+	if !IsNil(o.UsabilityScore) {
+		toSerialize["usability_score"] = o.UsabilityScore
+	}
+	if !IsNil(o.PerformanceScore) {
+		toSerialize["performance_score"] = o.PerformanceScore
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
+	if o.BugsFound != nil {
+		toSerialize["bugs_found"] = o.BugsFound
+	}
+	if !IsNil(o.Suggestions) {
+		toSerialize["suggestions"] = o.Suggestions
+	}
+	if !IsNil(o.WouldRecommend) {
+		toSerialize["would_recommend"] = o.WouldRecommend
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +661,44 @@ func (o FindUatSession200ResponseDataInner) ToMap() (map[string]interface{}, err
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindUatSession200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"tester_email",
+		"session_date",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindUatSession200ResponseDataInner := _FindUatSession200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindUatSession200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindUatSession200ResponseDataInner(varFindUatSession200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindUatSession200ResponseDataInner struct {

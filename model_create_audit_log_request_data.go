@@ -30,13 +30,15 @@ type CreateAuditLogRequestData struct {
 	ElevationGrantId *string `json:"elevation_grant_id,omitempty"`
 	ResourceType string `json:"resource_type"`
 	ResourceId *string `json:"resource_id,omitempty"`
-	Changes map[string]interface{} `json:"changes,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Changes interface{} `json:"changes,omitempty"`
 	CorrelationId *string `json:"correlation_id,omitempty"`
 	RiskLevel *string `json:"risk_level,omitempty"`
 	PrevHash *string `json:"prev_hash,omitempty"`
 	EntryHash *string `json:"entry_hash,omitempty"`
 	AnchorId *string `json:"anchor_id,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	IpAddress *string `json:"ip_address,omitempty"`
 	UserAgent *string `json:"user_agent,omitempty"`
 	// Data-residency region of the tenant at time of audit event (CELL invariant, F2.CELL.01)
@@ -306,10 +308,10 @@ func (o *CreateAuditLogRequestData) SetResourceId(v string) {
 	o.ResourceId = &v
 }
 
-// GetChanges returns the Changes field value if set, zero value otherwise.
-func (o *CreateAuditLogRequestData) GetChanges() map[string]interface{} {
-	if o == nil || IsNil(o.Changes) {
-		var ret map[string]interface{}
+// GetChanges returns the Changes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateAuditLogRequestData) GetChanges() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Changes
@@ -317,11 +319,12 @@ func (o *CreateAuditLogRequestData) GetChanges() map[string]interface{} {
 
 // GetChangesOk returns a tuple with the Changes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateAuditLogRequestData) GetChangesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateAuditLogRequestData) GetChangesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Changes) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Changes, true
+	return &o.Changes, true
 }
 
 // HasChanges returns a boolean if a field has been set.
@@ -333,8 +336,8 @@ func (o *CreateAuditLogRequestData) HasChanges() bool {
 	return false
 }
 
-// SetChanges gets a reference to the given map[string]interface{} and assigns it to the Changes field.
-func (o *CreateAuditLogRequestData) SetChanges(v map[string]interface{}) {
+// SetChanges gets a reference to the given interface{} and assigns it to the Changes field.
+func (o *CreateAuditLogRequestData) SetChanges(v interface{}) {
 	o.Changes = v
 }
 
@@ -498,10 +501,10 @@ func (o *CreateAuditLogRequestData) SetAnchorId(v string) {
 	o.AnchorId = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *CreateAuditLogRequestData) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateAuditLogRequestData) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -509,11 +512,12 @@ func (o *CreateAuditLogRequestData) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateAuditLogRequestData) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateAuditLogRequestData) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -525,8 +529,8 @@ func (o *CreateAuditLogRequestData) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *CreateAuditLogRequestData) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *CreateAuditLogRequestData) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -688,7 +692,7 @@ func (o CreateAuditLogRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ResourceId) {
 		toSerialize["resource_id"] = o.ResourceId
 	}
-	if !IsNil(o.Changes) {
+	if o.Changes != nil {
 		toSerialize["changes"] = o.Changes
 	}
 	if !IsNil(o.CorrelationId) {
@@ -706,7 +710,7 @@ func (o CreateAuditLogRequestData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AnchorId) {
 		toSerialize["anchor_id"] = o.AnchorId
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if !IsNil(o.IpAddress) {

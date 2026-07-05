@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindMs365LicenceSnapshot200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,28 @@ var _ MappedNullable = &FindMs365LicenceSnapshot200ResponseDataInner{}
 
 // FindMs365LicenceSnapshot200ResponseDataInner struct for FindMs365LicenceSnapshot200ResponseDataInner
 type FindMs365LicenceSnapshot200ResponseDataInner struct {
+	FetchedAt time.Time `json:"fetched_at"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Licences interface{} `json:"licences,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	UserSummary interface{} `json:"user_summary,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *Ms365LicenceSnapshot `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindMs365LicenceSnapshot200ResponseDataInner FindMs365LicenceSnapshot200ResponseDataInner
+
 // NewFindMs365LicenceSnapshot200ResponseDataInner instantiates a new FindMs365LicenceSnapshot200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindMs365LicenceSnapshot200ResponseDataInner() *FindMs365LicenceSnapshot200ResponseDataInner {
+func NewFindMs365LicenceSnapshot200ResponseDataInner(fetchedAt time.Time) *FindMs365LicenceSnapshot200ResponseDataInner {
 	this := FindMs365LicenceSnapshot200ResponseDataInner{}
+	this.FetchedAt = fetchedAt
 	return &this
 }
 
@@ -44,6 +54,128 @@ func NewFindMs365LicenceSnapshot200ResponseDataInner() *FindMs365LicenceSnapshot
 func NewFindMs365LicenceSnapshot200ResponseDataInnerWithDefaults() *FindMs365LicenceSnapshot200ResponseDataInner {
 	this := FindMs365LicenceSnapshot200ResponseDataInner{}
 	return &this
+}
+
+// GetFetchedAt returns the FetchedAt field value
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) GetFetchedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.FetchedAt
+}
+
+// GetFetchedAtOk returns a tuple with the FetchedAt field value
+// and a boolean to check if the value has been set.
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) GetFetchedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FetchedAt, true
+}
+
+// SetFetchedAt sets field value
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) SetFetchedAt(v time.Time) {
+	o.FetchedAt = v
+}
+
+// GetLicences returns the Licences field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) GetLicences() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Licences
+}
+
+// GetLicencesOk returns a tuple with the Licences field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) GetLicencesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Licences) {
+		return nil, false
+	}
+	return &o.Licences, true
+}
+
+// HasLicences returns a boolean if a field has been set.
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) HasLicences() bool {
+	if o != nil && !IsNil(o.Licences) {
+		return true
+	}
+
+	return false
+}
+
+// SetLicences gets a reference to the given interface{} and assigns it to the Licences field.
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) SetLicences(v interface{}) {
+	o.Licences = v
+}
+
+// GetUserSummary returns the UserSummary field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) GetUserSummary() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.UserSummary
+}
+
+// GetUserSummaryOk returns a tuple with the UserSummary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) GetUserSummaryOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.UserSummary) {
+		return nil, false
+	}
+	return &o.UserSummary, true
+}
+
+// HasUserSummary returns a boolean if a field has been set.
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) HasUserSummary() bool {
+	if o != nil && !IsNil(o.UserSummary) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserSummary gets a reference to the given interface{} and assigns it to the UserSummary field.
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) SetUserSummary(v interface{}) {
+	o.UserSummary = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +240,6 @@ func (o *FindMs365LicenceSnapshot200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindMs365LicenceSnapshot200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindMs365LicenceSnapshot200ResponseDataInner) GetAttributes() Ms365LicenceSnapshot {
-	if o == nil || IsNil(o.Attributes) {
-		var ret Ms365LicenceSnapshot
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindMs365LicenceSnapshot200ResponseDataInner) GetAttributesOk() (*Ms365LicenceSnapshot, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindMs365LicenceSnapshot200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given Ms365LicenceSnapshot and assigns it to the Attributes field.
-func (o *FindMs365LicenceSnapshot200ResponseDataInner) SetAttributes(v Ms365LicenceSnapshot) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +358,21 @@ func (o FindMs365LicenceSnapshot200ResponseDataInner) MarshalJSON() ([]byte, err
 
 func (o FindMs365LicenceSnapshot200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["fetched_at"] = o.FetchedAt
+	if o.Licences != nil {
+		toSerialize["licences"] = o.Licences
+	}
+	if o.UserSummary != nil {
+		toSerialize["user_summary"] = o.UserSummary
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +384,43 @@ func (o FindMs365LicenceSnapshot200ResponseDataInner) ToMap() (map[string]interf
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindMs365LicenceSnapshot200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"fetched_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindMs365LicenceSnapshot200ResponseDataInner := _FindMs365LicenceSnapshot200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindMs365LicenceSnapshot200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindMs365LicenceSnapshot200ResponseDataInner(varFindMs365LicenceSnapshot200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindMs365LicenceSnapshot200ResponseDataInner struct {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCommandExecutionResult200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,46 @@ var _ MappedNullable = &FindCommandExecutionResult200ResponseDataInner{}
 
 // FindCommandExecutionResult200ResponseDataInner struct for FindCommandExecutionResult200ResponseDataInner
 type FindCommandExecutionResult200ResponseDataInner struct {
+	// Strapi documentId of the sencai-agent that executed the command.
+	AgentId string `json:"agent_id"`
+	// Hostname or display name of the agent (denormalized for display).
+	AgentName *string `json:"agent_name,omitempty"`
+	// Name of the remote-command template that was dispatched.
+	CommandName string `json:"command_name"`
+	// Final command string after template argument substitution.
+	CommandRendered *string `json:"command_rendered,omitempty"`
+	// Process exit code returned by the agent. null if not yet completed.
+	ExitCode *int32 `json:"exit_code,omitempty"`
+	// Standard output captured from the executed command.
+	Stdout *string `json:"stdout,omitempty"`
+	// Standard error captured from the executed command.
+	Stderr *string `json:"stderr,omitempty"`
+	// Wall-clock execution duration in milliseconds.
+	DurationMs *int32 `json:"duration_ms,omitempty"`
+	// Lifecycle status of the execution. blocked = command was rejected by agent whitelist.
+	Status *string `json:"status,omitempty"`
+	// Timestamp when the command was dispatched to the agent.
+	DispatchedAt *time.Time `json:"dispatched_at,omitempty"`
+	// Timestamp when the agent reported the final result.
+	CompletedAt *time.Time `json:"completed_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CommandExecutionResult `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCommandExecutionResult200ResponseDataInner FindCommandExecutionResult200ResponseDataInner
+
 // NewFindCommandExecutionResult200ResponseDataInner instantiates a new FindCommandExecutionResult200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCommandExecutionResult200ResponseDataInner() *FindCommandExecutionResult200ResponseDataInner {
+func NewFindCommandExecutionResult200ResponseDataInner(agentId string, commandName string) *FindCommandExecutionResult200ResponseDataInner {
 	this := FindCommandExecutionResult200ResponseDataInner{}
+	this.AgentId = agentId
+	this.CommandName = commandName
 	return &this
 }
 
@@ -44,6 +72,374 @@ func NewFindCommandExecutionResult200ResponseDataInner() *FindCommandExecutionRe
 func NewFindCommandExecutionResult200ResponseDataInnerWithDefaults() *FindCommandExecutionResult200ResponseDataInner {
 	this := FindCommandExecutionResult200ResponseDataInner{}
 	return &this
+}
+
+// GetAgentId returns the AgentId field value
+func (o *FindCommandExecutionResult200ResponseDataInner) GetAgentId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AgentId
+}
+
+// GetAgentIdOk returns a tuple with the AgentId field value
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetAgentIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AgentId, true
+}
+
+// SetAgentId sets field value
+func (o *FindCommandExecutionResult200ResponseDataInner) SetAgentId(v string) {
+	o.AgentId = v
+}
+
+// GetAgentName returns the AgentName field value if set, zero value otherwise.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetAgentName() string {
+	if o == nil || IsNil(o.AgentName) {
+		var ret string
+		return ret
+	}
+	return *o.AgentName
+}
+
+// GetAgentNameOk returns a tuple with the AgentName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetAgentNameOk() (*string, bool) {
+	if o == nil || IsNil(o.AgentName) {
+		return nil, false
+	}
+	return o.AgentName, true
+}
+
+// HasAgentName returns a boolean if a field has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) HasAgentName() bool {
+	if o != nil && !IsNil(o.AgentName) {
+		return true
+	}
+
+	return false
+}
+
+// SetAgentName gets a reference to the given string and assigns it to the AgentName field.
+func (o *FindCommandExecutionResult200ResponseDataInner) SetAgentName(v string) {
+	o.AgentName = &v
+}
+
+// GetCommandName returns the CommandName field value
+func (o *FindCommandExecutionResult200ResponseDataInner) GetCommandName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CommandName
+}
+
+// GetCommandNameOk returns a tuple with the CommandName field value
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetCommandNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CommandName, true
+}
+
+// SetCommandName sets field value
+func (o *FindCommandExecutionResult200ResponseDataInner) SetCommandName(v string) {
+	o.CommandName = v
+}
+
+// GetCommandRendered returns the CommandRendered field value if set, zero value otherwise.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetCommandRendered() string {
+	if o == nil || IsNil(o.CommandRendered) {
+		var ret string
+		return ret
+	}
+	return *o.CommandRendered
+}
+
+// GetCommandRenderedOk returns a tuple with the CommandRendered field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetCommandRenderedOk() (*string, bool) {
+	if o == nil || IsNil(o.CommandRendered) {
+		return nil, false
+	}
+	return o.CommandRendered, true
+}
+
+// HasCommandRendered returns a boolean if a field has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) HasCommandRendered() bool {
+	if o != nil && !IsNil(o.CommandRendered) {
+		return true
+	}
+
+	return false
+}
+
+// SetCommandRendered gets a reference to the given string and assigns it to the CommandRendered field.
+func (o *FindCommandExecutionResult200ResponseDataInner) SetCommandRendered(v string) {
+	o.CommandRendered = &v
+}
+
+// GetExitCode returns the ExitCode field value if set, zero value otherwise.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetExitCode() int32 {
+	if o == nil || IsNil(o.ExitCode) {
+		var ret int32
+		return ret
+	}
+	return *o.ExitCode
+}
+
+// GetExitCodeOk returns a tuple with the ExitCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetExitCodeOk() (*int32, bool) {
+	if o == nil || IsNil(o.ExitCode) {
+		return nil, false
+	}
+	return o.ExitCode, true
+}
+
+// HasExitCode returns a boolean if a field has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) HasExitCode() bool {
+	if o != nil && !IsNil(o.ExitCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetExitCode gets a reference to the given int32 and assigns it to the ExitCode field.
+func (o *FindCommandExecutionResult200ResponseDataInner) SetExitCode(v int32) {
+	o.ExitCode = &v
+}
+
+// GetStdout returns the Stdout field value if set, zero value otherwise.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetStdout() string {
+	if o == nil || IsNil(o.Stdout) {
+		var ret string
+		return ret
+	}
+	return *o.Stdout
+}
+
+// GetStdoutOk returns a tuple with the Stdout field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetStdoutOk() (*string, bool) {
+	if o == nil || IsNil(o.Stdout) {
+		return nil, false
+	}
+	return o.Stdout, true
+}
+
+// HasStdout returns a boolean if a field has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) HasStdout() bool {
+	if o != nil && !IsNil(o.Stdout) {
+		return true
+	}
+
+	return false
+}
+
+// SetStdout gets a reference to the given string and assigns it to the Stdout field.
+func (o *FindCommandExecutionResult200ResponseDataInner) SetStdout(v string) {
+	o.Stdout = &v
+}
+
+// GetStderr returns the Stderr field value if set, zero value otherwise.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetStderr() string {
+	if o == nil || IsNil(o.Stderr) {
+		var ret string
+		return ret
+	}
+	return *o.Stderr
+}
+
+// GetStderrOk returns a tuple with the Stderr field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetStderrOk() (*string, bool) {
+	if o == nil || IsNil(o.Stderr) {
+		return nil, false
+	}
+	return o.Stderr, true
+}
+
+// HasStderr returns a boolean if a field has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) HasStderr() bool {
+	if o != nil && !IsNil(o.Stderr) {
+		return true
+	}
+
+	return false
+}
+
+// SetStderr gets a reference to the given string and assigns it to the Stderr field.
+func (o *FindCommandExecutionResult200ResponseDataInner) SetStderr(v string) {
+	o.Stderr = &v
+}
+
+// GetDurationMs returns the DurationMs field value if set, zero value otherwise.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetDurationMs() int32 {
+	if o == nil || IsNil(o.DurationMs) {
+		var ret int32
+		return ret
+	}
+	return *o.DurationMs
+}
+
+// GetDurationMsOk returns a tuple with the DurationMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetDurationMsOk() (*int32, bool) {
+	if o == nil || IsNil(o.DurationMs) {
+		return nil, false
+	}
+	return o.DurationMs, true
+}
+
+// HasDurationMs returns a boolean if a field has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) HasDurationMs() bool {
+	if o != nil && !IsNil(o.DurationMs) {
+		return true
+	}
+
+	return false
+}
+
+// SetDurationMs gets a reference to the given int32 and assigns it to the DurationMs field.
+func (o *FindCommandExecutionResult200ResponseDataInner) SetDurationMs(v int32) {
+	o.DurationMs = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindCommandExecutionResult200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetDispatchedAt returns the DispatchedAt field value if set, zero value otherwise.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetDispatchedAt() time.Time {
+	if o == nil || IsNil(o.DispatchedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DispatchedAt
+}
+
+// GetDispatchedAtOk returns a tuple with the DispatchedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetDispatchedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DispatchedAt) {
+		return nil, false
+	}
+	return o.DispatchedAt, true
+}
+
+// HasDispatchedAt returns a boolean if a field has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) HasDispatchedAt() bool {
+	if o != nil && !IsNil(o.DispatchedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDispatchedAt gets a reference to the given time.Time and assigns it to the DispatchedAt field.
+func (o *FindCommandExecutionResult200ResponseDataInner) SetDispatchedAt(v time.Time) {
+	o.DispatchedAt = &v
+}
+
+// GetCompletedAt returns the CompletedAt field value if set, zero value otherwise.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetCompletedAt() time.Time {
+	if o == nil || IsNil(o.CompletedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CompletedAt
+}
+
+// GetCompletedAtOk returns a tuple with the CompletedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetCompletedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CompletedAt) {
+		return nil, false
+	}
+	return o.CompletedAt, true
+}
+
+// HasCompletedAt returns a boolean if a field has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) HasCompletedAt() bool {
+	if o != nil && !IsNil(o.CompletedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCompletedAt gets a reference to the given time.Time and assigns it to the CompletedAt field.
+func (o *FindCommandExecutionResult200ResponseDataInner) SetCompletedAt(v time.Time) {
+	o.CompletedAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCommandExecutionResult200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCommandExecutionResult200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +504,6 @@ func (o *FindCommandExecutionResult200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCommandExecutionResult200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCommandExecutionResult200ResponseDataInner) GetAttributes() CommandExecutionResult {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CommandExecutionResult
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCommandExecutionResult200ResponseDataInner) GetAttributesOk() (*CommandExecutionResult, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCommandExecutionResult200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CommandExecutionResult and assigns it to the Attributes field.
-func (o *FindCommandExecutionResult200ResponseDataInner) SetAttributes(v CommandExecutionResult) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +622,43 @@ func (o FindCommandExecutionResult200ResponseDataInner) MarshalJSON() ([]byte, e
 
 func (o FindCommandExecutionResult200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["agent_id"] = o.AgentId
+	if !IsNil(o.AgentName) {
+		toSerialize["agent_name"] = o.AgentName
+	}
+	toSerialize["command_name"] = o.CommandName
+	if !IsNil(o.CommandRendered) {
+		toSerialize["command_rendered"] = o.CommandRendered
+	}
+	if !IsNil(o.ExitCode) {
+		toSerialize["exit_code"] = o.ExitCode
+	}
+	if !IsNil(o.Stdout) {
+		toSerialize["stdout"] = o.Stdout
+	}
+	if !IsNil(o.Stderr) {
+		toSerialize["stderr"] = o.Stderr
+	}
+	if !IsNil(o.DurationMs) {
+		toSerialize["duration_ms"] = o.DurationMs
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.DispatchedAt) {
+		toSerialize["dispatched_at"] = o.DispatchedAt
+	}
+	if !IsNil(o.CompletedAt) {
+		toSerialize["completed_at"] = o.CompletedAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +670,44 @@ func (o FindCommandExecutionResult200ResponseDataInner) ToMap() (map[string]inte
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCommandExecutionResult200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"agent_id",
+		"command_name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCommandExecutionResult200ResponseDataInner := _FindCommandExecutionResult200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCommandExecutionResult200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCommandExecutionResult200ResponseDataInner(varFindCommandExecutionResult200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCommandExecutionResult200ResponseDataInner struct {

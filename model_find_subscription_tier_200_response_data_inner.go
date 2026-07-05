@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSubscriptionTier200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,39 @@ var _ MappedNullable = &FindSubscriptionTier200ResponseDataInner{}
 
 // FindSubscriptionTier200ResponseDataInner struct for FindSubscriptionTier200ResponseDataInner
 type FindSubscriptionTier200ResponseDataInner struct {
+	Name string `json:"name"`
+	Slug string `json:"slug"`
+	MaxManagedHosts *int32 `json:"max_managed_hosts,omitempty"`
+	MaxOrganisations *int32 `json:"max_organisations,omitempty"`
+	MaxCloudInstances *int32 `json:"max_cloud_instances,omitempty"`
+	PriceMonthlyUsd *float32 `json:"price_monthly_usd,omitempty"`
+	PriceYearlyUsd *float32 `json:"price_yearly_usd,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Features interface{} `json:"features,omitempty"`
+	IsFreeTier *bool `json:"is_free_tier,omitempty"`
+	IsActive *bool `json:"is_active,omitempty"`
+	TrialDays *int32 `json:"trial_days,omitempty"`
+	Status *string `json:"status,omitempty"`
+	ActivatedAt *time.Time `json:"activated_at,omitempty"`
+	GraceExpiresAt *time.Time `json:"grace_expires_at,omitempty"`
+	SuspendedAt *time.Time `json:"suspended_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SubscriptionTier `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSubscriptionTier200ResponseDataInner FindSubscriptionTier200ResponseDataInner
+
 // NewFindSubscriptionTier200ResponseDataInner instantiates a new FindSubscriptionTier200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSubscriptionTier200ResponseDataInner() *FindSubscriptionTier200ResponseDataInner {
+func NewFindSubscriptionTier200ResponseDataInner(name string, slug string) *FindSubscriptionTier200ResponseDataInner {
 	this := FindSubscriptionTier200ResponseDataInner{}
+	this.Name = name
+	this.Slug = slug
 	return &this
 }
 
@@ -44,6 +65,471 @@ func NewFindSubscriptionTier200ResponseDataInner() *FindSubscriptionTier200Respo
 func NewFindSubscriptionTier200ResponseDataInnerWithDefaults() *FindSubscriptionTier200ResponseDataInner {
 	this := FindSubscriptionTier200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindSubscriptionTier200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindSubscriptionTier200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetSlug returns the Slug field value
+func (o *FindSubscriptionTier200ResponseDataInner) GetSlug() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Slug
+}
+
+// GetSlugOk returns a tuple with the Slug field value
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetSlugOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Slug, true
+}
+
+// SetSlug sets field value
+func (o *FindSubscriptionTier200ResponseDataInner) SetSlug(v string) {
+	o.Slug = v
+}
+
+// GetMaxManagedHosts returns the MaxManagedHosts field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetMaxManagedHosts() int32 {
+	if o == nil || IsNil(o.MaxManagedHosts) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxManagedHosts
+}
+
+// GetMaxManagedHostsOk returns a tuple with the MaxManagedHosts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetMaxManagedHostsOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxManagedHosts) {
+		return nil, false
+	}
+	return o.MaxManagedHosts, true
+}
+
+// HasMaxManagedHosts returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasMaxManagedHosts() bool {
+	if o != nil && !IsNil(o.MaxManagedHosts) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxManagedHosts gets a reference to the given int32 and assigns it to the MaxManagedHosts field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetMaxManagedHosts(v int32) {
+	o.MaxManagedHosts = &v
+}
+
+// GetMaxOrganisations returns the MaxOrganisations field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetMaxOrganisations() int32 {
+	if o == nil || IsNil(o.MaxOrganisations) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxOrganisations
+}
+
+// GetMaxOrganisationsOk returns a tuple with the MaxOrganisations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetMaxOrganisationsOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxOrganisations) {
+		return nil, false
+	}
+	return o.MaxOrganisations, true
+}
+
+// HasMaxOrganisations returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasMaxOrganisations() bool {
+	if o != nil && !IsNil(o.MaxOrganisations) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxOrganisations gets a reference to the given int32 and assigns it to the MaxOrganisations field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetMaxOrganisations(v int32) {
+	o.MaxOrganisations = &v
+}
+
+// GetMaxCloudInstances returns the MaxCloudInstances field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetMaxCloudInstances() int32 {
+	if o == nil || IsNil(o.MaxCloudInstances) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxCloudInstances
+}
+
+// GetMaxCloudInstancesOk returns a tuple with the MaxCloudInstances field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetMaxCloudInstancesOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxCloudInstances) {
+		return nil, false
+	}
+	return o.MaxCloudInstances, true
+}
+
+// HasMaxCloudInstances returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasMaxCloudInstances() bool {
+	if o != nil && !IsNil(o.MaxCloudInstances) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxCloudInstances gets a reference to the given int32 and assigns it to the MaxCloudInstances field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetMaxCloudInstances(v int32) {
+	o.MaxCloudInstances = &v
+}
+
+// GetPriceMonthlyUsd returns the PriceMonthlyUsd field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetPriceMonthlyUsd() float32 {
+	if o == nil || IsNil(o.PriceMonthlyUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.PriceMonthlyUsd
+}
+
+// GetPriceMonthlyUsdOk returns a tuple with the PriceMonthlyUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetPriceMonthlyUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.PriceMonthlyUsd) {
+		return nil, false
+	}
+	return o.PriceMonthlyUsd, true
+}
+
+// HasPriceMonthlyUsd returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasPriceMonthlyUsd() bool {
+	if o != nil && !IsNil(o.PriceMonthlyUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetPriceMonthlyUsd gets a reference to the given float32 and assigns it to the PriceMonthlyUsd field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetPriceMonthlyUsd(v float32) {
+	o.PriceMonthlyUsd = &v
+}
+
+// GetPriceYearlyUsd returns the PriceYearlyUsd field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetPriceYearlyUsd() float32 {
+	if o == nil || IsNil(o.PriceYearlyUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.PriceYearlyUsd
+}
+
+// GetPriceYearlyUsdOk returns a tuple with the PriceYearlyUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetPriceYearlyUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.PriceYearlyUsd) {
+		return nil, false
+	}
+	return o.PriceYearlyUsd, true
+}
+
+// HasPriceYearlyUsd returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasPriceYearlyUsd() bool {
+	if o != nil && !IsNil(o.PriceYearlyUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetPriceYearlyUsd gets a reference to the given float32 and assigns it to the PriceYearlyUsd field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetPriceYearlyUsd(v float32) {
+	o.PriceYearlyUsd = &v
+}
+
+// GetFeatures returns the Features field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindSubscriptionTier200ResponseDataInner) GetFeatures() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Features
+}
+
+// GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindSubscriptionTier200ResponseDataInner) GetFeaturesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Features) {
+		return nil, false
+	}
+	return &o.Features, true
+}
+
+// HasFeatures returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasFeatures() bool {
+	if o != nil && !IsNil(o.Features) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeatures gets a reference to the given interface{} and assigns it to the Features field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetFeatures(v interface{}) {
+	o.Features = v
+}
+
+// GetIsFreeTier returns the IsFreeTier field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetIsFreeTier() bool {
+	if o == nil || IsNil(o.IsFreeTier) {
+		var ret bool
+		return ret
+	}
+	return *o.IsFreeTier
+}
+
+// GetIsFreeTierOk returns a tuple with the IsFreeTier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetIsFreeTierOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsFreeTier) {
+		return nil, false
+	}
+	return o.IsFreeTier, true
+}
+
+// HasIsFreeTier returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasIsFreeTier() bool {
+	if o != nil && !IsNil(o.IsFreeTier) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsFreeTier gets a reference to the given bool and assigns it to the IsFreeTier field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetIsFreeTier(v bool) {
+	o.IsFreeTier = &v
+}
+
+// GetIsActive returns the IsActive field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetIsActive() bool {
+	if o == nil || IsNil(o.IsActive) {
+		var ret bool
+		return ret
+	}
+	return *o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetIsActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsActive) {
+		return nil, false
+	}
+	return o.IsActive, true
+}
+
+// HasIsActive returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasIsActive() bool {
+	if o != nil && !IsNil(o.IsActive) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsActive gets a reference to the given bool and assigns it to the IsActive field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetIsActive(v bool) {
+	o.IsActive = &v
+}
+
+// GetTrialDays returns the TrialDays field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetTrialDays() int32 {
+	if o == nil || IsNil(o.TrialDays) {
+		var ret int32
+		return ret
+	}
+	return *o.TrialDays
+}
+
+// GetTrialDaysOk returns a tuple with the TrialDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetTrialDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.TrialDays) {
+		return nil, false
+	}
+	return o.TrialDays, true
+}
+
+// HasTrialDays returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasTrialDays() bool {
+	if o != nil && !IsNil(o.TrialDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrialDays gets a reference to the given int32 and assigns it to the TrialDays field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetTrialDays(v int32) {
+	o.TrialDays = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetActivatedAt returns the ActivatedAt field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetActivatedAt() time.Time {
+	if o == nil || IsNil(o.ActivatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ActivatedAt
+}
+
+// GetActivatedAtOk returns a tuple with the ActivatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetActivatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ActivatedAt) {
+		return nil, false
+	}
+	return o.ActivatedAt, true
+}
+
+// HasActivatedAt returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasActivatedAt() bool {
+	if o != nil && !IsNil(o.ActivatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetActivatedAt gets a reference to the given time.Time and assigns it to the ActivatedAt field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetActivatedAt(v time.Time) {
+	o.ActivatedAt = &v
+}
+
+// GetGraceExpiresAt returns the GraceExpiresAt field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetGraceExpiresAt() time.Time {
+	if o == nil || IsNil(o.GraceExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.GraceExpiresAt
+}
+
+// GetGraceExpiresAtOk returns a tuple with the GraceExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetGraceExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.GraceExpiresAt) {
+		return nil, false
+	}
+	return o.GraceExpiresAt, true
+}
+
+// HasGraceExpiresAt returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasGraceExpiresAt() bool {
+	if o != nil && !IsNil(o.GraceExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetGraceExpiresAt gets a reference to the given time.Time and assigns it to the GraceExpiresAt field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetGraceExpiresAt(v time.Time) {
+	o.GraceExpiresAt = &v
+}
+
+// GetSuspendedAt returns the SuspendedAt field value if set, zero value otherwise.
+func (o *FindSubscriptionTier200ResponseDataInner) GetSuspendedAt() time.Time {
+	if o == nil || IsNil(o.SuspendedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.SuspendedAt
+}
+
+// GetSuspendedAtOk returns a tuple with the SuspendedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) GetSuspendedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.SuspendedAt) {
+		return nil, false
+	}
+	return o.SuspendedAt, true
+}
+
+// HasSuspendedAt returns a boolean if a field has been set.
+func (o *FindSubscriptionTier200ResponseDataInner) HasSuspendedAt() bool {
+	if o != nil && !IsNil(o.SuspendedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuspendedAt gets a reference to the given time.Time and assigns it to the SuspendedAt field.
+func (o *FindSubscriptionTier200ResponseDataInner) SetSuspendedAt(v time.Time) {
+	o.SuspendedAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +594,6 @@ func (o *FindSubscriptionTier200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSubscriptionTier200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSubscriptionTier200ResponseDataInner) GetAttributes() SubscriptionTier {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SubscriptionTier
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSubscriptionTier200ResponseDataInner) GetAttributesOk() (*SubscriptionTier, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSubscriptionTier200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SubscriptionTier and assigns it to the Attributes field.
-func (o *FindSubscriptionTier200ResponseDataInner) SetAttributes(v SubscriptionTier) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +712,52 @@ func (o FindSubscriptionTier200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindSubscriptionTier200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["slug"] = o.Slug
+	if !IsNil(o.MaxManagedHosts) {
+		toSerialize["max_managed_hosts"] = o.MaxManagedHosts
+	}
+	if !IsNil(o.MaxOrganisations) {
+		toSerialize["max_organisations"] = o.MaxOrganisations
+	}
+	if !IsNil(o.MaxCloudInstances) {
+		toSerialize["max_cloud_instances"] = o.MaxCloudInstances
+	}
+	if !IsNil(o.PriceMonthlyUsd) {
+		toSerialize["price_monthly_usd"] = o.PriceMonthlyUsd
+	}
+	if !IsNil(o.PriceYearlyUsd) {
+		toSerialize["price_yearly_usd"] = o.PriceYearlyUsd
+	}
+	if o.Features != nil {
+		toSerialize["features"] = o.Features
+	}
+	if !IsNil(o.IsFreeTier) {
+		toSerialize["is_free_tier"] = o.IsFreeTier
+	}
+	if !IsNil(o.IsActive) {
+		toSerialize["is_active"] = o.IsActive
+	}
+	if !IsNil(o.TrialDays) {
+		toSerialize["trial_days"] = o.TrialDays
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.ActivatedAt) {
+		toSerialize["activated_at"] = o.ActivatedAt
+	}
+	if !IsNil(o.GraceExpiresAt) {
+		toSerialize["grace_expires_at"] = o.GraceExpiresAt
+	}
+	if !IsNil(o.SuspendedAt) {
+		toSerialize["suspended_at"] = o.SuspendedAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +769,44 @@ func (o FindSubscriptionTier200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSubscriptionTier200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"slug",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSubscriptionTier200ResponseDataInner := _FindSubscriptionTier200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSubscriptionTier200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSubscriptionTier200ResponseDataInner(varFindSubscriptionTier200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSubscriptionTier200ResponseDataInner struct {

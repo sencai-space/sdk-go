@@ -21,9 +21,21 @@ var _ MappedNullable = &FindCookieConsent200ResponseDataInner{}
 
 // FindCookieConsent200ResponseDataInner struct for FindCookieConsent200ResponseDataInner
 type FindCookieConsent200ResponseDataInner struct {
+	ActorEmail *string `json:"actor_email,omitempty"`
+	// Anonymous visitor identifier (client-generated UUID) — used when there is no authenticated user.
+	VisitorId *string `json:"visitor_id,omitempty"`
+	Necessary *bool `json:"necessary,omitempty"`
+	Analytics *bool `json:"analytics,omitempty"`
+	Marketing *bool `json:"marketing,omitempty"`
+	// Cookie policy version this consent was recorded against — used to detect re-consent needs when the policy changes.
+	PolicyVersion *string `json:"policy_version,omitempty"`
+	IpAddress *string `json:"ip_address,omitempty"`
+	UserAgent *string `json:"user_agent,omitempty"`
+	ConsentedAt *time.Time `json:"consented_at,omitempty"`
+	WithdrawnAt *time.Time `json:"withdrawn_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CookieConsent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +56,358 @@ func NewFindCookieConsent200ResponseDataInner() *FindCookieConsent200ResponseDat
 func NewFindCookieConsent200ResponseDataInnerWithDefaults() *FindCookieConsent200ResponseDataInner {
 	this := FindCookieConsent200ResponseDataInner{}
 	return &this
+}
+
+// GetActorEmail returns the ActorEmail field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetActorEmail() string {
+	if o == nil || IsNil(o.ActorEmail) {
+		var ret string
+		return ret
+	}
+	return *o.ActorEmail
+}
+
+// GetActorEmailOk returns a tuple with the ActorEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetActorEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.ActorEmail) {
+		return nil, false
+	}
+	return o.ActorEmail, true
+}
+
+// HasActorEmail returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasActorEmail() bool {
+	if o != nil && !IsNil(o.ActorEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetActorEmail gets a reference to the given string and assigns it to the ActorEmail field.
+func (o *FindCookieConsent200ResponseDataInner) SetActorEmail(v string) {
+	o.ActorEmail = &v
+}
+
+// GetVisitorId returns the VisitorId field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetVisitorId() string {
+	if o == nil || IsNil(o.VisitorId) {
+		var ret string
+		return ret
+	}
+	return *o.VisitorId
+}
+
+// GetVisitorIdOk returns a tuple with the VisitorId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetVisitorIdOk() (*string, bool) {
+	if o == nil || IsNil(o.VisitorId) {
+		return nil, false
+	}
+	return o.VisitorId, true
+}
+
+// HasVisitorId returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasVisitorId() bool {
+	if o != nil && !IsNil(o.VisitorId) {
+		return true
+	}
+
+	return false
+}
+
+// SetVisitorId gets a reference to the given string and assigns it to the VisitorId field.
+func (o *FindCookieConsent200ResponseDataInner) SetVisitorId(v string) {
+	o.VisitorId = &v
+}
+
+// GetNecessary returns the Necessary field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetNecessary() bool {
+	if o == nil || IsNil(o.Necessary) {
+		var ret bool
+		return ret
+	}
+	return *o.Necessary
+}
+
+// GetNecessaryOk returns a tuple with the Necessary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetNecessaryOk() (*bool, bool) {
+	if o == nil || IsNil(o.Necessary) {
+		return nil, false
+	}
+	return o.Necessary, true
+}
+
+// HasNecessary returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasNecessary() bool {
+	if o != nil && !IsNil(o.Necessary) {
+		return true
+	}
+
+	return false
+}
+
+// SetNecessary gets a reference to the given bool and assigns it to the Necessary field.
+func (o *FindCookieConsent200ResponseDataInner) SetNecessary(v bool) {
+	o.Necessary = &v
+}
+
+// GetAnalytics returns the Analytics field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetAnalytics() bool {
+	if o == nil || IsNil(o.Analytics) {
+		var ret bool
+		return ret
+	}
+	return *o.Analytics
+}
+
+// GetAnalyticsOk returns a tuple with the Analytics field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetAnalyticsOk() (*bool, bool) {
+	if o == nil || IsNil(o.Analytics) {
+		return nil, false
+	}
+	return o.Analytics, true
+}
+
+// HasAnalytics returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasAnalytics() bool {
+	if o != nil && !IsNil(o.Analytics) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnalytics gets a reference to the given bool and assigns it to the Analytics field.
+func (o *FindCookieConsent200ResponseDataInner) SetAnalytics(v bool) {
+	o.Analytics = &v
+}
+
+// GetMarketing returns the Marketing field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetMarketing() bool {
+	if o == nil || IsNil(o.Marketing) {
+		var ret bool
+		return ret
+	}
+	return *o.Marketing
+}
+
+// GetMarketingOk returns a tuple with the Marketing field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetMarketingOk() (*bool, bool) {
+	if o == nil || IsNil(o.Marketing) {
+		return nil, false
+	}
+	return o.Marketing, true
+}
+
+// HasMarketing returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasMarketing() bool {
+	if o != nil && !IsNil(o.Marketing) {
+		return true
+	}
+
+	return false
+}
+
+// SetMarketing gets a reference to the given bool and assigns it to the Marketing field.
+func (o *FindCookieConsent200ResponseDataInner) SetMarketing(v bool) {
+	o.Marketing = &v
+}
+
+// GetPolicyVersion returns the PolicyVersion field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetPolicyVersion() string {
+	if o == nil || IsNil(o.PolicyVersion) {
+		var ret string
+		return ret
+	}
+	return *o.PolicyVersion
+}
+
+// GetPolicyVersionOk returns a tuple with the PolicyVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetPolicyVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.PolicyVersion) {
+		return nil, false
+	}
+	return o.PolicyVersion, true
+}
+
+// HasPolicyVersion returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasPolicyVersion() bool {
+	if o != nil && !IsNil(o.PolicyVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicyVersion gets a reference to the given string and assigns it to the PolicyVersion field.
+func (o *FindCookieConsent200ResponseDataInner) SetPolicyVersion(v string) {
+	o.PolicyVersion = &v
+}
+
+// GetIpAddress returns the IpAddress field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetIpAddress() string {
+	if o == nil || IsNil(o.IpAddress) {
+		var ret string
+		return ret
+	}
+	return *o.IpAddress
+}
+
+// GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetIpAddressOk() (*string, bool) {
+	if o == nil || IsNil(o.IpAddress) {
+		return nil, false
+	}
+	return o.IpAddress, true
+}
+
+// HasIpAddress returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasIpAddress() bool {
+	if o != nil && !IsNil(o.IpAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetIpAddress gets a reference to the given string and assigns it to the IpAddress field.
+func (o *FindCookieConsent200ResponseDataInner) SetIpAddress(v string) {
+	o.IpAddress = &v
+}
+
+// GetUserAgent returns the UserAgent field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetUserAgent() string {
+	if o == nil || IsNil(o.UserAgent) {
+		var ret string
+		return ret
+	}
+	return *o.UserAgent
+}
+
+// GetUserAgentOk returns a tuple with the UserAgent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetUserAgentOk() (*string, bool) {
+	if o == nil || IsNil(o.UserAgent) {
+		return nil, false
+	}
+	return o.UserAgent, true
+}
+
+// HasUserAgent returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasUserAgent() bool {
+	if o != nil && !IsNil(o.UserAgent) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserAgent gets a reference to the given string and assigns it to the UserAgent field.
+func (o *FindCookieConsent200ResponseDataInner) SetUserAgent(v string) {
+	o.UserAgent = &v
+}
+
+// GetConsentedAt returns the ConsentedAt field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetConsentedAt() time.Time {
+	if o == nil || IsNil(o.ConsentedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ConsentedAt
+}
+
+// GetConsentedAtOk returns a tuple with the ConsentedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetConsentedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ConsentedAt) {
+		return nil, false
+	}
+	return o.ConsentedAt, true
+}
+
+// HasConsentedAt returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasConsentedAt() bool {
+	if o != nil && !IsNil(o.ConsentedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetConsentedAt gets a reference to the given time.Time and assigns it to the ConsentedAt field.
+func (o *FindCookieConsent200ResponseDataInner) SetConsentedAt(v time.Time) {
+	o.ConsentedAt = &v
+}
+
+// GetWithdrawnAt returns the WithdrawnAt field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetWithdrawnAt() time.Time {
+	if o == nil || IsNil(o.WithdrawnAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.WithdrawnAt
+}
+
+// GetWithdrawnAtOk returns a tuple with the WithdrawnAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetWithdrawnAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.WithdrawnAt) {
+		return nil, false
+	}
+	return o.WithdrawnAt, true
+}
+
+// HasWithdrawnAt returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasWithdrawnAt() bool {
+	if o != nil && !IsNil(o.WithdrawnAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetWithdrawnAt gets a reference to the given time.Time and assigns it to the WithdrawnAt field.
+func (o *FindCookieConsent200ResponseDataInner) SetWithdrawnAt(v time.Time) {
+	o.WithdrawnAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCookieConsent200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCookieConsent200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCookieConsent200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCookieConsent200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +472,6 @@ func (o *FindCookieConsent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCookieConsent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCookieConsent200ResponseDataInner) GetAttributes() CookieConsent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CookieConsent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCookieConsent200ResponseDataInner) GetAttributesOk() (*CookieConsent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCookieConsent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CookieConsent and assigns it to the Attributes field.
-func (o *FindCookieConsent200ResponseDataInner) SetAttributes(v CookieConsent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +590,44 @@ func (o FindCookieConsent200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCookieConsent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ActorEmail) {
+		toSerialize["actor_email"] = o.ActorEmail
+	}
+	if !IsNil(o.VisitorId) {
+		toSerialize["visitor_id"] = o.VisitorId
+	}
+	if !IsNil(o.Necessary) {
+		toSerialize["necessary"] = o.Necessary
+	}
+	if !IsNil(o.Analytics) {
+		toSerialize["analytics"] = o.Analytics
+	}
+	if !IsNil(o.Marketing) {
+		toSerialize["marketing"] = o.Marketing
+	}
+	if !IsNil(o.PolicyVersion) {
+		toSerialize["policy_version"] = o.PolicyVersion
+	}
+	if !IsNil(o.IpAddress) {
+		toSerialize["ip_address"] = o.IpAddress
+	}
+	if !IsNil(o.UserAgent) {
+		toSerialize["user_agent"] = o.UserAgent
+	}
+	if !IsNil(o.ConsentedAt) {
+		toSerialize["consented_at"] = o.ConsentedAt
+	}
+	if !IsNil(o.WithdrawnAt) {
+		toSerialize["withdrawn_at"] = o.WithdrawnAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

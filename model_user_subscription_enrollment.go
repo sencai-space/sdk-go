@@ -36,7 +36,7 @@ type UserSubscriptionEnrollment struct {
 	// F3.USERPLAN.04 — 7-day JWT (mirrors organisation-member.invitation_token) proving the sponsor invited THIS beneficiary. Set on POST /:sponsorId/sponsor, cleared once accepted (or replaced by a new invite).
 	SponsorshipInvitationToken *string `json:"sponsorship_invitation_token,omitempty"`
 	// F3.USERPLAN.04 — set while a sponsorship invitation is outstanding (not yet accepted by the beneficiary): { sponsorId, sponsorEnrollmentId, tierId, beneficiaryEmail, invitedAt }. Cleared on accept (sponsor/plan/status become authoritative) or on a fresh re-invite.
-	PendingSponsorship map[string]interface{} `json:"pending_sponsorship,omitempty"`
+	PendingSponsorship interface{} `json:"pending_sponsorship,omitempty"`
 	// F3.USERPLAN.04 — id of the Stripe subscription item added to the SPONSOR's existing subscription for this beneficiary (stripe.subscriptionItems). Required to remove exactly this line item on revoke without touching the sponsor's own base plan item or other beneficiaries' items.
 	SponsorshipStripeItemId *string `json:"sponsorship_stripe_item_id,omitempty"`
 }
@@ -366,10 +366,10 @@ func (o *UserSubscriptionEnrollment) SetSponsorshipInvitationToken(v string) {
 	o.SponsorshipInvitationToken = &v
 }
 
-// GetPendingSponsorship returns the PendingSponsorship field value if set, zero value otherwise.
-func (o *UserSubscriptionEnrollment) GetPendingSponsorship() map[string]interface{} {
-	if o == nil || IsNil(o.PendingSponsorship) {
-		var ret map[string]interface{}
+// GetPendingSponsorship returns the PendingSponsorship field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UserSubscriptionEnrollment) GetPendingSponsorship() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.PendingSponsorship
@@ -377,11 +377,12 @@ func (o *UserSubscriptionEnrollment) GetPendingSponsorship() map[string]interfac
 
 // GetPendingSponsorshipOk returns a tuple with the PendingSponsorship field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserSubscriptionEnrollment) GetPendingSponsorshipOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UserSubscriptionEnrollment) GetPendingSponsorshipOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.PendingSponsorship) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.PendingSponsorship, true
+	return &o.PendingSponsorship, true
 }
 
 // HasPendingSponsorship returns a boolean if a field has been set.
@@ -393,8 +394,8 @@ func (o *UserSubscriptionEnrollment) HasPendingSponsorship() bool {
 	return false
 }
 
-// SetPendingSponsorship gets a reference to the given map[string]interface{} and assigns it to the PendingSponsorship field.
-func (o *UserSubscriptionEnrollment) SetPendingSponsorship(v map[string]interface{}) {
+// SetPendingSponsorship gets a reference to the given interface{} and assigns it to the PendingSponsorship field.
+func (o *UserSubscriptionEnrollment) SetPendingSponsorship(v interface{}) {
 	o.PendingSponsorship = v
 }
 
@@ -466,7 +467,7 @@ func (o UserSubscriptionEnrollment) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SponsorshipInvitationToken) {
 		toSerialize["sponsorship_invitation_token"] = o.SponsorshipInvitationToken
 	}
-	if !IsNil(o.PendingSponsorship) {
+	if o.PendingSponsorship != nil {
 		toSerialize["pending_sponsorship"] = o.PendingSponsorship
 	}
 	if !IsNil(o.SponsorshipStripeItemId) {

@@ -21,9 +21,16 @@ var _ MappedNullable = &FindReferralReward200ResponseDataInner{}
 
 // FindReferralReward200ResponseDataInner struct for FindReferralReward200ResponseDataInner
 type FindReferralReward200ResponseDataInner struct {
+	ReferralCode *string `json:"referral_code,omitempty"`
+	ReferrerOrgId *string `json:"referrer_org_id,omitempty"`
+	RefereeEmail *string `json:"referee_email,omitempty"`
+	RewardType *string `json:"reward_type,omitempty"`
+	RewardValue *float32 `json:"reward_value,omitempty"`
+	Status *string `json:"status,omitempty"`
+	AppliedAt *time.Time `json:"applied_at,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ReferralReward `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +51,262 @@ func NewFindReferralReward200ResponseDataInner() *FindReferralReward200ResponseD
 func NewFindReferralReward200ResponseDataInnerWithDefaults() *FindReferralReward200ResponseDataInner {
 	this := FindReferralReward200ResponseDataInner{}
 	return &this
+}
+
+// GetReferralCode returns the ReferralCode field value if set, zero value otherwise.
+func (o *FindReferralReward200ResponseDataInner) GetReferralCode() string {
+	if o == nil || IsNil(o.ReferralCode) {
+		var ret string
+		return ret
+	}
+	return *o.ReferralCode
+}
+
+// GetReferralCodeOk returns a tuple with the ReferralCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralReward200ResponseDataInner) GetReferralCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.ReferralCode) {
+		return nil, false
+	}
+	return o.ReferralCode, true
+}
+
+// HasReferralCode returns a boolean if a field has been set.
+func (o *FindReferralReward200ResponseDataInner) HasReferralCode() bool {
+	if o != nil && !IsNil(o.ReferralCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetReferralCode gets a reference to the given string and assigns it to the ReferralCode field.
+func (o *FindReferralReward200ResponseDataInner) SetReferralCode(v string) {
+	o.ReferralCode = &v
+}
+
+// GetReferrerOrgId returns the ReferrerOrgId field value if set, zero value otherwise.
+func (o *FindReferralReward200ResponseDataInner) GetReferrerOrgId() string {
+	if o == nil || IsNil(o.ReferrerOrgId) {
+		var ret string
+		return ret
+	}
+	return *o.ReferrerOrgId
+}
+
+// GetReferrerOrgIdOk returns a tuple with the ReferrerOrgId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralReward200ResponseDataInner) GetReferrerOrgIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ReferrerOrgId) {
+		return nil, false
+	}
+	return o.ReferrerOrgId, true
+}
+
+// HasReferrerOrgId returns a boolean if a field has been set.
+func (o *FindReferralReward200ResponseDataInner) HasReferrerOrgId() bool {
+	if o != nil && !IsNil(o.ReferrerOrgId) {
+		return true
+	}
+
+	return false
+}
+
+// SetReferrerOrgId gets a reference to the given string and assigns it to the ReferrerOrgId field.
+func (o *FindReferralReward200ResponseDataInner) SetReferrerOrgId(v string) {
+	o.ReferrerOrgId = &v
+}
+
+// GetRefereeEmail returns the RefereeEmail field value if set, zero value otherwise.
+func (o *FindReferralReward200ResponseDataInner) GetRefereeEmail() string {
+	if o == nil || IsNil(o.RefereeEmail) {
+		var ret string
+		return ret
+	}
+	return *o.RefereeEmail
+}
+
+// GetRefereeEmailOk returns a tuple with the RefereeEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralReward200ResponseDataInner) GetRefereeEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.RefereeEmail) {
+		return nil, false
+	}
+	return o.RefereeEmail, true
+}
+
+// HasRefereeEmail returns a boolean if a field has been set.
+func (o *FindReferralReward200ResponseDataInner) HasRefereeEmail() bool {
+	if o != nil && !IsNil(o.RefereeEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetRefereeEmail gets a reference to the given string and assigns it to the RefereeEmail field.
+func (o *FindReferralReward200ResponseDataInner) SetRefereeEmail(v string) {
+	o.RefereeEmail = &v
+}
+
+// GetRewardType returns the RewardType field value if set, zero value otherwise.
+func (o *FindReferralReward200ResponseDataInner) GetRewardType() string {
+	if o == nil || IsNil(o.RewardType) {
+		var ret string
+		return ret
+	}
+	return *o.RewardType
+}
+
+// GetRewardTypeOk returns a tuple with the RewardType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralReward200ResponseDataInner) GetRewardTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.RewardType) {
+		return nil, false
+	}
+	return o.RewardType, true
+}
+
+// HasRewardType returns a boolean if a field has been set.
+func (o *FindReferralReward200ResponseDataInner) HasRewardType() bool {
+	if o != nil && !IsNil(o.RewardType) {
+		return true
+	}
+
+	return false
+}
+
+// SetRewardType gets a reference to the given string and assigns it to the RewardType field.
+func (o *FindReferralReward200ResponseDataInner) SetRewardType(v string) {
+	o.RewardType = &v
+}
+
+// GetRewardValue returns the RewardValue field value if set, zero value otherwise.
+func (o *FindReferralReward200ResponseDataInner) GetRewardValue() float32 {
+	if o == nil || IsNil(o.RewardValue) {
+		var ret float32
+		return ret
+	}
+	return *o.RewardValue
+}
+
+// GetRewardValueOk returns a tuple with the RewardValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralReward200ResponseDataInner) GetRewardValueOk() (*float32, bool) {
+	if o == nil || IsNil(o.RewardValue) {
+		return nil, false
+	}
+	return o.RewardValue, true
+}
+
+// HasRewardValue returns a boolean if a field has been set.
+func (o *FindReferralReward200ResponseDataInner) HasRewardValue() bool {
+	if o != nil && !IsNil(o.RewardValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetRewardValue gets a reference to the given float32 and assigns it to the RewardValue field.
+func (o *FindReferralReward200ResponseDataInner) SetRewardValue(v float32) {
+	o.RewardValue = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindReferralReward200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralReward200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindReferralReward200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindReferralReward200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetAppliedAt returns the AppliedAt field value if set, zero value otherwise.
+func (o *FindReferralReward200ResponseDataInner) GetAppliedAt() time.Time {
+	if o == nil || IsNil(o.AppliedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AppliedAt
+}
+
+// GetAppliedAtOk returns a tuple with the AppliedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralReward200ResponseDataInner) GetAppliedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AppliedAt) {
+		return nil, false
+	}
+	return o.AppliedAt, true
+}
+
+// HasAppliedAt returns a boolean if a field has been set.
+func (o *FindReferralReward200ResponseDataInner) HasAppliedAt() bool {
+	if o != nil && !IsNil(o.AppliedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAppliedAt gets a reference to the given time.Time and assigns it to the AppliedAt field.
+func (o *FindReferralReward200ResponseDataInner) SetAppliedAt(v time.Time) {
+	o.AppliedAt = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *FindReferralReward200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindReferralReward200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *FindReferralReward200ResponseDataInner) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *FindReferralReward200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +371,6 @@ func (o *FindReferralReward200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindReferralReward200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindReferralReward200ResponseDataInner) GetAttributes() ReferralReward {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ReferralReward
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindReferralReward200ResponseDataInner) GetAttributesOk() (*ReferralReward, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindReferralReward200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ReferralReward and assigns it to the Attributes field.
-func (o *FindReferralReward200ResponseDataInner) SetAttributes(v ReferralReward) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +489,35 @@ func (o FindReferralReward200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindReferralReward200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ReferralCode) {
+		toSerialize["referral_code"] = o.ReferralCode
+	}
+	if !IsNil(o.ReferrerOrgId) {
+		toSerialize["referrer_org_id"] = o.ReferrerOrgId
+	}
+	if !IsNil(o.RefereeEmail) {
+		toSerialize["referee_email"] = o.RefereeEmail
+	}
+	if !IsNil(o.RewardType) {
+		toSerialize["reward_type"] = o.RewardType
+	}
+	if !IsNil(o.RewardValue) {
+		toSerialize["reward_value"] = o.RewardValue
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.AppliedAt) {
+		toSerialize["applied_at"] = o.AppliedAt
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

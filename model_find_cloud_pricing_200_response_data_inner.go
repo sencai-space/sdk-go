@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudPricing200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,40 @@ var _ MappedNullable = &FindCloudPricing200ResponseDataInner{}
 
 // FindCloudPricing200ResponseDataInner struct for FindCloudPricing200ResponseDataInner
 type FindCloudPricing200ResponseDataInner struct {
+	Provider string `json:"provider"`
+	Region string `json:"region"`
+	ResourceType string `json:"resource_type"`
+	Sku string `json:"sku"`
+	SkuName *string `json:"sku_name,omitempty"`
+	Vcpu *int32 `json:"vcpu,omitempty"`
+	RamGb *float32 `json:"ram_gb,omitempty"`
+	UnitPrice float32 `json:"unit_price"`
+	Unit string `json:"unit"`
+	Currency *string `json:"currency,omitempty"`
+	ValidFrom *time.Time `json:"valid_from,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Attributes interface{} `json:"attributes,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudPricing `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudPricing200ResponseDataInner FindCloudPricing200ResponseDataInner
+
 // NewFindCloudPricing200ResponseDataInner instantiates a new FindCloudPricing200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudPricing200ResponseDataInner() *FindCloudPricing200ResponseDataInner {
+func NewFindCloudPricing200ResponseDataInner(provider string, region string, resourceType string, sku string, unitPrice float32, unit string) *FindCloudPricing200ResponseDataInner {
 	this := FindCloudPricing200ResponseDataInner{}
+	this.Provider = provider
+	this.Region = region
+	this.ResourceType = resourceType
+	this.Sku = sku
+	this.UnitPrice = unitPrice
+	this.Unit = unit
 	return &this
 }
 
@@ -44,6 +66,343 @@ func NewFindCloudPricing200ResponseDataInner() *FindCloudPricing200ResponseDataI
 func NewFindCloudPricing200ResponseDataInnerWithDefaults() *FindCloudPricing200ResponseDataInner {
 	this := FindCloudPricing200ResponseDataInner{}
 	return &this
+}
+
+// GetProvider returns the Provider field value
+func (o *FindCloudPricing200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindCloudPricing200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetRegion returns the Region field value
+func (o *FindCloudPricing200ResponseDataInner) GetRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *FindCloudPricing200ResponseDataInner) SetRegion(v string) {
+	o.Region = v
+}
+
+// GetResourceType returns the ResourceType field value
+func (o *FindCloudPricing200ResponseDataInner) GetResourceType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ResourceType
+}
+
+// GetResourceTypeOk returns a tuple with the ResourceType field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetResourceTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ResourceType, true
+}
+
+// SetResourceType sets field value
+func (o *FindCloudPricing200ResponseDataInner) SetResourceType(v string) {
+	o.ResourceType = v
+}
+
+// GetSku returns the Sku field value
+func (o *FindCloudPricing200ResponseDataInner) GetSku() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Sku
+}
+
+// GetSkuOk returns a tuple with the Sku field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetSkuOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Sku, true
+}
+
+// SetSku sets field value
+func (o *FindCloudPricing200ResponseDataInner) SetSku(v string) {
+	o.Sku = v
+}
+
+// GetSkuName returns the SkuName field value if set, zero value otherwise.
+func (o *FindCloudPricing200ResponseDataInner) GetSkuName() string {
+	if o == nil || IsNil(o.SkuName) {
+		var ret string
+		return ret
+	}
+	return *o.SkuName
+}
+
+// GetSkuNameOk returns a tuple with the SkuName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetSkuNameOk() (*string, bool) {
+	if o == nil || IsNil(o.SkuName) {
+		return nil, false
+	}
+	return o.SkuName, true
+}
+
+// HasSkuName returns a boolean if a field has been set.
+func (o *FindCloudPricing200ResponseDataInner) HasSkuName() bool {
+	if o != nil && !IsNil(o.SkuName) {
+		return true
+	}
+
+	return false
+}
+
+// SetSkuName gets a reference to the given string and assigns it to the SkuName field.
+func (o *FindCloudPricing200ResponseDataInner) SetSkuName(v string) {
+	o.SkuName = &v
+}
+
+// GetVcpu returns the Vcpu field value if set, zero value otherwise.
+func (o *FindCloudPricing200ResponseDataInner) GetVcpu() int32 {
+	if o == nil || IsNil(o.Vcpu) {
+		var ret int32
+		return ret
+	}
+	return *o.Vcpu
+}
+
+// GetVcpuOk returns a tuple with the Vcpu field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetVcpuOk() (*int32, bool) {
+	if o == nil || IsNil(o.Vcpu) {
+		return nil, false
+	}
+	return o.Vcpu, true
+}
+
+// HasVcpu returns a boolean if a field has been set.
+func (o *FindCloudPricing200ResponseDataInner) HasVcpu() bool {
+	if o != nil && !IsNil(o.Vcpu) {
+		return true
+	}
+
+	return false
+}
+
+// SetVcpu gets a reference to the given int32 and assigns it to the Vcpu field.
+func (o *FindCloudPricing200ResponseDataInner) SetVcpu(v int32) {
+	o.Vcpu = &v
+}
+
+// GetRamGb returns the RamGb field value if set, zero value otherwise.
+func (o *FindCloudPricing200ResponseDataInner) GetRamGb() float32 {
+	if o == nil || IsNil(o.RamGb) {
+		var ret float32
+		return ret
+	}
+	return *o.RamGb
+}
+
+// GetRamGbOk returns a tuple with the RamGb field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetRamGbOk() (*float32, bool) {
+	if o == nil || IsNil(o.RamGb) {
+		return nil, false
+	}
+	return o.RamGb, true
+}
+
+// HasRamGb returns a boolean if a field has been set.
+func (o *FindCloudPricing200ResponseDataInner) HasRamGb() bool {
+	if o != nil && !IsNil(o.RamGb) {
+		return true
+	}
+
+	return false
+}
+
+// SetRamGb gets a reference to the given float32 and assigns it to the RamGb field.
+func (o *FindCloudPricing200ResponseDataInner) SetRamGb(v float32) {
+	o.RamGb = &v
+}
+
+// GetUnitPrice returns the UnitPrice field value
+func (o *FindCloudPricing200ResponseDataInner) GetUnitPrice() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.UnitPrice
+}
+
+// GetUnitPriceOk returns a tuple with the UnitPrice field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetUnitPriceOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UnitPrice, true
+}
+
+// SetUnitPrice sets field value
+func (o *FindCloudPricing200ResponseDataInner) SetUnitPrice(v float32) {
+	o.UnitPrice = v
+}
+
+// GetUnit returns the Unit field value
+func (o *FindCloudPricing200ResponseDataInner) GetUnit() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Unit
+}
+
+// GetUnitOk returns a tuple with the Unit field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetUnitOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Unit, true
+}
+
+// SetUnit sets field value
+func (o *FindCloudPricing200ResponseDataInner) SetUnit(v string) {
+	o.Unit = v
+}
+
+// GetCurrency returns the Currency field value if set, zero value otherwise.
+func (o *FindCloudPricing200ResponseDataInner) GetCurrency() string {
+	if o == nil || IsNil(o.Currency) {
+		var ret string
+		return ret
+	}
+	return *o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetCurrencyOk() (*string, bool) {
+	if o == nil || IsNil(o.Currency) {
+		return nil, false
+	}
+	return o.Currency, true
+}
+
+// HasCurrency returns a boolean if a field has been set.
+func (o *FindCloudPricing200ResponseDataInner) HasCurrency() bool {
+	if o != nil && !IsNil(o.Currency) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+func (o *FindCloudPricing200ResponseDataInner) SetCurrency(v string) {
+	o.Currency = &v
+}
+
+// GetValidFrom returns the ValidFrom field value if set, zero value otherwise.
+func (o *FindCloudPricing200ResponseDataInner) GetValidFrom() time.Time {
+	if o == nil || IsNil(o.ValidFrom) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ValidFrom
+}
+
+// GetValidFromOk returns a tuple with the ValidFrom field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudPricing200ResponseDataInner) GetValidFromOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ValidFrom) {
+		return nil, false
+	}
+	return o.ValidFrom, true
+}
+
+// HasValidFrom returns a boolean if a field has been set.
+func (o *FindCloudPricing200ResponseDataInner) HasValidFrom() bool {
+	if o != nil && !IsNil(o.ValidFrom) {
+		return true
+	}
+
+	return false
+}
+
+// SetValidFrom gets a reference to the given time.Time and assigns it to the ValidFrom field.
+func (o *FindCloudPricing200ResponseDataInner) SetValidFrom(v time.Time) {
+	o.ValidFrom = &v
+}
+
+// GetAttributes returns the Attributes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudPricing200ResponseDataInner) GetAttributes() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Attributes
+}
+
+// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudPricing200ResponseDataInner) GetAttributesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Attributes) {
+		return nil, false
+	}
+	return &o.Attributes, true
+}
+
+// HasAttributes returns a boolean if a field has been set.
+func (o *FindCloudPricing200ResponseDataInner) HasAttributes() bool {
+	if o != nil && !IsNil(o.Attributes) {
+		return true
+	}
+
+	return false
+}
+
+// SetAttributes gets a reference to the given interface{} and assigns it to the Attributes field.
+func (o *FindCloudPricing200ResponseDataInner) SetAttributes(v interface{}) {
+	o.Attributes = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +467,6 @@ func (o *FindCloudPricing200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudPricing200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudPricing200ResponseDataInner) GetAttributes() CloudPricing {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudPricing
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudPricing200ResponseDataInner) GetAttributesOk() (*CloudPricing, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudPricing200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudPricing and assigns it to the Attributes field.
-func (o *FindCloudPricing200ResponseDataInner) SetAttributes(v CloudPricing) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +585,35 @@ func (o FindCloudPricing200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCloudPricing200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["provider"] = o.Provider
+	toSerialize["region"] = o.Region
+	toSerialize["resource_type"] = o.ResourceType
+	toSerialize["sku"] = o.Sku
+	if !IsNil(o.SkuName) {
+		toSerialize["sku_name"] = o.SkuName
+	}
+	if !IsNil(o.Vcpu) {
+		toSerialize["vcpu"] = o.Vcpu
+	}
+	if !IsNil(o.RamGb) {
+		toSerialize["ram_gb"] = o.RamGb
+	}
+	toSerialize["unit_price"] = o.UnitPrice
+	toSerialize["unit"] = o.Unit
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.ValidFrom) {
+		toSerialize["valid_from"] = o.ValidFrom
+	}
+	if o.Attributes != nil {
+		toSerialize["attributes"] = o.Attributes
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +625,48 @@ func (o FindCloudPricing200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudPricing200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"provider",
+		"region",
+		"resource_type",
+		"sku",
+		"unit_price",
+		"unit",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudPricing200ResponseDataInner := _FindCloudPricing200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudPricing200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudPricing200ResponseDataInner(varFindCloudPricing200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudPricing200ResponseDataInner struct {

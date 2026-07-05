@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSslCertificate200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindSslCertificate200ResponseDataInner{}
 
 // FindSslCertificate200ResponseDataInner struct for FindSslCertificate200ResponseDataInner
 type FindSslCertificate200ResponseDataInner struct {
+	Domain string `json:"domain"`
+	Issuer *string `json:"issuer,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	SubjectAltNames interface{} `json:"subject_alt_names,omitempty"`
+	IssuedAt *time.Time `json:"issued_at,omitempty"`
+	ExpiresAt time.Time `json:"expires_at"`
+	IsWildcard *bool `json:"is_wildcard,omitempty"`
+	AutoRenew *bool `json:"auto_renew,omitempty"`
+	Provider *string `json:"provider,omitempty"`
+	Status *string `json:"status,omitempty"`
+	LastCheckAt *time.Time `json:"last_check_at,omitempty"`
+	RenewalError *string `json:"renewal_error,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SslCertificate `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSslCertificate200ResponseDataInner FindSslCertificate200ResponseDataInner
+
 // NewFindSslCertificate200ResponseDataInner instantiates a new FindSslCertificate200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSslCertificate200ResponseDataInner() *FindSslCertificate200ResponseDataInner {
+func NewFindSslCertificate200ResponseDataInner(domain string, expiresAt time.Time) *FindSslCertificate200ResponseDataInner {
 	this := FindSslCertificate200ResponseDataInner{}
+	this.Domain = domain
+	this.ExpiresAt = expiresAt
 	return &this
 }
 
@@ -44,6 +62,375 @@ func NewFindSslCertificate200ResponseDataInner() *FindSslCertificate200ResponseD
 func NewFindSslCertificate200ResponseDataInnerWithDefaults() *FindSslCertificate200ResponseDataInner {
 	this := FindSslCertificate200ResponseDataInner{}
 	return &this
+}
+
+// GetDomain returns the Domain field value
+func (o *FindSslCertificate200ResponseDataInner) GetDomain() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetDomainOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Domain, true
+}
+
+// SetDomain sets field value
+func (o *FindSslCertificate200ResponseDataInner) SetDomain(v string) {
+	o.Domain = v
+}
+
+// GetIssuer returns the Issuer field value if set, zero value otherwise.
+func (o *FindSslCertificate200ResponseDataInner) GetIssuer() string {
+	if o == nil || IsNil(o.Issuer) {
+		var ret string
+		return ret
+	}
+	return *o.Issuer
+}
+
+// GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetIssuerOk() (*string, bool) {
+	if o == nil || IsNil(o.Issuer) {
+		return nil, false
+	}
+	return o.Issuer, true
+}
+
+// HasIssuer returns a boolean if a field has been set.
+func (o *FindSslCertificate200ResponseDataInner) HasIssuer() bool {
+	if o != nil && !IsNil(o.Issuer) {
+		return true
+	}
+
+	return false
+}
+
+// SetIssuer gets a reference to the given string and assigns it to the Issuer field.
+func (o *FindSslCertificate200ResponseDataInner) SetIssuer(v string) {
+	o.Issuer = &v
+}
+
+// GetSubjectAltNames returns the SubjectAltNames field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindSslCertificate200ResponseDataInner) GetSubjectAltNames() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.SubjectAltNames
+}
+
+// GetSubjectAltNamesOk returns a tuple with the SubjectAltNames field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindSslCertificate200ResponseDataInner) GetSubjectAltNamesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.SubjectAltNames) {
+		return nil, false
+	}
+	return &o.SubjectAltNames, true
+}
+
+// HasSubjectAltNames returns a boolean if a field has been set.
+func (o *FindSslCertificate200ResponseDataInner) HasSubjectAltNames() bool {
+	if o != nil && !IsNil(o.SubjectAltNames) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubjectAltNames gets a reference to the given interface{} and assigns it to the SubjectAltNames field.
+func (o *FindSslCertificate200ResponseDataInner) SetSubjectAltNames(v interface{}) {
+	o.SubjectAltNames = v
+}
+
+// GetIssuedAt returns the IssuedAt field value if set, zero value otherwise.
+func (o *FindSslCertificate200ResponseDataInner) GetIssuedAt() time.Time {
+	if o == nil || IsNil(o.IssuedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.IssuedAt
+}
+
+// GetIssuedAtOk returns a tuple with the IssuedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetIssuedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.IssuedAt) {
+		return nil, false
+	}
+	return o.IssuedAt, true
+}
+
+// HasIssuedAt returns a boolean if a field has been set.
+func (o *FindSslCertificate200ResponseDataInner) HasIssuedAt() bool {
+	if o != nil && !IsNil(o.IssuedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetIssuedAt gets a reference to the given time.Time and assigns it to the IssuedAt field.
+func (o *FindSslCertificate200ResponseDataInner) SetIssuedAt(v time.Time) {
+	o.IssuedAt = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value
+func (o *FindSslCertificate200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ExpiresAt, true
+}
+
+// SetExpiresAt sets field value
+func (o *FindSslCertificate200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = v
+}
+
+// GetIsWildcard returns the IsWildcard field value if set, zero value otherwise.
+func (o *FindSslCertificate200ResponseDataInner) GetIsWildcard() bool {
+	if o == nil || IsNil(o.IsWildcard) {
+		var ret bool
+		return ret
+	}
+	return *o.IsWildcard
+}
+
+// GetIsWildcardOk returns a tuple with the IsWildcard field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetIsWildcardOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsWildcard) {
+		return nil, false
+	}
+	return o.IsWildcard, true
+}
+
+// HasIsWildcard returns a boolean if a field has been set.
+func (o *FindSslCertificate200ResponseDataInner) HasIsWildcard() bool {
+	if o != nil && !IsNil(o.IsWildcard) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsWildcard gets a reference to the given bool and assigns it to the IsWildcard field.
+func (o *FindSslCertificate200ResponseDataInner) SetIsWildcard(v bool) {
+	o.IsWildcard = &v
+}
+
+// GetAutoRenew returns the AutoRenew field value if set, zero value otherwise.
+func (o *FindSslCertificate200ResponseDataInner) GetAutoRenew() bool {
+	if o == nil || IsNil(o.AutoRenew) {
+		var ret bool
+		return ret
+	}
+	return *o.AutoRenew
+}
+
+// GetAutoRenewOk returns a tuple with the AutoRenew field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetAutoRenewOk() (*bool, bool) {
+	if o == nil || IsNil(o.AutoRenew) {
+		return nil, false
+	}
+	return o.AutoRenew, true
+}
+
+// HasAutoRenew returns a boolean if a field has been set.
+func (o *FindSslCertificate200ResponseDataInner) HasAutoRenew() bool {
+	if o != nil && !IsNil(o.AutoRenew) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoRenew gets a reference to the given bool and assigns it to the AutoRenew field.
+func (o *FindSslCertificate200ResponseDataInner) SetAutoRenew(v bool) {
+	o.AutoRenew = &v
+}
+
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *FindSslCertificate200ResponseDataInner) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *FindSslCertificate200ResponseDataInner) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *FindSslCertificate200ResponseDataInner) SetProvider(v string) {
+	o.Provider = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindSslCertificate200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindSslCertificate200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindSslCertificate200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetLastCheckAt returns the LastCheckAt field value if set, zero value otherwise.
+func (o *FindSslCertificate200ResponseDataInner) GetLastCheckAt() time.Time {
+	if o == nil || IsNil(o.LastCheckAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastCheckAt
+}
+
+// GetLastCheckAtOk returns a tuple with the LastCheckAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetLastCheckAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastCheckAt) {
+		return nil, false
+	}
+	return o.LastCheckAt, true
+}
+
+// HasLastCheckAt returns a boolean if a field has been set.
+func (o *FindSslCertificate200ResponseDataInner) HasLastCheckAt() bool {
+	if o != nil && !IsNil(o.LastCheckAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastCheckAt gets a reference to the given time.Time and assigns it to the LastCheckAt field.
+func (o *FindSslCertificate200ResponseDataInner) SetLastCheckAt(v time.Time) {
+	o.LastCheckAt = &v
+}
+
+// GetRenewalError returns the RenewalError field value if set, zero value otherwise.
+func (o *FindSslCertificate200ResponseDataInner) GetRenewalError() string {
+	if o == nil || IsNil(o.RenewalError) {
+		var ret string
+		return ret
+	}
+	return *o.RenewalError
+}
+
+// GetRenewalErrorOk returns a tuple with the RenewalError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetRenewalErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.RenewalError) {
+		return nil, false
+	}
+	return o.RenewalError, true
+}
+
+// HasRenewalError returns a boolean if a field has been set.
+func (o *FindSslCertificate200ResponseDataInner) HasRenewalError() bool {
+	if o != nil && !IsNil(o.RenewalError) {
+		return true
+	}
+
+	return false
+}
+
+// SetRenewalError gets a reference to the given string and assigns it to the RenewalError field.
+func (o *FindSslCertificate200ResponseDataInner) SetRenewalError(v string) {
+	o.RenewalError = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSslCertificate200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSslCertificate200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSslCertificate200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSslCertificate200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +495,6 @@ func (o *FindSslCertificate200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSslCertificate200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSslCertificate200ResponseDataInner) GetAttributes() SslCertificate {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SslCertificate
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSslCertificate200ResponseDataInner) GetAttributesOk() (*SslCertificate, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSslCertificate200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SslCertificate and assigns it to the Attributes field.
-func (o *FindSslCertificate200ResponseDataInner) SetAttributes(v SslCertificate) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +613,43 @@ func (o FindSslCertificate200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindSslCertificate200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["domain"] = o.Domain
+	if !IsNil(o.Issuer) {
+		toSerialize["issuer"] = o.Issuer
+	}
+	if o.SubjectAltNames != nil {
+		toSerialize["subject_alt_names"] = o.SubjectAltNames
+	}
+	if !IsNil(o.IssuedAt) {
+		toSerialize["issued_at"] = o.IssuedAt
+	}
+	toSerialize["expires_at"] = o.ExpiresAt
+	if !IsNil(o.IsWildcard) {
+		toSerialize["is_wildcard"] = o.IsWildcard
+	}
+	if !IsNil(o.AutoRenew) {
+		toSerialize["auto_renew"] = o.AutoRenew
+	}
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.LastCheckAt) {
+		toSerialize["last_check_at"] = o.LastCheckAt
+	}
+	if !IsNil(o.RenewalError) {
+		toSerialize["renewal_error"] = o.RenewalError
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +661,44 @@ func (o FindSslCertificate200ResponseDataInner) ToMap() (map[string]interface{},
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSslCertificate200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"domain",
+		"expires_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSslCertificate200ResponseDataInner := _FindSslCertificate200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSslCertificate200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSslCertificate200ResponseDataInner(varFindSslCertificate200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSslCertificate200ResponseDataInner struct {

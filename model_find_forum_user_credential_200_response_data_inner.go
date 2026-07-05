@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindForumUserCredential200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindForumUserCredential200ResponseDataInner{}
 
 // FindForumUserCredential200ResponseDataInner struct for FindForumUserCredential200ResponseDataInner
 type FindForumUserCredential200ResponseDataInner struct {
+	// Keycloak preferred_username claim — the stable per-user key forum-connector looks up on every visit.
+	KcSub string `json:"kc_sub"`
+	// Sanitized Lemmy-safe username actually registered in Lemmy ([a-zA-Z0-9_], 3-20 chars).
+	LemmyUsername string `json:"lemmy_username"`
+	// AES-256-GCM encrypted internal Lemmy password (format iv:authTag:ciphertext:salt). NEVER returned in any API response. Decrypted only by forum-connector to perform Lemmy login on repeat visits.
+	EncryptedPassword string `json:"encrypted_password"`
+	// Mirrors current Lemmy admin flag — set by F4.FORUM.03 (KC role forum-admin mapping).
+	IsLemmyAdmin bool `json:"is_lemmy_admin"`
+	LastLoginAt *time.Time `json:"last_login_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ForumUserCredential `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindForumUserCredential200ResponseDataInner FindForumUserCredential200ResponseDataInner
+
 // NewFindForumUserCredential200ResponseDataInner instantiates a new FindForumUserCredential200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindForumUserCredential200ResponseDataInner() *FindForumUserCredential200ResponseDataInner {
+func NewFindForumUserCredential200ResponseDataInner(kcSub string, lemmyUsername string, encryptedPassword string, isLemmyAdmin bool) *FindForumUserCredential200ResponseDataInner {
 	this := FindForumUserCredential200ResponseDataInner{}
+	this.KcSub = kcSub
+	this.LemmyUsername = lemmyUsername
+	this.EncryptedPassword = encryptedPassword
+	this.IsLemmyAdmin = isLemmyAdmin
 	return &this
 }
 
@@ -44,6 +60,134 @@ func NewFindForumUserCredential200ResponseDataInner() *FindForumUserCredential20
 func NewFindForumUserCredential200ResponseDataInnerWithDefaults() *FindForumUserCredential200ResponseDataInner {
 	this := FindForumUserCredential200ResponseDataInner{}
 	return &this
+}
+
+// GetKcSub returns the KcSub field value
+func (o *FindForumUserCredential200ResponseDataInner) GetKcSub() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.KcSub
+}
+
+// GetKcSubOk returns a tuple with the KcSub field value
+// and a boolean to check if the value has been set.
+func (o *FindForumUserCredential200ResponseDataInner) GetKcSubOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.KcSub, true
+}
+
+// SetKcSub sets field value
+func (o *FindForumUserCredential200ResponseDataInner) SetKcSub(v string) {
+	o.KcSub = v
+}
+
+// GetLemmyUsername returns the LemmyUsername field value
+func (o *FindForumUserCredential200ResponseDataInner) GetLemmyUsername() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.LemmyUsername
+}
+
+// GetLemmyUsernameOk returns a tuple with the LemmyUsername field value
+// and a boolean to check if the value has been set.
+func (o *FindForumUserCredential200ResponseDataInner) GetLemmyUsernameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LemmyUsername, true
+}
+
+// SetLemmyUsername sets field value
+func (o *FindForumUserCredential200ResponseDataInner) SetLemmyUsername(v string) {
+	o.LemmyUsername = v
+}
+
+// GetEncryptedPassword returns the EncryptedPassword field value
+func (o *FindForumUserCredential200ResponseDataInner) GetEncryptedPassword() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EncryptedPassword
+}
+
+// GetEncryptedPasswordOk returns a tuple with the EncryptedPassword field value
+// and a boolean to check if the value has been set.
+func (o *FindForumUserCredential200ResponseDataInner) GetEncryptedPasswordOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EncryptedPassword, true
+}
+
+// SetEncryptedPassword sets field value
+func (o *FindForumUserCredential200ResponseDataInner) SetEncryptedPassword(v string) {
+	o.EncryptedPassword = v
+}
+
+// GetIsLemmyAdmin returns the IsLemmyAdmin field value
+func (o *FindForumUserCredential200ResponseDataInner) GetIsLemmyAdmin() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsLemmyAdmin
+}
+
+// GetIsLemmyAdminOk returns a tuple with the IsLemmyAdmin field value
+// and a boolean to check if the value has been set.
+func (o *FindForumUserCredential200ResponseDataInner) GetIsLemmyAdminOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsLemmyAdmin, true
+}
+
+// SetIsLemmyAdmin sets field value
+func (o *FindForumUserCredential200ResponseDataInner) SetIsLemmyAdmin(v bool) {
+	o.IsLemmyAdmin = v
+}
+
+// GetLastLoginAt returns the LastLoginAt field value if set, zero value otherwise.
+func (o *FindForumUserCredential200ResponseDataInner) GetLastLoginAt() time.Time {
+	if o == nil || IsNil(o.LastLoginAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastLoginAt
+}
+
+// GetLastLoginAtOk returns a tuple with the LastLoginAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindForumUserCredential200ResponseDataInner) GetLastLoginAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastLoginAt) {
+		return nil, false
+	}
+	return o.LastLoginAt, true
+}
+
+// HasLastLoginAt returns a boolean if a field has been set.
+func (o *FindForumUserCredential200ResponseDataInner) HasLastLoginAt() bool {
+	if o != nil && !IsNil(o.LastLoginAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastLoginAt gets a reference to the given time.Time and assigns it to the LastLoginAt field.
+func (o *FindForumUserCredential200ResponseDataInner) SetLastLoginAt(v time.Time) {
+	o.LastLoginAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +252,6 @@ func (o *FindForumUserCredential200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindForumUserCredential200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindForumUserCredential200ResponseDataInner) GetAttributes() ForumUserCredential {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ForumUserCredential
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindForumUserCredential200ResponseDataInner) GetAttributesOk() (*ForumUserCredential, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindForumUserCredential200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ForumUserCredential and assigns it to the Attributes field.
-func (o *FindForumUserCredential200ResponseDataInner) SetAttributes(v ForumUserCredential) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +370,18 @@ func (o FindForumUserCredential200ResponseDataInner) MarshalJSON() ([]byte, erro
 
 func (o FindForumUserCredential200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["kc_sub"] = o.KcSub
+	toSerialize["lemmy_username"] = o.LemmyUsername
+	toSerialize["encrypted_password"] = o.EncryptedPassword
+	toSerialize["is_lemmy_admin"] = o.IsLemmyAdmin
+	if !IsNil(o.LastLoginAt) {
+		toSerialize["last_login_at"] = o.LastLoginAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +393,46 @@ func (o FindForumUserCredential200ResponseDataInner) ToMap() (map[string]interfa
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindForumUserCredential200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"kc_sub",
+		"lemmy_username",
+		"encrypted_password",
+		"is_lemmy_admin",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindForumUserCredential200ResponseDataInner := _FindForumUserCredential200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindForumUserCredential200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindForumUserCredential200ResponseDataInner(varFindForumUserCredential200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindForumUserCredential200ResponseDataInner struct {

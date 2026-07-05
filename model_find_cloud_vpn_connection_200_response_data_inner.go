@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudVpnConnection200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindCloudVpnConnection200ResponseDataInner{}
 
 // FindCloudVpnConnection200ResponseDataInner struct for FindCloudVpnConnection200ResponseDataInner
 type FindCloudVpnConnection200ResponseDataInner struct {
+	Name string `json:"name"`
+	PeerAddress string `json:"peer_address"`
+	PeerCidr string `json:"peer_cidr"`
+	PskEncrypted *string `json:"psk_encrypted,omitempty"`
+	BgpAsn *int32 `json:"bgp_asn,omitempty"`
+	State *string `json:"state,omitempty"`
+	ExternalId *string `json:"external_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	VpnGateway *CreateAccessReviewRequestDataReviewer `json:"vpn_gateway,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudVpnConnection `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudVpnConnection200ResponseDataInner FindCloudVpnConnection200ResponseDataInner
+
 // NewFindCloudVpnConnection200ResponseDataInner instantiates a new FindCloudVpnConnection200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudVpnConnection200ResponseDataInner() *FindCloudVpnConnection200ResponseDataInner {
+func NewFindCloudVpnConnection200ResponseDataInner(name string, peerAddress string, peerCidr string) *FindCloudVpnConnection200ResponseDataInner {
 	this := FindCloudVpnConnection200ResponseDataInner{}
+	this.Name = name
+	this.PeerAddress = peerAddress
+	this.PeerCidr = peerCidr
 	return &this
 }
 
@@ -44,6 +61,303 @@ func NewFindCloudVpnConnection200ResponseDataInner() *FindCloudVpnConnection200R
 func NewFindCloudVpnConnection200ResponseDataInnerWithDefaults() *FindCloudVpnConnection200ResponseDataInner {
 	this := FindCloudVpnConnection200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCloudVpnConnection200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCloudVpnConnection200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetPeerAddress returns the PeerAddress field value
+func (o *FindCloudVpnConnection200ResponseDataInner) GetPeerAddress() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PeerAddress
+}
+
+// GetPeerAddressOk returns a tuple with the PeerAddress field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetPeerAddressOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PeerAddress, true
+}
+
+// SetPeerAddress sets field value
+func (o *FindCloudVpnConnection200ResponseDataInner) SetPeerAddress(v string) {
+	o.PeerAddress = v
+}
+
+// GetPeerCidr returns the PeerCidr field value
+func (o *FindCloudVpnConnection200ResponseDataInner) GetPeerCidr() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PeerCidr
+}
+
+// GetPeerCidrOk returns a tuple with the PeerCidr field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetPeerCidrOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PeerCidr, true
+}
+
+// SetPeerCidr sets field value
+func (o *FindCloudVpnConnection200ResponseDataInner) SetPeerCidr(v string) {
+	o.PeerCidr = v
+}
+
+// GetPskEncrypted returns the PskEncrypted field value if set, zero value otherwise.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetPskEncrypted() string {
+	if o == nil || IsNil(o.PskEncrypted) {
+		var ret string
+		return ret
+	}
+	return *o.PskEncrypted
+}
+
+// GetPskEncryptedOk returns a tuple with the PskEncrypted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetPskEncryptedOk() (*string, bool) {
+	if o == nil || IsNil(o.PskEncrypted) {
+		return nil, false
+	}
+	return o.PskEncrypted, true
+}
+
+// HasPskEncrypted returns a boolean if a field has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) HasPskEncrypted() bool {
+	if o != nil && !IsNil(o.PskEncrypted) {
+		return true
+	}
+
+	return false
+}
+
+// SetPskEncrypted gets a reference to the given string and assigns it to the PskEncrypted field.
+func (o *FindCloudVpnConnection200ResponseDataInner) SetPskEncrypted(v string) {
+	o.PskEncrypted = &v
+}
+
+// GetBgpAsn returns the BgpAsn field value if set, zero value otherwise.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetBgpAsn() int32 {
+	if o == nil || IsNil(o.BgpAsn) {
+		var ret int32
+		return ret
+	}
+	return *o.BgpAsn
+}
+
+// GetBgpAsnOk returns a tuple with the BgpAsn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetBgpAsnOk() (*int32, bool) {
+	if o == nil || IsNil(o.BgpAsn) {
+		return nil, false
+	}
+	return o.BgpAsn, true
+}
+
+// HasBgpAsn returns a boolean if a field has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) HasBgpAsn() bool {
+	if o != nil && !IsNil(o.BgpAsn) {
+		return true
+	}
+
+	return false
+}
+
+// SetBgpAsn gets a reference to the given int32 and assigns it to the BgpAsn field.
+func (o *FindCloudVpnConnection200ResponseDataInner) SetBgpAsn(v int32) {
+	o.BgpAsn = &v
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetState() string {
+	if o == nil || IsNil(o.State) {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetStateOk() (*string, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *FindCloudVpnConnection200ResponseDataInner) SetState(v string) {
+	o.State = &v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *FindCloudVpnConnection200ResponseDataInner) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudVpnConnection200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudVpnConnection200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindCloudVpnConnection200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetVpnGateway returns the VpnGateway field value if set, zero value otherwise.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetVpnGateway() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.VpnGateway) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.VpnGateway
+}
+
+// GetVpnGatewayOk returns a tuple with the VpnGateway field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetVpnGatewayOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.VpnGateway) {
+		return nil, false
+	}
+	return o.VpnGateway, true
+}
+
+// HasVpnGateway returns a boolean if a field has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) HasVpnGateway() bool {
+	if o != nil && !IsNil(o.VpnGateway) {
+		return true
+	}
+
+	return false
+}
+
+// SetVpnGateway gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the VpnGateway field.
+func (o *FindCloudVpnConnection200ResponseDataInner) SetVpnGateway(v CreateAccessReviewRequestDataReviewer) {
+	o.VpnGateway = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCloudVpnConnection200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCloudVpnConnection200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +422,6 @@ func (o *FindCloudVpnConnection200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudVpnConnection200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudVpnConnection200ResponseDataInner) GetAttributes() CloudVpnConnection {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudVpnConnection
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudVpnConnection200ResponseDataInner) GetAttributesOk() (*CloudVpnConnection, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudVpnConnection200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudVpnConnection and assigns it to the Attributes field.
-func (o *FindCloudVpnConnection200ResponseDataInner) SetAttributes(v CloudVpnConnection) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +540,35 @@ func (o FindCloudVpnConnection200ResponseDataInner) MarshalJSON() ([]byte, error
 
 func (o FindCloudVpnConnection200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["peer_address"] = o.PeerAddress
+	toSerialize["peer_cidr"] = o.PeerCidr
+	if !IsNil(o.PskEncrypted) {
+		toSerialize["psk_encrypted"] = o.PskEncrypted
+	}
+	if !IsNil(o.BgpAsn) {
+		toSerialize["bgp_asn"] = o.BgpAsn
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["external_id"] = o.ExternalId
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.VpnGateway) {
+		toSerialize["vpn_gateway"] = o.VpnGateway
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +580,45 @@ func (o FindCloudVpnConnection200ResponseDataInner) ToMap() (map[string]interfac
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudVpnConnection200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"peer_address",
+		"peer_cidr",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudVpnConnection200ResponseDataInner := _FindCloudVpnConnection200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudVpnConnection200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudVpnConnection200ResponseDataInner(varFindCloudVpnConnection200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudVpnConnection200ResponseDataInner struct {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindUsageMetric200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindUsageMetric200ResponseDataInner{}
 
 // FindUsageMetric200ResponseDataInner struct for FindUsageMetric200ResponseDataInner
 type FindUsageMetric200ResponseDataInner struct {
+	MetricName string `json:"metric_name"`
+	Interval *string `json:"interval,omitempty"`
+	Value float32 `json:"value"`
+	ValueMin *float32 `json:"value_min,omitempty"`
+	ValueMax *float32 `json:"value_max,omitempty"`
+	SampleCount *int32 `json:"sample_count,omitempty"`
+	PeriodStart time.Time `json:"period_start"`
+	PeriodEnd time.Time `json:"period_end"`
+	Dimension *string `json:"dimension,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	IdempotencyKey *string `json:"idempotency_key,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *UsageMetric `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindUsageMetric200ResponseDataInner FindUsageMetric200ResponseDataInner
+
 // NewFindUsageMetric200ResponseDataInner instantiates a new FindUsageMetric200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindUsageMetric200ResponseDataInner() *FindUsageMetric200ResponseDataInner {
+func NewFindUsageMetric200ResponseDataInner(metricName string, value float32, periodStart time.Time, periodEnd time.Time) *FindUsageMetric200ResponseDataInner {
 	this := FindUsageMetric200ResponseDataInner{}
+	this.MetricName = metricName
+	this.Value = value
+	this.PeriodStart = periodStart
+	this.PeriodEnd = periodEnd
 	return &this
 }
 
@@ -44,6 +62,326 @@ func NewFindUsageMetric200ResponseDataInner() *FindUsageMetric200ResponseDataInn
 func NewFindUsageMetric200ResponseDataInnerWithDefaults() *FindUsageMetric200ResponseDataInner {
 	this := FindUsageMetric200ResponseDataInner{}
 	return &this
+}
+
+// GetMetricName returns the MetricName field value
+func (o *FindUsageMetric200ResponseDataInner) GetMetricName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.MetricName
+}
+
+// GetMetricNameOk returns a tuple with the MetricName field value
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetMetricNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MetricName, true
+}
+
+// SetMetricName sets field value
+func (o *FindUsageMetric200ResponseDataInner) SetMetricName(v string) {
+	o.MetricName = v
+}
+
+// GetInterval returns the Interval field value if set, zero value otherwise.
+func (o *FindUsageMetric200ResponseDataInner) GetInterval() string {
+	if o == nil || IsNil(o.Interval) {
+		var ret string
+		return ret
+	}
+	return *o.Interval
+}
+
+// GetIntervalOk returns a tuple with the Interval field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetIntervalOk() (*string, bool) {
+	if o == nil || IsNil(o.Interval) {
+		return nil, false
+	}
+	return o.Interval, true
+}
+
+// HasInterval returns a boolean if a field has been set.
+func (o *FindUsageMetric200ResponseDataInner) HasInterval() bool {
+	if o != nil && !IsNil(o.Interval) {
+		return true
+	}
+
+	return false
+}
+
+// SetInterval gets a reference to the given string and assigns it to the Interval field.
+func (o *FindUsageMetric200ResponseDataInner) SetInterval(v string) {
+	o.Interval = &v
+}
+
+// GetValue returns the Value field value
+func (o *FindUsageMetric200ResponseDataInner) GetValue() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetValueOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Value, true
+}
+
+// SetValue sets field value
+func (o *FindUsageMetric200ResponseDataInner) SetValue(v float32) {
+	o.Value = v
+}
+
+// GetValueMin returns the ValueMin field value if set, zero value otherwise.
+func (o *FindUsageMetric200ResponseDataInner) GetValueMin() float32 {
+	if o == nil || IsNil(o.ValueMin) {
+		var ret float32
+		return ret
+	}
+	return *o.ValueMin
+}
+
+// GetValueMinOk returns a tuple with the ValueMin field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetValueMinOk() (*float32, bool) {
+	if o == nil || IsNil(o.ValueMin) {
+		return nil, false
+	}
+	return o.ValueMin, true
+}
+
+// HasValueMin returns a boolean if a field has been set.
+func (o *FindUsageMetric200ResponseDataInner) HasValueMin() bool {
+	if o != nil && !IsNil(o.ValueMin) {
+		return true
+	}
+
+	return false
+}
+
+// SetValueMin gets a reference to the given float32 and assigns it to the ValueMin field.
+func (o *FindUsageMetric200ResponseDataInner) SetValueMin(v float32) {
+	o.ValueMin = &v
+}
+
+// GetValueMax returns the ValueMax field value if set, zero value otherwise.
+func (o *FindUsageMetric200ResponseDataInner) GetValueMax() float32 {
+	if o == nil || IsNil(o.ValueMax) {
+		var ret float32
+		return ret
+	}
+	return *o.ValueMax
+}
+
+// GetValueMaxOk returns a tuple with the ValueMax field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetValueMaxOk() (*float32, bool) {
+	if o == nil || IsNil(o.ValueMax) {
+		return nil, false
+	}
+	return o.ValueMax, true
+}
+
+// HasValueMax returns a boolean if a field has been set.
+func (o *FindUsageMetric200ResponseDataInner) HasValueMax() bool {
+	if o != nil && !IsNil(o.ValueMax) {
+		return true
+	}
+
+	return false
+}
+
+// SetValueMax gets a reference to the given float32 and assigns it to the ValueMax field.
+func (o *FindUsageMetric200ResponseDataInner) SetValueMax(v float32) {
+	o.ValueMax = &v
+}
+
+// GetSampleCount returns the SampleCount field value if set, zero value otherwise.
+func (o *FindUsageMetric200ResponseDataInner) GetSampleCount() int32 {
+	if o == nil || IsNil(o.SampleCount) {
+		var ret int32
+		return ret
+	}
+	return *o.SampleCount
+}
+
+// GetSampleCountOk returns a tuple with the SampleCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetSampleCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.SampleCount) {
+		return nil, false
+	}
+	return o.SampleCount, true
+}
+
+// HasSampleCount returns a boolean if a field has been set.
+func (o *FindUsageMetric200ResponseDataInner) HasSampleCount() bool {
+	if o != nil && !IsNil(o.SampleCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetSampleCount gets a reference to the given int32 and assigns it to the SampleCount field.
+func (o *FindUsageMetric200ResponseDataInner) SetSampleCount(v int32) {
+	o.SampleCount = &v
+}
+
+// GetPeriodStart returns the PeriodStart field value
+func (o *FindUsageMetric200ResponseDataInner) GetPeriodStart() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.PeriodStart
+}
+
+// GetPeriodStartOk returns a tuple with the PeriodStart field value
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetPeriodStartOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PeriodStart, true
+}
+
+// SetPeriodStart sets field value
+func (o *FindUsageMetric200ResponseDataInner) SetPeriodStart(v time.Time) {
+	o.PeriodStart = v
+}
+
+// GetPeriodEnd returns the PeriodEnd field value
+func (o *FindUsageMetric200ResponseDataInner) GetPeriodEnd() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.PeriodEnd
+}
+
+// GetPeriodEndOk returns a tuple with the PeriodEnd field value
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetPeriodEndOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PeriodEnd, true
+}
+
+// SetPeriodEnd sets field value
+func (o *FindUsageMetric200ResponseDataInner) SetPeriodEnd(v time.Time) {
+	o.PeriodEnd = v
+}
+
+// GetDimension returns the Dimension field value if set, zero value otherwise.
+func (o *FindUsageMetric200ResponseDataInner) GetDimension() string {
+	if o == nil || IsNil(o.Dimension) {
+		var ret string
+		return ret
+	}
+	return *o.Dimension
+}
+
+// GetDimensionOk returns a tuple with the Dimension field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetDimensionOk() (*string, bool) {
+	if o == nil || IsNil(o.Dimension) {
+		return nil, false
+	}
+	return o.Dimension, true
+}
+
+// HasDimension returns a boolean if a field has been set.
+func (o *FindUsageMetric200ResponseDataInner) HasDimension() bool {
+	if o != nil && !IsNil(o.Dimension) {
+		return true
+	}
+
+	return false
+}
+
+// SetDimension gets a reference to the given string and assigns it to the Dimension field.
+func (o *FindUsageMetric200ResponseDataInner) SetDimension(v string) {
+	o.Dimension = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindUsageMetric200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindUsageMetric200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindUsageMetric200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetIdempotencyKey returns the IdempotencyKey field value if set, zero value otherwise.
+func (o *FindUsageMetric200ResponseDataInner) GetIdempotencyKey() string {
+	if o == nil || IsNil(o.IdempotencyKey) {
+		var ret string
+		return ret
+	}
+	return *o.IdempotencyKey
+}
+
+// GetIdempotencyKeyOk returns a tuple with the IdempotencyKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUsageMetric200ResponseDataInner) GetIdempotencyKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.IdempotencyKey) {
+		return nil, false
+	}
+	return o.IdempotencyKey, true
+}
+
+// HasIdempotencyKey returns a boolean if a field has been set.
+func (o *FindUsageMetric200ResponseDataInner) HasIdempotencyKey() bool {
+	if o != nil && !IsNil(o.IdempotencyKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdempotencyKey gets a reference to the given string and assigns it to the IdempotencyKey field.
+func (o *FindUsageMetric200ResponseDataInner) SetIdempotencyKey(v string) {
+	o.IdempotencyKey = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +446,6 @@ func (o *FindUsageMetric200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindUsageMetric200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindUsageMetric200ResponseDataInner) GetAttributes() UsageMetric {
-	if o == nil || IsNil(o.Attributes) {
-		var ret UsageMetric
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindUsageMetric200ResponseDataInner) GetAttributesOk() (*UsageMetric, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindUsageMetric200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given UsageMetric and assigns it to the Attributes field.
-func (o *FindUsageMetric200ResponseDataInner) SetAttributes(v UsageMetric) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +564,36 @@ func (o FindUsageMetric200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindUsageMetric200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["metric_name"] = o.MetricName
+	if !IsNil(o.Interval) {
+		toSerialize["interval"] = o.Interval
+	}
+	toSerialize["value"] = o.Value
+	if !IsNil(o.ValueMin) {
+		toSerialize["value_min"] = o.ValueMin
+	}
+	if !IsNil(o.ValueMax) {
+		toSerialize["value_max"] = o.ValueMax
+	}
+	if !IsNil(o.SampleCount) {
+		toSerialize["sample_count"] = o.SampleCount
+	}
+	toSerialize["period_start"] = o.PeriodStart
+	toSerialize["period_end"] = o.PeriodEnd
+	if !IsNil(o.Dimension) {
+		toSerialize["dimension"] = o.Dimension
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.IdempotencyKey) {
+		toSerialize["idempotency_key"] = o.IdempotencyKey
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +605,46 @@ func (o FindUsageMetric200ResponseDataInner) ToMap() (map[string]interface{}, er
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindUsageMetric200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"metric_name",
+		"value",
+		"period_start",
+		"period_end",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindUsageMetric200ResponseDataInner := _FindUsageMetric200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindUsageMetric200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindUsageMetric200ResponseDataInner(varFindUsageMetric200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindUsageMetric200ResponseDataInner struct {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudCredential200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,50 @@ var _ MappedNullable = &FindCloudCredential200ResponseDataInner{}
 
 // FindCloudCredential200ResponseDataInner struct for FindCloudCredential200ResponseDataInner
 type FindCloudCredential200ResponseDataInner struct {
+	Name string `json:"name"`
+	Provider string `json:"provider"`
+	IsActive bool `json:"is_active"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	CredentialData interface{} `json:"credential_data,omitempty"`
+	// AES-256-GCM šifrovaný JSON s credentials (F2.C.03). NIKDY se nevrací v API. Dešifruje cloud-connector sdíleným BYOC_ENCRYPTION_KEY.
+	EncryptedPayload *string `json:"encrypted_payload,omitempty"`
+	// Stav ověření credentials reálným API voláním (F2.C.03).
+	ValidationStatus string `json:"validation_status"`
+	LastValidatedAt *time.Time `json:"last_validated_at,omitempty"`
+	// Detekovaná oprávnění z validace (např. ['ec2:read','rds:write']).
+	Scopes interface{} `json:"scopes,omitempty"`
+	LastUsedAt *time.Time `json:"last_used_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	CreatedByUser *CreateAccessReviewRequestDataReviewer `json:"created_by_user,omitempty"`
+	// Logical data-residency region of the tenant (CELL invariant, F2.CELL.01)
+	HomeRegion string `json:"home_region"`
+	// Deployment cell within home_region for blast-radius isolation (CELL invariant, F2.CELL.01)
+	CellId *string `json:"cell_id,omitempty"`
+	Environment *string `json:"environment,omitempty"`
+	IsDefault *bool `json:"is_default,omitempty"`
+	AccountId *string `json:"account_id,omitempty"`
+	AccountName *string `json:"account_name,omitempty"`
+	CostCenter *string `json:"cost_center,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudCredential `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudCredential200ResponseDataInner FindCloudCredential200ResponseDataInner
+
 // NewFindCloudCredential200ResponseDataInner instantiates a new FindCloudCredential200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudCredential200ResponseDataInner() *FindCloudCredential200ResponseDataInner {
+func NewFindCloudCredential200ResponseDataInner(name string, provider string, isActive bool, validationStatus string, homeRegion string) *FindCloudCredential200ResponseDataInner {
 	this := FindCloudCredential200ResponseDataInner{}
+	this.Name = name
+	this.Provider = provider
+	this.IsActive = isActive
+	this.ValidationStatus = validationStatus
+	this.HomeRegion = homeRegion
 	return &this
 }
 
@@ -44,6 +76,544 @@ func NewFindCloudCredential200ResponseDataInner() *FindCloudCredential200Respons
 func NewFindCloudCredential200ResponseDataInnerWithDefaults() *FindCloudCredential200ResponseDataInner {
 	this := FindCloudCredential200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCloudCredential200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCloudCredential200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetProvider returns the Provider field value
+func (o *FindCloudCredential200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindCloudCredential200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetIsActive returns the IsActive field value
+func (o *FindCloudCredential200ResponseDataInner) GetIsActive() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetIsActiveOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsActive, true
+}
+
+// SetIsActive sets field value
+func (o *FindCloudCredential200ResponseDataInner) SetIsActive(v bool) {
+	o.IsActive = v
+}
+
+// GetCredentialData returns the CredentialData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudCredential200ResponseDataInner) GetCredentialData() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.CredentialData
+}
+
+// GetCredentialDataOk returns a tuple with the CredentialData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudCredential200ResponseDataInner) GetCredentialDataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.CredentialData) {
+		return nil, false
+	}
+	return &o.CredentialData, true
+}
+
+// HasCredentialData returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasCredentialData() bool {
+	if o != nil && !IsNil(o.CredentialData) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredentialData gets a reference to the given interface{} and assigns it to the CredentialData field.
+func (o *FindCloudCredential200ResponseDataInner) SetCredentialData(v interface{}) {
+	o.CredentialData = v
+}
+
+// GetEncryptedPayload returns the EncryptedPayload field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetEncryptedPayload() string {
+	if o == nil || IsNil(o.EncryptedPayload) {
+		var ret string
+		return ret
+	}
+	return *o.EncryptedPayload
+}
+
+// GetEncryptedPayloadOk returns a tuple with the EncryptedPayload field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetEncryptedPayloadOk() (*string, bool) {
+	if o == nil || IsNil(o.EncryptedPayload) {
+		return nil, false
+	}
+	return o.EncryptedPayload, true
+}
+
+// HasEncryptedPayload returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasEncryptedPayload() bool {
+	if o != nil && !IsNil(o.EncryptedPayload) {
+		return true
+	}
+
+	return false
+}
+
+// SetEncryptedPayload gets a reference to the given string and assigns it to the EncryptedPayload field.
+func (o *FindCloudCredential200ResponseDataInner) SetEncryptedPayload(v string) {
+	o.EncryptedPayload = &v
+}
+
+// GetValidationStatus returns the ValidationStatus field value
+func (o *FindCloudCredential200ResponseDataInner) GetValidationStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ValidationStatus
+}
+
+// GetValidationStatusOk returns a tuple with the ValidationStatus field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetValidationStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ValidationStatus, true
+}
+
+// SetValidationStatus sets field value
+func (o *FindCloudCredential200ResponseDataInner) SetValidationStatus(v string) {
+	o.ValidationStatus = v
+}
+
+// GetLastValidatedAt returns the LastValidatedAt field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetLastValidatedAt() time.Time {
+	if o == nil || IsNil(o.LastValidatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastValidatedAt
+}
+
+// GetLastValidatedAtOk returns a tuple with the LastValidatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetLastValidatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastValidatedAt) {
+		return nil, false
+	}
+	return o.LastValidatedAt, true
+}
+
+// HasLastValidatedAt returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasLastValidatedAt() bool {
+	if o != nil && !IsNil(o.LastValidatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastValidatedAt gets a reference to the given time.Time and assigns it to the LastValidatedAt field.
+func (o *FindCloudCredential200ResponseDataInner) SetLastValidatedAt(v time.Time) {
+	o.LastValidatedAt = &v
+}
+
+// GetScopes returns the Scopes field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudCredential200ResponseDataInner) GetScopes() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Scopes
+}
+
+// GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudCredential200ResponseDataInner) GetScopesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Scopes) {
+		return nil, false
+	}
+	return &o.Scopes, true
+}
+
+// HasScopes returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasScopes() bool {
+	if o != nil && !IsNil(o.Scopes) {
+		return true
+	}
+
+	return false
+}
+
+// SetScopes gets a reference to the given interface{} and assigns it to the Scopes field.
+func (o *FindCloudCredential200ResponseDataInner) SetScopes(v interface{}) {
+	o.Scopes = v
+}
+
+// GetLastUsedAt returns the LastUsedAt field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetLastUsedAt() time.Time {
+	if o == nil || IsNil(o.LastUsedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastUsedAt
+}
+
+// GetLastUsedAtOk returns a tuple with the LastUsedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetLastUsedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastUsedAt) {
+		return nil, false
+	}
+	return o.LastUsedAt, true
+}
+
+// HasLastUsedAt returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasLastUsedAt() bool {
+	if o != nil && !IsNil(o.LastUsedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUsedAt gets a reference to the given time.Time and assigns it to the LastUsedAt field.
+func (o *FindCloudCredential200ResponseDataInner) SetLastUsedAt(v time.Time) {
+	o.LastUsedAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCloudCredential200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetCreatedByUser returns the CreatedByUser field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetCreatedByUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CreatedByUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CreatedByUser
+}
+
+// GetCreatedByUserOk returns a tuple with the CreatedByUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetCreatedByUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CreatedByUser) {
+		return nil, false
+	}
+	return o.CreatedByUser, true
+}
+
+// HasCreatedByUser returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasCreatedByUser() bool {
+	if o != nil && !IsNil(o.CreatedByUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedByUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CreatedByUser field.
+func (o *FindCloudCredential200ResponseDataInner) SetCreatedByUser(v CreateAccessReviewRequestDataReviewer) {
+	o.CreatedByUser = &v
+}
+
+// GetHomeRegion returns the HomeRegion field value
+func (o *FindCloudCredential200ResponseDataInner) GetHomeRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.HomeRegion
+}
+
+// GetHomeRegionOk returns a tuple with the HomeRegion field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetHomeRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HomeRegion, true
+}
+
+// SetHomeRegion sets field value
+func (o *FindCloudCredential200ResponseDataInner) SetHomeRegion(v string) {
+	o.HomeRegion = v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindCloudCredential200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
+}
+
+// GetEnvironment returns the Environment field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetEnvironment() string {
+	if o == nil || IsNil(o.Environment) {
+		var ret string
+		return ret
+	}
+	return *o.Environment
+}
+
+// GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetEnvironmentOk() (*string, bool) {
+	if o == nil || IsNil(o.Environment) {
+		return nil, false
+	}
+	return o.Environment, true
+}
+
+// HasEnvironment returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasEnvironment() bool {
+	if o != nil && !IsNil(o.Environment) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironment gets a reference to the given string and assigns it to the Environment field.
+func (o *FindCloudCredential200ResponseDataInner) SetEnvironment(v string) {
+	o.Environment = &v
+}
+
+// GetIsDefault returns the IsDefault field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetIsDefault() bool {
+	if o == nil || IsNil(o.IsDefault) {
+		var ret bool
+		return ret
+	}
+	return *o.IsDefault
+}
+
+// GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetIsDefaultOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsDefault) {
+		return nil, false
+	}
+	return o.IsDefault, true
+}
+
+// HasIsDefault returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasIsDefault() bool {
+	if o != nil && !IsNil(o.IsDefault) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefault gets a reference to the given bool and assigns it to the IsDefault field.
+func (o *FindCloudCredential200ResponseDataInner) SetIsDefault(v bool) {
+	o.IsDefault = &v
+}
+
+// GetAccountId returns the AccountId field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetAccountId() string {
+	if o == nil || IsNil(o.AccountId) {
+		var ret string
+		return ret
+	}
+	return *o.AccountId
+}
+
+// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.AccountId) {
+		return nil, false
+	}
+	return o.AccountId, true
+}
+
+// HasAccountId returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasAccountId() bool {
+	if o != nil && !IsNil(o.AccountId) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
+func (o *FindCloudCredential200ResponseDataInner) SetAccountId(v string) {
+	o.AccountId = &v
+}
+
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetAccountName() string {
+	if o == nil || IsNil(o.AccountName) {
+		var ret string
+		return ret
+	}
+	return *o.AccountName
+}
+
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetAccountNameOk() (*string, bool) {
+	if o == nil || IsNil(o.AccountName) {
+		return nil, false
+	}
+	return o.AccountName, true
+}
+
+// HasAccountName returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasAccountName() bool {
+	if o != nil && !IsNil(o.AccountName) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *FindCloudCredential200ResponseDataInner) SetAccountName(v string) {
+	o.AccountName = &v
+}
+
+// GetCostCenter returns the CostCenter field value if set, zero value otherwise.
+func (o *FindCloudCredential200ResponseDataInner) GetCostCenter() string {
+	if o == nil || IsNil(o.CostCenter) {
+		var ret string
+		return ret
+	}
+	return *o.CostCenter
+}
+
+// GetCostCenterOk returns a tuple with the CostCenter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudCredential200ResponseDataInner) GetCostCenterOk() (*string, bool) {
+	if o == nil || IsNil(o.CostCenter) {
+		return nil, false
+	}
+	return o.CostCenter, true
+}
+
+// HasCostCenter returns a boolean if a field has been set.
+func (o *FindCloudCredential200ResponseDataInner) HasCostCenter() bool {
+	if o != nil && !IsNil(o.CostCenter) {
+		return true
+	}
+
+	return false
+}
+
+// SetCostCenter gets a reference to the given string and assigns it to the CostCenter field.
+func (o *FindCloudCredential200ResponseDataInner) SetCostCenter(v string) {
+	o.CostCenter = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +678,6 @@ func (o *FindCloudCredential200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudCredential200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudCredential200ResponseDataInner) GetAttributes() CloudCredential {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudCredential
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudCredential200ResponseDataInner) GetAttributesOk() (*CloudCredential, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudCredential200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudCredential and assigns it to the Attributes field.
-func (o *FindCloudCredential200ResponseDataInner) SetAttributes(v CloudCredential) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +796,55 @@ func (o FindCloudCredential200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCloudCredential200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["provider"] = o.Provider
+	toSerialize["is_active"] = o.IsActive
+	if o.CredentialData != nil {
+		toSerialize["credential_data"] = o.CredentialData
+	}
+	if !IsNil(o.EncryptedPayload) {
+		toSerialize["encrypted_payload"] = o.EncryptedPayload
+	}
+	toSerialize["validation_status"] = o.ValidationStatus
+	if !IsNil(o.LastValidatedAt) {
+		toSerialize["last_validated_at"] = o.LastValidatedAt
+	}
+	if o.Scopes != nil {
+		toSerialize["scopes"] = o.Scopes
+	}
+	if !IsNil(o.LastUsedAt) {
+		toSerialize["last_used_at"] = o.LastUsedAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.CreatedByUser) {
+		toSerialize["created_by_user"] = o.CreatedByUser
+	}
+	toSerialize["home_region"] = o.HomeRegion
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
+	if !IsNil(o.Environment) {
+		toSerialize["environment"] = o.Environment
+	}
+	if !IsNil(o.IsDefault) {
+		toSerialize["is_default"] = o.IsDefault
+	}
+	if !IsNil(o.AccountId) {
+		toSerialize["account_id"] = o.AccountId
+	}
+	if !IsNil(o.AccountName) {
+		toSerialize["account_name"] = o.AccountName
+	}
+	if !IsNil(o.CostCenter) {
+		toSerialize["cost_center"] = o.CostCenter
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +856,47 @@ func (o FindCloudCredential200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudCredential200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"provider",
+		"is_active",
+		"validation_status",
+		"home_region",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudCredential200ResponseDataInner := _FindCloudCredential200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudCredential200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudCredential200ResponseDataInner(varFindCloudCredential200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudCredential200ResponseDataInner struct {

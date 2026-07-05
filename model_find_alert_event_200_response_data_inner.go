@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindAlertEvent200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,40 @@ var _ MappedNullable = &FindAlertEvent200ResponseDataInner{}
 
 // FindAlertEvent200ResponseDataInner struct for FindAlertEvent200ResponseDataInner
 type FindAlertEvent200ResponseDataInner struct {
+	AlertRule *CreateAccessReviewRequestDataReviewer `json:"alertRule,omitempty"`
+	InstanceId string `json:"instanceId"`
+	Provider *string `json:"provider,omitempty"`
+	Region *string `json:"region,omitempty"`
+	Metric string `json:"metric"`
+	MetricValue float32 `json:"metricValue"`
+	Threshold float32 `json:"threshold"`
+	Severity string `json:"severity"`
+	Message *string `json:"message,omitempty"`
+	NotifiedAt *time.Time `json:"notifiedAt,omitempty"`
+	ResolvedAt *time.Time `json:"resolvedAt,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *AlertEvent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindAlertEvent200ResponseDataInner FindAlertEvent200ResponseDataInner
+
 // NewFindAlertEvent200ResponseDataInner instantiates a new FindAlertEvent200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindAlertEvent200ResponseDataInner() *FindAlertEvent200ResponseDataInner {
+func NewFindAlertEvent200ResponseDataInner(instanceId string, metric string, metricValue float32, threshold float32, severity string) *FindAlertEvent200ResponseDataInner {
 	this := FindAlertEvent200ResponseDataInner{}
+	this.InstanceId = instanceId
+	this.Metric = metric
+	this.MetricValue = metricValue
+	this.Threshold = threshold
+	this.Severity = severity
 	return &this
 }
 
@@ -44,6 +66,383 @@ func NewFindAlertEvent200ResponseDataInner() *FindAlertEvent200ResponseDataInner
 func NewFindAlertEvent200ResponseDataInnerWithDefaults() *FindAlertEvent200ResponseDataInner {
 	this := FindAlertEvent200ResponseDataInner{}
 	return &this
+}
+
+// GetAlertRule returns the AlertRule field value if set, zero value otherwise.
+func (o *FindAlertEvent200ResponseDataInner) GetAlertRule() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.AlertRule) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.AlertRule
+}
+
+// GetAlertRuleOk returns a tuple with the AlertRule field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetAlertRuleOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.AlertRule) {
+		return nil, false
+	}
+	return o.AlertRule, true
+}
+
+// HasAlertRule returns a boolean if a field has been set.
+func (o *FindAlertEvent200ResponseDataInner) HasAlertRule() bool {
+	if o != nil && !IsNil(o.AlertRule) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlertRule gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the AlertRule field.
+func (o *FindAlertEvent200ResponseDataInner) SetAlertRule(v CreateAccessReviewRequestDataReviewer) {
+	o.AlertRule = &v
+}
+
+// GetInstanceId returns the InstanceId field value
+func (o *FindAlertEvent200ResponseDataInner) GetInstanceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.InstanceId
+}
+
+// GetInstanceIdOk returns a tuple with the InstanceId field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetInstanceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.InstanceId, true
+}
+
+// SetInstanceId sets field value
+func (o *FindAlertEvent200ResponseDataInner) SetInstanceId(v string) {
+	o.InstanceId = v
+}
+
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *FindAlertEvent200ResponseDataInner) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *FindAlertEvent200ResponseDataInner) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *FindAlertEvent200ResponseDataInner) SetProvider(v string) {
+	o.Provider = &v
+}
+
+// GetRegion returns the Region field value if set, zero value otherwise.
+func (o *FindAlertEvent200ResponseDataInner) GetRegion() string {
+	if o == nil || IsNil(o.Region) {
+		var ret string
+		return ret
+	}
+	return *o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.Region) {
+		return nil, false
+	}
+	return o.Region, true
+}
+
+// HasRegion returns a boolean if a field has been set.
+func (o *FindAlertEvent200ResponseDataInner) HasRegion() bool {
+	if o != nil && !IsNil(o.Region) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegion gets a reference to the given string and assigns it to the Region field.
+func (o *FindAlertEvent200ResponseDataInner) SetRegion(v string) {
+	o.Region = &v
+}
+
+// GetMetric returns the Metric field value
+func (o *FindAlertEvent200ResponseDataInner) GetMetric() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Metric
+}
+
+// GetMetricOk returns a tuple with the Metric field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetMetricOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Metric, true
+}
+
+// SetMetric sets field value
+func (o *FindAlertEvent200ResponseDataInner) SetMetric(v string) {
+	o.Metric = v
+}
+
+// GetMetricValue returns the MetricValue field value
+func (o *FindAlertEvent200ResponseDataInner) GetMetricValue() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.MetricValue
+}
+
+// GetMetricValueOk returns a tuple with the MetricValue field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetMetricValueOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MetricValue, true
+}
+
+// SetMetricValue sets field value
+func (o *FindAlertEvent200ResponseDataInner) SetMetricValue(v float32) {
+	o.MetricValue = v
+}
+
+// GetThreshold returns the Threshold field value
+func (o *FindAlertEvent200ResponseDataInner) GetThreshold() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Threshold
+}
+
+// GetThresholdOk returns a tuple with the Threshold field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetThresholdOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Threshold, true
+}
+
+// SetThreshold sets field value
+func (o *FindAlertEvent200ResponseDataInner) SetThreshold(v float32) {
+	o.Threshold = v
+}
+
+// GetSeverity returns the Severity field value
+func (o *FindAlertEvent200ResponseDataInner) GetSeverity() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Severity
+}
+
+// GetSeverityOk returns a tuple with the Severity field value
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetSeverityOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Severity, true
+}
+
+// SetSeverity sets field value
+func (o *FindAlertEvent200ResponseDataInner) SetSeverity(v string) {
+	o.Severity = v
+}
+
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *FindAlertEvent200ResponseDataInner) GetMessage() string {
+	if o == nil || IsNil(o.Message) {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.Message) {
+		return nil, false
+	}
+	return o.Message, true
+}
+
+// HasMessage returns a boolean if a field has been set.
+func (o *FindAlertEvent200ResponseDataInner) HasMessage() bool {
+	if o != nil && !IsNil(o.Message) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *FindAlertEvent200ResponseDataInner) SetMessage(v string) {
+	o.Message = &v
+}
+
+// GetNotifiedAt returns the NotifiedAt field value if set, zero value otherwise.
+func (o *FindAlertEvent200ResponseDataInner) GetNotifiedAt() time.Time {
+	if o == nil || IsNil(o.NotifiedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.NotifiedAt
+}
+
+// GetNotifiedAtOk returns a tuple with the NotifiedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetNotifiedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.NotifiedAt) {
+		return nil, false
+	}
+	return o.NotifiedAt, true
+}
+
+// HasNotifiedAt returns a boolean if a field has been set.
+func (o *FindAlertEvent200ResponseDataInner) HasNotifiedAt() bool {
+	if o != nil && !IsNil(o.NotifiedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotifiedAt gets a reference to the given time.Time and assigns it to the NotifiedAt field.
+func (o *FindAlertEvent200ResponseDataInner) SetNotifiedAt(v time.Time) {
+	o.NotifiedAt = &v
+}
+
+// GetResolvedAt returns the ResolvedAt field value if set, zero value otherwise.
+func (o *FindAlertEvent200ResponseDataInner) GetResolvedAt() time.Time {
+	if o == nil || IsNil(o.ResolvedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ResolvedAt
+}
+
+// GetResolvedAtOk returns a tuple with the ResolvedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetResolvedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ResolvedAt) {
+		return nil, false
+	}
+	return o.ResolvedAt, true
+}
+
+// HasResolvedAt returns a boolean if a field has been set.
+func (o *FindAlertEvent200ResponseDataInner) HasResolvedAt() bool {
+	if o != nil && !IsNil(o.ResolvedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetResolvedAt gets a reference to the given time.Time and assigns it to the ResolvedAt field.
+func (o *FindAlertEvent200ResponseDataInner) SetResolvedAt(v time.Time) {
+	o.ResolvedAt = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindAlertEvent200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindAlertEvent200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindAlertEvent200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindAlertEvent200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindAlertEvent200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindAlertEvent200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindAlertEvent200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindAlertEvent200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +507,6 @@ func (o *FindAlertEvent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindAlertEvent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindAlertEvent200ResponseDataInner) GetAttributes() AlertEvent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret AlertEvent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindAlertEvent200ResponseDataInner) GetAttributesOk() (*AlertEvent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindAlertEvent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given AlertEvent and assigns it to the Attributes field.
-func (o *FindAlertEvent200ResponseDataInner) SetAttributes(v AlertEvent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +625,40 @@ func (o FindAlertEvent200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindAlertEvent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AlertRule) {
+		toSerialize["alertRule"] = o.AlertRule
+	}
+	toSerialize["instanceId"] = o.InstanceId
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
+	if !IsNil(o.Region) {
+		toSerialize["region"] = o.Region
+	}
+	toSerialize["metric"] = o.Metric
+	toSerialize["metricValue"] = o.MetricValue
+	toSerialize["threshold"] = o.Threshold
+	toSerialize["severity"] = o.Severity
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.NotifiedAt) {
+		toSerialize["notifiedAt"] = o.NotifiedAt
+	}
+	if !IsNil(o.ResolvedAt) {
+		toSerialize["resolvedAt"] = o.ResolvedAt
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +670,47 @@ func (o FindAlertEvent200ResponseDataInner) ToMap() (map[string]interface{}, err
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindAlertEvent200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"instanceId",
+		"metric",
+		"metricValue",
+		"threshold",
+		"severity",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindAlertEvent200ResponseDataInner := _FindAlertEvent200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindAlertEvent200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindAlertEvent200ResponseDataInner(varFindAlertEvent200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindAlertEvent200ResponseDataInner struct {

@@ -33,7 +33,8 @@ type SlaReport struct {
 	TotalIncidents *int32 `json:"total_incidents,omitempty"`
 	P1Incidents *int32 `json:"p1_incidents,omitempty"`
 	SlaBreached *bool `json:"sla_breached,omitempty"`
-	BreachDetails map[string]interface{} `json:"breach_details,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	BreachDetails interface{} `json:"breach_details,omitempty"`
 	CreditPercentage *float32 `json:"credit_percentage,omitempty"`
 	PdfUrl *string `json:"pdf_url,omitempty"`
 	Status *string `json:"status,omitempty"`
@@ -364,10 +365,10 @@ func (o *SlaReport) SetSlaBreached(v bool) {
 	o.SlaBreached = &v
 }
 
-// GetBreachDetails returns the BreachDetails field value if set, zero value otherwise.
-func (o *SlaReport) GetBreachDetails() map[string]interface{} {
-	if o == nil || IsNil(o.BreachDetails) {
-		var ret map[string]interface{}
+// GetBreachDetails returns the BreachDetails field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SlaReport) GetBreachDetails() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.BreachDetails
@@ -375,11 +376,12 @@ func (o *SlaReport) GetBreachDetails() map[string]interface{} {
 
 // GetBreachDetailsOk returns a tuple with the BreachDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SlaReport) GetBreachDetailsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SlaReport) GetBreachDetailsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.BreachDetails) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.BreachDetails, true
+	return &o.BreachDetails, true
 }
 
 // HasBreachDetails returns a boolean if a field has been set.
@@ -391,8 +393,8 @@ func (o *SlaReport) HasBreachDetails() bool {
 	return false
 }
 
-// SetBreachDetails gets a reference to the given map[string]interface{} and assigns it to the BreachDetails field.
-func (o *SlaReport) SetBreachDetails(v map[string]interface{}) {
+// SetBreachDetails gets a reference to the given interface{} and assigns it to the BreachDetails field.
+func (o *SlaReport) SetBreachDetails(v interface{}) {
 	o.BreachDetails = v
 }
 
@@ -528,7 +530,7 @@ func (o SlaReport) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SlaBreached) {
 		toSerialize["sla_breached"] = o.SlaBreached
 	}
-	if !IsNil(o.BreachDetails) {
+	if o.BreachDetails != nil {
 		toSerialize["breach_details"] = o.BreachDetails
 	}
 	if !IsNil(o.CreditPercentage) {

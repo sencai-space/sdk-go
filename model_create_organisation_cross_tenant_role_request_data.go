@@ -25,7 +25,7 @@ type CreateOrganisationCrossTenantRoleRequestData struct {
 	Name string `json:"name"`
 	Description *string `json:"description,omitempty"`
 	// Array of capability strings like ['compute:read', 'network:*', '*:*']
-	Capabilities map[string]interface{} `json:"capabilities,omitempty"`
+	Capabilities interface{} `json:"capabilities,omitempty"`
 	// If true, applies to all managed tenants. If false, only tenant_subset.
 	ScopeAllTenants *bool `json:"scope_all_tenants,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
@@ -110,10 +110,10 @@ func (o *CreateOrganisationCrossTenantRoleRequestData) SetDescription(v string) 
 	o.Description = &v
 }
 
-// GetCapabilities returns the Capabilities field value if set, zero value otherwise.
-func (o *CreateOrganisationCrossTenantRoleRequestData) GetCapabilities() map[string]interface{} {
-	if o == nil || IsNil(o.Capabilities) {
-		var ret map[string]interface{}
+// GetCapabilities returns the Capabilities field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateOrganisationCrossTenantRoleRequestData) GetCapabilities() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Capabilities
@@ -121,11 +121,12 @@ func (o *CreateOrganisationCrossTenantRoleRequestData) GetCapabilities() map[str
 
 // GetCapabilitiesOk returns a tuple with the Capabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateOrganisationCrossTenantRoleRequestData) GetCapabilitiesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateOrganisationCrossTenantRoleRequestData) GetCapabilitiesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Capabilities) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Capabilities, true
+	return &o.Capabilities, true
 }
 
 // HasCapabilities returns a boolean if a field has been set.
@@ -137,8 +138,8 @@ func (o *CreateOrganisationCrossTenantRoleRequestData) HasCapabilities() bool {
 	return false
 }
 
-// SetCapabilities gets a reference to the given map[string]interface{} and assigns it to the Capabilities field.
-func (o *CreateOrganisationCrossTenantRoleRequestData) SetCapabilities(v map[string]interface{}) {
+// SetCapabilities gets a reference to the given interface{} and assigns it to the Capabilities field.
+func (o *CreateOrganisationCrossTenantRoleRequestData) SetCapabilities(v interface{}) {
 	o.Capabilities = v
 }
 
@@ -284,7 +285,7 @@ func (o CreateOrganisationCrossTenantRoleRequestData) ToMap() (map[string]interf
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.Capabilities) {
+	if o.Capabilities != nil {
 		toSerialize["capabilities"] = o.Capabilities
 	}
 	if !IsNil(o.ScopeAllTenants) {

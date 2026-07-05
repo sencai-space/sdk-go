@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindRcaCandidate200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindRcaCandidate200ResponseDataInner{}
 
 // FindRcaCandidate200ResponseDataInner struct for FindRcaCandidate200ResponseDataInner
 type FindRcaCandidate200ResponseDataInner struct {
+	IncidentId string `json:"incident_id"`
+	IncidentDocId string `json:"incident_doc_id"`
+	ProbableCause string `json:"probable_cause"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Evidence interface{} `json:"evidence,omitempty"`
+	Confidence *float32 `json:"confidence,omitempty"`
+	SuggestedFix *string `json:"suggested_fix,omitempty"`
+	Status *string `json:"status,omitempty"`
+	AnalysisModel *string `json:"analysis_model,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	GeneratedAt *time.Time `json:"generated_at,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *RcaCandidate `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindRcaCandidate200ResponseDataInner FindRcaCandidate200ResponseDataInner
+
 // NewFindRcaCandidate200ResponseDataInner instantiates a new FindRcaCandidate200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindRcaCandidate200ResponseDataInner() *FindRcaCandidate200ResponseDataInner {
+func NewFindRcaCandidate200ResponseDataInner(incidentId string, incidentDocId string, probableCause string) *FindRcaCandidate200ResponseDataInner {
 	this := FindRcaCandidate200ResponseDataInner{}
+	this.IncidentId = incidentId
+	this.IncidentDocId = incidentDocId
+	this.ProbableCause = probableCause
 	return &this
 }
 
@@ -44,6 +61,303 @@ func NewFindRcaCandidate200ResponseDataInner() *FindRcaCandidate200ResponseDataI
 func NewFindRcaCandidate200ResponseDataInnerWithDefaults() *FindRcaCandidate200ResponseDataInner {
 	this := FindRcaCandidate200ResponseDataInner{}
 	return &this
+}
+
+// GetIncidentId returns the IncidentId field value
+func (o *FindRcaCandidate200ResponseDataInner) GetIncidentId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.IncidentId
+}
+
+// GetIncidentIdOk returns a tuple with the IncidentId field value
+// and a boolean to check if the value has been set.
+func (o *FindRcaCandidate200ResponseDataInner) GetIncidentIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IncidentId, true
+}
+
+// SetIncidentId sets field value
+func (o *FindRcaCandidate200ResponseDataInner) SetIncidentId(v string) {
+	o.IncidentId = v
+}
+
+// GetIncidentDocId returns the IncidentDocId field value
+func (o *FindRcaCandidate200ResponseDataInner) GetIncidentDocId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.IncidentDocId
+}
+
+// GetIncidentDocIdOk returns a tuple with the IncidentDocId field value
+// and a boolean to check if the value has been set.
+func (o *FindRcaCandidate200ResponseDataInner) GetIncidentDocIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IncidentDocId, true
+}
+
+// SetIncidentDocId sets field value
+func (o *FindRcaCandidate200ResponseDataInner) SetIncidentDocId(v string) {
+	o.IncidentDocId = v
+}
+
+// GetProbableCause returns the ProbableCause field value
+func (o *FindRcaCandidate200ResponseDataInner) GetProbableCause() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ProbableCause
+}
+
+// GetProbableCauseOk returns a tuple with the ProbableCause field value
+// and a boolean to check if the value has been set.
+func (o *FindRcaCandidate200ResponseDataInner) GetProbableCauseOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ProbableCause, true
+}
+
+// SetProbableCause sets field value
+func (o *FindRcaCandidate200ResponseDataInner) SetProbableCause(v string) {
+	o.ProbableCause = v
+}
+
+// GetEvidence returns the Evidence field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindRcaCandidate200ResponseDataInner) GetEvidence() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Evidence
+}
+
+// GetEvidenceOk returns a tuple with the Evidence field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindRcaCandidate200ResponseDataInner) GetEvidenceOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Evidence) {
+		return nil, false
+	}
+	return &o.Evidence, true
+}
+
+// HasEvidence returns a boolean if a field has been set.
+func (o *FindRcaCandidate200ResponseDataInner) HasEvidence() bool {
+	if o != nil && !IsNil(o.Evidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvidence gets a reference to the given interface{} and assigns it to the Evidence field.
+func (o *FindRcaCandidate200ResponseDataInner) SetEvidence(v interface{}) {
+	o.Evidence = v
+}
+
+// GetConfidence returns the Confidence field value if set, zero value otherwise.
+func (o *FindRcaCandidate200ResponseDataInner) GetConfidence() float32 {
+	if o == nil || IsNil(o.Confidence) {
+		var ret float32
+		return ret
+	}
+	return *o.Confidence
+}
+
+// GetConfidenceOk returns a tuple with the Confidence field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRcaCandidate200ResponseDataInner) GetConfidenceOk() (*float32, bool) {
+	if o == nil || IsNil(o.Confidence) {
+		return nil, false
+	}
+	return o.Confidence, true
+}
+
+// HasConfidence returns a boolean if a field has been set.
+func (o *FindRcaCandidate200ResponseDataInner) HasConfidence() bool {
+	if o != nil && !IsNil(o.Confidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfidence gets a reference to the given float32 and assigns it to the Confidence field.
+func (o *FindRcaCandidate200ResponseDataInner) SetConfidence(v float32) {
+	o.Confidence = &v
+}
+
+// GetSuggestedFix returns the SuggestedFix field value if set, zero value otherwise.
+func (o *FindRcaCandidate200ResponseDataInner) GetSuggestedFix() string {
+	if o == nil || IsNil(o.SuggestedFix) {
+		var ret string
+		return ret
+	}
+	return *o.SuggestedFix
+}
+
+// GetSuggestedFixOk returns a tuple with the SuggestedFix field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRcaCandidate200ResponseDataInner) GetSuggestedFixOk() (*string, bool) {
+	if o == nil || IsNil(o.SuggestedFix) {
+		return nil, false
+	}
+	return o.SuggestedFix, true
+}
+
+// HasSuggestedFix returns a boolean if a field has been set.
+func (o *FindRcaCandidate200ResponseDataInner) HasSuggestedFix() bool {
+	if o != nil && !IsNil(o.SuggestedFix) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuggestedFix gets a reference to the given string and assigns it to the SuggestedFix field.
+func (o *FindRcaCandidate200ResponseDataInner) SetSuggestedFix(v string) {
+	o.SuggestedFix = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindRcaCandidate200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRcaCandidate200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindRcaCandidate200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindRcaCandidate200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetAnalysisModel returns the AnalysisModel field value if set, zero value otherwise.
+func (o *FindRcaCandidate200ResponseDataInner) GetAnalysisModel() string {
+	if o == nil || IsNil(o.AnalysisModel) {
+		var ret string
+		return ret
+	}
+	return *o.AnalysisModel
+}
+
+// GetAnalysisModelOk returns a tuple with the AnalysisModel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRcaCandidate200ResponseDataInner) GetAnalysisModelOk() (*string, bool) {
+	if o == nil || IsNil(o.AnalysisModel) {
+		return nil, false
+	}
+	return o.AnalysisModel, true
+}
+
+// HasAnalysisModel returns a boolean if a field has been set.
+func (o *FindRcaCandidate200ResponseDataInner) HasAnalysisModel() bool {
+	if o != nil && !IsNil(o.AnalysisModel) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnalysisModel gets a reference to the given string and assigns it to the AnalysisModel field.
+func (o *FindRcaCandidate200ResponseDataInner) SetAnalysisModel(v string) {
+	o.AnalysisModel = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindRcaCandidate200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRcaCandidate200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindRcaCandidate200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindRcaCandidate200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetGeneratedAt returns the GeneratedAt field value if set, zero value otherwise.
+func (o *FindRcaCandidate200ResponseDataInner) GetGeneratedAt() time.Time {
+	if o == nil || IsNil(o.GeneratedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.GeneratedAt
+}
+
+// GetGeneratedAtOk returns a tuple with the GeneratedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindRcaCandidate200ResponseDataInner) GetGeneratedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.GeneratedAt) {
+		return nil, false
+	}
+	return o.GeneratedAt, true
+}
+
+// HasGeneratedAt returns a boolean if a field has been set.
+func (o *FindRcaCandidate200ResponseDataInner) HasGeneratedAt() bool {
+	if o != nil && !IsNil(o.GeneratedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetGeneratedAt gets a reference to the given time.Time and assigns it to the GeneratedAt field.
+func (o *FindRcaCandidate200ResponseDataInner) SetGeneratedAt(v time.Time) {
+	o.GeneratedAt = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +422,6 @@ func (o *FindRcaCandidate200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindRcaCandidate200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindRcaCandidate200ResponseDataInner) GetAttributes() RcaCandidate {
-	if o == nil || IsNil(o.Attributes) {
-		var ret RcaCandidate
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindRcaCandidate200ResponseDataInner) GetAttributesOk() (*RcaCandidate, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindRcaCandidate200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given RcaCandidate and assigns it to the Attributes field.
-func (o *FindRcaCandidate200ResponseDataInner) SetAttributes(v RcaCandidate) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +540,35 @@ func (o FindRcaCandidate200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindRcaCandidate200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["incident_id"] = o.IncidentId
+	toSerialize["incident_doc_id"] = o.IncidentDocId
+	toSerialize["probable_cause"] = o.ProbableCause
+	if o.Evidence != nil {
+		toSerialize["evidence"] = o.Evidence
+	}
+	if !IsNil(o.Confidence) {
+		toSerialize["confidence"] = o.Confidence
+	}
+	if !IsNil(o.SuggestedFix) {
+		toSerialize["suggested_fix"] = o.SuggestedFix
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.AnalysisModel) {
+		toSerialize["analysis_model"] = o.AnalysisModel
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.GeneratedAt) {
+		toSerialize["generated_at"] = o.GeneratedAt
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +580,45 @@ func (o FindRcaCandidate200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindRcaCandidate200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"incident_id",
+		"incident_doc_id",
+		"probable_cause",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindRcaCandidate200ResponseDataInner := _FindRcaCandidate200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindRcaCandidate200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindRcaCandidate200ResponseDataInner(varFindRcaCandidate200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindRcaCandidate200ResponseDataInner struct {

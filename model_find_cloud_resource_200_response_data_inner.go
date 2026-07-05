@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCloudResource200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,61 @@ var _ MappedNullable = &FindCloudResource200ResponseDataInner{}
 
 // FindCloudResource200ResponseDataInner struct for FindCloudResource200ResponseDataInner
 type FindCloudResource200ResponseDataInner struct {
+	Name string `json:"name"`
+	// Diskriminátor typu zdroje (ResourceKind v cloud-connectoru).
+	Kind string `json:"kind"`
+	// Konkrétní managed služba (jen pro kind=managed-db / object-storage).
+	ServiceType *string `json:"service_type,omitempty"`
+	Provider string `json:"provider"`
+	Region string `json:"region"`
+	Status string `json:"status"`
+	// Provider-side identifikátor zdroje (ARN / resource id / bucket name).
+	ExternalId *string `json:"external_id,omitempty"`
+	// Požadovaná kind-specifická konfigurace (ManagedDatabaseSpec / ObjectStorageSpec / CloudConfig).
+	Spec interface{} `json:"spec,omitempty"`
+	// Provider výstupy (ip, endpoint, bucket url, …) — bez secretů.
+	Outputs interface{} `json:"outputs,omitempty"`
+	// DB host:port nebo URL bucketu (bez credentials).
+	Endpoint *string `json:"endpoint,omitempty"`
+	// AES-256-GCM šifrovaný connection string / přístupový secret. NIKDY se nevrací v API plaintext.
+	ConnectionSecret *string `json:"connection_secret,omitempty"`
+	MonthlyCost *float32 `json:"monthly_cost,omitempty"`
+	Currency string `json:"currency"`
+	ErrorMessage *string `json:"error_message,omitempty"`
+	ProvisionedAt *time.Time `json:"provisioned_at,omitempty"`
+	TerminatedAt *time.Time `json:"terminated_at,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	CreatedByUser *CreateAccessReviewRequestDataReviewer `json:"created_by_user,omitempty"`
+	Credential *CreateAccessReviewRequestDataReviewer `json:"credential,omitempty"`
+	CloudInstance *CreateAccessReviewRequestDataReviewer `json:"cloud_instance,omitempty"`
+	// Logical data-residency region of the tenant (CELL invariant, F2.CELL.01)
+	HomeRegion string `json:"home_region"`
+	// Deployment cell within home_region for blast-radius isolation (CELL invariant, F2.CELL.01)
+	CellId *string `json:"cell_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CloudResource `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCloudResource200ResponseDataInner FindCloudResource200ResponseDataInner
+
 // NewFindCloudResource200ResponseDataInner instantiates a new FindCloudResource200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCloudResource200ResponseDataInner() *FindCloudResource200ResponseDataInner {
+func NewFindCloudResource200ResponseDataInner(name string, kind string, provider string, region string, status string, currency string, homeRegion string) *FindCloudResource200ResponseDataInner {
 	this := FindCloudResource200ResponseDataInner{}
+	this.Name = name
+	this.Kind = kind
+	this.Provider = provider
+	this.Region = region
+	this.Status = status
+	this.Currency = currency
+	this.HomeRegion = homeRegion
 	return &this
 }
 
@@ -44,6 +87,689 @@ func NewFindCloudResource200ResponseDataInner() *FindCloudResource200ResponseDat
 func NewFindCloudResource200ResponseDataInnerWithDefaults() *FindCloudResource200ResponseDataInner {
 	this := FindCloudResource200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCloudResource200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCloudResource200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetKind returns the Kind field value
+func (o *FindCloudResource200ResponseDataInner) GetKind() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Kind
+}
+
+// GetKindOk returns a tuple with the Kind field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetKindOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Kind, true
+}
+
+// SetKind sets field value
+func (o *FindCloudResource200ResponseDataInner) SetKind(v string) {
+	o.Kind = v
+}
+
+// GetServiceType returns the ServiceType field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetServiceType() string {
+	if o == nil || IsNil(o.ServiceType) {
+		var ret string
+		return ret
+	}
+	return *o.ServiceType
+}
+
+// GetServiceTypeOk returns a tuple with the ServiceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetServiceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ServiceType) {
+		return nil, false
+	}
+	return o.ServiceType, true
+}
+
+// HasServiceType returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasServiceType() bool {
+	if o != nil && !IsNil(o.ServiceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceType gets a reference to the given string and assigns it to the ServiceType field.
+func (o *FindCloudResource200ResponseDataInner) SetServiceType(v string) {
+	o.ServiceType = &v
+}
+
+// GetProvider returns the Provider field value
+func (o *FindCloudResource200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindCloudResource200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetRegion returns the Region field value
+func (o *FindCloudResource200ResponseDataInner) GetRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Region
+}
+
+// GetRegionOk returns a tuple with the Region field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Region, true
+}
+
+// SetRegion sets field value
+func (o *FindCloudResource200ResponseDataInner) SetRegion(v string) {
+	o.Region = v
+}
+
+// GetStatus returns the Status field value
+func (o *FindCloudResource200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindCloudResource200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetExternalId() string {
+	if o == nil || IsNil(o.ExternalId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetExternalIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalId) {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasExternalId() bool {
+	if o != nil && !IsNil(o.ExternalId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *FindCloudResource200ResponseDataInner) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetSpec returns the Spec field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudResource200ResponseDataInner) GetSpec() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Spec
+}
+
+// GetSpecOk returns a tuple with the Spec field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudResource200ResponseDataInner) GetSpecOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Spec) {
+		return nil, false
+	}
+	return &o.Spec, true
+}
+
+// HasSpec returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasSpec() bool {
+	if o != nil && !IsNil(o.Spec) {
+		return true
+	}
+
+	return false
+}
+
+// SetSpec gets a reference to the given interface{} and assigns it to the Spec field.
+func (o *FindCloudResource200ResponseDataInner) SetSpec(v interface{}) {
+	o.Spec = v
+}
+
+// GetOutputs returns the Outputs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudResource200ResponseDataInner) GetOutputs() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Outputs
+}
+
+// GetOutputsOk returns a tuple with the Outputs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudResource200ResponseDataInner) GetOutputsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Outputs) {
+		return nil, false
+	}
+	return &o.Outputs, true
+}
+
+// HasOutputs returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasOutputs() bool {
+	if o != nil && !IsNil(o.Outputs) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutputs gets a reference to the given interface{} and assigns it to the Outputs field.
+func (o *FindCloudResource200ResponseDataInner) SetOutputs(v interface{}) {
+	o.Outputs = v
+}
+
+// GetEndpoint returns the Endpoint field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetEndpoint() string {
+	if o == nil || IsNil(o.Endpoint) {
+		var ret string
+		return ret
+	}
+	return *o.Endpoint
+}
+
+// GetEndpointOk returns a tuple with the Endpoint field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetEndpointOk() (*string, bool) {
+	if o == nil || IsNil(o.Endpoint) {
+		return nil, false
+	}
+	return o.Endpoint, true
+}
+
+// HasEndpoint returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasEndpoint() bool {
+	if o != nil && !IsNil(o.Endpoint) {
+		return true
+	}
+
+	return false
+}
+
+// SetEndpoint gets a reference to the given string and assigns it to the Endpoint field.
+func (o *FindCloudResource200ResponseDataInner) SetEndpoint(v string) {
+	o.Endpoint = &v
+}
+
+// GetConnectionSecret returns the ConnectionSecret field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetConnectionSecret() string {
+	if o == nil || IsNil(o.ConnectionSecret) {
+		var ret string
+		return ret
+	}
+	return *o.ConnectionSecret
+}
+
+// GetConnectionSecretOk returns a tuple with the ConnectionSecret field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetConnectionSecretOk() (*string, bool) {
+	if o == nil || IsNil(o.ConnectionSecret) {
+		return nil, false
+	}
+	return o.ConnectionSecret, true
+}
+
+// HasConnectionSecret returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasConnectionSecret() bool {
+	if o != nil && !IsNil(o.ConnectionSecret) {
+		return true
+	}
+
+	return false
+}
+
+// SetConnectionSecret gets a reference to the given string and assigns it to the ConnectionSecret field.
+func (o *FindCloudResource200ResponseDataInner) SetConnectionSecret(v string) {
+	o.ConnectionSecret = &v
+}
+
+// GetMonthlyCost returns the MonthlyCost field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetMonthlyCost() float32 {
+	if o == nil || IsNil(o.MonthlyCost) {
+		var ret float32
+		return ret
+	}
+	return *o.MonthlyCost
+}
+
+// GetMonthlyCostOk returns a tuple with the MonthlyCost field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetMonthlyCostOk() (*float32, bool) {
+	if o == nil || IsNil(o.MonthlyCost) {
+		return nil, false
+	}
+	return o.MonthlyCost, true
+}
+
+// HasMonthlyCost returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasMonthlyCost() bool {
+	if o != nil && !IsNil(o.MonthlyCost) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonthlyCost gets a reference to the given float32 and assigns it to the MonthlyCost field.
+func (o *FindCloudResource200ResponseDataInner) SetMonthlyCost(v float32) {
+	o.MonthlyCost = &v
+}
+
+// GetCurrency returns the Currency field value
+func (o *FindCloudResource200ResponseDataInner) GetCurrency() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetCurrencyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Currency, true
+}
+
+// SetCurrency sets field value
+func (o *FindCloudResource200ResponseDataInner) SetCurrency(v string) {
+	o.Currency = v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindCloudResource200ResponseDataInner) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
+}
+
+// GetProvisionedAt returns the ProvisionedAt field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetProvisionedAt() time.Time {
+	if o == nil || IsNil(o.ProvisionedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ProvisionedAt
+}
+
+// GetProvisionedAtOk returns a tuple with the ProvisionedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetProvisionedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ProvisionedAt) {
+		return nil, false
+	}
+	return o.ProvisionedAt, true
+}
+
+// HasProvisionedAt returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasProvisionedAt() bool {
+	if o != nil && !IsNil(o.ProvisionedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvisionedAt gets a reference to the given time.Time and assigns it to the ProvisionedAt field.
+func (o *FindCloudResource200ResponseDataInner) SetProvisionedAt(v time.Time) {
+	o.ProvisionedAt = &v
+}
+
+// GetTerminatedAt returns the TerminatedAt field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetTerminatedAt() time.Time {
+	if o == nil || IsNil(o.TerminatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.TerminatedAt
+}
+
+// GetTerminatedAtOk returns a tuple with the TerminatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetTerminatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.TerminatedAt) {
+		return nil, false
+	}
+	return o.TerminatedAt, true
+}
+
+// HasTerminatedAt returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasTerminatedAt() bool {
+	if o != nil && !IsNil(o.TerminatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetTerminatedAt gets a reference to the given time.Time and assigns it to the TerminatedAt field.
+func (o *FindCloudResource200ResponseDataInner) SetTerminatedAt(v time.Time) {
+	o.TerminatedAt = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindCloudResource200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindCloudResource200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindCloudResource200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCloudResource200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetCreatedByUser returns the CreatedByUser field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetCreatedByUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CreatedByUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CreatedByUser
+}
+
+// GetCreatedByUserOk returns a tuple with the CreatedByUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetCreatedByUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CreatedByUser) {
+		return nil, false
+	}
+	return o.CreatedByUser, true
+}
+
+// HasCreatedByUser returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasCreatedByUser() bool {
+	if o != nil && !IsNil(o.CreatedByUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedByUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CreatedByUser field.
+func (o *FindCloudResource200ResponseDataInner) SetCreatedByUser(v CreateAccessReviewRequestDataReviewer) {
+	o.CreatedByUser = &v
+}
+
+// GetCredential returns the Credential field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetCredential() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Credential) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Credential
+}
+
+// GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetCredentialOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Credential) {
+		return nil, false
+	}
+	return o.Credential, true
+}
+
+// HasCredential returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasCredential() bool {
+	if o != nil && !IsNil(o.Credential) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredential gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Credential field.
+func (o *FindCloudResource200ResponseDataInner) SetCredential(v CreateAccessReviewRequestDataReviewer) {
+	o.Credential = &v
+}
+
+// GetCloudInstance returns the CloudInstance field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetCloudInstance() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CloudInstance) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CloudInstance
+}
+
+// GetCloudInstanceOk returns a tuple with the CloudInstance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetCloudInstanceOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CloudInstance) {
+		return nil, false
+	}
+	return o.CloudInstance, true
+}
+
+// HasCloudInstance returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasCloudInstance() bool {
+	if o != nil && !IsNil(o.CloudInstance) {
+		return true
+	}
+
+	return false
+}
+
+// SetCloudInstance gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CloudInstance field.
+func (o *FindCloudResource200ResponseDataInner) SetCloudInstance(v CreateAccessReviewRequestDataReviewer) {
+	o.CloudInstance = &v
+}
+
+// GetHomeRegion returns the HomeRegion field value
+func (o *FindCloudResource200ResponseDataInner) GetHomeRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.HomeRegion
+}
+
+// GetHomeRegionOk returns a tuple with the HomeRegion field value
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetHomeRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HomeRegion, true
+}
+
+// SetHomeRegion sets field value
+func (o *FindCloudResource200ResponseDataInner) SetHomeRegion(v string) {
+	o.HomeRegion = v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindCloudResource200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCloudResource200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindCloudResource200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindCloudResource200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +834,6 @@ func (o *FindCloudResource200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCloudResource200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCloudResource200ResponseDataInner) GetAttributes() CloudResource {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CloudResource
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCloudResource200ResponseDataInner) GetAttributesOk() (*CloudResource, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCloudResource200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CloudResource and assigns it to the Attributes field.
-func (o *FindCloudResource200ResponseDataInner) SetAttributes(v CloudResource) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +952,66 @@ func (o FindCloudResource200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindCloudResource200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["kind"] = o.Kind
+	if !IsNil(o.ServiceType) {
+		toSerialize["service_type"] = o.ServiceType
+	}
+	toSerialize["provider"] = o.Provider
+	toSerialize["region"] = o.Region
+	toSerialize["status"] = o.Status
+	if !IsNil(o.ExternalId) {
+		toSerialize["external_id"] = o.ExternalId
+	}
+	if o.Spec != nil {
+		toSerialize["spec"] = o.Spec
+	}
+	if o.Outputs != nil {
+		toSerialize["outputs"] = o.Outputs
+	}
+	if !IsNil(o.Endpoint) {
+		toSerialize["endpoint"] = o.Endpoint
+	}
+	if !IsNil(o.ConnectionSecret) {
+		toSerialize["connection_secret"] = o.ConnectionSecret
+	}
+	if !IsNil(o.MonthlyCost) {
+		toSerialize["monthly_cost"] = o.MonthlyCost
+	}
+	toSerialize["currency"] = o.Currency
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
+	if !IsNil(o.ProvisionedAt) {
+		toSerialize["provisioned_at"] = o.ProvisionedAt
+	}
+	if !IsNil(o.TerminatedAt) {
+		toSerialize["terminated_at"] = o.TerminatedAt
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.CreatedByUser) {
+		toSerialize["created_by_user"] = o.CreatedByUser
+	}
+	if !IsNil(o.Credential) {
+		toSerialize["credential"] = o.Credential
+	}
+	if !IsNil(o.CloudInstance) {
+		toSerialize["cloud_instance"] = o.CloudInstance
+	}
+	toSerialize["home_region"] = o.HomeRegion
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +1023,49 @@ func (o FindCloudResource200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCloudResource200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"kind",
+		"provider",
+		"region",
+		"status",
+		"currency",
+		"home_region",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCloudResource200ResponseDataInner := _FindCloudResource200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCloudResource200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCloudResource200ResponseDataInner(varFindCloudResource200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCloudResource200ResponseDataInner struct {

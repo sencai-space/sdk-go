@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindIssueSyncConfig200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,31 @@ var _ MappedNullable = &FindIssueSyncConfig200ResponseDataInner{}
 
 // FindIssueSyncConfig200ResponseDataInner struct for FindIssueSyncConfig200ResponseDataInner
 type FindIssueSyncConfig200ResponseDataInner struct {
+	Provider string `json:"provider"`
+	RepoUrl string `json:"repo_url"`
+	ApiTokenEncrypted *string `json:"api_token_encrypted,omitempty"`
+	SyncDirection *string `json:"sync_direction,omitempty"`
+	LabelFilter *string `json:"label_filter,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	LastSyncAt *time.Time `json:"last_sync_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *IssueSyncConfig `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindIssueSyncConfig200ResponseDataInner FindIssueSyncConfig200ResponseDataInner
+
 // NewFindIssueSyncConfig200ResponseDataInner instantiates a new FindIssueSyncConfig200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindIssueSyncConfig200ResponseDataInner() *FindIssueSyncConfig200ResponseDataInner {
+func NewFindIssueSyncConfig200ResponseDataInner(provider string, repoUrl string) *FindIssueSyncConfig200ResponseDataInner {
 	this := FindIssueSyncConfig200ResponseDataInner{}
+	this.Provider = provider
+	this.RepoUrl = repoUrl
 	return &this
 }
 
@@ -44,6 +57,246 @@ func NewFindIssueSyncConfig200ResponseDataInner() *FindIssueSyncConfig200Respons
 func NewFindIssueSyncConfig200ResponseDataInnerWithDefaults() *FindIssueSyncConfig200ResponseDataInner {
 	this := FindIssueSyncConfig200ResponseDataInner{}
 	return &this
+}
+
+// GetProvider returns the Provider field value
+func (o *FindIssueSyncConfig200ResponseDataInner) GetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value
+// and a boolean to check if the value has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Provider, true
+}
+
+// SetProvider sets field value
+func (o *FindIssueSyncConfig200ResponseDataInner) SetProvider(v string) {
+	o.Provider = v
+}
+
+// GetRepoUrl returns the RepoUrl field value
+func (o *FindIssueSyncConfig200ResponseDataInner) GetRepoUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RepoUrl
+}
+
+// GetRepoUrlOk returns a tuple with the RepoUrl field value
+// and a boolean to check if the value has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetRepoUrlOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RepoUrl, true
+}
+
+// SetRepoUrl sets field value
+func (o *FindIssueSyncConfig200ResponseDataInner) SetRepoUrl(v string) {
+	o.RepoUrl = v
+}
+
+// GetApiTokenEncrypted returns the ApiTokenEncrypted field value if set, zero value otherwise.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetApiTokenEncrypted() string {
+	if o == nil || IsNil(o.ApiTokenEncrypted) {
+		var ret string
+		return ret
+	}
+	return *o.ApiTokenEncrypted
+}
+
+// GetApiTokenEncryptedOk returns a tuple with the ApiTokenEncrypted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetApiTokenEncryptedOk() (*string, bool) {
+	if o == nil || IsNil(o.ApiTokenEncrypted) {
+		return nil, false
+	}
+	return o.ApiTokenEncrypted, true
+}
+
+// HasApiTokenEncrypted returns a boolean if a field has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) HasApiTokenEncrypted() bool {
+	if o != nil && !IsNil(o.ApiTokenEncrypted) {
+		return true
+	}
+
+	return false
+}
+
+// SetApiTokenEncrypted gets a reference to the given string and assigns it to the ApiTokenEncrypted field.
+func (o *FindIssueSyncConfig200ResponseDataInner) SetApiTokenEncrypted(v string) {
+	o.ApiTokenEncrypted = &v
+}
+
+// GetSyncDirection returns the SyncDirection field value if set, zero value otherwise.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetSyncDirection() string {
+	if o == nil || IsNil(o.SyncDirection) {
+		var ret string
+		return ret
+	}
+	return *o.SyncDirection
+}
+
+// GetSyncDirectionOk returns a tuple with the SyncDirection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetSyncDirectionOk() (*string, bool) {
+	if o == nil || IsNil(o.SyncDirection) {
+		return nil, false
+	}
+	return o.SyncDirection, true
+}
+
+// HasSyncDirection returns a boolean if a field has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) HasSyncDirection() bool {
+	if o != nil && !IsNil(o.SyncDirection) {
+		return true
+	}
+
+	return false
+}
+
+// SetSyncDirection gets a reference to the given string and assigns it to the SyncDirection field.
+func (o *FindIssueSyncConfig200ResponseDataInner) SetSyncDirection(v string) {
+	o.SyncDirection = &v
+}
+
+// GetLabelFilter returns the LabelFilter field value if set, zero value otherwise.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetLabelFilter() string {
+	if o == nil || IsNil(o.LabelFilter) {
+		var ret string
+		return ret
+	}
+	return *o.LabelFilter
+}
+
+// GetLabelFilterOk returns a tuple with the LabelFilter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetLabelFilterOk() (*string, bool) {
+	if o == nil || IsNil(o.LabelFilter) {
+		return nil, false
+	}
+	return o.LabelFilter, true
+}
+
+// HasLabelFilter returns a boolean if a field has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) HasLabelFilter() bool {
+	if o != nil && !IsNil(o.LabelFilter) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabelFilter gets a reference to the given string and assigns it to the LabelFilter field.
+func (o *FindIssueSyncConfig200ResponseDataInner) SetLabelFilter(v string) {
+	o.LabelFilter = &v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindIssueSyncConfig200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetLastSyncAt returns the LastSyncAt field value if set, zero value otherwise.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetLastSyncAt() time.Time {
+	if o == nil || IsNil(o.LastSyncAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSyncAt
+}
+
+// GetLastSyncAtOk returns a tuple with the LastSyncAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetLastSyncAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSyncAt) {
+		return nil, false
+	}
+	return o.LastSyncAt, true
+}
+
+// HasLastSyncAt returns a boolean if a field has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) HasLastSyncAt() bool {
+	if o != nil && !IsNil(o.LastSyncAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSyncAt gets a reference to the given time.Time and assigns it to the LastSyncAt field.
+func (o *FindIssueSyncConfig200ResponseDataInner) SetLastSyncAt(v time.Time) {
+	o.LastSyncAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindIssueSyncConfig200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindIssueSyncConfig200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +361,6 @@ func (o *FindIssueSyncConfig200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindIssueSyncConfig200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindIssueSyncConfig200ResponseDataInner) GetAttributes() IssueSyncConfig {
-	if o == nil || IsNil(o.Attributes) {
-		var ret IssueSyncConfig
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindIssueSyncConfig200ResponseDataInner) GetAttributesOk() (*IssueSyncConfig, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindIssueSyncConfig200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given IssueSyncConfig and assigns it to the Attributes field.
-func (o *FindIssueSyncConfig200ResponseDataInner) SetAttributes(v IssueSyncConfig) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +479,31 @@ func (o FindIssueSyncConfig200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindIssueSyncConfig200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["provider"] = o.Provider
+	toSerialize["repo_url"] = o.RepoUrl
+	if !IsNil(o.ApiTokenEncrypted) {
+		toSerialize["api_token_encrypted"] = o.ApiTokenEncrypted
+	}
+	if !IsNil(o.SyncDirection) {
+		toSerialize["sync_direction"] = o.SyncDirection
+	}
+	if !IsNil(o.LabelFilter) {
+		toSerialize["label_filter"] = o.LabelFilter
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.LastSyncAt) {
+		toSerialize["last_sync_at"] = o.LastSyncAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +515,44 @@ func (o FindIssueSyncConfig200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindIssueSyncConfig200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"provider",
+		"repo_url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindIssueSyncConfig200ResponseDataInner := _FindIssueSyncConfig200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindIssueSyncConfig200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindIssueSyncConfig200ResponseDataInner(varFindIssueSyncConfig200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindIssueSyncConfig200ResponseDataInner struct {

@@ -31,7 +31,7 @@ type CostAllocationRule struct {
 	// Split algorithm. 'even' = equal split; 'custom' = use weights JSON; 'usage-weighted' = usage metric split (v1: treated as even).
 	Algorithm string `json:"algorithm"`
 	// For custom algorithm: { \"team-a\": 40, \"team-b\": 35, \"team-c\": 25 } — percentages summing to 100.
-	Weights map[string]interface{} `json:"weights,omitempty"`
+	Weights interface{} `json:"weights,omitempty"`
 	// Which tag key to group cost recipients by (default: 'cost-center').
 	AllocationTagKey *string `json:"allocation_tag_key,omitempty"`
 	// Date from which this rule is effective.
@@ -172,10 +172,10 @@ func (o *CostAllocationRule) SetAlgorithm(v string) {
 	o.Algorithm = v
 }
 
-// GetWeights returns the Weights field value if set, zero value otherwise.
-func (o *CostAllocationRule) GetWeights() map[string]interface{} {
-	if o == nil || IsNil(o.Weights) {
-		var ret map[string]interface{}
+// GetWeights returns the Weights field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CostAllocationRule) GetWeights() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Weights
@@ -183,11 +183,12 @@ func (o *CostAllocationRule) GetWeights() map[string]interface{} {
 
 // GetWeightsOk returns a tuple with the Weights field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CostAllocationRule) GetWeightsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CostAllocationRule) GetWeightsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Weights) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Weights, true
+	return &o.Weights, true
 }
 
 // HasWeights returns a boolean if a field has been set.
@@ -199,8 +200,8 @@ func (o *CostAllocationRule) HasWeights() bool {
 	return false
 }
 
-// SetWeights gets a reference to the given map[string]interface{} and assigns it to the Weights field.
-func (o *CostAllocationRule) SetWeights(v map[string]interface{}) {
+// SetWeights gets a reference to the given interface{} and assigns it to the Weights field.
+func (o *CostAllocationRule) SetWeights(v interface{}) {
 	o.Weights = v
 }
 
@@ -404,7 +405,7 @@ func (o CostAllocationRule) ToMap() (map[string]interface{}, error) {
 		toSerialize["resource_type"] = o.ResourceType
 	}
 	toSerialize["algorithm"] = o.Algorithm
-	if !IsNil(o.Weights) {
+	if o.Weights != nil {
 		toSerialize["weights"] = o.Weights
 	}
 	if !IsNil(o.AllocationTagKey) {

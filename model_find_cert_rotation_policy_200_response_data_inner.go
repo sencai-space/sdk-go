@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCertRotationPolicy200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,31 @@ var _ MappedNullable = &FindCertRotationPolicy200ResponseDataInner{}
 
 // FindCertRotationPolicy200ResponseDataInner struct for FindCertRotationPolicy200ResponseDataInner
 type FindCertRotationPolicy200ResponseDataInner struct {
+	ServiceName string `json:"service_name"`
+	CertFingerprint *string `json:"cert_fingerprint,omitempty"`
+	CertExpiresAt *time.Time `json:"cert_expires_at,omitempty"`
+	LastRotatedAt *time.Time `json:"last_rotated_at,omitempty"`
+	RotationIntervalDays *int32 `json:"rotation_interval_days,omitempty"`
+	AutoRotate *bool `json:"auto_rotate,omitempty"`
+	LastRotationStatus *string `json:"last_rotation_status,omitempty"`
+	RotationError *string `json:"rotation_error,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CertRotationPolicy `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCertRotationPolicy200ResponseDataInner FindCertRotationPolicy200ResponseDataInner
+
 // NewFindCertRotationPolicy200ResponseDataInner instantiates a new FindCertRotationPolicy200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCertRotationPolicy200ResponseDataInner() *FindCertRotationPolicy200ResponseDataInner {
+func NewFindCertRotationPolicy200ResponseDataInner(serviceName string) *FindCertRotationPolicy200ResponseDataInner {
 	this := FindCertRotationPolicy200ResponseDataInner{}
+	this.ServiceName = serviceName
 	return &this
 }
 
@@ -44,6 +57,286 @@ func NewFindCertRotationPolicy200ResponseDataInner() *FindCertRotationPolicy200R
 func NewFindCertRotationPolicy200ResponseDataInnerWithDefaults() *FindCertRotationPolicy200ResponseDataInner {
 	this := FindCertRotationPolicy200ResponseDataInner{}
 	return &this
+}
+
+// GetServiceName returns the ServiceName field value
+func (o *FindCertRotationPolicy200ResponseDataInner) GetServiceName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ServiceName
+}
+
+// GetServiceNameOk returns a tuple with the ServiceName field value
+// and a boolean to check if the value has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetServiceNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ServiceName, true
+}
+
+// SetServiceName sets field value
+func (o *FindCertRotationPolicy200ResponseDataInner) SetServiceName(v string) {
+	o.ServiceName = v
+}
+
+// GetCertFingerprint returns the CertFingerprint field value if set, zero value otherwise.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetCertFingerprint() string {
+	if o == nil || IsNil(o.CertFingerprint) {
+		var ret string
+		return ret
+	}
+	return *o.CertFingerprint
+}
+
+// GetCertFingerprintOk returns a tuple with the CertFingerprint field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetCertFingerprintOk() (*string, bool) {
+	if o == nil || IsNil(o.CertFingerprint) {
+		return nil, false
+	}
+	return o.CertFingerprint, true
+}
+
+// HasCertFingerprint returns a boolean if a field has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) HasCertFingerprint() bool {
+	if o != nil && !IsNil(o.CertFingerprint) {
+		return true
+	}
+
+	return false
+}
+
+// SetCertFingerprint gets a reference to the given string and assigns it to the CertFingerprint field.
+func (o *FindCertRotationPolicy200ResponseDataInner) SetCertFingerprint(v string) {
+	o.CertFingerprint = &v
+}
+
+// GetCertExpiresAt returns the CertExpiresAt field value if set, zero value otherwise.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetCertExpiresAt() time.Time {
+	if o == nil || IsNil(o.CertExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CertExpiresAt
+}
+
+// GetCertExpiresAtOk returns a tuple with the CertExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetCertExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CertExpiresAt) {
+		return nil, false
+	}
+	return o.CertExpiresAt, true
+}
+
+// HasCertExpiresAt returns a boolean if a field has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) HasCertExpiresAt() bool {
+	if o != nil && !IsNil(o.CertExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCertExpiresAt gets a reference to the given time.Time and assigns it to the CertExpiresAt field.
+func (o *FindCertRotationPolicy200ResponseDataInner) SetCertExpiresAt(v time.Time) {
+	o.CertExpiresAt = &v
+}
+
+// GetLastRotatedAt returns the LastRotatedAt field value if set, zero value otherwise.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetLastRotatedAt() time.Time {
+	if o == nil || IsNil(o.LastRotatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastRotatedAt
+}
+
+// GetLastRotatedAtOk returns a tuple with the LastRotatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetLastRotatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastRotatedAt) {
+		return nil, false
+	}
+	return o.LastRotatedAt, true
+}
+
+// HasLastRotatedAt returns a boolean if a field has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) HasLastRotatedAt() bool {
+	if o != nil && !IsNil(o.LastRotatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastRotatedAt gets a reference to the given time.Time and assigns it to the LastRotatedAt field.
+func (o *FindCertRotationPolicy200ResponseDataInner) SetLastRotatedAt(v time.Time) {
+	o.LastRotatedAt = &v
+}
+
+// GetRotationIntervalDays returns the RotationIntervalDays field value if set, zero value otherwise.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetRotationIntervalDays() int32 {
+	if o == nil || IsNil(o.RotationIntervalDays) {
+		var ret int32
+		return ret
+	}
+	return *o.RotationIntervalDays
+}
+
+// GetRotationIntervalDaysOk returns a tuple with the RotationIntervalDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetRotationIntervalDaysOk() (*int32, bool) {
+	if o == nil || IsNil(o.RotationIntervalDays) {
+		return nil, false
+	}
+	return o.RotationIntervalDays, true
+}
+
+// HasRotationIntervalDays returns a boolean if a field has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) HasRotationIntervalDays() bool {
+	if o != nil && !IsNil(o.RotationIntervalDays) {
+		return true
+	}
+
+	return false
+}
+
+// SetRotationIntervalDays gets a reference to the given int32 and assigns it to the RotationIntervalDays field.
+func (o *FindCertRotationPolicy200ResponseDataInner) SetRotationIntervalDays(v int32) {
+	o.RotationIntervalDays = &v
+}
+
+// GetAutoRotate returns the AutoRotate field value if set, zero value otherwise.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetAutoRotate() bool {
+	if o == nil || IsNil(o.AutoRotate) {
+		var ret bool
+		return ret
+	}
+	return *o.AutoRotate
+}
+
+// GetAutoRotateOk returns a tuple with the AutoRotate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetAutoRotateOk() (*bool, bool) {
+	if o == nil || IsNil(o.AutoRotate) {
+		return nil, false
+	}
+	return o.AutoRotate, true
+}
+
+// HasAutoRotate returns a boolean if a field has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) HasAutoRotate() bool {
+	if o != nil && !IsNil(o.AutoRotate) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoRotate gets a reference to the given bool and assigns it to the AutoRotate field.
+func (o *FindCertRotationPolicy200ResponseDataInner) SetAutoRotate(v bool) {
+	o.AutoRotate = &v
+}
+
+// GetLastRotationStatus returns the LastRotationStatus field value if set, zero value otherwise.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetLastRotationStatus() string {
+	if o == nil || IsNil(o.LastRotationStatus) {
+		var ret string
+		return ret
+	}
+	return *o.LastRotationStatus
+}
+
+// GetLastRotationStatusOk returns a tuple with the LastRotationStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetLastRotationStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.LastRotationStatus) {
+		return nil, false
+	}
+	return o.LastRotationStatus, true
+}
+
+// HasLastRotationStatus returns a boolean if a field has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) HasLastRotationStatus() bool {
+	if o != nil && !IsNil(o.LastRotationStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastRotationStatus gets a reference to the given string and assigns it to the LastRotationStatus field.
+func (o *FindCertRotationPolicy200ResponseDataInner) SetLastRotationStatus(v string) {
+	o.LastRotationStatus = &v
+}
+
+// GetRotationError returns the RotationError field value if set, zero value otherwise.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetRotationError() string {
+	if o == nil || IsNil(o.RotationError) {
+		var ret string
+		return ret
+	}
+	return *o.RotationError
+}
+
+// GetRotationErrorOk returns a tuple with the RotationError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetRotationErrorOk() (*string, bool) {
+	if o == nil || IsNil(o.RotationError) {
+		return nil, false
+	}
+	return o.RotationError, true
+}
+
+// HasRotationError returns a boolean if a field has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) HasRotationError() bool {
+	if o != nil && !IsNil(o.RotationError) {
+		return true
+	}
+
+	return false
+}
+
+// SetRotationError gets a reference to the given string and assigns it to the RotationError field.
+func (o *FindCertRotationPolicy200ResponseDataInner) SetRotationError(v string) {
+	o.RotationError = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCertRotationPolicy200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCertRotationPolicy200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +401,6 @@ func (o *FindCertRotationPolicy200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCertRotationPolicy200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCertRotationPolicy200ResponseDataInner) GetAttributes() CertRotationPolicy {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CertRotationPolicy
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCertRotationPolicy200ResponseDataInner) GetAttributesOk() (*CertRotationPolicy, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCertRotationPolicy200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CertRotationPolicy and assigns it to the Attributes field.
-func (o *FindCertRotationPolicy200ResponseDataInner) SetAttributes(v CertRotationPolicy) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +519,36 @@ func (o FindCertRotationPolicy200ResponseDataInner) MarshalJSON() ([]byte, error
 
 func (o FindCertRotationPolicy200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["service_name"] = o.ServiceName
+	if !IsNil(o.CertFingerprint) {
+		toSerialize["cert_fingerprint"] = o.CertFingerprint
+	}
+	if !IsNil(o.CertExpiresAt) {
+		toSerialize["cert_expires_at"] = o.CertExpiresAt
+	}
+	if !IsNil(o.LastRotatedAt) {
+		toSerialize["last_rotated_at"] = o.LastRotatedAt
+	}
+	if !IsNil(o.RotationIntervalDays) {
+		toSerialize["rotation_interval_days"] = o.RotationIntervalDays
+	}
+	if !IsNil(o.AutoRotate) {
+		toSerialize["auto_rotate"] = o.AutoRotate
+	}
+	if !IsNil(o.LastRotationStatus) {
+		toSerialize["last_rotation_status"] = o.LastRotationStatus
+	}
+	if !IsNil(o.RotationError) {
+		toSerialize["rotation_error"] = o.RotationError
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +560,43 @@ func (o FindCertRotationPolicy200ResponseDataInner) ToMap() (map[string]interfac
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCertRotationPolicy200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"service_name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCertRotationPolicy200ResponseDataInner := _FindCertRotationPolicy200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCertRotationPolicy200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCertRotationPolicy200ResponseDataInner(varFindCertRotationPolicy200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCertRotationPolicy200ResponseDataInner struct {

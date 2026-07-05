@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindLumenHistory200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,31 @@ var _ MappedNullable = &FindLumenHistory200ResponseDataInner{}
 
 // FindLumenHistory200ResponseDataInner struct for FindLumenHistory200ResponseDataInner
 type FindLumenHistory200ResponseDataInner struct {
+	SessionId string `json:"session_id"`
+	SessionTitle *string `json:"session_title,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Messages interface{} `json:"messages,omitempty"`
+	MessageCount *int32 `json:"message_count,omitempty"`
+	LastMessageAt *time.Time `json:"last_message_at,omitempty"`
+	ActorId *string `json:"actor_id,omitempty"`
+	ActorEmail *string `json:"actor_email,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *LumenHistory `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindLumenHistory200ResponseDataInner FindLumenHistory200ResponseDataInner
+
 // NewFindLumenHistory200ResponseDataInner instantiates a new FindLumenHistory200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindLumenHistory200ResponseDataInner() *FindLumenHistory200ResponseDataInner {
+func NewFindLumenHistory200ResponseDataInner(sessionId string) *FindLumenHistory200ResponseDataInner {
 	this := FindLumenHistory200ResponseDataInner{}
+	this.SessionId = sessionId
 	return &this
 }
 
@@ -44,6 +57,255 @@ func NewFindLumenHistory200ResponseDataInner() *FindLumenHistory200ResponseDataI
 func NewFindLumenHistory200ResponseDataInnerWithDefaults() *FindLumenHistory200ResponseDataInner {
 	this := FindLumenHistory200ResponseDataInner{}
 	return &this
+}
+
+// GetSessionId returns the SessionId field value
+func (o *FindLumenHistory200ResponseDataInner) GetSessionId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SessionId
+}
+
+// GetSessionIdOk returns a tuple with the SessionId field value
+// and a boolean to check if the value has been set.
+func (o *FindLumenHistory200ResponseDataInner) GetSessionIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SessionId, true
+}
+
+// SetSessionId sets field value
+func (o *FindLumenHistory200ResponseDataInner) SetSessionId(v string) {
+	o.SessionId = v
+}
+
+// GetSessionTitle returns the SessionTitle field value if set, zero value otherwise.
+func (o *FindLumenHistory200ResponseDataInner) GetSessionTitle() string {
+	if o == nil || IsNil(o.SessionTitle) {
+		var ret string
+		return ret
+	}
+	return *o.SessionTitle
+}
+
+// GetSessionTitleOk returns a tuple with the SessionTitle field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenHistory200ResponseDataInner) GetSessionTitleOk() (*string, bool) {
+	if o == nil || IsNil(o.SessionTitle) {
+		return nil, false
+	}
+	return o.SessionTitle, true
+}
+
+// HasSessionTitle returns a boolean if a field has been set.
+func (o *FindLumenHistory200ResponseDataInner) HasSessionTitle() bool {
+	if o != nil && !IsNil(o.SessionTitle) {
+		return true
+	}
+
+	return false
+}
+
+// SetSessionTitle gets a reference to the given string and assigns it to the SessionTitle field.
+func (o *FindLumenHistory200ResponseDataInner) SetSessionTitle(v string) {
+	o.SessionTitle = &v
+}
+
+// GetMessages returns the Messages field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindLumenHistory200ResponseDataInner) GetMessages() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Messages
+}
+
+// GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindLumenHistory200ResponseDataInner) GetMessagesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Messages) {
+		return nil, false
+	}
+	return &o.Messages, true
+}
+
+// HasMessages returns a boolean if a field has been set.
+func (o *FindLumenHistory200ResponseDataInner) HasMessages() bool {
+	if o != nil && !IsNil(o.Messages) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessages gets a reference to the given interface{} and assigns it to the Messages field.
+func (o *FindLumenHistory200ResponseDataInner) SetMessages(v interface{}) {
+	o.Messages = v
+}
+
+// GetMessageCount returns the MessageCount field value if set, zero value otherwise.
+func (o *FindLumenHistory200ResponseDataInner) GetMessageCount() int32 {
+	if o == nil || IsNil(o.MessageCount) {
+		var ret int32
+		return ret
+	}
+	return *o.MessageCount
+}
+
+// GetMessageCountOk returns a tuple with the MessageCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenHistory200ResponseDataInner) GetMessageCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.MessageCount) {
+		return nil, false
+	}
+	return o.MessageCount, true
+}
+
+// HasMessageCount returns a boolean if a field has been set.
+func (o *FindLumenHistory200ResponseDataInner) HasMessageCount() bool {
+	if o != nil && !IsNil(o.MessageCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessageCount gets a reference to the given int32 and assigns it to the MessageCount field.
+func (o *FindLumenHistory200ResponseDataInner) SetMessageCount(v int32) {
+	o.MessageCount = &v
+}
+
+// GetLastMessageAt returns the LastMessageAt field value if set, zero value otherwise.
+func (o *FindLumenHistory200ResponseDataInner) GetLastMessageAt() time.Time {
+	if o == nil || IsNil(o.LastMessageAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastMessageAt
+}
+
+// GetLastMessageAtOk returns a tuple with the LastMessageAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenHistory200ResponseDataInner) GetLastMessageAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastMessageAt) {
+		return nil, false
+	}
+	return o.LastMessageAt, true
+}
+
+// HasLastMessageAt returns a boolean if a field has been set.
+func (o *FindLumenHistory200ResponseDataInner) HasLastMessageAt() bool {
+	if o != nil && !IsNil(o.LastMessageAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastMessageAt gets a reference to the given time.Time and assigns it to the LastMessageAt field.
+func (o *FindLumenHistory200ResponseDataInner) SetLastMessageAt(v time.Time) {
+	o.LastMessageAt = &v
+}
+
+// GetActorId returns the ActorId field value if set, zero value otherwise.
+func (o *FindLumenHistory200ResponseDataInner) GetActorId() string {
+	if o == nil || IsNil(o.ActorId) {
+		var ret string
+		return ret
+	}
+	return *o.ActorId
+}
+
+// GetActorIdOk returns a tuple with the ActorId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenHistory200ResponseDataInner) GetActorIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ActorId) {
+		return nil, false
+	}
+	return o.ActorId, true
+}
+
+// HasActorId returns a boolean if a field has been set.
+func (o *FindLumenHistory200ResponseDataInner) HasActorId() bool {
+	if o != nil && !IsNil(o.ActorId) {
+		return true
+	}
+
+	return false
+}
+
+// SetActorId gets a reference to the given string and assigns it to the ActorId field.
+func (o *FindLumenHistory200ResponseDataInner) SetActorId(v string) {
+	o.ActorId = &v
+}
+
+// GetActorEmail returns the ActorEmail field value if set, zero value otherwise.
+func (o *FindLumenHistory200ResponseDataInner) GetActorEmail() string {
+	if o == nil || IsNil(o.ActorEmail) {
+		var ret string
+		return ret
+	}
+	return *o.ActorEmail
+}
+
+// GetActorEmailOk returns a tuple with the ActorEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenHistory200ResponseDataInner) GetActorEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.ActorEmail) {
+		return nil, false
+	}
+	return o.ActorEmail, true
+}
+
+// HasActorEmail returns a boolean if a field has been set.
+func (o *FindLumenHistory200ResponseDataInner) HasActorEmail() bool {
+	if o != nil && !IsNil(o.ActorEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetActorEmail gets a reference to the given string and assigns it to the ActorEmail field.
+func (o *FindLumenHistory200ResponseDataInner) SetActorEmail(v string) {
+	o.ActorEmail = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindLumenHistory200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLumenHistory200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindLumenHistory200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindLumenHistory200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +370,6 @@ func (o *FindLumenHistory200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindLumenHistory200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindLumenHistory200ResponseDataInner) GetAttributes() LumenHistory {
-	if o == nil || IsNil(o.Attributes) {
-		var ret LumenHistory
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindLumenHistory200ResponseDataInner) GetAttributesOk() (*LumenHistory, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindLumenHistory200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given LumenHistory and assigns it to the Attributes field.
-func (o *FindLumenHistory200ResponseDataInner) SetAttributes(v LumenHistory) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +488,33 @@ func (o FindLumenHistory200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindLumenHistory200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["session_id"] = o.SessionId
+	if !IsNil(o.SessionTitle) {
+		toSerialize["session_title"] = o.SessionTitle
+	}
+	if o.Messages != nil {
+		toSerialize["messages"] = o.Messages
+	}
+	if !IsNil(o.MessageCount) {
+		toSerialize["message_count"] = o.MessageCount
+	}
+	if !IsNil(o.LastMessageAt) {
+		toSerialize["last_message_at"] = o.LastMessageAt
+	}
+	if !IsNil(o.ActorId) {
+		toSerialize["actor_id"] = o.ActorId
+	}
+	if !IsNil(o.ActorEmail) {
+		toSerialize["actor_email"] = o.ActorEmail
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +526,43 @@ func (o FindLumenHistory200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindLumenHistory200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"session_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindLumenHistory200ResponseDataInner := _FindLumenHistory200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindLumenHistory200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindLumenHistory200ResponseDataInner(varFindLumenHistory200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindLumenHistory200ResponseDataInner struct {

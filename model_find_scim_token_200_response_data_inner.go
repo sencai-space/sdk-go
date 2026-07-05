@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindScimToken200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,29 @@ var _ MappedNullable = &FindScimToken200ResponseDataInner{}
 
 // FindScimToken200ResponseDataInner struct for FindScimToken200ResponseDataInner
 type FindScimToken200ResponseDataInner struct {
+	TokenHash string `json:"token_hash"`
+	Label *string `json:"label,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	LastUsedAt *time.Time `json:"last_used_at,omitempty"`
+	RevokedAt *time.Time `json:"revoked_at,omitempty"`
+	ExpiresAt time.Time `json:"expires_at"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ScimToken `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindScimToken200ResponseDataInner FindScimToken200ResponseDataInner
+
 // NewFindScimToken200ResponseDataInner instantiates a new FindScimToken200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindScimToken200ResponseDataInner() *FindScimToken200ResponseDataInner {
+func NewFindScimToken200ResponseDataInner(tokenHash string, expiresAt time.Time) *FindScimToken200ResponseDataInner {
 	this := FindScimToken200ResponseDataInner{}
+	this.TokenHash = tokenHash
+	this.ExpiresAt = expiresAt
 	return &this
 }
 
@@ -44,6 +55,182 @@ func NewFindScimToken200ResponseDataInner() *FindScimToken200ResponseDataInner {
 func NewFindScimToken200ResponseDataInnerWithDefaults() *FindScimToken200ResponseDataInner {
 	this := FindScimToken200ResponseDataInner{}
 	return &this
+}
+
+// GetTokenHash returns the TokenHash field value
+func (o *FindScimToken200ResponseDataInner) GetTokenHash() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TokenHash
+}
+
+// GetTokenHashOk returns a tuple with the TokenHash field value
+// and a boolean to check if the value has been set.
+func (o *FindScimToken200ResponseDataInner) GetTokenHashOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TokenHash, true
+}
+
+// SetTokenHash sets field value
+func (o *FindScimToken200ResponseDataInner) SetTokenHash(v string) {
+	o.TokenHash = v
+}
+
+// GetLabel returns the Label field value if set, zero value otherwise.
+func (o *FindScimToken200ResponseDataInner) GetLabel() string {
+	if o == nil || IsNil(o.Label) {
+		var ret string
+		return ret
+	}
+	return *o.Label
+}
+
+// GetLabelOk returns a tuple with the Label field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindScimToken200ResponseDataInner) GetLabelOk() (*string, bool) {
+	if o == nil || IsNil(o.Label) {
+		return nil, false
+	}
+	return o.Label, true
+}
+
+// HasLabel returns a boolean if a field has been set.
+func (o *FindScimToken200ResponseDataInner) HasLabel() bool {
+	if o != nil && !IsNil(o.Label) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabel gets a reference to the given string and assigns it to the Label field.
+func (o *FindScimToken200ResponseDataInner) SetLabel(v string) {
+	o.Label = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindScimToken200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindScimToken200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindScimToken200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindScimToken200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetLastUsedAt returns the LastUsedAt field value if set, zero value otherwise.
+func (o *FindScimToken200ResponseDataInner) GetLastUsedAt() time.Time {
+	if o == nil || IsNil(o.LastUsedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastUsedAt
+}
+
+// GetLastUsedAtOk returns a tuple with the LastUsedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindScimToken200ResponseDataInner) GetLastUsedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastUsedAt) {
+		return nil, false
+	}
+	return o.LastUsedAt, true
+}
+
+// HasLastUsedAt returns a boolean if a field has been set.
+func (o *FindScimToken200ResponseDataInner) HasLastUsedAt() bool {
+	if o != nil && !IsNil(o.LastUsedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUsedAt gets a reference to the given time.Time and assigns it to the LastUsedAt field.
+func (o *FindScimToken200ResponseDataInner) SetLastUsedAt(v time.Time) {
+	o.LastUsedAt = &v
+}
+
+// GetRevokedAt returns the RevokedAt field value if set, zero value otherwise.
+func (o *FindScimToken200ResponseDataInner) GetRevokedAt() time.Time {
+	if o == nil || IsNil(o.RevokedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.RevokedAt
+}
+
+// GetRevokedAtOk returns a tuple with the RevokedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindScimToken200ResponseDataInner) GetRevokedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.RevokedAt) {
+		return nil, false
+	}
+	return o.RevokedAt, true
+}
+
+// HasRevokedAt returns a boolean if a field has been set.
+func (o *FindScimToken200ResponseDataInner) HasRevokedAt() bool {
+	if o != nil && !IsNil(o.RevokedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetRevokedAt gets a reference to the given time.Time and assigns it to the RevokedAt field.
+func (o *FindScimToken200ResponseDataInner) SetRevokedAt(v time.Time) {
+	o.RevokedAt = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value
+func (o *FindScimToken200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value
+// and a boolean to check if the value has been set.
+func (o *FindScimToken200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ExpiresAt, true
+}
+
+// SetExpiresAt sets field value
+func (o *FindScimToken200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +295,6 @@ func (o *FindScimToken200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindScimToken200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindScimToken200ResponseDataInner) GetAttributes() ScimToken {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ScimToken
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindScimToken200ResponseDataInner) GetAttributesOk() (*ScimToken, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindScimToken200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ScimToken and assigns it to the Attributes field.
-func (o *FindScimToken200ResponseDataInner) SetAttributes(v ScimToken) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +413,25 @@ func (o FindScimToken200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindScimToken200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["token_hash"] = o.TokenHash
+	if !IsNil(o.Label) {
+		toSerialize["label"] = o.Label
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.LastUsedAt) {
+		toSerialize["last_used_at"] = o.LastUsedAt
+	}
+	if !IsNil(o.RevokedAt) {
+		toSerialize["revoked_at"] = o.RevokedAt
+	}
+	toSerialize["expires_at"] = o.ExpiresAt
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +443,44 @@ func (o FindScimToken200ResponseDataInner) ToMap() (map[string]interface{}, erro
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindScimToken200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"token_hash",
+		"expires_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindScimToken200ResponseDataInner := _FindScimToken200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindScimToken200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindScimToken200ResponseDataInner(varFindScimToken200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindScimToken200ResponseDataInner struct {

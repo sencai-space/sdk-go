@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindUserPlan200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,42 @@ var _ MappedNullable = &FindUserPlan200ResponseDataInner{}
 
 // FindUserPlan200ResponseDataInner struct for FindUserPlan200ResponseDataInner
 type FindUserPlan200ResponseDataInner struct {
+	Name string `json:"name"`
+	// Single canonical tier field for User Plan — deliberately NOT split into two duplicate fields (see organisation.plan_type/account_tier anti-pattern, F2.FLEET.03 vs F2.M.01). 'trial' is an internal-only tier (not shown as a purchasable option, is_public=false) used by the 14-day user trial (F3.USERPLAN.02).
+	Tier string `json:"tier"`
+	PriceEurMonthly float32 `json:"price_eur_monthly"`
+	// Maximum number of organisations this user may own (role=owner). null = unlimited.
+	MaxOrganisationsOwned *int32 `json:"max_organisations_owned,omitempty"`
+	// Maximum number of free members this user may invite per owned organisation. null = unlimited.
+	MaxMembersPerOrg *int32 `json:"max_members_per_org,omitempty"`
+	AiFeaturesEnabled bool `json:"ai_features_enabled"`
+	PrioritySupport bool `json:"priority_support"`
+	StripePriceId *string `json:"stripe_price_id,omitempty"`
+	TrialDays int32 `json:"trial_days"`
+	// false for the internal 'trial' tier — not shown as a purchasable plan on pricing pages.
+	IsPublic bool `json:"is_public"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *UserPlan `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindUserPlan200ResponseDataInner FindUserPlan200ResponseDataInner
+
 // NewFindUserPlan200ResponseDataInner instantiates a new FindUserPlan200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindUserPlan200ResponseDataInner() *FindUserPlan200ResponseDataInner {
+func NewFindUserPlan200ResponseDataInner(name string, tier string, priceEurMonthly float32, aiFeaturesEnabled bool, prioritySupport bool, trialDays int32, isPublic bool) *FindUserPlan200ResponseDataInner {
 	this := FindUserPlan200ResponseDataInner{}
+	this.Name = name
+	this.Tier = tier
+	this.PriceEurMonthly = priceEurMonthly
+	this.AiFeaturesEnabled = aiFeaturesEnabled
+	this.PrioritySupport = prioritySupport
+	this.TrialDays = trialDays
+	this.IsPublic = isPublic
 	return &this
 }
 
@@ -44,6 +68,270 @@ func NewFindUserPlan200ResponseDataInner() *FindUserPlan200ResponseDataInner {
 func NewFindUserPlan200ResponseDataInnerWithDefaults() *FindUserPlan200ResponseDataInner {
 	this := FindUserPlan200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindUserPlan200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindUserPlan200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindUserPlan200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetTier returns the Tier field value
+func (o *FindUserPlan200ResponseDataInner) GetTier() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Tier
+}
+
+// GetTierOk returns a tuple with the Tier field value
+// and a boolean to check if the value has been set.
+func (o *FindUserPlan200ResponseDataInner) GetTierOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Tier, true
+}
+
+// SetTier sets field value
+func (o *FindUserPlan200ResponseDataInner) SetTier(v string) {
+	o.Tier = v
+}
+
+// GetPriceEurMonthly returns the PriceEurMonthly field value
+func (o *FindUserPlan200ResponseDataInner) GetPriceEurMonthly() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.PriceEurMonthly
+}
+
+// GetPriceEurMonthlyOk returns a tuple with the PriceEurMonthly field value
+// and a boolean to check if the value has been set.
+func (o *FindUserPlan200ResponseDataInner) GetPriceEurMonthlyOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PriceEurMonthly, true
+}
+
+// SetPriceEurMonthly sets field value
+func (o *FindUserPlan200ResponseDataInner) SetPriceEurMonthly(v float32) {
+	o.PriceEurMonthly = v
+}
+
+// GetMaxOrganisationsOwned returns the MaxOrganisationsOwned field value if set, zero value otherwise.
+func (o *FindUserPlan200ResponseDataInner) GetMaxOrganisationsOwned() int32 {
+	if o == nil || IsNil(o.MaxOrganisationsOwned) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxOrganisationsOwned
+}
+
+// GetMaxOrganisationsOwnedOk returns a tuple with the MaxOrganisationsOwned field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserPlan200ResponseDataInner) GetMaxOrganisationsOwnedOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxOrganisationsOwned) {
+		return nil, false
+	}
+	return o.MaxOrganisationsOwned, true
+}
+
+// HasMaxOrganisationsOwned returns a boolean if a field has been set.
+func (o *FindUserPlan200ResponseDataInner) HasMaxOrganisationsOwned() bool {
+	if o != nil && !IsNil(o.MaxOrganisationsOwned) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxOrganisationsOwned gets a reference to the given int32 and assigns it to the MaxOrganisationsOwned field.
+func (o *FindUserPlan200ResponseDataInner) SetMaxOrganisationsOwned(v int32) {
+	o.MaxOrganisationsOwned = &v
+}
+
+// GetMaxMembersPerOrg returns the MaxMembersPerOrg field value if set, zero value otherwise.
+func (o *FindUserPlan200ResponseDataInner) GetMaxMembersPerOrg() int32 {
+	if o == nil || IsNil(o.MaxMembersPerOrg) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxMembersPerOrg
+}
+
+// GetMaxMembersPerOrgOk returns a tuple with the MaxMembersPerOrg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserPlan200ResponseDataInner) GetMaxMembersPerOrgOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxMembersPerOrg) {
+		return nil, false
+	}
+	return o.MaxMembersPerOrg, true
+}
+
+// HasMaxMembersPerOrg returns a boolean if a field has been set.
+func (o *FindUserPlan200ResponseDataInner) HasMaxMembersPerOrg() bool {
+	if o != nil && !IsNil(o.MaxMembersPerOrg) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxMembersPerOrg gets a reference to the given int32 and assigns it to the MaxMembersPerOrg field.
+func (o *FindUserPlan200ResponseDataInner) SetMaxMembersPerOrg(v int32) {
+	o.MaxMembersPerOrg = &v
+}
+
+// GetAiFeaturesEnabled returns the AiFeaturesEnabled field value
+func (o *FindUserPlan200ResponseDataInner) GetAiFeaturesEnabled() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.AiFeaturesEnabled
+}
+
+// GetAiFeaturesEnabledOk returns a tuple with the AiFeaturesEnabled field value
+// and a boolean to check if the value has been set.
+func (o *FindUserPlan200ResponseDataInner) GetAiFeaturesEnabledOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AiFeaturesEnabled, true
+}
+
+// SetAiFeaturesEnabled sets field value
+func (o *FindUserPlan200ResponseDataInner) SetAiFeaturesEnabled(v bool) {
+	o.AiFeaturesEnabled = v
+}
+
+// GetPrioritySupport returns the PrioritySupport field value
+func (o *FindUserPlan200ResponseDataInner) GetPrioritySupport() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.PrioritySupport
+}
+
+// GetPrioritySupportOk returns a tuple with the PrioritySupport field value
+// and a boolean to check if the value has been set.
+func (o *FindUserPlan200ResponseDataInner) GetPrioritySupportOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PrioritySupport, true
+}
+
+// SetPrioritySupport sets field value
+func (o *FindUserPlan200ResponseDataInner) SetPrioritySupport(v bool) {
+	o.PrioritySupport = v
+}
+
+// GetStripePriceId returns the StripePriceId field value if set, zero value otherwise.
+func (o *FindUserPlan200ResponseDataInner) GetStripePriceId() string {
+	if o == nil || IsNil(o.StripePriceId) {
+		var ret string
+		return ret
+	}
+	return *o.StripePriceId
+}
+
+// GetStripePriceIdOk returns a tuple with the StripePriceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserPlan200ResponseDataInner) GetStripePriceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.StripePriceId) {
+		return nil, false
+	}
+	return o.StripePriceId, true
+}
+
+// HasStripePriceId returns a boolean if a field has been set.
+func (o *FindUserPlan200ResponseDataInner) HasStripePriceId() bool {
+	if o != nil && !IsNil(o.StripePriceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetStripePriceId gets a reference to the given string and assigns it to the StripePriceId field.
+func (o *FindUserPlan200ResponseDataInner) SetStripePriceId(v string) {
+	o.StripePriceId = &v
+}
+
+// GetTrialDays returns the TrialDays field value
+func (o *FindUserPlan200ResponseDataInner) GetTrialDays() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.TrialDays
+}
+
+// GetTrialDaysOk returns a tuple with the TrialDays field value
+// and a boolean to check if the value has been set.
+func (o *FindUserPlan200ResponseDataInner) GetTrialDaysOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TrialDays, true
+}
+
+// SetTrialDays sets field value
+func (o *FindUserPlan200ResponseDataInner) SetTrialDays(v int32) {
+	o.TrialDays = v
+}
+
+// GetIsPublic returns the IsPublic field value
+func (o *FindUserPlan200ResponseDataInner) GetIsPublic() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.IsPublic
+}
+
+// GetIsPublicOk returns a tuple with the IsPublic field value
+// and a boolean to check if the value has been set.
+func (o *FindUserPlan200ResponseDataInner) GetIsPublicOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IsPublic, true
+}
+
+// SetIsPublic sets field value
+func (o *FindUserPlan200ResponseDataInner) SetIsPublic(v bool) {
+	o.IsPublic = v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +396,6 @@ func (o *FindUserPlan200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindUserPlan200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindUserPlan200ResponseDataInner) GetAttributes() UserPlan {
-	if o == nil || IsNil(o.Attributes) {
-		var ret UserPlan
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindUserPlan200ResponseDataInner) GetAttributesOk() (*UserPlan, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindUserPlan200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given UserPlan and assigns it to the Attributes field.
-func (o *FindUserPlan200ResponseDataInner) SetAttributes(v UserPlan) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +514,27 @@ func (o FindUserPlan200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindUserPlan200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["tier"] = o.Tier
+	toSerialize["price_eur_monthly"] = o.PriceEurMonthly
+	if !IsNil(o.MaxOrganisationsOwned) {
+		toSerialize["max_organisations_owned"] = o.MaxOrganisationsOwned
+	}
+	if !IsNil(o.MaxMembersPerOrg) {
+		toSerialize["max_members_per_org"] = o.MaxMembersPerOrg
+	}
+	toSerialize["ai_features_enabled"] = o.AiFeaturesEnabled
+	toSerialize["priority_support"] = o.PrioritySupport
+	if !IsNil(o.StripePriceId) {
+		toSerialize["stripe_price_id"] = o.StripePriceId
+	}
+	toSerialize["trial_days"] = o.TrialDays
+	toSerialize["is_public"] = o.IsPublic
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +546,49 @@ func (o FindUserPlan200ResponseDataInner) ToMap() (map[string]interface{}, error
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindUserPlan200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"tier",
+		"price_eur_monthly",
+		"ai_features_enabled",
+		"priority_support",
+		"trial_days",
+		"is_public",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindUserPlan200ResponseDataInner := _FindUserPlan200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindUserPlan200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindUserPlan200ResponseDataInner(varFindUserPlan200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindUserPlan200ResponseDataInner struct {

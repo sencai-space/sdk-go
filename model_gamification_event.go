@@ -23,11 +23,12 @@ var _ MappedNullable = &GamificationEvent{}
 // GamificationEvent struct for GamificationEvent
 type GamificationEvent struct {
 	User CreateAccessReviewRequestDataReviewer `json:"user"`
-	// Whitelist kept identical to EVENT_TYPE_PATTERN in gamification-consumer (F4.GAM.02)
+	// Whitelist kept identical to the internal action-type map in gamification-consumer (F4.GAM.02). 'easter_egg_triggered' added by F4.GAM.02 for the stochastic easter-egg budget log (persisted so the consumer can compute each user's remaining per-year allowance).
 	ActionType string `json:"action_type"`
 	XpGranted int32 `json:"xp_granted"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
-	Metadata map[string]interface{} `json:"metadata,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
 	// SHA-256 hash of the source RabbitMQ message — prevents duplicate XP grants on redelivery
 	IdempotencyKey string `json:"idempotency_key"`
 }
@@ -159,10 +160,10 @@ func (o *GamificationEvent) SetOrganisation(v CreateAccessReviewRequestDataRevie
 	o.Organisation = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *GamificationEvent) GetMetadata() map[string]interface{} {
-	if o == nil || IsNil(o.Metadata) {
-		var ret map[string]interface{}
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *GamificationEvent) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Metadata
@@ -170,11 +171,12 @@ func (o *GamificationEvent) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GamificationEvent) GetMetadataOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *GamificationEvent) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Metadata) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -186,8 +188,8 @@ func (o *GamificationEvent) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *GamificationEvent) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *GamificationEvent) SetMetadata(v interface{}) {
 	o.Metadata = v
 }
 
@@ -231,7 +233,7 @@ func (o GamificationEvent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Organisation) {
 		toSerialize["organisation"] = o.Organisation
 	}
-	if !IsNil(o.Metadata) {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	toSerialize["idempotency_key"] = o.IdempotencyKey

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSecretFinding200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,44 @@ var _ MappedNullable = &FindSecretFinding200ResponseDataInner{}
 
 // FindSecretFinding200ResponseDataInner struct for FindSecretFinding200ResponseDataInner
 type FindSecretFinding200ResponseDataInner struct {
+	RepoName string `json:"repo_name"`
+	RepoProvider *string `json:"repo_provider,omitempty"`
+	CommitSha string `json:"commit_sha"`
+	FilePath string `json:"file_path"`
+	LineNumber *int32 `json:"line_number,omitempty"`
+	RuleId string `json:"rule_id"`
+	RuleDescription *string `json:"rule_description,omitempty"`
+	Severity *string `json:"severity,omitempty"`
+	Status *string `json:"status,omitempty"`
+	DetectedAt *time.Time `json:"detected_at,omitempty"`
+	AcknowledgedBy *CreateAccessReviewRequestDataReviewer `json:"acknowledged_by,omitempty"`
+	AcknowledgedAt *time.Time `json:"acknowledged_at,omitempty"`
+	Notes *string `json:"notes,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	SecretType *string `json:"secret_type,omitempty"`
+	// Name of the matched pattern rule — never contains the actual secret value
+	MatchedPattern *string `json:"matched_pattern,omitempty"`
+	// Anonymized context around the match — secret value replaced with [REDACTED]
+	ContextSnippet *string `json:"context_snippet,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SecretFinding `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSecretFinding200ResponseDataInner FindSecretFinding200ResponseDataInner
+
 // NewFindSecretFinding200ResponseDataInner instantiates a new FindSecretFinding200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSecretFinding200ResponseDataInner() *FindSecretFinding200ResponseDataInner {
+func NewFindSecretFinding200ResponseDataInner(repoName string, commitSha string, filePath string, ruleId string) *FindSecretFinding200ResponseDataInner {
 	this := FindSecretFinding200ResponseDataInner{}
+	this.RepoName = repoName
+	this.CommitSha = commitSha
+	this.FilePath = filePath
+	this.RuleId = ruleId
 	return &this
 }
 
@@ -44,6 +70,518 @@ func NewFindSecretFinding200ResponseDataInner() *FindSecretFinding200ResponseDat
 func NewFindSecretFinding200ResponseDataInnerWithDefaults() *FindSecretFinding200ResponseDataInner {
 	this := FindSecretFinding200ResponseDataInner{}
 	return &this
+}
+
+// GetRepoName returns the RepoName field value
+func (o *FindSecretFinding200ResponseDataInner) GetRepoName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RepoName
+}
+
+// GetRepoNameOk returns a tuple with the RepoName field value
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetRepoNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RepoName, true
+}
+
+// SetRepoName sets field value
+func (o *FindSecretFinding200ResponseDataInner) SetRepoName(v string) {
+	o.RepoName = v
+}
+
+// GetRepoProvider returns the RepoProvider field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetRepoProvider() string {
+	if o == nil || IsNil(o.RepoProvider) {
+		var ret string
+		return ret
+	}
+	return *o.RepoProvider
+}
+
+// GetRepoProviderOk returns a tuple with the RepoProvider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetRepoProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.RepoProvider) {
+		return nil, false
+	}
+	return o.RepoProvider, true
+}
+
+// HasRepoProvider returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasRepoProvider() bool {
+	if o != nil && !IsNil(o.RepoProvider) {
+		return true
+	}
+
+	return false
+}
+
+// SetRepoProvider gets a reference to the given string and assigns it to the RepoProvider field.
+func (o *FindSecretFinding200ResponseDataInner) SetRepoProvider(v string) {
+	o.RepoProvider = &v
+}
+
+// GetCommitSha returns the CommitSha field value
+func (o *FindSecretFinding200ResponseDataInner) GetCommitSha() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CommitSha
+}
+
+// GetCommitShaOk returns a tuple with the CommitSha field value
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetCommitShaOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CommitSha, true
+}
+
+// SetCommitSha sets field value
+func (o *FindSecretFinding200ResponseDataInner) SetCommitSha(v string) {
+	o.CommitSha = v
+}
+
+// GetFilePath returns the FilePath field value
+func (o *FindSecretFinding200ResponseDataInner) GetFilePath() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.FilePath
+}
+
+// GetFilePathOk returns a tuple with the FilePath field value
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetFilePathOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FilePath, true
+}
+
+// SetFilePath sets field value
+func (o *FindSecretFinding200ResponseDataInner) SetFilePath(v string) {
+	o.FilePath = v
+}
+
+// GetLineNumber returns the LineNumber field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetLineNumber() int32 {
+	if o == nil || IsNil(o.LineNumber) {
+		var ret int32
+		return ret
+	}
+	return *o.LineNumber
+}
+
+// GetLineNumberOk returns a tuple with the LineNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetLineNumberOk() (*int32, bool) {
+	if o == nil || IsNil(o.LineNumber) {
+		return nil, false
+	}
+	return o.LineNumber, true
+}
+
+// HasLineNumber returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasLineNumber() bool {
+	if o != nil && !IsNil(o.LineNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetLineNumber gets a reference to the given int32 and assigns it to the LineNumber field.
+func (o *FindSecretFinding200ResponseDataInner) SetLineNumber(v int32) {
+	o.LineNumber = &v
+}
+
+// GetRuleId returns the RuleId field value
+func (o *FindSecretFinding200ResponseDataInner) GetRuleId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.RuleId
+}
+
+// GetRuleIdOk returns a tuple with the RuleId field value
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetRuleIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RuleId, true
+}
+
+// SetRuleId sets field value
+func (o *FindSecretFinding200ResponseDataInner) SetRuleId(v string) {
+	o.RuleId = v
+}
+
+// GetRuleDescription returns the RuleDescription field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetRuleDescription() string {
+	if o == nil || IsNil(o.RuleDescription) {
+		var ret string
+		return ret
+	}
+	return *o.RuleDescription
+}
+
+// GetRuleDescriptionOk returns a tuple with the RuleDescription field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetRuleDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.RuleDescription) {
+		return nil, false
+	}
+	return o.RuleDescription, true
+}
+
+// HasRuleDescription returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasRuleDescription() bool {
+	if o != nil && !IsNil(o.RuleDescription) {
+		return true
+	}
+
+	return false
+}
+
+// SetRuleDescription gets a reference to the given string and assigns it to the RuleDescription field.
+func (o *FindSecretFinding200ResponseDataInner) SetRuleDescription(v string) {
+	o.RuleDescription = &v
+}
+
+// GetSeverity returns the Severity field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetSeverity() string {
+	if o == nil || IsNil(o.Severity) {
+		var ret string
+		return ret
+	}
+	return *o.Severity
+}
+
+// GetSeverityOk returns a tuple with the Severity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetSeverityOk() (*string, bool) {
+	if o == nil || IsNil(o.Severity) {
+		return nil, false
+	}
+	return o.Severity, true
+}
+
+// HasSeverity returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasSeverity() bool {
+	if o != nil && !IsNil(o.Severity) {
+		return true
+	}
+
+	return false
+}
+
+// SetSeverity gets a reference to the given string and assigns it to the Severity field.
+func (o *FindSecretFinding200ResponseDataInner) SetSeverity(v string) {
+	o.Severity = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindSecretFinding200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetDetectedAt returns the DetectedAt field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetDetectedAt() time.Time {
+	if o == nil || IsNil(o.DetectedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DetectedAt
+}
+
+// GetDetectedAtOk returns a tuple with the DetectedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetDetectedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DetectedAt) {
+		return nil, false
+	}
+	return o.DetectedAt, true
+}
+
+// HasDetectedAt returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasDetectedAt() bool {
+	if o != nil && !IsNil(o.DetectedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDetectedAt gets a reference to the given time.Time and assigns it to the DetectedAt field.
+func (o *FindSecretFinding200ResponseDataInner) SetDetectedAt(v time.Time) {
+	o.DetectedAt = &v
+}
+
+// GetAcknowledgedBy returns the AcknowledgedBy field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetAcknowledgedBy() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.AcknowledgedBy) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.AcknowledgedBy
+}
+
+// GetAcknowledgedByOk returns a tuple with the AcknowledgedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetAcknowledgedByOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.AcknowledgedBy) {
+		return nil, false
+	}
+	return o.AcknowledgedBy, true
+}
+
+// HasAcknowledgedBy returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasAcknowledgedBy() bool {
+	if o != nil && !IsNil(o.AcknowledgedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcknowledgedBy gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the AcknowledgedBy field.
+func (o *FindSecretFinding200ResponseDataInner) SetAcknowledgedBy(v CreateAccessReviewRequestDataReviewer) {
+	o.AcknowledgedBy = &v
+}
+
+// GetAcknowledgedAt returns the AcknowledgedAt field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetAcknowledgedAt() time.Time {
+	if o == nil || IsNil(o.AcknowledgedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AcknowledgedAt
+}
+
+// GetAcknowledgedAtOk returns a tuple with the AcknowledgedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetAcknowledgedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AcknowledgedAt) {
+		return nil, false
+	}
+	return o.AcknowledgedAt, true
+}
+
+// HasAcknowledgedAt returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasAcknowledgedAt() bool {
+	if o != nil && !IsNil(o.AcknowledgedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcknowledgedAt gets a reference to the given time.Time and assigns it to the AcknowledgedAt field.
+func (o *FindSecretFinding200ResponseDataInner) SetAcknowledgedAt(v time.Time) {
+	o.AcknowledgedAt = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindSecretFinding200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindSecretFinding200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetSecretType returns the SecretType field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetSecretType() string {
+	if o == nil || IsNil(o.SecretType) {
+		var ret string
+		return ret
+	}
+	return *o.SecretType
+}
+
+// GetSecretTypeOk returns a tuple with the SecretType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetSecretTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.SecretType) {
+		return nil, false
+	}
+	return o.SecretType, true
+}
+
+// HasSecretType returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasSecretType() bool {
+	if o != nil && !IsNil(o.SecretType) {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretType gets a reference to the given string and assigns it to the SecretType field.
+func (o *FindSecretFinding200ResponseDataInner) SetSecretType(v string) {
+	o.SecretType = &v
+}
+
+// GetMatchedPattern returns the MatchedPattern field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetMatchedPattern() string {
+	if o == nil || IsNil(o.MatchedPattern) {
+		var ret string
+		return ret
+	}
+	return *o.MatchedPattern
+}
+
+// GetMatchedPatternOk returns a tuple with the MatchedPattern field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetMatchedPatternOk() (*string, bool) {
+	if o == nil || IsNil(o.MatchedPattern) {
+		return nil, false
+	}
+	return o.MatchedPattern, true
+}
+
+// HasMatchedPattern returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasMatchedPattern() bool {
+	if o != nil && !IsNil(o.MatchedPattern) {
+		return true
+	}
+
+	return false
+}
+
+// SetMatchedPattern gets a reference to the given string and assigns it to the MatchedPattern field.
+func (o *FindSecretFinding200ResponseDataInner) SetMatchedPattern(v string) {
+	o.MatchedPattern = &v
+}
+
+// GetContextSnippet returns the ContextSnippet field value if set, zero value otherwise.
+func (o *FindSecretFinding200ResponseDataInner) GetContextSnippet() string {
+	if o == nil || IsNil(o.ContextSnippet) {
+		var ret string
+		return ret
+	}
+	return *o.ContextSnippet
+}
+
+// GetContextSnippetOk returns a tuple with the ContextSnippet field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretFinding200ResponseDataInner) GetContextSnippetOk() (*string, bool) {
+	if o == nil || IsNil(o.ContextSnippet) {
+		return nil, false
+	}
+	return o.ContextSnippet, true
+}
+
+// HasContextSnippet returns a boolean if a field has been set.
+func (o *FindSecretFinding200ResponseDataInner) HasContextSnippet() bool {
+	if o != nil && !IsNil(o.ContextSnippet) {
+		return true
+	}
+
+	return false
+}
+
+// SetContextSnippet gets a reference to the given string and assigns it to the ContextSnippet field.
+func (o *FindSecretFinding200ResponseDataInner) SetContextSnippet(v string) {
+	o.ContextSnippet = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +646,6 @@ func (o *FindSecretFinding200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSecretFinding200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSecretFinding200ResponseDataInner) GetAttributes() SecretFinding {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SecretFinding
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSecretFinding200ResponseDataInner) GetAttributesOk() (*SecretFinding, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSecretFinding200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SecretFinding and assigns it to the Attributes field.
-func (o *FindSecretFinding200ResponseDataInner) SetAttributes(v SecretFinding) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +764,54 @@ func (o FindSecretFinding200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindSecretFinding200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["repo_name"] = o.RepoName
+	if !IsNil(o.RepoProvider) {
+		toSerialize["repo_provider"] = o.RepoProvider
+	}
+	toSerialize["commit_sha"] = o.CommitSha
+	toSerialize["file_path"] = o.FilePath
+	if !IsNil(o.LineNumber) {
+		toSerialize["line_number"] = o.LineNumber
+	}
+	toSerialize["rule_id"] = o.RuleId
+	if !IsNil(o.RuleDescription) {
+		toSerialize["rule_description"] = o.RuleDescription
+	}
+	if !IsNil(o.Severity) {
+		toSerialize["severity"] = o.Severity
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.DetectedAt) {
+		toSerialize["detected_at"] = o.DetectedAt
+	}
+	if !IsNil(o.AcknowledgedBy) {
+		toSerialize["acknowledged_by"] = o.AcknowledgedBy
+	}
+	if !IsNil(o.AcknowledgedAt) {
+		toSerialize["acknowledged_at"] = o.AcknowledgedAt
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.SecretType) {
+		toSerialize["secret_type"] = o.SecretType
+	}
+	if !IsNil(o.MatchedPattern) {
+		toSerialize["matched_pattern"] = o.MatchedPattern
+	}
+	if !IsNil(o.ContextSnippet) {
+		toSerialize["context_snippet"] = o.ContextSnippet
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +823,46 @@ func (o FindSecretFinding200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSecretFinding200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"repo_name",
+		"commit_sha",
+		"file_path",
+		"rule_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSecretFinding200ResponseDataInner := _FindSecretFinding200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSecretFinding200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSecretFinding200ResponseDataInner(varFindSecretFinding200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSecretFinding200ResponseDataInner struct {

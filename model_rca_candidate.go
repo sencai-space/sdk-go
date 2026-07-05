@@ -26,7 +26,8 @@ type RcaCandidate struct {
 	IncidentId string `json:"incident_id"`
 	IncidentDocId string `json:"incident_doc_id"`
 	ProbableCause string `json:"probable_cause"`
-	Evidence map[string]interface{} `json:"evidence,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Evidence interface{} `json:"evidence,omitempty"`
 	Confidence *float32 `json:"confidence,omitempty"`
 	SuggestedFix *string `json:"suggested_fix,omitempty"`
 	Status *string `json:"status,omitempty"`
@@ -129,10 +130,10 @@ func (o *RcaCandidate) SetProbableCause(v string) {
 	o.ProbableCause = v
 }
 
-// GetEvidence returns the Evidence field value if set, zero value otherwise.
-func (o *RcaCandidate) GetEvidence() map[string]interface{} {
-	if o == nil || IsNil(o.Evidence) {
-		var ret map[string]interface{}
+// GetEvidence returns the Evidence field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RcaCandidate) GetEvidence() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Evidence
@@ -140,11 +141,12 @@ func (o *RcaCandidate) GetEvidence() map[string]interface{} {
 
 // GetEvidenceOk returns a tuple with the Evidence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RcaCandidate) GetEvidenceOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RcaCandidate) GetEvidenceOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Evidence) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Evidence, true
+	return &o.Evidence, true
 }
 
 // HasEvidence returns a boolean if a field has been set.
@@ -156,8 +158,8 @@ func (o *RcaCandidate) HasEvidence() bool {
 	return false
 }
 
-// SetEvidence gets a reference to the given map[string]interface{} and assigns it to the Evidence field.
-func (o *RcaCandidate) SetEvidence(v map[string]interface{}) {
+// SetEvidence gets a reference to the given interface{} and assigns it to the Evidence field.
+func (o *RcaCandidate) SetEvidence(v interface{}) {
 	o.Evidence = v
 }
 
@@ -366,7 +368,7 @@ func (o RcaCandidate) ToMap() (map[string]interface{}, error) {
 	toSerialize["incident_id"] = o.IncidentId
 	toSerialize["incident_doc_id"] = o.IncidentDocId
 	toSerialize["probable_cause"] = o.ProbableCause
-	if !IsNil(o.Evidence) {
+	if o.Evidence != nil {
 		toSerialize["evidence"] = o.Evidence
 	}
 	if !IsNil(o.Confidence) {

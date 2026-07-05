@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindComplianceControl200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,33 @@ var _ MappedNullable = &FindComplianceControl200ResponseDataInner{}
 
 // FindComplianceControl200ResponseDataInner struct for FindComplianceControl200ResponseDataInner
 type FindComplianceControl200ResponseDataInner struct {
+	ControlId string `json:"control_id"`
+	Framework string `json:"framework"`
+	Title string `json:"title"`
+	Description *string `json:"description,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	AuditActions interface{} `json:"audit_actions,omitempty"`
+	CoverageScore *float32 `json:"coverage_score,omitempty"`
+	LastEvidenceAt *time.Time `json:"last_evidence_at,omitempty"`
+	Notes *string `json:"notes,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ComplianceControl `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindComplianceControl200ResponseDataInner FindComplianceControl200ResponseDataInner
+
 // NewFindComplianceControl200ResponseDataInner instantiates a new FindComplianceControl200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindComplianceControl200ResponseDataInner() *FindComplianceControl200ResponseDataInner {
+func NewFindComplianceControl200ResponseDataInner(controlId string, framework string, title string) *FindComplianceControl200ResponseDataInner {
 	this := FindComplianceControl200ResponseDataInner{}
+	this.ControlId = controlId
+	this.Framework = framework
+	this.Title = title
 	return &this
 }
 
@@ -44,6 +59,239 @@ func NewFindComplianceControl200ResponseDataInner() *FindComplianceControl200Res
 func NewFindComplianceControl200ResponseDataInnerWithDefaults() *FindComplianceControl200ResponseDataInner {
 	this := FindComplianceControl200ResponseDataInner{}
 	return &this
+}
+
+// GetControlId returns the ControlId field value
+func (o *FindComplianceControl200ResponseDataInner) GetControlId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ControlId
+}
+
+// GetControlIdOk returns a tuple with the ControlId field value
+// and a boolean to check if the value has been set.
+func (o *FindComplianceControl200ResponseDataInner) GetControlIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ControlId, true
+}
+
+// SetControlId sets field value
+func (o *FindComplianceControl200ResponseDataInner) SetControlId(v string) {
+	o.ControlId = v
+}
+
+// GetFramework returns the Framework field value
+func (o *FindComplianceControl200ResponseDataInner) GetFramework() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Framework
+}
+
+// GetFrameworkOk returns a tuple with the Framework field value
+// and a boolean to check if the value has been set.
+func (o *FindComplianceControl200ResponseDataInner) GetFrameworkOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Framework, true
+}
+
+// SetFramework sets field value
+func (o *FindComplianceControl200ResponseDataInner) SetFramework(v string) {
+	o.Framework = v
+}
+
+// GetTitle returns the Title field value
+func (o *FindComplianceControl200ResponseDataInner) GetTitle() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value
+// and a boolean to check if the value has been set.
+func (o *FindComplianceControl200ResponseDataInner) GetTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Title, true
+}
+
+// SetTitle sets field value
+func (o *FindComplianceControl200ResponseDataInner) SetTitle(v string) {
+	o.Title = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindComplianceControl200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindComplianceControl200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindComplianceControl200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindComplianceControl200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetAuditActions returns the AuditActions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindComplianceControl200ResponseDataInner) GetAuditActions() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.AuditActions
+}
+
+// GetAuditActionsOk returns a tuple with the AuditActions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindComplianceControl200ResponseDataInner) GetAuditActionsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.AuditActions) {
+		return nil, false
+	}
+	return &o.AuditActions, true
+}
+
+// HasAuditActions returns a boolean if a field has been set.
+func (o *FindComplianceControl200ResponseDataInner) HasAuditActions() bool {
+	if o != nil && !IsNil(o.AuditActions) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuditActions gets a reference to the given interface{} and assigns it to the AuditActions field.
+func (o *FindComplianceControl200ResponseDataInner) SetAuditActions(v interface{}) {
+	o.AuditActions = v
+}
+
+// GetCoverageScore returns the CoverageScore field value if set, zero value otherwise.
+func (o *FindComplianceControl200ResponseDataInner) GetCoverageScore() float32 {
+	if o == nil || IsNil(o.CoverageScore) {
+		var ret float32
+		return ret
+	}
+	return *o.CoverageScore
+}
+
+// GetCoverageScoreOk returns a tuple with the CoverageScore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindComplianceControl200ResponseDataInner) GetCoverageScoreOk() (*float32, bool) {
+	if o == nil || IsNil(o.CoverageScore) {
+		return nil, false
+	}
+	return o.CoverageScore, true
+}
+
+// HasCoverageScore returns a boolean if a field has been set.
+func (o *FindComplianceControl200ResponseDataInner) HasCoverageScore() bool {
+	if o != nil && !IsNil(o.CoverageScore) {
+		return true
+	}
+
+	return false
+}
+
+// SetCoverageScore gets a reference to the given float32 and assigns it to the CoverageScore field.
+func (o *FindComplianceControl200ResponseDataInner) SetCoverageScore(v float32) {
+	o.CoverageScore = &v
+}
+
+// GetLastEvidenceAt returns the LastEvidenceAt field value if set, zero value otherwise.
+func (o *FindComplianceControl200ResponseDataInner) GetLastEvidenceAt() time.Time {
+	if o == nil || IsNil(o.LastEvidenceAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastEvidenceAt
+}
+
+// GetLastEvidenceAtOk returns a tuple with the LastEvidenceAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindComplianceControl200ResponseDataInner) GetLastEvidenceAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastEvidenceAt) {
+		return nil, false
+	}
+	return o.LastEvidenceAt, true
+}
+
+// HasLastEvidenceAt returns a boolean if a field has been set.
+func (o *FindComplianceControl200ResponseDataInner) HasLastEvidenceAt() bool {
+	if o != nil && !IsNil(o.LastEvidenceAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastEvidenceAt gets a reference to the given time.Time and assigns it to the LastEvidenceAt field.
+func (o *FindComplianceControl200ResponseDataInner) SetLastEvidenceAt(v time.Time) {
+	o.LastEvidenceAt = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindComplianceControl200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindComplianceControl200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindComplianceControl200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindComplianceControl200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +356,6 @@ func (o *FindComplianceControl200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindComplianceControl200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindComplianceControl200ResponseDataInner) GetAttributes() ComplianceControl {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ComplianceControl
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindComplianceControl200ResponseDataInner) GetAttributesOk() (*ComplianceControl, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindComplianceControl200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ComplianceControl and assigns it to the Attributes field.
-func (o *FindComplianceControl200ResponseDataInner) SetAttributes(v ComplianceControl) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +474,29 @@ func (o FindComplianceControl200ResponseDataInner) MarshalJSON() ([]byte, error)
 
 func (o FindComplianceControl200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["control_id"] = o.ControlId
+	toSerialize["framework"] = o.Framework
+	toSerialize["title"] = o.Title
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if o.AuditActions != nil {
+		toSerialize["audit_actions"] = o.AuditActions
+	}
+	if !IsNil(o.CoverageScore) {
+		toSerialize["coverage_score"] = o.CoverageScore
+	}
+	if !IsNil(o.LastEvidenceAt) {
+		toSerialize["last_evidence_at"] = o.LastEvidenceAt
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +508,45 @@ func (o FindComplianceControl200ResponseDataInner) ToMap() (map[string]interface
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindComplianceControl200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"control_id",
+		"framework",
+		"title",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindComplianceControl200ResponseDataInner := _FindComplianceControl200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindComplianceControl200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindComplianceControl200ResponseDataInner(varFindComplianceControl200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindComplianceControl200ResponseDataInner struct {

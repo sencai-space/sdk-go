@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindSecretInjection200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,44 @@ var _ MappedNullable = &FindSecretInjection200ResponseDataInner{}
 
 // FindSecretInjection200ResponseDataInner struct for FindSecretInjection200ResponseDataInner
 type FindSecretInjection200ResponseDataInner struct {
+	Organisation CreateAccessReviewRequestDataReviewer `json:"organisation"`
+	CloudInstance *CreateAccessReviewRequestDataReviewer `json:"cloud_instance,omitempty"`
+	// Logical name identifying the secret (no value stored).
+	SecretName string `json:"secret_name"`
+	// Vault path or external reference, e.g. secret/data/myapp/db-password.
+	SecretRef string `json:"secret_ref"`
+	// Name of the service or process into which the secret is injected.
+	TargetService string `json:"target_service"`
+	// How the secret is delivered to the workload.
+	InjectionMethod string `json:"injection_method"`
+	// Environment variable name (only when injection_method=env_var).
+	EnvVarName *string `json:"env_var_name,omitempty"`
+	// Absolute path inside the container (only when injection_method=file).
+	FilePath *string `json:"file_path,omitempty"`
+	Status string `json:"status"`
+	LastInjectedAt *time.Time `json:"last_injected_at,omitempty"`
+	Notes *string `json:"notes,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *SecretInjection `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindSecretInjection200ResponseDataInner FindSecretInjection200ResponseDataInner
+
 // NewFindSecretInjection200ResponseDataInner instantiates a new FindSecretInjection200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindSecretInjection200ResponseDataInner() *FindSecretInjection200ResponseDataInner {
+func NewFindSecretInjection200ResponseDataInner(organisation CreateAccessReviewRequestDataReviewer, secretName string, secretRef string, targetService string, injectionMethod string, status string) *FindSecretInjection200ResponseDataInner {
 	this := FindSecretInjection200ResponseDataInner{}
+	this.Organisation = organisation
+	this.SecretName = secretName
+	this.SecretRef = secretRef
+	this.TargetService = targetService
+	this.InjectionMethod = injectionMethod
+	this.Status = status
 	return &this
 }
 
@@ -44,6 +70,310 @@ func NewFindSecretInjection200ResponseDataInner() *FindSecretInjection200Respons
 func NewFindSecretInjection200ResponseDataInnerWithDefaults() *FindSecretInjection200ResponseDataInner {
 	this := FindSecretInjection200ResponseDataInner{}
 	return &this
+}
+
+// GetOrganisation returns the Organisation field value
+func (o *FindSecretInjection200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *FindSecretInjection200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = v
+}
+
+// GetCloudInstance returns the CloudInstance field value if set, zero value otherwise.
+func (o *FindSecretInjection200ResponseDataInner) GetCloudInstance() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.CloudInstance) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.CloudInstance
+}
+
+// GetCloudInstanceOk returns a tuple with the CloudInstance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetCloudInstanceOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.CloudInstance) {
+		return nil, false
+	}
+	return o.CloudInstance, true
+}
+
+// HasCloudInstance returns a boolean if a field has been set.
+func (o *FindSecretInjection200ResponseDataInner) HasCloudInstance() bool {
+	if o != nil && !IsNil(o.CloudInstance) {
+		return true
+	}
+
+	return false
+}
+
+// SetCloudInstance gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the CloudInstance field.
+func (o *FindSecretInjection200ResponseDataInner) SetCloudInstance(v CreateAccessReviewRequestDataReviewer) {
+	o.CloudInstance = &v
+}
+
+// GetSecretName returns the SecretName field value
+func (o *FindSecretInjection200ResponseDataInner) GetSecretName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SecretName
+}
+
+// GetSecretNameOk returns a tuple with the SecretName field value
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetSecretNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SecretName, true
+}
+
+// SetSecretName sets field value
+func (o *FindSecretInjection200ResponseDataInner) SetSecretName(v string) {
+	o.SecretName = v
+}
+
+// GetSecretRef returns the SecretRef field value
+func (o *FindSecretInjection200ResponseDataInner) GetSecretRef() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SecretRef
+}
+
+// GetSecretRefOk returns a tuple with the SecretRef field value
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetSecretRefOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SecretRef, true
+}
+
+// SetSecretRef sets field value
+func (o *FindSecretInjection200ResponseDataInner) SetSecretRef(v string) {
+	o.SecretRef = v
+}
+
+// GetTargetService returns the TargetService field value
+func (o *FindSecretInjection200ResponseDataInner) GetTargetService() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TargetService
+}
+
+// GetTargetServiceOk returns a tuple with the TargetService field value
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetTargetServiceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TargetService, true
+}
+
+// SetTargetService sets field value
+func (o *FindSecretInjection200ResponseDataInner) SetTargetService(v string) {
+	o.TargetService = v
+}
+
+// GetInjectionMethod returns the InjectionMethod field value
+func (o *FindSecretInjection200ResponseDataInner) GetInjectionMethod() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.InjectionMethod
+}
+
+// GetInjectionMethodOk returns a tuple with the InjectionMethod field value
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetInjectionMethodOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.InjectionMethod, true
+}
+
+// SetInjectionMethod sets field value
+func (o *FindSecretInjection200ResponseDataInner) SetInjectionMethod(v string) {
+	o.InjectionMethod = v
+}
+
+// GetEnvVarName returns the EnvVarName field value if set, zero value otherwise.
+func (o *FindSecretInjection200ResponseDataInner) GetEnvVarName() string {
+	if o == nil || IsNil(o.EnvVarName) {
+		var ret string
+		return ret
+	}
+	return *o.EnvVarName
+}
+
+// GetEnvVarNameOk returns a tuple with the EnvVarName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetEnvVarNameOk() (*string, bool) {
+	if o == nil || IsNil(o.EnvVarName) {
+		return nil, false
+	}
+	return o.EnvVarName, true
+}
+
+// HasEnvVarName returns a boolean if a field has been set.
+func (o *FindSecretInjection200ResponseDataInner) HasEnvVarName() bool {
+	if o != nil && !IsNil(o.EnvVarName) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvVarName gets a reference to the given string and assigns it to the EnvVarName field.
+func (o *FindSecretInjection200ResponseDataInner) SetEnvVarName(v string) {
+	o.EnvVarName = &v
+}
+
+// GetFilePath returns the FilePath field value if set, zero value otherwise.
+func (o *FindSecretInjection200ResponseDataInner) GetFilePath() string {
+	if o == nil || IsNil(o.FilePath) {
+		var ret string
+		return ret
+	}
+	return *o.FilePath
+}
+
+// GetFilePathOk returns a tuple with the FilePath field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetFilePathOk() (*string, bool) {
+	if o == nil || IsNil(o.FilePath) {
+		return nil, false
+	}
+	return o.FilePath, true
+}
+
+// HasFilePath returns a boolean if a field has been set.
+func (o *FindSecretInjection200ResponseDataInner) HasFilePath() bool {
+	if o != nil && !IsNil(o.FilePath) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilePath gets a reference to the given string and assigns it to the FilePath field.
+func (o *FindSecretInjection200ResponseDataInner) SetFilePath(v string) {
+	o.FilePath = &v
+}
+
+// GetStatus returns the Status field value
+func (o *FindSecretInjection200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindSecretInjection200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetLastInjectedAt returns the LastInjectedAt field value if set, zero value otherwise.
+func (o *FindSecretInjection200ResponseDataInner) GetLastInjectedAt() time.Time {
+	if o == nil || IsNil(o.LastInjectedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastInjectedAt
+}
+
+// GetLastInjectedAtOk returns a tuple with the LastInjectedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetLastInjectedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastInjectedAt) {
+		return nil, false
+	}
+	return o.LastInjectedAt, true
+}
+
+// HasLastInjectedAt returns a boolean if a field has been set.
+func (o *FindSecretInjection200ResponseDataInner) HasLastInjectedAt() bool {
+	if o != nil && !IsNil(o.LastInjectedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastInjectedAt gets a reference to the given time.Time and assigns it to the LastInjectedAt field.
+func (o *FindSecretInjection200ResponseDataInner) SetLastInjectedAt(v time.Time) {
+	o.LastInjectedAt = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindSecretInjection200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindSecretInjection200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindSecretInjection200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindSecretInjection200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +438,6 @@ func (o *FindSecretInjection200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindSecretInjection200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindSecretInjection200ResponseDataInner) GetAttributes() SecretInjection {
-	if o == nil || IsNil(o.Attributes) {
-		var ret SecretInjection
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindSecretInjection200ResponseDataInner) GetAttributesOk() (*SecretInjection, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindSecretInjection200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given SecretInjection and assigns it to the Attributes field.
-func (o *FindSecretInjection200ResponseDataInner) SetAttributes(v SecretInjection) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +556,32 @@ func (o FindSecretInjection200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindSecretInjection200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["organisation"] = o.Organisation
+	if !IsNil(o.CloudInstance) {
+		toSerialize["cloud_instance"] = o.CloudInstance
+	}
+	toSerialize["secret_name"] = o.SecretName
+	toSerialize["secret_ref"] = o.SecretRef
+	toSerialize["target_service"] = o.TargetService
+	toSerialize["injection_method"] = o.InjectionMethod
+	if !IsNil(o.EnvVarName) {
+		toSerialize["env_var_name"] = o.EnvVarName
+	}
+	if !IsNil(o.FilePath) {
+		toSerialize["file_path"] = o.FilePath
+	}
+	toSerialize["status"] = o.Status
+	if !IsNil(o.LastInjectedAt) {
+		toSerialize["last_injected_at"] = o.LastInjectedAt
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +593,48 @@ func (o FindSecretInjection200ResponseDataInner) ToMap() (map[string]interface{}
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindSecretInjection200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"organisation",
+		"secret_name",
+		"secret_ref",
+		"target_service",
+		"injection_method",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindSecretInjection200ResponseDataInner := _FindSecretInjection200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindSecretInjection200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindSecretInjection200ResponseDataInner(varFindSecretInjection200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindSecretInjection200ResponseDataInner struct {

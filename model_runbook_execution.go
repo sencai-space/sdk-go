@@ -28,7 +28,7 @@ type RunbookExecution struct {
 	TriggeredBy string `json:"triggered_by"`
 	Status string `json:"status"`
 	// Execution result payload from agent. Array of {action, success, output, error}.
-	Result map[string]interface{} `json:"result,omitempty"`
+	Result interface{} `json:"result,omitempty"`
 	DryRun *bool `json:"dry_run,omitempty"`
 	ApprovedAt *time.Time `json:"approved_at,omitempty"`
 	// Approval TTL — execution is auto-cancelled if not approved by this time (now+4h on create when confirmation_required).
@@ -37,6 +37,7 @@ type RunbookExecution struct {
 	// agent_id (documentId) of the agent to execute the runbook on.
 	AgentTarget *string `json:"agent_target,omitempty"`
 	ErrorMessage *string `json:"error_message,omitempty"`
+	TriggeredByUser *CreateAccessReviewRequestDataReviewer `json:"triggered_by_user,omitempty"`
 }
 
 type _RunbookExecution RunbookExecution
@@ -172,10 +173,10 @@ func (o *RunbookExecution) SetStatus(v string) {
 	o.Status = v
 }
 
-// GetResult returns the Result field value if set, zero value otherwise.
-func (o *RunbookExecution) GetResult() map[string]interface{} {
-	if o == nil || IsNil(o.Result) {
-		var ret map[string]interface{}
+// GetResult returns the Result field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RunbookExecution) GetResult() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Result
@@ -183,11 +184,12 @@ func (o *RunbookExecution) GetResult() map[string]interface{} {
 
 // GetResultOk returns a tuple with the Result field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RunbookExecution) GetResultOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RunbookExecution) GetResultOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Result) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Result, true
+	return &o.Result, true
 }
 
 // HasResult returns a boolean if a field has been set.
@@ -199,8 +201,8 @@ func (o *RunbookExecution) HasResult() bool {
 	return false
 }
 
-// SetResult gets a reference to the given map[string]interface{} and assigns it to the Result field.
-func (o *RunbookExecution) SetResult(v map[string]interface{}) {
+// SetResult gets a reference to the given interface{} and assigns it to the Result field.
+func (o *RunbookExecution) SetResult(v interface{}) {
 	o.Result = v
 }
 
@@ -396,6 +398,38 @@ func (o *RunbookExecution) SetErrorMessage(v string) {
 	o.ErrorMessage = &v
 }
 
+// GetTriggeredByUser returns the TriggeredByUser field value if set, zero value otherwise.
+func (o *RunbookExecution) GetTriggeredByUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.TriggeredByUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.TriggeredByUser
+}
+
+// GetTriggeredByUserOk returns a tuple with the TriggeredByUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RunbookExecution) GetTriggeredByUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.TriggeredByUser) {
+		return nil, false
+	}
+	return o.TriggeredByUser, true
+}
+
+// HasTriggeredByUser returns a boolean if a field has been set.
+func (o *RunbookExecution) HasTriggeredByUser() bool {
+	if o != nil && !IsNil(o.TriggeredByUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggeredByUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the TriggeredByUser field.
+func (o *RunbookExecution) SetTriggeredByUser(v CreateAccessReviewRequestDataReviewer) {
+	o.TriggeredByUser = &v
+}
+
 func (o RunbookExecution) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -414,7 +448,7 @@ func (o RunbookExecution) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["triggered_by"] = o.TriggeredBy
 	toSerialize["status"] = o.Status
-	if !IsNil(o.Result) {
+	if o.Result != nil {
 		toSerialize["result"] = o.Result
 	}
 	if !IsNil(o.DryRun) {
@@ -434,6 +468,9 @@ func (o RunbookExecution) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ErrorMessage) {
 		toSerialize["error_message"] = o.ErrorMessage
+	}
+	if !IsNil(o.TriggeredByUser) {
+		toSerialize["triggered_by_user"] = o.TriggeredByUser
 	}
 	return toSerialize, nil
 }

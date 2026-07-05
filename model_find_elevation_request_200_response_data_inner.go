@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindElevationRequest200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,47 @@ var _ MappedNullable = &FindElevationRequest200ResponseDataInner{}
 
 // FindElevationRequest200ResponseDataInner struct for FindElevationRequest200ResponseDataInner
 type FindElevationRequest200ResponseDataInner struct {
+	RequestingUser *CreateAccessReviewRequestDataReviewer `json:"requesting_user,omitempty"`
+	RequestingOrg *CreateAccessReviewRequestDataReviewer `json:"requesting_org,omitempty"`
+	TargetOrg *CreateAccessReviewRequestDataReviewer `json:"target_org,omitempty"`
+	// List of capability names being requested
+	RequestedCapabilities interface{} `json:"requested_capabilities"`
+	Justification string `json:"justification"`
+	DurationMinutes int32 `json:"duration_minutes"`
+	Status string `json:"status"`
+	Approver *CreateAccessReviewRequestDataReviewer `json:"approver,omitempty"`
+	ApprovedAt *time.Time `json:"approved_at,omitempty"`
+	AutoExpireAt *time.Time `json:"auto_expire_at,omitempty"`
+	DenialReason *string `json:"denial_reason,omitempty"`
+	// Single-use guard — true once the grant has been consumed (JIT)
+	Used *bool `json:"used,omitempty"`
+	// Timestamp when the grant was consumed (single-use)
+	UsedAt *time.Time `json:"used_at,omitempty"`
+	Relationship *CreateAccessReviewRequestDataReviewer `json:"relationship,omitempty"`
+	// Logical data-residency region of the tenant (CELL invariant, F2.CELL.01)
+	HomeRegion string `json:"home_region"`
+	// Deployment cell within home_region for blast-radius isolation (CELL invariant, F2.CELL.01)
+	CellId *string `json:"cell_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *ElevationRequest `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindElevationRequest200ResponseDataInner FindElevationRequest200ResponseDataInner
+
 // NewFindElevationRequest200ResponseDataInner instantiates a new FindElevationRequest200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindElevationRequest200ResponseDataInner() *FindElevationRequest200ResponseDataInner {
+func NewFindElevationRequest200ResponseDataInner(requestedCapabilities interface{}, justification string, durationMinutes int32, status string, homeRegion string) *FindElevationRequest200ResponseDataInner {
 	this := FindElevationRequest200ResponseDataInner{}
+	this.RequestedCapabilities = requestedCapabilities
+	this.Justification = justification
+	this.DurationMinutes = durationMinutes
+	this.Status = status
+	this.HomeRegion = homeRegion
 	return &this
 }
 
@@ -44,6 +73,480 @@ func NewFindElevationRequest200ResponseDataInner() *FindElevationRequest200Respo
 func NewFindElevationRequest200ResponseDataInnerWithDefaults() *FindElevationRequest200ResponseDataInner {
 	this := FindElevationRequest200ResponseDataInner{}
 	return &this
+}
+
+// GetRequestingUser returns the RequestingUser field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetRequestingUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.RequestingUser) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.RequestingUser
+}
+
+// GetRequestingUserOk returns a tuple with the RequestingUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetRequestingUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.RequestingUser) {
+		return nil, false
+	}
+	return o.RequestingUser, true
+}
+
+// HasRequestingUser returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasRequestingUser() bool {
+	if o != nil && !IsNil(o.RequestingUser) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestingUser gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the RequestingUser field.
+func (o *FindElevationRequest200ResponseDataInner) SetRequestingUser(v CreateAccessReviewRequestDataReviewer) {
+	o.RequestingUser = &v
+}
+
+// GetRequestingOrg returns the RequestingOrg field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetRequestingOrg() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.RequestingOrg) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.RequestingOrg
+}
+
+// GetRequestingOrgOk returns a tuple with the RequestingOrg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetRequestingOrgOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.RequestingOrg) {
+		return nil, false
+	}
+	return o.RequestingOrg, true
+}
+
+// HasRequestingOrg returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasRequestingOrg() bool {
+	if o != nil && !IsNil(o.RequestingOrg) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestingOrg gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the RequestingOrg field.
+func (o *FindElevationRequest200ResponseDataInner) SetRequestingOrg(v CreateAccessReviewRequestDataReviewer) {
+	o.RequestingOrg = &v
+}
+
+// GetTargetOrg returns the TargetOrg field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetTargetOrg() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.TargetOrg) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.TargetOrg
+}
+
+// GetTargetOrgOk returns a tuple with the TargetOrg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetTargetOrgOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.TargetOrg) {
+		return nil, false
+	}
+	return o.TargetOrg, true
+}
+
+// HasTargetOrg returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasTargetOrg() bool {
+	if o != nil && !IsNil(o.TargetOrg) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetOrg gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the TargetOrg field.
+func (o *FindElevationRequest200ResponseDataInner) SetTargetOrg(v CreateAccessReviewRequestDataReviewer) {
+	o.TargetOrg = &v
+}
+
+// GetRequestedCapabilities returns the RequestedCapabilities field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *FindElevationRequest200ResponseDataInner) GetRequestedCapabilities() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+
+	return o.RequestedCapabilities
+}
+
+// GetRequestedCapabilitiesOk returns a tuple with the RequestedCapabilities field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindElevationRequest200ResponseDataInner) GetRequestedCapabilitiesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.RequestedCapabilities) {
+		return nil, false
+	}
+	return &o.RequestedCapabilities, true
+}
+
+// SetRequestedCapabilities sets field value
+func (o *FindElevationRequest200ResponseDataInner) SetRequestedCapabilities(v interface{}) {
+	o.RequestedCapabilities = v
+}
+
+// GetJustification returns the Justification field value
+func (o *FindElevationRequest200ResponseDataInner) GetJustification() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Justification
+}
+
+// GetJustificationOk returns a tuple with the Justification field value
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetJustificationOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Justification, true
+}
+
+// SetJustification sets field value
+func (o *FindElevationRequest200ResponseDataInner) SetJustification(v string) {
+	o.Justification = v
+}
+
+// GetDurationMinutes returns the DurationMinutes field value
+func (o *FindElevationRequest200ResponseDataInner) GetDurationMinutes() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.DurationMinutes
+}
+
+// GetDurationMinutesOk returns a tuple with the DurationMinutes field value
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetDurationMinutesOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DurationMinutes, true
+}
+
+// SetDurationMinutes sets field value
+func (o *FindElevationRequest200ResponseDataInner) SetDurationMinutes(v int32) {
+	o.DurationMinutes = v
+}
+
+// GetStatus returns the Status field value
+func (o *FindElevationRequest200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindElevationRequest200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetApprover returns the Approver field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetApprover() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Approver) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Approver
+}
+
+// GetApproverOk returns a tuple with the Approver field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetApproverOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Approver) {
+		return nil, false
+	}
+	return o.Approver, true
+}
+
+// HasApprover returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasApprover() bool {
+	if o != nil && !IsNil(o.Approver) {
+		return true
+	}
+
+	return false
+}
+
+// SetApprover gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Approver field.
+func (o *FindElevationRequest200ResponseDataInner) SetApprover(v CreateAccessReviewRequestDataReviewer) {
+	o.Approver = &v
+}
+
+// GetApprovedAt returns the ApprovedAt field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetApprovedAt() time.Time {
+	if o == nil || IsNil(o.ApprovedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ApprovedAt
+}
+
+// GetApprovedAtOk returns a tuple with the ApprovedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetApprovedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ApprovedAt) {
+		return nil, false
+	}
+	return o.ApprovedAt, true
+}
+
+// HasApprovedAt returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasApprovedAt() bool {
+	if o != nil && !IsNil(o.ApprovedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetApprovedAt gets a reference to the given time.Time and assigns it to the ApprovedAt field.
+func (o *FindElevationRequest200ResponseDataInner) SetApprovedAt(v time.Time) {
+	o.ApprovedAt = &v
+}
+
+// GetAutoExpireAt returns the AutoExpireAt field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetAutoExpireAt() time.Time {
+	if o == nil || IsNil(o.AutoExpireAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AutoExpireAt
+}
+
+// GetAutoExpireAtOk returns a tuple with the AutoExpireAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetAutoExpireAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AutoExpireAt) {
+		return nil, false
+	}
+	return o.AutoExpireAt, true
+}
+
+// HasAutoExpireAt returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasAutoExpireAt() bool {
+	if o != nil && !IsNil(o.AutoExpireAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoExpireAt gets a reference to the given time.Time and assigns it to the AutoExpireAt field.
+func (o *FindElevationRequest200ResponseDataInner) SetAutoExpireAt(v time.Time) {
+	o.AutoExpireAt = &v
+}
+
+// GetDenialReason returns the DenialReason field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetDenialReason() string {
+	if o == nil || IsNil(o.DenialReason) {
+		var ret string
+		return ret
+	}
+	return *o.DenialReason
+}
+
+// GetDenialReasonOk returns a tuple with the DenialReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetDenialReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.DenialReason) {
+		return nil, false
+	}
+	return o.DenialReason, true
+}
+
+// HasDenialReason returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasDenialReason() bool {
+	if o != nil && !IsNil(o.DenialReason) {
+		return true
+	}
+
+	return false
+}
+
+// SetDenialReason gets a reference to the given string and assigns it to the DenialReason field.
+func (o *FindElevationRequest200ResponseDataInner) SetDenialReason(v string) {
+	o.DenialReason = &v
+}
+
+// GetUsed returns the Used field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetUsed() bool {
+	if o == nil || IsNil(o.Used) {
+		var ret bool
+		return ret
+	}
+	return *o.Used
+}
+
+// GetUsedOk returns a tuple with the Used field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetUsedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Used) {
+		return nil, false
+	}
+	return o.Used, true
+}
+
+// HasUsed returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasUsed() bool {
+	if o != nil && !IsNil(o.Used) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsed gets a reference to the given bool and assigns it to the Used field.
+func (o *FindElevationRequest200ResponseDataInner) SetUsed(v bool) {
+	o.Used = &v
+}
+
+// GetUsedAt returns the UsedAt field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetUsedAt() time.Time {
+	if o == nil || IsNil(o.UsedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.UsedAt
+}
+
+// GetUsedAtOk returns a tuple with the UsedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetUsedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.UsedAt) {
+		return nil, false
+	}
+	return o.UsedAt, true
+}
+
+// HasUsedAt returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasUsedAt() bool {
+	if o != nil && !IsNil(o.UsedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsedAt gets a reference to the given time.Time and assigns it to the UsedAt field.
+func (o *FindElevationRequest200ResponseDataInner) SetUsedAt(v time.Time) {
+	o.UsedAt = &v
+}
+
+// GetRelationship returns the Relationship field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetRelationship() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Relationship) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Relationship
+}
+
+// GetRelationshipOk returns a tuple with the Relationship field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetRelationshipOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Relationship) {
+		return nil, false
+	}
+	return o.Relationship, true
+}
+
+// HasRelationship returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasRelationship() bool {
+	if o != nil && !IsNil(o.Relationship) {
+		return true
+	}
+
+	return false
+}
+
+// SetRelationship gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Relationship field.
+func (o *FindElevationRequest200ResponseDataInner) SetRelationship(v CreateAccessReviewRequestDataReviewer) {
+	o.Relationship = &v
+}
+
+// GetHomeRegion returns the HomeRegion field value
+func (o *FindElevationRequest200ResponseDataInner) GetHomeRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.HomeRegion
+}
+
+// GetHomeRegionOk returns a tuple with the HomeRegion field value
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetHomeRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.HomeRegion, true
+}
+
+// SetHomeRegion sets field value
+func (o *FindElevationRequest200ResponseDataInner) SetHomeRegion(v string) {
+	o.HomeRegion = v
+}
+
+// GetCellId returns the CellId field value if set, zero value otherwise.
+func (o *FindElevationRequest200ResponseDataInner) GetCellId() string {
+	if o == nil || IsNil(o.CellId) {
+		var ret string
+		return ret
+	}
+	return *o.CellId
+}
+
+// GetCellIdOk returns a tuple with the CellId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindElevationRequest200ResponseDataInner) GetCellIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CellId) {
+		return nil, false
+	}
+	return o.CellId, true
+}
+
+// HasCellId returns a boolean if a field has been set.
+func (o *FindElevationRequest200ResponseDataInner) HasCellId() bool {
+	if o != nil && !IsNil(o.CellId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellId gets a reference to the given string and assigns it to the CellId field.
+func (o *FindElevationRequest200ResponseDataInner) SetCellId(v string) {
+	o.CellId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +611,6 @@ func (o *FindElevationRequest200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindElevationRequest200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindElevationRequest200ResponseDataInner) GetAttributes() ElevationRequest {
-	if o == nil || IsNil(o.Attributes) {
-		var ret ElevationRequest
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindElevationRequest200ResponseDataInner) GetAttributesOk() (*ElevationRequest, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindElevationRequest200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given ElevationRequest and assigns it to the Attributes field.
-func (o *FindElevationRequest200ResponseDataInner) SetAttributes(v ElevationRequest) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +729,51 @@ func (o FindElevationRequest200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindElevationRequest200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RequestingUser) {
+		toSerialize["requesting_user"] = o.RequestingUser
+	}
+	if !IsNil(o.RequestingOrg) {
+		toSerialize["requesting_org"] = o.RequestingOrg
+	}
+	if !IsNil(o.TargetOrg) {
+		toSerialize["target_org"] = o.TargetOrg
+	}
+	if o.RequestedCapabilities != nil {
+		toSerialize["requested_capabilities"] = o.RequestedCapabilities
+	}
+	toSerialize["justification"] = o.Justification
+	toSerialize["duration_minutes"] = o.DurationMinutes
+	toSerialize["status"] = o.Status
+	if !IsNil(o.Approver) {
+		toSerialize["approver"] = o.Approver
+	}
+	if !IsNil(o.ApprovedAt) {
+		toSerialize["approved_at"] = o.ApprovedAt
+	}
+	if !IsNil(o.AutoExpireAt) {
+		toSerialize["auto_expire_at"] = o.AutoExpireAt
+	}
+	if !IsNil(o.DenialReason) {
+		toSerialize["denial_reason"] = o.DenialReason
+	}
+	if !IsNil(o.Used) {
+		toSerialize["used"] = o.Used
+	}
+	if !IsNil(o.UsedAt) {
+		toSerialize["used_at"] = o.UsedAt
+	}
+	if !IsNil(o.Relationship) {
+		toSerialize["relationship"] = o.Relationship
+	}
+	toSerialize["home_region"] = o.HomeRegion
+	if !IsNil(o.CellId) {
+		toSerialize["cell_id"] = o.CellId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +785,47 @@ func (o FindElevationRequest200ResponseDataInner) ToMap() (map[string]interface{
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindElevationRequest200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"requested_capabilities",
+		"justification",
+		"duration_minutes",
+		"status",
+		"home_region",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindElevationRequest200ResponseDataInner := _FindElevationRequest200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindElevationRequest200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindElevationRequest200ResponseDataInner(varFindElevationRequest200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindElevationRequest200ResponseDataInner struct {

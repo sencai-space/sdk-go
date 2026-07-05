@@ -25,12 +25,15 @@ type CreateNetworkTemplateRequestData struct {
 	Name string `json:"name"`
 	Description *string `json:"description,omitempty"`
 	TemplateType string `json:"template_type"`
-	Rules map[string]interface{} `json:"rules"`
-	ProviderSupport map[string]interface{} `json:"provider_support,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Rules interface{} `json:"rules"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ProviderSupport interface{} `json:"provider_support,omitempty"`
 	IsBuiltin *bool `json:"is_builtin,omitempty"`
 	IsPublic *bool `json:"is_public,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
-	Tags map[string]interface{} `json:"tags,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Tags interface{} `json:"tags,omitempty"`
 }
 
 type _CreateNetworkTemplateRequestData CreateNetworkTemplateRequestData
@@ -39,7 +42,7 @@ type _CreateNetworkTemplateRequestData CreateNetworkTemplateRequestData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateNetworkTemplateRequestData(name string, templateType string, rules map[string]interface{}) *CreateNetworkTemplateRequestData {
+func NewCreateNetworkTemplateRequestData(name string, templateType string, rules interface{}) *CreateNetworkTemplateRequestData {
 	this := CreateNetworkTemplateRequestData{}
 	this.Name = name
 	this.TemplateType = templateType
@@ -136,9 +139,10 @@ func (o *CreateNetworkTemplateRequestData) SetTemplateType(v string) {
 }
 
 // GetRules returns the Rules field value
-func (o *CreateNetworkTemplateRequestData) GetRules() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *CreateNetworkTemplateRequestData) GetRules() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -147,22 +151,23 @@ func (o *CreateNetworkTemplateRequestData) GetRules() map[string]interface{} {
 
 // GetRulesOk returns a tuple with the Rules field value
 // and a boolean to check if the value has been set.
-func (o *CreateNetworkTemplateRequestData) GetRulesOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateNetworkTemplateRequestData) GetRulesOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Rules) {
+		return nil, false
 	}
-	return o.Rules, true
+	return &o.Rules, true
 }
 
 // SetRules sets field value
-func (o *CreateNetworkTemplateRequestData) SetRules(v map[string]interface{}) {
+func (o *CreateNetworkTemplateRequestData) SetRules(v interface{}) {
 	o.Rules = v
 }
 
-// GetProviderSupport returns the ProviderSupport field value if set, zero value otherwise.
-func (o *CreateNetworkTemplateRequestData) GetProviderSupport() map[string]interface{} {
-	if o == nil || IsNil(o.ProviderSupport) {
-		var ret map[string]interface{}
+// GetProviderSupport returns the ProviderSupport field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateNetworkTemplateRequestData) GetProviderSupport() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ProviderSupport
@@ -170,11 +175,12 @@ func (o *CreateNetworkTemplateRequestData) GetProviderSupport() map[string]inter
 
 // GetProviderSupportOk returns a tuple with the ProviderSupport field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateNetworkTemplateRequestData) GetProviderSupportOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateNetworkTemplateRequestData) GetProviderSupportOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ProviderSupport) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ProviderSupport, true
+	return &o.ProviderSupport, true
 }
 
 // HasProviderSupport returns a boolean if a field has been set.
@@ -186,8 +192,8 @@ func (o *CreateNetworkTemplateRequestData) HasProviderSupport() bool {
 	return false
 }
 
-// SetProviderSupport gets a reference to the given map[string]interface{} and assigns it to the ProviderSupport field.
-func (o *CreateNetworkTemplateRequestData) SetProviderSupport(v map[string]interface{}) {
+// SetProviderSupport gets a reference to the given interface{} and assigns it to the ProviderSupport field.
+func (o *CreateNetworkTemplateRequestData) SetProviderSupport(v interface{}) {
 	o.ProviderSupport = v
 }
 
@@ -287,10 +293,10 @@ func (o *CreateNetworkTemplateRequestData) SetOrganisation(v CreateAccessReviewR
 	o.Organisation = &v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *CreateNetworkTemplateRequestData) GetTags() map[string]interface{} {
-	if o == nil || IsNil(o.Tags) {
-		var ret map[string]interface{}
+// GetTags returns the Tags field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateNetworkTemplateRequestData) GetTags() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Tags
@@ -298,11 +304,12 @@ func (o *CreateNetworkTemplateRequestData) GetTags() map[string]interface{} {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateNetworkTemplateRequestData) GetTagsOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateNetworkTemplateRequestData) GetTagsOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Tags) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
 // HasTags returns a boolean if a field has been set.
@@ -314,8 +321,8 @@ func (o *CreateNetworkTemplateRequestData) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given map[string]interface{} and assigns it to the Tags field.
-func (o *CreateNetworkTemplateRequestData) SetTags(v map[string]interface{}) {
+// SetTags gets a reference to the given interface{} and assigns it to the Tags field.
+func (o *CreateNetworkTemplateRequestData) SetTags(v interface{}) {
 	o.Tags = v
 }
 
@@ -334,8 +341,10 @@ func (o CreateNetworkTemplateRequestData) ToMap() (map[string]interface{}, error
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["template_type"] = o.TemplateType
-	toSerialize["rules"] = o.Rules
-	if !IsNil(o.ProviderSupport) {
+	if o.Rules != nil {
+		toSerialize["rules"] = o.Rules
+	}
+	if o.ProviderSupport != nil {
 		toSerialize["provider_support"] = o.ProviderSupport
 	}
 	if !IsNil(o.IsBuiltin) {
@@ -347,7 +356,7 @@ func (o CreateNetworkTemplateRequestData) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Organisation) {
 		toSerialize["organisation"] = o.Organisation
 	}
-	if !IsNil(o.Tags) {
+	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
 	}
 	return toSerialize, nil

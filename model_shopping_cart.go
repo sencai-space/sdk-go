@@ -25,7 +25,8 @@ var _ MappedNullable = &ShoppingCart{}
 type ShoppingCart struct {
 	UsersPermissionsUser *CreateAccessReviewRequestDataReviewer `json:"users_permissions_user,omitempty"`
 	SessionId *string `json:"session_id,omitempty"`
-	ShoppingItems map[string]interface{} `json:"shopping_items"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ShoppingItems interface{} `json:"shopping_items"`
 	TotalAmount *float32 `json:"total_amount,omitempty"`
 	Currency *string `json:"currency,omitempty"`
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
@@ -38,7 +39,7 @@ type _ShoppingCart ShoppingCart
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewShoppingCart(shoppingItems map[string]interface{}) *ShoppingCart {
+func NewShoppingCart(shoppingItems interface{}) *ShoppingCart {
 	this := ShoppingCart{}
 	this.ShoppingItems = shoppingItems
 	return &this
@@ -117,9 +118,10 @@ func (o *ShoppingCart) SetSessionId(v string) {
 }
 
 // GetShoppingItems returns the ShoppingItems field value
-func (o *ShoppingCart) GetShoppingItems() map[string]interface{} {
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *ShoppingCart) GetShoppingItems() interface{} {
 	if o == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 
@@ -128,15 +130,16 @@ func (o *ShoppingCart) GetShoppingItems() map[string]interface{} {
 
 // GetShoppingItemsOk returns a tuple with the ShoppingItems field value
 // and a boolean to check if the value has been set.
-func (o *ShoppingCart) GetShoppingItemsOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ShoppingCart) GetShoppingItemsOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.ShoppingItems) {
+		return nil, false
 	}
-	return o.ShoppingItems, true
+	return &o.ShoppingItems, true
 }
 
 // SetShoppingItems sets field value
-func (o *ShoppingCart) SetShoppingItems(v map[string]interface{}) {
+func (o *ShoppingCart) SetShoppingItems(v interface{}) {
 	o.ShoppingItems = v
 }
 
@@ -284,7 +287,9 @@ func (o ShoppingCart) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SessionId) {
 		toSerialize["session_id"] = o.SessionId
 	}
-	toSerialize["shopping_items"] = o.ShoppingItems
+	if o.ShoppingItems != nil {
+		toSerialize["shopping_items"] = o.ShoppingItems
+	}
 	if !IsNil(o.TotalAmount) {
 		toSerialize["total_amount"] = o.TotalAmount
 	}

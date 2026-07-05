@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindWafRule200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,36 @@ var _ MappedNullable = &FindWafRule200ResponseDataInner{}
 
 // FindWafRule200ResponseDataInner struct for FindWafRule200ResponseDataInner
 type FindWafRule200ResponseDataInner struct {
+	Name string `json:"name"`
+	Description *string `json:"description,omitempty"`
+	RuleType *string `json:"rule_type,omitempty"`
+	// Provider-agnostic rule configuration. Shape depends on rule_type: rate_limit={requests_per_minute,action}, ip_block={ip_addresses[]}, geo_block={countries[],action}, header_check={header,required,pattern}.
+	RuleConfig interface{} `json:"rule_config"`
+	Provider *string `json:"provider,omitempty"`
+	// Provider-side rule/resource identifier returned after sync.
+	ProviderRuleId *string `json:"provider_rule_id,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	Priority *int32 `json:"priority,omitempty"`
+	LastSyncedAt *time.Time `json:"last_synced_at,omitempty"`
+	SyncStatus *string `json:"sync_status,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *WafRule `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindWafRule200ResponseDataInner FindWafRule200ResponseDataInner
+
 // NewFindWafRule200ResponseDataInner instantiates a new FindWafRule200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindWafRule200ResponseDataInner() *FindWafRule200ResponseDataInner {
+func NewFindWafRule200ResponseDataInner(name string, ruleConfig interface{}) *FindWafRule200ResponseDataInner {
 	this := FindWafRule200ResponseDataInner{}
+	this.Name = name
+	this.RuleConfig = ruleConfig
 	return &this
 }
 
@@ -44,6 +62,344 @@ func NewFindWafRule200ResponseDataInner() *FindWafRule200ResponseDataInner {
 func NewFindWafRule200ResponseDataInnerWithDefaults() *FindWafRule200ResponseDataInner {
 	this := FindWafRule200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindWafRule200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindWafRule200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindWafRule200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FindWafRule200ResponseDataInner) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafRule200ResponseDataInner) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FindWafRule200ResponseDataInner) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FindWafRule200ResponseDataInner) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetRuleType returns the RuleType field value if set, zero value otherwise.
+func (o *FindWafRule200ResponseDataInner) GetRuleType() string {
+	if o == nil || IsNil(o.RuleType) {
+		var ret string
+		return ret
+	}
+	return *o.RuleType
+}
+
+// GetRuleTypeOk returns a tuple with the RuleType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafRule200ResponseDataInner) GetRuleTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.RuleType) {
+		return nil, false
+	}
+	return o.RuleType, true
+}
+
+// HasRuleType returns a boolean if a field has been set.
+func (o *FindWafRule200ResponseDataInner) HasRuleType() bool {
+	if o != nil && !IsNil(o.RuleType) {
+		return true
+	}
+
+	return false
+}
+
+// SetRuleType gets a reference to the given string and assigns it to the RuleType field.
+func (o *FindWafRule200ResponseDataInner) SetRuleType(v string) {
+	o.RuleType = &v
+}
+
+// GetRuleConfig returns the RuleConfig field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *FindWafRule200ResponseDataInner) GetRuleConfig() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+
+	return o.RuleConfig
+}
+
+// GetRuleConfigOk returns a tuple with the RuleConfig field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindWafRule200ResponseDataInner) GetRuleConfigOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.RuleConfig) {
+		return nil, false
+	}
+	return &o.RuleConfig, true
+}
+
+// SetRuleConfig sets field value
+func (o *FindWafRule200ResponseDataInner) SetRuleConfig(v interface{}) {
+	o.RuleConfig = v
+}
+
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *FindWafRule200ResponseDataInner) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafRule200ResponseDataInner) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *FindWafRule200ResponseDataInner) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *FindWafRule200ResponseDataInner) SetProvider(v string) {
+	o.Provider = &v
+}
+
+// GetProviderRuleId returns the ProviderRuleId field value if set, zero value otherwise.
+func (o *FindWafRule200ResponseDataInner) GetProviderRuleId() string {
+	if o == nil || IsNil(o.ProviderRuleId) {
+		var ret string
+		return ret
+	}
+	return *o.ProviderRuleId
+}
+
+// GetProviderRuleIdOk returns a tuple with the ProviderRuleId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafRule200ResponseDataInner) GetProviderRuleIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ProviderRuleId) {
+		return nil, false
+	}
+	return o.ProviderRuleId, true
+}
+
+// HasProviderRuleId returns a boolean if a field has been set.
+func (o *FindWafRule200ResponseDataInner) HasProviderRuleId() bool {
+	if o != nil && !IsNil(o.ProviderRuleId) {
+		return true
+	}
+
+	return false
+}
+
+// SetProviderRuleId gets a reference to the given string and assigns it to the ProviderRuleId field.
+func (o *FindWafRule200ResponseDataInner) SetProviderRuleId(v string) {
+	o.ProviderRuleId = &v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindWafRule200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafRule200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindWafRule200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindWafRule200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetPriority returns the Priority field value if set, zero value otherwise.
+func (o *FindWafRule200ResponseDataInner) GetPriority() int32 {
+	if o == nil || IsNil(o.Priority) {
+		var ret int32
+		return ret
+	}
+	return *o.Priority
+}
+
+// GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafRule200ResponseDataInner) GetPriorityOk() (*int32, bool) {
+	if o == nil || IsNil(o.Priority) {
+		return nil, false
+	}
+	return o.Priority, true
+}
+
+// HasPriority returns a boolean if a field has been set.
+func (o *FindWafRule200ResponseDataInner) HasPriority() bool {
+	if o != nil && !IsNil(o.Priority) {
+		return true
+	}
+
+	return false
+}
+
+// SetPriority gets a reference to the given int32 and assigns it to the Priority field.
+func (o *FindWafRule200ResponseDataInner) SetPriority(v int32) {
+	o.Priority = &v
+}
+
+// GetLastSyncedAt returns the LastSyncedAt field value if set, zero value otherwise.
+func (o *FindWafRule200ResponseDataInner) GetLastSyncedAt() time.Time {
+	if o == nil || IsNil(o.LastSyncedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSyncedAt
+}
+
+// GetLastSyncedAtOk returns a tuple with the LastSyncedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafRule200ResponseDataInner) GetLastSyncedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSyncedAt) {
+		return nil, false
+	}
+	return o.LastSyncedAt, true
+}
+
+// HasLastSyncedAt returns a boolean if a field has been set.
+func (o *FindWafRule200ResponseDataInner) HasLastSyncedAt() bool {
+	if o != nil && !IsNil(o.LastSyncedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSyncedAt gets a reference to the given time.Time and assigns it to the LastSyncedAt field.
+func (o *FindWafRule200ResponseDataInner) SetLastSyncedAt(v time.Time) {
+	o.LastSyncedAt = &v
+}
+
+// GetSyncStatus returns the SyncStatus field value if set, zero value otherwise.
+func (o *FindWafRule200ResponseDataInner) GetSyncStatus() string {
+	if o == nil || IsNil(o.SyncStatus) {
+		var ret string
+		return ret
+	}
+	return *o.SyncStatus
+}
+
+// GetSyncStatusOk returns a tuple with the SyncStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafRule200ResponseDataInner) GetSyncStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.SyncStatus) {
+		return nil, false
+	}
+	return o.SyncStatus, true
+}
+
+// HasSyncStatus returns a boolean if a field has been set.
+func (o *FindWafRule200ResponseDataInner) HasSyncStatus() bool {
+	if o != nil && !IsNil(o.SyncStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetSyncStatus gets a reference to the given string and assigns it to the SyncStatus field.
+func (o *FindWafRule200ResponseDataInner) SetSyncStatus(v string) {
+	o.SyncStatus = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindWafRule200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWafRule200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindWafRule200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindWafRule200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +464,6 @@ func (o *FindWafRule200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindWafRule200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindWafRule200ResponseDataInner) GetAttributes() WafRule {
-	if o == nil || IsNil(o.Attributes) {
-		var ret WafRule
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindWafRule200ResponseDataInner) GetAttributesOk() (*WafRule, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindWafRule200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given WafRule and assigns it to the Attributes field.
-func (o *FindWafRule200ResponseDataInner) SetAttributes(v WafRule) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +582,42 @@ func (o FindWafRule200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindWafRule200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.RuleType) {
+		toSerialize["rule_type"] = o.RuleType
+	}
+	if o.RuleConfig != nil {
+		toSerialize["rule_config"] = o.RuleConfig
+	}
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
+	if !IsNil(o.ProviderRuleId) {
+		toSerialize["provider_rule_id"] = o.ProviderRuleId
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.Priority) {
+		toSerialize["priority"] = o.Priority
+	}
+	if !IsNil(o.LastSyncedAt) {
+		toSerialize["last_synced_at"] = o.LastSyncedAt
+	}
+	if !IsNil(o.SyncStatus) {
+		toSerialize["sync_status"] = o.SyncStatus
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +629,44 @@ func (o FindWafRule200ResponseDataInner) ToMap() (map[string]interface{}, error)
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindWafRule200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"rule_config",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindWafRule200ResponseDataInner := _FindWafRule200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindWafRule200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindWafRule200ResponseDataInner(varFindWafRule200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindWafRule200ResponseDataInner struct {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindBillingEvent200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,35 @@ var _ MappedNullable = &FindBillingEvent200ResponseDataInner{}
 
 // FindBillingEvent200ResponseDataInner struct for FindBillingEvent200ResponseDataInner
 type FindBillingEvent200ResponseDataInner struct {
+	EventType string `json:"event_type"`
+	Quantity float32 `json:"quantity"`
+	Unit *string `json:"unit,omitempty"`
+	UnitPriceUsd *float32 `json:"unit_price_usd,omitempty"`
+	TotalUsd *float32 `json:"total_usd,omitempty"`
+	PeriodStart *time.Time `json:"period_start,omitempty"`
+	PeriodEnd *time.Time `json:"period_end,omitempty"`
+	ExternalMeterId *string `json:"external_meter_id,omitempty"`
+	StripeMeterEventId *string `json:"stripe_meter_event_id,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	Metadata interface{} `json:"metadata,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *BillingEvent `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindBillingEvent200ResponseDataInner FindBillingEvent200ResponseDataInner
+
 // NewFindBillingEvent200ResponseDataInner instantiates a new FindBillingEvent200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindBillingEvent200ResponseDataInner() *FindBillingEvent200ResponseDataInner {
+func NewFindBillingEvent200ResponseDataInner(eventType string, quantity float32) *FindBillingEvent200ResponseDataInner {
 	this := FindBillingEvent200ResponseDataInner{}
+	this.EventType = eventType
+	this.Quantity = quantity
 	return &this
 }
 
@@ -44,6 +61,343 @@ func NewFindBillingEvent200ResponseDataInner() *FindBillingEvent200ResponseDataI
 func NewFindBillingEvent200ResponseDataInnerWithDefaults() *FindBillingEvent200ResponseDataInner {
 	this := FindBillingEvent200ResponseDataInner{}
 	return &this
+}
+
+// GetEventType returns the EventType field value
+func (o *FindBillingEvent200ResponseDataInner) GetEventType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EventType
+}
+
+// GetEventTypeOk returns a tuple with the EventType field value
+// and a boolean to check if the value has been set.
+func (o *FindBillingEvent200ResponseDataInner) GetEventTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EventType, true
+}
+
+// SetEventType sets field value
+func (o *FindBillingEvent200ResponseDataInner) SetEventType(v string) {
+	o.EventType = v
+}
+
+// GetQuantity returns the Quantity field value
+func (o *FindBillingEvent200ResponseDataInner) GetQuantity() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.Quantity
+}
+
+// GetQuantityOk returns a tuple with the Quantity field value
+// and a boolean to check if the value has been set.
+func (o *FindBillingEvent200ResponseDataInner) GetQuantityOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Quantity, true
+}
+
+// SetQuantity sets field value
+func (o *FindBillingEvent200ResponseDataInner) SetQuantity(v float32) {
+	o.Quantity = v
+}
+
+// GetUnit returns the Unit field value if set, zero value otherwise.
+func (o *FindBillingEvent200ResponseDataInner) GetUnit() string {
+	if o == nil || IsNil(o.Unit) {
+		var ret string
+		return ret
+	}
+	return *o.Unit
+}
+
+// GetUnitOk returns a tuple with the Unit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingEvent200ResponseDataInner) GetUnitOk() (*string, bool) {
+	if o == nil || IsNil(o.Unit) {
+		return nil, false
+	}
+	return o.Unit, true
+}
+
+// HasUnit returns a boolean if a field has been set.
+func (o *FindBillingEvent200ResponseDataInner) HasUnit() bool {
+	if o != nil && !IsNil(o.Unit) {
+		return true
+	}
+
+	return false
+}
+
+// SetUnit gets a reference to the given string and assigns it to the Unit field.
+func (o *FindBillingEvent200ResponseDataInner) SetUnit(v string) {
+	o.Unit = &v
+}
+
+// GetUnitPriceUsd returns the UnitPriceUsd field value if set, zero value otherwise.
+func (o *FindBillingEvent200ResponseDataInner) GetUnitPriceUsd() float32 {
+	if o == nil || IsNil(o.UnitPriceUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.UnitPriceUsd
+}
+
+// GetUnitPriceUsdOk returns a tuple with the UnitPriceUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingEvent200ResponseDataInner) GetUnitPriceUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.UnitPriceUsd) {
+		return nil, false
+	}
+	return o.UnitPriceUsd, true
+}
+
+// HasUnitPriceUsd returns a boolean if a field has been set.
+func (o *FindBillingEvent200ResponseDataInner) HasUnitPriceUsd() bool {
+	if o != nil && !IsNil(o.UnitPriceUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetUnitPriceUsd gets a reference to the given float32 and assigns it to the UnitPriceUsd field.
+func (o *FindBillingEvent200ResponseDataInner) SetUnitPriceUsd(v float32) {
+	o.UnitPriceUsd = &v
+}
+
+// GetTotalUsd returns the TotalUsd field value if set, zero value otherwise.
+func (o *FindBillingEvent200ResponseDataInner) GetTotalUsd() float32 {
+	if o == nil || IsNil(o.TotalUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.TotalUsd
+}
+
+// GetTotalUsdOk returns a tuple with the TotalUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingEvent200ResponseDataInner) GetTotalUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.TotalUsd) {
+		return nil, false
+	}
+	return o.TotalUsd, true
+}
+
+// HasTotalUsd returns a boolean if a field has been set.
+func (o *FindBillingEvent200ResponseDataInner) HasTotalUsd() bool {
+	if o != nil && !IsNil(o.TotalUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalUsd gets a reference to the given float32 and assigns it to the TotalUsd field.
+func (o *FindBillingEvent200ResponseDataInner) SetTotalUsd(v float32) {
+	o.TotalUsd = &v
+}
+
+// GetPeriodStart returns the PeriodStart field value if set, zero value otherwise.
+func (o *FindBillingEvent200ResponseDataInner) GetPeriodStart() time.Time {
+	if o == nil || IsNil(o.PeriodStart) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PeriodStart
+}
+
+// GetPeriodStartOk returns a tuple with the PeriodStart field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingEvent200ResponseDataInner) GetPeriodStartOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PeriodStart) {
+		return nil, false
+	}
+	return o.PeriodStart, true
+}
+
+// HasPeriodStart returns a boolean if a field has been set.
+func (o *FindBillingEvent200ResponseDataInner) HasPeriodStart() bool {
+	if o != nil && !IsNil(o.PeriodStart) {
+		return true
+	}
+
+	return false
+}
+
+// SetPeriodStart gets a reference to the given time.Time and assigns it to the PeriodStart field.
+func (o *FindBillingEvent200ResponseDataInner) SetPeriodStart(v time.Time) {
+	o.PeriodStart = &v
+}
+
+// GetPeriodEnd returns the PeriodEnd field value if set, zero value otherwise.
+func (o *FindBillingEvent200ResponseDataInner) GetPeriodEnd() time.Time {
+	if o == nil || IsNil(o.PeriodEnd) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PeriodEnd
+}
+
+// GetPeriodEndOk returns a tuple with the PeriodEnd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingEvent200ResponseDataInner) GetPeriodEndOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PeriodEnd) {
+		return nil, false
+	}
+	return o.PeriodEnd, true
+}
+
+// HasPeriodEnd returns a boolean if a field has been set.
+func (o *FindBillingEvent200ResponseDataInner) HasPeriodEnd() bool {
+	if o != nil && !IsNil(o.PeriodEnd) {
+		return true
+	}
+
+	return false
+}
+
+// SetPeriodEnd gets a reference to the given time.Time and assigns it to the PeriodEnd field.
+func (o *FindBillingEvent200ResponseDataInner) SetPeriodEnd(v time.Time) {
+	o.PeriodEnd = &v
+}
+
+// GetExternalMeterId returns the ExternalMeterId field value if set, zero value otherwise.
+func (o *FindBillingEvent200ResponseDataInner) GetExternalMeterId() string {
+	if o == nil || IsNil(o.ExternalMeterId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalMeterId
+}
+
+// GetExternalMeterIdOk returns a tuple with the ExternalMeterId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingEvent200ResponseDataInner) GetExternalMeterIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalMeterId) {
+		return nil, false
+	}
+	return o.ExternalMeterId, true
+}
+
+// HasExternalMeterId returns a boolean if a field has been set.
+func (o *FindBillingEvent200ResponseDataInner) HasExternalMeterId() bool {
+	if o != nil && !IsNil(o.ExternalMeterId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalMeterId gets a reference to the given string and assigns it to the ExternalMeterId field.
+func (o *FindBillingEvent200ResponseDataInner) SetExternalMeterId(v string) {
+	o.ExternalMeterId = &v
+}
+
+// GetStripeMeterEventId returns the StripeMeterEventId field value if set, zero value otherwise.
+func (o *FindBillingEvent200ResponseDataInner) GetStripeMeterEventId() string {
+	if o == nil || IsNil(o.StripeMeterEventId) {
+		var ret string
+		return ret
+	}
+	return *o.StripeMeterEventId
+}
+
+// GetStripeMeterEventIdOk returns a tuple with the StripeMeterEventId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingEvent200ResponseDataInner) GetStripeMeterEventIdOk() (*string, bool) {
+	if o == nil || IsNil(o.StripeMeterEventId) {
+		return nil, false
+	}
+	return o.StripeMeterEventId, true
+}
+
+// HasStripeMeterEventId returns a boolean if a field has been set.
+func (o *FindBillingEvent200ResponseDataInner) HasStripeMeterEventId() bool {
+	if o != nil && !IsNil(o.StripeMeterEventId) {
+		return true
+	}
+
+	return false
+}
+
+// SetStripeMeterEventId gets a reference to the given string and assigns it to the StripeMeterEventId field.
+func (o *FindBillingEvent200ResponseDataInner) SetStripeMeterEventId(v string) {
+	o.StripeMeterEventId = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindBillingEvent200ResponseDataInner) GetMetadata() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindBillingEvent200ResponseDataInner) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *FindBillingEvent200ResponseDataInner) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *FindBillingEvent200ResponseDataInner) SetMetadata(v interface{}) {
+	o.Metadata = v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindBillingEvent200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindBillingEvent200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindBillingEvent200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindBillingEvent200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +462,6 @@ func (o *FindBillingEvent200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindBillingEvent200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindBillingEvent200ResponseDataInner) GetAttributes() BillingEvent {
-	if o == nil || IsNil(o.Attributes) {
-		var ret BillingEvent
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindBillingEvent200ResponseDataInner) GetAttributesOk() (*BillingEvent, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindBillingEvent200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given BillingEvent and assigns it to the Attributes field.
-func (o *FindBillingEvent200ResponseDataInner) SetAttributes(v BillingEvent) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +580,40 @@ func (o FindBillingEvent200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindBillingEvent200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["event_type"] = o.EventType
+	toSerialize["quantity"] = o.Quantity
+	if !IsNil(o.Unit) {
+		toSerialize["unit"] = o.Unit
+	}
+	if !IsNil(o.UnitPriceUsd) {
+		toSerialize["unit_price_usd"] = o.UnitPriceUsd
+	}
+	if !IsNil(o.TotalUsd) {
+		toSerialize["total_usd"] = o.TotalUsd
+	}
+	if !IsNil(o.PeriodStart) {
+		toSerialize["period_start"] = o.PeriodStart
+	}
+	if !IsNil(o.PeriodEnd) {
+		toSerialize["period_end"] = o.PeriodEnd
+	}
+	if !IsNil(o.ExternalMeterId) {
+		toSerialize["external_meter_id"] = o.ExternalMeterId
+	}
+	if !IsNil(o.StripeMeterEventId) {
+		toSerialize["stripe_meter_event_id"] = o.StripeMeterEventId
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +625,44 @@ func (o FindBillingEvent200ResponseDataInner) ToMap() (map[string]interface{}, e
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindBillingEvent200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"event_type",
+		"quantity",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindBillingEvent200ResponseDataInner := _FindBillingEvent200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindBillingEvent200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindBillingEvent200ResponseDataInner(varFindBillingEvent200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindBillingEvent200ResponseDataInner struct {

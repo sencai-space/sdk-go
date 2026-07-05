@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindWorkspaceUser200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,34 @@ var _ MappedNullable = &FindWorkspaceUser200ResponseDataInner{}
 
 // FindWorkspaceUser200ResponseDataInner struct for FindWorkspaceUser200ResponseDataInner
 type FindWorkspaceUser200ResponseDataInner struct {
+	GoogleId string `json:"google_id"`
+	PrimaryEmail string `json:"primary_email"`
+	DisplayName *string `json:"display_name,omitempty"`
+	GivenName *string `json:"given_name,omitempty"`
+	FamilyName *string `json:"family_name,omitempty"`
+	OrgUnitPath *string `json:"org_unit_path,omitempty"`
+	IsSuspended *bool `json:"is_suspended,omitempty"`
+	IsAdmin *bool `json:"is_admin,omitempty"`
+	LastLoginTime *time.Time `json:"last_login_time,omitempty"`
+	WorkspaceTenant *CreateAccessReviewRequestDataReviewer `json:"workspace_tenant,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *WorkspaceUser `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindWorkspaceUser200ResponseDataInner FindWorkspaceUser200ResponseDataInner
+
 // NewFindWorkspaceUser200ResponseDataInner instantiates a new FindWorkspaceUser200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindWorkspaceUser200ResponseDataInner() *FindWorkspaceUser200ResponseDataInner {
+func NewFindWorkspaceUser200ResponseDataInner(googleId string, primaryEmail string) *FindWorkspaceUser200ResponseDataInner {
 	this := FindWorkspaceUser200ResponseDataInner{}
+	this.GoogleId = googleId
+	this.PrimaryEmail = primaryEmail
 	return &this
 }
 
@@ -44,6 +60,342 @@ func NewFindWorkspaceUser200ResponseDataInner() *FindWorkspaceUser200ResponseDat
 func NewFindWorkspaceUser200ResponseDataInnerWithDefaults() *FindWorkspaceUser200ResponseDataInner {
 	this := FindWorkspaceUser200ResponseDataInner{}
 	return &this
+}
+
+// GetGoogleId returns the GoogleId field value
+func (o *FindWorkspaceUser200ResponseDataInner) GetGoogleId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.GoogleId
+}
+
+// GetGoogleIdOk returns a tuple with the GoogleId field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetGoogleIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.GoogleId, true
+}
+
+// SetGoogleId sets field value
+func (o *FindWorkspaceUser200ResponseDataInner) SetGoogleId(v string) {
+	o.GoogleId = v
+}
+
+// GetPrimaryEmail returns the PrimaryEmail field value
+func (o *FindWorkspaceUser200ResponseDataInner) GetPrimaryEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PrimaryEmail
+}
+
+// GetPrimaryEmailOk returns a tuple with the PrimaryEmail field value
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetPrimaryEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PrimaryEmail, true
+}
+
+// SetPrimaryEmail sets field value
+func (o *FindWorkspaceUser200ResponseDataInner) SetPrimaryEmail(v string) {
+	o.PrimaryEmail = v
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+func (o *FindWorkspaceUser200ResponseDataInner) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetDisplayNameOk() (*string, bool) {
+	if o == nil || IsNil(o.DisplayName) {
+		return nil, false
+	}
+	return o.DisplayName, true
+}
+
+// HasDisplayName returns a boolean if a field has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) HasDisplayName() bool {
+	if o != nil && !IsNil(o.DisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+func (o *FindWorkspaceUser200ResponseDataInner) SetDisplayName(v string) {
+	o.DisplayName = &v
+}
+
+// GetGivenName returns the GivenName field value if set, zero value otherwise.
+func (o *FindWorkspaceUser200ResponseDataInner) GetGivenName() string {
+	if o == nil || IsNil(o.GivenName) {
+		var ret string
+		return ret
+	}
+	return *o.GivenName
+}
+
+// GetGivenNameOk returns a tuple with the GivenName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetGivenNameOk() (*string, bool) {
+	if o == nil || IsNil(o.GivenName) {
+		return nil, false
+	}
+	return o.GivenName, true
+}
+
+// HasGivenName returns a boolean if a field has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) HasGivenName() bool {
+	if o != nil && !IsNil(o.GivenName) {
+		return true
+	}
+
+	return false
+}
+
+// SetGivenName gets a reference to the given string and assigns it to the GivenName field.
+func (o *FindWorkspaceUser200ResponseDataInner) SetGivenName(v string) {
+	o.GivenName = &v
+}
+
+// GetFamilyName returns the FamilyName field value if set, zero value otherwise.
+func (o *FindWorkspaceUser200ResponseDataInner) GetFamilyName() string {
+	if o == nil || IsNil(o.FamilyName) {
+		var ret string
+		return ret
+	}
+	return *o.FamilyName
+}
+
+// GetFamilyNameOk returns a tuple with the FamilyName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetFamilyNameOk() (*string, bool) {
+	if o == nil || IsNil(o.FamilyName) {
+		return nil, false
+	}
+	return o.FamilyName, true
+}
+
+// HasFamilyName returns a boolean if a field has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) HasFamilyName() bool {
+	if o != nil && !IsNil(o.FamilyName) {
+		return true
+	}
+
+	return false
+}
+
+// SetFamilyName gets a reference to the given string and assigns it to the FamilyName field.
+func (o *FindWorkspaceUser200ResponseDataInner) SetFamilyName(v string) {
+	o.FamilyName = &v
+}
+
+// GetOrgUnitPath returns the OrgUnitPath field value if set, zero value otherwise.
+func (o *FindWorkspaceUser200ResponseDataInner) GetOrgUnitPath() string {
+	if o == nil || IsNil(o.OrgUnitPath) {
+		var ret string
+		return ret
+	}
+	return *o.OrgUnitPath
+}
+
+// GetOrgUnitPathOk returns a tuple with the OrgUnitPath field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetOrgUnitPathOk() (*string, bool) {
+	if o == nil || IsNil(o.OrgUnitPath) {
+		return nil, false
+	}
+	return o.OrgUnitPath, true
+}
+
+// HasOrgUnitPath returns a boolean if a field has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) HasOrgUnitPath() bool {
+	if o != nil && !IsNil(o.OrgUnitPath) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrgUnitPath gets a reference to the given string and assigns it to the OrgUnitPath field.
+func (o *FindWorkspaceUser200ResponseDataInner) SetOrgUnitPath(v string) {
+	o.OrgUnitPath = &v
+}
+
+// GetIsSuspended returns the IsSuspended field value if set, zero value otherwise.
+func (o *FindWorkspaceUser200ResponseDataInner) GetIsSuspended() bool {
+	if o == nil || IsNil(o.IsSuspended) {
+		var ret bool
+		return ret
+	}
+	return *o.IsSuspended
+}
+
+// GetIsSuspendedOk returns a tuple with the IsSuspended field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetIsSuspendedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsSuspended) {
+		return nil, false
+	}
+	return o.IsSuspended, true
+}
+
+// HasIsSuspended returns a boolean if a field has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) HasIsSuspended() bool {
+	if o != nil && !IsNil(o.IsSuspended) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSuspended gets a reference to the given bool and assigns it to the IsSuspended field.
+func (o *FindWorkspaceUser200ResponseDataInner) SetIsSuspended(v bool) {
+	o.IsSuspended = &v
+}
+
+// GetIsAdmin returns the IsAdmin field value if set, zero value otherwise.
+func (o *FindWorkspaceUser200ResponseDataInner) GetIsAdmin() bool {
+	if o == nil || IsNil(o.IsAdmin) {
+		var ret bool
+		return ret
+	}
+	return *o.IsAdmin
+}
+
+// GetIsAdminOk returns a tuple with the IsAdmin field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetIsAdminOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsAdmin) {
+		return nil, false
+	}
+	return o.IsAdmin, true
+}
+
+// HasIsAdmin returns a boolean if a field has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) HasIsAdmin() bool {
+	if o != nil && !IsNil(o.IsAdmin) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAdmin gets a reference to the given bool and assigns it to the IsAdmin field.
+func (o *FindWorkspaceUser200ResponseDataInner) SetIsAdmin(v bool) {
+	o.IsAdmin = &v
+}
+
+// GetLastLoginTime returns the LastLoginTime field value if set, zero value otherwise.
+func (o *FindWorkspaceUser200ResponseDataInner) GetLastLoginTime() time.Time {
+	if o == nil || IsNil(o.LastLoginTime) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastLoginTime
+}
+
+// GetLastLoginTimeOk returns a tuple with the LastLoginTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetLastLoginTimeOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastLoginTime) {
+		return nil, false
+	}
+	return o.LastLoginTime, true
+}
+
+// HasLastLoginTime returns a boolean if a field has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) HasLastLoginTime() bool {
+	if o != nil && !IsNil(o.LastLoginTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastLoginTime gets a reference to the given time.Time and assigns it to the LastLoginTime field.
+func (o *FindWorkspaceUser200ResponseDataInner) SetLastLoginTime(v time.Time) {
+	o.LastLoginTime = &v
+}
+
+// GetWorkspaceTenant returns the WorkspaceTenant field value if set, zero value otherwise.
+func (o *FindWorkspaceUser200ResponseDataInner) GetWorkspaceTenant() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.WorkspaceTenant) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.WorkspaceTenant
+}
+
+// GetWorkspaceTenantOk returns a tuple with the WorkspaceTenant field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetWorkspaceTenantOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.WorkspaceTenant) {
+		return nil, false
+	}
+	return o.WorkspaceTenant, true
+}
+
+// HasWorkspaceTenant returns a boolean if a field has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) HasWorkspaceTenant() bool {
+	if o != nil && !IsNil(o.WorkspaceTenant) {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspaceTenant gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the WorkspaceTenant field.
+func (o *FindWorkspaceUser200ResponseDataInner) SetWorkspaceTenant(v CreateAccessReviewRequestDataReviewer) {
+	o.WorkspaceTenant = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindWorkspaceUser200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindWorkspaceUser200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindWorkspaceUser200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +460,6 @@ func (o *FindWorkspaceUser200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindWorkspaceUser200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindWorkspaceUser200ResponseDataInner) GetAttributes() WorkspaceUser {
-	if o == nil || IsNil(o.Attributes) {
-		var ret WorkspaceUser
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindWorkspaceUser200ResponseDataInner) GetAttributesOk() (*WorkspaceUser, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindWorkspaceUser200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given WorkspaceUser and assigns it to the Attributes field.
-func (o *FindWorkspaceUser200ResponseDataInner) SetAttributes(v WorkspaceUser) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +578,40 @@ func (o FindWorkspaceUser200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindWorkspaceUser200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["google_id"] = o.GoogleId
+	toSerialize["primary_email"] = o.PrimaryEmail
+	if !IsNil(o.DisplayName) {
+		toSerialize["display_name"] = o.DisplayName
+	}
+	if !IsNil(o.GivenName) {
+		toSerialize["given_name"] = o.GivenName
+	}
+	if !IsNil(o.FamilyName) {
+		toSerialize["family_name"] = o.FamilyName
+	}
+	if !IsNil(o.OrgUnitPath) {
+		toSerialize["org_unit_path"] = o.OrgUnitPath
+	}
+	if !IsNil(o.IsSuspended) {
+		toSerialize["is_suspended"] = o.IsSuspended
+	}
+	if !IsNil(o.IsAdmin) {
+		toSerialize["is_admin"] = o.IsAdmin
+	}
+	if !IsNil(o.LastLoginTime) {
+		toSerialize["last_login_time"] = o.LastLoginTime
+	}
+	if !IsNil(o.WorkspaceTenant) {
+		toSerialize["workspace_tenant"] = o.WorkspaceTenant
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +623,44 @@ func (o FindWorkspaceUser200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindWorkspaceUser200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"google_id",
+		"primary_email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindWorkspaceUser200ResponseDataInner := _FindWorkspaceUser200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindWorkspaceUser200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindWorkspaceUser200ResponseDataInner(varFindWorkspaceUser200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindWorkspaceUser200ResponseDataInner struct {

@@ -23,7 +23,8 @@ var _ MappedNullable = &CustomerHealthScore{}
 type CustomerHealthScore struct {
 	AdoptionScore *int32 `json:"adoption_score,omitempty"`
 	RiskLevel *string `json:"risk_level,omitempty"`
-	ActiveFeatures map[string]interface{} `json:"active_features,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	ActiveFeatures interface{} `json:"active_features,omitempty"`
 	LastLoginDays *int32 `json:"last_login_days,omitempty"`
 	CloudInstancesCount *int32 `json:"cloud_instances_count,omitempty"`
 	AuditEvents30d *int32 `json:"audit_events_30d,omitempty"`
@@ -115,10 +116,10 @@ func (o *CustomerHealthScore) SetRiskLevel(v string) {
 	o.RiskLevel = &v
 }
 
-// GetActiveFeatures returns the ActiveFeatures field value if set, zero value otherwise.
-func (o *CustomerHealthScore) GetActiveFeatures() map[string]interface{} {
-	if o == nil || IsNil(o.ActiveFeatures) {
-		var ret map[string]interface{}
+// GetActiveFeatures returns the ActiveFeatures field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CustomerHealthScore) GetActiveFeatures() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.ActiveFeatures
@@ -126,11 +127,12 @@ func (o *CustomerHealthScore) GetActiveFeatures() map[string]interface{} {
 
 // GetActiveFeaturesOk returns a tuple with the ActiveFeatures field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CustomerHealthScore) GetActiveFeaturesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CustomerHealthScore) GetActiveFeaturesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.ActiveFeatures) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.ActiveFeatures, true
+	return &o.ActiveFeatures, true
 }
 
 // HasActiveFeatures returns a boolean if a field has been set.
@@ -142,8 +144,8 @@ func (o *CustomerHealthScore) HasActiveFeatures() bool {
 	return false
 }
 
-// SetActiveFeatures gets a reference to the given map[string]interface{} and assigns it to the ActiveFeatures field.
-func (o *CustomerHealthScore) SetActiveFeatures(v map[string]interface{}) {
+// SetActiveFeatures gets a reference to the given interface{} and assigns it to the ActiveFeatures field.
+func (o *CustomerHealthScore) SetActiveFeatures(v interface{}) {
 	o.ActiveFeatures = v
 }
 
@@ -419,7 +421,7 @@ func (o CustomerHealthScore) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RiskLevel) {
 		toSerialize["risk_level"] = o.RiskLevel
 	}
-	if !IsNil(o.ActiveFeatures) {
+	if o.ActiveFeatures != nil {
 		toSerialize["active_features"] = o.ActiveFeatures
 	}
 	if !IsNil(o.LastLoginDays) {

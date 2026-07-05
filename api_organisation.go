@@ -584,20 +584,20 @@ type ApiOrganisationInviteMemberRequest struct {
 	ctx context.Context
 	ApiService *OrganisationAPIService
 	id string
-	organisationMemberInviteRequest *OrganisationMemberInviteRequest
+	organisationInviteMemberRequest *OrganisationInviteMemberRequest
 }
 
-func (r ApiOrganisationInviteMemberRequest) OrganisationMemberInviteRequest(organisationMemberInviteRequest OrganisationMemberInviteRequest) ApiOrganisationInviteMemberRequest {
-	r.organisationMemberInviteRequest = &organisationMemberInviteRequest
+func (r ApiOrganisationInviteMemberRequest) OrganisationInviteMemberRequest(organisationInviteMemberRequest OrganisationInviteMemberRequest) ApiOrganisationInviteMemberRequest {
+	r.organisationInviteMemberRequest = &organisationInviteMemberRequest
 	return r
 }
 
-func (r ApiOrganisationInviteMemberRequest) Execute() (*http.Response, error) {
+func (r ApiOrganisationInviteMemberRequest) Execute() (*OrganisationInviteMember200Response, *http.Response, error) {
 	return r.ApiService.OrganisationInviteMemberExecute(r)
 }
 
 /*
-OrganisationInviteMember Invite a member to an organisation (legacy alias for POST .../invitations)
+OrganisationInviteMember Create a pending invitation for an email
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id
@@ -612,16 +612,18 @@ func (a *OrganisationAPIService) OrganisationInviteMember(ctx context.Context, i
 }
 
 // Execute executes the request
-func (a *OrganisationAPIService) OrganisationInviteMemberExecute(r ApiOrganisationInviteMemberRequest) (*http.Response, error) {
+//  @return OrganisationInviteMember200Response
+func (a *OrganisationAPIService) OrganisationInviteMemberExecute(r ApiOrganisationInviteMemberRequest) (*OrganisationInviteMember200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *OrganisationInviteMember200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganisationAPIService.OrganisationInviteMember")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/organisations/{id}/invite"
@@ -630,8 +632,8 @@ func (a *OrganisationAPIService) OrganisationInviteMemberExecute(r ApiOrganisati
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.organisationMemberInviteRequest == nil {
-		return nil, reportError("organisationMemberInviteRequest is required and must be specified")
+	if r.organisationInviteMemberRequest == nil {
+		return localVarReturnValue, nil, reportError("organisationInviteMemberRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -644,7 +646,7 @@ func (a *OrganisationAPIService) OrganisationInviteMemberExecute(r ApiOrganisati
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -652,22 +654,22 @@ func (a *OrganisationAPIService) OrganisationInviteMemberExecute(r ApiOrganisati
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.organisationMemberInviteRequest
+	localVarPostBody = r.organisationInviteMemberRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -675,10 +677,19 @@ func (a *OrganisationAPIService) OrganisationInviteMemberExecute(r ApiOrganisati
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiOrganisationListInvitationsRequest struct {
@@ -930,107 +941,6 @@ func (a *OrganisationAPIService) OrganisationMemberAcceptInviteExecute(r ApiOrga
 	}
 	// body params
 	localVarPostBody = r.organisationMemberAcceptInviteRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiOrganisationMemberInviteRequest struct {
-	ctx context.Context
-	ApiService *OrganisationAPIService
-	id string
-	organisationMemberInviteRequest *OrganisationMemberInviteRequest
-}
-
-func (r ApiOrganisationMemberInviteRequest) OrganisationMemberInviteRequest(organisationMemberInviteRequest OrganisationMemberInviteRequest) ApiOrganisationMemberInviteRequest {
-	r.organisationMemberInviteRequest = &organisationMemberInviteRequest
-	return r
-}
-
-func (r ApiOrganisationMemberInviteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.OrganisationMemberInviteExecute(r)
-}
-
-/*
-OrganisationMemberInvite Create a pending invitation for an email
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id organisation documentId
- @return ApiOrganisationMemberInviteRequest
-*/
-func (a *OrganisationAPIService) OrganisationMemberInvite(ctx context.Context, id string) ApiOrganisationMemberInviteRequest {
-	return ApiOrganisationMemberInviteRequest{
-		ApiService: a,
-		ctx: ctx,
-		id: id,
-	}
-}
-
-// Execute executes the request
-func (a *OrganisationAPIService) OrganisationMemberInviteExecute(r ApiOrganisationMemberInviteRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganisationAPIService.OrganisationMemberInvite")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/organisations/{id}/invitations"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.organisationMemberInviteRequest == nil {
-		return nil, reportError("organisationMemberInviteRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.organisationMemberInviteRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

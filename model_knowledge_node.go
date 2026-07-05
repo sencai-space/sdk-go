@@ -31,7 +31,7 @@ type KnowledgeNode struct {
 	// Strapi content-type slug or cloud resource kind, e.g. 'cloud-instance', 'organisation-member', 'dns-zone'.
 	ResourceType *string `json:"resource_type,omitempty"`
 	// Arbitrary key-value metadata for this node (provider, region, tags, etc.).
-	Properties map[string]interface{} `json:"properties,omitempty"`
+	Properties interface{} `json:"properties,omitempty"`
 	LastSeenAt *time.Time `json:"last_seen_at,omitempty"`
 	IsActive *bool `json:"is_active,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
@@ -170,10 +170,10 @@ func (o *KnowledgeNode) SetResourceType(v string) {
 	o.ResourceType = &v
 }
 
-// GetProperties returns the Properties field value if set, zero value otherwise.
-func (o *KnowledgeNode) GetProperties() map[string]interface{} {
-	if o == nil || IsNil(o.Properties) {
-		var ret map[string]interface{}
+// GetProperties returns the Properties field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *KnowledgeNode) GetProperties() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.Properties
@@ -181,11 +181,12 @@ func (o *KnowledgeNode) GetProperties() map[string]interface{} {
 
 // GetPropertiesOk returns a tuple with the Properties field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KnowledgeNode) GetPropertiesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *KnowledgeNode) GetPropertiesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.Properties) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Properties, true
+	return &o.Properties, true
 }
 
 // HasProperties returns a boolean if a field has been set.
@@ -197,8 +198,8 @@ func (o *KnowledgeNode) HasProperties() bool {
 	return false
 }
 
-// SetProperties gets a reference to the given map[string]interface{} and assigns it to the Properties field.
-func (o *KnowledgeNode) SetProperties(v map[string]interface{}) {
+// SetProperties gets a reference to the given interface{} and assigns it to the Properties field.
+func (o *KnowledgeNode) SetProperties(v interface{}) {
 	o.Properties = v
 }
 
@@ -316,7 +317,7 @@ func (o KnowledgeNode) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ResourceType) {
 		toSerialize["resource_type"] = o.ResourceType
 	}
-	if !IsNil(o.Properties) {
+	if o.Properties != nil {
 		toSerialize["properties"] = o.Properties
 	}
 	if !IsNil(o.LastSeenAt) {

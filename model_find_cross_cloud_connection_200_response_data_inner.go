@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindCrossCloudConnection200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,48 @@ var _ MappedNullable = &FindCrossCloudConnection200ResponseDataInner{}
 
 // FindCrossCloudConnection200ResponseDataInner struct for FindCrossCloudConnection200ResponseDataInner
 type FindCrossCloudConnection200ResponseDataInner struct {
+	// Human-readable name, e.g. 'prod-aws-eu-to-hetzner-de'
+	Name string `json:"name"`
+	SourceProvider string `json:"source_provider"`
+	// Provider-specific region identifier, e.g. 'eu-west-1'
+	SourceRegion string `json:"source_region"`
+	TargetProvider string `json:"target_provider"`
+	// Provider-specific region identifier for the target, e.g. 'hel1'
+	TargetRegion string `json:"target_region"`
+	ConnectionType string `json:"connection_type"`
+	Status string `json:"status"`
+	// Last measured round-trip latency in milliseconds
+	LatencyMs *int32 `json:"latency_ms,omitempty"`
+	// Last measured packet loss percentage (0.0–100.0)
+	PacketLossPct *float32 `json:"packet_loss_pct,omitempty"`
+	LastCheckedAt *time.Time `json:"last_checked_at,omitempty"`
+	BgpSessionStatus *string `json:"bgp_session_status,omitempty"`
+	// BGP AS path if applicable, e.g. '65001 65002 65003'
+	BgpAsPath *string `json:"bgp_as_path,omitempty"`
+	Notes *string `json:"notes,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *CrossCloudConnection `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindCrossCloudConnection200ResponseDataInner FindCrossCloudConnection200ResponseDataInner
+
 // NewFindCrossCloudConnection200ResponseDataInner instantiates a new FindCrossCloudConnection200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindCrossCloudConnection200ResponseDataInner() *FindCrossCloudConnection200ResponseDataInner {
+func NewFindCrossCloudConnection200ResponseDataInner(name string, sourceProvider string, sourceRegion string, targetProvider string, targetRegion string, connectionType string, status string) *FindCrossCloudConnection200ResponseDataInner {
 	this := FindCrossCloudConnection200ResponseDataInner{}
+	this.Name = name
+	this.SourceProvider = sourceProvider
+	this.SourceRegion = sourceRegion
+	this.TargetProvider = targetProvider
+	this.TargetRegion = targetRegion
+	this.ConnectionType = connectionType
+	this.Status = status
 	return &this
 }
 
@@ -44,6 +74,398 @@ func NewFindCrossCloudConnection200ResponseDataInner() *FindCrossCloudConnection
 func NewFindCrossCloudConnection200ResponseDataInnerWithDefaults() *FindCrossCloudConnection200ResponseDataInner {
 	this := FindCrossCloudConnection200ResponseDataInner{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *FindCrossCloudConnection200ResponseDataInner) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *FindCrossCloudConnection200ResponseDataInner) SetName(v string) {
+	o.Name = v
+}
+
+// GetSourceProvider returns the SourceProvider field value
+func (o *FindCrossCloudConnection200ResponseDataInner) GetSourceProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SourceProvider
+}
+
+// GetSourceProviderOk returns a tuple with the SourceProvider field value
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetSourceProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SourceProvider, true
+}
+
+// SetSourceProvider sets field value
+func (o *FindCrossCloudConnection200ResponseDataInner) SetSourceProvider(v string) {
+	o.SourceProvider = v
+}
+
+// GetSourceRegion returns the SourceRegion field value
+func (o *FindCrossCloudConnection200ResponseDataInner) GetSourceRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SourceRegion
+}
+
+// GetSourceRegionOk returns a tuple with the SourceRegion field value
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetSourceRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SourceRegion, true
+}
+
+// SetSourceRegion sets field value
+func (o *FindCrossCloudConnection200ResponseDataInner) SetSourceRegion(v string) {
+	o.SourceRegion = v
+}
+
+// GetTargetProvider returns the TargetProvider field value
+func (o *FindCrossCloudConnection200ResponseDataInner) GetTargetProvider() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TargetProvider
+}
+
+// GetTargetProviderOk returns a tuple with the TargetProvider field value
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetTargetProviderOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TargetProvider, true
+}
+
+// SetTargetProvider sets field value
+func (o *FindCrossCloudConnection200ResponseDataInner) SetTargetProvider(v string) {
+	o.TargetProvider = v
+}
+
+// GetTargetRegion returns the TargetRegion field value
+func (o *FindCrossCloudConnection200ResponseDataInner) GetTargetRegion() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TargetRegion
+}
+
+// GetTargetRegionOk returns a tuple with the TargetRegion field value
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetTargetRegionOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TargetRegion, true
+}
+
+// SetTargetRegion sets field value
+func (o *FindCrossCloudConnection200ResponseDataInner) SetTargetRegion(v string) {
+	o.TargetRegion = v
+}
+
+// GetConnectionType returns the ConnectionType field value
+func (o *FindCrossCloudConnection200ResponseDataInner) GetConnectionType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ConnectionType
+}
+
+// GetConnectionTypeOk returns a tuple with the ConnectionType field value
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetConnectionTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ConnectionType, true
+}
+
+// SetConnectionType sets field value
+func (o *FindCrossCloudConnection200ResponseDataInner) SetConnectionType(v string) {
+	o.ConnectionType = v
+}
+
+// GetStatus returns the Status field value
+func (o *FindCrossCloudConnection200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindCrossCloudConnection200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetLatencyMs returns the LatencyMs field value if set, zero value otherwise.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetLatencyMs() int32 {
+	if o == nil || IsNil(o.LatencyMs) {
+		var ret int32
+		return ret
+	}
+	return *o.LatencyMs
+}
+
+// GetLatencyMsOk returns a tuple with the LatencyMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetLatencyMsOk() (*int32, bool) {
+	if o == nil || IsNil(o.LatencyMs) {
+		return nil, false
+	}
+	return o.LatencyMs, true
+}
+
+// HasLatencyMs returns a boolean if a field has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) HasLatencyMs() bool {
+	if o != nil && !IsNil(o.LatencyMs) {
+		return true
+	}
+
+	return false
+}
+
+// SetLatencyMs gets a reference to the given int32 and assigns it to the LatencyMs field.
+func (o *FindCrossCloudConnection200ResponseDataInner) SetLatencyMs(v int32) {
+	o.LatencyMs = &v
+}
+
+// GetPacketLossPct returns the PacketLossPct field value if set, zero value otherwise.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetPacketLossPct() float32 {
+	if o == nil || IsNil(o.PacketLossPct) {
+		var ret float32
+		return ret
+	}
+	return *o.PacketLossPct
+}
+
+// GetPacketLossPctOk returns a tuple with the PacketLossPct field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetPacketLossPctOk() (*float32, bool) {
+	if o == nil || IsNil(o.PacketLossPct) {
+		return nil, false
+	}
+	return o.PacketLossPct, true
+}
+
+// HasPacketLossPct returns a boolean if a field has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) HasPacketLossPct() bool {
+	if o != nil && !IsNil(o.PacketLossPct) {
+		return true
+	}
+
+	return false
+}
+
+// SetPacketLossPct gets a reference to the given float32 and assigns it to the PacketLossPct field.
+func (o *FindCrossCloudConnection200ResponseDataInner) SetPacketLossPct(v float32) {
+	o.PacketLossPct = &v
+}
+
+// GetLastCheckedAt returns the LastCheckedAt field value if set, zero value otherwise.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetLastCheckedAt() time.Time {
+	if o == nil || IsNil(o.LastCheckedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastCheckedAt
+}
+
+// GetLastCheckedAtOk returns a tuple with the LastCheckedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetLastCheckedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastCheckedAt) {
+		return nil, false
+	}
+	return o.LastCheckedAt, true
+}
+
+// HasLastCheckedAt returns a boolean if a field has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) HasLastCheckedAt() bool {
+	if o != nil && !IsNil(o.LastCheckedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastCheckedAt gets a reference to the given time.Time and assigns it to the LastCheckedAt field.
+func (o *FindCrossCloudConnection200ResponseDataInner) SetLastCheckedAt(v time.Time) {
+	o.LastCheckedAt = &v
+}
+
+// GetBgpSessionStatus returns the BgpSessionStatus field value if set, zero value otherwise.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetBgpSessionStatus() string {
+	if o == nil || IsNil(o.BgpSessionStatus) {
+		var ret string
+		return ret
+	}
+	return *o.BgpSessionStatus
+}
+
+// GetBgpSessionStatusOk returns a tuple with the BgpSessionStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetBgpSessionStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.BgpSessionStatus) {
+		return nil, false
+	}
+	return o.BgpSessionStatus, true
+}
+
+// HasBgpSessionStatus returns a boolean if a field has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) HasBgpSessionStatus() bool {
+	if o != nil && !IsNil(o.BgpSessionStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetBgpSessionStatus gets a reference to the given string and assigns it to the BgpSessionStatus field.
+func (o *FindCrossCloudConnection200ResponseDataInner) SetBgpSessionStatus(v string) {
+	o.BgpSessionStatus = &v
+}
+
+// GetBgpAsPath returns the BgpAsPath field value if set, zero value otherwise.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetBgpAsPath() string {
+	if o == nil || IsNil(o.BgpAsPath) {
+		var ret string
+		return ret
+	}
+	return *o.BgpAsPath
+}
+
+// GetBgpAsPathOk returns a tuple with the BgpAsPath field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetBgpAsPathOk() (*string, bool) {
+	if o == nil || IsNil(o.BgpAsPath) {
+		return nil, false
+	}
+	return o.BgpAsPath, true
+}
+
+// HasBgpAsPath returns a boolean if a field has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) HasBgpAsPath() bool {
+	if o != nil && !IsNil(o.BgpAsPath) {
+		return true
+	}
+
+	return false
+}
+
+// SetBgpAsPath gets a reference to the given string and assigns it to the BgpAsPath field.
+func (o *FindCrossCloudConnection200ResponseDataInner) SetBgpAsPath(v string) {
+	o.BgpAsPath = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FindCrossCloudConnection200ResponseDataInner) SetNotes(v string) {
+	o.Notes = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindCrossCloudConnection200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindCrossCloudConnection200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +530,6 @@ func (o *FindCrossCloudConnection200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindCrossCloudConnection200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindCrossCloudConnection200ResponseDataInner) GetAttributes() CrossCloudConnection {
-	if o == nil || IsNil(o.Attributes) {
-		var ret CrossCloudConnection
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindCrossCloudConnection200ResponseDataInner) GetAttributesOk() (*CrossCloudConnection, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindCrossCloudConnection200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given CrossCloudConnection and assigns it to the Attributes field.
-func (o *FindCrossCloudConnection200ResponseDataInner) SetAttributes(v CrossCloudConnection) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +648,39 @@ func (o FindCrossCloudConnection200ResponseDataInner) MarshalJSON() ([]byte, err
 
 func (o FindCrossCloudConnection200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["source_provider"] = o.SourceProvider
+	toSerialize["source_region"] = o.SourceRegion
+	toSerialize["target_provider"] = o.TargetProvider
+	toSerialize["target_region"] = o.TargetRegion
+	toSerialize["connection_type"] = o.ConnectionType
+	toSerialize["status"] = o.Status
+	if !IsNil(o.LatencyMs) {
+		toSerialize["latency_ms"] = o.LatencyMs
+	}
+	if !IsNil(o.PacketLossPct) {
+		toSerialize["packet_loss_pct"] = o.PacketLossPct
+	}
+	if !IsNil(o.LastCheckedAt) {
+		toSerialize["last_checked_at"] = o.LastCheckedAt
+	}
+	if !IsNil(o.BgpSessionStatus) {
+		toSerialize["bgp_session_status"] = o.BgpSessionStatus
+	}
+	if !IsNil(o.BgpAsPath) {
+		toSerialize["bgp_as_path"] = o.BgpAsPath
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +692,49 @@ func (o FindCrossCloudConnection200ResponseDataInner) ToMap() (map[string]interf
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindCrossCloudConnection200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"source_provider",
+		"source_region",
+		"target_provider",
+		"target_region",
+		"connection_type",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindCrossCloudConnection200ResponseDataInner := _FindCrossCloudConnection200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindCrossCloudConnection200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindCrossCloudConnection200ResponseDataInner(varFindCrossCloudConnection200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindCrossCloudConnection200ResponseDataInner struct {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindLlmUsage200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,29 @@ var _ MappedNullable = &FindLlmUsage200ResponseDataInner{}
 
 // FindLlmUsage200ResponseDataInner struct for FindLlmUsage200ResponseDataInner
 type FindLlmUsage200ResponseDataInner struct {
+	Model string `json:"model"`
+	TokensIn *int32 `json:"tokens_in,omitempty"`
+	TokensOut *int32 `json:"tokens_out,omitempty"`
+	CostUsd *float32 `json:"cost_usd,omitempty"`
+	RequestType *string `json:"request_type,omitempty"`
+	Success *bool `json:"success,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *LlmUsage `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindLlmUsage200ResponseDataInner FindLlmUsage200ResponseDataInner
+
 // NewFindLlmUsage200ResponseDataInner instantiates a new FindLlmUsage200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindLlmUsage200ResponseDataInner() *FindLlmUsage200ResponseDataInner {
+func NewFindLlmUsage200ResponseDataInner(model string) *FindLlmUsage200ResponseDataInner {
 	this := FindLlmUsage200ResponseDataInner{}
+	this.Model = model
 	return &this
 }
 
@@ -44,6 +55,222 @@ func NewFindLlmUsage200ResponseDataInner() *FindLlmUsage200ResponseDataInner {
 func NewFindLlmUsage200ResponseDataInnerWithDefaults() *FindLlmUsage200ResponseDataInner {
 	this := FindLlmUsage200ResponseDataInner{}
 	return &this
+}
+
+// GetModel returns the Model field value
+func (o *FindLlmUsage200ResponseDataInner) GetModel() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Model
+}
+
+// GetModelOk returns a tuple with the Model field value
+// and a boolean to check if the value has been set.
+func (o *FindLlmUsage200ResponseDataInner) GetModelOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Model, true
+}
+
+// SetModel sets field value
+func (o *FindLlmUsage200ResponseDataInner) SetModel(v string) {
+	o.Model = v
+}
+
+// GetTokensIn returns the TokensIn field value if set, zero value otherwise.
+func (o *FindLlmUsage200ResponseDataInner) GetTokensIn() int32 {
+	if o == nil || IsNil(o.TokensIn) {
+		var ret int32
+		return ret
+	}
+	return *o.TokensIn
+}
+
+// GetTokensInOk returns a tuple with the TokensIn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmUsage200ResponseDataInner) GetTokensInOk() (*int32, bool) {
+	if o == nil || IsNil(o.TokensIn) {
+		return nil, false
+	}
+	return o.TokensIn, true
+}
+
+// HasTokensIn returns a boolean if a field has been set.
+func (o *FindLlmUsage200ResponseDataInner) HasTokensIn() bool {
+	if o != nil && !IsNil(o.TokensIn) {
+		return true
+	}
+
+	return false
+}
+
+// SetTokensIn gets a reference to the given int32 and assigns it to the TokensIn field.
+func (o *FindLlmUsage200ResponseDataInner) SetTokensIn(v int32) {
+	o.TokensIn = &v
+}
+
+// GetTokensOut returns the TokensOut field value if set, zero value otherwise.
+func (o *FindLlmUsage200ResponseDataInner) GetTokensOut() int32 {
+	if o == nil || IsNil(o.TokensOut) {
+		var ret int32
+		return ret
+	}
+	return *o.TokensOut
+}
+
+// GetTokensOutOk returns a tuple with the TokensOut field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmUsage200ResponseDataInner) GetTokensOutOk() (*int32, bool) {
+	if o == nil || IsNil(o.TokensOut) {
+		return nil, false
+	}
+	return o.TokensOut, true
+}
+
+// HasTokensOut returns a boolean if a field has been set.
+func (o *FindLlmUsage200ResponseDataInner) HasTokensOut() bool {
+	if o != nil && !IsNil(o.TokensOut) {
+		return true
+	}
+
+	return false
+}
+
+// SetTokensOut gets a reference to the given int32 and assigns it to the TokensOut field.
+func (o *FindLlmUsage200ResponseDataInner) SetTokensOut(v int32) {
+	o.TokensOut = &v
+}
+
+// GetCostUsd returns the CostUsd field value if set, zero value otherwise.
+func (o *FindLlmUsage200ResponseDataInner) GetCostUsd() float32 {
+	if o == nil || IsNil(o.CostUsd) {
+		var ret float32
+		return ret
+	}
+	return *o.CostUsd
+}
+
+// GetCostUsdOk returns a tuple with the CostUsd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmUsage200ResponseDataInner) GetCostUsdOk() (*float32, bool) {
+	if o == nil || IsNil(o.CostUsd) {
+		return nil, false
+	}
+	return o.CostUsd, true
+}
+
+// HasCostUsd returns a boolean if a field has been set.
+func (o *FindLlmUsage200ResponseDataInner) HasCostUsd() bool {
+	if o != nil && !IsNil(o.CostUsd) {
+		return true
+	}
+
+	return false
+}
+
+// SetCostUsd gets a reference to the given float32 and assigns it to the CostUsd field.
+func (o *FindLlmUsage200ResponseDataInner) SetCostUsd(v float32) {
+	o.CostUsd = &v
+}
+
+// GetRequestType returns the RequestType field value if set, zero value otherwise.
+func (o *FindLlmUsage200ResponseDataInner) GetRequestType() string {
+	if o == nil || IsNil(o.RequestType) {
+		var ret string
+		return ret
+	}
+	return *o.RequestType
+}
+
+// GetRequestTypeOk returns a tuple with the RequestType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmUsage200ResponseDataInner) GetRequestTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.RequestType) {
+		return nil, false
+	}
+	return o.RequestType, true
+}
+
+// HasRequestType returns a boolean if a field has been set.
+func (o *FindLlmUsage200ResponseDataInner) HasRequestType() bool {
+	if o != nil && !IsNil(o.RequestType) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestType gets a reference to the given string and assigns it to the RequestType field.
+func (o *FindLlmUsage200ResponseDataInner) SetRequestType(v string) {
+	o.RequestType = &v
+}
+
+// GetSuccess returns the Success field value if set, zero value otherwise.
+func (o *FindLlmUsage200ResponseDataInner) GetSuccess() bool {
+	if o == nil || IsNil(o.Success) {
+		var ret bool
+		return ret
+	}
+	return *o.Success
+}
+
+// GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmUsage200ResponseDataInner) GetSuccessOk() (*bool, bool) {
+	if o == nil || IsNil(o.Success) {
+		return nil, false
+	}
+	return o.Success, true
+}
+
+// HasSuccess returns a boolean if a field has been set.
+func (o *FindLlmUsage200ResponseDataInner) HasSuccess() bool {
+	if o != nil && !IsNil(o.Success) {
+		return true
+	}
+
+	return false
+}
+
+// SetSuccess gets a reference to the given bool and assigns it to the Success field.
+func (o *FindLlmUsage200ResponseDataInner) SetSuccess(v bool) {
+	o.Success = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindLlmUsage200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindLlmUsage200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindLlmUsage200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindLlmUsage200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +335,6 @@ func (o *FindLlmUsage200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindLlmUsage200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindLlmUsage200ResponseDataInner) GetAttributes() LlmUsage {
-	if o == nil || IsNil(o.Attributes) {
-		var ret LlmUsage
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindLlmUsage200ResponseDataInner) GetAttributesOk() (*LlmUsage, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindLlmUsage200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given LlmUsage and assigns it to the Attributes field.
-func (o *FindLlmUsage200ResponseDataInner) SetAttributes(v LlmUsage) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +453,30 @@ func (o FindLlmUsage200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindLlmUsage200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["model"] = o.Model
+	if !IsNil(o.TokensIn) {
+		toSerialize["tokens_in"] = o.TokensIn
+	}
+	if !IsNil(o.TokensOut) {
+		toSerialize["tokens_out"] = o.TokensOut
+	}
+	if !IsNil(o.CostUsd) {
+		toSerialize["cost_usd"] = o.CostUsd
+	}
+	if !IsNil(o.RequestType) {
+		toSerialize["request_type"] = o.RequestType
+	}
+	if !IsNil(o.Success) {
+		toSerialize["success"] = o.Success
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +488,43 @@ func (o FindLlmUsage200ResponseDataInner) ToMap() (map[string]interface{}, error
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindLlmUsage200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"model",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindLlmUsage200ResponseDataInner := _FindLlmUsage200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindLlmUsage200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindLlmUsage200ResponseDataInner(varFindLlmUsage200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindLlmUsage200ResponseDataInner struct {

@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindTicketComment200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,27 @@ var _ MappedNullable = &FindTicketComment200ResponseDataInner{}
 
 // FindTicketComment200ResponseDataInner struct for FindTicketComment200ResponseDataInner
 type FindTicketComment200ResponseDataInner struct {
+	Body string `json:"body"`
+	AuthorName *string `json:"author_name,omitempty"`
+	AuthorEmail *string `json:"author_email,omitempty"`
+	IsInternal *bool `json:"is_internal,omitempty"`
+	Ticket *CreateAccessReviewRequestDataReviewer `json:"ticket,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *TicketComment `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindTicketComment200ResponseDataInner FindTicketComment200ResponseDataInner
+
 // NewFindTicketComment200ResponseDataInner instantiates a new FindTicketComment200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindTicketComment200ResponseDataInner() *FindTicketComment200ResponseDataInner {
+func NewFindTicketComment200ResponseDataInner(body string) *FindTicketComment200ResponseDataInner {
 	this := FindTicketComment200ResponseDataInner{}
+	this.Body = body
 	return &this
 }
 
@@ -44,6 +53,158 @@ func NewFindTicketComment200ResponseDataInner() *FindTicketComment200ResponseDat
 func NewFindTicketComment200ResponseDataInnerWithDefaults() *FindTicketComment200ResponseDataInner {
 	this := FindTicketComment200ResponseDataInner{}
 	return &this
+}
+
+// GetBody returns the Body field value
+func (o *FindTicketComment200ResponseDataInner) GetBody() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Body
+}
+
+// GetBodyOk returns a tuple with the Body field value
+// and a boolean to check if the value has been set.
+func (o *FindTicketComment200ResponseDataInner) GetBodyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Body, true
+}
+
+// SetBody sets field value
+func (o *FindTicketComment200ResponseDataInner) SetBody(v string) {
+	o.Body = v
+}
+
+// GetAuthorName returns the AuthorName field value if set, zero value otherwise.
+func (o *FindTicketComment200ResponseDataInner) GetAuthorName() string {
+	if o == nil || IsNil(o.AuthorName) {
+		var ret string
+		return ret
+	}
+	return *o.AuthorName
+}
+
+// GetAuthorNameOk returns a tuple with the AuthorName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTicketComment200ResponseDataInner) GetAuthorNameOk() (*string, bool) {
+	if o == nil || IsNil(o.AuthorName) {
+		return nil, false
+	}
+	return o.AuthorName, true
+}
+
+// HasAuthorName returns a boolean if a field has been set.
+func (o *FindTicketComment200ResponseDataInner) HasAuthorName() bool {
+	if o != nil && !IsNil(o.AuthorName) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthorName gets a reference to the given string and assigns it to the AuthorName field.
+func (o *FindTicketComment200ResponseDataInner) SetAuthorName(v string) {
+	o.AuthorName = &v
+}
+
+// GetAuthorEmail returns the AuthorEmail field value if set, zero value otherwise.
+func (o *FindTicketComment200ResponseDataInner) GetAuthorEmail() string {
+	if o == nil || IsNil(o.AuthorEmail) {
+		var ret string
+		return ret
+	}
+	return *o.AuthorEmail
+}
+
+// GetAuthorEmailOk returns a tuple with the AuthorEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTicketComment200ResponseDataInner) GetAuthorEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.AuthorEmail) {
+		return nil, false
+	}
+	return o.AuthorEmail, true
+}
+
+// HasAuthorEmail returns a boolean if a field has been set.
+func (o *FindTicketComment200ResponseDataInner) HasAuthorEmail() bool {
+	if o != nil && !IsNil(o.AuthorEmail) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthorEmail gets a reference to the given string and assigns it to the AuthorEmail field.
+func (o *FindTicketComment200ResponseDataInner) SetAuthorEmail(v string) {
+	o.AuthorEmail = &v
+}
+
+// GetIsInternal returns the IsInternal field value if set, zero value otherwise.
+func (o *FindTicketComment200ResponseDataInner) GetIsInternal() bool {
+	if o == nil || IsNil(o.IsInternal) {
+		var ret bool
+		return ret
+	}
+	return *o.IsInternal
+}
+
+// GetIsInternalOk returns a tuple with the IsInternal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTicketComment200ResponseDataInner) GetIsInternalOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsInternal) {
+		return nil, false
+	}
+	return o.IsInternal, true
+}
+
+// HasIsInternal returns a boolean if a field has been set.
+func (o *FindTicketComment200ResponseDataInner) HasIsInternal() bool {
+	if o != nil && !IsNil(o.IsInternal) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsInternal gets a reference to the given bool and assigns it to the IsInternal field.
+func (o *FindTicketComment200ResponseDataInner) SetIsInternal(v bool) {
+	o.IsInternal = &v
+}
+
+// GetTicket returns the Ticket field value if set, zero value otherwise.
+func (o *FindTicketComment200ResponseDataInner) GetTicket() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Ticket) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Ticket
+}
+
+// GetTicketOk returns a tuple with the Ticket field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindTicketComment200ResponseDataInner) GetTicketOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Ticket) {
+		return nil, false
+	}
+	return o.Ticket, true
+}
+
+// HasTicket returns a boolean if a field has been set.
+func (o *FindTicketComment200ResponseDataInner) HasTicket() bool {
+	if o != nil && !IsNil(o.Ticket) {
+		return true
+	}
+
+	return false
+}
+
+// SetTicket gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Ticket field.
+func (o *FindTicketComment200ResponseDataInner) SetTicket(v CreateAccessReviewRequestDataReviewer) {
+	o.Ticket = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +269,6 @@ func (o *FindTicketComment200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindTicketComment200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindTicketComment200ResponseDataInner) GetAttributes() TicketComment {
-	if o == nil || IsNil(o.Attributes) {
-		var ret TicketComment
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindTicketComment200ResponseDataInner) GetAttributesOk() (*TicketComment, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindTicketComment200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given TicketComment and assigns it to the Attributes field.
-func (o *FindTicketComment200ResponseDataInner) SetAttributes(v TicketComment) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +387,24 @@ func (o FindTicketComment200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindTicketComment200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["body"] = o.Body
+	if !IsNil(o.AuthorName) {
+		toSerialize["author_name"] = o.AuthorName
+	}
+	if !IsNil(o.AuthorEmail) {
+		toSerialize["author_email"] = o.AuthorEmail
+	}
+	if !IsNil(o.IsInternal) {
+		toSerialize["is_internal"] = o.IsInternal
+	}
+	if !IsNil(o.Ticket) {
+		toSerialize["ticket"] = o.Ticket
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +416,43 @@ func (o FindTicketComment200ResponseDataInner) ToMap() (map[string]interface{}, 
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindTicketComment200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"body",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindTicketComment200ResponseDataInner := _FindTicketComment200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindTicketComment200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindTicketComment200ResponseDataInner(varFindTicketComment200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindTicketComment200ResponseDataInner struct {

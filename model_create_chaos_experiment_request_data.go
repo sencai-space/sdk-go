@@ -30,7 +30,8 @@ type CreateChaosExperimentRequestData struct {
 	TargetInstanceName *string `json:"target_instance_name,omitempty"`
 	DurationMinutes int32 `json:"duration_minutes"`
 	BlastRadius *string `json:"blast_radius,omitempty"`
-	SuccessCriteria map[string]interface{} `json:"success_criteria,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	SuccessCriteria interface{} `json:"success_criteria,omitempty"`
 	RollbackPlan string `json:"rollback_plan"`
 	Status *string `json:"status,omitempty"`
 	ResultSummary *string `json:"result_summary,omitempty"`
@@ -264,10 +265,10 @@ func (o *CreateChaosExperimentRequestData) SetBlastRadius(v string) {
 	o.BlastRadius = &v
 }
 
-// GetSuccessCriteria returns the SuccessCriteria field value if set, zero value otherwise.
-func (o *CreateChaosExperimentRequestData) GetSuccessCriteria() map[string]interface{} {
-	if o == nil || IsNil(o.SuccessCriteria) {
-		var ret map[string]interface{}
+// GetSuccessCriteria returns the SuccessCriteria field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreateChaosExperimentRequestData) GetSuccessCriteria() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.SuccessCriteria
@@ -275,11 +276,12 @@ func (o *CreateChaosExperimentRequestData) GetSuccessCriteria() map[string]inter
 
 // GetSuccessCriteriaOk returns a tuple with the SuccessCriteria field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateChaosExperimentRequestData) GetSuccessCriteriaOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreateChaosExperimentRequestData) GetSuccessCriteriaOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.SuccessCriteria) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.SuccessCriteria, true
+	return &o.SuccessCriteria, true
 }
 
 // HasSuccessCriteria returns a boolean if a field has been set.
@@ -291,8 +293,8 @@ func (o *CreateChaosExperimentRequestData) HasSuccessCriteria() bool {
 	return false
 }
 
-// SetSuccessCriteria gets a reference to the given map[string]interface{} and assigns it to the SuccessCriteria field.
-func (o *CreateChaosExperimentRequestData) SetSuccessCriteria(v map[string]interface{}) {
+// SetSuccessCriteria gets a reference to the given interface{} and assigns it to the SuccessCriteria field.
+func (o *CreateChaosExperimentRequestData) SetSuccessCriteria(v interface{}) {
 	o.SuccessCriteria = v
 }
 
@@ -569,7 +571,7 @@ func (o CreateChaosExperimentRequestData) ToMap() (map[string]interface{}, error
 	if !IsNil(o.BlastRadius) {
 		toSerialize["blast_radius"] = o.BlastRadius
 	}
-	if !IsNil(o.SuccessCriteria) {
+	if o.SuccessCriteria != nil {
 		toSerialize["success_criteria"] = o.SuccessCriteria
 	}
 	toSerialize["rollback_plan"] = o.RollbackPlan

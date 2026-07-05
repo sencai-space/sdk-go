@@ -28,7 +28,8 @@ type RopaEntry struct {
 	Processor *string `json:"processor,omitempty"`
 	RetentionDays *int32 `json:"retention_days,omitempty"`
 	CrossBorder *bool `json:"cross_border,omitempty"`
-	RecipientCountries map[string]interface{} `json:"recipient_countries,omitempty"`
+	// Arbitrary JSON value (object, array, string, number, boolean, or null)
+	RecipientCountries interface{} `json:"recipient_countries,omitempty"`
 	Safeguards *string `json:"safeguards,omitempty"`
 	Notes *string `json:"notes,omitempty"`
 	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
@@ -225,10 +226,10 @@ func (o *RopaEntry) SetCrossBorder(v bool) {
 	o.CrossBorder = &v
 }
 
-// GetRecipientCountries returns the RecipientCountries field value if set, zero value otherwise.
-func (o *RopaEntry) GetRecipientCountries() map[string]interface{} {
-	if o == nil || IsNil(o.RecipientCountries) {
-		var ret map[string]interface{}
+// GetRecipientCountries returns the RecipientCountries field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RopaEntry) GetRecipientCountries() interface{} {
+	if o == nil {
+		var ret interface{}
 		return ret
 	}
 	return o.RecipientCountries
@@ -236,11 +237,12 @@ func (o *RopaEntry) GetRecipientCountries() map[string]interface{} {
 
 // GetRecipientCountriesOk returns a tuple with the RecipientCountries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RopaEntry) GetRecipientCountriesOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RopaEntry) GetRecipientCountriesOk() (*interface{}, bool) {
 	if o == nil || IsNil(o.RecipientCountries) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.RecipientCountries, true
+	return &o.RecipientCountries, true
 }
 
 // HasRecipientCountries returns a boolean if a field has been set.
@@ -252,8 +254,8 @@ func (o *RopaEntry) HasRecipientCountries() bool {
 	return false
 }
 
-// SetRecipientCountries gets a reference to the given map[string]interface{} and assigns it to the RecipientCountries field.
-func (o *RopaEntry) SetRecipientCountries(v map[string]interface{}) {
+// SetRecipientCountries gets a reference to the given interface{} and assigns it to the RecipientCountries field.
+func (o *RopaEntry) SetRecipientCountries(v interface{}) {
 	o.RecipientCountries = v
 }
 
@@ -407,7 +409,7 @@ func (o RopaEntry) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CrossBorder) {
 		toSerialize["cross_border"] = o.CrossBorder
 	}
-	if !IsNil(o.RecipientCountries) {
+	if o.RecipientCountries != nil {
 		toSerialize["recipient_countries"] = o.RecipientCountries
 	}
 	if !IsNil(o.Safeguards) {

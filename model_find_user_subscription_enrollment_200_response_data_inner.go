@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindUserSubscriptionEnrollment200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,39 @@ var _ MappedNullable = &FindUserSubscriptionEnrollment200ResponseDataInner{}
 
 // FindUserSubscriptionEnrollment200ResponseDataInner struct for FindUserSubscriptionEnrollment200ResponseDataInner
 type FindUserSubscriptionEnrollment200ResponseDataInner struct {
+	User CreateAccessReviewRequestDataReviewer `json:"user"`
+	Plan *CreateAccessReviewRequestDataReviewer `json:"plan,omitempty"`
+	Status string `json:"status"`
+	StartedAt *time.Time `json:"started_at,omitempty"`
+	TrialEndsAt *time.Time `json:"trial_ends_at,omitempty"`
+	ExpiresAt *time.Time `json:"expires_at,omitempty"`
+	Sponsor *CreateAccessReviewRequestDataReviewer `json:"sponsor,omitempty"`
+	// Convention: user-${userId}, symmetric to the existing org-${orgId} convention (see billing-adapter.ts / checkout.ts).
+	StripeCustomerId *string `json:"stripe_customer_id,omitempty"`
+	StripeSubscriptionId *string `json:"stripe_subscription_id,omitempty"`
+	// F3.USERPLAN.04 — 7-day JWT (mirrors organisation-member.invitation_token) proving the sponsor invited THIS beneficiary. Set on POST /:sponsorId/sponsor, cleared once accepted (or replaced by a new invite).
+	SponsorshipInvitationToken *string `json:"sponsorship_invitation_token,omitempty"`
+	// F3.USERPLAN.04 — set while a sponsorship invitation is outstanding (not yet accepted by the beneficiary): { sponsorId, sponsorEnrollmentId, tierId, beneficiaryEmail, invitedAt }. Cleared on accept (sponsor/plan/status become authoritative) or on a fresh re-invite.
+	PendingSponsorship interface{} `json:"pending_sponsorship,omitempty"`
+	// F3.USERPLAN.04 — id of the Stripe subscription item added to the SPONSOR's existing subscription for this beneficiary (stripe.subscriptionItems). Required to remove exactly this line item on revoke without touching the sponsor's own base plan item or other beneficiaries' items.
+	SponsorshipStripeItemId *string `json:"sponsorship_stripe_item_id,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *UserSubscriptionEnrollment `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindUserSubscriptionEnrollment200ResponseDataInner FindUserSubscriptionEnrollment200ResponseDataInner
+
 // NewFindUserSubscriptionEnrollment200ResponseDataInner instantiates a new FindUserSubscriptionEnrollment200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindUserSubscriptionEnrollment200ResponseDataInner() *FindUserSubscriptionEnrollment200ResponseDataInner {
+func NewFindUserSubscriptionEnrollment200ResponseDataInner(user CreateAccessReviewRequestDataReviewer, status string) *FindUserSubscriptionEnrollment200ResponseDataInner {
 	this := FindUserSubscriptionEnrollment200ResponseDataInner{}
+	this.User = user
+	this.Status = status
 	return &this
 }
 
@@ -44,6 +65,375 @@ func NewFindUserSubscriptionEnrollment200ResponseDataInner() *FindUserSubscripti
 func NewFindUserSubscriptionEnrollment200ResponseDataInnerWithDefaults() *FindUserSubscriptionEnrollment200ResponseDataInner {
 	this := FindUserSubscriptionEnrollment200ResponseDataInner{}
 	return &this
+}
+
+// GetUser returns the User field value
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetUser() CreateAccessReviewRequestDataReviewer {
+	if o == nil {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+
+	return o.User
+}
+
+// GetUserOk returns a tuple with the User field value
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetUserOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.User, true
+}
+
+// SetUser sets field value
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetUser(v CreateAccessReviewRequestDataReviewer) {
+	o.User = v
+}
+
+// GetPlan returns the Plan field value if set, zero value otherwise.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetPlan() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Plan) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Plan
+}
+
+// GetPlanOk returns a tuple with the Plan field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetPlanOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Plan) {
+		return nil, false
+	}
+	return o.Plan, true
+}
+
+// HasPlan returns a boolean if a field has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasPlan() bool {
+	if o != nil && !IsNil(o.Plan) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlan gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Plan field.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetPlan(v CreateAccessReviewRequestDataReviewer) {
+	o.Plan = &v
+}
+
+// GetStatus returns the Status field value
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Status, true
+}
+
+// SetStatus sets field value
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetStatus(v string) {
+	o.Status = v
+}
+
+// GetStartedAt returns the StartedAt field value if set, zero value otherwise.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetStartedAt() time.Time {
+	if o == nil || IsNil(o.StartedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.StartedAt
+}
+
+// GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetStartedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.StartedAt) {
+		return nil, false
+	}
+	return o.StartedAt, true
+}
+
+// HasStartedAt returns a boolean if a field has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasStartedAt() bool {
+	if o != nil && !IsNil(o.StartedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetStartedAt gets a reference to the given time.Time and assigns it to the StartedAt field.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetStartedAt(v time.Time) {
+	o.StartedAt = &v
+}
+
+// GetTrialEndsAt returns the TrialEndsAt field value if set, zero value otherwise.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetTrialEndsAt() time.Time {
+	if o == nil || IsNil(o.TrialEndsAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.TrialEndsAt
+}
+
+// GetTrialEndsAtOk returns a tuple with the TrialEndsAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetTrialEndsAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.TrialEndsAt) {
+		return nil, false
+	}
+	return o.TrialEndsAt, true
+}
+
+// HasTrialEndsAt returns a boolean if a field has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasTrialEndsAt() bool {
+	if o != nil && !IsNil(o.TrialEndsAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrialEndsAt gets a reference to the given time.Time and assigns it to the TrialEndsAt field.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetTrialEndsAt(v time.Time) {
+	o.TrialEndsAt = &v
+}
+
+// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetExpiresAt() time.Time {
+	if o == nil || IsNil(o.ExpiresAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ExpiresAt
+}
+
+// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetExpiresAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ExpiresAt) {
+		return nil, false
+	}
+	return o.ExpiresAt, true
+}
+
+// HasExpiresAt returns a boolean if a field has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasExpiresAt() bool {
+	if o != nil && !IsNil(o.ExpiresAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetExpiresAt(v time.Time) {
+	o.ExpiresAt = &v
+}
+
+// GetSponsor returns the Sponsor field value if set, zero value otherwise.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetSponsor() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Sponsor) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Sponsor
+}
+
+// GetSponsorOk returns a tuple with the Sponsor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetSponsorOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Sponsor) {
+		return nil, false
+	}
+	return o.Sponsor, true
+}
+
+// HasSponsor returns a boolean if a field has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasSponsor() bool {
+	if o != nil && !IsNil(o.Sponsor) {
+		return true
+	}
+
+	return false
+}
+
+// SetSponsor gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Sponsor field.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetSponsor(v CreateAccessReviewRequestDataReviewer) {
+	o.Sponsor = &v
+}
+
+// GetStripeCustomerId returns the StripeCustomerId field value if set, zero value otherwise.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetStripeCustomerId() string {
+	if o == nil || IsNil(o.StripeCustomerId) {
+		var ret string
+		return ret
+	}
+	return *o.StripeCustomerId
+}
+
+// GetStripeCustomerIdOk returns a tuple with the StripeCustomerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetStripeCustomerIdOk() (*string, bool) {
+	if o == nil || IsNil(o.StripeCustomerId) {
+		return nil, false
+	}
+	return o.StripeCustomerId, true
+}
+
+// HasStripeCustomerId returns a boolean if a field has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasStripeCustomerId() bool {
+	if o != nil && !IsNil(o.StripeCustomerId) {
+		return true
+	}
+
+	return false
+}
+
+// SetStripeCustomerId gets a reference to the given string and assigns it to the StripeCustomerId field.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetStripeCustomerId(v string) {
+	o.StripeCustomerId = &v
+}
+
+// GetStripeSubscriptionId returns the StripeSubscriptionId field value if set, zero value otherwise.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetStripeSubscriptionId() string {
+	if o == nil || IsNil(o.StripeSubscriptionId) {
+		var ret string
+		return ret
+	}
+	return *o.StripeSubscriptionId
+}
+
+// GetStripeSubscriptionIdOk returns a tuple with the StripeSubscriptionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetStripeSubscriptionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.StripeSubscriptionId) {
+		return nil, false
+	}
+	return o.StripeSubscriptionId, true
+}
+
+// HasStripeSubscriptionId returns a boolean if a field has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasStripeSubscriptionId() bool {
+	if o != nil && !IsNil(o.StripeSubscriptionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetStripeSubscriptionId gets a reference to the given string and assigns it to the StripeSubscriptionId field.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetStripeSubscriptionId(v string) {
+	o.StripeSubscriptionId = &v
+}
+
+// GetSponsorshipInvitationToken returns the SponsorshipInvitationToken field value if set, zero value otherwise.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetSponsorshipInvitationToken() string {
+	if o == nil || IsNil(o.SponsorshipInvitationToken) {
+		var ret string
+		return ret
+	}
+	return *o.SponsorshipInvitationToken
+}
+
+// GetSponsorshipInvitationTokenOk returns a tuple with the SponsorshipInvitationToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetSponsorshipInvitationTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.SponsorshipInvitationToken) {
+		return nil, false
+	}
+	return o.SponsorshipInvitationToken, true
+}
+
+// HasSponsorshipInvitationToken returns a boolean if a field has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasSponsorshipInvitationToken() bool {
+	if o != nil && !IsNil(o.SponsorshipInvitationToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetSponsorshipInvitationToken gets a reference to the given string and assigns it to the SponsorshipInvitationToken field.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetSponsorshipInvitationToken(v string) {
+	o.SponsorshipInvitationToken = &v
+}
+
+// GetPendingSponsorship returns the PendingSponsorship field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetPendingSponsorship() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+	return o.PendingSponsorship
+}
+
+// GetPendingSponsorshipOk returns a tuple with the PendingSponsorship field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetPendingSponsorshipOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.PendingSponsorship) {
+		return nil, false
+	}
+	return &o.PendingSponsorship, true
+}
+
+// HasPendingSponsorship returns a boolean if a field has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasPendingSponsorship() bool {
+	if o != nil && !IsNil(o.PendingSponsorship) {
+		return true
+	}
+
+	return false
+}
+
+// SetPendingSponsorship gets a reference to the given interface{} and assigns it to the PendingSponsorship field.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetPendingSponsorship(v interface{}) {
+	o.PendingSponsorship = v
+}
+
+// GetSponsorshipStripeItemId returns the SponsorshipStripeItemId field value if set, zero value otherwise.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetSponsorshipStripeItemId() string {
+	if o == nil || IsNil(o.SponsorshipStripeItemId) {
+		var ret string
+		return ret
+	}
+	return *o.SponsorshipStripeItemId
+}
+
+// GetSponsorshipStripeItemIdOk returns a tuple with the SponsorshipStripeItemId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetSponsorshipStripeItemIdOk() (*string, bool) {
+	if o == nil || IsNil(o.SponsorshipStripeItemId) {
+		return nil, false
+	}
+	return o.SponsorshipStripeItemId, true
+}
+
+// HasSponsorshipStripeItemId returns a boolean if a field has been set.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasSponsorshipStripeItemId() bool {
+	if o != nil && !IsNil(o.SponsorshipStripeItemId) {
+		return true
+	}
+
+	return false
+}
+
+// SetSponsorshipStripeItemId gets a reference to the given string and assigns it to the SponsorshipStripeItemId field.
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetSponsorshipStripeItemId(v string) {
+	o.SponsorshipStripeItemId = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +498,6 @@ func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetAttributes() UserSubscriptionEnrollment {
-	if o == nil || IsNil(o.Attributes) {
-		var ret UserSubscriptionEnrollment
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindUserSubscriptionEnrollment200ResponseDataInner) GetAttributesOk() (*UserSubscriptionEnrollment, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindUserSubscriptionEnrollment200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given UserSubscriptionEnrollment and assigns it to the Attributes field.
-func (o *FindUserSubscriptionEnrollment200ResponseDataInner) SetAttributes(v UserSubscriptionEnrollment) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +616,43 @@ func (o FindUserSubscriptionEnrollment200ResponseDataInner) MarshalJSON() ([]byt
 
 func (o FindUserSubscriptionEnrollment200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["user"] = o.User
+	if !IsNil(o.Plan) {
+		toSerialize["plan"] = o.Plan
+	}
+	toSerialize["status"] = o.Status
+	if !IsNil(o.StartedAt) {
+		toSerialize["started_at"] = o.StartedAt
+	}
+	if !IsNil(o.TrialEndsAt) {
+		toSerialize["trial_ends_at"] = o.TrialEndsAt
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.Sponsor) {
+		toSerialize["sponsor"] = o.Sponsor
+	}
+	if !IsNil(o.StripeCustomerId) {
+		toSerialize["stripe_customer_id"] = o.StripeCustomerId
+	}
+	if !IsNil(o.StripeSubscriptionId) {
+		toSerialize["stripe_subscription_id"] = o.StripeSubscriptionId
+	}
+	if !IsNil(o.SponsorshipInvitationToken) {
+		toSerialize["sponsorship_invitation_token"] = o.SponsorshipInvitationToken
+	}
+	if o.PendingSponsorship != nil {
+		toSerialize["pending_sponsorship"] = o.PendingSponsorship
+	}
+	if !IsNil(o.SponsorshipStripeItemId) {
+		toSerialize["sponsorship_stripe_item_id"] = o.SponsorshipStripeItemId
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +664,44 @@ func (o FindUserSubscriptionEnrollment200ResponseDataInner) ToMap() (map[string]
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindUserSubscriptionEnrollment200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"user",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindUserSubscriptionEnrollment200ResponseDataInner := _FindUserSubscriptionEnrollment200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindUserSubscriptionEnrollment200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindUserSubscriptionEnrollment200ResponseDataInner(varFindUserSubscriptionEnrollment200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindUserSubscriptionEnrollment200ResponseDataInner struct {

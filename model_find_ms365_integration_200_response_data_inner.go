@@ -21,9 +21,14 @@ var _ MappedNullable = &FindMs365Integration200ResponseDataInner{}
 
 // FindMs365Integration200ResponseDataInner struct for FindMs365Integration200ResponseDataInner
 type FindMs365Integration200ResponseDataInner struct {
+	EntraTenantId *string `json:"entra_tenant_id,omitempty"`
+	Enabled *bool `json:"enabled,omitempty"`
+	AdminConsentGranted *bool `json:"admin_consent_granted,omitempty"`
+	AdminConsentGrantedAt *time.Time `json:"admin_consent_granted_at,omitempty"`
+	LastSyncAt *time.Time `json:"last_sync_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *Ms365Integration `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
@@ -44,6 +49,198 @@ func NewFindMs365Integration200ResponseDataInner() *FindMs365Integration200Respo
 func NewFindMs365Integration200ResponseDataInnerWithDefaults() *FindMs365Integration200ResponseDataInner {
 	this := FindMs365Integration200ResponseDataInner{}
 	return &this
+}
+
+// GetEntraTenantId returns the EntraTenantId field value if set, zero value otherwise.
+func (o *FindMs365Integration200ResponseDataInner) GetEntraTenantId() string {
+	if o == nil || IsNil(o.EntraTenantId) {
+		var ret string
+		return ret
+	}
+	return *o.EntraTenantId
+}
+
+// GetEntraTenantIdOk returns a tuple with the EntraTenantId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindMs365Integration200ResponseDataInner) GetEntraTenantIdOk() (*string, bool) {
+	if o == nil || IsNil(o.EntraTenantId) {
+		return nil, false
+	}
+	return o.EntraTenantId, true
+}
+
+// HasEntraTenantId returns a boolean if a field has been set.
+func (o *FindMs365Integration200ResponseDataInner) HasEntraTenantId() bool {
+	if o != nil && !IsNil(o.EntraTenantId) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntraTenantId gets a reference to the given string and assigns it to the EntraTenantId field.
+func (o *FindMs365Integration200ResponseDataInner) SetEntraTenantId(v string) {
+	o.EntraTenantId = &v
+}
+
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FindMs365Integration200ResponseDataInner) GetEnabled() bool {
+	if o == nil || IsNil(o.Enabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindMs365Integration200ResponseDataInner) GetEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Enabled) {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FindMs365Integration200ResponseDataInner) HasEnabled() bool {
+	if o != nil && !IsNil(o.Enabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FindMs365Integration200ResponseDataInner) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
+// GetAdminConsentGranted returns the AdminConsentGranted field value if set, zero value otherwise.
+func (o *FindMs365Integration200ResponseDataInner) GetAdminConsentGranted() bool {
+	if o == nil || IsNil(o.AdminConsentGranted) {
+		var ret bool
+		return ret
+	}
+	return *o.AdminConsentGranted
+}
+
+// GetAdminConsentGrantedOk returns a tuple with the AdminConsentGranted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindMs365Integration200ResponseDataInner) GetAdminConsentGrantedOk() (*bool, bool) {
+	if o == nil || IsNil(o.AdminConsentGranted) {
+		return nil, false
+	}
+	return o.AdminConsentGranted, true
+}
+
+// HasAdminConsentGranted returns a boolean if a field has been set.
+func (o *FindMs365Integration200ResponseDataInner) HasAdminConsentGranted() bool {
+	if o != nil && !IsNil(o.AdminConsentGranted) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdminConsentGranted gets a reference to the given bool and assigns it to the AdminConsentGranted field.
+func (o *FindMs365Integration200ResponseDataInner) SetAdminConsentGranted(v bool) {
+	o.AdminConsentGranted = &v
+}
+
+// GetAdminConsentGrantedAt returns the AdminConsentGrantedAt field value if set, zero value otherwise.
+func (o *FindMs365Integration200ResponseDataInner) GetAdminConsentGrantedAt() time.Time {
+	if o == nil || IsNil(o.AdminConsentGrantedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AdminConsentGrantedAt
+}
+
+// GetAdminConsentGrantedAtOk returns a tuple with the AdminConsentGrantedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindMs365Integration200ResponseDataInner) GetAdminConsentGrantedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AdminConsentGrantedAt) {
+		return nil, false
+	}
+	return o.AdminConsentGrantedAt, true
+}
+
+// HasAdminConsentGrantedAt returns a boolean if a field has been set.
+func (o *FindMs365Integration200ResponseDataInner) HasAdminConsentGrantedAt() bool {
+	if o != nil && !IsNil(o.AdminConsentGrantedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdminConsentGrantedAt gets a reference to the given time.Time and assigns it to the AdminConsentGrantedAt field.
+func (o *FindMs365Integration200ResponseDataInner) SetAdminConsentGrantedAt(v time.Time) {
+	o.AdminConsentGrantedAt = &v
+}
+
+// GetLastSyncAt returns the LastSyncAt field value if set, zero value otherwise.
+func (o *FindMs365Integration200ResponseDataInner) GetLastSyncAt() time.Time {
+	if o == nil || IsNil(o.LastSyncAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastSyncAt
+}
+
+// GetLastSyncAtOk returns a tuple with the LastSyncAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindMs365Integration200ResponseDataInner) GetLastSyncAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastSyncAt) {
+		return nil, false
+	}
+	return o.LastSyncAt, true
+}
+
+// HasLastSyncAt returns a boolean if a field has been set.
+func (o *FindMs365Integration200ResponseDataInner) HasLastSyncAt() bool {
+	if o != nil && !IsNil(o.LastSyncAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSyncAt gets a reference to the given time.Time and assigns it to the LastSyncAt field.
+func (o *FindMs365Integration200ResponseDataInner) SetLastSyncAt(v time.Time) {
+	o.LastSyncAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindMs365Integration200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindMs365Integration200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindMs365Integration200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindMs365Integration200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +305,6 @@ func (o *FindMs365Integration200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindMs365Integration200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindMs365Integration200ResponseDataInner) GetAttributes() Ms365Integration {
-	if o == nil || IsNil(o.Attributes) {
-		var ret Ms365Integration
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindMs365Integration200ResponseDataInner) GetAttributesOk() (*Ms365Integration, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindMs365Integration200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given Ms365Integration and assigns it to the Attributes field.
-func (o *FindMs365Integration200ResponseDataInner) SetAttributes(v Ms365Integration) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +423,29 @@ func (o FindMs365Integration200ResponseDataInner) MarshalJSON() ([]byte, error) 
 
 func (o FindMs365Integration200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.EntraTenantId) {
+		toSerialize["entra_tenant_id"] = o.EntraTenantId
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.AdminConsentGranted) {
+		toSerialize["admin_consent_granted"] = o.AdminConsentGranted
+	}
+	if !IsNil(o.AdminConsentGrantedAt) {
+		toSerialize["admin_consent_granted_at"] = o.AdminConsentGrantedAt
+	}
+	if !IsNil(o.LastSyncAt) {
+		toSerialize["last_sync_at"] = o.LastSyncAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt

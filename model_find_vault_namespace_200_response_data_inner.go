@@ -14,6 +14,8 @@ package sencaisdk
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the FindVaultNamespace200ResponseDataInner type satisfies the MappedNullable interface at compile time
@@ -21,20 +23,28 @@ var _ MappedNullable = &FindVaultNamespace200ResponseDataInner{}
 
 // FindVaultNamespace200ResponseDataInner struct for FindVaultNamespace200ResponseDataInner
 type FindVaultNamespace200ResponseDataInner struct {
+	NamespacePath string `json:"namespace_path"`
+	Status *string `json:"status,omitempty"`
+	ProvisionedAt *time.Time `json:"provisioned_at,omitempty"`
+	Organisation *CreateAccessReviewRequestDataReviewer `json:"organisation,omitempty"`
+	ApproleRoleId *string `json:"approle_role_id,omitempty"`
+	ErrorMessage *string `json:"error_message,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
-	Attributes *VaultNamespace `json:"attributes,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
 	PublishedAt NullableTime `json:"publishedAt,omitempty"`
 }
 
+type _FindVaultNamespace200ResponseDataInner FindVaultNamespace200ResponseDataInner
+
 // NewFindVaultNamespace200ResponseDataInner instantiates a new FindVaultNamespace200ResponseDataInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFindVaultNamespace200ResponseDataInner() *FindVaultNamespace200ResponseDataInner {
+func NewFindVaultNamespace200ResponseDataInner(namespacePath string) *FindVaultNamespace200ResponseDataInner {
 	this := FindVaultNamespace200ResponseDataInner{}
+	this.NamespacePath = namespacePath
 	return &this
 }
 
@@ -44,6 +54,190 @@ func NewFindVaultNamespace200ResponseDataInner() *FindVaultNamespace200ResponseD
 func NewFindVaultNamespace200ResponseDataInnerWithDefaults() *FindVaultNamespace200ResponseDataInner {
 	this := FindVaultNamespace200ResponseDataInner{}
 	return &this
+}
+
+// GetNamespacePath returns the NamespacePath field value
+func (o *FindVaultNamespace200ResponseDataInner) GetNamespacePath() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.NamespacePath
+}
+
+// GetNamespacePathOk returns a tuple with the NamespacePath field value
+// and a boolean to check if the value has been set.
+func (o *FindVaultNamespace200ResponseDataInner) GetNamespacePathOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.NamespacePath, true
+}
+
+// SetNamespacePath sets field value
+func (o *FindVaultNamespace200ResponseDataInner) SetNamespacePath(v string) {
+	o.NamespacePath = v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *FindVaultNamespace200ResponseDataInner) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindVaultNamespace200ResponseDataInner) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *FindVaultNamespace200ResponseDataInner) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *FindVaultNamespace200ResponseDataInner) SetStatus(v string) {
+	o.Status = &v
+}
+
+// GetProvisionedAt returns the ProvisionedAt field value if set, zero value otherwise.
+func (o *FindVaultNamespace200ResponseDataInner) GetProvisionedAt() time.Time {
+	if o == nil || IsNil(o.ProvisionedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ProvisionedAt
+}
+
+// GetProvisionedAtOk returns a tuple with the ProvisionedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindVaultNamespace200ResponseDataInner) GetProvisionedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ProvisionedAt) {
+		return nil, false
+	}
+	return o.ProvisionedAt, true
+}
+
+// HasProvisionedAt returns a boolean if a field has been set.
+func (o *FindVaultNamespace200ResponseDataInner) HasProvisionedAt() bool {
+	if o != nil && !IsNil(o.ProvisionedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvisionedAt gets a reference to the given time.Time and assigns it to the ProvisionedAt field.
+func (o *FindVaultNamespace200ResponseDataInner) SetProvisionedAt(v time.Time) {
+	o.ProvisionedAt = &v
+}
+
+// GetOrganisation returns the Organisation field value if set, zero value otherwise.
+func (o *FindVaultNamespace200ResponseDataInner) GetOrganisation() CreateAccessReviewRequestDataReviewer {
+	if o == nil || IsNil(o.Organisation) {
+		var ret CreateAccessReviewRequestDataReviewer
+		return ret
+	}
+	return *o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindVaultNamespace200ResponseDataInner) GetOrganisationOk() (*CreateAccessReviewRequestDataReviewer, bool) {
+	if o == nil || IsNil(o.Organisation) {
+		return nil, false
+	}
+	return o.Organisation, true
+}
+
+// HasOrganisation returns a boolean if a field has been set.
+func (o *FindVaultNamespace200ResponseDataInner) HasOrganisation() bool {
+	if o != nil && !IsNil(o.Organisation) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganisation gets a reference to the given CreateAccessReviewRequestDataReviewer and assigns it to the Organisation field.
+func (o *FindVaultNamespace200ResponseDataInner) SetOrganisation(v CreateAccessReviewRequestDataReviewer) {
+	o.Organisation = &v
+}
+
+// GetApproleRoleId returns the ApproleRoleId field value if set, zero value otherwise.
+func (o *FindVaultNamespace200ResponseDataInner) GetApproleRoleId() string {
+	if o == nil || IsNil(o.ApproleRoleId) {
+		var ret string
+		return ret
+	}
+	return *o.ApproleRoleId
+}
+
+// GetApproleRoleIdOk returns a tuple with the ApproleRoleId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindVaultNamespace200ResponseDataInner) GetApproleRoleIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ApproleRoleId) {
+		return nil, false
+	}
+	return o.ApproleRoleId, true
+}
+
+// HasApproleRoleId returns a boolean if a field has been set.
+func (o *FindVaultNamespace200ResponseDataInner) HasApproleRoleId() bool {
+	if o != nil && !IsNil(o.ApproleRoleId) {
+		return true
+	}
+
+	return false
+}
+
+// SetApproleRoleId gets a reference to the given string and assigns it to the ApproleRoleId field.
+func (o *FindVaultNamespace200ResponseDataInner) SetApproleRoleId(v string) {
+	o.ApproleRoleId = &v
+}
+
+// GetErrorMessage returns the ErrorMessage field value if set, zero value otherwise.
+func (o *FindVaultNamespace200ResponseDataInner) GetErrorMessage() string {
+	if o == nil || IsNil(o.ErrorMessage) {
+		var ret string
+		return ret
+	}
+	return *o.ErrorMessage
+}
+
+// GetErrorMessageOk returns a tuple with the ErrorMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindVaultNamespace200ResponseDataInner) GetErrorMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.ErrorMessage) {
+		return nil, false
+	}
+	return o.ErrorMessage, true
+}
+
+// HasErrorMessage returns a boolean if a field has been set.
+func (o *FindVaultNamespace200ResponseDataInner) HasErrorMessage() bool {
+	if o != nil && !IsNil(o.ErrorMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorMessage gets a reference to the given string and assigns it to the ErrorMessage field.
+func (o *FindVaultNamespace200ResponseDataInner) SetErrorMessage(v string) {
+	o.ErrorMessage = &v
 }
 
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
@@ -108,38 +302,6 @@ func (o *FindVaultNamespace200ResponseDataInner) HasId() bool {
 // SetId gets a reference to the given int32 and assigns it to the Id field.
 func (o *FindVaultNamespace200ResponseDataInner) SetId(v int32) {
 	o.Id = &v
-}
-
-// GetAttributes returns the Attributes field value if set, zero value otherwise.
-func (o *FindVaultNamespace200ResponseDataInner) GetAttributes() VaultNamespace {
-	if o == nil || IsNil(o.Attributes) {
-		var ret VaultNamespace
-		return ret
-	}
-	return *o.Attributes
-}
-
-// GetAttributesOk returns a tuple with the Attributes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FindVaultNamespace200ResponseDataInner) GetAttributesOk() (*VaultNamespace, bool) {
-	if o == nil || IsNil(o.Attributes) {
-		return nil, false
-	}
-	return o.Attributes, true
-}
-
-// HasAttributes returns a boolean if a field has been set.
-func (o *FindVaultNamespace200ResponseDataInner) HasAttributes() bool {
-	if o != nil && !IsNil(o.Attributes) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttributes gets a reference to the given VaultNamespace and assigns it to the Attributes field.
-func (o *FindVaultNamespace200ResponseDataInner) SetAttributes(v VaultNamespace) {
-	o.Attributes = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -258,14 +420,27 @@ func (o FindVaultNamespace200ResponseDataInner) MarshalJSON() ([]byte, error) {
 
 func (o FindVaultNamespace200ResponseDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["namespace_path"] = o.NamespacePath
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.ProvisionedAt) {
+		toSerialize["provisioned_at"] = o.ProvisionedAt
+	}
+	if !IsNil(o.Organisation) {
+		toSerialize["organisation"] = o.Organisation
+	}
+	if !IsNil(o.ApproleRoleId) {
+		toSerialize["approle_role_id"] = o.ApproleRoleId
+	}
+	if !IsNil(o.ErrorMessage) {
+		toSerialize["error_message"] = o.ErrorMessage
+	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Attributes) {
-		toSerialize["attributes"] = o.Attributes
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["createdAt"] = o.CreatedAt
@@ -277,6 +452,43 @@ func (o FindVaultNamespace200ResponseDataInner) ToMap() (map[string]interface{},
 		toSerialize["publishedAt"] = o.PublishedAt.Get()
 	}
 	return toSerialize, nil
+}
+
+func (o *FindVaultNamespace200ResponseDataInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"namespace_path",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFindVaultNamespace200ResponseDataInner := _FindVaultNamespace200ResponseDataInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFindVaultNamespace200ResponseDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FindVaultNamespace200ResponseDataInner(varFindVaultNamespace200ResponseDataInner)
+
+	return err
 }
 
 type NullableFindVaultNamespace200ResponseDataInner struct {
