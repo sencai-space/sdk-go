@@ -39,6 +39,8 @@ mířící na lokální/git cestu tohoto adresáře.
 package main
 
 import (
+    "context"
+
     sencaisdk "github.com/sencai/sdk-go"
 )
 
@@ -51,7 +53,7 @@ func main() {
     cfg.AddDefaultHeader("Authorization", "Bearer <keycloak-jwt>")
 
     client := sencaisdk.NewAPIClient(cfg)
-    _, _, err := client.CloudInstanceAPI.ListCloudInstances(context.Background()).Execute()
+    _, _, err := client.CloudInstanceAPI.FindCloudInstance(context.Background()).Execute()
     if err != nil {
         panic(err)
     }
