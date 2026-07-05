@@ -309,6 +309,9 @@ tags:
 - name: Lumen History
 - name: Lumen Recommendation
 - name: Lumen Suggestion
+- description: "Third-party app listed in the Sencai marketplace (F4.MARKET.01). Review\
+    \ pipeline: draft -> pending_review -> approved/rejected/suspended."
+  name: Marketplace App
 - name: Metering Event
 - name: MS365 Integration
 - name: MS365 Licence Snapshot
@@ -17255,6 +17258,191 @@ paths:
       summary: Get a single lumen-suggestion by id
       tags:
       - Lumen Suggestion
+  /marketplace-apps:
+    get:
+      description: "Third-party app listed in the Sencai marketplace (F4.MARKET.01).\
+        \ Review pipeline: draft -> pending_review -> approved/rejected/suspended."
+      operationId: findMarketplaceApp
+      parameters:
+      - explode: true
+        in: query
+        name: "pagination[page]"
+        required: false
+        schema:
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: "pagination[pageSize]"
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Strapi REST filter syntax
+        explode: true
+        in: query
+        name: filters
+        required: false
+        schema:
+          type: object
+        style: form
+      - explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: populate
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/findMarketplaceApp_200_response"
+          description: OK
+        "401":
+          description: Missing or invalid authentication
+        "403":
+          description: Not authorized (tenant scope or capability)
+      security:
+      - bearerAuth: []
+      - apiTokenAuth: []
+      summary: List marketplace-apps
+      tags:
+      - Marketplace App
+    post:
+      operationId: createMarketplaceApp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createMarketplaceApp_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createMarketplaceApp_200_response"
+          description: Created
+        "400":
+          description: Validation error
+        "401":
+          description: Missing or invalid authentication
+        "403":
+          description: Not authorized (tenant scope or capability)
+      security:
+      - bearerAuth: []
+      - apiTokenAuth: []
+      summary: Create a marketplace-app
+      tags:
+      - Marketplace App
+  /marketplace-apps/{id}:
+    delete:
+      operationId: deleteMarketplaceApp
+      parameters:
+      - description: documentId
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createMarketplaceApp_200_response"
+          description: Deleted
+        "401":
+          description: Missing or invalid authentication
+        "403":
+          description: Not authorized (tenant scope or capability)
+        "404":
+          description: Not found
+      security:
+      - bearerAuth: []
+      - apiTokenAuth: []
+      summary: Delete a marketplace-app
+      tags:
+      - Marketplace App
+    get:
+      operationId: findOneMarketplaceApp
+      parameters:
+      - description: documentId
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createMarketplaceApp_200_response"
+          description: OK
+        "401":
+          description: Missing or invalid authentication
+        "403":
+          description: Not authorized (tenant scope or capability)
+        "404":
+          description: Not found
+      security:
+      - bearerAuth: []
+      - apiTokenAuth: []
+      summary: Get a single marketplace-app by id
+      tags:
+      - Marketplace App
+    put:
+      operationId: updateMarketplaceApp
+      parameters:
+      - description: documentId
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createMarketplaceApp_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/createMarketplaceApp_200_response"
+          description: Updated
+        "400":
+          description: Validation error
+        "401":
+          description: Missing or invalid authentication
+        "403":
+          description: Not authorized (tenant scope or capability)
+        "404":
+          description: Not found
+      security:
+      - bearerAuth: []
+      - apiTokenAuth: []
+      summary: Update a marketplace-app
+      tags:
+      - Marketplace App
   /metering-events:
     get:
       operationId: findMeteringEvent
@@ -34312,6 +34500,59 @@ components:
           $ref: "#/components/schemas/createAccessReview_request_data_reviewer"
       required:
       - suggestion_text
+      type: object
+    MarketplaceApp:
+      properties:
+        name:
+          maxLength: 255
+          minLength: 1
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        image_ref:
+          description: "Container image reference for the app, e.g. ghcr.io/partner/app:1.2.0"
+          maxLength: 1024
+          type: string
+        config_template:
+          description: Parametrized deploy manifest consumed by the Deploy CTA (F4.MARKET.05)
+        icon:
+          description: Strapi media object (upload plugin)
+          type: object
+        publisher_organisation:
+          $ref: "#/components/schemas/createAccessReview_request_data_reviewer"
+        status:
+          enum:
+          - draft
+          - pending_review
+          - approved
+          - rejected
+          - suspended
+          type: string
+        fee_percent:
+          description: "Platform revenue-share fee percent (F4.MARKET.06a). Snapshotted\
+            \ per-transaction, never live-read for historical records."
+          type: number
+        rejection_reason:
+          description: Populated by the admin `reject` action (F4.MARKET.04)
+          type: string
+        scan_error:
+          description: Populated when the security scan gate fails technically (F4.MARKET.03)
+            — distinct from rejection_reason (admin decision)
+          type: string
+        submitted_at:
+          format: date-time
+          type: string
+        approved_at:
+          format: date-time
+          type: string
+        approved_by:
+          $ref: "#/components/schemas/createAccessReview_request_data_reviewer"
+      required:
+      - image_ref
+      - name
+      - status
       type: object
     MeteringEvent:
       properties:
@@ -53680,6 +53921,184 @@ components:
       properties:
         data:
           $ref: "#/components/schemas/findLumenSuggestion_200_response_data_inner"
+      type: object
+    findMarketplaceApp_200_response_data_inner:
+      allOf:
+      - $ref: "#/components/schemas/MarketplaceApp"
+      - properties:
+          documentId:
+            type: string
+          id:
+            type: integer
+          createdAt:
+            format: date-time
+            type: string
+          updatedAt:
+            format: date-time
+            type: string
+          publishedAt:
+            format: date-time
+            nullable: true
+            type: string
+        type: object
+      example:
+        name: name
+        slug: slug
+        description: description
+        image_ref: image_ref
+        config_template: ""
+        icon: "{}"
+        publisher_organisation: createAccessReview_request_data_reviewer
+        status: draft
+        fee_percent: 0.8008281904610115
+        rejection_reason: rejection_reason
+        scan_error: scan_error
+        submitted_at: 2000-01-23T04:56:07.000+00:00
+        approved_at: 2000-01-23T04:56:07.000+00:00
+        approved_by: null
+        documentId: documentId
+        id: 6
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        publishedAt: 2000-01-23T04:56:07.000+00:00
+    findMarketplaceApp_200_response:
+      example:
+        data:
+        - name: name
+          slug: slug
+          description: description
+          image_ref: image_ref
+          config_template: ""
+          icon: "{}"
+          publisher_organisation: createAccessReview_request_data_reviewer
+          status: draft
+          fee_percent: 0.8008281904610115
+          rejection_reason: rejection_reason
+          scan_error: scan_error
+          submitted_at: 2000-01-23T04:56:07.000+00:00
+          approved_at: 2000-01-23T04:56:07.000+00:00
+          approved_by: null
+          documentId: documentId
+          id: 6
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          publishedAt: 2000-01-23T04:56:07.000+00:00
+        - name: name
+          slug: slug
+          description: description
+          image_ref: image_ref
+          config_template: ""
+          icon: "{}"
+          publisher_organisation: createAccessReview_request_data_reviewer
+          status: draft
+          fee_percent: 0.8008281904610115
+          rejection_reason: rejection_reason
+          scan_error: scan_error
+          submitted_at: 2000-01-23T04:56:07.000+00:00
+          approved_at: 2000-01-23T04:56:07.000+00:00
+          approved_by: null
+          documentId: documentId
+          id: 6
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          publishedAt: 2000-01-23T04:56:07.000+00:00
+        meta:
+          pagination:
+            page: 6
+            pageSize: 1
+            pageCount: 5
+            total: 5
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/findMarketplaceApp_200_response_data_inner"
+          type: array
+        meta:
+          $ref: "#/components/schemas/findAccessReviewItem_200_response_meta"
+      type: object
+    createMarketplaceApp_request_data:
+      properties:
+        name:
+          maxLength: 255
+          minLength: 1
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        image_ref:
+          description: "Container image reference for the app, e.g. ghcr.io/partner/app:1.2.0"
+          maxLength: 1024
+          type: string
+        config_template:
+          description: Parametrized deploy manifest consumed by the Deploy CTA (F4.MARKET.05)
+        icon:
+          description: Strapi media object (upload plugin)
+          type: object
+        publisher_organisation:
+          $ref: "#/components/schemas/createAccessReview_request_data_reviewer"
+        status:
+          enum:
+          - draft
+          - pending_review
+          - approved
+          - rejected
+          - suspended
+          type: string
+        fee_percent:
+          description: "Platform revenue-share fee percent (F4.MARKET.06a). Snapshotted\
+            \ per-transaction, never live-read for historical records."
+          type: number
+        rejection_reason:
+          description: Populated by the admin `reject` action (F4.MARKET.04)
+          type: string
+        scan_error:
+          description: Populated when the security scan gate fails technically (F4.MARKET.03)
+            — distinct from rejection_reason (admin decision)
+          type: string
+        submitted_at:
+          format: date-time
+          type: string
+        approved_at:
+          format: date-time
+          type: string
+        approved_by:
+          $ref: "#/components/schemas/createAccessReview_request_data_reviewer"
+      required:
+      - image_ref
+      - name
+      - status
+      type: object
+    createMarketplaceApp_request:
+      properties:
+        data:
+          $ref: "#/components/schemas/createMarketplaceApp_request_data"
+      type: object
+    createMarketplaceApp_200_response:
+      example:
+        data:
+          name: name
+          slug: slug
+          description: description
+          image_ref: image_ref
+          config_template: ""
+          icon: "{}"
+          publisher_organisation: createAccessReview_request_data_reviewer
+          status: draft
+          fee_percent: 0.8008281904610115
+          rejection_reason: rejection_reason
+          scan_error: scan_error
+          submitted_at: 2000-01-23T04:56:07.000+00:00
+          approved_at: 2000-01-23T04:56:07.000+00:00
+          approved_by: null
+          documentId: documentId
+          id: 6
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          publishedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          $ref: "#/components/schemas/findMarketplaceApp_200_response_data_inner"
       type: object
     findMeteringEvent_200_response_data_inner:
       allOf:

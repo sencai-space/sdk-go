@@ -272,6 +272,8 @@ type APIClient struct {
 
 	MS365LicenceSnapshotAPI *MS365LicenceSnapshotAPIService
 
+	MarketplaceAppAPI *MarketplaceAppAPIService
+
 	MeteringEventAPI *MeteringEventAPIService
 
 	NIS2GapAPI *NIS2GapAPIService
@@ -550,6 +552,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.LumenSuggestionAPI = (*LumenSuggestionAPIService)(&c.common)
 	c.MS365IntegrationAPI = (*MS365IntegrationAPIService)(&c.common)
 	c.MS365LicenceSnapshotAPI = (*MS365LicenceSnapshotAPIService)(&c.common)
+	c.MarketplaceAppAPI = (*MarketplaceAppAPIService)(&c.common)
 	c.MeteringEventAPI = (*MeteringEventAPIService)(&c.common)
 	c.NIS2GapAPI = (*NIS2GapAPIService)(&c.common)
 	c.NetworkPolicyAPI = (*NetworkPolicyAPIService)(&c.common)

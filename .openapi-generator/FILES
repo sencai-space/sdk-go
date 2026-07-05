@@ -110,6 +110,7 @@ api_llm_usage.go
 api_lumen_history.go
 api_lumen_recommendation.go
 api_lumen_suggestion.go
+api_marketplace_app.go
 api_metering_event.go
 api_ms365_integration.go
 api_ms365_licence_snapshot.go
@@ -515,6 +516,9 @@ model_create_llm_usage_request_data.go
 model_create_lumen_suggestion_200_response.go
 model_create_lumen_suggestion_request.go
 model_create_lumen_suggestion_request_data.go
+model_create_marketplace_app_200_response.go
+model_create_marketplace_app_request.go
+model_create_marketplace_app_request_data.go
 model_create_metering_event_200_response.go
 model_create_metering_event_request.go
 model_create_metering_event_request_data.go
@@ -921,6 +925,8 @@ model_find_lumen_recommendation_200_response.go
 model_find_lumen_recommendation_200_response_data_inner.go
 model_find_lumen_suggestion_200_response.go
 model_find_lumen_suggestion_200_response_data_inner.go
+model_find_marketplace_app_200_response.go
+model_find_marketplace_app_200_response_data_inner.go
 model_find_metering_event_200_response.go
 model_find_metering_event_200_response_data_inner.go
 model_find_ms365_integration_200_response.go
@@ -1139,6 +1145,7 @@ model_llm_usage.go
 model_lumen_history.go
 model_lumen_recommendation.go
 model_lumen_suggestion.go
+model_marketplace_app.go
 model_metering_event.go
 model_ms365_integration.go
 model_ms365_licence_snapshot.go
