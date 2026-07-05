@@ -580,6 +580,109 @@ func (a *OrganisationAPIService) OrganisationAgentCountExecute(r ApiOrganisation
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiOrganisationAutomationScoreRequest struct {
+	ctx context.Context
+	ApiService *OrganisationAPIService
+	id string
+}
+
+func (r ApiOrganisationAutomationScoreRequest) Execute() (*OrganisationAutomationScore200Response, *http.Response, error) {
+	return r.ApiService.OrganisationAutomationScoreExecute(r)
+}
+
+/*
+OrganisationAutomationScore Org-level automation ratio with trend (F4.GAM.07)
+
+Share of the organisation's operational gamification-event actions (provisioning, runbook executions, incident resolutions) that were automated vs manual, over a rolling 30-day window, plus a trend delta vs the prior 30-day window. Automation classification is computed once at event-ingestion time by gamification-consumer and merely aggregated here. score/previous_score/trend are null (never 0) when the relevant window has no qualifying events.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id
+ @return ApiOrganisationAutomationScoreRequest
+*/
+func (a *OrganisationAPIService) OrganisationAutomationScore(ctx context.Context, id string) ApiOrganisationAutomationScoreRequest {
+	return ApiOrganisationAutomationScoreRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+//  @return OrganisationAutomationScore200Response
+func (a *OrganisationAPIService) OrganisationAutomationScoreExecute(r ApiOrganisationAutomationScoreRequest) (*OrganisationAutomationScore200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *OrganisationAutomationScore200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganisationAPIService.OrganisationAutomationScore")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/organisations/{id}/automation-score"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiOrganisationInviteMemberRequest struct {
 	ctx context.Context
 	ApiService *OrganisationAPIService
@@ -655,6 +758,109 @@ func (a *OrganisationAPIService) OrganisationInviteMemberExecute(r ApiOrganisati
 	}
 	// body params
 	localVarPostBody = r.organisationInviteMemberRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiOrganisationLeaderboardRequest struct {
+	ctx context.Context
+	ApiService *OrganisationAPIService
+	id string
+}
+
+func (r ApiOrganisationLeaderboardRequest) Execute() (*OrganisationLeaderboard200Response, *http.Response, error) {
+	return r.ApiService.OrganisationLeaderboardExecute(r)
+}
+
+/*
+OrganisationLeaderboard Opt-in org-scoped gamification leaderboard (F4.GAM.06)
+
+Ranks organisation members by user-rank.xp_total, descending, top 50. Gated by organisation.leaderboard_enabled — returns 403 while that flag is false, even for an org admin (must be explicitly turned on; comparing employees' XP is sensitive, never default-on). A member with user-rank.leaderboard_opt_out set is excluded even when they have the top XP. Members are resolved via an explicit organisation-member join — user-rank itself has no organisation relation (rank is portable across orgs, see F4.GAM.01/.08).
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id
+ @return ApiOrganisationLeaderboardRequest
+*/
+func (a *OrganisationAPIService) OrganisationLeaderboard(ctx context.Context, id string) ApiOrganisationLeaderboardRequest {
+	return ApiOrganisationLeaderboardRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+//  @return OrganisationLeaderboard200Response
+func (a *OrganisationAPIService) OrganisationLeaderboardExecute(r ApiOrganisationLeaderboardRequest) (*OrganisationLeaderboard200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *OrganisationLeaderboard200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganisationAPIService.OrganisationLeaderboard")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/organisations/{id}/leaderboard"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

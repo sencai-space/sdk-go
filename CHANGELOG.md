@@ -5,6 +5,14 @@ Formát dle [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), verzován�
 
 ## [Unreleased]
 
+### Changed
+
+- Regenerováno proti aktuálnímu `sencai-platform.public.v1.yaml` po přidání nových operací
+  jinými Fázi 4 moduly (`authCheckSsoEnforcement`, `cloudInstanceExport`,
+  `organisationAutomationScore`, `organisationLeaderboard`) — nové modely/API klienti přibyly,
+  `Organisation`/`UserRank` modely dostaly nová pole. Žádná ruční změna v tomto adresáři, jen
+  dopad regenerace ze specu (`./scripts/sdk-generate.sh`).
+
 ### Added
 
 - Počáteční generování Go klienta (`github.com/sencai/sdk-go`, placeholder import path) z

@@ -3786,6 +3786,35 @@ paths:
       summary: Get a single audit-log by id
       tags:
       - Audit Log
+  /auth/check-sso-enforcement:
+    post:
+      description: "Deliberately public (no auth) — called BEFORE any Keycloak token\
+        \ exists, ahead of a password-grant login attempt, so the frontend can redirect\
+        \ straight to SSO instead of showing a password field. A user belonging to\
+        \ >1 organisation is considered enforced if ANY of their organisations has\
+        \ `sso_enforced: true`. Fails open (`enforced: false`) on any internal error\
+        \ — this is a UX hardening check, not the primary auth gate."
+      operationId: authCheckSsoEnforcement
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/authCheckSsoEnforcement_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/authCheckSsoEnforcement_200_response"
+          description: OK
+        "400":
+          description: email is required
+      security: []
+      summary: Pre-flight check whether an email is bound to an org with SSO enforced
+        (F4.ENTERPRISE.02)
+      tags:
+      - Auth
   /backup-policies:
     get:
       operationId: findBackupPolicy
@@ -8257,6 +8286,33 @@ paths:
       - bearerAuth: []
       - apiTokenAuth: []
       summary: Create a cloud-instance
+      tags:
+      - Cloud Instance
+  /cloud-instances/export:
+    post:
+      operationId: cloudInstanceExport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cloudInstanceExport_request"
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cloudInstanceExport_202_response"
+          description: Export job accepted (async — result delivered via export-callback)
+        "400":
+          description: "Missing/empty instance_ids, or ids span more than one organisation"
+        "401":
+          description: Missing or invalid authentication
+        "403":
+          description: Caller does not have at least member role in the target organisation
+      security:
+      - bearerAuth: []
+      summary: Export cloud instances to Terraform (.tf) text (F4.IAC.02)
       tags:
       - Cloud Instance
   /cloud-instances/import:
@@ -19468,6 +19524,41 @@ paths:
         check)
       tags:
       - Organisation
+  /organisations/{id}/automation-score:
+    get:
+      description: "Share of the organisation's operational gamification-event actions\
+        \ (provisioning, runbook executions, incident resolutions) that were automated\
+        \ vs manual, over a rolling 30-day window, plus a trend delta vs the prior\
+        \ 30-day window. Automation classification is computed once at event-ingestion\
+        \ time by gamification-consumer and merely aggregated here. score/previous_score/trend\
+        \ are null (never 0) when the relevant window has no qualifying events."
+      operationId: organisationAutomationScore
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/organisationAutomationScore_200_response"
+          description: OK
+        "401":
+          description: Missing or invalid authentication
+        "403":
+          description: Caller is not a member of this organisation
+        "404":
+          description: Organisation not found
+      security:
+      - bearerAuth: []
+      summary: Org-level automation ratio with trend (F4.GAM.07)
+      tags:
+      - Organisation
   /organisations/{id}/invitations:
     get:
       operationId: organisationListInvitations
@@ -19557,6 +19648,43 @@ paths:
       security:
       - bearerAuth: []
       summary: Create a pending invitation for an email
+      tags:
+      - Organisation
+  /organisations/{id}/leaderboard:
+    get:
+      description: "Ranks organisation members by user-rank.xp_total, descending,\
+        \ top 50. Gated by organisation.leaderboard_enabled — returns 403 while that\
+        \ flag is false, even for an org admin (must be explicitly turned on; comparing\
+        \ employees' XP is sensitive, never default-on). A member with user-rank.leaderboard_opt_out\
+        \ set is excluded even when they have the top XP. Members are resolved via\
+        \ an explicit organisation-member join — user-rank itself has no organisation\
+        \ relation (rank is portable across orgs, see F4.GAM.01/.08)."
+      operationId: organisationLeaderboard
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/organisationLeaderboard_200_response"
+          description: OK
+        "401":
+          description: Missing or invalid authentication
+        "403":
+          description: "Caller is not a member of this organisation, or leaderboard_enabled\
+            \ is false"
+        "404":
+          description: Organisation not found
+      security:
+      - bearerAuth: []
+      summary: Opt-in org-scoped gamification leaderboard (F4.GAM.06)
       tags:
       - Organisation
   /organisations/{id}/members:
@@ -34665,6 +34793,13 @@ components:
             \ matching lemmy_community_id, kept alongside it so the frontend can link\
             \ straight to forum.sencai.space/c/<name> without an extra Lemmy lookup."
           type: string
+        leaderboard_enabled:
+          description: "F4.GAM.06 — opt-in per-org gamification leaderboard (default\
+            \ OFF: comparing employees' XP is sensitive, never default-on). Self-service\
+            \ field, toggled by an org admin/owner via PUT /api/organisations/:id\
+            \ (is-organisation-role minRole:'admin'). Gates GET /api/organisations/:id/leaderboard\
+            \ — the endpoint returns 403 while this is false, even for an org admin."
+          type: boolean
       required:
       - budget_state
       - home_region
@@ -36723,6 +36858,15 @@ components:
         last_activity_at:
           format: date-time
           type: string
+        leaderboard_opt_out:
+          description: "F4.GAM.06 — per-user opt-out of org leaderboard exposure.\
+            \ Even when an organisation's leaderboard_enabled is true, a member with\
+            \ this set is excluded from GET /api/organisations/:id/leaderboard results.\
+            \ Self-service, but NOT writable via the generic service-only user-rank\
+            \ update route — the owning user sets it via the dedicated PUT /api/user-ranks/me/leaderboard-opt-out\
+            \ endpoint (the one exception to user-rank's service-write-only rule,\
+            \ scoped to this single boolean field)."
+          type: boolean
       required:
       - current_streak_days
       - longest_streak_days
@@ -40210,6 +40354,21 @@ components:
           type: boolean
         brokenAt:
           $ref: "#/components/schemas/auditLogVerifyChain_200_response_brokenAt"
+      type: object
+    authCheckSsoEnforcement_request:
+      properties:
+        email:
+          format: email
+          type: string
+      required:
+      - email
+      type: object
+    authCheckSsoEnforcement_200_response:
+      example:
+        enforced: true
+      properties:
+        enforced:
+          type: boolean
       type: object
     findBackupPolicy_200_response_data_inner:
       allOf:
@@ -44886,6 +45045,44 @@ components:
       properties:
         data:
           $ref: "#/components/schemas/findCloudInstance_200_response_data_inner"
+      type: object
+    cloudInstanceExport_request:
+      properties:
+        instance_ids:
+          description: documentIds of cloud-instance records — must all belong to
+            exactly one organisation
+          items:
+            type: string
+          type: array
+        include_network:
+          default: false
+          type: boolean
+        providers:
+          description: optional provider allowlist
+          items:
+            type: string
+          type: array
+      required:
+      - instance_ids
+      type: object
+    cloudInstanceExport_202_response_data:
+      example:
+        jobId: jobId
+        estimatedCount: 0
+      properties:
+        jobId:
+          type: string
+        estimatedCount:
+          type: integer
+      type: object
+    cloudInstanceExport_202_response:
+      example:
+        data:
+          jobId: jobId
+          estimatedCount: 0
+      properties:
+        data:
+          $ref: "#/components/schemas/cloudInstanceExport_202_response_data"
       type: object
     cloudInstanceImport_request:
       properties:
@@ -55157,6 +55354,7 @@ components:
         ip_allowlist: ""
         lemmy_community_id: 2
         lemmy_community_name: lemmy_community_name
+        leaderboard_enabled: true
         documentId: documentId
         id: 4
         createdAt: 2000-01-23T04:56:07.000+00:00
@@ -55215,6 +55413,7 @@ components:
           ip_allowlist: ""
           lemmy_community_id: 2
           lemmy_community_name: lemmy_community_name
+          leaderboard_enabled: true
           documentId: documentId
           id: 4
           createdAt: 2000-01-23T04:56:07.000+00:00
@@ -55270,6 +55469,7 @@ components:
           ip_allowlist: ""
           lemmy_community_id: 2
           lemmy_community_name: lemmy_community_name
+          leaderboard_enabled: true
           documentId: documentId
           id: 4
           createdAt: 2000-01-23T04:56:07.000+00:00
@@ -55487,6 +55687,13 @@ components:
             \ matching lemmy_community_id, kept alongside it so the frontend can link\
             \ straight to forum.sencai.space/c/<name> without an extra Lemmy lookup."
           type: string
+        leaderboard_enabled:
+          description: "F4.GAM.06 — opt-in per-org gamification leaderboard (default\
+            \ OFF: comparing employees' XP is sensitive, never default-on). Self-service\
+            \ field, toggled by an org admin/owner via PUT /api/organisations/:id\
+            \ (is-organisation-role minRole:'admin'). Gates GET /api/organisations/:id/leaderboard\
+            \ — the endpoint returns 403 while this is false, even for an org admin."
+          type: boolean
       required:
       - budget_state
       - home_region
@@ -55550,6 +55757,7 @@ components:
           ip_allowlist: ""
           lemmy_community_id: 2
           lemmy_community_name: lemmy_community_name
+          leaderboard_enabled: true
           documentId: documentId
           id: 4
           createdAt: 2000-01-23T04:56:07.000+00:00
@@ -55585,6 +55793,48 @@ components:
           description: null when unlimited (paid tier)
           nullable: true
           type: integer
+      type: object
+    organisationAutomationScore_200_response_data:
+      example:
+        organisation: organisation
+        window_days: 0
+        automated_count: 6
+        total_count: 1
+        score: 5.962133916683182
+        previous_score: 5.637376656633329
+        trend: 2.3021358869347655
+      properties:
+        organisation:
+          type: string
+        window_days:
+          type: integer
+        automated_count:
+          type: integer
+        total_count:
+          type: integer
+        score:
+          nullable: true
+          type: number
+        previous_score:
+          nullable: true
+          type: number
+        trend:
+          nullable: true
+          type: number
+      type: object
+    organisationAutomationScore_200_response:
+      example:
+        data:
+          organisation: organisation
+          window_days: 0
+          automated_count: 6
+          total_count: 1
+          score: 5.962133916683182
+          previous_score: 5.637376656633329
+          trend: 2.3021358869347655
+      properties:
+        data:
+          $ref: "#/components/schemas/organisationAutomationScore_200_response_data"
       type: object
     organisationInviteMember_request:
       properties:
@@ -55655,6 +55905,86 @@ components:
       properties:
         data:
           $ref: "#/components/schemas/organisationInviteMember_200_response_data"
+      type: object
+    organisationLeaderboard_200_response_data_inner_user:
+      example:
+        id: 6
+        documentId: documentId
+        username: username
+        name: name
+        surname: surname
+      nullable: true
+      properties:
+        id:
+          type: integer
+        documentId:
+          type: string
+        username:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+      type: object
+    organisationLeaderboard_200_response_data_inner:
+      example:
+        position: 0
+        user:
+          id: 6
+          documentId: documentId
+          username: username
+          name: name
+          surname: surname
+        xp_total: 1
+        rank_level: bronze
+        badge_count: 5
+      properties:
+        position:
+          type: integer
+        user:
+          $ref: "#/components/schemas/organisationLeaderboard_200_response_data_inner_user"
+        xp_total:
+          type: integer
+        rank_level:
+          enum:
+          - bronze
+          - silver
+          - gold
+          - platinum
+          - diamond
+          - sencai_master
+          type: string
+        badge_count:
+          type: integer
+      type: object
+    organisationLeaderboard_200_response:
+      example:
+        data:
+        - position: 0
+          user:
+            id: 6
+            documentId: documentId
+            username: username
+            name: name
+            surname: surname
+          xp_total: 1
+          rank_level: bronze
+          badge_count: 5
+        - position: 0
+          user:
+            id: 6
+            documentId: documentId
+            username: username
+            name: name
+            surname: surname
+          xp_total: 1
+          rank_level: bronze
+          badge_count: 5
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/organisationLeaderboard_200_response_data_inner"
+          type: array
       type: object
     organisationUpdateMemberRole_request:
       properties:
@@ -62498,6 +62828,7 @@ components:
         current_streak_days: 1
         longest_streak_days: 5
         last_activity_at: 2000-01-23T04:56:07.000+00:00
+        leaderboard_opt_out: true
         documentId: documentId
         id: 5
         createdAt: 2000-01-23T04:56:07.000+00:00
@@ -62514,6 +62845,7 @@ components:
           current_streak_days: 1
           longest_streak_days: 5
           last_activity_at: 2000-01-23T04:56:07.000+00:00
+          leaderboard_opt_out: true
           documentId: documentId
           id: 5
           createdAt: 2000-01-23T04:56:07.000+00:00
@@ -62527,6 +62859,7 @@ components:
           current_streak_days: 1
           longest_streak_days: 5
           last_activity_at: 2000-01-23T04:56:07.000+00:00
+          leaderboard_opt_out: true
           documentId: documentId
           id: 5
           createdAt: 2000-01-23T04:56:07.000+00:00
@@ -62575,6 +62908,15 @@ components:
         last_activity_at:
           format: date-time
           type: string
+        leaderboard_opt_out:
+          description: "F4.GAM.06 — per-user opt-out of org leaderboard exposure.\
+            \ Even when an organisation's leaderboard_enabled is true, a member with\
+            \ this set is excluded from GET /api/organisations/:id/leaderboard results.\
+            \ Self-service, but NOT writable via the generic service-only user-rank\
+            \ update route — the owning user sets it via the dedicated PUT /api/user-ranks/me/leaderboard-opt-out\
+            \ endpoint (the one exception to user-rank's service-write-only rule,\
+            \ scoped to this single boolean field)."
+          type: boolean
       required:
       - current_streak_days
       - longest_streak_days
@@ -62598,6 +62940,7 @@ components:
           current_streak_days: 1
           longest_streak_days: 5
           last_activity_at: 2000-01-23T04:56:07.000+00:00
+          leaderboard_opt_out: true
           documentId: documentId
           id: 5
           createdAt: 2000-01-23T04:56:07.000+00:00

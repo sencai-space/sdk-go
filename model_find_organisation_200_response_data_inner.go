@@ -98,6 +98,8 @@ type FindOrganisation200ResponseDataInner struct {
 	LemmyCommunityId *int32 `json:"lemmy_community_id,omitempty"`
 	// F4.FORUM.05 — sanitized Lemmy community `name` (URL-safe slug) matching lemmy_community_id, kept alongside it so the frontend can link straight to forum.sencai.space/c/<name> without an extra Lemmy lookup.
 	LemmyCommunityName *string `json:"lemmy_community_name,omitempty"`
+	// F4.GAM.06 — opt-in per-org gamification leaderboard (default OFF: comparing employees' XP is sensitive, never default-on). Self-service field, toggled by an org admin/owner via PUT /api/organisations/:id (is-organisation-role minRole:'admin'). Gates GET /api/organisations/:id/leaderboard — the endpoint returns 403 while this is false, even for an org admin.
+	LeaderboardEnabled *bool `json:"leaderboard_enabled,omitempty"`
 	DocumentId *string `json:"documentId,omitempty"`
 	Id *int32 `json:"id,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
@@ -1705,6 +1707,38 @@ func (o *FindOrganisation200ResponseDataInner) SetLemmyCommunityName(v string) {
 	o.LemmyCommunityName = &v
 }
 
+// GetLeaderboardEnabled returns the LeaderboardEnabled field value if set, zero value otherwise.
+func (o *FindOrganisation200ResponseDataInner) GetLeaderboardEnabled() bool {
+	if o == nil || IsNil(o.LeaderboardEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.LeaderboardEnabled
+}
+
+// GetLeaderboardEnabledOk returns a tuple with the LeaderboardEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FindOrganisation200ResponseDataInner) GetLeaderboardEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.LeaderboardEnabled) {
+		return nil, false
+	}
+	return o.LeaderboardEnabled, true
+}
+
+// HasLeaderboardEnabled returns a boolean if a field has been set.
+func (o *FindOrganisation200ResponseDataInner) HasLeaderboardEnabled() bool {
+	if o != nil && !IsNil(o.LeaderboardEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetLeaderboardEnabled gets a reference to the given bool and assigns it to the LeaderboardEnabled field.
+func (o *FindOrganisation200ResponseDataInner) SetLeaderboardEnabled(v bool) {
+	o.LeaderboardEnabled = &v
+}
+
 // GetDocumentId returns the DocumentId field value if set, zero value otherwise.
 func (o *FindOrganisation200ResponseDataInner) GetDocumentId() string {
 	if o == nil || IsNil(o.DocumentId) {
@@ -2028,6 +2062,9 @@ func (o FindOrganisation200ResponseDataInner) ToMap() (map[string]interface{}, e
 	}
 	if !IsNil(o.LemmyCommunityName) {
 		toSerialize["lemmy_community_name"] = o.LemmyCommunityName
+	}
+	if !IsNil(o.LeaderboardEnabled) {
+		toSerialize["leaderboard_enabled"] = o.LeaderboardEnabled
 	}
 	if !IsNil(o.DocumentId) {
 		toSerialize["documentId"] = o.DocumentId

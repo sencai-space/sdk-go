@@ -33,6 +33,8 @@ type UserRank struct {
 	CurrentStreakDays int32 `json:"current_streak_days"`
 	LongestStreakDays int32 `json:"longest_streak_days"`
 	LastActivityAt *time.Time `json:"last_activity_at,omitempty"`
+	// F4.GAM.06 — per-user opt-out of org leaderboard exposure. Even when an organisation's leaderboard_enabled is true, a member with this set is excluded from GET /api/organisations/:id/leaderboard results. Self-service, but NOT writable via the generic service-only user-rank update route — the owning user sets it via the dedicated PUT /api/user-ranks/me/leaderboard-opt-out endpoint (the one exception to user-rank's service-write-only rule, scoped to this single boolean field).
+	LeaderboardOptOut *bool `json:"leaderboard_opt_out,omitempty"`
 }
 
 type _UserRank UserRank
@@ -276,6 +278,38 @@ func (o *UserRank) SetLastActivityAt(v time.Time) {
 	o.LastActivityAt = &v
 }
 
+// GetLeaderboardOptOut returns the LeaderboardOptOut field value if set, zero value otherwise.
+func (o *UserRank) GetLeaderboardOptOut() bool {
+	if o == nil || IsNil(o.LeaderboardOptOut) {
+		var ret bool
+		return ret
+	}
+	return *o.LeaderboardOptOut
+}
+
+// GetLeaderboardOptOutOk returns a tuple with the LeaderboardOptOut field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserRank) GetLeaderboardOptOutOk() (*bool, bool) {
+	if o == nil || IsNil(o.LeaderboardOptOut) {
+		return nil, false
+	}
+	return o.LeaderboardOptOut, true
+}
+
+// HasLeaderboardOptOut returns a boolean if a field has been set.
+func (o *UserRank) HasLeaderboardOptOut() bool {
+	if o != nil && !IsNil(o.LeaderboardOptOut) {
+		return true
+	}
+
+	return false
+}
+
+// SetLeaderboardOptOut gets a reference to the given bool and assigns it to the LeaderboardOptOut field.
+func (o *UserRank) SetLeaderboardOptOut(v bool) {
+	o.LeaderboardOptOut = &v
+}
+
 func (o UserRank) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -299,6 +333,9 @@ func (o UserRank) ToMap() (map[string]interface{}, error) {
 	toSerialize["longest_streak_days"] = o.LongestStreakDays
 	if !IsNil(o.LastActivityAt) {
 		toSerialize["last_activity_at"] = o.LastActivityAt
+	}
+	if !IsNil(o.LeaderboardOptOut) {
+		toSerialize["leaderboard_opt_out"] = o.LeaderboardOptOut
 	}
 	return toSerialize, nil
 }
