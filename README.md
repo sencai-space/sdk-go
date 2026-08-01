@@ -17,7 +17,15 @@ Tento adresář je z většiny **generovaný** (`*.go`, `go.mod`, `go.sum`, `api
 generátor). Ručně psané a **chráněné** přes `.openapi-generator-ignore` (regenerace je nikdy
 nepřepíše): tento `README.md`, `CHANGELOG.md`, `.env.example`.
 
-Regenerace po změně specu:
+> **⚠️ Regenerace je dnes nefunkční.** `scripts/sdk-generate.sh` čte spec z
+> `sencai.space/openapi/sencai-platform.public.v1.yaml` — `sencai.space` (Strapi) byl ale
+> **smazán 2026-07-30**, adresář v monorepu vůbec neexistuje. Skript proto skončí hned na
+> úvodní kontrole existence souboru. Committed generovaný kód v tomto adresáři (`*.go`,
+> `api/openapi.yaml`) zůstává platný a buildovatelný (`go build ./...` funguje) — je jen
+> zamrzlý na posledním stavu specu (2026-07-05), dokud nevznikne nový zdroj (typicky
+> vygenerovaný z `sencai-backend`, Go náhrady Strapi).
+
+Regenerace po změně specu (až bude mít skript kde číst):
 
 ```bash
 cd sencai.space && npm run openapi:generate   # F4.DEVPORTAL.01, pokud se spec změnil
