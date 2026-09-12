@@ -1,4 +1,4 @@
-module github.com/sencai/sdk-go
+module github.com/sencai-space/sdk-go
 
 go 1.23
 

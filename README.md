@@ -4,7 +4,7 @@ Go klient pro Sencai Platform API (`/api/v1/*`), generovaný z veřejného OpenA
 ([`sencai.space/openapi/sencai-platform.public.v1.yaml`](../sencai.space/openapi/sencai-platform.public.v1.yaml),
 výstup F4.DEVPORTAL.01).
 
-> **`go.mod` modul (`github.com/sencai/sdk-go`) je placeholder import cesta.** Finální import
+> **`go.mod` modul (`github.com/sencai-space/sdk-go`) je placeholder import cesta.** Finální import
 > path je rozhodnutí navázané na budoucí veřejný release (samostatný GitHub repozitář/org), ne
 > blokující pro lokální generování a použití uvnitř monorepa. Veřejná distribuce
 > (`pkg.go.dev` indexace) je mimo scope F4.DEVPORTAL (viz `PHASE-4-PLAN.md`, modul přehled
@@ -35,7 +35,7 @@ cd .. && ./scripts/sdk-generate.sh
 ## Instalace (zatím jen z monorepo cesty / gitu)
 
 ```bash
-go get github.com/sencai/sdk-go
+go get github.com/sencai-space/sdk-go
 ```
 
 Dokud modul není publikovaný, přidat do `go.mod` konzumujícího projektu `replace` direktivu
@@ -49,7 +49,7 @@ package main
 import (
     "context"
 
-    sencaisdk "github.com/sencai/sdk-go"
+    sencaisdk "github.com/sencai-space/sdk-go"
 )
 
 func main() {

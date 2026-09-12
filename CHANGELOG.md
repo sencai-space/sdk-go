@@ -15,7 +15,7 @@ Formát dle [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), verzován�
 
 ### Added
 
-- Počáteční generování Go klienta (`github.com/sencai/sdk-go`, placeholder import path) z
+- Počáteční generování Go klienta (`github.com/sencai-space/sdk-go`, placeholder import path) z
   konsolidovaného veřejného OpenAPI specu (`go` generátor, `scripts/sdk-generate.sh`) —
   F4.DEVPORTAL.02.
 - Getting Started dokumentace (`doc.sencai.space/dev/sdk/go`, F4.DEVPORTAL.04) — instalace,
