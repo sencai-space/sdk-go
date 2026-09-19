@@ -262,11 +262,6 @@ tags:
 - description: FleetDM cohort — skupiny hostů se sdílenou osquery politikou a plánem
     dotazování (F2.FLEET.05).
   name: Fleet Cohort
-- description: "JIT-provisioned mapping between a Keycloak user (kc_sub = preferred_username\
-    \ claim) and their auto-created Lemmy account (F4.FORUM.02). Holds an AES-256-GCM\
-    \ encrypted internal Lemmy password — service-only, never exposed to end users,\
-    \ forum-connector is the sole consumer."
-  name: Forum User Credential
 - description: "Append-only XP/badge event log (F4.GAM.01). USER-scoped, NOT organisation-scoped\
     \ — 'tenant' here means the individual user. Analogous in spirit to audit-log\
     \ (append-only) but a SEPARATE content-type — it does NOT share the audit-log\
@@ -14085,193 +14080,6 @@ paths:
       summary: Deploy (activate) a fleet cohort
       tags:
       - Fleet Cohort
-  /forum-user-credentials:
-    get:
-      description: "JIT-provisioned mapping between a Keycloak user (kc_sub = preferred_username\
-        \ claim) and their auto-created Lemmy account (F4.FORUM.02). Holds an AES-256-GCM\
-        \ encrypted internal Lemmy password — service-only, never exposed to end users,\
-        \ forum-connector is the sole consumer."
-      operationId: findForumUserCredential
-      parameters:
-      - explode: true
-        in: query
-        name: "pagination[page]"
-        required: false
-        schema:
-          type: integer
-        style: form
-      - explode: true
-        in: query
-        name: "pagination[pageSize]"
-        required: false
-        schema:
-          type: integer
-        style: form
-      - description: Strapi REST filter syntax
-        explode: true
-        in: query
-        name: filters
-        required: false
-        schema:
-          type: object
-        style: form
-      - explode: true
-        in: query
-        name: sort
-        required: false
-        schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: populate
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/findForumUserCredential_200_response"
-          description: OK
-        "401":
-          description: Missing or invalid authentication
-        "403":
-          description: Not authorized (tenant scope or capability)
-      security:
-      - bearerAuth: []
-      - apiTokenAuth: []
-      summary: List forum-user-credentials
-      tags:
-      - Forum User Credential
-    post:
-      operationId: createForumUserCredential
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/createForumUserCredential_request"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/createForumUserCredential_200_response"
-          description: Created
-        "400":
-          description: Validation error
-        "401":
-          description: Missing or invalid authentication
-        "403":
-          description: Not authorized (tenant scope or capability)
-      security:
-      - bearerAuth: []
-      - apiTokenAuth: []
-      summary: Create a forum-user-credential
-      tags:
-      - Forum User Credential
-  /forum-user-credentials/{id}:
-    delete:
-      operationId: deleteForumUserCredential
-      parameters:
-      - description: documentId
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/createForumUserCredential_200_response"
-          description: Deleted
-        "401":
-          description: Missing or invalid authentication
-        "403":
-          description: Not authorized (tenant scope or capability)
-        "404":
-          description: Not found
-      security:
-      - bearerAuth: []
-      - apiTokenAuth: []
-      summary: Delete a forum-user-credential
-      tags:
-      - Forum User Credential
-    get:
-      operationId: findOneForumUserCredential
-      parameters:
-      - description: documentId
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/createForumUserCredential_200_response"
-          description: OK
-        "401":
-          description: Missing or invalid authentication
-        "403":
-          description: Not authorized (tenant scope or capability)
-        "404":
-          description: Not found
-      security:
-      - bearerAuth: []
-      - apiTokenAuth: []
-      summary: Get a single forum-user-credential by id
-      tags:
-      - Forum User Credential
-    put:
-      operationId: updateForumUserCredential
-      parameters:
-      - description: documentId
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/createForumUserCredential_request"
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/createForumUserCredential_200_response"
-          description: Updated
-        "400":
-          description: Validation error
-        "401":
-          description: Missing or invalid authentication
-        "403":
-          description: Not authorized (tenant scope or capability)
-        "404":
-          description: Not found
-      security:
-      - bearerAuth: []
-      - apiTokenAuth: []
-      summary: Update a forum-user-credential
-      tags:
-      - Forum User Credential
   /gamification-events:
     get:
       description: "Append-only XP/badge event log (F4.GAM.01). USER-scoped, NOT organisation-scoped\
@@ -33614,38 +33422,6 @@ components:
       required:
       - name
       type: object
-    ForumUserCredential:
-      properties:
-        kc_sub:
-          description: Keycloak preferred_username claim — the stable per-user key
-            forum-connector looks up on every visit.
-          maxLength: 255
-          minLength: 1
-          type: string
-        lemmy_username:
-          description: "Sanitized Lemmy-safe username actually registered in Lemmy\
-            \ ([a-zA-Z0-9_], 3-20 chars)."
-          maxLength: 20
-          minLength: 3
-          type: string
-        encrypted_password:
-          description: AES-256-GCM encrypted internal Lemmy password (format iv:authTag:ciphertext:salt).
-            NEVER returned in any API response. Decrypted only by forum-connector
-            to perform Lemmy login on repeat visits.
-          type: string
-        is_lemmy_admin:
-          description: Mirrors current Lemmy admin flag — set by F4.FORUM.03 (KC role
-            forum-admin mapping).
-          type: boolean
-        last_login_at:
-          format: date-time
-          type: string
-      required:
-      - encrypted_password
-      - is_lemmy_admin
-      - kc_sub
-      - lemmy_username
-      type: object
     GamificationEvent:
       properties:
         user:
@@ -35025,14 +34801,16 @@ components:
             \ default). Enforced server-side by global::ip-allowlist-guard against\
             \ the resolved client IP (X-Forwarded-For aware, see middleware doc comment)."
         lemmy_community_id:
-          description: "F4.FORUM.05 — numeric Lemmy community id auto-provisioned\
-            \ for this organisation by forum-connector. Null until the async organisation.forum-community-requested\
-            \ event has been processed (best-effort, never blocks org creation)."
+          description: "F4.FORUM.05 (retired 2026-09-19) — numeric Lemmy community\
+            \ id formerly auto-provisioned by forum-connector, which was deleted\
+            \ along with the rest of the Sencai Forum stack. The column and this\
+            \ field remain for any organisation that already had a value; nothing\
+            \ writes to it anymore."
           type: integer
         lemmy_community_name:
-          description: "F4.FORUM.05 — sanitized Lemmy community `name` (URL-safe slug)\
-            \ matching lemmy_community_id, kept alongside it so the frontend can link\
-            \ straight to forum.sencai.space/c/<name> without an extra Lemmy lookup."
+          description: "F4.FORUM.05 (retired 2026-09-19) — sanitized Lemmy community\
+            \ `name` (URL-safe slug) that used to match lemmy_community_id. Same\
+            \ retirement note as lemmy_community_id above."
           type: string
         leaderboard_enabled:
           description: "F4.GAM.06 — opt-in per-org gamification leaderboard (default\
@@ -50807,127 +50585,6 @@ components:
         data:
           $ref: "#/components/schemas/findFleetCohort_200_response_data_inner"
       type: object
-    findForumUserCredential_200_response_data_inner:
-      allOf:
-      - $ref: "#/components/schemas/ForumUserCredential"
-      - properties:
-          documentId:
-            type: string
-          id:
-            type: integer
-          createdAt:
-            format: date-time
-            type: string
-          updatedAt:
-            format: date-time
-            type: string
-          publishedAt:
-            format: date-time
-            nullable: true
-            type: string
-        type: object
-      example:
-        kc_sub: kc_sub
-        lemmy_username: lemmy_username
-        encrypted_password: encrypted_password
-        is_lemmy_admin: true
-        last_login_at: 2000-01-23T04:56:07.000+00:00
-        documentId: documentId
-        id: 0
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-        publishedAt: 2000-01-23T04:56:07.000+00:00
-    findForumUserCredential_200_response:
-      example:
-        data:
-        - kc_sub: kc_sub
-          lemmy_username: lemmy_username
-          encrypted_password: encrypted_password
-          is_lemmy_admin: true
-          last_login_at: 2000-01-23T04:56:07.000+00:00
-          documentId: documentId
-          id: 0
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          publishedAt: 2000-01-23T04:56:07.000+00:00
-        - kc_sub: kc_sub
-          lemmy_username: lemmy_username
-          encrypted_password: encrypted_password
-          is_lemmy_admin: true
-          last_login_at: 2000-01-23T04:56:07.000+00:00
-          documentId: documentId
-          id: 0
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          publishedAt: 2000-01-23T04:56:07.000+00:00
-        meta:
-          pagination:
-            page: 6
-            pageSize: 1
-            pageCount: 5
-            total: 5
-      properties:
-        data:
-          items:
-            $ref: "#/components/schemas/findForumUserCredential_200_response_data_inner"
-          type: array
-        meta:
-          $ref: "#/components/schemas/findAccessReviewItem_200_response_meta"
-      type: object
-    createForumUserCredential_request_data:
-      properties:
-        kc_sub:
-          description: Keycloak preferred_username claim — the stable per-user key
-            forum-connector looks up on every visit.
-          maxLength: 255
-          minLength: 1
-          type: string
-        lemmy_username:
-          description: "Sanitized Lemmy-safe username actually registered in Lemmy\
-            \ ([a-zA-Z0-9_], 3-20 chars)."
-          maxLength: 20
-          minLength: 3
-          type: string
-        encrypted_password:
-          description: AES-256-GCM encrypted internal Lemmy password (format iv:authTag:ciphertext:salt).
-            NEVER returned in any API response. Decrypted only by forum-connector
-            to perform Lemmy login on repeat visits.
-          type: string
-        is_lemmy_admin:
-          description: Mirrors current Lemmy admin flag — set by F4.FORUM.03 (KC role
-            forum-admin mapping).
-          type: boolean
-        last_login_at:
-          format: date-time
-          type: string
-      required:
-      - encrypted_password
-      - is_lemmy_admin
-      - kc_sub
-      - lemmy_username
-      type: object
-    createForumUserCredential_request:
-      properties:
-        data:
-          $ref: "#/components/schemas/createForumUserCredential_request_data"
-      type: object
-    createForumUserCredential_200_response:
-      example:
-        data:
-          kc_sub: kc_sub
-          lemmy_username: lemmy_username
-          encrypted_password: encrypted_password
-          is_lemmy_admin: true
-          last_login_at: 2000-01-23T04:56:07.000+00:00
-          documentId: documentId
-          id: 0
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          publishedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        data:
-          $ref: "#/components/schemas/findForumUserCredential_200_response_data_inner"
-      type: object
     findGamificationEvent_200_response_data_inner:
       allOf:
       - $ref: "#/components/schemas/GamificationEvent"
@@ -56097,14 +55754,16 @@ components:
             \ default). Enforced server-side by global::ip-allowlist-guard against\
             \ the resolved client IP (X-Forwarded-For aware, see middleware doc comment)."
         lemmy_community_id:
-          description: "F4.FORUM.05 — numeric Lemmy community id auto-provisioned\
-            \ for this organisation by forum-connector. Null until the async organisation.forum-community-requested\
-            \ event has been processed (best-effort, never blocks org creation)."
+          description: "F4.FORUM.05 (retired 2026-09-19) — numeric Lemmy community\
+            \ id formerly auto-provisioned by forum-connector, which was deleted\
+            \ along with the rest of the Sencai Forum stack. The column and this\
+            \ field remain for any organisation that already had a value; nothing\
+            \ writes to it anymore."
           type: integer
         lemmy_community_name:
-          description: "F4.FORUM.05 — sanitized Lemmy community `name` (URL-safe slug)\
-            \ matching lemmy_community_id, kept alongside it so the frontend can link\
-            \ straight to forum.sencai.space/c/<name> without an extra Lemmy lookup."
+          description: "F4.FORUM.05 (retired 2026-09-19) — sanitized Lemmy community\
+            \ `name` (URL-safe slug) that used to match lemmy_community_id. Same\
+            \ retirement note as lemmy_community_id above."
           type: string
         leaderboard_enabled:
           description: "F4.GAM.06 — opt-in per-org gamification leaderboard (default\

@@ -5,6 +5,27 @@ Formát dle [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), verzován�
 
 ## [Unreleased]
 
+### Removed (FORUM-REMOVAL — Sencai Forum retirement, 2026-09-19)
+
+Sencai Forum a `forum-connector` jsou celoplatformně rušeny (rozhodnutí majitele: „forum
+zcela smažeme a nebudeme dále používat"). Tenhle balíček není explicitně jmenovaný v
+zadaném rozsahu úkolu, ale patří do stejné generované-SDK rodiny jako `sdk-ts`/
+`sdk-python` a nese identickou `ForumUserCredential` API/model sadu, takže je zahrnut pro
+konzistenci. Regenerace `./scripts/sdk-generate.sh` je dnes nefunkční (zdrojový spec
+zanikl se smazáním Strapi 2026-07-30), takže je to ruční úprava:
+
+- Smazáno `api_forum_user_credential.go` a šest `model_*forum*.go` souborů; odregistrováno
+  `ForumUserCredentialAPI` z `client.go` (pole + inicializace v `NewAPIClient`).
+- `api/openapi.yaml` — smazány `/forum-user-credentials` + `/forum-user-credentials/{id}`,
+  tag `Forum User Credential`, schéma `ForumUserCredential` a čtyři pomocná
+  `createForumUserCredential_*`/`findForumUserCredential_*` schémata.
+- `.openapi-generator/FILES` zbaveno odpovídajících sedmi řádků.
+- `Organisation`'s `lemmy_community_id`/`lemmy_community_name` pole **ponechána**
+  (shoda s rozhodnutím `sencai-backend`u nechat sloupce bez writeru), jen popis teď
+  říká, že jsou zrušené — na obou místech, kde se v `api/openapi.yaml` vyskytují.
+- Ověřeno: `go build ./...` a `go vet ./...` (Go 1.23, přes Docker, žádný lokální
+  toolchain) oba zelené, `api/openapi.yaml` zůstává validní YAML.
+
 ### Changed
 
 - Regenerováno proti aktuálnímu `sencai-platform.public.v1.yaml` po přidání nových operací

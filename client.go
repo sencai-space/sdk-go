@@ -226,8 +226,6 @@ type APIClient struct {
 
 	FleetCohortAPI *FleetCohortAPIService
 
-	ForumUserCredentialAPI *ForumUserCredentialAPIService
-
 	GamificationEventAPI *GamificationEventAPIService
 
 	GitConnectorStatusAPI *GitConnectorStatusAPIService
@@ -529,7 +527,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.EscalationPolicyAPI = (*EscalationPolicyAPIService)(&c.common)
 	c.FeatureFlagAPI = (*FeatureFlagAPIService)(&c.common)
 	c.FleetCohortAPI = (*FleetCohortAPIService)(&c.common)
-	c.ForumUserCredentialAPI = (*ForumUserCredentialAPIService)(&c.common)
 	c.GamificationEventAPI = (*GamificationEventAPIService)(&c.common)
 	c.GitConnectorStatusAPI = (*GitConnectorStatusAPIService)(&c.common)
 	c.GiteaAppsRepositoryAPI = (*GiteaAppsRepositoryAPIService)(&c.common)
