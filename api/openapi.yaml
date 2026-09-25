@@ -24949,36 +24949,6 @@ paths:
       tags:
       - Subscription Enrollment
   /subscription-enrollments/{id}:
-    delete:
-      operationId: deleteSubscriptionEnrollment
-      parameters:
-      - description: documentId
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/createSubscriptionEnrollment_200_response"
-          description: Deleted
-        "401":
-          description: Missing or invalid authentication
-        "403":
-          description: Not authorized (tenant scope or capability)
-        "404":
-          description: Not found
-      security:
-      - bearerAuth: []
-      - apiTokenAuth: []
-      summary: Delete a subscription-enrollment
-      tags:
-      - Subscription Enrollment
     get:
       operationId: findOneSubscriptionEnrollment
       parameters:
